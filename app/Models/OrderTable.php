@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+
+class OrderTable extends Model
+{
+    protected static function booted()
+    {
+        static::created(function ($order) {
+            OrderStatusHistory::create([
+                'order_id' => $order->id,
+                'status_id' => $order->status_id,
+                'status' => $order->status,
+                'user_id'  => $order->user_id
+            ]);
+        });
+        static::updating(function ($order) {
+            if ($order->isDirty('status_id')) {
+                OrderStatusHistory::create([
+                    'order_id' => $order->id,
+                    'status_id' => $order->status_id,
+                    'status' => $order->status,
+                    'user_id' => $order->user_id
+                ]);
+            }
+        });
+    }
+    protected $table   = 'order_tables';
+    protected $guarded = ['id'];
+    protected $fillable = [
+        'user_id',
+        'category_id',
+        'laundry_id',
+        'total_price',
+        'count_products',
+        'status',
+        'status_id',
+        'discount_value',
+        'note',
+        'delivery_fees',
+        'coupon',
+        'discount',
+        'delivery_type',
+        'audio_note',
+        'vat'
+    ];
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetails::class ,'order_table_id' ,'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(AppUser::class ,'user_id','id' );
+    }
+
+    public function productService()
+    {
+        return $this->belongsTo(ProductService::class, 'product_service_id');
+    }
+
+    public function subCategories()
+    {
+        return $this->belongsTo(Subcategory::class, 'laundry_id');
+    }
+
+    public function histories()
+    {
+        return $this->hasMany(OrderStatusHistory::class,'order_id','id');
+    }
+
+    public function rates(){
+        return $this->hasMany(RateLaundry::class,'order_id','id');
+    }
+
+    /*public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('d M');
+    }*/
+}
