@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\BirthYearRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -31,7 +32,12 @@ class UserRequest extends FormRequest
             'phone'=>'required',
             'avatar'=>'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'level_id'=>'required',
-            'birthdate'=>'required',
+            'birthdate'=>[   'required',
+                function($attribute, $value, $fail){
+                    if($value >= 1990 && $value <= date('Y')){
+                        $fail("The :attribute must be between 1990 to ".date('Y').".");
+                    }
+                }],
             'joindate'=>'required',
 
         ];

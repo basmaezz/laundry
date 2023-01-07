@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryItemRequest;
 use App\Models\CategoryItem;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductService;
 use App\Models\Subcategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,8 +22,10 @@ class CategoryItemController extends Controller
      */
     public function index($id)
     {
+
         $subCategory=Subcategory::find($id);
         $categoryItems=CategoryItem::where('subcategory_id',$id)->get();
+
         return view('dashboard.CategoryItems.index',compact(['categoryItems','subCategory']));
     }
 
@@ -42,12 +46,9 @@ class CategoryItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryItemRequest $request)
     {
-      CategoryItem::create([
-           'subcategory_id'=>$request->subcategory_id,
-           'category_type'=>$request->category_type
-        ]);
+        CategoryItem::create( $request->all());
         return  redirect()->route('CategoryItems.index',$request->subcategory_id);
     }
 

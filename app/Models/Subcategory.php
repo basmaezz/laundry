@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Enums\SubCategoryStatus;
 use Illuminate\Database\Eloquent\Model;
 use Maize\Markable\Markable;
 use Maize\Markable\Models\Favorite;
@@ -10,6 +11,8 @@ class Subcategory extends Model
 //    use Markable;
     protected  $table   = 'subcategories';
     protected  $guarded = [];
+    protected $fillable=['name_en','name_ar','address','city_id','price'];
+    protected $casts = ['status' => SubCategoryStatus::class  ];
     protected static $marks = [
         Favorite::class,
     ];
@@ -18,10 +21,15 @@ class Subcategory extends Model
     {
         return $this->belongsTo(Category::class,'category_id');
     }
-    public function getImageAttribute($image)
+
+    public function city()
     {
-        return  isset($image) ? assetsUpload().'/subCategories/'. $image : '';
+        return $this->belongsTo(City::class,'city_id');
     }
+//    public function getImageAttribute($image)
+//    {
+//        return  isset($image) ? assetsUpload().'/subCategories/'. $image : '';
+//    }
     public function getIsFavorite()
     {
         return $this->is_favorite == 1 ? true : false;

@@ -30,7 +30,7 @@
                         <div class="card">
 
                             <div class="card-header">
-                                <i class="fa fa-align-justify"></i> Striped Table
+                                <i class="fa fa-align-justify"></i> الأقسام
                             </div>
                             <div class="card-block">
                                 <table class="table table-striped">
@@ -46,8 +46,9 @@
                                             <td>{{$categoryItem->category_type}} </td>
                                             <td>
                                                 <a href="{{route('product.create',$categoryItem->id)}}" class="btn btn-primary">اضافه قطعه</a>
+                                                @if($categoryItem->products->count()>0)
                                                 <a href="{{route('CategoryItems.show',$categoryItem->id)}}" class="btn btn-info">عرض  القطع </a>
-{{--                                                <a href="{{route('CategoryItems.show',$categoryItem->id)}}" class="btn btn-info">عرض تفاصيل القطع </a>--}}
+                                                @endif
                                                 <a href="{{route('CategoryItems.edit',$categoryItem->id)}}" class="btn btn-primary">تعديل</a>
                                                 <a href="{{route('CategoryItems.destroy',$categoryItem->id)}}" class="btn btn-danger">حذف</a>
                                             </td>

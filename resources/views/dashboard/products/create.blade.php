@@ -51,36 +51,12 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-header">
-                <strong>اضافه خدمه جديده</strong>
-            </div>
-            <div class="card-block">
-                <div class="row">
-                    <div class="form-group">
-                        <label for="company">اسم الخدمه </label>
-                        <input type="text" name="services"class="form-control" id="services" placeholder="اسم الخدمه">
-                    </div>
-                    <div class="form-group">
-                        <label for="company">السعر  </label>
-                        <input type="text" name="price"class="form-control" id="price" placeholder="السعر ">
-                    </div>
-                    <div class="form-group">
-                        <label for="company">الصوره  </label>
-                        <input type="file" name="productImage"class="form-control" id="image" >
-                    </div>
 
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="card-footer">
         <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
         <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
     </div>
 </form>
-
     </main>
 
 @endsection

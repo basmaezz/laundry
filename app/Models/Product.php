@@ -8,6 +8,7 @@ class Product extends Model
 {
     protected $table   = 'products';
     protected $guarded = [];
+    protected $fillable=['user_id','subcategory_id','name_en','name_ar','desc_en','desc_ar','image'];
 
     public function productService()
     {
@@ -18,9 +19,15 @@ class Product extends Model
        return $this->hasMany(ProductImage::class ,'product_id' );
     }
 
+
     public function subcategory()
     {
         return $this->belongsTo(Subcategory::class, 'subcategory_id');
+    }
+
+    public function categoryItem()
+    {
+        return $this->belongsTo(CategoryItem::class, 'category_item_id');
     }
 
     public function product()

@@ -20,7 +20,6 @@
         </ol>
 
         <div class="container-fluid">
-
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="col-lg-9">
@@ -31,52 +30,21 @@
 
                             </div>
                             <div class="card-block">
-                                <table class="table table-striped">
+                                <table class="table table-striped"id="yajra-datatable">
                                     <thead>
                                     <tr>
-                                        <th>التصنيف</th>
-                                        <th>الاسم</th>
-                                        <th>الاسم بالانجليزيه</th>
+                                        <th>#</th>
+                                        <th>اسم المغسله </th>
+                                        <th> المدينه </th>
                                         <th>العنوان</th>
+                                        <th>التفعيل</th>
                                         <th>الاجراءات</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($subCategories as $subCategory)
-
-                                            <tr>
-                                                <td>{{$subCategory->category->name_ar}} </td>
-                                                <td>{{$subCategory->name_ar}} </td>
-                                                <td>{{$subCategory->name_en}} </td>
-                                                <td>{{$subCategory->address}}</td>
-
-                                                <td>
-                                                    <a href="{{route('CategoryItems.index',$subCategory->id)}}" class="btn btn-info"> الأقسام</a>
-                                                    <a href="{{route('user.edit',$subCategory->id)}}" class="btn btn-primary">تعديل</a>
-                                                    <a href="{{url('laundryDestroy',$subCategory->id)}}" class="btn btn-danger">حذف</a>
-                                                    <a href="{{route('laundries.view',$subCategory->id)}}" class="btn btn-info">تفاصيل</a>
-
-                                                </td>
-                                            </tr>
-
-                                    @endforeach
                                     </tbody>
                                 </table>
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="#">Prev</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
+
                             </div>
                         </div>
                     </div>
@@ -87,6 +55,52 @@
         </div>
     </main>
 
+    <script>
+        $('#yajra-datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('laundries.index') }}",
+            columns: [
+                {data: 'id', name: 'id'},
+                {data: 'name_en', name: 'name_en' },
+                {data: 'city', name: 'city.name_ar',searchable: true},
+                {data: 'address', name: 'address' },
+                {data: 'checkbox', name: 'checkbox'},
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: true,
+                    searchable: true
+                },
+            ],
 
+            'columnDefs': [ {
 
+                'targets': [1,2,3,4],
+                'orderable': true,
+            }]
+        });
+
+    </script>
+    <script>
+
+        function changeStatus(id){
+            console.log(id)
+            let status = $(this).prop('checked') == true ? 1 : 0;
+            let laundryId=id
+            $.ajax({
+
+                type: "GET",
+                dataType: "json",
+                url: 'laundryUpdateStats/'.laundryId,
+                data: {'status': status, 'id': laundryId},
+                success: function(data){
+                    console.log(data)
+                    console.log(data.success)
+                }
+
+            });
+        }
+    </script>
 @endsection
+

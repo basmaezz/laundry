@@ -19,7 +19,7 @@
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
-                    <form method="post" action="{{url('laundryStore')}}" enctype="multipart/form-data">
+                        <form method="post" action="{{url('laundryStore')}}" enctype="multipart/form-data">
                         @csrf
                          <div class="col-sm-6">
                             <div class="card">
@@ -29,12 +29,11 @@
                                 </div>
                                 <div class="card-block">
                                     <div class="form-group">
-                                        <label for="company">التصنيف </label>
-                                        <select class="form-control" name="category_id">
-                                            @foreach($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->name_ar}}</option>
-                                                @endforeach
-
+                                        <label for="company">المدينه</label>
+                                        <select class="form-control" name="city_id">
+                                            @foreach($cities as $value=>$key)
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -43,85 +42,105 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company">اسم المغسله بالانجليزيه</label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" placeholder="اسم المغسله">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="company">العنوان</label>
-                                        <input type="text" name="address"class="form-control" id="name_ar" placeholder="العنوان ">
+                                        <input type="text" name="name_en"class="form-control" id="name_en" placeholder="اسم المغسله">
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="company">الحى</label>
+                                        <input type="text" name="address"class="form-control" id="address" placeholder="العنوان ">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="country">Location </label>
+                                        <input type="text" name="location"class="form-control" id="location" placeholder=" Location">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="country">السعر  </label>
+                                        <input type="text" name="price"class="form-control" id="location" placeholder=" Price">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div>
+                                            <label for="country">فتره التشغيل  </label> <br>
+                                            <input type="radio"  name="around_clock" value="1" onchange="hideDurations()">
+                                            <label for="age1">طوال اليوم</label><br>
+                                            <input type="radio" name="around_clock" value="0"  id="specificDuration" onchange="showDurations()">
+                                            <label for="age2"> فتره محدده </label><br>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="durations" style="display: none">
+                                        <label for="country">بدايه الفتره </label>
+                                        <input type="time" name="clock_at" value="22:00" />
+
+                                        <label for="country">نهايه الفتره </label>
+                                        <input type="time" name="clock_end" value="22:00" />
+                                    </div>
                                     <div class="form-group">
                                         <label for="country">صوره الشعار</label>
                                         <input type="file" name="image "class="form-control" id="image" placeholder="Country name">
                                     </div>
-                                    <div class="row">
-                                        <div class="col-5">
-                                            <input type="text" class="form-control" placeholder="lat" name="lat" id="lat">
-                                        </div>
-                                        <div class="col-5">
-                                            <input type="text" class="form-control" placeholder="lng" name="lng" id="lng">
-                                        </div>
-                                    </div>
 
-                                    <div id="map" style="height:300px; width: 500px;" class="my-3"></div>
-
-
-                                </div>
                             </div>
+                            </div>
+                        </div>
+                         <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>اضافه أدمن </strong>
+                                </div>
+                                <div class="card-block">
 
+                                    <div class="form-group ">
+                                        <label >الأسم الأول</label>
+                                            <input type="text" id="text-input" name="name" class="form-control" placeholder="Text">
+
+                                    </div>
+                                    <div class="form-group ">
+                                        <label  for="text-input">الأسم الأخير</label>
+                                            <input type="text" id="text-input" name="last_name" class="form-control" placeholder="Text">
+                                    </div>
+                                    <div class="form-group ">
+                                        <label  for="email-input">البريد الألكترونى </label>
+                                            <input type="email" id="email-input" name="email" class="form-control" placeholder="Enter Email">
+                                    </div>
+                                    <div class="form-group ">
+                                        <label  for="password-input">كلمه المرور</label>
+                                            <input type="password" id="password-input" name="password" class="form-control" placeholder="Password">                                    </div>
+                                    <div class="form-group ">
+                                        <label  for="text-input">الجوال </label>
+                                            <input type="text" id="phone" name="phone" class="form-control"required>
+                                    </div>
+                            </div>
+                            </div>
                         </div>
                         <div>
-
                         <div class="card-footer col-sm-12">
                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                            <button type="reset" onclick="ResetForm()" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
                         </div>
                         </div>
-
                     </form>
-
-
                 </div>
-
-                <!--/row-->
             </div>
         </div>
-        <!-- /.conainer-fluid -->
     </main>
 @endsection
-
-
-    <script>
-        let map;
-        function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: -34.397, lng: 150.644 },
-            zoom: 8,
-            scrollwheel: true,
-        });
-
-        const uluru = { lat: -34.397, lng: 150.644 };
-        let marker = new google.maps.Marker({
-        position: uluru,
-        map: map,
-        draggable: true
-    });
-
-        google.maps.event.addListener(marker,'position_changed',
-        function (){
-        let lat = marker.position.lat()
-        let lng = marker.position.lng()
-        $('#lat').val(lat)
-        $('#lng').val(lng)
-    })
-
-        google.maps.event.addListener(map,'click',
-        function (event){
-        pos = event.latLng
-        marker.setPosition(pos)
-    })
+<script>
+    function ResetForm(){
+        document.getElementById('name_ar').value='';
+        document.getElementById('name_en').value='';
+        document.getElementById('address').value='';
+        document.getElementById('image').value='';
     }
-</script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
-        type="text/javascript"></script>
+
+    function showDurations(){
+       let durations= document.getElementById('durations');
+        (durations.style.display ==="none") ?durations.style.display ="block" :durations.style.display ="none";
+    }
+
+    function hideDurations(){
+        let durations= document.getElementById('durations');
+        (durations.style.display ==="block") ?durations.style.display ="none" :'';
+    }
+
 </script>

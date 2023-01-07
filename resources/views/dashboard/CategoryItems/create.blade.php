@@ -19,7 +19,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <strong>Horizontal</strong>Form
+                    <strong>اضافه قسم</strong>
                 </div>
                 <div class="card-block">
                     <form method="post" action="{{url('CategoryItemsStore')}}" >
@@ -29,6 +29,9 @@
                             <div class="col-md-9">
                                 <input type="hidden"  name="subcategory_id" class="form-control" value="{{$subCategory->id}}"  >
                                 <input type="text"  name="category_type" class="form-control" placeholder="اسم القسم " >
+                                @if ($errors->has('category_type'))
+                                    <span class="text-danger">{{ $errors->first('category_type') }}</span>
+                                @endif
                             </div>
                         </div>
                         <div class="card-footer">

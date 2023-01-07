@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubCategoriesRequest;
 use App\Models\Category;
+use App\Models\City;
 use App\Models\Subcategory;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class subCategoryController extends Controller
 {
@@ -15,10 +18,33 @@ class subCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function index(Request $request)
     {
-        $subCategories=Subcategory::with('category')->get();
-       return view('dashboard.laundries.index',compact('subCategories'));
+
+        if ($request->ajax()) {
+            $data = Subcategory::all();
+
+            return Datatables::of($data)
+                ->addColumn('city',function ($data){
+                    return $data->city->name_ar;
+                })->addColumn('checkbox', function ($subCategory)  {
+                    return'<label class="switch switch-text switch-success">
+                                    <input type="checkbox" class="switch-input" id="'.$subCategory->id.'" checked onclick="changeStatus(this.id)">
+                                    <span class="switch-label" data-on="On" data-off="Off"></span>
+                                    <span class="switch-handle"></span>
+                                </label>';
+                })
+                ->addColumn('action', function($subCategory){
+                    return '<a href="'.route('CategoryItems.index',$subCategory->id).'" class="edit btn btn-primary btn-sm">الأقسام</a>
+                            <a href="'.route('user.edit',$subCategory->id).'" class="edit btn btn-primary btn-sm">تعديل</a>
+                    <a href="'.route('laundries.view',$subCategory->id).'" class="edit btn btn-primary btn-sm">التفاصيل</a>
+                        <a href="'.route('laundries.destroy',$subCategory->id).'" class="edit btn btn-danger btn-sm">حذف</a>';
+                })
+                ->rawColumns(['action','checkbox'])
+                ->make(true);
+        }
+        return view('dashboard.laundries.index');
     }
 
     /**
@@ -28,8 +54,8 @@ class subCategoryController extends Controller
      */
     public function create()
     {
-        $categories=Category::all();
-        return view('dashboard.laundries.create',compact('categories'));
+        $cities=City::pluck('id','name_ar');
+        return view('dashboard.laundries.create',compact('cities'));
     }
 
     /**
@@ -48,25 +74,41 @@ class subCategoryController extends Controller
             $file-> move($url, $filename);
             $subcategory['image']= $filename;
         }
-        $subcategory['category_id']=$request->category_id;
         $subcategory['name_ar']=$request->name_ar;
         $subcategory['name_en']=$request->name_en;
         $subcategory['address']=$request->address;
-        $subcategory['lat']=$request->lat;
-        $subcategory['lng']=$request->lng;
+        $subcategory['city_id']=$request->city_id;
+        $subcategory['price']=$request->price;
+        $subcategory['around_clock']=$request->around_clock;
+        $subcategory['clock_at']=$request->clock_at;
+        $subcategory['clock_end']=$request->clock_end;
+        $subcategory['category_id']=1;
+        $subcategory['status']=1;
+
+        if ((strpos($request->location, 'maps')) !== false) {
+            $str = $request->location;
+
+            $x1 = strstr($str, '=');
+            $x2 = str_replace('=', '', $x1);
+            $x3 = explode(',', $x2);
+            array_splice($x3, -1);
+            $x4 = implode(',', $x3);
+            $subcategory['lat'] = $x3[0];
+            $subcategory['lng'] = $x4;
+
+        }
         $subcategory->save();
+
+        User::create([
+            'name'=>$request->name,
+        'last_name'=>$request->last_name,
+        'email'=>$request->email,
+        'password'=>$request->password,
+        'phone'=>$request->phone,
+        'subCategory_id'=>$subcategory->subCategory_id
+        ]);
+
         return  redirect()->route('laundries.index');
-
-//        $user=new User();
-//        $user['name']=$request->name;
-//        $user['last_name']=$request->last_name;
-//        $user['email']=$request->email;
-//        $user['password']=$request->password;
-//        $user['phone']=$request->phone;
-//        $user['subCategory_id']=$subcategory->id;
-//        $user->save();
-
-
     }
 
     /**
@@ -77,8 +119,7 @@ class subCategoryController extends Controller
      */
     public function show($id)
     {
-        $subCategory=Subcategory::with('category')->find($id);
-
+        $subCategory=Subcategory::find($id);
         return view('dashboard.laundries.view',compact('subCategory'));
     }
 
@@ -90,7 +131,8 @@ class subCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $subCategory= Subcategory::find($id);
+        return view('dashboard.laundries.edit',compact('subCategory'));
     }
 
     /**
@@ -100,9 +142,16 @@ class subCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+
+        Subcategory::where('id',$id)->update([
+            'id'=>$id,
+            'name_en'=>$request->name_en,
+            'name_ar'=>$request->name_ar,
+            'address'=>$request->address,
+        ]);
+        return  redirect()->route('laundries.index');
     }
 
     /**
@@ -122,27 +171,17 @@ class subCategoryController extends Controller
     }
 
     public function storeLaundryAdmin(Request $request){
-        $user=new User();
-        $user['name']=$request->name;
-        $user['last_name']=$request->last_name;
-        $user['email']=$request->email;
-        $user['password']=$request->password;
-        $user['phone']=$request->phone;
-        $user['subCategory_id']=$request->subCategory_id;
 
-        if($request->file('avatar')){
-
-            $filename = request('avatar')->getClientOriginalName();
-            request()->file('avatar')->move(public_path() . '/images/' , $filename);
-            $user['avatar']= $filename;
-        }
-        $user->save();
         return redirect()->route('laundries.admins');
     }
     public function adminLaundries(){
         $users=User::select("*")->whereNotNull('subCategory_id')->get();
         return view('dashboard.laundries.admins',compact('users'));
+    }
 
+    public function updateStats()
+    {
+        echo('test');
     }
 
 }

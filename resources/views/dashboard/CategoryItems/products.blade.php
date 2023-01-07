@@ -38,8 +38,7 @@
                                         <tr>
 {{--                                            <th> الصوره</th>--}}
                                             <th>اسم القطعه</th>
-                                            <th>اسم الخدمه</th>
-                                            <th>سعر الخدمه</th>
+
                                             <th>Actions</th>
                                         </tr>
                                         </thead>
@@ -52,15 +51,21 @@
 {{--                                                <td><img src="{{asset('/images/products',$image->image)}}"> </td>--}}
 {{--                                                    @endforeach--}}
                                                 <td>{{$product->name_ar}} </td>
-                                                @foreach($product->productService as $service)
-                                                          <td>{{$service->services}} </td>
-                                                          <td>{{$service->price}} </td>
+{{--                                                @foreach($product->productService as $service)--}}
+{{--                                                          <td>{{$service->services}} </td>--}}
+{{--                                                          <td>{{$service->price}} </td>--}}
 
-                                                    @endforeach
+{{--                                                    @endforeach--}}
                                                     <td>
-                                                        <a href="{{route('product.view',$product->id)}}" class="btn btn-info"> التفاصيل</a>
-                                                        <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary">تعديل</a>
-                                                        <a href="{{route('product.destroy',$product->id)}}" class="btn btn-danger">حذف</a>
+                                                        @if($product->productService->count()>0)
+                                                        <a href="{{route('product.productServices',$product->id)}}" class="btn btn-primary"> خدمات</a>
+                                                            <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary " hidden> اضافه خدمه</a>
+                                                        @else
+                                                        <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary " > اضافه خدمه</a>
+                                                        @endif
+                                                            <a href="{{route('product.view',$product->id)}}" class="btn btn-info"> التفاصيل</a>
+                                                            <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary">تعديل</a>
+                                                            <a href="{{route('product.destroy',$product->id)}}" class="btn btn-danger">حذف</a>
                                                     </td>
                                             </tr>
                                         @endforeach

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use App\Models\CategoryItem;
 
 class CategoryItemRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class CategoryItemRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +23,21 @@ class CategoryItemRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
-            //
+            'subcategory_id' => ['required', 'integer', 'min:1'],
+            'category_type' => [
+                'required', 'string', 'min:5','max:20',
+                function ($attribute, $value, $fail) use ($request) {
+                    $name_exists = categoryItem::where('category_type', $value)->where('subcategory_id', request()->input('subcategory_id'))->count() > 0;
+                    if ($name_exists)  {
+                        $fail($request->category_type.' هذا الاسم موجود بالفعل.');
+                    }
+                }
+            ],
         ];
     }
+
+
 }

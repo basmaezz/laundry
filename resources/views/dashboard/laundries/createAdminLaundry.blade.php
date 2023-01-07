@@ -39,16 +39,7 @@
                                                 <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="مدير المغسله" disabled>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="text-input">  اسم المغسله </label>
-                                            <div class="col-md-9">
-                                                <select name="subCategory_id" id="dog-names"  class="form-control" >
-                                                    @foreach($subCategories as $subCategory)
-                                                        <option value="{{$subCategory->id}}">{{$subCategory->name_ar}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
+
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
                                             <div class="col-md-9">
@@ -83,8 +74,6 @@
                                                 <input type="text" id="phone" name="phone" class="form-control"required>
                                             </div>
                                         </div>
-
-
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الملف الشخصى </label>
                                             <div class="col-md-9">

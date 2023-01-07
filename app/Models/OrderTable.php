@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class OrderTable extends Model
 {
@@ -77,6 +78,9 @@ class OrderTable extends Model
         return $this->hasMany(RateLaundry::class,'order_id','id');
     }
 
+    public function ScopeOrders($query,$id){
+        return $query->where('laundry_id',Auth::user()->subCategory_id);
+    }
     /*public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('d M');

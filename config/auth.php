@@ -13,11 +13,15 @@ return [
     |
     */
 
+//    'defaults' => [
+//        'guard' => 'web',
+//        'passwords' => 'users',
+//    ],
+
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -35,13 +39,36 @@ return [
     |
     */
 
+//    'guards' => [
+//        'web' => [
+//            'driver' => 'session',
+//            'provider' => 'users',
+//        ],
+//    ],
+
+//    'guards' => [
+//            'web' => [
+//                'driver' => 'session',
+//                'provider' => 'users',
+//            ],
+//
+//            'api' => [
+//                'driver' => 'jwt',
+//                'provider' => 'users',
+//                'hash' => false,
+//            ],
+//	],
+
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
-    ],
-
+        'api_customer' => [
+            'driver' => 'jwt',
+            'provider' => 'api_customer',
+        ],
+        ],
     /*
     |--------------------------------------------------------------------------
     | User Providers

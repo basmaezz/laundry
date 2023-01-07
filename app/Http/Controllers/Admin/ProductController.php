@@ -33,20 +33,6 @@ class ProductController extends Controller
             $product['desc_en']=$request->desc_en;
         }
         $product->save();
-        ProductService::create([
-            'product_id'=>$product['id'],
-            'services'=>$request->services,
-            'price'=>$request->price,
-        ]);
-
-        $productImage=new ProductImage();
-        if($request->file('image')){
-            $filename = request('image')->getClientOriginalName();
-            request()->file('image')->move(public_path() . '/images/' , $filename);
-        }
-        $productImage['image']= $filename;
-        $productImage['product_id']= $product['id'];
-        $productImage->save();
         return  redirect()->route('CategoryItems.index',$request->subcategory_id);
     }
 
@@ -70,6 +56,43 @@ class ProductController extends Controller
     }
 
     public function update(Request $request,$id){
+
+    }
+    public function addService($id){
+        $product=Product::find($id);
+        dd($product);
+        return view('dashboard.products.addService',compact('product'));
+    }
+    public function createService(Request $request){
+        ProductService::create([
+            'product_id'=>$request->product_id,
+            'services'=>$request->services,
+            'price'=>$request->price,
+        ]);
+   return redirect()->route('CategoryItems.show',$request->category_item_id);
+    }
+
+    public function productServices($id){
+        $product=Product::with('productService')->find($id);
+        return view('dashboard.products.productServices',compact('product'));
+    }
+
+    public function deleteService($id){
+        productService::find($id)->delete();
+        return redirect()->back();
+    }
+    public function editService($id){
+        $service=productService::find($id);
+        return view('dashboard.products.editService',compact('service'));
+    }
+    public function updateService(Request $request,$id){
+
+        productService::where('id',$id)->update([
+            'id'=>$request->service_id,
+            'services'=>$request->services,
+            'price'=>$request->price,
+        ]);
+        return redirect()->route('product.productServices',$request->product_id);
 
     }
 }

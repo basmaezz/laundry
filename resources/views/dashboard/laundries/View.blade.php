@@ -28,12 +28,12 @@
 
                                 </div>
                                 <div class="card-block">
-                                    <div class="form-group">
-                                        <label for="company">التصنيف </label>
-                                        <select class="form-control" name="category_id" value="">
-                                            <option>{{$subCategory->category->name_ar}}</option>
-                                        </select>
-                                    </div>
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="company">التصنيف </label>--}}
+{{--                                        <select class="form-control" name="category_id" value="">--}}
+{{--                                            <option>{{$subCategory->category->name_ar}}</option>--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
                                     <div class="form-group">
                                         <label for="company" n>اسم المغسله</label>
                                         <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$subCategory->name_ar}}"disabled>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryItem extends Model
 {
@@ -15,12 +16,12 @@ class CategoryItem extends Model
     {
         return $this->hasMany(Product::class);
     }
-
-
     public function subcategories()
     {
         return $this->belongsTo(Subcategory::class,'subcategory_id');
     }
-
-
+    public function scopeItems($query)
+    {
+         return $query->where('subcategory_id',Auth::user()->subCategory_id);
+    }
 }

@@ -27,7 +27,6 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="hf-email">اسم القسم</label>
                             <div class="col-md-9">
-{{--                                <input type="hidden"  name="subcategory_id" class="form-control" value="{{$categoryItem->id}}"  >--}}
                                 <input type="text"  name="category_type" class="form-control" value="{{$categoryItem->category_type}}">
                             </div>
                         </div>
