@@ -7,19 +7,18 @@ use App\Models\OrderTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class OrdersController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-//        public function index($id)
-//        {
-//           $orders=OrderTable::where('laundry_id',Auth::user()->subCategory_id())->get();
-//           dd($orders);
-//           return  view('customers.backEnd.orders.index',compact('orders'));
-//        }
+        public function index()
+        {
+           $orders=OrderTable::all();
+           return  view('dashboard.Orders.index',compact('orders'));
+        }
 
     /**
      * Show the form for creating a new resource.

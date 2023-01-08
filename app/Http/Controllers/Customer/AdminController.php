@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\AppUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -13,7 +14,7 @@ class AdminController extends Controller
         return view('customers.auth.login');
     }
 
-    public function customLogin(Request $request){
+    public function customerLogin(Request $request){
         $request->validate([
             'email' => 'required',
             'password' => 'required',
@@ -39,10 +40,12 @@ class AdminController extends Controller
     public function signOut() {
         Session::flush();
         Auth::logout();
-        return Redirect('customer.login');
+        return Redirect()->route('customer.login');
     }
 
     public function main(){
+        $appUsers=AppUser::count();
+        dd($appUsers);
         return view('customers.backEnd.main');
     }
 

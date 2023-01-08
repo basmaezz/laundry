@@ -96,6 +96,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('coupons.index')}}"><i class="icon-people"></i> الكوبونات </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('Order.index')}}"><i class="icon-people"></i> الطلبات </a>
+            </li>
         </ul>
     </nav>
 </div>

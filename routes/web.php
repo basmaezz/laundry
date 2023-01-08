@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\subCategoryController;
 use App\Http\Controllers\Admin\CategoryItemController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CouponsController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Customer\itemsController;
 use App\Http\Controllers\Customer\ProductsController;
 use App\Http\Controllers\Customer\OrdersController;
@@ -94,9 +95,12 @@ Route::post('couponUpdate/{id}',[CouponsController::class,'update'])->name('coup
 Route::get('couponDelete/{id}',[CouponsController::class,'destroy'])->name('coupon.destroy');
 
 
+Route::get('getOrders',[OrderController::class,'index'])->name('Order.index');
+
+
 #############################
 
-Route::post('customLogin',[AdminController::class,'customLogin'])->name('customer.customLogin');
+Route::post('customerLogin',[AdminController::class,'customerLogin'])->name('customer.customerLogin');
 
 Route::get('signOut',[AdminController::class,'signOut'])->name('customer.logout');
 
