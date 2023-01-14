@@ -21,11 +21,11 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-9">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Products</h3>
-                                <a href="{{route('Customer.Products.addProductService',$product->id)}}"class="btn btn-info" style="float: right">New Service</a>
+{{--                                <a href="{{route('Customer.Products.addProductService',$product->id)}}"class="btn btn-info" style="float: right">New Service</a>--}}
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -34,7 +34,6 @@
                                     <tr>
                                         <th>Item Name</th>
                                         <th>Price </th>
-                                        <th>Actions</th>
 
                                     </tr>
                                     </thead>
@@ -43,11 +42,11 @@
                                         <tr>
                                             <td>{{$service->services}}</td>
                                             <td>{{$service->price}}</td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm" href="{{route('Customer.Products.edit',$product->id)}}"><i class="fas fa-pencil-alt"></i>Edit</a>
-                                                <a class="btn btn-danger btn-sm" href="{{route('Customer.Products.deleteService',$service->id)}}"><i class="fas fa-trash"></i>Delete</a>
+{{--                                            <td>--}}
+{{--                                                <a class="btn btn-info btn-sm" href="{{route('Customer.Products.edit',$product->id)}}"><i class="fas fa-pencil-alt"></i>Edit</a>--}}
+{{--                                                <a class="btn btn-danger btn-sm" href="{{route('Customer.Products.deleteService',$service->id)}}"><i class="fas fa-trash"></i>Delete</a>--}}
 
-                                            </td>
+{{--                                            </td>--}}
 
                                         </tr>
                                     @endforeach

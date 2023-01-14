@@ -25,7 +25,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Products</h3>
-                                <a href="{{route('Customer.Products.create',Auth::user()->subCategory_id)}}"class="btn btn-info" style="float: right">New Item</a>
+{{--                                <a href="{{route('Customer.Products.create',Auth::user()->subCategory_id)}}"class="btn btn-info" style="float: right">New Item</a>--}}
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -43,9 +43,9 @@
                                             <td>{{$product->name_en}}</td>
                                             <td>
                                                 <a class="btn btn-primary btn-sm" href="{{route('Customer.Products.viewProductServices',$product->id)}}"><i class="fas fa-folder"></i>Service </a>
-                                                <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-folder"></i>View </a>
-                                                <a class="btn btn-info btn-sm" href="{{route('Customer.Products.edit',$product->id)}}"><i class="fas fa-pencil-alt"></i>Edit</a>
-                                                <a class="btn btn-danger btn-sm" href="{{route('Customer.Products.destroy',$product->id)}}"><i class="fas fa-trash"></i>Delete</a>
+{{--                                                <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-folder"></i>View </a>--}}
+{{--                                                <a class="btn btn-info btn-sm" href="{{route('Customer.Products.edit',$product->id)}}"><i class="fas fa-pencil-alt"></i>Edit</a>--}}
+{{--                                                <a class="btn btn-danger btn-sm" href="{{route('Customer.Products.destroy',$product->id)}}"><i class="fas fa-trash"></i>Delete</a>--}}
 
                                             </td>
 

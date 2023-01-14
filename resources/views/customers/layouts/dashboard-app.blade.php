@@ -241,7 +241,7 @@
                                 <li class="nav-item">
                                     <a href="{{route('Customer.Orders.index',Auth::user()->subCategory_id)}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>New Orders</p>
+                                        <p>All Orders</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">

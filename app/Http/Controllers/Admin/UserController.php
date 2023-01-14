@@ -5,24 +5,37 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\educationLevel;
+use App\Models\Role;
 use App\Models\User;
-use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-//use UploadTrait;
+use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
-    use UploadTrait;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users=User::whereNull('subCategory_id')->get();
-        return view('dashboard.users.index',compact('users'));
+
+        if ($request->ajax()) {
+
+            $data=User::whereNull('subCategory_id')->get();
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($user){
+                    $btn = '    <a href="'.route('user.delete',$user->id).'" class="edit btn btn-danger btn-sm">حذف</a>
+                    <a href="'.route('user.edit',$user->id).'" class="edit btn btn-primary btn-sm">تعديل</a>
+                    <a href="'.route('user.view',$user->id).'" class="edit btn btn-danger btn-sm">عرض</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('dashboard.users.index');
     }
 
     /**
@@ -33,7 +46,8 @@ class UserController extends Controller
     public function create()
     {
         $levels=educationLevel::all();
-        return view('dashboard.users.create',compact('levels'));
+        $roles=Role::all();
+        return view('dashboard.users.create',compact(['levels','roles']));
     }
 
     /**
@@ -44,21 +58,17 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $user=new User();
-        $user['name']=$request->name;
-        $user['last_name']=$request->last_name;
-        $user['email']=$request->email;
-        $user['password']=$request->password;
-        $user['phone']=$request->phone;
-        $user['level_id']=$request->level_id;
-        $user['birthdate']=$request->birthdate;
-        $user['joindate']=$request->joindate;
+        $user = new User();
+        $roles = new Role();
         if($request->file('avatar')){
             $filename = request('avatar')->getClientOriginalName();
             request()->file('avatar')->move(public_path() . '/images/' , $filename);
-            $user['avatar']= $filename;
         }
-        $user->save();
+       User::create($request->validated()+[
+            'avatar'=> $filename
+            ]
+        );
+        $user->roles()->attach($roles);
         return redirect()->route('users.index');
     }
 
@@ -88,7 +98,7 @@ class UserController extends Controller
     {
         $user=User::findorFail($id);
         if($user->level_id !=null ){
-             $levels=educationLevel::all();
+            $levels=educationLevel::all();
         return  view('dashboard.users.edit',compact(['user','levels']));
         }
         return  view('dashboard.users.edit',compact('user'));
@@ -117,7 +127,6 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('users.index');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -129,6 +138,5 @@ class UserController extends Controller
         $user= User::find($id);
         $user->delete();
         return  redirect()->back();
-
     }
 }

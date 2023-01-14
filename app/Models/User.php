@@ -63,4 +63,8 @@ class User extends Authenticatable
         //Uploads disk for example
         $disk = "uploads";
     }
+
+    public function Roles(){
+        return $this->belongsToMany(Role::class,'role_user');
+    }
 }

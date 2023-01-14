@@ -64,30 +64,17 @@ class subCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubCategoriesRequest $request)
     {
         $subcategory= new Subcategory();
-        if($request->file('avatar')){
-            $file= $request->file('avatar');
-            $filename= date('YmdHi').$file->getClientOriginalName();
-            $url=url('assets/uploads/laundries/logo/');
-            $file-> move($url, $filename);
-            $subcategory['image']= $filename;
+
+        if($request->file('image')){
+            $filename = request('image')->getClientOriginalName();
+            request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
         }
-        $subcategory['name_ar']=$request->name_ar;
-        $subcategory['name_en']=$request->name_en;
-        $subcategory['address']=$request->address;
-        $subcategory['city_id']=$request->city_id;
-        $subcategory['price']=$request->price;
-        $subcategory['around_clock']=$request->around_clock;
-        $subcategory['clock_at']=$request->clock_at;
-        $subcategory['clock_end']=$request->clock_end;
-        $subcategory['category_id']=1;
-        $subcategory['status']=1;
 
         if ((strpos($request->location, 'maps')) !== false) {
             $str = $request->location;
-
             $x1 = strstr($str, '=');
             $x2 = str_replace('=', '', $x1);
             $x3 = explode(',', $x2);
@@ -95,9 +82,13 @@ class subCategoryController extends Controller
             $x4 = implode(',', $x3);
             $subcategory['lat'] = $x3[0];
             $subcategory['lng'] = $x4;
-
         }
-        $subcategory->save();
+        Subcategory::create($request->validated()+[
+            'lat'=>$x3[0],
+            'lng'=> $x4,
+             'status'=>1
+
+        ]);
 
         User::create([
             'name'=>$request->name,
@@ -177,11 +168,6 @@ class subCategoryController extends Controller
     public function adminLaundries(){
         $users=User::select("*")->whereNotNull('subCategory_id')->get();
         return view('dashboard.laundries.admins',compact('users'));
-    }
-
-    public function updateStats()
-    {
-        echo('test');
     }
 
 }

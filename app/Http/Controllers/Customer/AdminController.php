@@ -45,7 +45,7 @@ class AdminController extends Controller
 
     public function main(){
         $appUsers=AppUser::count();
-        dd($appUsers);
+//        dd($appUsers);
         return view('customers.backEnd.main');
     }
 

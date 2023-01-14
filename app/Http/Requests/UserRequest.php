@@ -25,21 +25,25 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required ',
-            'last_name'=>'required ',
-            'email'=>'required',
+            'name'=>['required', 'unique:users', 'max:255'],
+            'last_name'=>['required', 'unique:users', 'max:255'],
+            'email'=>'required|email|unique:users,email',
             'password'=>'required',
+            'birthdate'=> ['required', 'before:15 years ago'],
             'phone'=>'required',
-            'avatar'=>'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+//            'avatar'=>'required',
             'level_id'=>'required',
-            'birthdate'=>[   'required',
-                function($attribute, $value, $fail){
-                    if($value >= 1990 && $value <= date('Y')){
-                        $fail("The :attribute must be between 1990 to ".date('Y').".");
-                    }
-                }],
-            'joindate'=>'required',
+            'joinDate'=>'required',
 
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+          'required'  =>'هذا الحقل مطلوب',
+            'email'=>'هذا البريد الالكترونى موجود مسبقا',
+            'phone'=>'هذا الرقم غير صحيح'
         ];
     }
 }

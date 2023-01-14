@@ -73,16 +73,9 @@ class CouponsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CouponRequest $request, $id)
     {
-        $coupon=CouponShopCart::updated([
-            'id'=>'coupon_id',
-            'code_name'=>'code_name',
-            'discount_value'=>'discount_value',
-            'date_from'=>'date_from',
-            'date_to'=>'date_to',
-            'status'=>'status',
-        ]);
+        CouponShopCart::where('id',$id)->update($request->validated());
         return redirect()->route('coupons.index')->with('message', 'تم التعديل بنجاح!');
 
     }

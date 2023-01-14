@@ -25,7 +25,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">DataTable with default features</h3>
-                                <a href="{{route('Customer.Items.create',Auth::user()->subCategory_id)}}"class="btn btn-info" style="float: right">New Item</a>
+{{--                                <a href="{{route('Customer.Items.create',Auth::user()->subCategory_id)}}"class="btn btn-info" style="float: right">New Item</a>--}}
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -42,9 +42,8 @@
                                     <tr>
                                         <td>{{$item->category_type}}</td>
                                         <td>
-                                            <a href="{{route('Customer.Items.edit',$item->id)}}"class="btn btn-info">Edit</a>
-                                            <a href="{{route('Customer.Items.delete',$item->id)}}"class="btn btn-danger">Delete</a>
-
+{{--                                            <a href="{{route('Customer.Items.edit',$item->id)}}"class="btn btn-info">Edit</a>--}}
+{{--                                            <a href="{{route('Customer.Items.delete',$item->id)}}"class="btn btn-danger">Delete</a>--}}
                                         </td>
 
                                     </tr>

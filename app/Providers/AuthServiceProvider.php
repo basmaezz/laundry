@@ -4,6 +4,7 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,19 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::before(function ($user,$ability){
+            return true;
+        });
+        foreach (config('abilities') as $ability =>$label ){
+            Gate::define( $ability , function ($user) use ($ability){
+                foreach ($user->roles as $role){
+                    if(in_array($ability,$role->abilities)){
+                        return  true;
+                    }
+                }
+                return false;
+
+            });
+        }
     }
 }

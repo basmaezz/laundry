@@ -24,7 +24,18 @@ class SubCategoriesRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name_ar' =>'required',
+            'name_en' =>'required',
+            'city_id' =>'required',
+//            'lat' =>'required',
+//            'lng' =>'required',
+//            'address'=>'required',
+            'price' =>'required',
+//            'around_clock' =>'string',
+//            'clock_at' =>'string',
+//            'clock_end' =>'string',
+//            'image'=>'required',
+
         ];
     }
 }

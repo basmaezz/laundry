@@ -1,7 +1,6 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
@@ -10,10 +9,9 @@
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i> المغاسل المسجله
                                 <a href="{{route('laundries.create')}}" class="btn btn-primary" style="float:left;margin-top: 2px;">اضافه مغسله </a>
-
                             </div>
                             <div class="card-block">
-                                <table class="table table-striped"id="yajra-datatable">
+                                <table class="table table-striped"id="laundries-datatable">
                                     <thead>
                                     <tr>
                                         <th>#</th>
@@ -27,7 +25,6 @@
                                     <tbody>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
@@ -37,9 +34,8 @@
 
         </div>
     </main>
-
     <script>
-        $('#yajra-datatable').DataTable({
+        $('#laundries-datatable').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{ route('laundries.index') }}",
@@ -56,9 +52,7 @@
                     searchable: true
                 },
             ],
-
             'columnDefs': [ {
-
                 'targets': [1,2,3,4],
                 'orderable': true,
             }]

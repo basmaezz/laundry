@@ -11,7 +11,7 @@ class Subcategory extends Model
 //    use Markable;
     protected  $table   = 'subcategories';
     protected  $guarded = [];
-    protected $fillable=['name_en','name_ar','address','city_id','price'];
+    protected $fillable=['name_en','name_ar','address','city_id','price','status'];
     protected $casts = ['status' => SubCategoryStatus::class  ];
     protected static $marks = [
         Favorite::class,

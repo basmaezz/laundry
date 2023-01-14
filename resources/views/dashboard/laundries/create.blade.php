@@ -2,20 +2,7 @@
 @section('content')
     <main class="main">
         <!-- Breadcrumb -->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">Home</li>
-            <li class="breadcrumb-item"><a href="#">Admin</a>
-            </li>
-            <li class="breadcrumb-item active">Dashboard</li>
-            <!-- Breadcrumb Menu-->
-            <li class="breadcrumb-menu">
-                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                    <a class="btn btn-secondary" href="#"><i class="icon-speech"></i></a>
-                    <a class="btn btn-secondary" href="./"><i class="icon-graph"></i> &nbsp;Dashboard</a>
-                    <a class="btn btn-secondary" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>
-                </div>
-            </li>
-        </ol>
+
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
@@ -28,40 +15,59 @@
 
                                 </div>
                                 <div class="card-block">
-                                    <div class="form-group">
-                                        <label for="company">المدينه</label>
-                                        <select class="form-control" name="city_id">
-                                            @foreach($cities as $value=>$key)
-                                                <option value="{{$key}}">{{$value}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
+                                     <div class="form-group">
                                         <label for="company" n>اسم المغسله</label>
                                         <input type="text" name="name_ar"class="form-control" id="name_ar" placeholder="اسم المغسله">
+                                         @error('name_ar')
+                                         <div class="text-sm text-red-600">{{ $message }}</div>
+                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="company">اسم المغسله بالانجليزيه</label>
                                         <input type="text" name="name_en"class="form-control" id="name_en" placeholder="اسم المغسله">
+                                        @error('name_en')
+                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="company">المدينه</label>
+                                        <select class="form-control" name="city_id">
+                                            <option >أختر المدينه</option>
+                                            @foreach($cities as $value=>$key)
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
+                                            @error('city_id')
+                                            <div class="text-sm text-red-600">{{ $message }}</div>
+                                            @enderror
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <label for="company">الحى</label>
                                         <input type="text" name="address"class="form-control" id="address" placeholder="العنوان ">
+                                        @error('address')
+                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="country">Location </label>
-                                        <input type="text" name="location"class="form-control" id="location" placeholder=" Location">
+                                        <label for="country">الموقع </label>
+                                        <input type="text" name="location"class="form-control" id="location" placeholder=" الموقع">
+                                        @error('location')
+                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="country">السعر  </label>
-                                        <input type="text" name="price"class="form-control" id="location" placeholder=" Price">
+                                        <input type="text" name="price"class="form-control" id="image" placeholder=" السعر">
+                                        @error('price')
+                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group" >
                                         <div>
                                             <label for="country">فتره التشغيل  </label> <br>
-                                            <input type="radio"  name="around_clock" value="1" onchange="hideDurations()">
+                                            <input type="radio"  name="around_clock" value="1" onchange="hideDurations()" >
                                             <label for="age1">طوال اليوم</label><br>
                                             <input type="radio" name="around_clock" value="0"  id="specificDuration" onchange="showDurations()">
                                             <label for="age2"> فتره محدده </label><br>

@@ -24,6 +24,7 @@
                 <div class="card-block">
                     <form method="post" action="{{route('coupon.update',$coupon->id)}}" >
                         @csrf
+                        @method('PATCH')
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="hf-email">اسم الكوبون</label>
                             <div class="col-md-9">

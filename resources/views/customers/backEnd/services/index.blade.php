@@ -21,11 +21,11 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-8">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Services</h3>
-                                <a href="{{route('Customer.Products.create',Auth::user()->subCategory_id)}}"class="btn btn-info" style="float: right">New Item</a>
+{{--                                <a href="{{route('Customer.Products.create',Auth::user()->subCategory_id)}}"class="btn btn-info" style="float: right">New Item</a>--}}
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -34,7 +34,6 @@
                                     <tr>
                                         <th>Service Name</th>
                                         <th>Price </th>
-                                        <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -42,9 +41,9 @@
                                         <tr>
                                             <td>{{$service->services}}</td>
                                             <td>{{$service->price}}</td>
-                                            <td>
-                                                <a class="btn btn-danger btn-sm" href="#">Delete </a>
-                                            </td>
+{{--                                            <td>--}}
+{{--                                                <a class="btn btn-danger btn-sm" href="#">Delete </a>--}}
+{{--                                            </td>--}}
                                         </tr>
                                     @endforeach
                                     </tbody>

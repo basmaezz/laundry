@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CategoryItemController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CouponsController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Customer\itemsController;
 use App\Http\Controllers\Customer\ProductsController;
 use App\Http\Controllers\Customer\OrdersController;
@@ -49,8 +50,6 @@ Route::post('userUpdate/{id}',[UserController::class,'update']);
 Route::get('userDelete/{id}',[UserController::class,'destroy'])->name('user.delete');
 Route::post('searchLaundry',[UserController::class,'destroy'])->name('searchLaundry');
 
-
-
 Route::get('laundries',[subCategoryController::class,'index'])->name('laundries.index');
 Route::get('laundryCreate',[subCategoryController::class,'create'])->name('laundries.create');
 Route::post('laundryStore',[subCategoryController::class,'store'])->name('laundries.store');
@@ -63,7 +62,6 @@ Route::post('storeLaundryAdmin',[subCategoryController::class,'storeLaundryAdmin
 Route::get('laundryView/{id}',[subCategoryController::class,'show'])->name('laundries.view');
 Route::get('laundryUpdateStats/{id}',[subCategoryController::class,'updateStats']);
 
-
 Route::get('CategoryItemsIndex/{id}',[CategoryItemController::class,'index'])->name('CategoryItems.index');
 Route::get('CategoryItems/{id}',[CategoryItemController::class,'create'])->name('CategoryItems.create');
 Route::get('CategoryItemsEdit/{id}',[CategoryItemController::class,'edit'])->name('CategoryItems.edit');
@@ -71,7 +69,6 @@ Route::post('CategoryItemsUpdate/{id}',[CategoryItemController::class,'update'])
 Route::post('CategoryItemsStore',[CategoryItemController::class,'store'])->name('CategoryItems.store');
 Route::get('CategoryItemsDestroy/{id}',[CategoryItemController::class,'destroy'])->name('CategoryItems.destroy');
 Route::get('CategoryItemsShow/{id}',[CategoryItemController::class,'show'])->name('CategoryItems.show');
-//Route::get('productList/{id}',[CategoryItemController::class,'productList'])->name('productList.show');
 
 Route::get('productCreate/{id}',[ProductController::class,'create'])->name('product.create');
 Route::post('productStore',[ProductController::class,'store'])->name('product.store');
@@ -89,13 +86,15 @@ Route::post('updateService/{id}',[ProductController::class,'updateService'])->na
 Route::get('coupons',[CouponsController::class,'index'])->name('coupons.index');
 Route::get('couponsCreate',[CouponsController::class,'create'])->name('coupon.create');
 Route::post('couponsStore',[CouponsController::class,'store'])->name('coupon.store');
-//Route::get('couponsShow/{id}',[CouponsController::class,'show'])->name('coupon.show');
 Route::get('couponEdit/{id}',[CouponsController::class,'edit'])->name('coupon.edit');
-Route::post('couponUpdate/{id}',[CouponsController::class,'update'])->name('coupon.update');
+Route::patch('couponUpdate/{id}',[CouponsController::class,'update'])->name('coupon.update');
 Route::get('couponDelete/{id}',[CouponsController::class,'destroy'])->name('coupon.destroy');
 
-
 Route::get('getOrders',[OrderController::class,'index'])->name('Order.index');
+
+Route::get('Roles',[RoleController::class,'index'])->name('roles.index');
+Route::get('RolesCreate',[RoleController::class,'create'])->name('roles.create');
+Route::post('RolesStore',[RoleController::class,'store'])->name('roles.store');
 
 
 #############################
