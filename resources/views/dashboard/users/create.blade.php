@@ -16,12 +16,7 @@
                                     <div class="card-block">
                                         <form action="{{route('user.store')}}" method="post" enctype="multipart/form-data" class="form-horizontal ">
                                     @csrf
-                                            <div class="form-group row">
-                                                <label class="col-md-3 form-control-label" for="disabled-input">الصلاحيه </label>
-                                                <div class="col-md-9">
-                                                    <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="مدير الموقع" disabled>
-                                                </div>
-                                            </div>
+
                                             <div class="form-group row">
                                                 <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
                                                 <div class="col-md-9">

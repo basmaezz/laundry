@@ -85,4 +85,11 @@ class OrderController extends Controller
     {
         //
     }
+    public function changeStatus(Request $request)
+    {
+        $order=OrderTable::find($request->id);
+        $order->status_id ='0';
+        $order->save();
+        return response()->json(['success'=>'Status change successfully.']);
+    }
 }

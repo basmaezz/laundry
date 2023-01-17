@@ -2,30 +2,30 @@
 <?php
 
     return[
-      'categoryItems.index'=>'User can view item ',
-      'categoryItems.create'=>'User can create item ',
-      'categoryItems.edit'=>'User can Edit item ',
-      'categoryItems.delete'=>'User can destroy item ',
+      'categoryItems.index'=>'عرض الأقسام ',
+      'categoryItems.create'=>'اضافه قسم جديد',
+      'categoryItems.edit'=>'تعديل بيانات قسم ',
+      'categoryItems.delete'=>'حذف قسم ',
 
-      'Coupons.index'=>'User can view Coupons ',
-      'Coupons.create'=>'User can create Coupons ',
-      'Coupons.edit'=>'User can Edit Coupons ',
-      'Coupons.delete'=>'User can destroy Coupons ',
+      'Coupons.index'=>'عرض الكوبونات ',
+      'Coupons.create'=>'اضافه كوبون جديد ',
+      'Coupons.edit'=>'تعديل كوبون ',
+      'Coupons.delete'=>'حذف كوبون ',
 
-      'Services.index'=>'User can view Services ',
-      'Services.create'=>'User can create Services ',
-      'Services.edit'=>'User can Edit Services ',
-      'Services.delete'=>'User can destroy Services ',
+      'Services.index'=>'عرض الخدمات ',
+      'Services.create'=>'اضافه خدمه جديده ',
+      'Services.edit'=>'تعديل خدمه ',
+      'Services.delete'=>'حذف خدمه',
 
-      'Orders.index'=>'User can view Orders ',
-      'Orders.create'=>'User can create Orders ',
-      'Orders.edit'=>'User can Edit Orders ',
-      'Orders.delete'=>'User can destroy Orders ',
+      'Orders.index'=>'عرض الطلبات ',
+      'Orders.create'=>'انشاء طلب ',
+      'Orders.edit'=>'تعديل بيانات طلب ',
+      'Orders.delete'=>'حذف طلب ',
 
-      'Laundries.index'=>'User can view Laundries ',
-      'Laundries.create'=>'User can create Laundries ',
-      'Laundries.edit'=>'User can Edit Laundries ',
-      'Laundries.delete'=>'User can destroy Laundries ',
+      'Laundries.index'=>'عرض المغاسل ',
+      'Laundries.create'=>'اضافه مغسله ',
+      'Laundries.edit'=>'تعديل بيانات مغسله ',
+      'Laundries.delete'=>'حذف مغسله ',
 
 
     ];

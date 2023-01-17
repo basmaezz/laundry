@@ -1,6 +1,4 @@
-
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="IR-fa" dir="rtl">
 
 <head>
@@ -23,6 +21,10 @@
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" ></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 </head>
 
 <body class="navbar-fixed sidebar-nav fixed-nav">
@@ -55,7 +57,6 @@
                         <strong>تنظیمات</strong>
                     </div>
                     <a class="dropdown-item" href="#"><i class="fa fa-user"></i> پروفایل</a>
-                    <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> تنظیمات</a>
                     <div class="divider"></div>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -80,18 +81,23 @@
                <li class="nav-item">
                 <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> عرض الكل </a>
                 <a class="nav-link" href="{{route('user.create')}}"><i class="icon-user-follow"></i> اضافه أدمن  </a>
+                <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
                 <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>
                </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-docs"></i>   المناديب</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('laundries.admins')}}"><i class="icon-user-follow"></i>  أدمن المغاسل  </a>
+
+            </li>
 
             <li class="nav-title">
                 مقدمين الخدمه
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-docs"></i>   المناديب</a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="{{route('laundries.index')}}"><i class="icon-people"></i> اداره المغاسل</a>
-                <a class="nav-link" href="{{route('laundries.admins')}}"><i class="icon-user-follow"></i>  أدمن المغاسل  </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{route('coupons.index')}}"><i class="icon-people"></i> الكوبونات </a>
@@ -117,6 +123,13 @@
 <script src="{{asset('assets/admin/js/libs/pace.min.js')}}"></script>
 <script src="{{asset('assets/admin/js/app.js')}}"></script>
 <script src="{{asset('assets/admin/js/views/main.js')}}"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{{asset('assets/customers/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/customers/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/customers/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('assets/customers/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/customers/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 

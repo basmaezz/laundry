@@ -51,7 +51,6 @@ class RoleController extends Controller
                 'name'=>$role->name,
             ]));
     }
-
     /**
      * Display the specified resource.
      *
@@ -69,11 +68,11 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit($id)
     {
-        return view('dashboard.roles.edit',[
-            'role'=>$role,
-        ]);
+        $role=Role::find($id);
+//        dd(json_decode('$role->abilities'));
+        return view('dashboard.roles.edit',compact('role'));
 
     }
 
@@ -84,17 +83,15 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request,$id)
     {
+        $role=Role::find($id);
         $request->validate([
-            'name'=>'required',
+            'role'=>'required',
             'abilities'=>'required|array'
         ]);
         $role->update($request->all());
-        return redirect()->route('dashboard.roles.index')
-            ->with('success ',__('Role :name Updated!',[
-                'name'=>$role->name,
-            ]));
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -103,12 +100,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy($id)
     {
-        $role->delete();
-        return redirect()->route('dashboard.roles.index')
-            ->with('success ',__('Role :name Deleted!',[
-                'name'=>$role->name,
-            ]));
+        Role::find($id)->delete();
+        return redirect()->route('roles.index');
     }
 }

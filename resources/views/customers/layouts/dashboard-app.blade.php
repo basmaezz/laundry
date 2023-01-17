@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" ></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('assets/customers/dist/css/adminlte.min.css')}}">
 </head>
@@ -328,8 +332,9 @@
     <script src="{{asset('assets/customers/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('assets/customers/plugins/jquery-validation/additional-methods.min.js')}}"></script>
     <script src="{{asset('assets/customers/dist/js/adminlte.min.js')}}"></script>
-{{--    <script src="{{asset('assets/customers/dist/js/demo.js')}}"></script>--}}
 
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script>
         $(function () {
             $("#example1").DataTable({

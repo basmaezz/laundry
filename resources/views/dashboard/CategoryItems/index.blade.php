@@ -1,8 +1,6 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-
-
         <div class="container-fluid">
             <a href="{{route('CategoryItems.create',$subCategory->id)}}" class="btn btn-primary" style="margin-bottom: 20px">اضافه قسم</a>
             @if($categoryItems->count()>0)
@@ -39,21 +37,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="#">Prev</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
+
                             </div>
 
                         </div>

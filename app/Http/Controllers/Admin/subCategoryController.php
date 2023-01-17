@@ -29,11 +29,11 @@ class subCategoryController extends Controller
                 ->addColumn('city',function ($data){
                     return $data->city->name_ar;
                 })->addColumn('checkbox', function ($subCategory)  {
-                    return'<label class="switch switch-text switch-success">
+                    return' <label class="switch switch-text switch-success">
                                     <input type="checkbox" class="switch-input" id="'.$subCategory->id.'" checked onclick="changeStatus(this.id)">
                                     <span class="switch-label" data-on="On" data-off="Off"></span>
                                     <span class="switch-handle"></span>
-                                </label>';
+                                </label> ';
                 })
                 ->addColumn('action', function($subCategory){
                     return '<a href="'.route('CategoryItems.index',$subCategory->id).'" class="edit btn btn-primary btn-sm">الأقسام</a>
@@ -170,4 +170,15 @@ class subCategoryController extends Controller
         return view('dashboard.laundries.admins',compact('users'));
     }
 
+   public function updateStats(Request $request){
+      $subcategory= Subcategory::find($request->id);
+      if($subcategory->status =='0'){
+          $subcategory->status =1;
+      }else{
+          $subcategory->status =0;
+      }
+//       $subcategory->status ='0'? 1 :0;
+       $subcategory->save();
+       return response()->json(['success'=>'Status change successfully.']);
+}
 }

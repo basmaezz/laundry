@@ -23,7 +23,7 @@
                                     <i class="fa fa-align-justify"></i> الأقسام
                                 </div>
                                 <div class="card-block">
-                                    <table class="table table-striped">
+                                    <table id="example1" class="table table-bordered table-striped col-7">
                                         <thead>
                                         <tr>
                                             <th>اسم الكوبون</th>

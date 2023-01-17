@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::before(function ($user,$ability){
-            return true;
+              return true;
         });
         foreach (config('abilities') as $ability =>$label ){
             Gate::define( $ability , function ($user) use ($ability){
@@ -37,7 +37,6 @@ class AuthServiceProvider extends ServiceProvider
                     }
                 }
                 return false;
-
             });
         }
     }

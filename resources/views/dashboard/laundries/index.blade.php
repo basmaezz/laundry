@@ -60,22 +60,31 @@
 
     </script>
     <script>
-
+        // $(function() {
+        //     $('.toggle-class').change(function() {
+        //         var status_id = $(this).prop('checked') == true ? 1 : 0;
+        //         var order_id = $(this).data('id');
+        //         $.ajax({
+        //             type: "GET",
+        //             dataType: "json",
+        //             url: '/changeStatus',
+        //             data: {'status_id': status_id, 'id': order_id},
+        //             success: function(data){
+        //                 console.log(data.success)
+        //             }
+        //         });
+        //     })
+        // })
         function changeStatus(id){
-            console.log(id)
-            let status = $(this).prop('checked') == true ? 1 : 0;
-            let laundryId=id
+            // var status_id = $(this).prop('checked') == true ? 1 : 0;
             $.ajax({
-
                 type: "GET",
                 dataType: "json",
-                url: 'laundryUpdateStats/'.laundryId,
-                data: {'status': status, 'id': laundryId},
+                url: '/laundryUpdateStats',
+                data: { 'id': id},
                 success: function(data){
-                    console.log(data)
                     console.log(data.success)
                 }
-
             });
         }
     </script>

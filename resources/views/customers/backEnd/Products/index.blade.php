@@ -27,14 +27,12 @@
                                 <h3 class="card-title">Products</h3>
 {{--                                <a href="{{route('Customer.Products.create',Auth::user()->subCategory_id)}}"class="btn btn-info" style="float: right">New Item</a>--}}
                             </div>
-                            <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped col-7">
                                     <thead>
                                     <tr>
                                         <th>Item Name</th>
                                         <th>Actions</th>
-
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -46,16 +44,12 @@
 {{--                                                <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-folder"></i>View </a>--}}
 {{--                                                <a class="btn btn-info btn-sm" href="{{route('Customer.Products.edit',$product->id)}}"><i class="fas fa-pencil-alt"></i>Edit</a>--}}
 {{--                                                <a class="btn btn-danger btn-sm" href="{{route('Customer.Products.destroy',$product->id)}}"><i class="fas fa-trash"></i>Delete</a>--}}
-
                                             </td>
-
                                         </tr>
                                     @endforeach
                                     </tbody>
-
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
                     </div>
                 </div>

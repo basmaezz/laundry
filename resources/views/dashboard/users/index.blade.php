@@ -18,28 +18,10 @@
                                         <th>البريد الالكترونى</th>
                                         <th>الجوال</th>
                                         <th>Status</th>
-{{--                                        <th>Status</th>--}}
                                     </tr>
                                     </thead>
                                     <tbody>
-{{--                                    @foreach($users as $user)--}}
-{{--                                        @if(Auth::user()->id!=$user->id)--}}
-{{--                                    <tr>--}}
-{{--                                        <td>{{$user->name}} {{$user->last_name}}</td>--}}
-{{--                                        <td>{{$user->email}}</td>--}}
-{{--                                        <td>{{$user->phone}}</td>--}}
-{{--                                        <td>--}}
-{{--                                            <span class="tag tag-success">Active</span>--}}
-{{--                                        </td>--}}
-{{--                                        <td>--}}
-{{--                                                <a href="{{route('user.delete',$user->id)}}" class="btn btn-danger">حذف</a>--}}
-{{--                                                <a href="{{route('user.edit',$user->id)}}" class="btn btn-primary">تعديل</a>--}}
-{{--                                                <a href="{{route('user.view',$user->id)}}" class="btn btn-primary">تفاصيل</a>--}}
 
-{{--                                        </td>--}}
-{{--                                    </tr>--}}
-{{--                                        @endif--}}
-{{--                                    @endforeach--}}
                                     </tbody>
                                 </table>
 

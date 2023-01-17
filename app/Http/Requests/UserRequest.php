@@ -29,9 +29,10 @@ class UserRequest extends FormRequest
             'last_name'=>['required', 'unique:users', 'max:255'],
             'email'=>'required|email|unique:users,email',
             'password'=>'required',
-            'birthdate'=> ['required', 'before:15 years ago'],
+            'birthdate'=> ['required'],
+//            'birthdate'=> ['required', 'before:15 years ago'],
             'phone'=>'required',
-//            'avatar'=>'required',
+////            'avatar'=>'required',
             'level_id'=>'required',
             'joinDate'=>'required',
 

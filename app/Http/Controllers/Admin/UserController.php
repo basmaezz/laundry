@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\AppUser;
+use App\Models\Delegate;
 use App\Models\educationLevel;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -19,7 +22,6 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
 
             $data=User::whereNull('subCategory_id')->get();
@@ -45,6 +47,10 @@ class UserController extends Controller
      */
     public function create()
     {
+//        if(!Gate::allows('users.create')){
+        if(Gate::denies('users.create')){
+            abort(403);
+        };
         $levels=educationLevel::all();
         $roles=Role::all();
         return view('dashboard.users.create',compact(['levels','roles']));
@@ -58,17 +64,18 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $user = new User();
-        $roles = new Role();
         if($request->file('avatar')){
             $filename = request('avatar')->getClientOriginalName();
             request()->file('avatar')->move(public_path() . '/images/' , $filename);
         }
-       User::create($request->validated()+[
+       $user=User::create($request->validated()+[
             'avatar'=> $filename
             ]
         );
-        $user->roles()->attach($roles);
+        $user->roles()->attach([
+            'role_id'=>$request->role_id,
+        ]);
+
         return redirect()->route('users.index');
     }
 
@@ -135,8 +142,51 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user= User::find($id);
-        $user->delete();
+        User::find($id)->delete();
         return  redirect()->back();
+    }
+
+    public function customers(Request $request){
+        if ($request->ajax()) {
+        $data=AppUser::all();
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($user){
+                    $btn = '    <a href="'.route('customer.delete',$user->id).'" class="edit btn btn-danger btn-sm">حذف</a>
+
+                    ';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('dashboard.users.customers');
+
+    }
+    public function customerDelete($id)
+    {
+        AppUser::find($id)->delete();
+        return  redirect()->back();
+    }
+    public function delegates(Request $request)
+    {
+//        $delegates=Delegate::with('user')->get();
+//        dd($delegates);
+        if ($request->ajax()) {
+            $data=Delegate::all();
+            return Datatables::of($data)
+                ->addColumn('user',function ($data){
+                    return $data->user->name;
+                })->addColumn('action', function($user){
+                    $btn = '    <a href="'.route('customer.delete',$user->id).'" class="edit btn btn-danger btn-sm">حذف</a>
+
+                    ';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('dashboard.users.delegates');
     }
 }

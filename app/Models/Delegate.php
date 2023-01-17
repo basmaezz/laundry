@@ -46,4 +46,8 @@ class Delegate extends Model
             get: fn ($value) => asset('assets/uploads/driving_license/'.$value)
         );
     }
+
+    public  function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }
