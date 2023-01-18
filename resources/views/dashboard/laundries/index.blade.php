@@ -11,20 +11,36 @@
                                 <a href="{{route('laundries.create')}}" class="btn btn-primary" style="float:left;margin-top: 2px;">اضافه مغسله </a>
                             </div>
                             <div class="card-block">
-                                <table class="table table-striped"id="laundries-datatable">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>اسم المغسله </th>
-                                        <th> المدينه </th>
-                                        <th>العنوان</th>
-                                        <th>التفعيل</th>
-                                        <th>الاجراءات</th>
+                                <table id="laundries" class="table table-bordered table-striped">
+                                    <thead >
+                                    <tr >
+                                        <th>الاسم </th>
+                                        <th>المدينه </th>
+                                        <th>الحى</th>
+                                        <th>Status </th>
+                                        <th>Actions </th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($subCategories as $subCategory)
+                                    <tr>
+                                        <td>{{$subCategory->name_ar}}</td>
+                                        <td>{{$subCategory->city->name_ar}}</td>
+                                        <td>{{$subCategory->address}}</td>
+                                        <td>
+
+                                            <input data-id="{{$subCategory->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $subCategory->status ? 'checked' : '' }}>                                        </td>
+                                            <td>
+                                                <a href="{{route('CategoryItems.index',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الأقسام</a>
+                                                <a href="{{route('user.edit',$subCategory->id)}}" class="edit btn btn-primary btn-sm">تعديل</a>
+                                                <a href="{{route('laundries.view',$subCategory->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a>
+                                                <a href="{{route('laundries.destroy',$subCategory->id)}}" class="edit btn btn-danger btn-sm">حذف</a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>
@@ -34,59 +50,52 @@
 
         </div>
     </main>
-    <script>
-        $('#laundries-datatable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('laundries.index') }}",
-            columns: [
-                {data: 'id', name: 'id'},
-                {data: 'name_en', name: 'name_en' },
-                {data: 'city', name: 'city.name_ar',searchable: true},
-                {data: 'address', name: 'address' },
-                {data: 'checkbox', name: 'checkbox'},
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: true,
-                    searchable: true
-                },
-            ],
-            'columnDefs': [ {
-                'targets': [1,2,3,4],
-                'orderable': true,
-            }]
-        });
+{{--    <script>--}}
+{{--        $('#laundries-datatable').DataTable({--}}
+{{--            processing: true,--}}
+{{--            serverSide: true,--}}
+{{--            ajax: "{{ route('laundries.index') }}",--}}
+{{--            columns: [--}}
+{{--                {data: 'id', name: 'id'},--}}
+{{--                {data: 'name_en', name: 'name_en' },--}}
+{{--                {data: 'city', name: 'city.name_ar',searchable: true},--}}
+{{--                {data: 'address', name: 'address' },--}}
+{{--                {data: 'checkbox', name: 'checkbox'},--}}
+{{--                {--}}
+{{--                    data: 'action',--}}
+{{--                    name: 'action',--}}
+{{--                    orderable: true,--}}
+{{--                    searchable: true--}}
+{{--                },--}}
+{{--            ],--}}
+{{--            'columnDefs': [ {--}}
+{{--                'targets': [1,2,3,4],--}}
+{{--                'orderable': true,--}}
+{{--            }]--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--    <script>--}}
 
-    </script>
-    <script>
-        // $(function() {
-        //     $('.toggle-class').change(function() {
-        //         var status_id = $(this).prop('checked') == true ? 1 : 0;
-        //         var order_id = $(this).data('id');
-        //         $.ajax({
-        //             type: "GET",
-        //             dataType: "json",
-        //             url: '/changeStatus',
-        //             data: {'status_id': status_id, 'id': order_id},
-        //             success: function(data){
-        //                 console.log(data.success)
-        //             }
-        //         });
-        //     })
-        // })
-        function changeStatus(id){
-            // var status_id = $(this).prop('checked') == true ? 1 : 0;
-            $.ajax({
-                type: "GET",
-                dataType: "json",
-                url: '/laundryUpdateStats',
-                data: { 'id': id},
-                success: function(data){
-                    console.log(data.success)
-                }
-            });
-        }
-    </script>
+{{--        function changeStatus(id){--}}
+{{--            // var status_id = $(this).prop('checked') == true ? 1 : 0;--}}
+{{--            $.ajax({--}}
+{{--                type: "GET",--}}
+{{--                dataType: "json",--}}
+{{--                url: '/laundryUpdateStats',--}}
+{{--                data: { 'id': id},--}}
+{{--                success: function(data){--}}
+{{--                    console.log(data.success)--}}
+{{--                }--}}
+{{--            });--}}
+{{--        }--}}
+{{--    </script>--}}
 @endsection
+@push('scripts')
+    <script>
+        $("#laundries").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#laundries_wrapper .col-md-6:eq(0)');
+    </script>
+@endpush
 

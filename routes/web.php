@@ -81,9 +81,9 @@ Route::get('productView/{id}',[ProductController::class,'view'])->name('product.
 Route::get('productEdit/{id}',[ProductController::class,'edit'])->name('product.edit');
 Route::post('productUpdate',[ProductController::class,'update'])->name('product.update');
 Route::get('productAddService/{id}',[ProductController::class,'addService'])->name('product.addService');
-Route::post('createService',[ProductController::class,'createService'])->name('product.createService');
+Route::post('createProductService',[ProductController::class,'createProductService'])->name('product.createProductService');
 Route::get('productServices/{id}',[ProductController::class,'productServices'])->name('product.productServices');
-Route::get('deleteService/{id}',[ProductController::class,'deleteService'])->name('product.deleteService');
+Route::get('deleteProductService/{id}',[ProductController::class,'deleteProductService'])->name('product.deleteProductService');
 Route::get('editService/{id}',[ProductController::class,'editService'])->name('product.editService');
 Route::post('updateService/{id}',[ProductController::class,'updateService'])->name('product.updateService');
 
@@ -95,6 +95,15 @@ Route::patch('couponUpdate/{id}',[CouponsController::class,'update'])->name('cou
 Route::get('couponDelete/{id}',[CouponsController::class,'destroy'])->name('coupon.destroy');
 
 Route::get('getOrders',[OrderController::class,'index'])->name('Order.index');
+Route::get('viewOrder/{id}',[OrderController::class,'show'])->name('Order.show');
+Route::get('pendingDeliveryAcceptance',[OrderController::class,'pendingDeliveryAcceptance'])->name('Order.pendingDeliveryAcceptance');
+Route::get('DeliveryOnWay',[OrderController::class,'DeliveryOnWay'])->name('Order.DeliveryOnWay');
+Route::get('readyPickUp',[OrderController::class,'readyPickUp'])->name('Order.readyPickUp');
+Route::get('WayToLaundry',[OrderController::class,'WayToLaundry'])->name('Order.WayToLaundry');
+Route::get('DeliveredToLaundry',[OrderController::class,'DeliveredToLaundry'])->name('Order.DeliveredToLaundry');
+Route::get('DeliveryOnTheWayToYou',[OrderController::class,'DeliveryOnTheWayToYou'])->name('Order.DeliveryOnTheWayToYou');
+Route::get('WaitingForDeliveryToReceiveOrder',[OrderController::class,'WaitingForDeliveryToReceiveOrder'])->name('Order.WaitingForDeliveryToReceiveOrder');
+Route::get('completed',[OrderController::class,'completed'])->name('Order.completed');
 Route::get('changeStatus/',[OrderController::class,'changeStatus']);
 
 Route::get('Roles',[RoleController::class,'index'])->name('roles.index');
@@ -136,5 +145,6 @@ Route::get('deleteService/{id}',[ProductsController::class,'deleteService'])->na
 Route::get('orders/{id}',[OrdersController::class,'index'])->name('Customer.Orders.index');
 
 
-
+Route::view('datatable','dashboard.datatable');
+Route::view('datatableAr','dashboard.datatableAr');
 

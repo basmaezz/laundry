@@ -11,51 +11,46 @@
                                 <i class="fa fa-align-justify"></i>
                             </div>
                             <div class="card-block">
-                                <table class="table table-striped" id="customers-datatable">
-                                    <thead>
-                                    <tr>
-                                        <th>الرقم التسلسلى</th>
-                                        <th>الاسم</th>
-                                        <th>البريد الالكترونى</th>
+                                <table id="customers" class="table table-bordered table-striped">
+                                    <thead >
+                                    <tr >
+                                        <th>الاسم </th>
+                                        <th>البريد الألكترونى</th>
                                         <th>الجوال</th>
-                                        <th>Status</th>
+                                        <th>gender </th>
+                                        <th>Actions </th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
+                                    @foreach($customers as $user)
+                                        <tr>
+                                            <td>{{$user->name}}</td>
+                                            <td>{{$user->email}} </td>
+                                            <td> {{$user->mobile}}</td>
+                                            <td>{{$user->gender}}</td>
+                                            <td>
+                                                <a href="{{route('customer.delete',$user->id)}}" class="btn btn-danger">حذف</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         </div>
     </main>
-    <script type="text/javascript">
 
-        $(function () {
-            var table = $('#customers-datatable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('customers.index') }}",
-                columns: [
-                    {data: 'uuid', name: 'uuid'},
-                    {data: 'name', name: 'name'},
-                    {data: 'email', name: 'email'},
-                    {data: 'mobile', name: 'mobile'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
-                ]
-
-            });
-
-
-
-        });
-
-    </script>
 @endsection
+@push('scripts')
+    <script>
+        $("#customers").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#customers_wrapper .col-md-6:eq(0)');
+    </script>
+@endpush
 

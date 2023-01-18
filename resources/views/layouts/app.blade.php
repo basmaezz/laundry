@@ -18,13 +18,17 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" ></script>
+{{--    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">--}}
+{{--    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" ></script>--}}
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <!-- DataTables -->
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+
+
 </head>
 
 <body class="navbar-fixed sidebar-nav fixed-nav">
@@ -75,14 +79,16 @@
     <nav class="sidebar-nav">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="index.html"><i class="icon-speedometer"></i> الرئيسيه <span class="tag tag-info">جدید</span></a>
+                <a class="nav-link" href="{{url('/dashboard')}}"><i class="icon-speedometer"></i> الرئيسيه <span class="tag tag-info">جدید</span></a>
             </li>
-
+            <li class="nav-title">
+                مقدمين الخدمه
+            </li>
                <li class="nav-item">
-                <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> عرض الكل </a>
-                <a class="nav-link" href="{{route('user.create')}}"><i class="icon-user-follow"></i> اضافه أدمن  </a>
-                <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
+                <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> الأدمن  </a>
+{{--                <a class="nav-link" href="{{route('user.create')}}"><i class="icon-user-follow"></i> اضافه أدمن  </a>--}}
                 <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>
+                <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
                </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-docs"></i>   المناديب</a>
@@ -92,8 +98,7 @@
 
             </li>
 
-            <li class="nav-title">
-                مقدمين الخدمه
+            <li class="nav-title">                المغاسل
             </li>
 
             <li class="nav-item">
@@ -102,9 +107,48 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('coupons.index')}}"><i class="icon-people"></i> الكوبونات </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('Order.index')}}"><i class="icon-people"></i> الطلبات </a>
+
+            <li class="nav-title">
+                الطلبات
             </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> الطلبات</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('Order.index')}}"><i class="icon-people"></i> الطلبات </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('Order.pendingDeliveryAcceptance')}}"><i class="icon-people"></i> انتظار قبول المندوب </a>
+                    </li>
+                    <li class="nav-item">
+                <a class="nav-link" href="{{route('Order.DeliveryOnWay')}}"><i class="icon-people"></i> المندوب فى الطريق للعميل </a>
+                    </li>
+                    <li class="nav-item">
+                <a class="nav-link" href="{{route('Order.WayToLaundry')}}"><i class="icon-people"></i>   المندوب فى الطريق للمغسله </a>
+                    </li>
+                    <li class="nav-item">
+
+                <a class="nav-link" href="{{route('Order.DeliveredToLaundry')}}"><i class="icon-people"></i> فى المغسله  </a>
+                    </li>
+                    <li class="nav-item">
+                <a class="nav-link" href="{{route('Order.readyPickUp')}}"><i class="icon-people"></i>التنتهاء من الغسيل </a>
+
+                    </li>
+                    <li class="nav-item">
+                <a class="nav-link" href="{{route('Order.WaitingForDeliveryToReceiveOrder')}}"><i class="icon-people"></i> انتظار موافقه المندوب </a>
+
+                    </li>
+                    <li class="nav-item">
+                <a class="nav-link" href="{{route('Order.DeliveryOnTheWayToYou')}}"><i class="icon-people"></i>فى الطريف للعميل</a>
+
+                    </li>
+                    <li class="nav-item">
+                <a class="nav-link" href="{{route('Order.completed')}}"><i class="icon-people"></i>الطلبات المنتهيه </a>
+
+                    </li>
+                </ul>
+            </li>
+
         </ul>
     </nav>
 </div>
@@ -130,8 +174,18 @@
 <script src="{{asset('assets/customers/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('assets/customers/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{asset('assets/customers/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{{asset('assets/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/admin/plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{asset('assets/admin/plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{asset('assets/admin/plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{asset('assets/admin/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('assets/admin/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('assets/admin/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<script src="{{asset('assets/admin/dist/js/adminlte.min.js')}}"></script>
+
+@stack('scripts')
+
+
 
 </body>
 

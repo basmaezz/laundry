@@ -22,22 +22,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-
-            $data=User::whereNull('subCategory_id')->get();
-
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($user){
-                    $btn = '    <a href="'.route('user.delete',$user->id).'" class="edit btn btn-danger btn-sm">حذف</a>
-                    <a href="'.route('user.edit',$user->id).'" class="edit btn btn-primary btn-sm">تعديل</a>
-                    <a href="'.route('user.view',$user->id).'" class="edit btn btn-danger btn-sm">عرض</a>';
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-        return view('dashboard.users.index');
+        $users=User::whereNull('subCategory_id')->paginate();
+        return view('dashboard.users.index',compact('users'));
     }
 
     /**
@@ -147,21 +133,9 @@ class UserController extends Controller
     }
 
     public function customers(Request $request){
-        if ($request->ajax()) {
-        $data=AppUser::all();
 
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($user){
-                    $btn = '    <a href="'.route('customer.delete',$user->id).'" class="edit btn btn-danger btn-sm">حذف</a>
-
-                    ';
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-        return view('dashboard.users.customers');
+        $customers=AppUser::all();
+        return view('dashboard.users.customers',compact('customers'));
 
     }
     public function customerDelete($id)
@@ -171,8 +145,6 @@ class UserController extends Controller
     }
     public function delegates(Request $request)
     {
-//        $delegates=Delegate::with('user')->get();
-//        dd($delegates);
         if ($request->ajax()) {
             $data=Delegate::all();
             return Datatables::of($data)

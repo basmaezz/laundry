@@ -50,8 +50,8 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="country">الموقع </label>
-                                        <input type="text" name="location"class="form-control" id="location" placeholder=" الموقع">
+                                        <label for="country">الموقع(Google Map) </label>
+                                        <input type="text" name="location"class="form-control" id="location" placeholder="https://maps.google.com/?q=51.03841,-114.01679 ">
                                         @error('location')
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror

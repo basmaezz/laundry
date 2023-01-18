@@ -60,10 +60,9 @@ class ProductController extends Controller
     }
     public function addService($id){
         $product=Product::find($id);
-        dd($product);
         return view('dashboard.products.addService',compact('product'));
     }
-    public function createService(Request $request){
+    public function createProductService(Request $request){
         ProductService::create([
             'product_id'=>$request->product_id,
             'services'=>$request->services,

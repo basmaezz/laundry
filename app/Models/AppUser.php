@@ -27,7 +27,7 @@ class AppUser extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function citis() {
+    public function cities() {
         return $this->belongsTo(City::class,'city_id');
     }
 

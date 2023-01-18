@@ -21,30 +21,30 @@ class subCategoryController extends Controller
 
     public function index(Request $request)
     {
-
-        if ($request->ajax()) {
-            $data = Subcategory::all();
-
-            return Datatables::of($data)
-                ->addColumn('city',function ($data){
-                    return $data->city->name_ar;
-                })->addColumn('checkbox', function ($subCategory)  {
-                    return' <label class="switch switch-text switch-success">
-                                    <input type="checkbox" class="switch-input" id="'.$subCategory->id.'" checked onclick="changeStatus(this.id)">
-                                    <span class="switch-label" data-on="On" data-off="Off"></span>
-                                    <span class="switch-handle"></span>
-                                </label> ';
-                })
-                ->addColumn('action', function($subCategory){
-                    return '<a href="'.route('CategoryItems.index',$subCategory->id).'" class="edit btn btn-primary btn-sm">الأقسام</a>
-                            <a href="'.route('user.edit',$subCategory->id).'" class="edit btn btn-primary btn-sm">تعديل</a>
-                    <a href="'.route('laundries.view',$subCategory->id).'" class="edit btn btn-primary btn-sm">التفاصيل</a>
-                        <a href="'.route('laundries.destroy',$subCategory->id).'" class="edit btn btn-danger btn-sm">حذف</a>';
-                })
-                ->rawColumns(['action','checkbox'])
-                ->make(true);
-        }
-        return view('dashboard.laundries.index');
+        $subCategories = Subcategory::with('city')->get();
+//        if ($request->ajax()) {
+//            $data = Subcategory::all();
+//
+//            return Datatables::of($data)
+//                ->addColumn('city',function ($data){
+//                    return $data->city->name_ar;
+//                })->addColumn('checkbox', function ($subCategory)  {
+//                    return' <label class="switch switch-text switch-success">
+//                                    <input type="checkbox" class="switch-input" id="'.$subCategory->id.'" checked onclick="changeStatus(this.id)">
+//                                    <span class="switch-label" data-on="On" data-off="Off"></span>
+//                                    <span class="switch-handle"></span>
+//                                </label> ';
+//                })
+//                ->addColumn('action', function($subCategory){
+//                    return '<a href="'.route('CategoryItems.index',$subCategory->id).'" class="edit btn btn-primary btn-sm">الأقسام</a>
+//                            <a href="'.route('user.edit',$subCategory->id).'" class="edit btn btn-primary btn-sm">تعديل</a>
+//                    <a href="'.route('laundries.view',$subCategory->id).'" class="edit btn btn-primary btn-sm">التفاصيل</a>
+//                        <a href="'.route('laundries.destroy',$subCategory->id).'" class="edit btn btn-danger btn-sm">حذف</a>';
+//                })
+//                ->rawColumns(['action','checkbox'])
+//                ->make(true);
+//        }
+        return view('dashboard.laundries.index',compact('subCategories'));
     }
 
     /**

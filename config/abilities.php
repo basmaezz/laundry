@@ -17,15 +17,22 @@
       'Services.edit'=>'تعديل خدمه ',
       'Services.delete'=>'حذف خدمه',
 
-      'Orders.index'=>'عرض الطلبات ',
-      'Orders.create'=>'انشاء طلب ',
-      'Orders.edit'=>'تعديل بيانات طلب ',
-      'Orders.delete'=>'حذف طلب ',
+//      'Orders.index'=>'عرض الطلبات ',
+//      'Orders.create'=>'انشاء طلب ',
+//      'Orders.edit'=>'تعديل بيانات طلب ',
+//      'Orders.delete'=>'حذف طلب ',
 
       'Laundries.index'=>'عرض المغاسل ',
       'Laundries.create'=>'اضافه مغسله ',
       'Laundries.edit'=>'تعديل بيانات مغسله ',
       'Laundries.delete'=>'حذف مغسله ',
+
+      'products.index'=>'عرض المنتجات ',
+      'products.create'=>'اضافه منتج ',
+      'products.edit'=>'تعديل بيانات المنتج ',
+      'products.delete'=>'حذف منتج ',
+
+
 
 
     ];

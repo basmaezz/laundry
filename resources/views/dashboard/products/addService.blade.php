@@ -19,10 +19,10 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <strong>اضافه قسم</strong>
+                    <strong>اضافه خدمه</strong>
                 </div>
                 <div class="card-block">
-                    <form method="post" action="{{route('product.createService')}}" >
+                    <form method="post" action="{{route('product.createProductService')}}" >
                         @csrf
                         <div class="form-group row">
                             <div class="form-group">

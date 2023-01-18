@@ -36,7 +36,7 @@
                                                     <td>{{$service->price}}</td>
                                                     <td>
                                                         <a href="{{route('product.editService',$service->id)}}" class="btn btn-primary">تعديل</a>
-                                                        <a href="{{route('product.deleteService',$service->id)}}" class="btn btn-danger">حذف</a>
+                                                        <a href="{{route('product.deleteProductService',$service->id)}}" class="btn btn-danger">حذف</a>
                                                     </td>
                                             </tr>
 
