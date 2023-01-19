@@ -39,5 +39,12 @@ class CategoryItemRequest extends FormRequest
         ];
     }
 
+    public function  messages()
+    {
+        return[
+        'required'=>'هذا الحقل مطلوب',
+        ];
+    }
+
 
 }

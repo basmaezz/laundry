@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\CategoryItem;
 use App\Models\Product;
 use App\Models\ProductImage;
@@ -18,21 +19,18 @@ class ProductController extends Controller
         return view('dashboard.products.create',compact('categoryItem'));
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $product= new Product();
+
         if($request->file('subProductImage')){
             $filename = request('subProductImage')->getClientOriginalName();
             request()->file('subProductImage')->move(public_path() . '/images/products/sub' , $filename);
-            $product['user_id']=Auth::user()->id;
-            $product['subcategory_id']=$request->subcategory_id;
-            $product['category_item_id']=$request->category_item_id;
-            $product['name_ar']=$request->name_ar;
-            $product['name_en']=$request->name_en;
-            $product['desc_ar']=$request->desc_ar;
-            $product['desc_en']=$request->desc_en;
         }
-        $product->save();
+//        $product->save();
+        Product::create($request->validated()+[
+                'user_id'=>Auth::user()->id,
+                'image'=>$filename
+            ]);
         return  redirect()->route('CategoryItems.index',$request->subcategory_id);
     }
 

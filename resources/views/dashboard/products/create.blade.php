@@ -1,21 +1,10 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        <!-- Breadcrumb -->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">Home</li>
-            <li class="breadcrumb-item"><a href="#">Admin</a>
-            </li>
-            <li class="breadcrumb-item active">Dashboard</li>
-            <!-- Breadcrumb Menu-->
-            <li class="breadcrumb-menu">
-                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                    <a class="btn btn-secondary" href="#"><i class="icon-speech"></i></a>
-                    <a class="btn btn-secondary" href="./"><i class="icon-graph"></i> &nbsp;Dashboard</a>
-                    <a class="btn btn-secondary" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>
-                </div>
-            </li>
-        </ol>
+        <div class="container-fluid">
+            <div class="animated fadeIn">
+                <div class="row">
+
 <form action="{{route('product.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="col-sm-6">
@@ -31,18 +20,30 @@
                     <input type="text" name="name_ar"class="form-control" id="name_ar" placeholder="اسم القطعه">
                     <input type="hidden" name="category_item_id"class="form-control" id="category_item_id" value="{{$categoryItem->id}}">
                     <input type="hidden" name="subcategory_id"class="form-control" id="subcategory_id" value="{{$categoryItem->subcategory_id}}">
+                    @if ($errors->has('name_ar'))
+                        <span class="text-danger">{{ $errors->first('name_ar') }}</span>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="company" >اسم القطعه بالانجليزيه</label>
                     <input type="text" name="name_en"class="form-control" id="name_ar" placeholder="اسم القطعه بالانجليزيه">
+                    @if ($errors->has('name_en'))
+                        <span class="text-danger">{{ $errors->first('name_en') }}</span>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="company" >الوصف  </label>
                     <input type="text" name="desc_ar"class="form-control" id="name_ar" placeholder="الوصف ">
+                    @if ($errors->has('desc_ar'))
+                        <span class="text-danger">{{ $errors->first('desc_ar') }}</span>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="company" >الوصف  بالانجليزيه</label>
                     <input type="text" name="desc_en"class="form-control" id="name_ar" placeholder="الوصف  بالانجليزيه ">
+                    @if ($errors->has('desc_en'))
+                        <span class="text-danger">{{ $errors->first('desc_en') }}</span>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="company">الصوره  </label>
@@ -50,13 +51,15 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="card-footer">
-        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
-        <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
-    </div>
-</form>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+        </div>
+           </div>
+    </form>
+                </div>
+            </div>
+        </div>
     </main>
 
 @endsection
