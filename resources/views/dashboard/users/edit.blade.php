@@ -1,23 +1,6 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        <!-- Breadcrumb -->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">خانه</li>
-            <li class="breadcrumb-item"><a href="#">مدیریت</a>
-            </li>
-            <li class="breadcrumb-item active">داشبرد</li>
-
-            <!-- Breadcrumb Menu-->
-            <li class="breadcrumb-menu">
-                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                    <a class="btn btn-secondary" href="#"><i class="icon-speech"></i></a>
-                    <a class="btn btn-secondary" href="./"><i class="icon-graph"></i> &nbsp;داشبرد</a>
-                    <a class="btn btn-secondary" href="#"><i class="icon-settings"></i> &nbsp;تنظیمات</a>
-                </div>
-            </li>
-        </ol>
-
         <div class="container-fluid">
 
             <div class="animated fadeIn">
@@ -51,7 +34,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأخير</label>
                                             <div class="col-md-9">
-                                                <input type="text" id="text-input" name="last_name" class="form-control" value="{{$user->last_name}}">
+                                                <input type="text" id="last_name" name="last_name" class="form-control" value="{{$user->last_name}}">
                                             </div>
                                         </div>
                                         <div class="form-group row">

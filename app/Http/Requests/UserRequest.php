@@ -25,26 +25,34 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>['required', 'unique:users', 'max:255'],
-            'last_name'=>['required', 'unique:users', 'max:255'],
+//            'name'=>['required', 'unique:users', 'max:255'],
+            'name'=>array('required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
+//            'last_name'=>['required','unique:users', 'max:255'],
+            'last_name'=>array('required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
             'email'=>'required|email|unique:users,email',
             'password'=>'required',
-            'birthdate'=> ['required'],
-//            'birthdate'=> ['required', 'before:15 years ago'],
-            'phone'=>'required',
-////            'avatar'=>'required',
-            'level_id'=>'required',
-            'joinDate'=>'required',
-
+            'birthdate'=> ['required','before:15 years ago'],
+            'phone'=>'required|numeric|digits:10',
         ];
+        if ($this->getMethod() == 'POST') {
+            $rules += [
+                'avatar'=>'required',
+                'level_id'=>'required',
+                'joinDate'=>'required',
+                ];
+        }
     }
 
     public function messages()
     {
         return [
-          'required'  =>'هذا الحقل مطلوب',
+            'required'  =>'هذا الحقل مطلوب',
+            'name'=>'برجاء ادخال اسم مناسب',
+            'last_name'=>'برجاء ادخال اسم مناسب',
+            'unique'=>'هذا الأسم موجود مسبقا',
             'email'=>'هذا البريد الالكترونى موجود مسبقا',
-            'phone'=>'هذا الرقم غير صحيح'
+            'phone'=>'هذا الرقم غير صحيح',
+            'birthdate'=>'تاريخ الميلاد غير مناسب '
         ];
     }
 }

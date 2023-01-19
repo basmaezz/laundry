@@ -29,8 +29,8 @@
                                          <td>{{$user->email}} </td>
                                         <td> {{$user->phone}}</td>
                                         <td>
-                                            <a href="#" class="btn btn-info">تعديل</a>
-                                            <a href="#" class="btn btn-danger">حذف</a>
+                                            <a href="{{route('user.edit',$user->id)}}" class="btn btn-info">تعديل</a>
+                                            <a href="{{route('user.delete',$user->id)}}" class="btn btn-danger">حذف</a>
                                         </td>
                                     </tr>
                                     @endforeach

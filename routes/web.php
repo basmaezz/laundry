@@ -41,7 +41,9 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('users',[UserController::class,'index'])->name('users.index');
+Route::get('users',[UserController::class,'index'])->name('users.index')->middleware('auth');
+Route::get('profile',[UserController::class,'profile'])->name('users.profile');
+Route::patch('updateProfile',[UserController::class,'updateProfile'])->name('users.updateProfile');
 Route::get('customers',[UserController::class,'customers'])->name('customers.index');
 Route::get('delegates',[UserController::class,'delegates'])->name('delegates.index');
 Route::get('customerDelete/{id}',[UserController::class,'customerDelete'])->name('customer.delete');
@@ -49,10 +51,11 @@ Route::get('userView/{id}',[UserController::class,'show'])->name('user.view');
 Route::get('userCreate',[UserController::class,'create'])->name('user.create');
 Route::post('userStore',[UserController::class,'store'])->name('user.store');
 Route::get('userEdit/{id}',[UserController::class,'edit'])->name('user.edit');
-Route::post('userUpdate/{id}',[UserController::class,'update']);
+Route::patch('userUpdate/{id}',[UserController::class,'update'])->name('user.update');
 Route::get('userDelete/{id}',[UserController::class,'destroy'])->name('user.delete');
 Route::post('searchLaundry',[UserController::class,'destroy'])->name('searchLaundry');
 
+Route::middleware('auth')->group(function(){
 Route::get('laundries',[subCategoryController::class,'index'])->name('laundries.index');
 Route::get('laundryCreate',[subCategoryController::class,'create'])->name('laundries.create');
 Route::post('laundryStore',[subCategoryController::class,'store'])->name('laundries.store');
@@ -64,6 +67,8 @@ Route::get('createAdminLaundries',[subCategoryController::class,'createAdmin'])-
 Route::post('storeLaundryAdmin',[subCategoryController::class,'storeLaundryAdmin'])->name('laundries.storeAdmin');
 Route::get('laundryView/{id}',[subCategoryController::class,'show'])->name('laundries.view');
 Route::get('laundryUpdateStats',[subCategoryController::class,'updateStats']);
+
+
 
 
 Route::get('CategoryItemsIndex/{id}',[CategoryItemController::class,'index'])->name('CategoryItems.index');
@@ -113,7 +118,7 @@ Route::get('RolesEdit/{id}',[RoleController::class,'edit'])->name('roles.edit');
 Route::post('RolesUpdate/{id}',[RoleController::class,'update'])->name('roles.update');
 Route::get('RolesDelete/{id}',[RoleController::class,'destroy'])->name('roles.destroy');
 
-
+});
 #############################
 
 Route::post('customerLogin',[AdminController::class,'customerLogin'])->name('customer.customerLogin');

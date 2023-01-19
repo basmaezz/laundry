@@ -48,6 +48,7 @@ class CategoryItemController extends Controller
      */
     public function store(CategoryItemRequest $request)
     {
+
         CategoryItem::create( $request->all());
         return  redirect()->route('CategoryItems.index',$request->subcategory_id);
     }

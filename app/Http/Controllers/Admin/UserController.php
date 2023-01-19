@@ -10,6 +10,8 @@ use App\Models\educationLevel;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Gate;
 
@@ -160,5 +162,20 @@ class UserController extends Controller
                 ->make(true);
         }
         return view('dashboard.users.delegates');
+    }
+
+    public function profile()
+    {
+        $user=User::find(Auth::user()->id);
+        return view('dashboard.users.profile',compact('user'));
+    }
+    public function updateProfile()
+    {
+
+    }
+    public function logOut() {
+        Session::flush();
+        Auth::logout();
+        return Redirect()->route('customer.login');
     }
 }

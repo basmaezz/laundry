@@ -23,7 +23,6 @@ class CouponRequest extends FormRequest
      */
     public function rules()
     {
-
         $rules= [
             'code_name'=>'required|unique:coupon_shop_carts',
             'discount_value'=>'required',
@@ -38,26 +37,8 @@ class CouponRequest extends FormRequest
             $rules += ['code_name'=>'required|unique:coupon_shop_carts',];
         }
         return $rules;
-
     }
-//    public function store(){
-//        return [
-//            'code_name'=>'required|unique:coupon_shop_carts',
-//            'discount_value'=>'required',
-//            'date_from'=>'required',
-//            'date_to'=>'required',
-//            'status'=>'required',
-//        ];
-//    }
-//    public function update(){
-//        return [
-//            'code_name'=>'required|unique:coupon_shop_carts,'.$this->id,
-//            'discount_value'=>'required',
-//            'date_from'=>'required',
-//            'date_to'=>'required',
-//            'status'=>'required',
-//        ];
-//    }
+
     public function messages()
     {
         return [

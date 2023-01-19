@@ -17,7 +17,7 @@
                                         <th>الاسم </th>
                                         <th>المدينه </th>
                                         <th>الحى</th>
-                                        <th>Status </th>
+{{--                                        <th>Status </th>--}}
                                         <th>Actions </th>
                                     </tr>
                                     </thead>
@@ -27,9 +27,9 @@
                                         <td>{{$subCategory->name_ar}}</td>
                                         <td>{{$subCategory->city->name_ar}}</td>
                                         <td>{{$subCategory->address}}</td>
-                                        <td>
-
-                                            <input data-id="{{$subCategory->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $subCategory->status ? 'checked' : '' }}>                                        </td>
+{{--                                        <td>--}}
+{{--                                            <input data-id="{{$subCategory->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $subCategory->status ? 'checked' : '' }}>   --}}
+{{--                                        </td>--}}
                                             <td>
                                                 <a href="{{route('CategoryItems.index',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الأقسام</a>
                                                 <a href="{{route('user.edit',$subCategory->id)}}" class="edit btn btn-primary btn-sm">تعديل</a>
@@ -50,32 +50,6 @@
 
         </div>
     </main>
-{{--    <script>--}}
-{{--        $('#laundries-datatable').DataTable({--}}
-{{--            processing: true,--}}
-{{--            serverSide: true,--}}
-{{--            ajax: "{{ route('laundries.index') }}",--}}
-{{--            columns: [--}}
-{{--                {data: 'id', name: 'id'},--}}
-{{--                {data: 'name_en', name: 'name_en' },--}}
-{{--                {data: 'city', name: 'city.name_ar',searchable: true},--}}
-{{--                {data: 'address', name: 'address' },--}}
-{{--                {data: 'checkbox', name: 'checkbox'},--}}
-{{--                {--}}
-{{--                    data: 'action',--}}
-{{--                    name: 'action',--}}
-{{--                    orderable: true,--}}
-{{--                    searchable: true--}}
-{{--                },--}}
-{{--            ],--}}
-{{--            'columnDefs': [ {--}}
-{{--                'targets': [1,2,3,4],--}}
-{{--                'orderable': true,--}}
-{{--            }]--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--    <script>--}}
-
 {{--        function changeStatus(id){--}}
 {{--            // var status_id = $(this).prop('checked') == true ? 1 : 0;--}}
 {{--            $.ajax({--}}
