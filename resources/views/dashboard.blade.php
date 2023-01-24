@@ -91,48 +91,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card card-inverse card-primary">
-                        <div class="card-block p-b-0">
-                            <button type="button" class="btn btn-transparent active p-a-0 pull-left">
-                                <i class="icon-location-pin"></i>
-                            </button>
-                            <h4 class="m-b-0">{{\App\Models\CategoryItem::count()}}</h4>
-                            <p> الأقسام</p>
-                        </div>
-                        <div class="chart-wrapper p-x-1" style="height:70px;">
-                            <canvas id="card-chart2" class="chart" height="70"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card card-inverse card-primary">
-                        <div class="card-block p-b-0">
-                            <button type="button" class="btn btn-transparent active p-a-0 pull-left">
-                                <i class="icon-location-pin"></i>
-                            </button>
-                            <h4 class="m-b-0">{{\App\Models\Product::count()}}</h4>
-                            <p> المنتجات</p>
-                        </div>
-                        <div class="chart-wrapper p-x-1" style="height:70px;">
-                            <canvas id="card-chart2" class="chart" height="70"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card card-inverse card-primary">
-                        <div class="card-block p-b-0">
-                            <button type="button" class="btn btn-transparent active p-a-0 pull-left">
-                                <i class="icon-location-pin"></i>
-                            </button>
-                            <h4 class="m-b-0">{{\App\Models\ProductService::count()}}</h4>
-                            <p> الخدمات</p>
-                        </div>
-                        <div class="chart-wrapper p-x-1" style="height:70px;">
-                            <canvas id="card-chart2" class="chart" height="70"></canvas>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="col-sm-6 col-lg-4"><!--CouponShopCart-->
                     <div class="card card-inverse card-danger">

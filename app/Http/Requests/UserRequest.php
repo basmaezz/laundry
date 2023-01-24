@@ -25,22 +25,20 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-//            'name'=>['required', 'unique:users', 'max:255'],
             'name'=>array('required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
-//            'last_name'=>['required','unique:users', 'max:255'],
             'last_name'=>array('required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
             'email'=>'required|email|unique:users,email',
             'password'=>'required',
             'birthdate'=> ['required','before:15 years ago'],
             'phone'=>'required|numeric|digits:10',
         ];
-        if ($this->getMethod() == 'POST') {
-            $rules += [
-                'avatar'=>'required',
-                'level_id'=>'required',
-                'joinDate'=>'required',
-                ];
-        }
+//        if ($this->getMethod() == 'POST') {
+//            $rules += [
+//                'avatar'=>'required',
+//                'level_id'=>'required',
+//                'joinDate'=>'required',
+//                ];
+//        }
     }
 
     public function messages()

@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i>
@@ -17,6 +17,8 @@
                                         <th>الاسم </th>
                                         <th>البريد الألكترونى</th>
                                         <th>الجوال</th>
+                                        <th>المدينه</th>
+                                        <th>الحى</th>
                                         <th>gender </th>
                                         <th>Actions </th>
                                     </tr>
@@ -26,9 +28,12 @@
                                         <tr>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}} </td>
-                                            <td> {{$user->mobile}}</td>
+                                            <td>{{$user->email}} </td>
+                                            <td>{{$user->cities->name_ar}} </td>
+                                            <td> {{$user->region_name}}</td>
                                             <td>{{$user->gender}}</td>
                                             <td>
+                                                <a href="{{route('customer.Orders',$user->id)}}" class="btn btn-info">عرض الطلبات</a>
                                                 <a href="{{route('customer.delete',$user->id)}}" class="btn btn-danger">حذف</a>
                                             </td>
                                         </tr>

@@ -5,10 +5,6 @@
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="CoreUI Bootstrap 4 Admin Template">
-    <meta name="author" content="Lukasz Holeczek">
-    <meta name="keyword" content="CoreUI Bootstrap 4 Admin Template">
     <meta name="csrf-token" content="{{ csrf_token() }}">
    <title>Admin Dashboard</title>
 
@@ -18,17 +14,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
-{{--    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">--}}
-{{--    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" ></script>--}}
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <!-- DataTables -->
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-
-
 </head>
 
 <body class="navbar-fixed sidebar-nav fixed-nav">
@@ -62,14 +53,13 @@
                     </div>
                     <a class="dropdown-item" href="{{route('users.profile')}}"><i class="fa fa-user"></i> پروفایل</a>
                     <div class="divider"></div>
-                        <form method="get" action="{{ route('customer.logout') }}">
+                        <form method="post" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="dropdown-item"><i class="fa fa-lock"></i> خروج</button>
                     </form>
                 </div>
             </li>
             <li class="nav-item">
-{{--                <a class="nav-link navbar-toggler aside-toggle" href="#">&#9776;</a>--}}
             </li>
 
         </ul>
@@ -84,28 +74,38 @@
             <li class="nav-title">
                 مقدمين الخدمه
             </li>
+
+            @can('users.index')
+{{--                    @if(Auth::user()->can('users.index'))--}}
+{{--                @if(Gate::allows('users.index'))--}}
                <li class="nav-item">
                 <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> الأدمن  </a>
 {{--                <a class="nav-link" href="{{route('user.create')}}"><i class="icon-user-follow"></i> اضافه أدمن  </a>--}}
                 <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>
                 <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
                </li>
+            @endcan
             <li class="nav-item">
                 <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-docs"></i>   المناديب</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('laundries.admins')}}"><i class="icon-user-follow"></i>  أدمن المغاسل  </a>
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="{{route('laundries.admins')}}"><i class="icon-user-follow"></i>  أدمن المغاسل  </a>--}}
+{{--            </li>--}}
 
+            <li class="nav-title">
+                المغاسل
+            </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> المغاسل</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('laundries.index')}}"><i class="icon-people"></i>  كل المغاسل </a>
+                    </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('laundries.mainLaundries')}}"><i class="icon-people"></i>  المغاسل الرئيسيه</a>
             </li>
 
-            <li class="nav-title">                المغاسل
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('laundries.index')}}"><i class="icon-people"></i> اداره المغاسل</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('coupons.index')}}"><i class="icon-people"></i> الكوبونات </a>
+                </ul>
             </li>
 
             <li class="nav-title">
@@ -131,7 +131,7 @@
                 <a class="nav-link" href="{{route('Order.DeliveredToLaundry')}}"><i class="icon-people"></i> فى المغسله  </a>
                     </li>
                     <li class="nav-item">
-                <a class="nav-link" href="{{route('Order.readyPickUp')}}"><i class="icon-people"></i>التنتهاء من الغسيل </a>
+                <a class="nav-link" href="{{route('Order.readyPickUp')}}"><i class="icon-people"></i>الأنتهاء  من الغسيل </a>
 
                     </li>
                     <li class="nav-item">
@@ -147,6 +147,10 @@
 
                     </li>
                 </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('coupons.index')}}"><i class="icon-people"></i> الكوبونات </a>
             </li>
 
         </ul>
@@ -167,8 +171,6 @@
 <script src="{{asset('assets/admin/js/libs/pace.min.js')}}"></script>
 <script src="{{asset('assets/admin/js/app.js')}}"></script>
 <script src="{{asset('assets/admin/js/views/main.js')}}"></script>
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script src="{{asset('assets/customers/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/customers/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('assets/customers/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>

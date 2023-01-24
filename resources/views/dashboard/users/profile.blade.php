@@ -14,13 +14,14 @@
                                     <strong>  تعديل بيانات {{$user->name}} </strong>
                                 </div>
                                 <div class="card-block">
-                                    <form action="{{route('user.editProfile',Auth::user()->id)}}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                    <form action="{{route('user.updateProfile')}}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                         @csrf
                                         @method('PATCH')
 
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
                                             <div class="col-md-9">
+                                                <input type="hidden"  name="id" class="form-control" value="{{Auth::user()->id}} "required>
                                                 <input type="text" id="text-input" name="name" class="form-control" value="{{$user->name}} "required>
 
                                             </div>
@@ -56,12 +57,27 @@
                                                 <input type="date" id="birthday" name="birthdate" class="form-control" value="{{$user->birthdate}}"required>
                                             </div>
                                         </div>
-                                                <div class="form-group row">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input"> المستوى التعليمى </label>
+                                            <div class="col-md-9">
+                                                <select name="level_id" id="level_id"  class="form-control" >
+                                                    <option>المستوى التعليمى</option>
+                                                    @foreach($levels as $level)
+                                                        <option value="{{$level->id}}" {{$level->id==$user->level_id ? 'selected':''}}>{{$level->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('level_id'))
+                                                    <span class="text-danger">{{ $errors->first('level_id') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"class="form-control"> تاريخ الانضمام للشركة   </label>
                                             <div class="col-md-9">
                                                 <input type="date" id="birthday" name="joinDate" class="form-control" value="{{$user->joindate}}">
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الملف الشخصى </label>
                                             <div class="col-md-9">

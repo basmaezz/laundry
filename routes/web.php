@@ -40,22 +40,26 @@ Route::middleware('auth')->group(function () {
 });
 require __DIR__.'/auth.php';
 
+Route::middleware('auth')->group(function () {
+    Route::get('users', [UserController::class, 'index'])->name('users.index')->middleware('can:users.index');;
+    Route::get('profile', [UserController::class, 'profile'])->name('users.profile');
+    Route::patch('updateProfile', [UserController::class, 'updateProfile'])->name('user.updateProfile');
+    Route::get('customers', [UserController::class, 'customers'])->name('customers.index');
+    Route::get('customerOrder/{id}', [UserController::class, 'customerOrders'])->name('customer.Orders');
+    Route::get('delegates', [UserController::class, 'delegates'])->name('delegates.index');
+    Route::get('createDelegate', [UserController::class, 'CreateDelegate'])->name('delegate.create');
+    Route::post('storeDelegate', [UserController::class, 'storeDelegate'])->name('delegate.store');
+    Route::get('showDelegate/{id}', [UserController::class, 'showDelegate'])->name('delegate.show');
+    Route::get('deleteDelegate/{id}', [UserController::class, 'deleteDelegate'])->name('delegate.delete');
+    Route::get('customerDelete/{id}', [UserController::class, 'customerDelete'])->name('customer.delete');
+    Route::get('userView/{id}', [UserController::class, 'show'])->name('user.view');
+    Route::get('userCreate', [UserController::class, 'create'])->name('user.create');
+    Route::post('userStore', [UserController::class, 'store'])->name('user.store');
+    Route::get('userEdit/{id}', [UserController::class, 'edit'])->name('user.edit');
+    Route::patch('userUpdate/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::get('userDelete/{id}', [UserController::class, 'destroy'])->name('user.delete');
+    Route::post('searchLaundry', [UserController::class, 'destroy'])->name('searchLaundry');
 
-Route::get('users',[UserController::class,'index'])->name('users.index')->middleware('auth');
-Route::get('profile',[UserController::class,'profile'])->name('users.profile');
-Route::patch('updateProfile',[UserController::class,'updateProfile'])->name('users.updateProfile');
-Route::get('customers',[UserController::class,'customers'])->name('customers.index');
-Route::get('delegates',[UserController::class,'delegates'])->name('delegates.index');
-Route::get('customerDelete/{id}',[UserController::class,'customerDelete'])->name('customer.delete');
-Route::get('userView/{id}',[UserController::class,'show'])->name('user.view');
-Route::get('userCreate',[UserController::class,'create'])->name('user.create');
-Route::post('userStore',[UserController::class,'store'])->name('user.store');
-Route::get('userEdit/{id}',[UserController::class,'edit'])->name('user.edit');
-Route::patch('userUpdate/{id}',[UserController::class,'update'])->name('user.update');
-Route::get('userDelete/{id}',[UserController::class,'destroy'])->name('user.delete');
-Route::post('searchLaundry',[UserController::class,'destroy'])->name('searchLaundry');
-
-Route::middleware('auth')->group(function(){
 Route::get('laundries',[subCategoryController::class,'index'])->name('laundries.index');
 Route::get('laundryCreate',[subCategoryController::class,'create'])->name('laundries.create');
 Route::post('laundryStore',[subCategoryController::class,'store'])->name('laundries.store');
@@ -67,8 +71,10 @@ Route::get('createAdminLaundries',[subCategoryController::class,'createAdmin'])-
 Route::post('storeLaundryAdmin',[subCategoryController::class,'storeLaundryAdmin'])->name('laundries.storeAdmin');
 Route::get('laundryView/{id}',[subCategoryController::class,'show'])->name('laundries.view');
 Route::get('laundryUpdateStats',[subCategoryController::class,'updateStats']);
-
-
+Route::get('branches/{id}',[subCategoryController::class,'branches'])->name('laundries.branches');
+Route::get('createBranch/{id}',[subCategoryController::class,'createBranch'])->name('laundries.branches.create');
+Route::post('storeBranch',[subCategoryController::class,'storeBranch'])->name('laundries.storeBranch');
+Route::get('mainLaundries',[subCategoryController::class,'mainLaundries'])->name('laundries.mainLaundries');
 
 
 Route::get('CategoryItemsIndex/{id}',[CategoryItemController::class,'index'])->name('CategoryItems.index');

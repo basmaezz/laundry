@@ -2,16 +2,17 @@
 
 namespace App\Models;
 use App\Enums\SubCategoryStatus;
+use App\Traits\SelfReferenceTrait;
 use Illuminate\Database\Eloquent\Model;
 use Maize\Markable\Markable;
 use Maize\Markable\Models\Favorite;
 
 class Subcategory extends Model
 {
-//    use Markable;
+
     protected  $table   = 'subcategories';
     protected  $guarded = [];
-    protected $fillable=['name_en','name_ar','address','city_id','price','status'];
+    protected $fillable=['name_en','name_ar','parent_id','address','city_id','price','status'];
     protected $casts = ['status' => SubCategoryStatus::class  ];
     protected static $marks = [
         Favorite::class,
@@ -43,5 +44,17 @@ class Subcategory extends Model
     public function rates(){
         return $this->hasMany(RateLaundry::class,'laundry_id','id');
     }
+
+    public function children(){
+        return $this->hasMany(Subcategory::class,'parent_id');
+    }
+
+    public function parent(){
+        return $this->belongsTo(Subcategory::class);
+    }
+    public function user(){
+        return $this->hasMany(User::class,'subCategory_id');
+    }
+
 
 }

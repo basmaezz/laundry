@@ -9,6 +9,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <i class="fa fa-align-justify"></i> {{$categoryItems[0]->category_type}}
+                                    <a href="{{route('product.create',$categoryItems[0]->id)}}" class="btn btn-primary" style="float: left">اضافه قطعه</a>
                                 </div>
                                 <div class="card-block">
                                     <table id="products" class="table table-bordered table-striped">
@@ -38,16 +39,7 @@
                                         @endforeach
                                         @endforeach
                                         </tbody>
-{{--                                        <tbody>--}}
-{{--                                        @foreach($categoryItems as $categoryItem)--}}
-{{--                                            <tr>--}}
-{{--                                                @foreach($categoryItem->products as $product)--}}
-{{--                                                    <td>{{$product->name_ar}} </td>--}}
 
-{{--                                            </tr>--}}
-{{--                                        @endforeach--}}
-{{--                                        @endforeach--}}
-{{--                                        </tbody>--}}
                                     </table>
 
                                 </div>

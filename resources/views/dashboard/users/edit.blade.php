@@ -17,7 +17,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="disabled-input">الصلاحيه </label>
                                             <div class="col-md-9">
-                                                @if($user->level_id!=null)
+                                                @if($user->subCategory_id==null)
                                                 <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="مدير الموقع" disabled>
                                                 @else
                                                 <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="أدمن مغسله " disabled>
@@ -46,7 +46,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                             <div class="col-md-9">
-                                                <input type="tel" id="phone" name="phone" value="{{$user->phone}}">
+                                                <input type="tel" id="phone" name="phone"class="form-control" value="{{$user->phone}}">
                                             </div>
                                         </div>
                                         @if($user->level_id!=null)
@@ -75,6 +75,7 @@
                                             </div>
                                         </div>
                                         @endif
+                                        @if($user->avtar !='')
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="file-input">صوره الملف الشخصى </label>
                                             <div class="col-md-9">
@@ -82,6 +83,7 @@
                                         <img src="{{asset('assets/uploads/user/Image/'.$user->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                             </div>
                                         </div>
+                                        @endif
                                         <div class="card-footer">
                                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
                                             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>

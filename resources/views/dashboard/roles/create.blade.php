@@ -20,12 +20,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group">
                             <label class="col-md-3 form-control-label">الصلاحيات </label>
-                            <div class="col-md-9">
+                            <div class="form-check">
                                 @foreach(config('abilities') as $ability =>$label)
-                                <label class="checkbox-inline" for="inline-checkbox1">
-                                    <input type="checkbox" id="inline-checkbox1" name="abilities[]" value="{{$ability}}"@if(in_array($ability,($role->abilities ??[]))) checked @endif>{{$label}}
+                                <label >
+                                    <input type="checkbox"  name="abilities[]" value="{{$ability}}"@if(in_array($ability,($role->abilities ??[]))) checked @endif>{{$label}}
+                                    <br>
                                 </label>
                                 @endforeach
                             </div>

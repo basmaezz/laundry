@@ -50,4 +50,9 @@ class Delegate extends Model
     public  function user(){
         return $this->belongsTo(User::class,'user_id');
     }
+
+    public function car(){
+        return $this->belongsTo(CarType::class,'car_type');
+    }
+
 }

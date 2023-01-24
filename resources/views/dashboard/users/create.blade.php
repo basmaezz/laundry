@@ -92,6 +92,7 @@
                                                 <label class="col-md-3 form-control-label" for="text-input"> المستوى التعليمى </label>
                                                 <div class="col-md-9">
                                                     <select name="level_id" id="level_id"  class="form-control" >
+                                                        <option>المستوى التعليمى</option>
                                                         @foreach($levels as $level)
                                                         <option value="{{$level->id}}">{{$level->name}}</option>
                                                         @endforeach

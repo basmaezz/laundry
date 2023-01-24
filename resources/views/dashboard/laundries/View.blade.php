@@ -1,39 +1,25 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        <!-- Breadcrumb -->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">Home</li>
-            <li class="breadcrumb-item"><a href="#">Admin</a>
-            </li>
-            <li class="breadcrumb-item active">Dashboard</li>
-            <!-- Breadcrumb Menu-->
-            <li class="breadcrumb-menu">
-                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                    <a class="btn btn-secondary" href="#"><i class="icon-speech"></i></a>
-                    <a class="btn btn-secondary" href="./"><i class="icon-graph"></i> &nbsp;Dashboard</a>
-                    <a class="btn btn-secondary" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>
-                </div>
-            </li>
-        </ol>
+
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
                     <form method="post" action="{{url('laundryStore')}}" enctype="multipart/form-data">
                         @csrf
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong>اضافه مغسله جديده</strong>
+                                    <strong> عرض تفاصيل المغسله </strong>
 
                                 </div>
                                 <div class="card-block">
-{{--                                    <div class="form-group">--}}
-{{--                                        <label for="company">التصنيف </label>--}}
-{{--                                        <select class="form-control" name="category_id" value="">--}}
-{{--                                            <option>{{$subCategory->category->name_ar}}</option>--}}
-{{--                                        </select>--}}
-{{--                                    </div>--}}
+                                    @if(isset($subCategory->parent->name_ar))
+                                        <div class="form-group">
+                                            <label for="company" n>الفرع الرئيسى </label>
+                                            <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$subCategory->parent->name_ar}}" disabled>
+                                        </div>
+                                    @endif
                                     <div class="form-group">
                                         <label for="company" n>اسم المغسله</label>
                                         <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$subCategory->name_ar}}"disabled>
@@ -46,13 +32,66 @@
                                         <label for="company">العنوان</label>
                                         <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->address}}"disabled>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="country">صوره الشعار</label>
+                                        <div class="form-group">
+                                        <label for="company">تاريخ اضافته</label>
+                                        <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->created_at->format('y-m-d')}}"disabled>
                                     </div>
+                                        <div class="form-group">
+                                        <label for="company">مواعيد الدوام</label>
+                                            @if(isset($subCategory->around_clock))
+                                        <input type="text" name="address"class="form-control" id="name_ar" value="'طوال اليوم"disabled>
+                                            @endif
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
+                        @foreach($subCategory->user as $admin )
+                        <div class="col-md-6">
+                            <div class="card">
+
+                                <div class="card-header">
+                                    <strong> عرض تفاصيل الأدمن </strong>
+                                </div>
+                                <div class="card-block">
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="disabled-input">الصلاحيه </label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="مدير المغسله" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="text-input" name="name" class="form-control" value="{{$admin->name}}"disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">الأسم الأخير</label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="text-input" name="last_name" class="form-control" value="{{$admin->last_name}}"disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="email-input">البريد الألكترونى </label>
+                                            <div class="col-md-9">
+                                                <input type="email" id="email-input" name="email" class="form-control" value="{{$admin->email}}"disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="phone" name="phone" class="form-control"value="{{$admin->phone}}"disabled>
+                                            </div>
+                                        </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
                         <div>
                         </div>
                     </form>

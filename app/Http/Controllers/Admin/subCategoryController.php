@@ -13,6 +13,7 @@ use Yajra\DataTables\DataTables;
 
 class subCategoryController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -21,29 +22,8 @@ class subCategoryController extends Controller
 
     public function index(Request $request)
     {
-        $subCategories = Subcategory::with('city')->get();
-//        if ($request->ajax()) {
-//            $data = Subcategory::all();
-//
-//            return Datatables::of($data)
-//                ->addColumn('city',function ($data){
-//                    return $data->city->name_ar;
-//                })->addColumn('checkbox', function ($subCategory)  {
-//                    return' <label class="switch switch-text switch-success">
-//                                    <input type="checkbox" class="switch-input" id="'.$subCategory->id.'" checked onclick="changeStatus(this.id)">
-//                                    <span class="switch-label" data-on="On" data-off="Off"></span>
-//                                    <span class="switch-handle"></span>
-//                                </label> ';
-//                })
-//                ->addColumn('action', function($subCategory){
-//                    return '<a href="'.route('CategoryItems.index',$subCategory->id).'" class="edit btn btn-primary btn-sm">الأقسام</a>
-//                            <a href="'.route('user.edit',$subCategory->id).'" class="edit btn btn-primary btn-sm">تعديل</a>
-//                    <a href="'.route('laundries.view',$subCategory->id).'" class="edit btn btn-primary btn-sm">التفاصيل</a>
-//                        <a href="'.route('laundries.destroy',$subCategory->id).'" class="edit btn btn-danger btn-sm">حذف</a>';
-//                })
-//                ->rawColumns(['action','checkbox'])
-//                ->make(true);
-//        }
+        $subCategories = Subcategory::with(['city','parent'])->get();
+//        dd($subCategories);
         return view('dashboard.laundries.index',compact('subCategories'));
     }
 
@@ -110,7 +90,8 @@ class subCategoryController extends Controller
      */
     public function show($id)
     {
-        $subCategory=Subcategory::find($id);
+        $subCategory=Subcategory::with('user')->find($id);
+
         return view('dashboard.laundries.view',compact('subCategory'));
     }
 
@@ -122,7 +103,7 @@ class subCategoryController extends Controller
      */
     public function edit($id)
     {
-        $subCategory= Subcategory::find($id);
+        $subCategory=Subcategory::with('parent')->find($id);
         return view('dashboard.laundries.edit',compact('subCategory'));
     }
 
@@ -156,29 +137,84 @@ class subCategoryController extends Controller
         Subcategory::find($id)->delete();
         return redirect()->back();
     }
-    public function createAdmin(){
+public function createAdmin(){
         $subCategories=Subcategory::all();
         return view('dashboard.laundries.createAdminLaundry',compact('subCategories'));
     }
 
-    public function storeLaundryAdmin(Request $request){
+public function storeLaundryAdmin(Request $request){
 
         return redirect()->route('laundries.admins');
     }
-    public function adminLaundries(){
+public function adminLaundries(){
         $users=User::select("*")->whereNotNull('subCategory_id')->get();
         return view('dashboard.laundries.admins',compact('users'));
     }
-
-   public function updateStats(Request $request){
+public function updateStats(Request $request){
       $subcategory= Subcategory::find($request->id);
       if($subcategory->status =='0'){
           $subcategory->status =1;
       }else{
           $subcategory->status =0;
       }
-//       $subcategory->status ='0'? 1 :0;
        $subcategory->save();
        return response()->json(['success'=>'Status change successfully.']);
+}
+
+public function branches($id)
+{
+    $branches= Subcategory::with('city')->where('parent_id',$id)->get();
+    return view('dashboard.laundries.branches',compact(['branches','id']));
+}
+
+public function createBranch($id)
+{
+    $Subcategory= Subcategory::find($id);
+    $cities=City::pluck('id','name_ar');
+    return view('dashboard.laundries.createBranch',compact(['Subcategory','cities']));
+}
+
+public function storeBranch(SubCategoriesRequest $request)
+{
+    $subcategory= new Subcategory();
+
+    if($request->file('image')){
+        $filename = request('image')->getClientOriginalName();
+        request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
+    }
+
+    if ((strpos($request->location, 'maps')) !== false) {
+        $str = $request->location;
+        $x1 = strstr($str, '=');
+        $x2 = str_replace('=', '', $x1);
+        $x3 = explode(',', $x2);
+        array_splice($x3, -1);
+        $x4 = implode(',', $x3);
+        $subcategory['lat'] = $x3[0];
+        $subcategory['lng'] = $x4;
+    }
+    Subcategory::create($request->validated()+[
+            'lat'=>$x3[0],
+            'lng'=> $x4,
+            'status'=>1,
+            'parent_id'=>$request->parent_id,
+            'address'=>$request->address,
+        ]);
+
+    User::create([
+        'name'=>$request->name,
+        'last_name'=>$request->last_name,
+        'email'=>$request->email,
+        'password'=>$request->password,
+        'phone'=>$request->phone,
+        'subCategory_id'=>$subcategory->subCategory_id
+    ]);
+    return  redirect()->route('laundries.index');
+}
+
+public function mainLaundries()
+{
+    $subCategories = Subcategory::whereNull('parent_id')->get();
+    return view('dashboard.laundries.mainLaundries',compact('subCategories'));
 }
 }
