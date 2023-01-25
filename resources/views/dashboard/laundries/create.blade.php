@@ -98,31 +98,46 @@
 
                                     <div class="form-group ">
                                         <label >الأسم الأول</label>
-                                            <input type="text" id="text-input" name="name" class="form-control" placeholder="Text">
-
+                                            <input type="text" id="text-input" name="name" class="form-control" placeholder="الاسم الأول">
+                                        @error('name')
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الأسم الأخير</label>
-                                            <input type="text" id="text-input" name="last_name" class="form-control" placeholder="Text">
+                                            <input type="text" id="text-input" name="last_name" class="form-control" placeholder=" الأسم الاخير ">
+                                        @error('last_name')
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group ">
                                         <label  for="email-input">البريد الألكترونى </label>
-                                            <input type="email" id="email-input" name="email" class="form-control" placeholder="Enter Email">
+                                            <input type="email" id="email-input" name="email" class="form-control" placeholder=" البريد الالكترونى">
+                                        @error('email')
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group ">
                                         <label  for="password-input">كلمه المرور</label>
-                                            <input type="password" id="password-input" name="password" class="form-control" placeholder="Password">                                    </div>
+                                            <input type="password" id="password-input" name="password" class="form-control" placeholder="Password">
+                                        @error('password')
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الجوال </label>
                                             <input type="text" id="phone" name="phone" class="form-control"required>
+                                        @error('phone')
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                             </div>
                             </div>
                         </div>
                         <div>
                         <div class="card-footer col-sm-12">
-                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                            <button type="reset" onclick="ResetForm()" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>حفظ</button>
+                            <button type="reset" onclick="ResetForm()" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> الغاء</button>
                         </div>
                         </div>
                     </form>

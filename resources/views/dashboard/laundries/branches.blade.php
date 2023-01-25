@@ -32,7 +32,7 @@
                                                 <a href="" class="edit btn btn-primary btn-sm">الأقسام</a>
                                                 <a href="" class="edit btn btn-primary btn-sm">تعديل</a>
                                                 <a href="" class="edit btn btn-primary btn-sm">التفاصيل</a>
-                                                <a href="" class="edit btn btn-danger btn-sm">حذف</a>
+                                                <a href="{{route('laundries.deleteBranch',$branch->id)}}" class="edit btn btn-danger btn-sm">حذف</a>
                                             </td>
                                         </tr>@endforeach
                                     </tbody>

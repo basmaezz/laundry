@@ -66,8 +66,9 @@ class subCategoryController extends Controller
         Subcategory::create($request->validated()+[
             'lat'=>$x3[0],
             'lng'=> $x4,
-             'status'=>1
-
+             'status'=>1,
+             'clock_at'=>$request->clock_at,
+             'clock_end'=>$request->clock_end,
         ]);
 
         User::create([
@@ -135,6 +136,7 @@ class subCategoryController extends Controller
     public function destroy($id)
     {
         Subcategory::find($id)->delete();
+        Subcategory::where('parent_id',$id)->delete();
         return redirect()->back();
     }
 public function createAdmin(){
@@ -176,12 +178,8 @@ public function createBranch($id)
 
 public function storeBranch(SubCategoriesRequest $request)
 {
-    $subcategory= new Subcategory();
 
-    if($request->file('image')){
-        $filename = request('image')->getClientOriginalName();
-        request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
-    }
+    $subcategory= new Subcategory();
 
     if ((strpos($request->location, 'maps')) !== false) {
         $str = $request->location;
@@ -216,5 +214,11 @@ public function mainLaundries()
 {
     $subCategories = Subcategory::whereNull('parent_id')->get();
     return view('dashboard.laundries.mainLaundries',compact('subCategories'));
+}
+public function deleteBranch($id)
+{
+    Subcategory::find($id)->delete();
+    return redirect()->back();
+
 }
 }

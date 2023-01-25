@@ -12,7 +12,7 @@ class Subcategory extends Model
 
     protected  $table   = 'subcategories';
     protected  $guarded = [];
-    protected $fillable=['name_en','name_ar','parent_id','address','city_id','price','status'];
+    protected $fillable=['name_en','name_ar','parent_id','address','city_id','price','status','around_clock','clock_at','clock_end','image'];
     protected $casts = ['status' => SubCategoryStatus::class  ];
     protected static $marks = [
         Favorite::class,

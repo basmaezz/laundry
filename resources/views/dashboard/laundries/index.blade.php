@@ -14,10 +14,10 @@
                                 <table id="laundries" class="table table-bordered table-striped">
                                     <thead >
                                     <tr >
-{{--                                        <th>الاسم/الفرع </th>--}}
                                         <th>اسم المغسله </th>
                                         <th>المدينه </th>
                                         <th>الحى</th>
+                                        <th>ساعات العمل</th>
 {{--                                        <th>Status </th>--}}
                                         <th>Actions </th>
                                     </tr>
@@ -26,12 +26,13 @@
                                     @foreach($subCategories as $subCategory)
                                     <tr>
                                         <td>{{$subCategory->name_ar}}</td>
-{{--                                        <td>{{optional($subCategory->parent())->name_ar}}</td>--}}
                                         <td>{{$subCategory->city->name_ar}}</td>
                                         <td>{{$subCategory->address}}</td>
-{{--                                        <td>--}}
-{{--                                            <input data-id="{{$subCategory->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $subCategory->status ? 'checked' : '' }}>   --}}
-{{--                                        </td>--}}
+                                        @if($subCategory->around_clock !=Null)
+                                        <td> طوال اليوم</td>
+                                        @else
+                                            <td>{{abs($hours=((int)$subCategory->clock_end)-((int)$subCategory->clock_at))}}  ساعة </td>
+                                        @endif
                                             <td>
                                                 @if($subCategory->parent_id=='')
                                                 <a href="{{route('laundries.branches',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الفروع</a>
@@ -55,19 +56,6 @@
 
         </div>
     </main>
-{{--        function changeStatus(id){--}}
-{{--            // var status_id = $(this).prop('checked') == true ? 1 : 0;--}}
-{{--            $.ajax({--}}
-{{--                type: "GET",--}}
-{{--                dataType: "json",--}}
-{{--                url: '/laundryUpdateStats',--}}
-{{--                data: { 'id': id},--}}
-{{--                success: function(data){--}}
-{{--                    console.log(data.success)--}}
-{{--                }--}}
-{{--            });--}}
-{{--        }--}}
-{{--    </script>--}}
 @endsection
 @push('scripts')
     <script>

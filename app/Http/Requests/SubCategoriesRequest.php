@@ -24,18 +24,24 @@ class SubCategoriesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name_ar' =>'required',
-            'name_en' =>'required',
+            'name_ar' =>'required|unique:subcategories',
+            'name_en' =>'required|unique:subcategories',
             'city_id' =>'required',
 //            'lat' =>'required',
 //            'lng' =>'required',
-//            'address'=>'required',
+            'address'=>'required',
             'price' =>'required',
-//            'around_clock' =>'string',
+            'around_clock' =>'required',
 //            'clock_at' =>'string',
 //            'clock_end' =>'string',
-//            'image'=>'required',
+            'image' => 'image|mimes:jpg,png,jpeg',
 
+        ];
+    }
+    public function messages(){
+        return[
+            'unique'=>'هذا الاسم موجود بالفعل ',
+            'required' =>'هذا الحقل مطلوب '
         ];
     }
 }

@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
-                    <form method="post" action="{{route('laundries.storeBranch')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('laundries.storeBranch')}}" >
                         @csrf
                         <div class="col-sm-6">
                             <div class="card">
@@ -24,14 +24,14 @@
                                         <label for="company" n>اسم الفرع</label>
                                         <input type="text" name="name_ar"class="form-control" id="name_ar" placeholder="اسم المغسله">
                                         @error('name_ar')
-                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="company">اسم الفرع بالانجليزيه</label>
                                         <input type="text" name="name_en"class="form-control" id="name_en" placeholder="اسم الفرع">
                                         @error('name_en')
-                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
@@ -43,7 +43,7 @@
                                                 <option value="{{$key}}" {{$Subcategory->city_id==$key ?'selected':''}}>{{$value}}</option>
                                             @endforeach
                                             @error('city_id')
-                                            <div class="text-sm text-red-600">{{ $message }}</div>
+                                            <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                             @enderror
                                         </select>
                                     </div>
@@ -55,34 +55,35 @@
                                         <label for="country">الموقع(Google Map) </label>
                                         <input type="text" name="location"class="form-control" id="location" placeholder="https://maps.google.com/?q=51.03841,-114.01679 " required>
                                         @error('location')
-                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="country">السعر  </label>
                                         <input type="text" name="price"class="form-control" id="image" value=" {{$Subcategory->price}}">
                                         @error('price')
-                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="form-group" >
                                         <div>
                                             <label for="country">فتره التشغيل  </label> <br>
-                                            <input type="radio"  name="around_clock" value="1" onchange="hideDurations()" >
+                                            <input type="radio"  name="around_clock" value="1" onchange="hideDurations()"{{$Subcategory->around_clock ==1 ? 'checked' :''}} >
                                             <label for="age1">طوال اليوم</label><br>
-                                            <input type="radio" name="around_clock" value="0"  id="specificDuration" onchange="showDurations()">
+                                            <input type="radio" name="around_clock" value="0"  id="specificDuration" onchange="showDurations()"{{$Subcategory->around_clock ==Null ? 'checked' :''}}>
                                             <label for="age2"> فتره محدده </label><br>
                                         </div>
                                     </div>
-                                    <div class="form-group" id="durations" style="display: none">
+                                    @if($Subcategory->around_clock ==Null)
+                                    <div class="form-group" id="durations" >
                                         <label for="country">بدايه الفتره </label>
-                                        <input type="time" name="clock_at" />
+                                        <input type="time" name="clock_at" value="{{$Subcategory->clock_at}}" />
 
                                         <label for="country">نهايه الفتره </label>
-                                        <input type="time" name="clock_end"  />
+                                        <input type="time" name="clock_end" value="{{$Subcategory->clock_end}}" />
                                     </div>
-
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -95,31 +96,31 @@
 
                                     <div class="form-group ">
                                         <label >الأسم الأول</label>
-                                        <input type="text" id="text-input" name="name" class="form-control" placeholder="Text">
+                                        <input type="text" id="text-input" name="name" class="form-control" placeholder="الأسم الأول">
 
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الأسم الأخير</label>
-                                        <input type="text" id="text-input" name="last_name" class="form-control" placeholder="Text">
+                                        <input type="text" id="text-input" name="last_name" class="form-control" placeholder="الأسم الأخير ">
                                     </div>
                                     <div class="form-group ">
                                         <label  for="email-input">البريد الألكترونى </label>
-                                        <input type="email" id="email-input" name="email" class="form-control" placeholder="Enter Email">
+                                        <input type="email" id="email-input" name="email" class="form-control" placeholder="البريد الالكترونى  ">
                                     </div>
                                     <div class="form-group ">
                                         <label  for="password-input">كلمه المرور</label>
-                                        <input type="password" id="password-input" name="password" class="form-control" placeholder="Password">                                    </div>
+                                        <input type="password" id="password-input" name="password" class="form-control" placeholder="كلمه المرور ">                                    </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الجوال </label>
-                                        <input type="text" id="phone" name="phone" class="form-control"required>
+                                        <input type="text" id="phone" name="phone" class="form-control"  placeholder="الجوال"required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div>
                             <div class="card-footer col-sm-12">
-                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                                <button type="reset" onclick="ResetForm()" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> حفظ</button>
+                                <button type="reset" onclick="ResetForm()" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> الغاء</button>
                             </div>
                         </div>
                     </form>
@@ -129,7 +130,8 @@
     </main>
 @endsection
 <script>
-    function ResetForm(){
+
+        function ResetForm(){
         document.getElementById('name_ar').value='';
         document.getElementById('name_en').value='';
         document.getElementById('address').value='';

@@ -75,6 +75,7 @@ Route::get('branches/{id}',[subCategoryController::class,'branches'])->name('lau
 Route::get('createBranch/{id}',[subCategoryController::class,'createBranch'])->name('laundries.branches.create');
 Route::post('storeBranch',[subCategoryController::class,'storeBranch'])->name('laundries.storeBranch');
 Route::get('mainLaundries',[subCategoryController::class,'mainLaundries'])->name('laundries.mainLaundries');
+Route::get('deleteBranch/{id}',[subCategoryController::class,'deleteBranch'])->name('laundries.deleteBranch');
 
 
 Route::get('CategoryItemsIndex/{id}',[CategoryItemController::class,'index'])->name('CategoryItems.index');

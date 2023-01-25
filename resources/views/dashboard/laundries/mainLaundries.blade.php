@@ -14,11 +14,10 @@
                                 <table id="laundries" class="table table-bordered table-striped">
                                     <thead >
                                     <tr >
-                                        {{--                                        <th>الاسم/الفرع </th>--}}
                                         <th>اسم المغسله </th>
                                         <th>المدينه </th>
                                         <th>الحى</th>
-                                        {{--                                        <th>Status </th>--}}
+                                        <th>ساعات العمل</th>
                                         <th>Actions </th>
                                     </tr>
                                     </thead>
@@ -26,12 +25,13 @@
                                     @foreach($subCategories as $subCategory)
                                         <tr>
                                             <td>{{$subCategory->name_ar}}</td>
-                                            {{--                                        <td>{{optional($subCategory->parent())->name_ar}}</td>--}}
                                             <td>{{$subCategory->city->name_ar}}</td>
                                             <td>{{$subCategory->address}}</td>
-                                            {{--                                        <td>--}}
-                                            {{--                                            <input data-id="{{$subCategory->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $subCategory->status ? 'checked' : '' }}>   --}}
-                                            {{--                                        </td>--}}
+                                            @if($subCategory->around_clock !=Null)
+                                                <td> طوال اليوم</td>
+                                            @else
+                                                <td>{{abs($hours=((int)$subCategory->clock_end)-((int)$subCategory->clock_at))}}  ساعة </td>
+                                            @endif
                                             <td>
                                                 <a href="{{route('laundries.branches',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الفروع</a>
                                                 <a href="{{route('CategoryItems.index',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الأقسام</a>
