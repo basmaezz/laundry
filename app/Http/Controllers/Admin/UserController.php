@@ -155,7 +155,9 @@ class UserController extends Controller
     }
     public function delegates(Request $request)
     {
+
         $delegates=Delegate::with('user')->get();
+        dd($delegate);
         return view('dashboard.users.delegates',compact('delegates'));
     }
     public function CreateDelegate()

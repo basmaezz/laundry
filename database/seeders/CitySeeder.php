@@ -20,7 +20,48 @@ class CitySeeder extends Seeder
                'id' => '4',
                'name_ar' => 'تبوك',
                'name_en' => 'Tabuk',
-           ],
+           ],          [
+            'id' => '5',
+            'name_ar' => "الرياض",
+            'name_en' => "Riyadh",
+
+        ],
+        [
+            'id' => '6',
+            'name_ar' => "حميط",
+            'name_en' => "Humayt",
+        ],          [
+            'id' => '7',
+            'name_ar' => "الطائف",
+            'name_en' => "At Taif",
+
+        ],          [
+            'id' => '8',
+            'name_ar' => "مكة المكرمة",
+            'name_en' => "Makkah",
+
+        ],
+        [
+            'id' => 9,
+            'name_ar' => "حائل",
+            'name_en' => "Hail",
+        ],
+        [
+            'id' => 10,
+            'name_ar' => "بريدة",
+            'name_en' => "Buraidah",
+        ],
+        [
+            'id' => 11,
+            'name_ar' => "الهفوف",
+            'name_en' => "Al Hafuf",
+        ],
+        [
+            'id' => 12,
+            'name_ar' => "الدمام",
+            'name_en' => "Dammam",
+        ],
+
         ];
        City::insert($cities);
 }
@@ -31,29 +72,9 @@ class CitySeeder extends Seeder
 //    'name_en' => "Na'mi",
 //
 //],
-//           [
-//               'id' => '3',
-//               'name_ar' => "الرياض",
-//               'name_en' => "Riyadh",
-//
-//           ],
-//           [
-//               'id' => '4',
-//               'name_ar' => "حميط",
-//               'name_en' => "Humayt",
-//           ],
-//           [
-//               'id' => '5',
-//               'name_ar' => "الطائف",
-//               'name_en' => "At Taif",
-//
-//           ],
-//           [
-//               'id' => '6',
-//               'name_ar' => "مكة المكرمة",
-//               'name_en' => "Makkah",
-//
-//           ],
+
+
+
 //           [
 //               'id' => '7',
 //               'name_ar' => "رجم الطيارة",
@@ -70,26 +91,7 @@ class CitySeeder extends Seeder
 //               'name_ar' => "عسيلة",
 //               'name_en' => "'Usaylah",
 //           ],
-//           [
-//               'id' => 10,
-//               'name_ar' => "حائل",
-//               'name_en' => "Hail",
-//           ],
-//           [
-//               'id' => 11,
-//               'name_ar' => "بريدة",
-//               'name_en' => "Buraidah",
-//           ],
-//           [
-//               'id' => 12,
-//               'name_ar' => "الهفوف",
-//               'name_en' => "Al Hafuf",
-//           ],
-//           [
-//               'id' => 13,
-//               'name_ar' => "الدمام",
-//               'name_en' => "Dammam",
-//           ],
+
 //           [
 //               'id' => 14,
 //               'name_ar' => "المدينة المنورة",
