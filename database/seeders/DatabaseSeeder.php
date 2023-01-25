@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             carTypesSeeder::class,
-//            EducationsLevelSeeder::class,
-//            CitySeeder::class,
+            EducationsLevelSeeder::class,
+            CitySeeder::class,
         ]);
     }
 }
