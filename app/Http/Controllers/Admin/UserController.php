@@ -142,10 +142,6 @@ class UserController extends Controller
     }
 
     public function customers(Request $request){
-//        Order::truncate();
-//        OrderAdditional::truncate();
-//        ProviderExtra::truncate();
-//        AppUser::truncate();
 
         $customers=AppUser::with('cities')->get();
         return view('dashboard.users.customers',compact('customers'));
@@ -264,8 +260,5 @@ class UserController extends Controller
 
         $user->save();
         return redirect()->route('users.index');
-
     }
-
-
 }
