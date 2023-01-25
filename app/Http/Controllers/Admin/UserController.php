@@ -9,6 +9,7 @@ use App\Models\CarType;
 use App\Models\City;
 use App\Models\Delegate;
 use App\Models\educationLevel;
+use App\Models\Order;
 use App\Models\OrderAdditional;
 use App\Models\OrderTable;
 use App\Models\ProviderExtra;
@@ -142,6 +143,7 @@ class UserController extends Controller
 
     public function customers(Request $request){
         ProviderExtra::truncate();
+        Order::truncate();
         OrderAdditional::truncate();
         AppUser::truncate();
 
