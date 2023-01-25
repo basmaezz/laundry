@@ -75,7 +75,7 @@
                 مقدمين الخدمه
             </li>
 
-            @can('users.index')
+            {{-- @can('users.index') --}}
 {{--                    @if(Auth::user()->can('users.index'))--}}
 {{--                @if(Gate::allows('users.index'))--}}
                <li class="nav-item">
@@ -84,7 +84,7 @@
                 <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>
                 <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
                </li>
-            @endcan
+            {{-- @endcan --}}
             <li class="nav-item">
                 <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-docs"></i>   المناديب</a>
             </li>
