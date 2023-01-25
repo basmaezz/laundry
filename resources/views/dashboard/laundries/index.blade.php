@@ -26,7 +26,7 @@
                                     @foreach($subCategories as $subCategory)
                                     <tr>
                                         <td>{{$subCategory->name_ar}}</td>
-                                        {{-- <td>{{$subCategory->city->name_ar}}</td> --}}
+                                        <td>{{$subCategory->city->name_ar}}</td>
                                         <td>{{$subCategory->address}}</td>
                                         @if($subCategory->around_clock !=Null)
                                         <td> طوال اليوم</td>
