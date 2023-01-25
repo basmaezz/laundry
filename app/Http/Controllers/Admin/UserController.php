@@ -157,7 +157,7 @@ class UserController extends Controller
     {
 
         $delegates=Delegate::with('user')->get();
-        dd($delegate);
+        dd($delegates);
         return view('dashboard.users.delegates',compact('delegates'));
     }
     public function CreateDelegate()
