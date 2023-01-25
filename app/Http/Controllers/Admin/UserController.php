@@ -10,6 +10,7 @@ use App\Models\City;
 use App\Models\Delegate;
 use App\Models\educationLevel;
 use App\Models\OrderTable;
+use App\Models\ProviderExtra;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
