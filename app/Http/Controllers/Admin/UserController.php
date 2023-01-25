@@ -142,9 +142,9 @@ class UserController extends Controller
     }
 
     public function customers(Request $request){
-        ProviderExtra::truncate();
         Order::truncate();
         OrderAdditional::truncate();
+        ProviderExtra::truncate();
         AppUser::truncate();
 
         $customers=AppUser::with('cities')->get();
