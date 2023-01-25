@@ -141,6 +141,7 @@ class UserController extends Controller
     public function customers(Request $request){
 
         $customers=AppUser::with('cities')->get();
+        dd($customers);
         return view('dashboard.users.customers',compact('customers'));
 
     }
