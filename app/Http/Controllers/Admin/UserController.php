@@ -142,10 +142,10 @@ class UserController extends Controller
     }
 
     public function customers(Request $request){
-        Order::truncate();
-        OrderAdditional::truncate();
-        ProviderExtra::truncate();
-        AppUser::truncate();
+//        Order::truncate();
+//        OrderAdditional::truncate();
+//        ProviderExtra::truncate();
+//        AppUser::truncate();
 
         $customers=AppUser::with('cities')->get();
         dd($customers);
