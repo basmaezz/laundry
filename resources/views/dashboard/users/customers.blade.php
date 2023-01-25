@@ -29,7 +29,7 @@
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}} </td>
                                             <td>{{$user->email}} </td>
-                                            <td>{{$user->cities->name_ar}} </td>
+                                            {{-- <td>{{$user->cities->name_ar}} </td> --}}
                                             <td> {{$user->region_name}}</td>
                                             <td>{{$user->gender}}</td>
                                             <td>
