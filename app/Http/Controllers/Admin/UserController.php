@@ -140,6 +140,7 @@ class UserController extends Controller
 
     public function customers(Request $request){
 
+        AppUser::truncat();
         $customers=AppUser::with('cities')->get();
         dd($customers);
         return view('dashboard.users.customers',compact('customers'));
