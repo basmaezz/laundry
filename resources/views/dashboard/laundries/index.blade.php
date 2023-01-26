@@ -13,13 +13,12 @@
                             <div class="card-block">
                                 <table id="laundries" class="table table-bordered table-striped">
                                     <thead >
-                                    <tr >
-                                        <th>اسم المغسله </th>
-                                        <th>المدينه </th>
-                                        <th>الحى</th>
-                                        <th>ساعات العمل</th>
-                                       <th>Status </th>
-                                        <th>Actions </th>
+                                        <tr >
+                                            <th>اسم المغسله </th>
+                                            <th>المدينه </th>
+                                            <th>الحى</th>
+                                            <th>ساعات العمل</th>
+                                            <th>Actions </th>
                                     </tr>
                                     </thead>
                                     <tbody>
