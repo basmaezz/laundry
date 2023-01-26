@@ -39,7 +39,7 @@ class UserController extends Controller
             $query->where('role','admin');
         }))
             ->get();
-        dd($users);
+
         return view('dashboard.users.index',compact('users'));
     }
 
