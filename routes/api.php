@@ -1,6 +1,16 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\BankController;
+use App\Http\Controllers\API\CarTypeController;
+use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\DelegatesController;
+use App\Http\Controllers\API\FaqController;
+use App\Http\Controllers\API\OrderController;
+use App\Http\Controllers\API\SettingController;
+use App\Http\Controllers\API\UsersController;
 use Illuminate\Support\Facades\Route;
+
 
 // Route::get('/load-users', 'Admin\UsersController@loadUsers')->name('api.load-users');
 
@@ -9,54 +19,53 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['language'], 'namespace' => 'API'], function () {
 
     //  Register And Login
-    Route::post('register', 'AuthController@signUp');
-    Route::post('checkEmail', 'AuthController@checkEmail');
-    Route::post('checkMobile', 'AuthController@checkMobile');
-    Route::post('login', 'AuthController@signIn');
-    Route::get('cities', 'SettingController@cities');
-    Route::get('regions/{id}', 'SettingController@regions');
-    Route::post('sign-up-delegate', 'AuthController@sign_up_delegate');
-    Route::any('forget-password', 'AuthController@forget_password');
+    Route::post('register', [AuthController::class,'signUp']);
+    Route::post('checkEmail', [AuthController::class,'checkEmail']);
+    Route::post('checkMobile', [AuthController::class,'checkMobile']);
+    Route::post('login', [AuthController::class,'signIn']);
+    Route::get('cities', [SettingController::class,'cities']);
+    Route::get('regions/{id}', [SettingController::class,'regions']);
+    Route::post('sign-up-delegate', [AuthController::class,'sign_up_delegate']);
+    Route::any('forget-password', [AuthController::class,'forget_password']);
 
     //  Home app
-    Route::get('getCategories/{id}', 'CategoryController@getShowSubCategories');
-    Route::get('getCategories', 'CategoryController@getCategories');
-    Route::get('search/{name}', 'CategoryController@search');
-//    Route::any('getFavoriteSubCategories', 'UsersController@getFavoriteSubCategories');
-    Route::get('getSubCategoriesProduct/{id}', 'CategoryController@getSubCategoriesProducts');
-    Route::get('delete/reasons','UsersController@delete_reason');
-    Route::get('getFaqs','FaqController@getFaqs');
+    Route::get('getCategories/{id}', [CategoryController::class,'getShowSubCategories']);
+    Route::get('getCategories', [CategoryController::class,'getCategories']);
+    Route::get('search/{name}', [CategoryController::class,'search']);
+    Route::get('getSubCategoriesProduct/{id}', [CategoryController::class,'getSubCategoriesProducts']);
+    Route::get('delete/reasons',[UsersController::class,'delete_reason']);
+    Route::get('getFaqs',[FaqController::class,'getFaqs']);
 
-    Route::get('bank','BankController@index');
-    Route::get('car_type','CarTypeController@index');
+    Route::get('bank',[BankController::class,'index']);
+    Route::get('car_type',[CarTypeController::class,'index']);
 
 
 });
 
 Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], function () {
-    Route::post('addToFavorite/{id}', 'UsersController@addToFavorite');
-    Route::post('removeFromFavorite/{id}', 'UsersController@removeFromFavorite');
-    Route::get('getMyFavorites', 'UsersController@getMyFavorites');
-    Route::post('addToSearch/{id}', 'UsersController@addTosearch');
-    Route::get('getHistory', 'UsersController@getHistory');
-    Route::get('clearSearchHistory', 'UsersController@clearSearchHistory');
-    Route::get('clearSearchHistoryById/{id}', 'UsersController@clearSearchHistorybyId');
+    Route::post('addToFavorite/{id}', [UsersController::class,'addToFavorite']);
+    Route::post('removeFromFavorite/{id}', [UsersController::class,'removeFromFavorite']);
+    Route::get('getMyFavorites', [UsersController::class,'getMyFavorites']);
+    Route::post('addToSearch/{id}', [UsersController::class,'addTosearch']);
+    Route::get('getHistory', [UsersController::class,'getHistory']);
+    Route::get('clearSearchHistory', [UsersController::class,'clearSearchHistory']);
+    Route::get('clearSearchHistoryById/{id}', [UsersController::class,'clearSearchHistorybyId']);
     //Start In Order
-    Route::post('addOrder', 'OrderController@addOrderTable');
-    Route::get('Orders', 'OrderController@OrdersTable');
-    Route::post('OrdersAfterCoupon', 'UsersController@OrdersAfterCoupon');
-    Route::any('checkCoupon', 'OrderController@checkCoupon');
-    Route::post('ordersFees', 'OrderController@ordersFees');
-    Route::post('UpdateStatus', 'OrderController@UpdateStatus');
-    Route::post('UpdateDeliveryType', 'OrderController@updateDeliveryType');
-    Route::get('getOrder/{order}', 'OrderController@getOrder');
-    Route::get('getActiveOrder', 'OrderController@getActiveOrder');
+    Route::post('addOrder', [OrderController::class,'addOrderTable']);
+    Route::get('Orders', [OrderController::class,'OrdersTable']);
+    Route::post('OrdersAfterCoupon', [UsersController::class,'OrdersAfterCoupon']);
+    Route::any('checkCoupon', [OrderController::class,'checkCoupon']);
+    Route::post('ordersFees', [OrderController::class,'ordersFees']);
+    Route::post('UpdateStatus', [OrderController::class,'UpdateStatus']);
+    Route::post('UpdateDeliveryType', [OrderController::class,'updateDeliveryType']);
+    Route::get('getOrder/{order}', [OrderController::class,'getOrder']);
+    Route::get('getActiveOrder', [OrderController::class,'getActiveOrder']);
 
-    Route::get('getNotification','UsersController@getNotification');
-    Route::get('makeNotificationRead','UsersController@makeNotificationRead');
-    Route::post('account/delete','UsersController@deleteAccount');
-    Route::post('laundry/rate','CategoryController@rate');
-    //Route::get('delete/reasons','UsersController@delete_reason');
+    Route::get('getNotification',[UsersController::class,'getNotification']);
+    Route::get('makeNotificationRead',[UsersController::class,'makeNotificationRead']);
+    Route::post('account/delete',[UsersController::class,'deleteAccount']);
+    Route::post('laundry/rate',[CategoryController::class,'rate']);
+    //Route::get('delete/reasons',[UsersController::class,'delete_reason']);
 
 });
 
@@ -64,84 +73,78 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
 //**    HomeApp    **//
 Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], function () {
 
-    Route::any('edit-profile-provider', 'AuthController@edit_profile_provider');
-    Route::any('switch-notification', 'AuthController@switch_notification');
-    Route::any('delete-notification', 'UsersController@delete_notification');
-    Route::any('count-notification', 'UsersController@count_notification');
-    Route::any('update-password', 'AuthController@update_password');
-    Route::any('reset-password', 'AuthController@reset_password');
-    Route::any('edit-password', 'AuthController@edit_password');
-    Route::any('notifications', 'UsersController@notifications');
-    Route::any('editProfile', 'AuthController@editProfile');
-    Route::post('editProfile-delegate', 'AuthController@editProfileDelegate');
-    Route::post('delegate-status', 'AuthController@delegateStatus');
-    Route::any('editAvatar', 'AuthController@editAvatar');
-    Route::any('resend-code', 'AuthController@resend_code');
-    Route::any('check-code', 'AuthController@check_code');
-    Route::get('profile', 'AuthController@profile');
-    Route::any('log-out', 'AuthController@log_out');
+    Route::any('edit-profile-provider', [AuthController::class,'edit_profile_provider']);
+    Route::any('switch-notification', [AuthController::class,'switch_notification']);
+    Route::any('delete-notification', [UsersController::class,'delete_notification']);
+    Route::any('count-notification', [UsersController::class,'count_notification']);
+    Route::any('update-password', [AuthController::class,'update_password']);
+    Route::any('reset-password', [AuthController::class,'reset_password']);
+    Route::any('edit-password', [AuthController::class,'edit_password']);
+    Route::any('notifications', [UsersController::class,'notifications']);
+    Route::any('editProfile', [AuthController::class,'editProfile']);
+    Route::post('editProfile-delegate', [AuthController::class,'editProfileDelegate']);
+    Route::post('delegate-status', [AuthController::class,'delegateStatus']);
+    Route::any('editAvatar', [AuthController::class,'editAvatar']);
+    Route::any('resend-code', [AuthController::class,'resend_code']);
+    Route::any('check-code', [AuthController::class,'check_code']);
+    Route::get('profile', [AuthController::class,'profile']);
+    Route::any('log-out', [AuthController::class,'log_out']);
 
     //******************************  User App *************************************//
 
-    Route::any('category-additionals', 'UsersController@category_additionals');
-    Route::any('user-details-order', 'UsersController@user_details_order');
-    Route::any('request-delivery', 'UsersController@request_delivery');
-    Route::any('package-payment', 'UsersController@package_payment');
-    Route::any('bank-transfers', 'UsersController@bank_transfers');
-    Route::any('user-addresses', 'UsersController@user_addresses');
-    Route::any('delete-address', 'UsersController@delete_address');
-    Route::any('discount-code', 'UsersController@discount_code');
-    Route::any('order-details', 'UsersController@order_details');
-    Route::any('payment-order', 'UsersController@payment_order');
-    Route::any('payment-delivery', 'UsersController@payment_delivery');
-    Route::any('my-favorites', 'UsersController@my_favorites');
-    Route::any('delete-order', 'UsersController@delete_order');
-    Route::any('add-address', 'UsersController@add_address');
-    Route::any('user-orders', 'UsersController@user_orders');
-    Route::any('add-order', 'UsersController@add_order');
-    Route::any('favorite', 'UsersController@favorite');
-    Route::any('my-dates', 'UsersController@my_dates');
-    Route::any('add-rate', 'UsersController@add_rate');
-    Route::any('add-date', 'UsersController@add_date');
-    Route::any('costs', 'UsersController@costs');
+    Route::any('category-additionals', [UsersController::class,'category_additionals']);
+    Route::any('user-details-order', [UsersController::class,'user_details_order']);
+    Route::any('request-delivery', [UsersController::class,'request_delivery']);
+    Route::any('package-payment', [UsersController::class,'package_payment']);
+    Route::any('bank-transfers', [UsersController::class,'bank_transfers']);
+    Route::any('user-addresses', [UsersController::class,'user_addresses']);
+    Route::any('delete-address', [UsersController::class,'delete_address']);
+    Route::any('discount-code', [UsersController::class,'discount_code']);
+    Route::any('order-details', [UsersController::class,'order_details']);
+    Route::any('payment-order', [UsersController::class,'payment_order']);
+    Route::any('payment-delivery', [UsersController::class,'payment_delivery']);
+    Route::any('my-favorites', [UsersController::class,'my_favorites']);
+    Route::any('delete-order', [UsersController::class,'delete_order']);
+    Route::any('add-address', [UsersController::class,'add_address']);
+    Route::any('user-orders', [UsersController::class,'user_orders']);
+    Route::any('add-order', [UsersController::class,'add_order']);
+    Route::any('favorite', [UsersController::class,'favorite']);
+    Route::any('my-dates', [UsersController::class,'my_dates']);
+    Route::any('add-rate', [UsersController::class,'add_rate']);
+    Route::any('add-date', [UsersController::class,'add_date']);
+    Route::any('costs', [UsersController::class,'costs']);
 
     //***************************  User App *************************************//
 
     //************************** Delegate App ***********************************//
 
-    Route::get('delegate-orders', 'DelegatesController@delegate_orders');
-    Route::get('delegate-order-details/{order_id}', 'DelegatesController@delegate_order_details');
-    Route::any('delegate-order-status', 'DelegatesController@delegate_order_status');
-    Route::any('edit-product-service', 'DelegatesController@edit_product_service');
+    Route::get('delegate-orders', [DelegatesController::class,'delegate_orders']);
+    Route::get('delegate-order-details/{order_id}', [DelegatesController::class,'delegate_order_details']);
+    Route::any('delegate-order-status', [DelegatesController::class,'delegate_order_status']);
+    Route::any('edit-product-service', [DelegatesController::class,'edit_product_service']);
 
 
-    Route::post('delegate-order-accept/{order_id}', 'DelegatesController@accept_order');
-    Route::post('delegate-order-reject/{order_id}', 'DelegatesController@reject_order');
-    Route::get('delegate_rejection_reason', 'DelegatesController@rejection_reason');
-    Route::get('delegate_history', 'DelegatesController@order_history');
-    Route::get('delegate_has_order', 'DelegatesController@delegate_has_order');
-
-    //************************** Delegate App ************************************//
-
+    Route::post('delegate-order-accept/{order_id}', [DelegatesController::class,'accept_order']);
+    Route::post('delegate-order-reject/{order_id}', [DelegatesController::class,'reject_order']);
+    Route::get('delegate_rejection_reason', [DelegatesController::class,'rejection_reason']);
+    Route::get('delegate_history', [DelegatesController::class,'order_history']);
+    Route::get('delegate_has_order', [DelegatesController::class,'delegate_has_order']);
 });
-
-
-//**    information menu dashboard  **//
 Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], function () {
 
-    Route::any('main-user', 'UsersController@main_user');
-    Route::any('category-products', 'UsersController@category_products');
-    Route::any('product-details', 'UsersController@product_details');
-    Route::any('add-to-cart', 'UsersController@add_to_cart');
-    Route::any('product-services', 'UsersController@product_services');
-    Route::any('delete-service-cart', 'UsersController@delete_service_cart');
-    Route::any('packages', 'UsersController@packages');
-    Route::any('category-providers', 'UsersController@category_providers');
+    Route::any('main-user', [UsersController::class,'main_user']);
+    Route::any('category-products', [UsersController::class,'category_products']);
+    Route::any('product-details', [UsersController::class,'product_details']);
+    Route::any('add-to-cart', [UsersController::class,'add_to_cart']);
+    Route::any('product-services', [UsersController::class,'product_services']);
+    Route::any('delete-service-cart', [UsersController::class,'delete_service_cart']);
+    Route::any('packages', [UsersController::class,'packages']);
+    Route::any('category-providers', [UsersController::class,'category_providers']);
 
-    Route::any('register-delegate', 'SettingController@register_delegate');
-    Route::any('terms', 'SettingController@terms');
-    Route::any('about', 'SettingController@about');
-    Route::any('contact-us', 'SettingController@contact_us');
-    Route::any('complaints', 'SettingController@complaints');
-    Route::any('calendar', 'SettingController@calendar');
+    Route::any('register-delegate', [SettingController::class,'register_delegate']);
+    Route::any('terms', [SettingController::class,'terms']);
+    Route::any('about', [SettingController::class,'about']);
+    Route::any('contact-us', [SettingController::class,'contact_us']);
+    Route::any('complaints', [SettingController::class,'complaints']);
+    Route::any('calendar', [SettingController::class,'calendar']);
 });

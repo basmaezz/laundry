@@ -22,6 +22,7 @@ class CategoryController extends Controller
 {
     public function getShowSubCategories($id)
     {
+
         $subCategories = Subcategory::where('category_id', $id)->get();
         $name = 'name_' . App::getLocale();
         $data = [];
