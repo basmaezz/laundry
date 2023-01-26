@@ -22,7 +22,6 @@ class subCategoryController extends Controller
 
     public function index(Request $request)
     {
-        Subcategory::truncate();
         $subCategories = Subcategory::with(['city','parent'])->get();
         return view('dashboard.laundries.index',compact('subCategories'));
     }
