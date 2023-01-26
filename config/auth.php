@@ -82,10 +82,6 @@ return [
             'model' => \App\Models\AppUser::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
