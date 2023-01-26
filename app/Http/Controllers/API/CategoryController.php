@@ -67,8 +67,6 @@ class CategoryController extends Controller
             'user_id' => $user->id,
             'id' => $request->get('order_id'),
         ]);
-        //dd($is_owner,$request->all(),$user->id);
-
         if($order->count() == 0){
             return response()->json(['The order not related to you'], 422);
         }
@@ -94,7 +92,6 @@ class CategoryController extends Controller
             'rate' => $request->get('rate'),
             'review' => $request->get('review'),
         ]);
-
         return apiResponse("api.success", $data);
     }
 

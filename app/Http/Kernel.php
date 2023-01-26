@@ -39,9 +39,8 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            'throttle:api',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'throttle:60,1',
+            'bindings',
         ],
     ];
 
@@ -53,15 +52,21 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth'       => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
-        'signed' => \App\Http\Middleware\ValidateSignature::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'bindings'   => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'can'        => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'Manager'    => \App\Http\Middleware\Manager::class,
+        'checkRole'  => \App\Http\Middleware\checkRole::class,
+        'smtpAndFcmConfig' => \App\Http\Middleware\smtpAndFcmConfig::class,
+        'Domain'     => \App\Http\Middleware\Domain::class,
+        'UserAuth'   => \App\Http\Middleware\UserAuth::class,
+        'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'mobile'     => \App\Http\Middleware\MobileUserMiddleware::class,
+        'token'      => \App\Http\Middleware\Token::class,
+        'lang'       =>  \App\Http\Middleware\Language::class,
+        'jwt' 		 => \App\Http\Middleware\JwtMiddleware::class,
+        'language'   =>  \App\Http\Middleware\LanguageApi::class,
     ];
 }
