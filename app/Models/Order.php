@@ -12,17 +12,17 @@ class Order extends Model
 
     public function delegate()
     {
-       return $this->belongsTo('App\User','delegate_id');
+       return $this->belongsTo(User::class,'delegate_id');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function provider()
     {
-        return $this->belongsTo('App\User','provider_id');
+        return $this->belongsTo(User::class,'provider_id');
     }
 
     public function category()

@@ -15,6 +15,15 @@
 
                                 </div>
                                 <div class="card-block">
+                                    <div class="form-group">
+                                        <label for="company">التصنيف </label>
+                                        <select class="form-control" name="category_id">
+                                            @foreach($categories as $category)
+                                                <option value="{{$category->id}}" >{{$category->name_ar}}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
                                      <div class="form-group">
                                         <label for="company" n>اسم المغسله</label>
                                         <input type="text" name="name_ar"class="form-control" id="name_ar" placeholder="اسم المغسله">

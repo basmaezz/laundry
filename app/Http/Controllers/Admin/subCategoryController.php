@@ -34,7 +34,8 @@ class subCategoryController extends Controller
     public function create()
     {
         $cities=City::pluck('id','name_ar');
-        return view('dashboard.laundries.create',compact('cities'));
+        $categories=Category::where('id',1)->get();
+        return view('dashboard.laundries.create',compact(['cities','categories']));
     }
 
     /**
@@ -45,6 +46,7 @@ class subCategoryController extends Controller
      */
     public function store(SubCategoriesRequest $request)
     {
+
         $subcategory= new Subcategory();
 
         if($request->file('image')){

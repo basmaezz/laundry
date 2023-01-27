@@ -16,7 +16,7 @@ use App\Models\Comment;
 use App\Models\Cart;
 use App\Models\Order;
 use \Illuminate\Support\Facades\Validator;
-use App\User;
+use App\Models\User;
 use DB;
 use \Illuminate\Support\Facades\App;
 

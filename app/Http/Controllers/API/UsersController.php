@@ -30,7 +30,7 @@ use App\Models\SearchHistory;
 use App\Models\Subcategory;
 use App\Models\UserAddress;
 use App\Models\UserDate;
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;

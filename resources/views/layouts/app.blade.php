@@ -99,6 +99,9 @@
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> المغاسل</a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
+                        <a class="nav-link" href="{{route('Categories.index')}}"><i class="icon-people"></i>  التصنيفات  </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{route('laundries.index')}}"><i class="icon-people"></i>  كل المغاسل </a>
                     </li>
             <li class="nav-item">

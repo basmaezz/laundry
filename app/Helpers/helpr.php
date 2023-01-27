@@ -32,7 +32,7 @@ use App\Models\Page;
 use App\Models\Role;
 use App\Models\Html;
 use Carbon\Carbon;
-use App\User;
+use App\Models\User;
 //use File;
 
 function Home()

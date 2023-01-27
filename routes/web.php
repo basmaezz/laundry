@@ -4,6 +4,7 @@ use App\Http\Controllers\Customer\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\subCategoryController;
 use App\Http\Controllers\Admin\CategoryItemController;
 use App\Http\Controllers\Admin\ProductController;
@@ -78,6 +79,7 @@ Route::get('mainLaundries',[subCategoryController::class,'mainLaundries'])->name
 Route::get('deleteBranch/{id}',[subCategoryController::class,'deleteBranch'])->name('laundries.deleteBranch');
 
 
+Route::get('CategoryItemsIndex',[CategoriesController::class,'index'])->name('Categories.index');
 Route::get('CategoryItemsIndex/{id}',[CategoryItemController::class,'index'])->name('CategoryItems.index');
 Route::get('CategoryItems/{id}',[CategoryItemController::class,'create'])->name('CategoryItems.create');
 Route::get('CategoryItemsEdit/{id}',[CategoryItemController::class,'edit'])->name('CategoryItems.edit');

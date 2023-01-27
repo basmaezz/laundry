@@ -10,7 +10,7 @@ class Report extends Model
 
 	public function User()
 	{
-		return $this->belongsTo('App\User','user_id','id');
+		return $this->belongsTo(User::class,'user_id','id');
 	}
 
 

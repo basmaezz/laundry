@@ -14,7 +14,7 @@ use App\Models\Order;
 use App\Models\Cart;
 use App\Models\Rate;
 use Carbon\Carbon;
-use App\User;
+use App\Models\User;
 
 
 /**  public function user Info  . */

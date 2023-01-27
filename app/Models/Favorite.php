@@ -12,9 +12,9 @@ class Favorite extends Model
     /**  public function provider . */
     public function provider()
     {
-        return $this->belongsTo('App\User','provider_id');
+        return $this->belongsTo(User::class,'provider_id');
     }
-    
+
     /**  public function category . */
     public function category()
     {

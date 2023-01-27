@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'lang'       =>  \App\Http\Middleware\Language::class,
         'jwt' 		 => \App\Http\Middleware\JwtMiddleware::class,
         'language'   =>  \App\Http\Middleware\LanguageApi::class,
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 }
