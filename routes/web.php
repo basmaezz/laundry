@@ -158,7 +158,6 @@ Route::get('deleteService/{id}',[ProductsController::class,'deleteService'])->na
 
 Route::get('orders/{id}',[OrdersController::class,'index'])->name('Customer.Orders.index');
 
-
 Route::view('datatable','dashboard.datatable');
 Route::view('datatableAr','dashboard.datatableAr');
 
