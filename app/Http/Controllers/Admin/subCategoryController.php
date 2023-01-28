@@ -47,7 +47,6 @@ class subCategoryController extends Controller
     public function store(Request $request)
     {
         $subcategory= new Subcategory();
-
         if ((strpos($request->location, 'maps')) !== false) {
             $str = $request->location;
             $x1 = strstr($str, '=');
@@ -57,6 +56,7 @@ class subCategoryController extends Controller
             $x4 = implode(',', $x3);
             $subcategory['lat'] = $x3[0];
             $subcategory['lng'] = $x4;
+            $subcategory['category_id'] = $request->category_id;
             $subcategory['name_ar'] = $request->name_ar;
             $subcategory['name_en'] = $request->name_en;
             $subcategory['city_id'] = $request->city_id;
@@ -79,16 +79,14 @@ class subCategoryController extends Controller
             }
         }
         $subcategory->save();
-
-        User::create([
+       $user= User::create([
             'name'=>$request->name,
         'last_name'=>$request->last_name,
         'email'=>$request->email,
         'password'=>$request->password,
         'phone'=>$request->phone,
-        'subCategory_id'=>$subcategory->subCategory_id
+        'subCategory_id'=>$subcategory->id
         ]);
-
         return  redirect()->route('laundries.index');
     }
 
@@ -113,8 +111,10 @@ class subCategoryController extends Controller
      */
     public function edit($id)
     {
-        $subCategory=Subcategory::with('parent')->find($id);
-        return view('dashboard.laundries.edit',compact('subCategory'));
+        $subCategory=Subcategory::with(['parent','user'])->find($id);
+        $cities=City::pluck('id','name_ar');
+//        dd($subCategory);
+        return view('dashboard.laundries.edit',compact(['subCategory','cities']));
     }
 
     /**
@@ -132,6 +132,13 @@ class subCategoryController extends Controller
             'name_en'=>$request->name_en,
             'name_ar'=>$request->name_ar,
             'address'=>$request->address,
+        ]);
+        User::where('subCategory_id',$id)->update([
+            'id'=>$id,
+            'name'=>$request->name,
+            'last_name'=>$request->last_name,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
         ]);
         return  redirect()->route('laundries.index');
     }
@@ -185,11 +192,10 @@ public function createBranch($id)
     return view('dashboard.laundries.createBranch',compact(['Subcategory','cities']));
 }
 
-public function storeBranch(SubCategoriesRequest $request)
+public function storeBranch(Request $request)
 {
 
     $subcategory= new Subcategory();
-
     if ((strpos($request->location, 'maps')) !== false) {
         $str = $request->location;
         $x1 = strstr($str, '=');
@@ -199,14 +205,30 @@ public function storeBranch(SubCategoriesRequest $request)
         $x4 = implode(',', $x3);
         $subcategory['lat'] = $x3[0];
         $subcategory['lng'] = $x4;
+        $subcategory['name_ar'] = $request->name_ar;
+        $subcategory['name_en'] = $request->name_en;
+        $subcategory['city_id'] = $request->city_id;
+        $subcategory['address'] = $request->address;
+        $subcategory['price'] = $request->price;
+        $subcategory['image']=$request->image;
+        $subcategory['parent_id'] = $request->parent_id;
+        $subcategory['status'] ='1';
+        $subcategory['rate'] = '5';
+        if($request->around_clock !=''){
+            $subcategory['around_clock'] = $request->around_clock;
+            $subcategory['clock_end'] = '';
+            $subcategory['clock_at'] = '';
+        }else{
+            $subcategory['clock_end'] = $request->clock_end;
+            $subcategory['clock_at'] = $request->clock_at;
+        }
+        if($request->file('image') !=''){
+            $filename = request('image')->getClientOriginalName();
+            request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
+
+        }
     }
-    Subcategory::create($request->validated()+[
-            'lat'=>$x3[0],
-            'lng'=> $x4,
-            'status'=>1,
-            'parent_id'=>$request->parent_id,
-            'address'=>$request->address,
-        ]);
+    $subcategory->save();
 
     User::create([
         'name'=>$request->name,

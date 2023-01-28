@@ -27,7 +27,8 @@ class User extends Authenticatable
         'level_id',
         'birthdate',
         'joindate',
-        'avatar'
+        'avatar',
+        'subCategory_id'
     ];
     protected $dates = ['joindate'];
 

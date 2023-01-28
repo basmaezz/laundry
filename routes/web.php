@@ -162,3 +162,6 @@ Route::get('orders/{id}',[OrdersController::class,'index'])->name('Customer.Orde
 Route::view('datatable','dashboard.datatable');
 Route::view('datatableAr','dashboard.datatableAr');
 
+Route::get('updates',function (){
+    DB::table('subcategories')->update(['category_id' => 1]);
+});

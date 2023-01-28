@@ -11,11 +11,15 @@
                         <div class="col-sm-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong>اضافه مغسله جديده</strong>
+                                    <strong>اضافه فرع للمغسله </strong>
 
                                 </div>
                                 <div class="card-block">
                                     <div class="form-group">
+                                        <input name="image" type="hidden" value="{{asset('assets/uploads/laundries/logo/'.$Subcategory->image)}}">
+                                    </div>
+                                    <div class="form-group">
+
                                         <label for="company" n>اسم المغسله</label>
                                         <input type="text" name="parent_id"class="form-control" id="name_ar" value="{{$Subcategory->name_ar}}" disabled>
                                         <input type="hidden" name="parent_id"class="form-control"value="{{$Subcategory->id}}">
@@ -84,6 +88,7 @@
                                         <input type="time" name="clock_end" value="{{$Subcategory->clock_end}}" />
                                     </div>
                                     @endif
+                                    <
                                 </div>
                             </div>
                         </div>
