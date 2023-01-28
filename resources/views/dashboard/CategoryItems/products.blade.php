@@ -15,6 +15,7 @@
                                     <table id="products" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
+                                            <th> الصوره</th>
                                             <th>اسم القطعه</th>
                                             <th>Actions</th>
                                         </tr>
@@ -23,6 +24,7 @@
                                         @foreach($categoryItems as $categoryItem)
                                             @foreach($categoryItem->products as $product)
                                         <tr>
+                                            <td><img src="{{$product->image}}" style="width: 50px;height: 50px"></td>
                                             <td>{{$product->name_ar}} </td>
                                             <td>
                                                 @if($product->productService->count()>0)

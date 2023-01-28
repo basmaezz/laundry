@@ -21,10 +21,9 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-
         if($request->file('subProductImage')){
             $filename = request('subProductImage')->getClientOriginalName();
-            request()->file('subProductImage')->move(public_path() . '/assets/uploads/laundries/' , $filename);
+            request()->file('subProductImage')->move(public_path() . '/assets/uploads/laundries/products' , $filename);
 
         }
 //        $product->save();

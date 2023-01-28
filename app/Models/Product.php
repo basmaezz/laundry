@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $table   = 'products';
     protected $guarded = [];
-    protected $fillable=['user_id','subcategory_id','name_en','name_ar','desc_en','desc_ar','image'];
+    protected $fillable=['user_id','category_item_id','subcategory_id','name_en','name_ar','desc_en','desc_ar','image'];
 
     public function productService()
     {
@@ -42,6 +42,6 @@ class Product extends Model
 
     public function getImageAttribute($image)
     {
-        return  isset($image) ? assetsUpload().'/product_images/'. $image : '';
+        return  isset($image) ? assetsUpload().'/laundries/products/'. $image : '';
     }
 }
