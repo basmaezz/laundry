@@ -12,4 +12,9 @@ class CategoriesController extends Controller
         $categories=Category::All();
         return view('dashboard.Categories.index',compact('categories'));
     }
+    public function edit($id)
+    {
+
+
+    }
 }

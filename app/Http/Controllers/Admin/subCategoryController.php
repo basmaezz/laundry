@@ -44,15 +44,9 @@ class subCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SubCategoriesRequest $request)
+    public function store(Request $request)
     {
-
         $subcategory= new Subcategory();
-
-        if($request->file('image')){
-            $filename = request('image')->getClientOriginalName();
-            request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
-        }
 
         if ((strpos($request->location, 'maps')) !== false) {
             $str = $request->location;
@@ -63,14 +57,27 @@ class subCategoryController extends Controller
             $x4 = implode(',', $x3);
             $subcategory['lat'] = $x3[0];
             $subcategory['lng'] = $x4;
+            $subcategory['name_ar'] = $request->name_ar;
+            $subcategory['name_en'] = $request->name_en;
+            $subcategory['city_id'] = $request->city_id;
+            $subcategory['address'] = $request->address;
+            $subcategory['price'] = $request->price;
+            $subcategory['status'] ='1';
+            if($request->around_clock !=''){
+             $subcategory['around_clock'] = $request->around_clock;
+            $subcategory['clock_end'] = '';
+            $subcategory['clock_at'] = '';
+            }else{
+                $subcategory['clock_end'] = $request->clock_end;
+                $subcategory['clock_at'] = $request->clock_at;
+            }
+            if($request->file('image') !=''){
+                $filename = request('image')->getClientOriginalName();
+                request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
+                $subcategory['image']=$filename;
+            }
         }
-        Subcategory::create($request->validated()+[
-            'lat'=>$x3[0],
-            'lng'=> $x4,
-             'status'=>1,
-             'clock_at'=>$request->clock_at,
-             'clock_end'=>$request->clock_end,
-        ]);
+        $subcategory->save();
 
         User::create([
             'name'=>$request->name,

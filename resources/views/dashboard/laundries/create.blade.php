@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="country">الموقع(Google Map) </label>
-                                        <input type="text" name="location"class="form-control" id="location" placeholder="https://maps.google.com/?q=51.03841,-114.01679 ">
+                                        <input type="text" name="location"class="form-control" id="location">
                                         @error('location')
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
@@ -92,7 +92,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="country">صوره الشعار</label>
-                                        <input type="file" name="image "class="form-control" id="image" placeholder="Country name">
+                                        <input type="file" name="image"class="form-control" id="image" placeholder="Country name">
                                     </div>
 
                             </div>

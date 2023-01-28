@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-10">
                         <div class="card">
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i> المغاسل المسجله
@@ -14,6 +14,7 @@
                                 <table id="laundries" class="table table-bordered table-striped">
                                     <thead >
                                         <tr >
+                                            <th> الصوره </th>
                                             <th>اسم المغسله </th>
                                             <th>المدينه </th>
                                             <th>الحى</th>
@@ -24,6 +25,7 @@
                                     <tbody>
                                     @foreach($subCategories as $subCategory)
                                     <tr>
+                                        <td><img src="{{asset('assets/uploads/laundries/logo/'.$subCategory->image)}}" style="width:50px;height:50px"></td>
                                         <td>{{$subCategory->name_ar}}</td>
                                         <td>{{$subCategory->city->name_ar}}</td>
                                         <td>{{$subCategory->address}}</td>
