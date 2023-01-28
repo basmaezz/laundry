@@ -8,6 +8,7 @@ class Category extends Model
 {
     protected $table   = 'categories';
     protected $guarded = [];
+    protected $fillable=['name_en','name_ar','image'];
 
     public function getImageAttribute($image)
     {

@@ -461,6 +461,8 @@ function uploadFile($fileAttr, $path = ""){
     $imgName = mt_rand(1000, 9999).microtime(true).'.'.$fileAttr->getClientOriginalExtension();
     $fileAttr->move(public_path('assets/uploads/'.$path),$imgName);
     return $imgName;
+
+
 }
 
 function deleteFile($file , $path = ""){

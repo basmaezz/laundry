@@ -79,7 +79,10 @@ Route::get('mainLaundries',[subCategoryController::class,'mainLaundries'])->name
 Route::get('deleteBranch/{id}',[subCategoryController::class,'deleteBranch'])->name('laundries.deleteBranch');
 
 
-Route::get('CategoryItemsIndex',[CategoriesController::class,'index'])->name('Categories.index');
+Route::get('CategoriesIndex',[CategoriesController::class,'index'])->name('Categories.index');
+Route::get('CategoryEdit/{id}',[CategoriesController::class,'edit'])->name('category.edit');
+Route::post('CategoryUpdate/{id}',[CategoriesController::class,'update'])->name('category.update');
+
 Route::get('CategoryItemsIndex/{id}',[CategoryItemController::class,'index'])->name('CategoryItems.index');
 Route::get('CategoryItems/{id}',[CategoryItemController::class,'create'])->name('CategoryItems.create');
 Route::get('CategoryItemsEdit/{id}',[CategoryItemController::class,'edit'])->name('CategoryItems.edit');

@@ -15,6 +15,7 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
+                                            <th> الصورة</th>
                                             <th>اسم التصنيف</th>
                                             <th>Actions</th>
                                         </tr>
@@ -22,10 +23,11 @@
                                         <tbody>
                                         @foreach($categories as $category)
                                             <tr>
+                                                <td><img src="{{asset('assets/uploads/laundries/'.$category->image)}}" style="width:50px;height:50px"></td>
                                                 <td>{{$category->name_ar}} </td>
                                                 <td>
 
-                                                    <a href="#" class="btn btn-primary" >تعديل</a>
+                                                    <a href="{{route('category.edit',$category->id)}}" class="btn btn-primary" >تعديل</a>
                                                     <a href="#" class="btn btn-danger">حذف</a>
                                                 </td>
                                             </tr>

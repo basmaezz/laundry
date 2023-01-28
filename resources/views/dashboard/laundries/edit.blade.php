@@ -74,9 +74,7 @@
 
                                 </div>
                                 <div class="card-block">
-                                    <div class="form-group">
-                                        <input name="image" type="hidden" value="{{asset('assets/uploads/laundries/logo/'.$subCategory->image)}}">
-                                    </div>
+
                                     @if($subCategory->parent_id !='')
                                     <div class="form-group">
                                         <label for="company" n>اسم المغسله الرئيسيه</label>
@@ -148,6 +146,17 @@
                                             <input type="time" name="clock_end" value="{{$subCategory->clock_end}}" />
                                         </div>
                                     @endif
+                                    @if($subCategory->parent_id =='')
+                                            <div class="form-group">
+                                                <img src="{{asset('assets/uploads/laundries/logo/'.$subCategory->image)}}" style="width: 100px; height: 100px">
+                                            </div>
+
+                                     <div class="form-group">
+                                        <label for="country">صوره الشعار</label>
+                                        <input type="file" name="image"class="form-control" id="image" placeholder="Country name">
+                                    </div>
+                                    @endif
+
 
                                 </div>
                             </div>

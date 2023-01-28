@@ -64,6 +64,7 @@ class subCategoryController extends Controller
             $subcategory['price'] = $request->price;
             $subcategory['status'] ='1';
             $subcategory['rate'] = '5';
+//            $subcategory['image'] = uploadFile($request->image,'categories');
             if($request->around_clock !=''){
              $subcategory['around_clock'] = $request->around_clock;
             $subcategory['clock_end'] = '';
