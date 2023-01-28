@@ -12,7 +12,7 @@ class Category extends Model
 
     public function getImageAttribute($image)
     {
-        return  isset($image) ? assetsUpload().'/categories/'. $image : '';
+        return  isset($image) ? assetsUpload().'/laundries/'. $image : '';
     }
 
 }

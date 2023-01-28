@@ -27,10 +27,10 @@ class Subcategory extends Model
     {
         return $this->belongsTo(City::class,'city_id');
     }
-//    public function getImageAttribute($image)
-//    {
-//        return  isset($image) ? assetsUpload().'/subCategories/'. $image : '';
-//    }
+    public function getImageAttribute($image)
+    {
+        return  isset($image) ? assetsUpload().'/laundries/logo/'. $image : '';
+    }
     public function getIsFavorite()
     {
         return $this->is_favorite == 1 ? true : false;
