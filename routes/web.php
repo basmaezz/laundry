@@ -162,5 +162,5 @@ Route::view('datatable','dashboard.datatable');
 Route::view('datatableAr','dashboard.datatableAr');
 
 Route::get('updates',function (){
-    DB::table('subcategories')->update(['category_id' => 1]);
+    DB::table('subcategories')->update(['rate' => 5]);
 });
