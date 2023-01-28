@@ -24,7 +24,8 @@ class ProductController extends Controller
 
         if($request->file('subProductImage')){
             $filename = request('subProductImage')->getClientOriginalName();
-            request()->file('subProductImage')->move(public_path() . '/images/products/sub' , $filename);
+            request()->file('subProductImage')->move(public_path() . '/assets/uploads/laundries/' , $filename);
+
         }
 //        $product->save();
         Product::create($request->validated()+[
