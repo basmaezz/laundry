@@ -519,25 +519,9 @@ function before_current_route(){
 }
 
 function lang($text = null){
-
-    if (isset($text) && $text == 'name'){
-
-        $data = 'name_' . App::getLocale();
-
-    }elseif (isset($text) && $text == 'title'){
-
-        $data = 'title_' . App::getLocale();
-
-    }elseif (isset($text) && $text == 'desc'){
-
-        $data = 'desc_' . App::getLocale();
-
-    }else{
-
-        $data =  App::getLocale();
-    }
-
-    return $data;
+    return in_array($text, ['name', 'title', 'desc'])
+        ? $text. '_' . app()->getLocale()
+        : app()->getLocale();
 }
 
 function jsValidation($request, $form)
@@ -606,16 +590,15 @@ function apiResponseOrders(string $message_key,  $new_orders=null,$items=null,in
 function getUserObject($user)
 {
     $title='title_'.app()->getLocale();
-    $name='name_'.app()->getLocale();
     return [
         'id' => $user->id,
         'name' => $user->name,
         'mobile' => $user->mobile,
         'email' => $user->email,
-//        'title' => $user->title?$user->title->$title:'',
+        'title' => $user->title?$user->title->$title:'',
         'status' => $user->status,
         'city_id' => $user->city_id,
-//        'city_name' => $user->citis->$name,
+        'city_name' => $user->cities?->name,
         'region_name' => $user->region_name,
         'address' => $user->address,
         'building' => $user->building,

@@ -235,23 +235,17 @@ class AuthController extends ApiController
         $validator = Validator::make($request->all(), [
             'mobile' => 'required',
         ]);
-
         if ($validator->passes()) {
             $user  = AppUser::where('mobile',$request->get('mobile'))->first();
-
             if ($user) {
                 if ($user->status == 'deactivated'){
-                    return  apiResponse('auth.pending_activation',null,400,400);
-                }
+                    return  apiResponse('auth.pending_activation',null,400,400);                }
                 if ($user->status == 'blocked'){
-                    return  apiResponse('auth.activation_administration',null,400,400);
-                }
+                    return  apiResponse('auth.activation_administration',null,400,400);                }
                 if($request->get('type')=='delivery'){
                     if ($user->user_type != 'delivery'){
-                        return  apiResponse('auth.incorrect',null,400,400);
-                    }
+                        return  apiResponse('auth.incorrect',null,400,400);                    }
                 }
-
                 $user->last_activity = Carbon::now();
                 if ($request->has('lat')){
                     $user->lat = $request->get('lat');
@@ -262,10 +256,10 @@ class AuthController extends ApiController
                 if($request->has('fcm_token')){
                     $user->fcm_token = $request->get('fcm_token');
                 }
-
                 $user->save();
                 $token=JWTAuth::fromUser($user);
                 $userData = getUserObject($user);
+
                 $userData['token'] = $token;
                 if($request->get('type')=='delivery'){
                     $userData['delegate'] = Delegate::where('user_id',$user->id)->first();

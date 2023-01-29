@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
@@ -15,5 +16,15 @@ class City extends Model
     public function regions()
     {
         return $this->hasMany(Region::class,'city_id');
+    }
+
+    public function name() : Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                $name='name_'.app()->getLocale();
+                return $this->$name;
+            },
+        );
     }
 }
