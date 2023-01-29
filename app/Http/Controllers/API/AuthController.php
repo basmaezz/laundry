@@ -232,12 +232,13 @@ class AuthController extends ApiController
 
     public function signIn(Request $request)
     {
-        $validator        = Validator::make($request->all(), [
-            'mobile'          => 'required',
+        $validator = Validator::make($request->all(), [
+            'mobile' => 'required',
         ]);
 
         if ($validator->passes()) {
             $user  = AppUser::where('mobile',$request->get('mobile'))->first();
+
             if ($user) {
                 if ($user->status == 'deactivated'){
                     return  apiResponse('auth.pending_activation',null,400,400);

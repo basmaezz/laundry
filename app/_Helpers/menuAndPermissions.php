@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-use App\User;
+use App\Models\User;
 use App\Models\Role;
 use App\Models\Contact;
 use App\Models\SmsEmailNotification;

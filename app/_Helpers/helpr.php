@@ -32,7 +32,7 @@ use App\Models\Page;
 use App\Models\Role;
 use App\Models\Html;
 use Carbon\Carbon;
-use App\User;
+use App\Models\User;
 //use File;
 
 function Home()
@@ -461,6 +461,8 @@ function uploadFile($fileAttr, $path = ""){
     $imgName = mt_rand(1000, 9999).microtime(true).'.'.$fileAttr->getClientOriginalExtension();
     $fileAttr->move(public_path('assets/uploads/'.$path),$imgName);
     return $imgName;
+
+
 }
 
 function deleteFile($file , $path = ""){
@@ -612,10 +614,10 @@ function getUserObject($user)
         'name' => $user->name,
         'mobile' => $user->mobile,
         'email' => $user->email,
-//        'title' => $user->title?$user->title->$title:'',
+        'title' => $user->title?$user->title->$title:'',
         'status' => $user->status,
         'city_id' => $user->city_id,
-//        'city_name' => $user->citis->$name,
+        'city_name' => $user->citis->$name,
         'region_name' => $user->region_name,
         'address' => $user->address,
         'building' => $user->building,
