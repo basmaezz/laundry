@@ -6,7 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Models\AppUser;
 use App\Models\Delegate;
 use App\Models\Device;
-use App\Models\User;
+use App\User;
 use Auth;
 use Carbon\Carbon;
 use File;
