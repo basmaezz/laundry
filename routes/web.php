@@ -167,3 +167,10 @@ Route::view('datatableAr','dashboard.datatableAr');
 Route::get('updates',function (){
     DB::table('subcategories')->update(['rate' => 5]);
 });
+
+Route::get('updateDB',function (){
+    DB::table('subcategories')->where('id',24)->update([
+        'lat'=>'30.2984486',
+        'lng'=>'31.152275'
+    ]);
+});
