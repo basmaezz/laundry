@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
-use Maize\Markable\Models\Favorite;
 
 class User extends Authenticatable
 {
@@ -50,9 +49,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
-    protected static $marks = [
-        Favorite::class,
     ];
 
     public function setPasswordAttribute($password){
