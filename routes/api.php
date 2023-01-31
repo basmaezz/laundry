@@ -41,7 +41,25 @@ Route::group(['middleware' => ['language'], 'namespace' => 'API'], function () {
 
 
 });
-
+//Route::get('test-login', function () {
+////    return 'ok';
+////    return \Illuminate\Support\Facades\Hash::make('password');
+//        $user = \App\Models\AppUser::first();
+//
+////        return $user;
+//    $user->update([
+//        'password' => \Illuminate\Support\Facades\Hash::make('password')
+//    ]);
+//        $credentials = [
+//            'email' => $user->email,
+//            'password' => 'password'
+//        ];
+//    if (! $token = auth('app_users_api')->attempt($credentials)) {
+//        return response()->json(['error' => 'Unauthorized'], 401);
+//    }
+//
+//    return $token;
+//});
 Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], function () {
     Route::post('addToFavorite/{id}', [UsersController::class,'addToFavorite']);
     Route::post('removeFromFavorite/{id}', [UsersController::class,'removeFromFavorite']);

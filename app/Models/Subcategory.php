@@ -9,6 +9,7 @@ use Maize\Markable\Models\Favorite;
 
 class Subcategory extends Model
 {
+    use Markable;
 
     protected  $table   = 'subcategories';
     protected  $guarded = [];

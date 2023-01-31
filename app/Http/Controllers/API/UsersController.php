@@ -35,6 +35,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Config;
 use Maize\Markable\Models\Favorite;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Validator;
@@ -232,6 +233,7 @@ class UsersController extends Controller
         $subCategories = Subcategory::findorfail($id);
 
         if (isset($subCategories)) {
+//          Config::set('markable.user_model' , App\Models\AppUser::class);
             Favorite::add($subCategories, auth('app_users_api')->user());
             $data = [
                 'id' => $subCategories->id,
