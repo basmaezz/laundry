@@ -15,7 +15,7 @@ class City extends Model
      */
     public function regions()
     {
-        return $this->hasMany(Region::class,'city_id');
+        return $this->hasMany(Region::class,'city_id','id');
     }
 
     public function name() : Attribute

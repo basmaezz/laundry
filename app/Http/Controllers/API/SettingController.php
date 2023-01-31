@@ -39,30 +39,13 @@ class SettingController extends Controller
     /**  public function cities  . */
     public function cities()
     {
-        $data=City::with('regions')->get();
-        return apiResponse("api.success",$data);
-//        try {
-//            $cities = City::select('id','name_'.App::getLocale().' as name')->get();
-//
-//            $data=[];
-//            $name='name_'.app()->getLocale();
-//            foreach ($cities as $k=>$row){
-//                $data[$k]=$row;
-//                $regions = [];
-//                foreach (Region::where('city_id',$row->id)->get() as $item){
-//                    $regions[]=[
-//                        'id'=>$item->id,
-//                        'name'=>$item->$name,
-//                    ];
-//                }
-//                dd($item);
-//                $data[$k]['regions']=$regions;
-//            }
-//            return apiResponse("api.success",$data);
-//
-//        }catch (\PDOException $ex) {
-//            return apiResponse("api.expected_error",[],500,500);
-//        }
+        try{
+            $lang = App::getLocale();
+            $data = City::with("regions:id,city_id,name_{$lang}")->select('id',"name_{$lang}")->get();
+            return apiResponse("api.success",$data);
+        }catch (\PDOException $ex) {
+            return apiResponse("api.expected_error",[],500,500);
+        }
     }
 
     public function regions($id)
