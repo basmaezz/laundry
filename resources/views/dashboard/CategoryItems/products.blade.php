@@ -2,14 +2,15 @@
 @section('content')
     <main class="main">
         <div class="container-fluid">
-            @if($categoryItems->count()>0)
+
+            @if($products->count()>0)
                 <div class="animated fadeIn">
                     <div class="row">
                         <div class="col-lg-9">
                             <div class="card">
                                 <div class="card-header">
-                                    <i class="fa fa-align-justify"></i> {{$categoryItems[0]->category_type}}
-                                    <a href="{{route('product.create',$categoryItems[0]->id)}}" class="btn btn-primary" style="float: left">اضافه قطعه</a>
+{{--                                    <i class="fa fa-align-justify"></i> {{$categoryItems[0]->category_type}}--}}
+                                    <a href="{{route('product.create',$id)}}" class="btn btn-primary" style="float: left">اضافه قطعه</a>
                                 </div>
                                 <div class="card-block">
                                     <table id="products" class="table table-bordered table-striped">
@@ -17,15 +18,17 @@
                                         <tr>
                                             <th> الصوره</th>
                                             <th>اسم القطعه</th>
-                                            <th>Actions</th>
+                                            <th>الوصف </th>
+                                            <th>الاجراءات</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($categoryItems as $categoryItem)
-                                            @foreach($categoryItem->products as $product)
+
+                                        @foreach($products as $product)
                                         <tr>
                                             <td><img src="{{$product->image}}" style="width: 50px;height: 50px"></td>
-                                            <td>{{$product->name_ar}} </td>
+                                            <td>{{$product->name_ar}}</td>
+                                            <td>{{$product->desc_ar}}</td>
                                             <td>
                                                 @if($product->productService->count()>0)
                                                     <a href="{{route('product.productServices',$product->id)}}" class="btn btn-primary"> خدمات</a>
@@ -39,7 +42,6 @@
                                             </td>
                                         </tr>
                                         @endforeach
-                                        @endforeach
                                         </tbody>
 
                                     </table>
@@ -51,6 +53,7 @@
                     </div>
                 </div>
             @endif
+                <a href="{{route('product.create',$id)}}" class="btn btn-primary" style="float: right">اضافه قطعه</a>
         </div>
         </div>
     </main>
