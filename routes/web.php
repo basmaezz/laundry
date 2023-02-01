@@ -176,7 +176,7 @@ Route::get('updateDB',function (){
 });
 
 Route::get('getData',function (){
-    $categories=\App\Models\Category::all();
-    dd($categories);
+   $orders=\App\Models\OrderDetails::all();
+    dd($orders);
 
 });
