@@ -10,6 +10,7 @@ class OrderDetails extends Model
     protected $guarded = [];
      protected $fillable=['order_table_id','product_id','category_id','product_service_id','price','quantity'];
 
+
     public function orderTables()
     {
         return $this->belongsTo(OrderTable::class);
