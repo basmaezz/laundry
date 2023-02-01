@@ -82,8 +82,7 @@ class OrderController extends Controller
      */
     public function addOrderTable(Request $request)
     {
-        dd($request->all());
-        /******  Get User Login Id*/
+
         $app_user_id = auth('app_users_api')->user()->id;
         $_totalOrders = OrderTable::where('user_id',$app_user_id)->where("status_id",'<',self::Completed)->count();
         if($_totalOrders >= 3){
@@ -119,7 +118,7 @@ class OrderController extends Controller
         $order_data = [
             'user_id'        => $app_user_id,
             'laundry_id'     => $request->get('laundry_id'),
-            'category_item_id'    => $request->get('category_id'),
+            'category_item_id'=> $request->get('category_item_id'),
             'count_products' => count($request->get('items')),
             'note'           => $request->get('note'),
             'status'         => 'Waiting for delivery',
@@ -143,7 +142,7 @@ class OrderController extends Controller
                 $item_data = [
                     'order_table_id' => $order->id,
                     'product_id' => $item['product_id'],
-                    'category_id' => $item['category_id'],
+                    'category_item_id' => $item['category_item_id'],
                     'product_service_id' => $item['product_service_id'],
                     'quantity' => $item['quantity'],
                     'price' => $product->price * $item['quantity'],
@@ -164,7 +163,7 @@ class OrderController extends Controller
         $order->save();
 
         $orders = OrderTable::where('id', $order->id)->with(['orderDetails' => function ($q) {
-            return $q->select('id', 'order_table_id', 'product_id', 'category_id', 'price', 'quantity');
+            return $q->select('id', 'order_table_id', 'product_id', 'category_item_id', 'price', 'quantity');
         }])->select('id', 'user_id', 'laundry_id')->first();
         $name = 'name_' . App::getLocale();
         $body = __('api.success_send_to_laundry',['laundry'=>$order->subCategories->$name]);
