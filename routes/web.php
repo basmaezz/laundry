@@ -177,4 +177,6 @@ Route::get('updateDB',function (){
 
 Route::get('deleteData',function (){
     \App\Models\OrderDetails::truncate();
+    \App\Models\Order::truncate();
+
 });
