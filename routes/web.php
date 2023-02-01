@@ -177,9 +177,9 @@ Route::get('updateDB',function (){
 
 Route::get('deleteData',function (){
 //    \App\Models\OrderDetails::truncate();
-//    \App\Models\Order::truncate();
-    Schema::disableForeignKeyConstraints();
-    DB::table('orders')->truncate();
-    Schema::enableForeignKeyConstraints();
+    \App\Models\Order::get();
+//    Schema::disableForeignKeyConstraints();
+//    DB::table('orders')->truncate();
+//    Schema::enableForeignKeyConstraints();
 
 });
