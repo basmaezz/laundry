@@ -175,12 +175,8 @@ Route::get('updateDB',function (){
     ]);
 });
 
-Route::get('deleteData',function (){
-//    \App\Models\::truncate();
+Route::get('getData',function (){
     $categories=\App\Models\Category::all();
     dd($categories);
-//    Schema::disableForeignKeyConstraints();
-//    DB::table('orders')->truncate();
-//    Schema::enableForeignKeyConstraints();
 
 });
