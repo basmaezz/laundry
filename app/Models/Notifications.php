@@ -14,7 +14,7 @@ class Notifications extends Model
         'content_en',
         'content_ar',
         'type',
-        'user_id',
+        'app_user_id',
         'title_ar',
         'title_en',
         'send'
@@ -22,5 +22,9 @@ class Notifications extends Model
 
     public function order(){
         return $this->belongsTo(OrderTable::class,'order_id','id')->withDefault();
+    }
+
+    public function appUser(){
+        return $this->belongsTo(AppUser::class,'app_user_id','id')->withDefault();
     }
 }
