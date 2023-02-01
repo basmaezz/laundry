@@ -82,6 +82,7 @@ class OrderController extends Controller
      */
     public function addOrderTable(Request $request)
     {
+        dd($request->all());
         /******  Get User Login Id*/
         $app_user_id = auth('app_users_api')->user()->id;
         $_totalOrders = OrderTable::where('user_id',$app_user_id)->where("status_id",'<',self::Completed)->count();
