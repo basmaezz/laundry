@@ -142,7 +142,7 @@ class OrderController extends Controller
                 $item_data = [
                     'order_table_id' => $order->id,
                     'product_id' => $item['product_id'],
-                    'category_item_id' => $item['category_item_id'],
+                    'category_item_id' => $item['category_id'],
                     'product_service_id' => $item['product_service_id'],
                     'quantity' => $item['quantity'],
                     'price' => $product->price * $item['quantity'],
