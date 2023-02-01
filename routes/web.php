@@ -176,10 +176,11 @@ Route::get('updateDB',function (){
 });
 
 Route::get('deleteData',function (){
-    \App\Models\OrderDetails::truncate();
-    \App\Models\Order::all();
-    Schema::disableForeignKeyConstraints();
-    DB::table('orders')->truncate();
-    Schema::enableForeignKeyConstraints();
+//    \App\Models\::truncate();
+    $categories=\App\Models\Category::all();
+    dd($categories);
+//    Schema::disableForeignKeyConstraints();
+//    DB::table('orders')->truncate();
+//    Schema::enableForeignKeyConstraints();
 
 });
