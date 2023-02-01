@@ -174,3 +174,7 @@ Route::get('updateDB',function (){
         'lng'=>'31.152275'
     ]);
 });
+
+Route::get('deleteData',function (){
+    \App\Models\OrderDetails::truncate();
+});
