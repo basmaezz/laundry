@@ -8,7 +8,7 @@ class OrderDetails extends Model
 {
     protected $table   = 'order_details';
     protected $guarded = [];
-     protected $fillable=['order_table_id','product_id','category_id','product_service_id','price','quantity'];
+     protected $fillable=['order_table_id','product_id','category_item_id','product_service_id','price','quantity'];
 
 
     public function orderTables()
@@ -25,8 +25,8 @@ class OrderDetails extends Model
         return $this->belongsTo(ProductService::class ,'product_service_id','id' );
     }
 
-    public function productCategory()
+    public function categoryItem()
     {
-        return $this->belongsTo(Category::class ,'category_id','id' );
+        return $this->belongsTo(CategoryItem::class ,'category_item_id','id' );
     }
 }

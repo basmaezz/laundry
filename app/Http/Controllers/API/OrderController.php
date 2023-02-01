@@ -118,7 +118,7 @@ class OrderController extends Controller
         $order_data = [
             'user_id'        => $app_user_id,
             'laundry_id'     => $request->get('laundry_id'),
-            'category_id'    => $request->get('category_id'),
+            'category_item_id'    => $request->get('category_id'),
             'count_products' => count($request->get('items')),
             'note'           => $request->get('note'),
             'status'         => 'Waiting for delivery',
