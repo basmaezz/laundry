@@ -176,12 +176,14 @@ Route::get('updateDB',function (){
 });
 
 Route::get('getData',function (){
-   \App\Models\OrderDetails::truncate();
-   \App\Models\Order::truncate();
-   \App\Models\OrderTable::truncate();
-   \App\Models\OrderStatusHistory::truncate();
-   \App\Models\OrderAdditional::truncate();
-   $orders=\App\Models\OrderDetails::all();
-    dd($orders);
+//   \App\Models\OrderDetails::truncate();
+//   \App\Models\Order::truncate();
+//   \App\Models\OrderTable::truncate();
+//   \App\Models\OrderStatusHistory::truncate();
+//   \App\Models\OrderAdditional::truncate();
+//   $orders=\App\Models\OrderDetails::all();
+//    dd($orders);
+    $users=\App\Models\AppUser::all();
+    dd($users);
 
 });
