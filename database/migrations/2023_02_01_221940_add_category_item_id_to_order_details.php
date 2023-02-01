@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('order_details', function (Blueprint $table) {
-            $table->integer('category_id')->nullable()->unsigned()->change();
-
+            $table->foreignId('category_item_id')->after('product_id');
         });
     }
 
@@ -27,8 +26,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('order_details', function (Blueprint $table) {
-
-
+                        $table->dropForeign('order_details_category_item_id_foreign');
+            $table->dropColumn('category_item_id');
         });
     }
 };
