@@ -176,6 +176,7 @@ Route::get('updateDB',function (){
 });
 
 Route::get('getData',function (){
+   \App\Models\OrderDetails::truncate();
    $orders=\App\Models\OrderDetails::all();
     dd($orders);
 
