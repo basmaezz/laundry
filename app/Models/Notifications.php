@@ -25,6 +25,6 @@ class Notifications extends Model
     }
 
     public function appUser(){
-        return $this->belongsTo(AppUser::class,'app_user_id','id')->withDefault();
+        return $this->belongsTo(User::class,'app_user_id','id')->withDefault();
     }
 }
