@@ -21,9 +21,7 @@ class AddForeignKeysToOrdersTable extends Migration {
 			$table->foreign('branche_id', 'orders_ibfk_4')->references('id')->on('branches')->onUpdate('CASCADE')->onDelete('SET NULL');
 			$table->foreign('provider_id', 'orders_ibfk_5')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('delegate_delivery_id', 'orders_ibfk_6')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('SET NULL');
-//            $table->foreign('product_id', 'orders_ibfk_8')->references('id')->on('products')->onUpdate('CASCADE')->onDelete('SET NULL');
-//            $table->foreign('product_service_id', 'orders_ibfk_9')->references('id')->on('product_services')->onUpdate('CASCADE')->onDelete('SET NULL');
-//            $table->foreign('subcategory_id', 'orders_ibfk_7')->references('id')->on('subcategories')->onUpdate('CASCADE')->onDelete('CASCADE');
+
         });
 	}
 

@@ -183,7 +183,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
 //        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-
+//        SimpleSoftwareIO\QrCode\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -213,6 +213,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ])->toArray(),
 
 ];
