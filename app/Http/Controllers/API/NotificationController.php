@@ -68,7 +68,7 @@ class NotificationController extends Controller
 
         if ($saveInTable) {
             Notifications::create([
-                'order_id' => $order_id,
+                'order_table_id' => $order_id,
                 'seen' => 0,
                 'app_user_id'=>auth('app_users_api')->user()->id,
                 'content_en' => $body,
