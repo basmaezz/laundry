@@ -428,7 +428,7 @@ class OrderController extends Controller
                 'service_name' => $detail->productService->services ?? '',
                 'product_name' => $detail->product->$name,
                 'product_image' => $detail->product->image,
-                'category_name' => $detail->productCategory->$name ?? '',
+                'category_name' => $detail->categoryItem->$name ?? '',
                 'count' => $detail->quantity,
                 'price' => $detail->price,
             ];
