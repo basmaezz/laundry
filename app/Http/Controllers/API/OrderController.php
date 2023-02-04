@@ -221,7 +221,7 @@ class OrderController extends Controller
 
         $orders = OrderTable::where('user_id', $app_user_id)
             ->whereIn('status_id',[1,2,3,4,5,6,7,8,9,10])
-            ->with(['user', 'histories', 'subCategories', 'orderDetails', 'orderDetails.product', 'orderDetails.productService', 'orderDetails.productCategory'])->latest()->get();
+            ->with(['user', 'histories', 'subCategories', 'orderDetails', 'orderDetails.product', 'orderDetails.productService', 'orderDetails.categoryItem'])->latest()->get();
 
         $data = [];
         if (isset($orders)) {
@@ -396,7 +396,7 @@ class OrderController extends Controller
     public function getActiveOrder(){
         $order = OrderTable::where('user_id', auth('app_users_api')->user()->id)
             ->where('status_id', '<>',self::Completed)
-            ->with(['user', 'histories', 'subCategories', 'orderDetails', 'orderDetails.product', 'orderDetails.productService', 'orderDetails.productCategory'])->latest()->first();
+            ->with(['user', 'histories', 'subCategories', 'orderDetails', 'orderDetails.product', 'orderDetails.productService', 'orderDetails.categoryItem'])->latest()->first();
 
         if (isset($order)) {
             $data = self::orderObject($order);
