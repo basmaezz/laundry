@@ -197,7 +197,7 @@ class AuthController extends ApiController
             $user->user_type = 'delivery';
             $user->status = 'deactivated';
             $user->save();
-            dd($user->id);
+
 
             $delegate = new Delegate();
             $delegate->user_id = $user->id;
