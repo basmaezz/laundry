@@ -15,7 +15,7 @@ class AddForeignKeysToDelegatesTable extends Migration {
 	{
 		Schema::table('delegates', function(Blueprint $table)
 		{
-			$table->foreign('user_id', 'delegates_ibfk_1')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
+			$table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
 	}
 
@@ -29,7 +29,7 @@ class AddForeignKeysToDelegatesTable extends Migration {
 	{
 		Schema::table('delegates', function(Blueprint $table)
 		{
-			$table->dropForeign('delegates_ibfk_1');
+			$table->dropForeign('user_id');
 		});
 	}
 
