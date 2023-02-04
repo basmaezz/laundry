@@ -200,7 +200,7 @@ class AuthController extends ApiController
 
 
             $delegate = new Delegate();
-            $delegate->user_id = $user->id;
+            $delegate->app_user_id = $user->id;
             $delegate->id_number = $request->get('personal')['nid'];
             $delegate->id_image = uploadFile($request->file('personal')['nid_image'], 'nid_image');
             $delegate->iban_number = $request->get('bank')['number'];
