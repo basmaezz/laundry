@@ -9,6 +9,23 @@ class Delegate extends Model
 {
     protected $table   = 'delegates';
     protected $guarded = [];
+    protected $fillable=
+        ['user_id',
+        'id_number',
+        'id_image',
+        'iban_number',
+        'bank_name',
+        'car_picture_front',
+        'car_picture_behind',
+        'car_registration',
+        'license_start_date',
+        'license_end_date',
+        'request_employment',
+        'driving_license',
+        'manufacture_year',
+        'car_type',
+        'medic_check'
+        ];
 
     protected function medicCheck(): Attribute
     {

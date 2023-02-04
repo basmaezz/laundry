@@ -199,6 +199,7 @@ class AuthController extends ApiController
             $user->save();
 
             $delegate = new Delegate();
+            $delegate->user_id = $user->id;
             $delegate->id_number = $request->get('personal')['nid'];
             $delegate->id_image = uploadFile($request->file('personal')['nid_image'], 'nid_image');
             $delegate->iban_number = $request->get('bank')['number'];
@@ -213,7 +214,6 @@ class AuthController extends ApiController
             $delegate->manufacture_year = $request->get('car')['year'];
             $delegate->car_type = $request->get('car')['type'];
             $delegate->medic_check = uploadFile($request->file('personal')['medic_check_image'], 'medic_check');
-            $delegate->user_id = $user->id;
             $delegate->save();
         DB::commit();
 
