@@ -498,10 +498,6 @@ class CitySeeder extends Seeder
 //    'name_en' => "Na'mi",
 //
 //],
-
-
-
-
 //           [
 //               'id' => 79,
 //
