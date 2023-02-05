@@ -191,3 +191,8 @@ Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('config:cache');
     return 'DONE'; //Return anything
 });
+
+Route::get('updateAll',function (){
+   $subcategories= DB::table('subcategories')->whereNull('city_id') ->update(['city_id'=>1]);
+
+});
