@@ -16,36 +16,37 @@ class CitySeeder extends Seeder
    public function run()
    {
        $cities = [
-           [
-               'id' => '4',
-               'name_ar' => 'تبوك',
-               'name_en' => 'Tabuk',
-           ],          [
-            'id' => '5',
-            'name_ar' => "الرياض",
-            'name_en' => "Riyadh",
-
-        ],
-        [
-            'id' => '6',
-            'name_ar' => "حميط",
-            'name_en' => "Humayt",
-        ],          [
-            'id' => '7',
-            'name_ar' => "الطائف",
-            'name_en' => "At Taif",
-
-        ],          [
-            'id' => '8',
-            'name_ar' => "مكة المكرمة",
-            'name_en' => "Makkah",
-
-        ],
-        [
-            'id' => 9,
-            'name_ar' => "حائل",
-            'name_en' => "Hail",
-        ],
+//           [
+//               'id' => '4',
+//               'name_ar' => 'تبوك',
+//               'name_en' => 'Tabuk',
+//           ],          [
+//            'id' => '5',
+//            'name_ar' => "الرياض",
+//            'name_en' => "Riyadh",
+//
+//        ],
+//        [
+//            'id' => '6',
+//            'name_ar' => "حميط",
+//            'name_en' => "Humayt",
+//        ],          [
+//            'id' => '7',
+//            'name_ar' => "الطائف",
+//            'name_en' => "At Taif",
+//
+//        ],
+//           [
+//            'id' => '8',
+//            'name_ar' => "مكة المكرمة",
+//            'name_en' => "Makkah",
+//
+//        ],
+//        [
+//            'id' => 9,
+//            'name_ar' => "حائل",
+//            'name_en' => "Hail",
+//        ],
         [
             'id' => 10,
             'name_ar' => "بريدة",
@@ -61,6 +62,431 @@ class CitySeeder extends Seeder
             'name_ar' => "الدمام",
             'name_en' => "Dammam",
         ],
+           [
+               'id' => '7',
+               'name_ar' => "رجم الطيارة",
+               'name_en' => "Rajm At Tayarah",
+           ],
+           [
+               'id' => 8,
+               'name_ar' => "الثميد",
+               'name_en' => "Ath Thumayd",
+           ],
+           [
+               'id' => 9,
+               'name_ar' => "عسيلة",
+               'name_en' => "'Usaylah",
+           ],
+
+           [
+               'id' => 14,
+               'name_ar' => "المدينة المنورة",
+               'name_en' => "Madinah",
+           ],
+           [
+               'id' => 15,
+               'name_ar' => "ابها",
+               'name_en' => "Abha",
+           ],
+           [
+               'id' => 16,
+               'name_ar' => "حالة عمار",
+               'name_en' => "Halat Ammar",
+           ],
+           [
+               'id' => 17,
+               'name_ar' => "جازان",
+               'name_en' => "Jazan",
+           ],
+           [
+               'id' => 18,
+               'name_ar' => "جدة",
+               'name_en' => "Jeddah",
+
+           ],
+           [
+               'id' => 19,
+               'name_ar' => "الشايب",
+               'name_en' => "Ash Shayib",
+
+           ],
+           [
+               'id' => 20,
+               'name_ar' => "الفوهة",
+               'name_en' => "Al Fawhah",
+           ],
+           [
+               'id' => 21,
+               'name_ar' => "اللوز",
+               'name_en' => "Al Lawz",
+
+           ],
+           [
+               'id' => 22,
+               'name_ar' => "عين الأخضر",
+               'name_en' => "'Ayn Al Akhdar",
+
+           ],
+           [
+               'id' => 23,
+               'name_ar' => "ذات الحاج",
+               'name_en' => "Dhat Al Hajj",
+
+           ],
+           [
+               'id' => 24,
+               'name_ar' => "المجمعة",
+               'name_en' => "Al Majma'ah",
+
+           ],
+           [
+               'id' => 25,
+               'name_ar' => "قيال",
+               'name_en' => "Qiyal",
+
+           ],
+           [
+               'id' => 26,
+               'name_ar' => "الاخضر",
+               'name_en' => "Al Akhdar",
+
+           ],
+           [
+               'id' => 27,
+               'name_ar' => "البديعة",
+               'name_en' => "Al Badi'ah",
+
+           ],
+           [
+               'id' => 28,
+               'name_ar' => "مغيرة",
+               'name_en' => "Mughayrah",
+
+           ],
+           [
+               'id' => 29,
+               'name_ar' => "الهوجاء",
+               'name_en' => "Al Hawja'",
+
+           ],
+           [
+               'id' => 30,
+               'name_ar' => "البديع",
+               'name_en' => "Al Badi'",
+
+           ],
+           [
+               'id' => 31,
+               'name_ar' => "الخبر",
+               'name_en' => "Al Khobar",
+
+           ],
+           [
+               'id' => 32,
+               'name_ar' => "ابار قنا",
+               'name_en' => "Abar Qana",
+
+           ],
+           [
+               'id' => 33,
+               'name_ar' => "الجبعاوية",
+               'name_en' => "Al Jab'awiyah",
+
+           ],
+           [
+               'id' => 34,
+               'name_ar' => "الحميضة",
+               'name_en' => "Al Humaydah",
+
+           ],
+           [
+               'id' => 35,
+               'name_ar' => "البيانة",
+               'name_en' => "Al Bayyanah",
+
+           ],
+           [
+               'id' => 36,
+               'name_ar' => "حقل",
+               'name_en' => "Haql",
+
+           ],
+           [
+               'id' => 37,
+               'name_ar' => "الدرة",
+               'name_en' => "Ad Durrah",
+
+           ],
+           [
+               'id' => 38,
+               'name_ar' => "الزيتة",
+               'name_en' => "Az Zaytah",
+
+           ],
+           [
+               'id' => 39,
+               'name_ar' => "علقان",
+               'name_en' => "'Alaqan",
+
+           ],
+           [
+               'id' => 40,
+               'name_ar' => "الوادي الجديد",
+               'name_en' => "Al Wadi Al Jadid",
+
+           ],
+           [
+               'id' => 41,
+               'name_ar' => "مليح",
+               'name_en' => "Mulayh",
+
+           ],
+           [
+               'id' => 42,
+               'name_ar' => "ابو الحنشان",
+               'name_en' => "Abu Al Hinshan",
+
+           ],
+           [
+               'id' => 43,
+               'name_ar' => "مقنا",
+               'name_en' => "Maqna",
+
+           ],
+           [
+               'id' => 44,
+               'name_ar' => "ابو قعر",
+               'name_en' => "Abu Qa'ar",
+
+           ],
+           [
+               'id' => 45,
+               'name_ar' => "مركز العوجاء",
+               'name_en' => "Markaz Al 'Awja",
+
+           ],
+           [
+               'id' => 46,
+               'name_ar' => "مركز العليمة",
+               'name_en' => "Markaz Al 'Ulayyimah",
+
+           ],
+           [
+               'id' => 47,
+               'name_ar' => "حفر الباطن",
+               'name_en' => "Hafar Al Batin",
+
+           ],
+           [
+               'id' => 48,
+               'name_ar' => "القلت",
+               'name_en' => "Al Qalt",
+
+           ],
+           [
+               'id' => 49,
+               'name_ar' => "النظيم",
+               'name_en' => "An Nadhim",
+
+           ],
+           [
+               'id' => 50,
+               'name_ar' => "ابن طوالة",
+               'name_en' => "Ibn Tuwalah",
+
+           ],
+           [
+               'id' => 51,
+               'name_ar' => "الصداوي",
+               'name_en' => "As Sidawi",
+
+           ],
+           [
+               'id' => 52,
+               'name_ar' => "ام قليب",
+               'name_en' => "Umm Qulaib",
+
+           ],
+           [
+               'id' => 53,
+               'name_ar' => "عريفج",
+               'name_en' => "Urayfij",
+
+           ],
+           [
+               'id' => 54,
+               'name_ar' => "ابن شرار",
+               'name_en' => "Ibn Sharar",
+
+           ],
+           [
+               'id' => 55,
+               'name_ar' => "القيصومة",
+               'name_en' => "Al Qaysumah",
+
+           ],
+           [
+               'id' => 56,
+               'name_ar' => "الرقعي الجديدة",
+               'name_en' => "Ar Ruq'i Al Jadidah",
+
+           ],
+           [
+               'id' => 57,
+               'name_ar' => "ذبحة",
+               'name_en' => "Dhabhah",
+
+           ],
+           [
+               'id' => 58,
+               'name_ar' => "الصفيري",
+               'name_en' => "As Sufairy",
+
+           ],
+           [
+               'id' => 59,
+               'name_ar' => "الوايلية",
+               'name_en' => "Al Wayliyah",
+
+           ],
+           [
+               'id' => 60,
+               'name_ar' => "الفيوان",
+               'name_en' => "Al Fiwan",
+
+           ],
+           [
+               'id' => 61,
+               'name_ar' => "الحماطيات",
+               'name_en' => "Al Hamatiyat",
+
+           ],
+           [
+               'id' => 62,
+               'name_ar' => "خميس مشيط",
+               'name_en' => "Khamis Mushayt",
+
+           ],
+           [
+               'id' => 63,
+               'name_ar' => "الجبو",
+               'name_en' => "Al Jabu",
+
+           ],
+           [
+               'id' => 64,
+               'name_ar' => "المسناة",
+               'name_en' => "Al Masnah",
+
+           ],
+           [
+               'id' => 65,
+               'name_ar' => "احد رفيده",
+               'name_en' => "Ahad Rifaydah",
+
+           ],
+           [
+               'id' => 66,
+               'name_ar' => "ام عشر الشرقية",
+               'name_en' => "Umm Ishar Ash Sharqiyyah",
+
+           ],
+           [
+               'id' => 67,
+               'name_ar' => "القطيف",
+               'name_en' => "Al Qatif",
+
+           ],
+           [
+               'id' => 68,
+               'name_ar' => "بوهان",
+               'name_en' => "Buhan",
+
+           ],
+           [
+               'id' => 69,
+               'name_ar' => "السنانيات",
+               'name_en' => "As Sananiyat",
+
+           ],
+           [
+               'id' => 70,
+               'name_ar' => "حزايا",
+               'name_en' => "Hazaya",
+
+           ],
+           [
+               'id' => 71,
+               'name_ar' => "أكباد",
+               'name_en' => "Akbad",
+
+           ],
+           [
+               'id' => 72,
+               'name_ar' => "بئر الحيز",
+               'name_en' => "Bir Al Hayz",
+
+           ],
+           [
+               'id' => 73,
+               'name_ar' => "جريداء",
+               'name_en' => "Jurayda",
+
+           ],
+           [
+               'id' => 74,
+               'name_ar' => "تيماء",
+               'name_en' => "Tayma'",
+
+           ],
+           [
+               'id' => 75,
+               'name_ar' => "العسافية",
+               'name_en' => "Al Assafiyah",
+
+           ],
+           [
+               'id' => 76,
+               'name_ar' => "عردة",
+               'name_en' => "'Ardah",
+
+           ],
+           [
+               'id' => 77,
+               'name_ar' => "الكتيب",
+               'name_en' => "Al Kutaib",
+
+           ],
+           [
+               'id' => 78,
+               'name_ar' => "بئر فجر",
+               'name_en' => "Bi'r Fajr",
+           ],
+           [
+               'id'=>79,
+               'name_ar'=>"محافظة الأحساء",
+               'name_en'=>"Ahsa Governorate",
+           ],[
+               'id'=>80,
+               'name_ar'=>"أمانة الدمام",
+               'name_en'=>"City of Dammam",
+           ],[
+               'id'=>81,
+               'name_ar'=>"محافظة الخبر ",
+               'name_en'=>"Khobar Governorate",
+           ],[
+               'id'=>82,
+               'name_ar'=>"محافظة القطيف ",
+               'name_en'=>"Qatif Governorate",
+           ],[
+               'id'=>83,
+               'name_ar'=>"محافظة حفر الباطن ",
+               'name_en'=>"Hafr Al Batin Governorate",
+           ],[
+               'id'=>84,
+               'name_ar'=>"محافظة الجبيل ",
+               'name_en'=>"Jubail Governorate",
+           ],
 
         ];
        City::insert($cities);
@@ -75,464 +501,7 @@ class CitySeeder extends Seeder
 
 
 
-//           [
-//               'id' => '7',
-//               'name_ar' => "رجم الطيارة",
-//               'name_en' => "Rajm At Tayarah",
-//           ],
-//           [
-//               'id' => 8,
-//               'name_ar' => "الثميد",
-//               'name_en' => "Ath Thumayd",
-//           ],
-//           [
-//               'id' => 9,
-//
-//               'name_ar' => "عسيلة",
-//               'name_en' => "'Usaylah",
-//           ],
 
-//           [
-//               'id' => 14,
-//               'name_ar' => "المدينة المنورة",
-//               'name_en' => "Madinah",
-//           ],
-//           [
-//               'id' => 15,
-//               'name_ar' => "ابها",
-//               'name_en' => "Abha",
-//           ],
-//           [
-//               'id' => 16,
-//               'name_ar' => "حالة عمار",
-//               'name_en' => "Halat Ammar",
-//           ],
-//           [
-//               'id' => 17,
-//               'name_ar' => "جازان",
-//               'name_en' => "Jazan",
-//           ],
-//           [
-//               'id' => 18,
-//               'name_ar' => "جدة",
-//               'name_en' => "Jeddah",
-//
-//           ],
-//           [
-//               'id' => 19,
-//               'name_ar' => "الشايب",
-//               'name_en' => "Ash Shayib",
-//
-//           ],
-//           [
-//               'id' => 20,
-//               'name_ar' => "الفوهة",
-//               'name_en' => "Al Fawhah",
-//           ],
-//           [
-//               'id' => 21,
-//               'name_ar' => "اللوز",
-//               'name_en' => "Al Lawz",
-//
-//           ],
-//           [
-//               'id' => 22,
-//
-//               'name_ar' => "عين الأخضر",
-//               'name_en' => "'Ayn Al Akhdar",
-//
-//           ],
-//           [
-//               'id' => 23,
-//
-//               'name_ar' => "ذات الحاج",
-//               'name_en' => "Dhat Al Hajj",
-//
-//           ],
-//           [
-//               'id' => 24,
-//               'name_ar' => "المجمعة",
-//               'name_en' => "Al Majma'ah",
-//
-//           ],
-//           [
-//               'id' => 25,
-//
-//               'name_ar' => "قيال",
-//               'name_en' => "Qiyal",
-//
-//           ],
-//           [
-//               'id' => 26,
-//
-//               'name_ar' => "الاخضر",
-//               'name_en' => "Al Akhdar",
-//
-//           ],
-//           [
-//               'id' => 27,
-//
-//               'name_ar' => "البديعة",
-//               'name_en' => "Al Badi'ah",
-//
-//           ],
-//           [
-//               'id' => 28,
-//
-//               'name_ar' => "مغيرة",
-//               'name_en' => "Mughayrah",
-//
-//           ],
-//           [
-//               'id' => 29,
-//
-//               'name_ar' => "الهوجاء",
-//               'name_en' => "Al Hawja'",
-//
-//           ],
-//           [
-//               'id' => 30,
-//
-//               'name_ar' => "البديع",
-//               'name_en' => "Al Badi'",
-//
-//           ],
-//           [
-//               'id' => 31,
-//
-//               'name_ar' => "الخبر",
-//               'name_en' => "Al Khobar",
-//
-//           ],
-//           [
-//               'id' => 32,
-//
-//               'name_ar' => "ابار قنا",
-//               'name_en' => "Abar Qana",
-//
-//           ],
-//           [
-//               'id' => 33,
-//
-//               'name_ar' => "الجبعاوية",
-//               'name_en' => "Al Jab'awiyah",
-//
-//           ],
-//           [
-//               'id' => 34,
-//
-//               'name_ar' => "الحميضة",
-//               'name_en' => "Al Humaydah",
-//
-//           ],
-//           [
-//               'id' => 35,
-//
-//               'name_ar' => "البيانة",
-//               'name_en' => "Al Bayyanah",
-//
-//           ],
-//           [
-//               'id' => 36,
-//
-//               'name_ar' => "حقل",
-//               'name_en' => "Haql",
-//
-//           ],
-//           [
-//               'id' => 37,
-//
-//               'name_ar' => "الدرة",
-//               'name_en' => "Ad Durrah",
-//
-//           ],
-//           [
-//               'id' => 38,
-//
-//               'name_ar' => "الزيتة",
-//               'name_en' => "Az Zaytah",
-//
-//           ],
-//           [
-//               'id' => 39,
-//
-//               'name_ar' => "علقان",
-//               'name_en' => "'Alaqan",
-//
-//           ],
-//           [
-//               'id' => 40,
-//
-//               'name_ar' => "الوادي الجديد",
-//               'name_en' => "Al Wadi Al Jadid",
-//
-//           ],
-//           [
-//               'id' => 41,
-//
-//               'name_ar' => "مليح",
-//               'name_en' => "Mulayh",
-//
-//           ],
-//           [
-//               'id' => 42,
-//
-//               'name_ar' => "ابو الحنشان",
-//               'name_en' => "Abu Al Hinshan",
-//
-//           ],
-//           [
-//               'id' => 43,
-//
-//               'name_ar' => "مقنا",
-//               'name_en' => "Maqna",
-//
-//           ],
-//           [
-//               'id' => 44,
-//
-//               'name_ar' => "ابو قعر",
-//               'name_en' => "Abu Qa'ar",
-//
-//           ],
-//           [
-//               'id' => 45,
-//
-//               'name_ar' => "مركز العوجاء",
-//               'name_en' => "Markaz Al 'Awja",
-//
-//           ],
-//           [
-//               'id' => 46,
-//
-//               'name_ar' => "مركز العليمة",
-//               'name_en' => "Markaz Al 'Ulayyimah",
-//
-//           ],
-//           [
-//               'id' => 47,
-//
-//               'name_ar' => "حفر الباطن",
-//               'name_en' => "Hafar Al Batin",
-//
-//           ],
-//           [
-//               'id' => 48,
-//
-//               'name_ar' => "القلت",
-//               'name_en' => "Al Qalt",
-//
-//           ],
-//           [
-//               'id' => 49,
-//
-//               'name_ar' => "النظيم",
-//               'name_en' => "An Nadhim",
-//
-//           ],
-//           [
-//               'id' => 50,
-//
-//               'name_ar' => "ابن طوالة",
-//               'name_en' => "Ibn Tuwalah",
-//
-//           ],
-//           [
-//               'id' => 51,
-//
-//               'name_ar' => "الصداوي",
-//               'name_en' => "As Sidawi",
-//
-//           ],
-//           [
-//               'id' => 52,
-//
-//               'name_ar' => "ام قليب",
-//               'name_en' => "Umm Qulaib",
-//
-//           ],
-//           [
-//               'id' => 53,
-//
-//               'name_ar' => "عريفج",
-//               'name_en' => "Urayfij",
-//
-//           ],
-//           [
-//               'id' => 54,
-//
-//               'name_ar' => "ابن شرار",
-//               'name_en' => "Ibn Sharar",
-//
-//           ],
-//           [
-//               'id' => 55,
-//
-//               'name_ar' => "القيصومة",
-//               'name_en' => "Al Qaysumah",
-//
-//           ],
-//           [
-//               'id' => 56,
-//
-//               'name_ar' => "الرقعي الجديدة",
-//               'name_en' => "Ar Ruq'i Al Jadidah",
-//
-//           ],
-//           [
-//               'id' => 57,
-//
-//               'name_ar' => "ذبحة",
-//               'name_en' => "Dhabhah",
-//
-//           ],
-//           [
-//               'id' => 58,
-//
-//               'name_ar' => "الصفيري",
-//               'name_en' => "As Sufairy",
-//
-//           ],
-//           [
-//               'id' => 59,
-//
-//               'name_ar' => "الوايلية",
-//               'name_en' => "Al Wayliyah",
-//
-//           ],
-//           [
-//               'id' => 60,
-//
-//               'name_ar' => "الفيوان",
-//               'name_en' => "Al Fiwan",
-//
-//           ],
-//           [
-//               'id' => 61,
-//
-//               'name_ar' => "الحماطيات",
-//               'name_en' => "Al Hamatiyat",
-//
-//           ],
-//           [
-//               'id' => 62,
-//
-//               'name_ar' => "خميس مشيط",
-//               'name_en' => "Khamis Mushayt",
-//
-//           ],
-//           [
-//               'id' => 63,
-//
-//               'name_ar' => "الجبو",
-//               'name_en' => "Al Jabu",
-//
-//           ],
-//           [
-//               'id' => 64,
-//
-//               'name_ar' => "المسناة",
-//               'name_en' => "Al Masnah",
-//
-//           ],
-//           [
-//               'id' => 65,
-//
-//               'name_ar' => "احد رفيده",
-//               'name_en' => "Ahad Rifaydah",
-//
-//           ],
-//           [
-//               'id' => 66,
-//
-//               'name_ar' => "ام عشر الشرقية",
-//               'name_en' => "Umm Ishar Ash Sharqiyyah",
-//
-//           ],
-//           [
-//               'id' => 67,
-//
-//               'name_ar' => "القطيف",
-//               'name_en' => "Al Qatif",
-//
-//           ],
-//           [
-//               'id' => 68,
-//
-//               'name_ar' => "بوهان",
-//               'name_en' => "Buhan",
-//
-//           ],
-//           [
-//               'id' => 69,
-//
-//               'name_ar' => "السنانيات",
-//               'name_en' => "As Sananiyat",
-//
-//           ],
-//           [
-//               'id' => 70,
-//
-//               'name_ar' => "حزايا",
-//               'name_en' => "Hazaya",
-//
-//           ],
-//           [
-//               'id' => 71,
-//
-//               'name_ar' => "أكباد",
-//               'name_en' => "Akbad",
-//
-//           ],
-//           [
-//               'id' => 72,
-//
-//               'name_ar' => "بئر الحيز",
-//               'name_en' => "Bir Al Hayz",
-//
-//           ],
-//           [
-//               'id' => 73,
-//
-//               'name_ar' => "جريداء",
-//               'name_en' => "Jurayda",
-//
-//           ],
-//           [
-//               'id' => 74,
-//
-//               'name_ar' => "تيماء",
-//               'name_en' => "Tayma'",
-//
-//           ],
-//           [
-//               'id' => 75,
-//
-//               'name_ar' => "العسافية",
-//               'name_en' => "Al Assafiyah",
-//
-//           ],
-//           [
-//               'id' => 76,
-//
-//               'name_ar' => "عردة",
-//               'name_en' => "'Ardah",
-//
-//           ],
-//           [
-//               'id' => 77,
-//
-//               'name_ar' => "الكتيب",
-//               'name_en' => "Al Kutaib",
-//
-//           ],
-//           [
-//               'id' => 78,
-//
-//               'name_ar' => "بئر فجر",
-//               'name_en' => "Bi'r Fajr",
-//
-//           ],
 //           [
 //               'id' => 79,
 //
