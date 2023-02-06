@@ -64,7 +64,6 @@ class subCategoryController extends Controller
             $subcategory['price'] = $request->price;
             $subcategory['status'] ='1';
             $subcategory['rate'] = '5';
-//            $subcategory['image'] = uploadFile($request->image,'categories');
             if($request->around_clock !=''){
              $subcategory['around_clock'] = $request->around_clock;
             $subcategory['clock_end'] = '';
@@ -100,7 +99,6 @@ class subCategoryController extends Controller
     public function show($id)
     {
         $subCategory=Subcategory::with('user')->find($id);
-
         return view('dashboard.laundries.view',compact('subCategory'));
     }
 
@@ -114,7 +112,6 @@ class subCategoryController extends Controller
     {
         $subCategory=Subcategory::with(['parent','user'])->find($id);
         $cities=City::pluck('id','name_ar');
-//        dd($subCategory);
         return view('dashboard.laundries.edit',compact(['subCategory','cities']));
     }
 
@@ -128,6 +125,14 @@ class subCategoryController extends Controller
     public function update(Request $request,$id)
     {
         $subcategory=Subcategory::find($id);
+        if($request->around_clock !=''){
+            $subcategory['around_clock'] = $request->around_clock;
+            $subcategory['clock_end'] = '';
+            $subcategory['clock_at'] = '';
+        }else{
+            $subcategory['clock_end'] = $request->clock_end;
+            $subcategory['clock_at'] = $request->clock_at;
+        }
         if($request->file('image') !=''){
             $filename = request('image')->getClientOriginalName();
             request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
@@ -138,10 +143,11 @@ class subCategoryController extends Controller
             'name_en'=>$request->name_en,
             'name_ar'=>$request->name_ar,
             'address'=>$request->address,
+            'city_id'=>$request->city_id,
+            'price'=>$request->price,
         ]);
         $subcategory->save();
         User::where('subCategory_id',$id)->update([
-            'id'=>$id,
             'name'=>$request->name,
             'last_name'=>$request->last_name,
             'email'=>$request->email,
