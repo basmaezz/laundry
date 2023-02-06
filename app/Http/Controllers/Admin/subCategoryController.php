@@ -127,13 +127,19 @@ class subCategoryController extends Controller
      */
     public function update(Request $request,$id)
     {
-
+        $subcategory=Subcategory::find($id);
+        if($request->file('image') !=''){
+            $filename = request('image')->getClientOriginalName();
+            request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
+            $subcategory['image']=$filename;
+          }
         Subcategory::where('id',$id)->update([
             'id'=>$id,
             'name_en'=>$request->name_en,
             'name_ar'=>$request->name_ar,
             'address'=>$request->address,
         ]);
+        $subcategory->save();
         User::where('subCategory_id',$id)->update([
             'id'=>$id,
             'name'=>$request->name,

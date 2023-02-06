@@ -26,7 +26,9 @@ class DatabaseSeeder extends Seeder
             // carTypesSeeder::class,
             // EducationsLevelSeeder::class,
             // CitySeeder::class,
-            subCategorySeeder::class,
+//            subCategorySeeder::class,
+            productSeeder::class,
+            productServiceSeeder::class,
         ]);
     }
 }

@@ -9,7 +9,7 @@
     <meta name="author" content="Lukasz Holeczek">
     <meta name="keyword" content="CoreUI Bootstrap 4 Admin Template">
     <!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
-    <title>CoreUI Bootstrap 4 Admin Template</title>
+    <title> Admin Dashboard</title>
     <!-- Icons -->
     <link href="{{asset('assets/admin/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/admin/css/simple-line-icons.css')}}" rel="stylesheet">
@@ -31,10 +31,7 @@
                                 <span class="input-group-addon"><i class="icon-user"></i>
                                 </span>
                             <input type="text" class="form-control en" placeholder=" Email.... " name="email" required autofocus>
-{{--                            @if ($errors->has('email'))--}}
-{{--                                <span class="text-danger">{{ $errors->first('email') }}</span>--}}
-{{--                            @endif--}}
-                        </div>
+                       </div>
                         <div class="input-group m-b-2">
                                 <span class="input-group-addon"><i class="icon-lock"></i>
                                 </span>
