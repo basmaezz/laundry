@@ -260,7 +260,7 @@ class AuthController extends ApiController
                 $user->save();
                 $token=JWTAuth::fromUser($user);
                 $userData = getUserObject($user);
-
+                 dd($user);
                 $userData['token'] = $token;
                 if($request->get('type')=='delivery'){
                     $userData['delegate'] = Delegate::where('user_id',$user->id)->first();
