@@ -263,7 +263,6 @@ class AuthController extends ApiController
                 $userData['token'] = $token;
                 if($request->get('user_type')=='delivery'){
                     $userData['delegate'] = Delegate::where('user_id',$user->id)->first();
-                 dd( $request->get('user_type'));
                 }
                 return apiResponse("api.success",$userData);
             }else {
