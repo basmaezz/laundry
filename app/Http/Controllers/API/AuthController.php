@@ -261,9 +261,9 @@ class AuthController extends ApiController
                 $token=JWTAuth::fromUser($user);
                 $userData = getUserObject($user);
                 $userData['token'] = $token;
-                if($request->get('type')=='delivery'){
+                if($request->get('user_type')=='delivery'){
                     $userData['delegate'] = Delegate::where('user_id',$user->id)->first();
-                 dd( $userData['delegate']);
+                 dd( $request->get('user_type'));
                 }
                 return apiResponse("api.success",$userData);
             }else {
