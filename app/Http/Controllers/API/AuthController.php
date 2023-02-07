@@ -262,7 +262,7 @@ class AuthController extends ApiController
                 $userData = getUserObject($user);
                 $userData['token'] = $token;
                 if($request->get('type')=='delivery'){
-                    $userData['delegate'] = Delegate::where('user_id',$user->id)->first();
+                    $userData['delegate'] = Delegate::where('app_user_id',$user->id)->first();
                 }
                 return apiResponse("api.success",$userData);
             }else {
@@ -425,7 +425,7 @@ class AuthController extends ApiController
         $user->lat          = $request->get("lat") ?? $user->lat;
         $user->lng          = $request->get("lng") ?? $user->lng;
 
-        $delegate = Delegate::where('user_id',$user->id)->first();
+        $delegate = Delegate::where('app_user_id',$user->id)->first();
         $delegate->id_number          = $request->get('personal')['nid'];
         $delegate->iban_number        = $request->get('bank')['number'];
         $delegate->bank_name          = $request->get('bank')['name'];

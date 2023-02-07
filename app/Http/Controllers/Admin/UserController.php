@@ -163,7 +163,7 @@ class UserController extends Controller
     }
     public function delegates(Request $request)
     {
-        $delegates=Delegate::with('user')->get();
+        $delegates=Delegate::with('appUser')->get();
         return view('dashboard.users.delegates',compact('delegates'));
     }
     public function CreateDelegate()
@@ -232,7 +232,7 @@ class UserController extends Controller
     }
     public function showDelegate($id)
     {
-        $delegate=Delegate::with(['user','car'])->find($id);
+        $delegate=Delegate::with(['appUser','car'])->find($id);
         return view('dashboard.users.viewDelegate',compact('delegate'));
     }
     public function deleteDelegate($id)
