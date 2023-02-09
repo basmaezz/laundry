@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->integer('user_id')->nullable()->unsigned()->change();
             $table->foreignId('app_user_id')->after('send');
 
         });
