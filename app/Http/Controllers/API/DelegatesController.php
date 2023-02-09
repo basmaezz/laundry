@@ -24,6 +24,7 @@ class DelegatesController extends Controller
 {
     public function delegate_orders(Request $request)
     {
+
         $app_user_id = auth('app_users_api')->user()->id;
         $orders = OrderTable::query();
         if($request->get('type') == 'unassigned'){
@@ -183,7 +184,6 @@ class DelegatesController extends Controller
 
     public function accept_order(Request $request,$order_id){
         $app_user_id = auth('app_users_api')->user()->id;
-
         /*$_totalOrders = OrderTable::where('delivery_id',$app_user_id)->whereNotIn("status_id",[
             OrderController::AcceptedByDelivery,
             OrderController::WayToLaundry,
@@ -194,10 +194,12 @@ class DelegatesController extends Controller
         if($_totalOrders >= 1){
             return apiResponseCouponError('api.You reached the maximum orders you can accept',400,400);
         }*/
-        //dd($app_user_id);
+        $order = OrderTable::all();
+        dd($order);
         $order = OrderTable::whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::WaitingForDeliveryToReceiveOrder])
             ->where('id',$order_id)
             ->firstOrFail();
+        dd($order);
         $order->status_id = $order->status_id+1;
         $order->delivery_id = $app_user_id;
         $order->save();
@@ -209,7 +211,6 @@ class DelegatesController extends Controller
         ]);
 
         $name = 'name_' . App::getLocale();
-
         NotificationController::sendNotification(
             getStatusName($order->status_id),
             __('api.order_update',['laundry'=>$order->subCategories->$name,'status'=>getStatusName($order->status_id)]),
