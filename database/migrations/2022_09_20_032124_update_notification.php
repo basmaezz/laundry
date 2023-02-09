@@ -19,7 +19,6 @@ return new class extends Migration
             $table->boolean('send')->default(false)->after('title_en');
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -28,7 +27,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->dropColumn(['title_en', 'title_ar', 'send']);
+            $table->dropColumn('title_en');
+            $table->dropColumn('title_ar');
+            $table->dropColumn('send');
         });
     }
 };

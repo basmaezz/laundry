@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('order_tables', function (Blueprint $table) {
-            $table->foreignId('delivery_id')->after('laundry_id');
             $table->string('delivery_type')->after('discount')->default(null)->nullable();
         });
     }
