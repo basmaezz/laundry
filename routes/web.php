@@ -196,5 +196,5 @@ Route::get('updateAll',function (){
    $subcategories= DB::table('subcategories')->whereNull('city_id') ->update(['city_id'=>1]);
 });
 Route::get('updateOrder',function (){
-$ordersTable=DB::table('subcategories')->whereNull('status_id') ->update(['status_id'=>1]);
+$ordersTable=DB::table('orders')->whereNull('status_id') ->update(['status_id'=>1]);
 });
