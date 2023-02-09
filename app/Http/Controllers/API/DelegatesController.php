@@ -195,11 +195,10 @@ class DelegatesController extends Controller
             return apiResponseCouponError('api.You reached the maximum orders you can accept',400,400);
         }*/
         $order = OrderTable::all();
-        dd($order);
         $order = OrderTable::whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::WaitingForDeliveryToReceiveOrder])
             ->where('id',$order_id)
             ->firstOrFail();
-        dd($order);
+
         $order->status_id = $order->status_id+1;
         $order->delivery_id = $app_user_id;
         $order->save();
