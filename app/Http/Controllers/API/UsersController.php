@@ -640,7 +640,7 @@ class UsersController extends Controller
     public function notifications()
     {
         $JwtUser = JWTAuth::toUser();
-        $notifications = Notifications::where('user_id', $JwtUser->id)->latest()->get();
+        $notifications = Notifications::where('app_user_id', $JwtUser->id)->latest()->get();
         $content = 'content_' . App::getLocale();
         $data = [];
 
@@ -655,7 +655,7 @@ class UsersController extends Controller
             ];
         }
 
-        Notifications::where('user_id', $JwtUser->id)->update(['seen' => 1]);
+        Notifications::where('app_user_id', $JwtUser->id)->update(['seen' => 1]);
 
         return responseJsonData($data);
     }
@@ -664,7 +664,7 @@ class UsersController extends Controller
     public function count_notification()
     {
         $JwtUser = JWTAuth::toUser();
-        $notifications = Notifications::where(['user_id' => $JwtUser->id, 'seen' => 0])->count();
+        $notifications = Notifications::where(['app_user_id' => $JwtUser->id, 'seen' => 0])->count();
 
         return responseJsonData($notifications);
     }
