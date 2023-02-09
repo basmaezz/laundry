@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderTable extends Model
 {
+
     protected static function booted()
     {
         static::created(function ($order) {
@@ -35,6 +36,7 @@ class OrderTable extends Model
         'user_id',
         'category_id',
         'laundry_id',
+        'delivery_id',
         'total_price',
         'count_products',
         'status',

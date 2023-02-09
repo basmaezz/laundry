@@ -82,7 +82,6 @@ class NotificationController extends Controller
         }
         //echo $response->getBody();
         //debug($response->getBody(), $fcmNotification);
-
         Log::debug($fcmNotification);
     }
 

@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('order_tables', function (Blueprint $table) {
+            $table->foreignId('delivery_id')->after('laundry_id');
             $table->string('delivery_type')->after('discount')->default(null)->nullable();
         });
     }
@@ -26,7 +27,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('order_tables', function (Blueprint $table) {
-            $table->dropColumn('delivery_type');
+            $table->dropColumn('delivery_id');
         });
     }
 };
