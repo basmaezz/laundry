@@ -26,10 +26,10 @@
                                     <tbody>
                                     @foreach($delegates as $delegate)
                                     <tr>
-                                        <td>{{$delegate->user->id}}</td>
-                                        <td>{{$delegate->user->name}}</td>
+                                        <td>{{$delegate->appUser->id}}</td>
+                                        <td>{{$delegate->appUser->name}}</td>
                                         <td>{{$delegate->request_employment==0 ?'موظف':'عامل حر'}}</td>
-                                        <td>{{$delegate->user->created_at->format('Y-M-D')}}</td>
+                                        <td>{{$delegate->appUser->created_at->format('Y-M-D')}}</td>
                                         <td>
                                             <a href="{{route('delegate.show',$delegate->id)}}" class="btn btn-info">تفاصيل</a>
                                             <a href="{{route('delegate.delete',$delegate->id)}}" class="btn btn-danger">حذف</a>

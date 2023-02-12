@@ -137,7 +137,6 @@ class DelegatesController extends Controller
                       'price' => $service['price'],
                       'count' => $service['count'],
                    ]);
-
 //                   $cart->save();
                }
            }
@@ -184,22 +183,9 @@ class DelegatesController extends Controller
 
     public function accept_order(Request $request,$order_id){
         $app_user_id = auth('app_users_api')->user()->id;
-//        dd($app_user_id);
-        /*$_totalOrders = OrderTable::where('delivery_id',$app_user_id)->whereNotIn("status_id",[
-            OrderController::AcceptedByDelivery,
-            OrderController::WayToLaundry,
-            OrderController::DeliveryOnTheWayToYou,
-            OrderController::WaitingForDelivery
-        ])->count();
-
-        if($_totalOrders >= 1){
-            return apiResponseCouponError('api.You reached the maximum orders you can accept',400,400);
-        }*/
-//        dd($order_id);
         $order = OrderTable::whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::WaitingForDeliveryToReceiveOrder])
-            ->orwhere('id',$order_id)
+            ->where('id',$order_id)
             ->firstOrFail();
-//        dd($order);
         $order->status_id = $order->status_id+1;
         $order->delivery_id = $app_user_id;
         $order->save();

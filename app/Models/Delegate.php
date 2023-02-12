@@ -13,6 +13,7 @@ class Delegate extends Model
         ['user_id',
         'id_number',
         'id_image',
+        'app_user_id',
         'iban_number',
         'bank_name',
         'car_picture_front',
@@ -67,6 +68,9 @@ class Delegate extends Model
     public  function appUser(){
         return $this->belongsTo(AppUser::class,'app_user_id');
     }
+//    public  function user(){
+//        return $this->belongsTo(User::class,'user_id');
+//    }
 
     public function car(){
         return $this->belongsTo(CarType::class,'car_type');
