@@ -183,9 +183,10 @@ class DelegatesController extends Controller
 
     public function accept_order(Request $request,$order_id){
         $app_user_id = auth('app_users_api')->user()->id;
-        $order = OrderTable::where('id',$order_id)
+//        $order = OrderTable::whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::AcceptedByDelivery,OrderController::WaitingForDeliveryToReceiveOrder])
+        $order = OrderTable::whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::WaitingForDeliveryToReceiveOrder])
+            ->where('id',$order_id)
             ->firstOrFail();
-        dd($order);
         $order->status_id = $order->status_id+1;
         $order->delivery_id = $app_user_id;
         $order->save();
