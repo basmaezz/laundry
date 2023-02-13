@@ -27,13 +27,11 @@ class DelegatesController extends Controller
         $app_user_id = auth('app_users_api')->user()->id;
         $orders = OrderTable::query();
         if($request->get('type') == 'unassigned'){
-            dd('unassigned');
             $reject_order_ids = DeliveryRejection::where('user_id', $app_user_id)->get()->pluck('order_id');
 
             $orders = $orders->whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::WaitingForDeliveryToReceiveOrder])->
             whereNull('delivery_id')->whereNotIn('id',$reject_order_ids->toArray());
         }
-        dd($orders);
         if($request->get('type') == 'my_assigned'){
             $orders = $orders->whereIn('status_id',[
                 OrderController::AcceptedByDelivery,
