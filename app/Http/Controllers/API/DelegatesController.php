@@ -186,6 +186,7 @@ class DelegatesController extends Controller
         $order = OrderTable::whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::WaitingForDeliveryToReceiveOrder])
             ->where('id',$order_id)
             ->firstOrFail();
+        dd($order);
         $order->status_id = $order->status_id+1;
         $order->delivery_id = $app_user_id;
         $order->save();
