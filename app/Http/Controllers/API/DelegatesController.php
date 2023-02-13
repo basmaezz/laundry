@@ -29,7 +29,7 @@ class DelegatesController extends Controller
         $orders = OrderTable::query();
         if($request->get('type') == 'unassigned'){
             $reject_order_ids = DeliveryRejection::where('user_id', $app_user_id)->get()->pluck('order_id');
-            dd($reject_order_ids->toArray(),$orders->get());
+
             $orders = $orders->whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::WaitingForDeliveryToReceiveOrder])->
             whereNull('delivery_id')->whereNotIn('id',$reject_order_ids->toArray());
         }
