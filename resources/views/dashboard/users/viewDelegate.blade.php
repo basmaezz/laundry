@@ -12,21 +12,27 @@
                                 </div>
                                 <div class="card-block">
                                     <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
+                                        <label class="col-md-3 form-control-label" for="text-input">الأسم   </label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->user->name}}"disabled>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input">الأسم الأخير</label>
-                                        <div class="col-md-9">
-                                            <input type="text" id="text-input" name="last_name" class="form-control" value="{{$delegate->user->last_name}}"disabled>
+                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->appUSer->name}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                         <div class="col-md-9">
-                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->user->phone}}"disabled>
+                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUSer->mobile}}"disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 form-control-label" for="text-input">المدينة </label>
+                                        <div class="col-md-9">
+                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUSer->cities->name_ar}}"disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 form-control-label" for="text-input">الحى </label>
+                                        <div class="col-md-9">
+                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUSer->address}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -39,13 +45,13 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الملف الشخصى </label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('/images/'.$delegate->user->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{asset('/images/'.$delegate->appUSer->image)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="file-input">صوره الملف الشخصى </label>
+                                        <label class="col-md-3 form-control-label" for="file-input">صوره الهوية الوطنية   </label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('/images/'.$delegate->id_image)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{$delegate->id_image}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                         </div>
                                     </div>
                                 </div>
@@ -135,6 +141,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
