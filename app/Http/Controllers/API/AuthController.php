@@ -437,25 +437,33 @@ class AuthController extends ApiController
 
         if(!empty($request->file("image"))) {
 //        if ($this->request&&$request->file("personal")['image']){
-            $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
+//            $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
+            $user->avatar = uploadFile($request->file('image'),'users_avatar');;
         }
         if(!empty($request->file("nid_image"))) {
-            $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
+//            $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
+            $delegate->id_image =uploadFile($request->file('nid_image'),'nid_image');
+
         }
         if(!empty($request->file("medic_check_image"))) {
-            $delegate->medic_check = uploadFile($request->file('personal')['medic_check_image'],'medic_check');
+//            $delegate->medic_check = uploadFile($request->file('personal')['medic_check_image'],'medic_check');
+            $delegate->medic_check = uploadFile($request->file('medic_check_image'),'medic_check');
         }
             if(!empty($request->file("front_image"))) {
-            $delegate->car_picture_front = uploadFile($request->file('car')['front_image'],'car_front');
+//            $delegate->car_picture_front = uploadFile($request->file('car')['front_image'],'car_front');
+            $delegate->car_picture_front = uploadFile($request->file('front_image'),'car_front');
         }
         if(!empty($request->file("back_image"))) {
-            $delegate->car_picture_behind = uploadFile($request->file('car')['back_image'],'car_back');
+//            $delegate->car_picture_behind = uploadFile($request->file('car')['back_image'],'car_back');
+            $delegate->car_picture_behind = uploadFile($request->file('back_image'),'car_back');
         }
             if(!empty($request->file("license_image"))) {
-            $delegate->car_registration  = uploadFile($request->file('car')['license_image'],'car_registration');
+//            $delegate->car_registration  = uploadFile($request->file('car')['license_image'],'car_registration');
+            $delegate->car_registration  = uploadFile($request->file('license_image'),'car_registration');
         }
         if(!empty($request->file("image"))) {
-            $delegate->driving_license = uploadFile($request->file('license')['image'],'driving_license');
+//            $delegate->driving_license = uploadFile($request->file('license')['image'],'driving_license');
+            $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
         }
         try {
             $user->save();
