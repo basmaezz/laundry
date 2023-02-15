@@ -437,34 +437,10 @@ class AuthController extends ApiController
         $user->fcm_token    = $request->get("fcm_token") ?? $user->fcm_token;
         $user->lat          = $request->get("lat") ?? $user->lat;
         $user->lng          = $request->get("lng") ?? $user->lng;
+        $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
+
 
         $delegate = Delegate::where('app_user_id',$user->id)->first();
-
-        if ($request->file("personal")['image']){
-            $filename = request('image')->getClientOriginalName();
-            request()->file('image')->move(public_path().'/users_avatar/', $filename);
-        }
-
-        if ($request->file("personal")['nid_image']){
-            $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
-
-        }
-        if ($request->file("personal")['medic_check_image']){
-            $delegate->medic_check = uploadFile($request->file('personal')['medic_check_image'],'medic_check');
-        }
-        if ($request->file("personal")['front_image']){
-            $delegate->car_picture_front = uploadFile($request->file('car')['front_image'],'car_front');
-        }
-        if ($request->file("personal")['back_image']){
-            $delegate->car_picture_behind = uploadFile($request->file('car')['back_image'],'car_back');
-        }
-        if ($request->file("personal")['license_image']){
-            $delegate->car_registration  = uploadFile($request->file('license_image'),'car_registration');
-        }
-        if($request->file('image')){
-            $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
-        }
-
         $delegate->id_number          = $request->get('personal')['nid'];
         $delegate->iban_number        = $request->get('bank')['number'];
         $delegate->bank_name          = $request->get('bank')['name'];
@@ -473,7 +449,38 @@ class AuthController extends ApiController
         $delegate->request_employment = boolval($request->get('request_employment'));
         $delegate->manufacture_year   = $request->get('car')['year'];
         $delegate->car_type           = $request->get('car')['type'];
-        $delegate->image           = $filename;
+        $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
+        $delegate->medic_check = uploadFile($request->file('personal')['medic_check_image'],'medic_check');
+        $delegate->car_picture_front = uploadFile($request->file('car')['front_image'],'car_front');
+        $delegate->car_picture_behind = uploadFile($request->file('car')['back_image'],'car_back');
+        $delegate->car_registration  = uploadFile($request->file('license_image'),'car_registration');
+        $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
+
+
+//        if ($request->file("personal")['image']){
+//            $filename = request('image')->getClientOriginalName();
+//            request()->file('image')->move(public_path().'/users_avatar/', $filename);
+//            $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
+//        }
+//        if ($request->file("personal")['nid_image']){
+//            $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
+//
+//        }
+//        if ($request->file("personal")['medic_check_image']){
+//            $delegate->medic_check = uploadFile($request->file('personal')['medic_check_image'],'medic_check');
+//        }
+//        if ($request->file("personal")['front_image']){
+//            $delegate->car_picture_front = uploadFile($request->file('car')['front_image'],'car_front');
+//        }
+//        if ($request->file("personal")['back_image']){
+//            $delegate->car_picture_behind = uploadFile($request->file('car')['back_image'],'car_back');
+//        }
+//        if ($request->file("personal")['license_image']){
+//            $delegate->car_registration  = uploadFile($request->file('license_image'),'car_registration');
+//        }
+//       if($request->file('image')){
+//            $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
+//        }
         try {
             $user->save();
             $delegate->save();
