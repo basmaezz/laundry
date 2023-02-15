@@ -389,6 +389,7 @@ class AuthController extends ApiController
 
     public function editProfileDelegate(Request $request)
     {
+        dd($request->all());
         $user = auth()->user();
 
        $validator          = Validator::make($request->all(), [
