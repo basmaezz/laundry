@@ -389,7 +389,7 @@ class AuthController extends ApiController
 
     public function editProfileDelegate(Request $request)
     {
-        dd($request->all());
+
         $user = auth()->user();
 
        $validator          = Validator::make($request->all(), [
@@ -438,7 +438,6 @@ class AuthController extends ApiController
         $user->fcm_token    = $request->get("fcm_token") ?? $user->fcm_token;
         $user->lat          = $request->get("lat") ?? $user->lat;
         $user->lng          = $request->get("lng") ?? $user->lng;
-        $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
 
 
         $delegate = Delegate::where('app_user_id',$user->id)->first();
@@ -458,11 +457,9 @@ class AuthController extends ApiController
         $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
 
 
-//        if ($request->file("personal")['image']){
-//            $filename = request('image')->getClientOriginalName();
-//            request()->file('image')->move(public_path().'/users_avatar/', $filename);
-//            $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
-//        }
+        if ($request->file("personal")['image']){
+            $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
+        }
 //        if ($request->file("personal")['nid_image']){
 //            $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
 //
