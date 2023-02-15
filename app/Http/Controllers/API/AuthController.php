@@ -450,8 +450,6 @@ class AuthController extends ApiController
         $delegate->manufacture_year   = $request->get('car')['year'];
         $delegate->car_type           = $request->get('car')['type'];
 
-
-
         if ($request->file("personal")['image']){
             $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
         }
