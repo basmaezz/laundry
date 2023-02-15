@@ -28,6 +28,7 @@ class OrderController extends Controller
     const AcceptedByDeliveryToYou       = 7;
     //const DeliveryOnTheWayToYou         = 9;
     const Completed                     = 8;
+    const Cancel                        = 10;
 /*
  * - انتظار المندوب
 - المندوب قادم اليك (عند قبول الطلب من قبل المندوب)
@@ -119,6 +120,7 @@ class OrderController extends Controller
             'user_id'        => $app_user_id,
             'laundry_id'     => $request->get('laundry_id'),
             'category_item_id'=> $request->get('category_item_id'),
+            'payment_method' => $request->get('payment_method','Cash'),
             'count_products' => count($request->get('items')),
             'note'           => $request->get('note'),
             'status'         => 'Waiting for delivery',
@@ -271,6 +273,9 @@ class OrderController extends Controller
         if($order->user_id != $app_user_id && $order->delivery_id != $app_user_id){
             return apiResponseOrders('api.incorrect_data');
         }
+        if($request->get('status_id') == self::Cancel && $order->status_id != self::WaitingForDelivery){
+            return apiResponseOrders('api.order_no_allowed_canceled');
+        }
 
         if (isset($order)) {
             $order->status_id = $request->get('status_id');
@@ -283,6 +288,18 @@ class OrderController extends Controller
                 __('api.order_update',['laundry'=>$order->subCategories->$name,'status'=>getStatusName($request->get('status_id'))]),
                 $order->user,
                 $order->id);
+
+            if($request->get('status_id') == self::Cancel){
+                $users = AppUser::where([
+                    'status' => 'active',
+                    'user_type' => 'delivery',
+                ])->get();
+                foreach ($users as $user) {
+                    NotificationController::sendDataNotification(
+                        $user,
+                        $order->id);
+                }
+            }
 
             if($request->get('status_id') == self::WaitingForDeliveryToReceiveOrder) {
                 $order->delivery_id = null;
@@ -299,6 +316,10 @@ class OrderController extends Controller
                         $user,
                         $order->id);
                 }
+            }
+            if($request->get("status_id") == self::Completed){
+                $order->user->point++;
+                $order->user->save();
             }
             return apiResponseOrders('api.status_update',  $order);
         } else {
@@ -472,6 +493,7 @@ Customer Name: {$order->user->name}
             ],
             'services' => $order_details,
             'order_id' => $order->id,
+            'payment_method' => $order->payment_method,
             'qrcode' => asset('qrcodes/'.$order->id.'.svg'),
             'rate' => RateLaundry::select('rate')->where('order_id',$order->id)->first()['rate'] ?? null,
             'is_rated' => boolval(RateLaundry::where('order_id',$order->id)->count()),

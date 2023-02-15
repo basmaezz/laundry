@@ -6,7 +6,8 @@ use App\Http\Controllers\ApiController;
 use App\Models\AppUser;
 use App\Models\Delegate;
 use App\Models\Device;
-use App\User;
+use App\Models\User;
+use App\Models\Address;
 use Auth;
 use Carbon\Carbon;
 use File;
@@ -69,6 +70,17 @@ class AuthController extends ApiController
                 $user->home_image = uploadFile($request->file("home_image"), 'home_image');
             }
             $user->save();
+            Address::create([
+                "type"          => "home",
+                "app_user_id"   => $user->id,
+                "city_id"       => $request->input("city_id"),
+                "region_name"   => $request->input("region_name"),
+                "address"       => $request->input("address"),
+                "building"      => $request->input("building"),
+                'lat'           => $request->input("lat"),
+                'lng'           => $request->input("lng"),
+                "default"       => true
+            ]);
 
             try {
                 $token=JWTAuth::fromUser($user);

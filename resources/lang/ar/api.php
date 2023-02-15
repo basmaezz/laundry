@@ -6,6 +6,7 @@ return [
     'add_successfully'                  => 'تمت الاضافة  بنجاح .',
     'successfully_updated'              => 'تم التحديث  بنجاح .',
     'success'                           => 'تم بنجاح .',
+    'cancel'                            => 'ملغي',
     'errors'                            => 'لم يتم بنجاح',
     'Waiting for delivery'              => 'في انتظار المندوب',
     'Accepted by delivery'              => 'المندوب قادم اليك',

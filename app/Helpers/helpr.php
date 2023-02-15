@@ -593,6 +593,8 @@ function getUserObject($user)
     return [
         'id' => $user->id,
         'name' => $user->name,
+        'point' => $user->point,
+        'wallet' => $user->wallet,
         'mobile' => $user->mobile,
         'email' => $user->email,
         'title' => $user->title?$user->title->$title:'',
@@ -643,6 +645,9 @@ function getStatusName($status_id){
             break;*/
         case \App\Http\Controllers\API\OrderController::Completed:
             $name = trans('api.completed');
+            break;
+        case \App\Http\Controllers\API\OrderController::Cancel:
+            $name = trans('api.cancel');
             break;
         default:
             $name = 'Empty ['.$status_id.']';
