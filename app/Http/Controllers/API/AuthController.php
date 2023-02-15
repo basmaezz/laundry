@@ -377,7 +377,6 @@ class AuthController extends ApiController
 
     public function editProfileDelegate(Request $request)
     {
-        dd($request->all());
         $user = auth()->user();
 
         $validator          = Validator::make($request->all(), [
@@ -388,7 +387,7 @@ class AuthController extends ApiController
             'personal.city_id'      => 'required',
             'personal.region_name'  => 'required',
             'personal.nid'          => 'required',
-           'personal.nid_image'    => 'nullable|file',
+            'personal.nid_image'    => 'nullable|file',
             'personal.medic_check_image' => 'nullable|file',
             'bank.name'             => 'required',
             'bank.number'           => 'required',
