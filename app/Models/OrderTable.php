@@ -44,6 +44,7 @@ class OrderTable extends Model
         'discount_value',
         'note',
         'delivery_fees',
+        'payment_method',
         'coupon',
         'discount',
         'delivery_type',

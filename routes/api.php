@@ -9,6 +9,8 @@ use App\Http\Controllers\API\FaqController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\SettingController;
 use App\Http\Controllers\API\UsersController;
+use App\Http\Controllers\API\WalletController;
+use App\Http\Controllers\API\AddressController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -147,8 +149,6 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::get('delegate_rejection_reason', [DelegatesController::class,'rejection_reason']);
     Route::get('delegate_history', [DelegatesController::class,'order_history']);
     Route::get('delegate_has_order', [DelegatesController::class,'delegate_has_order']);
-});
-Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], function () {
 
     Route::any('main-user', [UsersController::class,'main_user']);
     Route::any('category-products', [UsersController::class,'category_products']);
@@ -165,4 +165,9 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('contact-us', [SettingController::class,'contact_us']);
     Route::any('complaints', [SettingController::class,'complaints']);
     Route::any('calendar', [SettingController::class,'calendar']);
+
+    Route::resource('address', AddressController::class);
+    Route::post('wallet/decrease', [WalletController::class,'decrease']);
+    Route::post('wallet/increase', [WalletController::class,'increase']);
+
 });
