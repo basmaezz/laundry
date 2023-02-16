@@ -36,7 +36,7 @@ class UserController extends Controller
         // };
 //        $users=User::whereNull('subCategory_id')->paginate();
         $users=User::whereHas('Roles' , function($query) {
-            $query->where('role1','admin');
+            $query->where('role','admin');
         })->get();
 
         return view('dashboard.users.index',compact('users'));
