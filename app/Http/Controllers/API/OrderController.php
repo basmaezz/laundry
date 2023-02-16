@@ -121,6 +121,7 @@ class OrderController extends Controller
             'laundry_id'     => $request->get('laundry_id'),
             'category_item_id'=> $request->get('category_item_id'),
             'payment_method' => $request->get('payment_method','Cash'),
+            'address_id'     => $request->get('address_id'),
             'count_products' => count($request->get('items')),
             'note'           => $request->get('note'),
             'status'         => 'Waiting for delivery',

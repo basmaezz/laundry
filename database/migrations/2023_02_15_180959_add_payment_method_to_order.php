@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('order_tables', function (Blueprint $table) {
             $table->string("payment_method")->default("Cash")->after("status_id");
+            $table->string("address_id")->nullable()->after("payment_method");
         });
     }
 
@@ -26,7 +27,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('order_tables', function (Blueprint $table) {
-            //
+            $table->dropColumn(['payment_method','address_id']);
         });
     }
 };
