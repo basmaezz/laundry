@@ -30,8 +30,8 @@ class WalletController extends ApiController
         $validator = Validator::make($request->all(), [
             'amount'      => 'required|numeric|between:0,99999.99',
         ]);
-        if ($validator->passes()) {
-            return apiResponse(trans('api.error_validation'), null,500,500);
+        if (!$validator->passes()) {
+            return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(),500,500);
         }
         $user= auth('app_users_api')->user();
         $user->wallet += floatval($request->get("amount"));
@@ -51,8 +51,8 @@ class WalletController extends ApiController
         $validator = Validator::make($request->all(), [
             'amount'       => 'required|numeric|between:0,99999.99',
         ]);
-        if ($validator->passes()) {
-            return apiResponse(trans('api.error_validation'), null,500,500);
+        if (!$validator->passes()) {
+            return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(),500,500);
         }
 
         $user= auth('app_users_api')->user();

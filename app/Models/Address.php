@@ -21,9 +21,17 @@ class Address extends Model
         "default"
     ];
 
+    protected $casts = [
+        'default'=>'boolean'
+        ];
+
     protected $appends = ['image_url'];
 
-    public function imageUrl(){
-        return asset('assets/uploads/users_image/'.$this->attributes['image']);
+    public function getImageUrlAttribute(){
+        return isset($this->attributes['image'])? asset('assets/uploads/users_image/'.$this->attributes['image']) : null;
+    }
+
+    public function city(){
+        return $this->hasOne(City::class, 'city_id', 'id')->withDefault();
     }
 }

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 //** Start AuthController**//
 
-Route::group(['middleware' => ['language'], 'namespace' => 'API'], function () {
+Route::group(['middleware' => ['language'], 'namespace' => 'App\Http\Controllers\API'], function () {
 
     //  Register And Login
     Route::post('register', [AuthController::class,'signUp']);
@@ -62,6 +62,9 @@ Route::group(['middleware' => ['language'], 'namespace' => 'API'], function () {
 //
 //    return $token;
 //});
+Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'App\Http\Controllers\API'], function () {
+    Route::resource('address', AddressController::class);
+});
 Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], function () {
     Route::post('addToFavorite/{id}', [UsersController::class,'addToFavorite']);
     Route::post('removeFromFavorite/{id}', [UsersController::class,'removeFromFavorite']);
@@ -87,11 +90,14 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::post('laundry/rate',[CategoryController::class,'rate']);
     //Route::get('delete/reasons',[UsersController::class,'delete_reason']);
 
-});
+    Route::post('wallet/decrease', [WalletController::class,'decrease']);
+    Route::post('wallet/increase', [WalletController::class,'increase']);
+
+
 
 
 //**    HomeApp    **//
-Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], function () {
+
 
     Route::any('edit-profile-provider', [AuthController::class,'edit_profile_provider']);
     Route::any('switch-notification', [AuthController::class,'switch_notification']);
@@ -165,9 +171,5 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('contact-us', [SettingController::class,'contact_us']);
     Route::any('complaints', [SettingController::class,'complaints']);
     Route::any('calendar', [SettingController::class,'calendar']);
-
-    Route::resource('address', AddressController::class);
-    Route::post('wallet/decrease', [WalletController::class,'decrease']);
-    Route::post('wallet/increase', [WalletController::class,'increase']);
 
 });

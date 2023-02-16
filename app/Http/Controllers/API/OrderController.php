@@ -478,6 +478,17 @@ Customer Name: {$order->user->name}
                 'rate' => $order->subCategories->rate_avg,
                 "laundry_distance"=>  round($distance, 2),
             ],
+            'address' => [
+                "description" => $order->address->description ?? '',
+                "city_id" => $order->address->city_id ?? '',
+                "city" => $order->address->city->name ?? '',
+                "region_name" => $order->address->region_name ?? '',
+                "address" => $order->address->address ?? '',
+                "building" => $order->address->building ?? '',
+                'lat' => $order->address->lat ?? '',
+                'lng' => $order->address->lng ?? '',
+                'image' => $order->address->image_url ?? ''
+            ],
             'user' => [
                 //'me' => $app_user->id,
                 "user_name" => $order->user->name,

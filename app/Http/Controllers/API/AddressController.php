@@ -37,12 +37,12 @@ class AddressController extends ApiController
             'city_id'       => 'required',
             'building'      => 'required',
         ]);
-        if ($validator->passes()) {
-            return apiResponse(trans('api.error_validation'), null,500,500);
+        if (!$validator->passes()) {
+            return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(),500,500);
         }
-        $input = $request->all();
+        $input = $request->except('image');
         $input['app_user_id'] = auth('app_users_api')->user()->id;
-        $input['type'] = $request->get("type","other");
+        $input['description'] = $request->get("description","other");
 
         if($input['default']) {
             Address::where('app_user_id', auth('app_users_api')->user()->id)
@@ -80,25 +80,25 @@ class AddressController extends ApiController
             'city_id'       => 'required',
             'building'      => 'required',
         ]);
-        if ($validator->passes()) {
-            return apiResponse(trans('api.error_validation'), null,500,500);
+        if (!$validator->passes()) {
+            return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(),500,500);
         }
         if($address->app_user_id != auth('app_users_api')->user()->id){
             return apiResponse(trans('api.error_validation'), null,500,500);
         }
-        $input = $request->all();
+        $input = $request->except('image');
         $input['app_user_id'] = auth('app_users_api')->user()->id;
 
         if($input['default'] && !$address->default) {
             Address::where('app_user_id', auth('app_users_api')->user()->id)
-                ->update(['default' => false]);
+                ->update(['default' => 0]);
         }
         $count = Address::where([
             'app_user_id' => auth('app_users_api')->user()->id,
-            'default' => true
+            'default' => 1
         ])->count();
         if($count == 0){
-            $input['default'] = true;
+            $input['default'] = 1;
         }
         $address->update($input);
         if(!empty($request->file("image"))) {
