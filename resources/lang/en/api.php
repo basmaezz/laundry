@@ -38,6 +38,7 @@ return [
     'error_added_to_search' => 'The Subcategory Is Not Exists',
     'there_is_error' => 'Error Try Again later',
     'error_validation'       => 'Error in data validation',
+    'not_able_to_delete_default' => 'You cannot delete default address',
     'status_update'          => 'Status updated successfully',
     'order_no_allowed_canceled'=> 'The Order not able to be canceled in this stage',
     'wallet_amount_not_enough'=> 'The Wallet Donsn\'t have enough amount',

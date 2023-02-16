@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string("type")->comment("home - work - other");
             $table->foreignId("app_user_id");
             $table->foreignId("city_id");
             $table->string("region_name");
@@ -23,6 +22,8 @@ return new class extends Migration
             $table->string("building");
             $table->string('lat', 191)->nullable();
             $table->string('lng', 191)->nullable();
+            $table->string("description")->nullable();
+            $table->string("image")->nullable();
             $table->boolean("default")->default(false);
             $table->timestamps();
         });

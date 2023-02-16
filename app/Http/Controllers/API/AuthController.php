@@ -71,7 +71,7 @@ class AuthController extends ApiController
             }
             $user->save();
             Address::create([
-                "type"          => "home",
+                "description"   => "home",
                 "app_user_id"   => $user->id,
                 "city_id"       => $request->input("city_id"),
                 "region_name"   => $request->input("region_name"),

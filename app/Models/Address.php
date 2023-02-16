@@ -9,7 +9,7 @@ class Address extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "type",
+        "description",
         "app_user_id",
         "city_id",
         "region_name",
@@ -17,6 +17,13 @@ class Address extends Model
         "building",
         'lat',
         'lng',
+        'image',
         "default"
     ];
+
+    protected $appends = ['image_url'];
+
+    public function imageUrl(){
+        return asset('assets/uploads/users_image/'.$this->attributes['image']);
+    }
 }

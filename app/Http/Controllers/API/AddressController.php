@@ -30,13 +30,12 @@ class AddressController extends ApiController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'type'          => 'nullable|in:home,work,other',
+            'description'   => 'nullable',
+            'image'         => 'nullable|image',
             'address'       => 'required',
             'region_name'   => 'required',
             'city_id'       => 'required',
             'building'      => 'required',
-        ], [
-            'type.in'       => 'Type Must Be [ home - work - other ]',
         ]);
         if ($validator->passes()) {
             return apiResponse(trans('api.error_validation'), null,500,500);
@@ -44,6 +43,7 @@ class AddressController extends ApiController
         $input = $request->all();
         $input['app_user_id'] = auth('app_users_api')->user()->id;
         $input['type'] = $request->get("type","other");
+
         if($input['default']) {
             Address::where('app_user_id', auth('app_users_api')->user()->id)
                 ->update(['default' => false]);
@@ -56,6 +56,9 @@ class AddressController extends ApiController
             $input['default'] = true;
         }
         $item = Address::create($input);
+        if(!empty($request->file("image"))) {
+            $item->image = uploadFile($request->file("image"), 'users_image');
+        }
         return apiResponse(trans('api.add_successfully'), $item,200,201);
     }
 
@@ -70,13 +73,12 @@ class AddressController extends ApiController
     public function update(Request $request, Address $address)
     {
         $validator = Validator::make($request->all(), [
-            'type'          => 'nullable|in:home,work,other',
+            'description'   => 'nullable',
+            'image'         => 'nullable|image',
             'address'       => 'required',
             'region_name'   => 'required',
             'city_id'       => 'required',
             'building'      => 'required',
-        ], [
-            'type.in'       => 'Type Must Be [ home - work - other ]',
         ]);
         if ($validator->passes()) {
             return apiResponse(trans('api.error_validation'), null,500,500);
@@ -98,8 +100,11 @@ class AddressController extends ApiController
         if($count == 0){
             $input['default'] = true;
         }
-        $item = $address->update($input);
-        return apiResponse(trans('api.successfully_updated'), $item,200,200);
+        $address->update($input);
+        if(!empty($request->file("image"))) {
+            $address->image = uploadFile($request->file("image"), 'users_image');
+        }
+        return apiResponse(trans('api.successfully_updated'), $address,200,200);
     }
 
     /**
@@ -112,6 +117,9 @@ class AddressController extends ApiController
     {
         if($address->app_user_id != auth('app_users_api')->user()->id){
             return apiResponse(trans('api.error_validation'), null,500,500);
+        }
+        if($address->default){
+            return apiResponse(trans('api.not_able_to_delete_default'), null,500,500);
         }
         $address->delete();
         return apiResponse(trans('api.deleted_successfully'), null,200,200);
