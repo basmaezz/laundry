@@ -449,14 +449,14 @@ class AuthController extends ApiController
         $delegate->request_employment = boolval($request->get('request_employment'));
         $delegate->manufacture_year   = $request->get('car')['year'];
         $delegate->car_type           = $request->get('car')['type'];
+        $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
 
         if ($request->file("personal")['image']!=''){
             $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
         }
-        if ($request->file("personal")['nid_image']!=''){
-            $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
-
-        }
+//        if ($request->file("personal")['nid_image']!=''){
+//            $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
+//        }
         if ($request->file("personal")['medic_check_image']!=''){
             $delegate->medic_check = uploadFile($request->file('personal')['medic_check_image'],'medic_check');
         }

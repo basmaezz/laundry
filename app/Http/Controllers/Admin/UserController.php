@@ -36,7 +36,7 @@ class UserController extends Controller
         // };
 //        $users=User::whereNull('subCategory_id')->paginate();
         $users=User::whereHas('Roles' , function($query) {
-            $query->where('role1','admin');
+            $query->where('role','admin');
         })->get();
 
         return view('dashboard.users.index',compact('users'));
@@ -212,7 +212,7 @@ class UserController extends Controller
                     'avatar'=> $filename
               ]);
       Delegate::create([
-                   'user_id'=>$user->id,
+                   'app_user_id'=>$user->id,
                   'request_employment'=>$request->request_employment,
                   'bank_name'=>$request->bank_name,
                   'iban_number'=>$request->iban_number,

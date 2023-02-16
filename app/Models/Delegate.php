@@ -16,6 +16,7 @@ class Delegate extends Model
         'app_user_id',
         'iban_number',
         'bank_name',
+        'nid_image',
         'car_picture_front',
         'car_picture_behind',
         'car_registration',

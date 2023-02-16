@@ -30,7 +30,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="mobile" name="mobile" class="form-control"placeholder="الجوال" required>
+                                                <input type="text" id="mobile" name="phone" class="form-control"placeholder="الجوال" required>
 
                                                 @if ($errors->has('phone'))
                                                     <span class="text-danger">{{ $errors->first('phone') }}</span>
@@ -204,8 +204,8 @@
                                         </div>
 
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                                            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> حفظ</button>
+                                            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> الغاء</button>
                                         </div>
                                     </form>
                                 </div>
