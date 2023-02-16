@@ -389,10 +389,10 @@ class AuthController extends ApiController
 
     public function editProfileDelegate(Request $request)
     {
-        dd($request->all());
+
         $user = auth()->user();
 
-        $validator          = Validator::make($request->all(), [
+       $validator          = Validator::make($request->all(), [
             'personal.name'         => 'required',
             'personal.email'        => 'required|email|unique:app_users,email,'.$user->id,
             'personal.image'        => 'nullable|file',
@@ -400,7 +400,7 @@ class AuthController extends ApiController
             'personal.city_id'      => 'required',
             'personal.region_name'  => 'required',
             'personal.nid'          => 'required',
-           'personal.nid_image'    => 'nullable|file',
+            'personal.nid_image'    => 'nullable|file',
             'personal.medic_check_image' => 'nullable|file',
             'bank.name'             => 'required',
             'bank.number'           => 'required',
@@ -439,6 +439,7 @@ class AuthController extends ApiController
         $user->lat          = $request->get("lat") ?? $user->lat;
         $user->lng          = $request->get("lng") ?? $user->lng;
 
+
         $delegate = Delegate::where('app_user_id',$user->id)->first();
         $delegate->id_number          = $request->get('personal')['nid'];
         $delegate->iban_number        = $request->get('bank')['number'];
@@ -449,29 +450,28 @@ class AuthController extends ApiController
         $delegate->manufacture_year   = $request->get('car')['year'];
         $delegate->car_type           = $request->get('car')['type'];
 
-
-        if ($this->request&&$request->file("personal")['image']){
+        if ($request->file("personal")['image']!=''){
             $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
         }
-        if ($this->request&&$request->file("personal")['nid_image']){
+        if ($request->file("personal")['nid_image']!=''){
             $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
 
         }
-        if ($this->request&&$request->file("personal")['medic_check_image']){
+        if ($request->file("personal")['medic_check_image']!=''){
             $delegate->medic_check = uploadFile($request->file('personal')['medic_check_image'],'medic_check');
         }
-        if ($this->request&&$request->file("personal")['front_image']){
+        if ($request->file("car")['front_image']!=''){
             $delegate->car_picture_front = uploadFile($request->file('car')['front_image'],'car_front');
         }
-        if ($this->request&&$request->file("personal")['back_image']){
+        if ($request->file("car")['back_image']!=''){
             $delegate->car_picture_behind = uploadFile($request->file('car')['back_image'],'car_back');
         }
-        if ($this->request&&$request->file("personal")['license_image']){
+        if ($request->file("car")['license_image']!=''){
             $delegate->car_registration  = uploadFile($request->file('license_image'),'car_registration');
         }
-       if($request->file('image')){
-            $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
-        }
+//       if($request->file('image')){
+//            $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
+//        }
         try {
             $user->save();
             $delegate->save();
