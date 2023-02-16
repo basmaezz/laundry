@@ -212,7 +212,7 @@ class UserController extends Controller
                     'avatar'=> $filename
               ]);
       Delegate::create([
-                   'user_id'=>$user->id,
+                   'app_user_id'=>$user->id,
                   'request_employment'=>$request->request_employment,
                   'bank_name'=>$request->bank_name,
                   'iban_number'=>$request->iban_number,
