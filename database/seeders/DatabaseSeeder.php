@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
              CitySeeder::class,
             CategorySeeder::class,
             subCategorySeeder::class,
+            CatgeoryItemSeeder::class,
             productSeeder::class,
             productServiceSeeder::class,
         ]);
