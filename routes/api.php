@@ -92,7 +92,11 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
 
     Route::post('wallet/decrease', [WalletController::class,'decrease']);
     Route::post('wallet/increase', [WalletController::class,'increase']);
-    Route::resource('address', AddressController::class);
+    Route::get('address', [AddressController::class,'index']);
+    Route::post('address/delete',[UsersController::class,'destroy']);
+//    store
+//update
+//destroy
 
 
 
