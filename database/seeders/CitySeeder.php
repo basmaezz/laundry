@@ -17,6 +17,21 @@ class CitySeeder extends Seeder
    {
        $cities = [
            [
+               'id' => '1',
+               'name_ar' => 'الرياض ',
+               'name_en' => 'Riyadh',
+           ],
+       [
+               'id' => '2',
+               'name_ar' => 'المدينة المنورة ',
+               'name_en' => 'Al Madinah Al Munawwarah',
+           ],
+          [
+               'id' => '3',
+               'name_ar' => 'مكه المكرمه',
+               'name_en' => 'Mecca',
+           ],//
+           [
                'id' => '4',
                'name_ar' => 'تبوك',
                'name_en' => 'Tabuk',
@@ -30,23 +45,24 @@ class CitySeeder extends Seeder
             'id' => '6',
             'name_ar' => "حميط",
             'name_en' => "Humayt",
-        ],          [
-            'id' => '7',
-            'name_ar' => "الطائف",
-            'name_en' => "At Taif",
-
         ],
-           [
-            'id' => '8',
-            'name_ar' => "مكة المكرمة",
-            'name_en' => "Makkah",
-
-        ],
-        [
-            'id' => 9,
-            'name_ar' => "حائل",
-            'name_en' => "Hail",
-        ],
+//          [
+//            'id' => '7',
+//            'name_ar' => "الطائف",
+//            'name_en' => "At Taif",
+//
+//        ],
+//           [
+//            'id' => '8',
+//            'name_ar' => "مكة المكرمة",
+//            'name_en' => "Makkah",
+//
+//        ],
+//        [
+//            'id' => 9,
+//            'name_ar' => "حائل",
+//            'name_en' => "Hail",
+//        ],
         [
             'id' => 10,
             'name_ar' => "بريدة",
