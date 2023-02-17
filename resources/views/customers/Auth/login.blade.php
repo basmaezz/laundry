@@ -2,7 +2,7 @@
 @section('content')
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>Admin</b>LTE</a>
+        <a href="../../index2.html"><b>Laundries</b>Dashboard</a>
     </div>
     <div class="card">
         <div class="card-body login-card-body">
@@ -43,7 +43,6 @@
                     <div class="col-4">
                         <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                     </div>
-
                 </div>
             </form>
         </div>
