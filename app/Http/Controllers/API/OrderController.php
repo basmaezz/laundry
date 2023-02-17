@@ -50,7 +50,6 @@ class OrderController extends Controller
             'laundry_id' => 'required|exists:subcategories,id',
         ]);
 
-
         if ($validator->passes()) {
             $user = auth('app_users_api')->user();
             $laundry = Subcategory::where('id', $request->get('laundry_id'))->first();
