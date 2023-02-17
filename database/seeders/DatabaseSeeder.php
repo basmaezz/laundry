@@ -23,14 +23,14 @@ class DatabaseSeeder extends Seeder
          ]);
 
         $this->call([
-             carTypesSeeder::class,
-             EducationsLevelSeeder::class,
+//             carTypesSeeder::class,
+//             EducationsLevelSeeder::class,
              CitySeeder::class,
-            CategorySeeder::class,
-            subCategorySeeder::class,
-            CatgeoryItemSeeder::class,
-            productSeeder::class,
-            productServiceSeeder::class,
+//            CategorySeeder::class,
+//            subCategorySeeder::class,
+//            CatgeoryItemSeeder::class,
+//            productSeeder::class,
+//            productServiceSeeder::class,
         ]);
     }
 }

@@ -16,37 +16,37 @@ class CitySeeder extends Seeder
    public function run()
    {
        $cities = [
-//           [
-//               'id' => '4',
-//               'name_ar' => 'تبوك',
-//               'name_en' => 'Tabuk',
-//           ],          [
-//            'id' => '5',
-//            'name_ar' => "الرياض",
-//            'name_en' => "Riyadh",
-//
-//        ],
-//        [
-//            'id' => '6',
-//            'name_ar' => "حميط",
-//            'name_en' => "Humayt",
-//        ],          [
-//            'id' => '7',
-//            'name_ar' => "الطائف",
-//            'name_en' => "At Taif",
-//
-//        ],
-//           [
-//            'id' => '8',
-//            'name_ar' => "مكة المكرمة",
-//            'name_en' => "Makkah",
-//
-//        ],
-//        [
-//            'id' => 9,
-//            'name_ar' => "حائل",
-//            'name_en' => "Hail",
-//        ],
+           [
+               'id' => '4',
+               'name_ar' => 'تبوك',
+               'name_en' => 'Tabuk',
+           ],          [
+            'id' => '5',
+            'name_ar' => "الرياض",
+            'name_en' => "Riyadh",
+
+        ],
+        [
+            'id' => '6',
+            'name_ar' => "حميط",
+            'name_en' => "Humayt",
+        ],          [
+            'id' => '7',
+            'name_ar' => "الطائف",
+            'name_en' => "At Taif",
+
+        ],
+           [
+            'id' => '8',
+            'name_ar' => "مكة المكرمة",
+            'name_en' => "Makkah",
+
+        ],
+        [
+            'id' => 9,
+            'name_ar' => "حائل",
+            'name_en' => "Hail",
+        ],
         [
             'id' => 10,
             'name_ar' => "بريدة",
