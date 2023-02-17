@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 class AdminController extends Controller
 {
     public function index(){
-        return view('customers.auth.login');
+        return view('customers.Auth.login');
     }
 
     public function customerLogin(Request $request){
