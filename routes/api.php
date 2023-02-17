@@ -95,7 +95,7 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::get('address', [AddressController::class,'index']);
     Route::any('address/store',[AddressController::class,'store']);
     Route::post('address/update',[AddressController::class,'update']);
-    Route::post('address/delete',[AddressController::class,'destroy']);
+    Route::post('address/delete/{id}',[AddressController::class,'destroy']);
 
 //**    HomeApp    **//
 
