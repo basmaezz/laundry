@@ -93,13 +93,9 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::post('wallet/decrease', [WalletController::class,'decrease']);
     Route::post('wallet/increase', [WalletController::class,'increase']);
     Route::get('address', [AddressController::class,'index']);
+    Route::any('address/store',[UsersController::class,'store']);
+    Route::post('address/update',[UsersController::class,'update']);
     Route::post('address/delete',[UsersController::class,'destroy']);
-//    store
-//update
-//destroy
-
-
-
 
 //**    HomeApp    **//
 
