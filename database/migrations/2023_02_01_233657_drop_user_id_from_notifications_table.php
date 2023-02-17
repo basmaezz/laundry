@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('notifications', function (Blueprint $table) {
-            $table->integer('user_id')->nullable()->unsigned()->change();
-            $table->foreignId('app_user_id')->after('send');
-
-        });
+//        Schema::table('notifications', function (Blueprint $table) {
+//            $table->integer('user_id')->nullable()->unsigned()->change();
+//            $table->foreignId('app_user_id')->after('send');
+//
+//        });
     }
 
     /**
@@ -28,7 +28,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('notifications', function (Blueprint $table) {
-           $table->drop('app_user_id');
+//           $table->drop('app_user_id');
         });
     }
 };

@@ -15,15 +15,12 @@ return new class extends Migration
     {
         Schema::table('order_tables', function (Blueprint $table) {
             $table->string("payment_method")->default("Cash")->after("status_id");
-            $table->dropForeign('address_id');
-            // $table->string("address_id")->nullable()->after("payment_method");
-            // $table->unsignedBigInteger('address_id');
+            $table->unsignedBigInteger('address_id');
 
-            // $table->foreign('address_id')
-            //     ->references('id')
-            //     ->on('addresses')->nullable()->after("payment_method");
-        }
-    );
+            $table->foreign('address_id')
+                ->references('id')
+                ->on('addresses')->nullable()->after("payment_method");
+        });
     }
 
     /**
@@ -34,9 +31,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('order_tables', function (Blueprint $table) {
-            // $table->dropColumn(['payment_method','address_id']);
-            $table->dropForeign('address_id');
-            $table->dropColumn('payment_method');
+            $table->dropColumn(['payment_method','address_id']);
         });
     }
 };

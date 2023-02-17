@@ -16,7 +16,7 @@ class AddForeignKeysToNotificationsTable extends Migration {
 		Schema::table('notifications', function(Blueprint $table)
 		{
 			$table->foreign('order_id', 'notifications_ibfk_1')->references('id')->on('orders')->onUpdate('CASCADE')->onDelete('CASCADE');
-			$table->foreign('user_id', 'notifications_ibfk_2')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
+			$table->foreign('app_user_id', 'notifications_ibfk_2')->references('id')->on('app_users')->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
 	}
 

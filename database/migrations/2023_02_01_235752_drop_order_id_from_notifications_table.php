@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('notifications', function (Blueprint $table) {
-           $table->foreignId('order_table_id')->after('user_id')->nullable();
+           $table->foreignId('order_table_id')->after('app_user_id')->nullable();
         });
     }
 

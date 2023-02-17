@@ -16,7 +16,7 @@ class CreateNotificationsTable extends Migration {
 		Schema::create('notifications', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true)->unsigned();
-			$table->integer('user_id')->unsigned()->index('user_id');
+			$table->integer('app_user_id')->unsigned();
 			$table->string('type', 191);
 			$table->text('content_ar');
 			$table->text('content_en');
