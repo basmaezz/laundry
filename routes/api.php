@@ -62,9 +62,9 @@ Route::group(['middleware' => ['language'], 'namespace' => 'App\Http\Controllers
 //
 //    return $token;
 //});
-Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'App\Http\Controllers\API'], function () {
-    Route::resource('address', AddressController::class);
-});
+//Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'App\Http\Controllers\API'], function () {
+//    Route::resource('address', AddressController::class);
+//});
 Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], function () {
     Route::post('addToFavorite/{id}', [UsersController::class,'addToFavorite']);
     Route::post('removeFromFavorite/{id}', [UsersController::class,'removeFromFavorite']);
@@ -92,6 +92,7 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
 
     Route::post('wallet/decrease', [WalletController::class,'decrease']);
     Route::post('wallet/increase', [WalletController::class,'increase']);
+    Route::resource('address', AddressController::class);
 
 
 
