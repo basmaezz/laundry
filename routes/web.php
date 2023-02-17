@@ -198,3 +198,8 @@ Route::get('updateAll',function (){
     Route::get('updateOrder',function (){
 $ordersTable=DB::table('order_tables')->update(['status_id'=>1]);
 });
+
+    Route::get('usersGet',function (){
+        $users=\App\Models\User::all();
+        return $users;
+    });
