@@ -49,7 +49,7 @@ class DelegatesController extends Controller
 
     public function delegate_order_details($order_id, Request $request)
     {
-        $order = OrderTable::where('id', $order_id)->first();
+        $order = OrderTable::with('address')->where('id', $order_id)->first();
         return apiResponseOrders('api.My_Order', 1, OrderController::orderObject($order));
     }
 

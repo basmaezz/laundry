@@ -44,6 +44,7 @@ class OrderTable extends Model
         'discount_value',
         'note',
         'delivery_fees',
+        'address_id',
         'payment_method',
         'coupon',
         'discount',
@@ -79,6 +80,10 @@ class OrderTable extends Model
 
     public function rates(){
         return $this->hasMany(RateLaundry::class,'order_id','id');
+    }
+
+    public function address(){
+        return $this->hasOne(Address::class,'address_id','id')->withDefault();
     }
 
     public function ScopeOrders($query,$id){
