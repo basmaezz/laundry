@@ -88,9 +88,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-docs"></i>   المناديب</a>
             </li>
-{{--            <li class="nav-item">--}}
-{{--                <a class="nav-link" href="{{route('laundries.admins')}}"><i class="icon-user-follow"></i>  أدمن المغاسل  </a>--}}
-{{--            </li>--}}
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('laundries.admins')}}"><i class="icon-user-follow"></i>  أدمن المغاسل  </a>
+            </li>
 
             <li class="nav-title">
                 المغاسل
