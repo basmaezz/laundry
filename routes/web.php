@@ -207,3 +207,7 @@ $ordersTable=DB::table('order_tables')->update(['status_id'=>1]);
     Route::get('drop',function (){
         Schema::drop('cities');
     });
+
+    Route::get('truncateData',function (){
+        \App\Models\City::truncate();
+    });
