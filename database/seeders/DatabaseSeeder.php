@@ -16,22 +16,22 @@ class DatabaseSeeder extends Seeder
     {
         //  \App\Models\User::factory(10)->create();
 
-//         \App\Models\User::factory()->create([
-//             'name' => 'Test',
-//             'email' => 'admin@admin.com',
-//             'password'=>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
-//         ]);
+         \App\Models\User::factory()->create([
+             'name' => 'Test',
+             'email' => 'admin@admin.com',
+             'password'=>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+         ]);
 
         $this->call([
             AppUserSeeder::class,
-//             carTypesSeeder::class,
-//             EducationsLevelSeeder::class,
-//             CitySeeder::class,
-//            CategorySeeder::class,
-//            subCategorySeeder::class,
-//            CatgeoryItemSeeder::class,
-//            productSeeder::class,
-//            productServiceSeeder::class,
+             carTypesSeeder::class,
+             EducationsLevelSeeder::class,
+             CitySeeder::class,
+            CategorySeeder::class,
+            subCategorySeeder::class,
+            CatgeoryItemSeeder::class,
+            productSeeder::class,
+            productServiceSeeder::class,
         ]);
     }
 }
