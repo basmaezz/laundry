@@ -211,3 +211,9 @@ $ordersTable=DB::table('order_tables')->update(['status_id'=>1]);
     Route::get('truncateData',function (){
         \App\Models\City::truncate();
     });
+
+    Route::get('columns',function (){
+        $address = new \App\Models\Address();
+        $columns = $address->getTableColumns();
+        print_r($columns);
+    });
