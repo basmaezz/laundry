@@ -203,3 +203,7 @@ $ordersTable=DB::table('order_tables')->update(['status_id'=>1]);
         $users=\App\Models\User::all();
         return $users;
     });
+
+    Route::get('drop',function (){
+        Schema::drop('cities');
+    });
