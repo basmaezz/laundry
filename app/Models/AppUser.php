@@ -16,6 +16,7 @@ class AppUser extends Authenticatable implements JWTSubject
     protected $table = 'app_users';
     protected $dates = ['deleted_at'];
     protected $withCount = ['orders'];
+    protected $with = ['default_address'];
 
     public function getJWTIdentifier()
     {
@@ -37,6 +38,14 @@ class AppUser extends Authenticatable implements JWTSubject
 
     public function orders(){
         return $this->hasMany(OrderTable::class,'user_id','id');
+    }
+
+    public function addresses(){
+        return $this->hasMany(Address::class,'app_user_id','id');
+    }
+
+    public function default_address(){
+        return $this->hasOne(OrderTable::class,'app_user_id','id')->where(['default'=>true]);
     }
 
 }
