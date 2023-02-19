@@ -47,6 +47,7 @@ Route::get('test-login', function () {
 //    return 'ok';
 //    return \Illuminate\Support\Facades\Hash::make('password');
         $user = \App\Models\AppUser::first();
+//        dd($user);
 
 //        return $user;
     $user->update([
