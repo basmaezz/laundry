@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'last_name'=>array('required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
             'email'=>'required|email|unique:users,email',
             'password'=>'required',
-            'birthdate'=> ['required','before:15 years ago'],
+//            'birthdate'=> ['required','before:15 years ago'],
             'phone'=>'required|numeric|digits:10',
         ];
 //        if ($this->getMethod() == 'POST') {

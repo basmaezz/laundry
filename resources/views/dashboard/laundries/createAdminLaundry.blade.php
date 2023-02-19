@@ -24,6 +24,16 @@
                                         </div>
 
                                         <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">المغاسل </label>
+                                            <div class="col-md-9">
+                                                <select class="form-control" name="subCategory_id">
+                                                    @foreach($subCategories as $subCategory )
+                                                    <option value="{{$subCategory->id}}">{{$subCategory->name_ar}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
                                             <div class="col-md-9">
                                                 <input type="text" id="text-input" name="name" class="form-control" placeholder="Text">
@@ -60,8 +70,8 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                                            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> حفظ</button>
+                                            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> الغاء</button>
                                         </div>
                                     </form>
                                 </div>

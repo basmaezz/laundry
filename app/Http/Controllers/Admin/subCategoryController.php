@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategoriesRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Subcategory;
@@ -168,20 +169,37 @@ class subCategoryController extends Controller
         Subcategory::where('parent_id',$id)->delete();
         return redirect()->back();
     }
-public function createAdmin(){
+    public function createAdmin(){
+//        $users=User::select('subCategory_id')->whereNotNull('subCategory_id')->get();
+//
+//        foreach ($users as $user){
+//            echo $user->subCategory_id;
+//        }
+//        dd($user);
+//            dd($admin);
         $subCategories=Subcategory::all();
+
         return view('dashboard.laundries.createAdminLaundry',compact('subCategories'));
     }
 
-public function storeLaundryAdmin(Request $request){
-
+    public function storeLaundryAdmin(UserRequest $request)
+    {
+        if($request->file('avatar')){
+            $filename = request('avatar')->getClientOriginalName();
+            request()->file('avatar')->move(public_path() . '/images/' , $filename);
+        }
+        $user=User::create($request->validated()+[
+                'avatar'=> $filename,
+                'subCategory_id'=>$request->subCategory_id
+            ]
+        );
         return redirect()->route('laundries.admins');
     }
-public function adminLaundries(){
+    public function adminLaundries(){
         $users=User::select("*")->whereNotNull('subCategory_id')->get();
         return view('dashboard.laundries.admins',compact('users'));
     }
-public function updateStats(Request $request){
+    public function updateStats(Request $request){
       $subcategory= Subcategory::find($request->id);
       if($subcategory->status =='0'){
           $subcategory->status =1;
@@ -192,20 +210,20 @@ public function updateStats(Request $request){
        return response()->json(['success'=>'Status change successfully.']);
 }
 
-public function branches($id)
+    public function branches($id)
 {
     $branches= Subcategory::with('city')->where('parent_id',$id)->get();
     return view('dashboard.laundries.branches',compact(['branches','id']));
 }
 
-public function createBranch($id)
+    public function createBranch($id)
 {
     $Subcategory= Subcategory::find($id);
     $cities=City::pluck('id','name_ar');
     return view('dashboard.laundries.createBranch',compact(['Subcategory','cities']));
 }
 
-public function storeBranch(Request $request)
+    public function storeBranch(Request $request)
 {
 
     $subcategory= new Subcategory();
