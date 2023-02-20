@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CouponsController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Customer\itemsController;
+use App\Http\Controllers\Customer\ItemsController;
 use App\Http\Controllers\Customer\ProductsController;
 use App\Http\Controllers\Customer\OrdersController;
 /*
@@ -141,11 +141,11 @@ Route::get('customerLogin',[AdminController::class,'index'])->name('customer.log
 Route::get('aib',[AdminController::class,'main'])->name('customer.index');
 
 Route::get('Items/{id}',[ItemsController::class,'index'])->name('Customer.Items.index');
-Route::get('createItems/{id}',[itemsController::class,'create'])->name('Customer.Items.create');
-Route::post('storeItem/{id}',[itemsController::class,'store'])->name('Customer.Items.store');
-Route::get('editItem/{id}',[itemsController::class,'edit'])->name('Customer.Items.edit');
-Route::post('updateItem/{id}',[itemsController::class,'update'])->name('updateItem');
-Route::get('deleteItem/{id}',[itemsController::class,'destroy'])->name('Customer.Items.delete');
+Route::get('createItems/{id}',[ItemsController::class,'create'])->name('Customer.Items.create');
+Route::post('storeItem/{id}',[ItemsController::class,'store'])->name('Customer.Items.store');
+Route::get('editItem/{id}',[ItemsController::class,'edit'])->name('Customer.Items.edit');
+Route::post('updateItem/{id}',[ItemsController::class,'update'])->name('updateItem');
+Route::get('deleteItem/{id}',[ItemsController::class,'destroy'])->name('Customer.Items.delete');
 
 Route::get('Products/{id}',[ProductsController::class,'index'])->name('Customer.Products.index');
 Route::get('createProduct/{id}',[ProductsController::class,'create'])->name('Customer.Products.create');
