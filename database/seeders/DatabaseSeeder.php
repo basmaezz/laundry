@@ -15,12 +15,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //  \App\Models\User::factory(10)->create();
-         \App\Models\User::factory()->create([
-             'name' => 'Admin',
-             'email' => 'landuadmin@admin.com',
-             'password'=>bcrypt('password')
-         ]);
-//        $this->call([
+//         \App\Models\User::factory()->create([
+//             'name' => 'Admin',
+//             'email' => 'landuadmin@admin.com',
+//             'password'=>bcrypt('password')
+//         ]);
+        $this->call([
 //            AppUserSeeder::class,
 //             carTypesSeeder::class,
 //             EducationsLevelSeeder::class,
@@ -28,11 +28,11 @@ class DatabaseSeeder extends Seeder
 //            CategorySeeder::class,
 //            subCategorySeeder::class,
 //            CatgeoryItemSeeder::class,
-//            productSeeder::class,
+            productSeeder::class,
 //            productServiceSeeder::class,
 ////            FaqSeeder::class,
 //            CouponSeeder::class,
 //            UserSeeder::class,
-//        ]);
+        ]);
     }
 }
