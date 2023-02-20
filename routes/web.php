@@ -140,7 +140,7 @@ Route::get('signOut',[AdminController::class,'signOut'])->name('customer.logout'
 Route::get('customerLogin',[AdminController::class,'index'])->name('customer.login');
 Route::get('aib',[AdminController::class,'main'])->name('customer.index');
 
-Route::get('Items/{id}',[itemsController::class,'index'])->name('Customer.Items.index');
+Route::get('Items/{id}',[ItemsController::class,'index'])->name('Customer.Items.index');
 Route::get('createItems/{id}',[itemsController::class,'create'])->name('Customer.Items.create');
 Route::post('storeItem/{id}',[itemsController::class,'store'])->name('Customer.Items.store');
 Route::get('editItem/{id}',[itemsController::class,'edit'])->name('Customer.Items.edit');
