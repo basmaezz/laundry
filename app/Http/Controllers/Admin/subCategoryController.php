@@ -170,28 +170,29 @@ class subCategoryController extends Controller
         return redirect()->back();
     }
     public function createAdmin(){
-//        $users=User::select('subCategory_id')->whereNotNull('subCategory_id')->get();
-//
-//        foreach ($users as $user){
-//            echo $user->subCategory_id;
-//        }
-//        dd($user);
-//            dd($admin);
+
         $subCategories=Subcategory::all();
 
         return view('dashboard.laundries.createAdminLaundry',compact('subCategories'));
     }
 
-    public function storeLaundryAdmin(UserRequest $request)
+    public function storeLaundryAdmin(Request $request)
     {
         if($request->file('avatar')){
             $filename = request('avatar')->getClientOriginalName();
             request()->file('avatar')->move(public_path() . '/images/' , $filename);
         }
-        $user=User::create($request->validated()+[
-                'avatar'=> $filename,
-                'subCategory_id'=>$request->subCategory_id
-            ]
+        $user=User::create(
+      [
+          'subCategory_id'=>$request->subCategory_id,
+          'name'=>$request->name,
+          'last_name'=>$request->last_name,
+          'email'=>$request->email,
+          'password'=>bcrypt($request->password),
+          'phone'=>$request->phone,
+          'avatar'=> $filename,
+      ]
+
         );
         return redirect()->route('laundries.admins');
     }
