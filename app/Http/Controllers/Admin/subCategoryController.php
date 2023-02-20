@@ -47,6 +47,7 @@ class subCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $subcategory= new Subcategory();
         if ((strpos($request->location, 'maps')) !== false) {
             $str = $request->location;
