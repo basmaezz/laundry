@@ -29,7 +29,7 @@ class AppUser extends Authenticatable implements JWTSubject
     }
 
     public function cities() {
-        return $this->belongsTo(City::class,'id');
+        return $this->belongsTo(City::class,'city_id');
     }
 
     public function rates(){

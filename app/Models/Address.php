@@ -32,7 +32,7 @@ class Address extends Model
     }
 
     public function city(){
-        return $this->hasOne(City::class, 'city_id', 'id')->withDefault();
+        return $this->hasOne(City::class, 'id', 'id')->withDefault();
     }
 
     public function getTableColumns() {
