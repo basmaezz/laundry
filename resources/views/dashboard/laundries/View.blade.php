@@ -1,7 +1,6 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
@@ -11,7 +10,6 @@
                             <div class="card">
                                 <div class="card-header">
                                     <strong> عرض تفاصيل المغسله </strong>
-
                                 </div>
                                 <div class="card-block">
                                     @if(isset($subCategory->parent->name_ar))
@@ -42,7 +40,6 @@
                                         <input type="text" name="address"class="form-control" id="name_ar" value="'طوال اليوم"disabled>
                                             @endif
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -54,14 +51,12 @@
                                     <strong> عرض تفاصيل الأدمن </strong>
                                 </div>
                                 <div class="card-block">
-
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="disabled-input">الصلاحيه </label>
                                             <div class="col-md-9">
                                                 <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="مدير المغسله" disabled>
                                             </div>
                                         </div>
-
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
                                             <div class="col-md-9">
@@ -86,8 +81,6 @@
                                                 <input type="text" id="phone" name="phone" class="form-control"value="{{$admin->phone}}"disabled>
                                             </div>
                                         </div>
-
-
                                 </div>
                             </div>
                         </div>

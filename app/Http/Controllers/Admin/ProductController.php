@@ -37,6 +37,7 @@ class ProductController extends Controller
 
     public function  destroy($id){
         $product=Product::with(['productService','productImages'])->find($id);
+
         $product->delete();
         return redirect()->back();
     }
@@ -49,12 +50,19 @@ class ProductController extends Controller
 
 
     public function edit($id){
-        $product=Product::with(['productService','productImages'])->find($id)->get();
+        $product=Product::with(['productService','productImages'])->find($id);
         return  view('dashboard.products.edit',compact('product'));
     }
 
-    public function update(Request $request,$id){
-
+    public function update(Request $request,$id)
+    {
+        product::where('id',$id)->update([
+            'name_ar'=>$request->name_ar,
+            'name_en'=>$request->name_en,
+            'desc_ar'=>$request->desc_ar,
+            'desc_en'=>$request->desc_en,
+        ]);
+        return redirect()->route('CategoryItems.show',$request->product_id);
     }
     public function addService($id){
         $product=Product::find($id);

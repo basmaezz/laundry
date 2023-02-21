@@ -100,7 +100,7 @@ class subCategoryController extends Controller
     public function show($id)
     {
         $subCategory=Subcategory::with('user')->find($id);
-        return view('dashboard.laundries.view',compact('subCategory'));
+        return view('dashboard.laundries.View',compact('subCategory'));
     }
 
     /**

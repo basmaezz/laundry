@@ -96,7 +96,7 @@ Route::post('productStore',[ProductController::class,'store'])->name('product.st
 Route::get('productDelete/{id}',[ProductController::class,'destroy'])->name('product.destroy');
 Route::get('productView/{id}',[ProductController::class,'view'])->name('product.view');
 Route::get('productEdit/{id}',[ProductController::class,'edit'])->name('product.edit');
-Route::post('productUpdate',[ProductController::class,'update'])->name('product.update');
+Route::post('productUpdate/{id}',[ProductController::class,'update'])->name('product.update');
 Route::get('productAddService/{id}',[ProductController::class,'addService'])->name('product.addService');
 Route::post('createProductService',[ProductController::class,'createProductService'])->name('product.createProductService');
 Route::get('productServices/{id}',[ProductController::class,'productServices'])->name('product.productServices');
