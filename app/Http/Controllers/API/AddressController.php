@@ -115,6 +115,7 @@ class AddressController extends ApiController
      */
     public function destroy(Address $address)
     {
+        dd($address->app_user_id ,auth('app_users_api')->user()->id );
         if($address->app_user_id != auth('app_users_api')->user()->id){
             return apiResponse(trans('api.error_validation'), null,500,500);
         }
