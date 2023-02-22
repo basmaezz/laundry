@@ -116,8 +116,8 @@ class AddressController extends ApiController
     public function destroy(Address $address)
     {
 
-        $items = Address::where("app_user_id",auth('app_users_api')->user()->id)->get();
-        dd($items);
+        $items = Address::where("app_user_id",auth('app_users_api')->user()->id)->first();
+        dd($items->app_user_id);
 
         if($address->app_user_id != auth('app_users_api')->user()->id){
             return apiResponse(trans('api.error_validation'), null,500,500);
