@@ -119,7 +119,7 @@ class AddressController extends ApiController
         $item = Address::where("app_user_id",auth('app_users_api')->user()->id)->first();
 
 
-        if($item != auth('app_users_api')->user()->id){
+        if($item->app_user_id != auth('app_users_api')->user()->id){
             return apiResponse(trans('api.error_validation'), null,500,500);
         }
         if($address->default){
