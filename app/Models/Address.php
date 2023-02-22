@@ -21,6 +21,8 @@ class Address extends Model
         "default"
     ];
 
+
+
     protected $casts = [
         'default'=>'boolean'
         ];

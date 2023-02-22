@@ -83,7 +83,7 @@ class OrderTable extends Model
     }
 
     public function address(){
-        return $this->hasOne(Address::class,'id','id')->withDefault();
+        return $this->hasOne(Address::class,'address_id','id')->withDefault();
     }
 
     public function ScopeOrders($query,$id){
