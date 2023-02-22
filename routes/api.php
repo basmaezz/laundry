@@ -142,9 +142,6 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('add-date', [UsersController::class,'add_date']);
     Route::any('costs', [UsersController::class,'costs']);
 
-    //***************************  User App *************************************//
-
-    //************************** Delegate App ***********************************//
 
     Route::get('delegate-orders', [DelegatesController::class,'delegate_orders']);
     Route::get('delegate-order-details/{order_id}', [DelegatesController::class,'delegate_order_details']);
@@ -173,5 +170,4 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('contact-us', [SettingController::class,'contact_us']);
     Route::any('complaints', [SettingController::class,'complaints']);
     Route::any('calendar', [SettingController::class,'calendar']);
-
 });
