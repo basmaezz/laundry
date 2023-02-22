@@ -117,7 +117,7 @@ class AddressController extends ApiController
     {
 
         $items = Address::where("app_user_id",auth('app_users_api')->user()->id)->get();
-        dd($items);
+        dd($items->app_users_api);
 
         if($address->app_user_id != auth('app_users_api')->user()->id){
             return apiResponse(trans('api.error_validation'), null,500,500);
