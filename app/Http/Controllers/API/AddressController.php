@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
+
 use App;
 use App\Http\Controllers\ApiController;
 use App\Models\Address;
@@ -17,8 +18,9 @@ class AddressController extends ApiController
     public function index()
     {
         $user_id = auth('app_users_api')->user()->id;
-        $items = Address::where("app_user_id",$user_id)->get();
-        return apiResponse(trans('api.all'), $items,200,200);
+        $items = Address::where("app_user_id", $user_id)->get();
+        dd($items);
+        return apiResponse(trans('api.all'), $items, 200, 200);
     }
 
     /**
@@ -38,13 +40,13 @@ class AddressController extends ApiController
             'building'      => 'required',
         ]);
         if (!$validator->passes()) {
-            return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(),500,500);
+            return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(), 500, 500);
         }
         $input = $request->except('image');
         $input['app_user_id'] = auth('app_users_api')->user()->id;
-        $input['description'] = $request->get("description","other");
+        $input['description'] = $request->get("description", "other");
 
-        if($input['default']) {
+        if ($input['default']) {
             Address::where('app_user_id', auth('app_users_api')->user()->id)
                 ->update(['default' => false]);
         }
@@ -52,14 +54,14 @@ class AddressController extends ApiController
             'app_user_id' => auth('app_users_api')->user()->id,
             'default' => true
         ])->count();
-        if($count == 0){
+        if ($count == 0) {
             $input['default'] = true;
         }
         $item = Address::create($input);
-        if(!empty($request->file("image"))) {
+        if (!empty($request->file("image"))) {
             $item->image = uploadFile($request->file("image"), 'users_image');
         }
-        return apiResponse(trans('api.add_successfully'), $item,200,201);
+        return apiResponse(trans('api.add_successfully'), $item, 200, 201);
     }
 
 
@@ -81,15 +83,15 @@ class AddressController extends ApiController
             'building'      => 'required',
         ]);
         if (!$validator->passes()) {
-            return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(),500,500);
+            return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(), 500, 500);
         }
-        if($address->app_user_id != auth('app_users_api')->user()->id){
-            return apiResponse(trans('api.error_validation'), null,500,500);
+        if ($address->app_user_id != auth('app_users_api')->user()->id) {
+            return apiResponse(trans('api.error_validation'), null, 500, 500);
         }
         $input = $request->except('image');
         $input['app_user_id'] = auth('app_users_api')->user()->id;
 
-        if($input['default'] && !$address->default) {
+        if ($input['default'] && !$address->default) {
             Address::where('app_user_id', auth('app_users_api')->user()->id)
                 ->update(['default' => 0]);
         }
@@ -97,14 +99,14 @@ class AddressController extends ApiController
             'app_user_id' => auth('app_users_api')->user()->id,
             'default' => 1
         ])->count();
-        if($count == 0){
+        if ($count == 0) {
             $input['default'] = 1;
         }
         $address->update($input);
-        if(!empty($request->file("image"))) {
+        if (!empty($request->file("image"))) {
             $address->image = uploadFile($request->file("image"), 'users_image');
         }
-        return apiResponse(trans('api.successfully_updated'), $address,200,200);
+        return apiResponse(trans('api.successfully_updated'), $address, 200, 200);
     }
     /**
      * Remove the specified resource from storage.
@@ -114,14 +116,14 @@ class AddressController extends ApiController
      */
     public function destroy(Address $address)
     {
-        $item = Address::where("app_user_id",auth('app_users_api')->user()->id)->first();
-        if($item->app_user_id != auth('app_users_api')->user()->id){
-            return apiResponse(trans('api.error_validation'), null,500,500);
+        $item = Address::where("app_user_id", auth('app_users_api')->user()->id)->first();
+        if ($item->app_user_id != auth('app_users_api')->user()->id) {
+            return apiResponse(trans('api.error_validation'), null, 500, 500);
         }
-        if($address->default){
-            return apiResponse(trans('api.not_able_to_delete_default'), null,500,500);
+        if ($address->default) {
+            return apiResponse(trans('api.not_able_to_delete_default'), null, 500, 500);
         }
         $item->delete();
-        return apiResponse(trans('api.deleted_successfully'), null,200,200);
+        return apiResponse(trans('api.deleted_successfully'), null, 200, 200);
     }
 }
