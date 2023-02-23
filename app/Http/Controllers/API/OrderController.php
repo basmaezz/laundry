@@ -488,7 +488,7 @@ Customer Name: {$order->user->name}
                 'lng' => $order->address->lng ?? '',
 //                'image'=>'i.jpg',
 
-                'image' => $order->address->image ? asset('assets/uploads/users_image/'.$order->address->image) : null,
+                'image_url' => $order->address->image ? asset('assets/uploads/users_image/'.$order->address->image) : null,
             ],
             'user' => [
                 //'me' => $app_user->id,
