@@ -29,7 +29,7 @@ class Address extends Model
 
     protected $appends = ['image_url'];
 
-    public function getImageUrlAttribute(){
+    public function getImageAttribute(){
         return isset($this->attributes['image'])? asset('assets/uploads/users_image/'.$this->attributes['image']) : null;
     }
 
