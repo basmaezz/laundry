@@ -486,7 +486,7 @@ Customer Name: {$order->user->name}
                 "building" => $order->address->building ?? '',
                 'lat' => $order->address->lat ?? '',
                 'lng' => $order->address->lng ?? '',
-                'image'=>$order->address->image,
+                'image'=>$order->address->image?asset('assets/uploads/users_image/'.$order->address->image):null,
 
 //                'image' => $order->address->image_url ?? ''
             ],

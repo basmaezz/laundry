@@ -19,7 +19,6 @@ class AddressController extends ApiController
     {
         $user_id = auth('app_users_api')->user()->id;
         $items = Address::where("app_user_id", $user_id)->get();
-        dd($items);
         return apiResponse(trans('api.all'), $items, 200, 200);
     }
 
