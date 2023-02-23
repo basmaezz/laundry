@@ -30,7 +30,8 @@ class Address extends Model
     protected $appends = ['image_url'];
 
     public function getImageAttribute(){
-        return isset($this->attributes['image'])? asset('assets/uploads/users_image/'.$this->attributes['image']) : null;
+//        return isset($this->attributes['image'])? asset('assets/uploads/users_image/'.$this->attributes['image']) : null;
+        return  isset($image) ? assetsUpload().'assets/uploads/users_image/'. $image : '';
     }
 
     public function city(){
