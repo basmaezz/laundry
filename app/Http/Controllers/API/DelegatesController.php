@@ -24,6 +24,7 @@ class DelegatesController extends Controller
 {
     public function delegate_orders(Request $request)
     {
+
         $app_user_id = auth('app_users_api')->user()->id;
         $orders = OrderTable::query();
         if($request->get('type') == 'unassigned'){
@@ -44,6 +45,7 @@ class DelegatesController extends Controller
         foreach ($orders as $order){
             $data[] = OrderController::orderObject($order);
         }
+        dd($data);
         return apiResponseOrders('api.My_Order', count($data), $data);
     }
 
