@@ -106,7 +106,6 @@ class AddressController extends ApiController
         }
         return apiResponse(trans('api.successfully_updated'), $address,200,200);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -115,10 +114,7 @@ class AddressController extends ApiController
      */
     public function destroy(Address $address)
     {
-
         $item = Address::where("app_user_id",auth('app_users_api')->user()->id)->first();
-
-
         if($item->app_user_id != auth('app_users_api')->user()->id){
             return apiResponse(trans('api.error_validation'), null,500,500);
         }
