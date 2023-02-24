@@ -225,3 +225,8 @@ Route::get('ordersTable',function (){
     $orders=\App\Models\OrderTable::all();
     return $orders;
 });
+
+Route::get('Alter',function (){
+    \DB::statement('ALTER TABLE order_tables ENGINE = InnoDB');
+
+});
