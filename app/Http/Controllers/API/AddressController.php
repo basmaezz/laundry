@@ -56,10 +56,10 @@ class AddressController extends ApiController
         if ($count == 0) {
             $input['default'] = true;
         }
-        $item = Address::create($input);
         if (!empty($request->file("image"))) {
-            $item->image = uploadFile($request->file("image"), 'users_image');
+            $input['image'] = uploadFile($request->file("image"), 'users_image');
         }
+        $item = Address::create($input);
         return apiResponse(trans('api.add_successfully'), $item, 200, 201);
     }
 
