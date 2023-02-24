@@ -21,8 +21,6 @@ class Address extends Model
         "default"
     ];
 
-
-
     protected $casts = [
         'default'=>'boolean'
         ];
@@ -39,5 +37,9 @@ class Address extends Model
 
     public function getTableColumns() {
         return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+    }
+
+    public function ordersTable(){
+        return $this->hasMany(OrderTable::class);
     }
 }

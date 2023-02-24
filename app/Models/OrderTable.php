@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class OrderTable extends Model
 {
 
+
     protected static function booted()
     {
         static::created(function ($order) {
@@ -50,7 +51,8 @@ class OrderTable extends Model
         'discount',
         'delivery_type',
         'audio_note',
-        'vat'
+        'vat',
+        'address_id'
     ];
 
     public function orderDetails()

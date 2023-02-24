@@ -115,8 +115,16 @@ class AddressController extends ApiController
      */
     public function destroy($id)
     {
-        $address=Address::find($id);
-        if($address->app_user_id != auth('app_users_api')->user()->id){
+        $address=Address::withCount('ordersTable')->find($id);
+        if($address->orders_table_count > 0){
+
+            foreach ($address->ordersTable as $order){
+                $order->update([
+                    'address_id'=>Null
+                ]);
+            }
+        }
+        if($address->app_user_id != auth('app_users_api')->user()->id && $address->orders_table_count>0){
             return apiResponse(trans('api.error_validation'), null, 500, 500);
         }
         if ($address->default) {
