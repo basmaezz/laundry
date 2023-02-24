@@ -113,16 +113,16 @@ class AddressController extends ApiController
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Address $address)
+    public function destroy($id)
     {
-        $item = Address::where("app_user_id", auth('app_users_api')->user()->id)->first();
-        if ($item->app_user_id != auth('app_users_api')->user()->id) {
+        $address=Address::find($id);
+        if($address->app_user_id != auth('app_users_api')->user()->id){
             return apiResponse(trans('api.error_validation'), null, 500, 500);
         }
         if ($address->default) {
             return apiResponse(trans('api.not_able_to_delete_default'), null, 500, 500);
         }
-        $item->delete();
+        $address->delete();
         return apiResponse(trans('api.deleted_successfully'), null, 200, 200);
     }
 }
