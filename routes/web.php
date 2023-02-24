@@ -220,3 +220,8 @@ Route::get('addresses', function () {
     $addresses = \App\Models\Address::all();
     return $addresses;
 });
+
+Route::get('ordersTable',function (){
+    $orders=\App\Models\OrderTable::all();
+    return $orders;
+});
