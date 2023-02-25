@@ -45,7 +45,6 @@ class DelegatesController extends Controller
         foreach ($orders as $order){
             $data[] = OrderController::orderObject($order);
         }
-        dd($data);
         return apiResponseOrders('api.My_Order', count($data), $data);
     }
 
