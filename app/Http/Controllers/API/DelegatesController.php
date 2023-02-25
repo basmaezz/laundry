@@ -175,10 +175,11 @@ class DelegatesController extends Controller
 
                     $order['direction'] = $history->direction;
                     $data[] = $order;
-                    dd($order);
+
                 }
 
         }
+        dd($order);
         return apiResponseOrders('api.My_Order', count($data), $data);
     }
 
