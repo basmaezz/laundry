@@ -207,8 +207,11 @@ Route::get('drop', function () {
 });
 
 Route::get('truncateData', function () {
+    \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
     \App\Models\OrderTable::truncate();
+    \App\Models\OrderDetails::truncate();
     \App\Models\Address::truncate();
+    \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 });
 
 Route::get('columns', function () {
@@ -229,5 +232,6 @@ Route::get('ordersTable',function (){
 
 Route::get('Alter',function (){
     \DB::statement('ALTER TABLE order_tables ENGINE = InnoDB');
+
 
 });
