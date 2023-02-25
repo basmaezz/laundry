@@ -163,7 +163,7 @@ class DelegatesController extends Controller
     public function order_history(){
         $app_user_id = auth('app_users_api')->user()->id;
         $histories = DeliveryHistory::with('order')->where('user_id',$app_user_id)->latest()->get();
-        dd($histories);
+ 
         $data = [];
         foreach ($histories as $history){
             if($history->order_count>0){
