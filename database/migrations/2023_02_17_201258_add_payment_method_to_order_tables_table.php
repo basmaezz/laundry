@@ -31,7 +31,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('order_tables', function (Blueprint $table) {
-            $table->dropColumn(['payment_method','address_id']);
+//            $table->dropColumn(['payment_method','address_id']);
         });
     }
 };
