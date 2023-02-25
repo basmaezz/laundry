@@ -442,7 +442,7 @@ class AuthController extends ApiController
             $user['fcm_token']    => $request->get("fcm_token") ?? $user->fcm_token,
             $user['lat']          => $request->get("lat") ?? $user->lat,
             $user['lng']          => $request->get("lng") ?? $user->lng,
-            $user['image']          =>$userImage,
+            $user['image']          =>$userImage??$user->image,
         ]);
 
 
