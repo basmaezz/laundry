@@ -389,7 +389,7 @@ class AuthController extends ApiController
 
     public function editProfileDelegate(Request $request)
     {
-
+       dd($request->all());
         $user = auth()->user();
 
        $validator          = Validator::make($request->all(), [
@@ -451,22 +451,22 @@ class AuthController extends ApiController
         $delegate->car_type           = $request->get('car')['type'];
 //        $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
 
-        if ($request->file("personal")['image']!=''){
+        if ($request->file("personal")['image']){
             $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
         }
-        if (!empty($request->file("personal")['nid_image']!='')){
+        if (!empty($request->file("personal")['nid_image'])){
             $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
         }
-        if (!empty($request->file("personal")['medic_check_image']!='')){
+        if (!empty($request->file("personal")['medic_check_image'])){
             $delegate->medic_check = uploadFile($request->file('personal')['medic_check_image'],'medic_check');
         }
-        if (!empty($request->file("car")['front_image']!='')){
+        if (!empty($request->file("car")['front_image'])){
             $delegate->car_picture_front = uploadFile($request->file('car')['front_image'],'car_front');
         }
-        if (!empty($request->file("car")['back_image']!='')){
+        if (!empty($request->file("car")['back_image'])){
             $delegate->car_picture_behind = uploadFile($request->file('car')['back_image'],'car_back');
         }
-        if (!empty($request->file("car")['license_image']!='')){
+        if (!empty($request->file("car")['license_image'])){
             $delegate->car_registration  = uploadFile($request->file('license_image'),'car_registration');
         }
 //       if($request->file('image')){
