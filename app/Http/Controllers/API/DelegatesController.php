@@ -162,16 +162,19 @@ class DelegatesController extends Controller
 
     public function order_history(){
         $app_user_id = auth('app_users_api')->user()->id;
-        $histories = DeliveryHistory::where('user_id',$app_user_id)->latest()->get();
+        $histories = DeliveryHistory::with('order')->where('user_id',$app_user_id)->latest()->get();
+        dd($histories);
         $data = [];
         foreach ($histories as $history){
-            $order = OrderController::orderObject($history->order);
-            if(//Display only completed delivery tasks
-                ($history->order->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||
-                ($history->order->status_id = OrderController::Completed && $history->direction == 'FromLaundry')
-            ) {
-                $order['direction'] = $history->direction;
-                $data[] = $order;
+            if($history->order_count>0){
+                $order = OrderController::orderObject($history->order);
+                if(//Display only completed delivery tasks
+                    ($history->order->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||
+                    ($history->order->status_id = OrderController::Completed && $history->direction == 'FromLaundry')
+                ) {
+                    $order['direction'] = $history->direction;
+                    $data[] = $order;
+                }
             }
         }
         return apiResponseOrders('api.My_Order', count($data), $data);
