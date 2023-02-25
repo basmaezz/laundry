@@ -246,7 +246,7 @@ class DelegatesController extends Controller
         $histories = DeliveryHistory::where('user_id',$app_user_id)->limit(20)->latest()->get();
         $count = 0;
         foreach ($histories as $history){
-            echo ($history->order->status_id);
+            dd ($history->order->status_id);
             if(
                 ($history->order->status_id == OrderController::AcceptedByDelivery && $history->direction == 'ToLaundry') ||
                 ($history->order->status_id == OrderController::AcceptedByDeliveryToYou && $history->direction == 'FromLaundry')
