@@ -21,7 +21,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('order_tables', function ($table) {
-            $table->unsignedBigInteger('address_id')->unsigned()->nullable()->change();
+//            $table->unsignedBigInteger('address_id')->unsigned()->nullable()->change();
         });
     }
 };
