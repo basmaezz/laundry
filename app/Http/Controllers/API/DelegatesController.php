@@ -179,7 +179,6 @@ class DelegatesController extends Controller
                 }
 
         }
-        dd($order);
         return apiResponseOrders('api.My_Order', count($data), $data);
     }
 
