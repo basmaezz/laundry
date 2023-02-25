@@ -424,40 +424,43 @@ class AuthController extends ApiController
                 'items' => null,
             ];
             return response()->json($return,422);
-        }
+        };
+        if(!empty($request->file("personal")['image'])){
+            $userImage = uploadFile($request->file("personal")['image'],'users_avatar');
+        };
 
         $number             = convert2english($request->get("personal")['mobile']);
-        if (!empty($request->file("personal")['image'])){
-            $userImage = uploadFile($request->file("personal")['image'],'users_avatar')
-       };
         $user->update([
-        $user['name']         => $request->get("personal")['name'],
-        $user['mobile']       => $number,
-        $user['email']        => $request->get("personal")['email'],
-        $user['gender']       => $request->get("personal")["gender"] ?? $user->gender,
-        $user['city_id']      => $request->get("personal")["city_id"],
-        $user['region_name']  => $request->get("personal")["region_name"],
-        $user['address']      => $request->get("personal")["address"] ?? $user->address,
-        $user['building']     => $request->get("personal")["building"] ?? $user->building,
-        $user['fcm_token']    => $request->get("fcm_token") ?? $user->fcm_token,
-        $user['lat']          => $request->get("lat") ?? $user->lat,
-        $user['lng']          => $request->get("lng") ?? $user->lng,
-        $user['image']          =>$userImage,
+            $user['name']         => $request->get("personal")['name'],
+            $user['mobile']       => $number,
+            $user['email']        => $request->get("personal")['email'],
+            $user['gender']       => $request->get("personal")["gender"] ?? $user->gender,
+            $user['city_id']      => $request->get("personal")["city_id"],
+            $user['region_name']  => $request->get("personal")["region_name"],
+            $user['address']      => $request->get("personal")["address"] ?? $user->address,
+            $user['building']     => $request->get("personal")["building"] ?? $user->building,
+            $user['fcm_token']    => $request->get("fcm_token") ?? $user->fcm_token,
+            $user['lat']          => $request->get("lat") ?? $user->lat,
+            $user['lng']          => $request->get("lng") ?? $user->lng,
+            $user['image']          =>$userImage,
         ]);
+
 
         $delegate = Delegate::where('app_user_id',$user->id)->first();
-        $delegate->update([
-            $delegate['id_number']=>$request->get('personal')['nid'],
-             $delegate['iban_number']=>$request-> get('bank')['number'],
-             $delegate['bank_name']=>$request->  get('bank')['name'],
-             $delegate['license_start_date']=>$request-> get('license')['start_date'],
-            $delegate['license_end_date']=>$request->get('license')['end_date'],
-            $delegate['request_employment']=>$request->$request->get('request_employment'),
-             $delegate['manufacture_year']=>$request->$request->get('car')['year'],
-            $delegate['car_type']=>$request->$request->get('car')['type'],
 
-        ]);
+        $delegate->id_number          = $request->get('personal')['nid'];
+        $delegate->iban_number        = $request->get('bank')['number'];
+        $delegate->bank_name          = $request->get('bank')['name'];
+        $delegate->license_start_date = $request->get('license')['start_date'];
+        $delegate->license_end_date   = $request->get('license')['expire_date'];
+        $delegate->request_employment = boolval($request->get('request_employment'));
+        $delegate->manufacture_year   = $request->get('car')['year'];
+        $delegate->car_type           = $request->get('car')['type'];
+//        $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
 
+        if ($request->file("personal")['image']){
+            $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
+        }
 //        if (!empty($request->file("personal")['nid_image'])){
 //            $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
 //        }
