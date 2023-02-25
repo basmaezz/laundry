@@ -211,7 +211,7 @@ Route::get('truncateData', function () {
     \App\Models\OrderTable::truncate();
     \App\Models\OrderDetails::truncate();
     \App\Models\Address::truncate();
-    \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+    \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 });
 
 Route::get('columns', function () {
