@@ -71,8 +71,10 @@ class AddressController extends ApiController
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Address $address)
+    public function update(Request $request, $id)
     {
+        $address=Address::find($id);
+
         $validator = Validator::make($request->all(), [
             'description'   => 'nullable',
             'image'         => 'nullable|image',
@@ -101,10 +103,10 @@ class AddressController extends ApiController
         if ($count == 0) {
             $input['default'] = 1;
         }
-        $address->update($input);
         if (!empty($request->file("image"))) {
-            $address->image = uploadFile($request->file("image"), 'users_image');
+            $input['image'] = uploadFile($request->file("image"), 'users_image');
         }
+        $address->update($input);
         return apiResponse(trans('api.successfully_updated'), $address, 200, 200);
     }
     /**
@@ -117,7 +119,6 @@ class AddressController extends ApiController
     {
         $address=Address::withCount('ordersTable')->find($id);
         if($address->orders_table_count > 0){
-
             foreach ($address->ordersTable as $order){
                 $order->update([
                     'address_id'=>Null
