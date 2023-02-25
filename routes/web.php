@@ -207,7 +207,8 @@ Route::get('drop', function () {
 });
 
 Route::get('truncateData', function () {
-    \App\Models\City::truncate();
+    \App\Models\OrderTable::truncate();
+    \App\Models\Address::truncate();
 });
 
 Route::get('columns', function () {
