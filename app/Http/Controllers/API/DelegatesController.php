@@ -243,23 +243,19 @@ class DelegatesController extends Controller
 
     public function delegate_has_order(Request $request){
         $app_user_id = auth('app_users_api')->user()->id;
-        $histories = DeliveryHistory::withCount('order')->where('user_id',$app_user_id)->limit(20)->latest()->get();
+        $histories = DeliveryHistory::where('user_id',$app_user_id)->limit(20)->latest()->get();
         $count = 0;
-        if($histories->order_count>0){
-            return response()->json(['count'=> $histories->order_count]);
-//            foreach ($histories as $history){
-//
-//                if(
-//                    ($history->order->status_id == OrderController::AcceptedByDelivery && $history->direction == 'ToLaundry') ||
-//                    ($history->order->status_id == OrderController::AcceptedByDeliveryToYou && $history->direction == 'FromLaundry')
-//                ) {
-//                    $count ++;
-//                }
-//            }
-        }else{
+        foreach ($histories as $history){
+            if($history->order_count>0){
+                if(
+                    ($history->order->status_id == OrderController::AcceptedByDelivery && $history->direction == 'ToLaundry') ||
+                    ($history->order->status_id == OrderController::AcceptedByDeliveryToYou && $history->direction == 'FromLaundry')
+                ) {
+                    $count ++;
+                }
+            }
 
-        return response()->json(['count'=> 0]);
         }
-
+        return response()->json(['count'=> $count]);
     }
 }
