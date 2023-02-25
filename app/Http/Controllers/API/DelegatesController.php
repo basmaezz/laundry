@@ -243,7 +243,7 @@ class DelegatesController extends Controller
 
     public function delegate_has_order(Request $request){
         $app_user_id = auth('app_users_api')->user()->id;
-        $histories = DeliveryHistory::with('order')->where('user_id',$app_user_id)->limit(20)->latest()->get();
+        $histories = DeliveryHistory::withCount('order')->where('user_id',$app_user_id)->limit(20)->latest()->get();
         dd($histories);
         $count = 0;
         foreach ($histories as $history){
