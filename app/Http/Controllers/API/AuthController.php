@@ -444,15 +444,15 @@ class AuthController extends ApiController
 
         $delegate = Delegate::where('app_user_id',$user->id)->first();
 
-        $delegate->id_number         = $request->get('personal')['nid'];
-        $delegate->iban_number        = $request->get('bank')['number'];
-        $delegate->bank_name          = $request->get('bank')['name'];
-        $delegate->license_start_date = $request->get('license')['start_date'];
-        $delegate->license_end_date   = $request->get('license')['expire_date'];
-        $delegate->request_employment = boolval($request->get('request_employment'));
-        $delegate->manufacture_year   = $request->get('car')['year'];
-        $delegate->car_type           = $request->get('car')['type'];
-        $delegate->car_registration = uploadFile($request->file('car')['license_image'], 'car_registration')?? $delegate->car_registration ;
+        $delegate['id_number']         = $request->get('personal')['nid'];
+        $delegate['iban_number']        = $request->get('bank')['number'];
+        $delegate['bank_name']          = $request->get('bank')['name'];
+        $delegate['license_start_date'] = $request->get('license')['start_date'];
+        $delegate['license_end_date']   = $request->get('license')['expire_date'];
+        $delegate['request_employment'] = boolval($request->get('request_employment'));
+        $delegate['manufacture_year']   = $request->get('car')['year'];
+        $delegate['car_type']           = $request->get('car')['type'];
+        $delegate['car_registration'] = uploadFile($request->file('car')['license_image'], 'car_registration')?? $delegate->car_registration ;
 
         if (!empty($request->file("personal")['image'])){
             $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
@@ -473,7 +473,7 @@ class AuthController extends ApiController
 //            $delegate->car_registration  = uploadFile($request->file('license_image'),'car_registration');
 //        }
        if(!empty($request->file('image'))){
-            $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
+            $delegate['driving_license'] = uploadFile($request->file('image'),'driving_license');
         }
 
         try {
