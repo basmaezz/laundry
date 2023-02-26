@@ -425,9 +425,6 @@ class AuthController extends ApiController
             ];
             return response()->json($return,422);
         };
-        if(!empty($request->file("personal")['image'])){
-            $userImage = uploadFile($request->file("personal")['image'],'users_avatar');
-        };
 
         $number             = convert2english($request->get("personal")['mobile']);
         $user->update([
@@ -442,7 +439,7 @@ class AuthController extends ApiController
             $user['fcm_token']    => $request->get("fcm_token") ?? $user->fcm_token,
             $user['lat']          => $request->get("lat") ?? $user->lat,
             $user['lng']          => $request->get("lng") ?? $user->lng,
-            $user['image']          =>$userImage??$user->image,
+            $user['image']        => uploadFile($request->file("personal")['image'],'users_avatar')??$user->image,
         ]);
 
 

@@ -48,4 +48,9 @@ class AppUser extends Authenticatable implements JWTSubject
         return $this->hasOne(Address::class,'app_user_id','id')->where(['default'=>true]);
     }
 
+    public function getWalletAttribute($value)
+    {
+        return number_format(floor($value), 2);
+    }
+
 }
