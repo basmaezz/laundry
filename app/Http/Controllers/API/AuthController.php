@@ -475,7 +475,7 @@ class AuthController extends ApiController
        if(!empty($request->file('image'))){
             $delegate['driving_license'] = uploadFile($request->file('image'),'driving_license');
         }
-
+dd($delegate);
         try {
             $user->save();
             $delegate->save();
