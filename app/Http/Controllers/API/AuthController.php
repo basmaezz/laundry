@@ -459,9 +459,9 @@ class AuthController extends ApiController
         if (!empty($request->file("personal")['image'])){
             $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
         }
-//        if (!empty($request->file("personal")['nid_image'])){
-//            $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
-//        }
+        if (!empty($request->file("personal")['nid_image'])){
+            $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
+        }
         if (!empty($request->file("personal")['medic_check_image'])){
             $delegate->medic_check = uploadFile($request->file('personal')['medic_check_image'],'medic_check');
         }
@@ -477,7 +477,7 @@ class AuthController extends ApiController
 //       if($request->file('image')){
 //            $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
 //        }
-      
+
         try {
             $user->save();
             $delegate->save();
