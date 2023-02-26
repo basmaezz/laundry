@@ -477,7 +477,7 @@ class AuthController extends ApiController
         }
         try {
             $user->save();
-            $delegate->save();
+            Delegate::update($delegate);
             $userData = getUserObject($user);
             $userData['delegate'] = $delegate;
             return apiResponse("user_has_updated_successfully",$userData);
