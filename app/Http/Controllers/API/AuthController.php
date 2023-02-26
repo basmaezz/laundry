@@ -425,22 +425,25 @@ class AuthController extends ApiController
             ];
             return response()->json($return,422);
         };
+        if(!empty($request->file("personal")['image'])){
+            $user['image'] = uploadFile($request->file("personal")['image'],'users_avatar');
+        };
 
         $number             = convert2english($request->get("personal")['mobile']);
-        $user->update([
-            $user['name']         => $request->get("personal")['name'],
-            $user['mobile']       => $number,
-            $user['email']        => $request->get("personal")['email'],
-            $user['gender']       => $request->get("personal")["gender"] ?? $user->gender,
-            $user['city_id']      => $request->get("personal")["city_id"],
-            $user['region_name']  => $request->get("personal")["region_name"],
-            $user['address']      => $request->get("personal")["address"] ?? $user->address,
-            $user['building']     => $request->get("personal")["building"] ?? $user->building,
-            $user['fcm_token']    => $request->get("fcm_token") ?? $user->fcm_token,
-            $user['lat']          => $request->get("lat") ?? $user->lat,
-            $user['lng']          => $request->get("lng") ?? $user->lng,
-            $user['image']        => uploadFile($request->file("personal")['image'],'users_avatar')??$user->image,
-        ]);
+//        $user->update([
+            $user['name']         = $request->get("personal")['name'];
+            $user['mobile']       = $number;
+            $user['email']        = $request->get("personal")['email'];
+            $user['gender']       = $request->get("personal")["gender"] ?? $user->gender;
+            $user['city_id']      = $request->get("personal")["city_id"];
+            $user['region_name']  = $request->get("personal")["region_name"];
+            $user['address']      = $request->get("personal")["address"] ?? $user->address;
+            $user['building']     = $request->get("personal")["building"] ?? $user->building;
+            $user['fcm_token']    = $request->get("fcm_token") ?? $user->fcm_token;
+            $user['lat']          = $request->get("lat") ?? $user->lat;
+            $user['lng']          = $request->get("lng") ?? $user->lng;
+//            $user['image']        = $userImage ??$user->image;
+//        ]);
 
 
         $delegate = Delegate::where('app_user_id',$user->id)->first();
