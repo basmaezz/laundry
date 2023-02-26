@@ -425,9 +425,7 @@ class AuthController extends ApiController
             ];
             return response()->json($return,422);
         };
-        if(!empty($request->file("personal")['image'])){
-            $user['image'] = uploadFile($request->file("personal")['image'],'users_avatar');
-        };
+
 
         $number             = convert2english($request->get("personal")['mobile']);
 //        $user->update([
@@ -458,7 +456,7 @@ class AuthController extends ApiController
         $delegate->car_type           = $request->get('car')['type'];
 //        $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
 
-        if ($request->file("personal")['image']){
+        if (!empty($request->file("personal")['image'])){
             $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
         }
 //        if (!empty($request->file("personal")['nid_image'])){
@@ -479,7 +477,7 @@ class AuthController extends ApiController
 //       if($request->file('image')){
 //            $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
 //        }
-        dd($user);
+      
         try {
             $user->save();
             $delegate->save();
