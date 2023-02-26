@@ -452,6 +452,7 @@ class AuthController extends ApiController
         $delegate['request_employment'] = boolval($request->get('request_employment'));
         $delegate['manufacture_year']   = $request->get('car')['year'];
         $delegate['car_type']           = $request->get('car')['type'];
+        $delegate['car_registration'] = uploadFile($request->file('car')['license_image'], 'car_registration')?$delegate->car_registration;
 
         if (!empty($request->file("personal")['image'])){
             $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
@@ -468,9 +469,9 @@ class AuthController extends ApiController
         if (!empty($request->file("car")['back_image'])){
             $delegate->car_picture_behind = uploadFile($request->file('car')['back_image'],'car_back');
         }
-        if (!empty($request->file("license_image"))) {
-            $delegate->car_registration  = uploadFile($request->file('license_image'),'car_registration');
-        }
+//        if (!empty($request->file("car")['license_image'])){
+//            $delegate->car_registration  = uploadFile($request->file('license_image'),'car_registration');
+//        }
        if($request->file('image')){
             $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
         }
