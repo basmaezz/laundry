@@ -389,7 +389,7 @@ class AuthController extends ApiController
 
     public function editProfileDelegate(Request $request)
     {
-     dd($request->all());
+
         $user = auth()->user();
 
        $validator          = Validator::make($request->all(), [
@@ -444,14 +444,14 @@ class AuthController extends ApiController
 
         $delegate = Delegate::where('app_user_id',$user->id)->first();
 
-        $delegate->id_number          = $request->get('personal')['nid'];
-        $delegate->iban_number        = $request->get('bank')['number'];
-        $delegate->bank_name          = $request->get('bank')['name'];
-        $delegate->license_start_date = $request->get('license')['start_date'];
-        $delegate->license_end_date   = $request->get('license')['expire_date'];
-        $delegate->request_employment = boolval($request->get('request_employment'));
-        $delegate->manufacture_year   = $request->get('car')['year'];
-        $delegate->car_type           = $request->get('car')['type'];
+        $delegate['id_number ']         = $request->get('personal')['nid'];
+        $delegate['iban_number']        = $request->get('bank')['number'];
+        $delegate['bank_name']          = $request->get('bank')['name'];
+        $delegate['license_start_date'] = $request->get('license')['start_date'];
+        $delegate['license_end_date']   = $request->get('license')['expire_date'];
+        $delegate['request_employment'] = boolval($request->get('request_employment'));
+        $delegate['manufacture_year']   = $request->get('car')['year'];
+        $delegate['car_type']           = $request->get('car')['type'];
 
         if (!empty($request->file("personal")['image'])){
             $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
