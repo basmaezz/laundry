@@ -440,8 +440,6 @@ class AuthController extends ApiController
             $user['fcm_token']    = $request->get("fcm_token") ?? $user->fcm_token;
             $user['lat']          = $request->get("lat") ?? $user->lat;
             $user['lng']          = $request->get("lng") ?? $user->lng;
-//            $user['image']        = $userImage ??$user->image;
-//        ]);
 
 
         $delegate = Delegate::where('app_user_id',$user->id)->first();
@@ -454,7 +452,6 @@ class AuthController extends ApiController
         $delegate->request_employment = boolval($request->get('request_employment'));
         $delegate->manufacture_year   = $request->get('car')['year'];
         $delegate->car_type           = $request->get('car')['type'];
-//        $delegate->id_image = uploadFile($request->file('personal')['nid_image'],'nid_image');
 
         if (!empty($request->file("personal")['image'])){
             $user->avatar = uploadFile($request->file("personal")['image'],'users_avatar');
@@ -474,9 +471,9 @@ class AuthController extends ApiController
         if (!empty($request->file("car")['license_image'])){
             $delegate->car_registration  = uploadFile($request->file('license_image'),'car_registration');
         }
-//       if($request->file('image')){
-//            $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
-//        }
+       if($request->file('image')){
+            $delegate->driving_license = uploadFile($request->file('image'),'driving_license');
+        }
 
         try {
             $user->save();
