@@ -444,7 +444,7 @@ class AuthController extends ApiController
 
         $delegate = Delegate::where('app_user_id',$user->id)->first();
 
-        $delegate['id_number ']         = $request->get('personal')['nid'];
+        $delegate['id_number']         = $request->get('personal')['nid'];
         $delegate['iban_number']        = $request->get('bank')['number'];
         $delegate['bank_name']          = $request->get('bank')['name'];
         $delegate['license_start_date'] = $request->get('license')['start_date'];
