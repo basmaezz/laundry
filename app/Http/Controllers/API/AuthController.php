@@ -468,7 +468,7 @@ class AuthController extends ApiController
             $delegate->car_picture_behind = uploadFile($request->file('car')['back_image'],'car_back');
         }
         if (!empty($request->file("car")['license_image'])){
-            $delegate->car_registration  = uploadFile($request->file('car')('license_image'),'car_registration');
+            $delegate->car_registration  = uploadFile($request->file('car')['license_image'],'car_registration');
         }
        if(!empty($request->file('image'))){
             $delegate['driving_license'] = uploadFile($request->file('image'),'driving_license');
