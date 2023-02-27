@@ -199,7 +199,6 @@ class DelegatesController extends Controller
             'user_id'   => $app_user_id,
             'direction' => $order->status_id == OrderController::AcceptedByDelivery? 'ToLaundry' : 'FromLaundry'
         ]);
-          dd($order->id);
         $name = 'name_' . App::getLocale();
         NotificationController::sendNotification(
             getStatusName($order->status_id),
@@ -216,10 +215,11 @@ class DelegatesController extends Controller
             if($app_user_id == $user->id){
                 continue;
             }
-            NotificationController::sendDataNotification(
+            $notification = NotificationController::sendDataNotification(
                 $user,
                 $order->id);
         }
+        dd($notification);
         return apiResponse('api.success', $order);
     }
 
