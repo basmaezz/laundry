@@ -215,11 +215,10 @@ class DelegatesController extends Controller
             if($app_user_id == $user->id){
                 continue;
             }
-            $notification = NotificationController::sendDataNotification(
+        NotificationController::sendDataNotification(
                 $user,
                 $order->id);
         }
-        dd($notification);
         return apiResponse('api.success', $order);
     }
 
