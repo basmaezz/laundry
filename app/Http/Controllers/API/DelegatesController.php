@@ -193,13 +193,12 @@ class DelegatesController extends Controller
         $order->delivery_id = $app_user_id;
         $order->save();
 
-        dd($order);
         DeliveryHistory::create([
             'order_id'  => $order_id,
             'user_id'   => $app_user_id,
             'direction' => $order->status_id == OrderController::AcceptedByDelivery? 'ToLaundry' : 'FromLaundry'
         ]);
-
+        dd($order->id);
 
         $name = 'name_' . App::getLocale();
         NotificationController::sendNotification(
