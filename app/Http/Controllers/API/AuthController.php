@@ -389,7 +389,6 @@ class AuthController extends ApiController
 
     public function editProfileDelegate(Request $request)
     {
-dd($request->all());
         $user = auth()->user();
 
        $validator          = Validator::make($request->all(), [
@@ -473,7 +472,6 @@ dd($request->all());
        if(!empty($request->file('image'))){
             $delegate['driving_license'] = uploadFile($request->file('image'),'driving_license');
         }
-       dd($delegate);
         try {
             $user->save();
             $delegate->save();
