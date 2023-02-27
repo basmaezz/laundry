@@ -183,6 +183,7 @@ class DelegatesController extends Controller
     }
 
     public function accept_order(Request $request,$order_id){
+        dd($request->all());
         $app_user_id = auth('app_users_api')->user()->id;
 //        $order = OrderTable::whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::WaitingForDeliveryToReceiveOrder])
         $order = OrderTable::whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::WaitingForDeliveryToReceiveOrder])
@@ -197,6 +198,7 @@ class DelegatesController extends Controller
             'user_id'   => $app_user_id,
             'direction' => $order->status_id == OrderController::AcceptedByDelivery? 'ToLaundry' : 'FromLaundry'
         ]);
+
 
         $name = 'name_' . App::getLocale();
         NotificationController::sendNotification(
