@@ -191,8 +191,8 @@ class DelegatesController extends Controller
             ->firstOrFail();
         $order->status_id = $order->status_id+1;
         $order->delivery_id = $app_user_id;
-        $order->save();
             dd($order);
+        $order->save();
 
         DeliveryHistory::create([
             'order_id'  => $order_id,
