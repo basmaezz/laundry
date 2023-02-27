@@ -198,7 +198,6 @@ class DelegatesController extends Controller
             'user_id'   => $app_user_id,
             'direction' => $order->status_id == OrderController::AcceptedByDelivery? 'ToLaundry' : 'FromLaundry'
         ]);
-        dd($order->id);
 
         $name = 'name_' . App::getLocale();
         NotificationController::sendNotification(
@@ -207,6 +206,7 @@ class DelegatesController extends Controller
             $order->user,
             $order->id);
 
+            dd($order);
         $users = AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
@@ -216,7 +216,6 @@ class DelegatesController extends Controller
             if($app_user_id == $user->id){
                 continue;
             }
-            dd($order);
             NotificationController::sendDataNotification(
                 $user,
                 $order->id);
