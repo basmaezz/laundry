@@ -192,6 +192,7 @@ class DelegatesController extends Controller
         $order->status_id = $order->status_id+1;
         $order->delivery_id = $app_user_id;
         $order->save();
+            dd($order);
 
         DeliveryHistory::create([
             'order_id'  => $order_id,
@@ -206,7 +207,6 @@ class DelegatesController extends Controller
             $order->user,
             $order->id);
 
-            dd($order);
         $users = AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
