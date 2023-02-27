@@ -191,7 +191,7 @@ class DelegatesController extends Controller
             ->firstOrFail();
         $order->status_id = $order->status_id+1;
         $order->delivery_id = $app_user_id;
-       
+
         $order->save();
 
         DeliveryHistory::create([
@@ -199,7 +199,7 @@ class DelegatesController extends Controller
             'user_id'   => $app_user_id,
             'direction' => $order->status_id == OrderController::AcceptedByDelivery? 'ToLaundry' : 'FromLaundry'
         ]);
-
+          dd($order->id);
         $name = 'name_' . App::getLocale();
         NotificationController::sendNotification(
             getStatusName($order->status_id),
