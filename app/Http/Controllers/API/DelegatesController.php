@@ -214,6 +214,7 @@ class DelegatesController extends Controller
             if($app_user_id == $user->id){
                 continue;
             }
+            dd($order);
             NotificationController::sendDataNotification(
                 $user,
                 $order->id);

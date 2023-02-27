@@ -82,7 +82,7 @@ class UsersController extends Controller
     public function makeNotificationRead($id){
         $app_user_id = auth('app_users_api')->user()->id;
         $notifications = Notifications::where([
-            'user_id' => $app_user_id,
+            'app_user_id' => $app_user_id,
             'id' => $id
         ])->update(['seen' => 1]);
         return apiResponse('api.notification', ['data' => $notifications]);
@@ -104,7 +104,7 @@ class UsersController extends Controller
         $app_user = auth('app_users_api')->user();
 
         App\Models\DeleteReason::create([
-            'user_id' => $app_user->id,
+            'app_user_id' => $app_user->id,
             'reason_id' => $request->get("reason_id"),
             'other' => $request->get("other"),
             'attributes' => $app_user->toJson(JSON_PRETTY_PRINT)
@@ -128,7 +128,7 @@ class UsersController extends Controller
         })->first();
 
         $name = 'name_' . App::getLocale();
-        $orders = OrderTable::where('user_id', $app_user_id)->with(['orderDetails', 'orderDetails.product'])->get();
+        $orders = OrderTable::where('app_user_id', $app_user_id)->with(['orderDetails', 'orderDetails.product'])->get();
         $data = [];
         if (isset($orders)) {
             foreach ($orders as $order) {
@@ -267,7 +267,7 @@ class UsersController extends Controller
     {
         $user = auth('app_users_api')->user();
         $favorites = Favorite::where([
-            'user_id' => $user->id,
+            'app_user_id' => $user->id,
             'markable_type' => 'App\Models\Subcategory'
         ])->get();
         $name = 'name_' . App::getLocale();
@@ -388,7 +388,7 @@ class UsersController extends Controller
 
         if ($validator->passes()) {
 
-            $providers_ids = Product::where('category_id', $request->category_id)->pluck('user_id')->unique();
+            $providers_ids = Product::where('category_id', $request->category_id)->pluck('app_user_id')->unique();
 
             $get_providers = User::where(['user_type' => 'provider', 'confirm' => 1, 'active' => 1])->whereIn('id', $providers_ids);
 
@@ -434,7 +434,7 @@ class UsersController extends Controller
                 return responseJsonError(trans('api.data_incorrect'));
             }
 
-            $user_data = ['user_id' => $request->provider_id, 'category_id' => $request->category_id];
+            $user_data = ['app_user_id' => $request->provider_id, 'category_id' => $request->category_id];
 
             $subcategory_ids = Product::where($user_data)->pluck('subcategory_id')->unique();
 
@@ -481,7 +481,7 @@ class UsersController extends Controller
     public function order_details(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:app_users,id',
+            'app_user_id' => 'required|exists:app_users,id',
         ]);
 
         if ($validator->passes()) {
@@ -489,7 +489,7 @@ class UsersController extends Controller
 
             $user = JWTAuth::toUser()->id;
 
-            $order = Order::where(['user_id' => $user, 'id' => $request->order_id])->first();
+            $order = Order::where(['app_user_id' => $user, 'id' => $request->order_id])->first();
 
             if (!isset($order)) {
 
@@ -501,7 +501,7 @@ class UsersController extends Controller
                 $order->update(['status' => $request->action]);
             }
 
-            $rate = Rate::where(['user_id' => $user, 'order_id' => $order->id])->first();
+            $rate = Rate::where(['app_user_id' => $user, 'order_id' => $order->id])->first();
 
             $format = format_arabic($order->delivery_date);
             $data['status'] = $order->status;
@@ -543,7 +543,7 @@ class UsersController extends Controller
 
             $dataExcept = $request->all();
 
-            $dataExcept['user_id'] = JWTAuth::toUser()->id;
+            $dataExcept['app_user_id'] = JWTAuth::toUser()->id;
 
             RequestDelivery::create($dataExcept);
 
@@ -571,7 +571,7 @@ class UsersController extends Controller
                 return responseJsonError(trans('api.data_incorrect'));
             }
 
-            $favorite = Favorite::where(['user_id' => $user->id, 'provider_id' => $provider->id])->first();
+            $favorite = Favorite::where(['app_user_id' => $user->id, 'provider_id' => $provider->id])->first();
 
             if (isset($favorite)) {
 
@@ -584,7 +584,7 @@ class UsersController extends Controller
             } else
 
                 Favorite::create([
-                    'user_id' => $user->id,
+                    'app_user_id' => $user->id,
                     'provider_id' => $provider->id,
                     'category_id' => $request->category_id,
                 ]);
@@ -610,7 +610,7 @@ class UsersController extends Controller
 
             $user = JWTAuth::toUser();
             $name = 'name_' . App::getLocale();
-            $favorites = Favorite::where('user_id', $user->id)->with('provider')->latest()->get();
+            $favorites = Favorite::where('app_user_id', $user->id)->with('provider')->latest()->get();
             $data = [];
 
             foreach ($favorites as $favorite) {
@@ -679,7 +679,7 @@ class UsersController extends Controller
         if ($validator->passes()) {
 
             $JwtUser = JWTAuth::toUser();
-            $notification = Notifications::where(['id' => $request->notification_id, 'user_id' => $JwtUser->id])->first();
+            $notification = Notifications::where(['id' => $request->notification_id, 'app_user_id' => $JwtUser->id])->first();
 
             if (!isset($notification)) {
 
@@ -705,7 +705,7 @@ class UsersController extends Controller
         if ($validator->passes()) {
 
             $user = JWTAuth::toUser()->id;
-            $order = Order::where(['user_id' => $user, 'id' => $request->order_id])->first();
+            $order = Order::where(['app_user_id' => $user, 'id' => $request->order_id])->first();
 
             if (!isset($order)) {
                 return responseJsonError(trans('api.data_incorrect'));
@@ -749,7 +749,7 @@ class UsersController extends Controller
         if ($validator->passes()) {
 
             $dataExcept = $request->all();
-            $dataExcept['user_id'] = JWTAuth::toUser()->id;
+            $dataExcept['app_user_id'] = JWTAuth::toUser()->id;
 
             UserAddress::create($dataExcept);
 
@@ -764,7 +764,7 @@ class UsersController extends Controller
     {
         $user = JWTAuth::toUser()->id;
 
-        $addresses = UserAddress::where('user_id', $user)->select('id', 'type', 'address', 'lat', 'lng')->get();
+        $addresses = UserAddress::where('app_user_id', $user)->select('id', 'type', 'address', 'lat', 'lng')->get();
 
         return responseJsonData($addresses);
     }
@@ -780,7 +780,7 @@ class UsersController extends Controller
 
             $user = JWTAuth::toUser()->id;
 
-            $address = UserAddress::where(['id' => $request->address_id, 'user_id' => $user])->first();
+            $address = UserAddress::where(['id' => $request->address_id, 'app_user_id' => $user])->first();
 
             if (!isset($address)) {
 
@@ -856,7 +856,7 @@ class UsersController extends Controller
             if ($JwtToken) {
 
                 $user = JWTAuth::toUser();
-                $favorite = Favorite::where(['user_id' => $user->id, 'product_id' => $product->id])->first();
+                $favorite = Favorite::where(['app_user_id' => $user->id, 'product_id' => $product->id])->first();
             }
 
             $data['images'] = product_images($product->id, 'images');
@@ -973,7 +973,7 @@ class UsersController extends Controller
 
             $dataExcept = Arr::except($request->all(), ['additionals', 'services', 'order_id']);
 
-            $dataExcept['user_id'] = JWTAuth::toUser()->id;
+            $dataExcept['app_user_id'] = JWTAuth::toUser()->id;
 
             if (isset($request->final_total)) {
 
@@ -1044,20 +1044,20 @@ class UsersController extends Controller
 
             $JwtUser = JWTAuth::toUser();
 
-            $order = Order::where(['user_id' => $JwtUser->id, 'id' => $request->order_id])->first();
+            $order = Order::where(['app_user_id' => $JwtUser->id, 'id' => $request->order_id])->first();
 
             if (!isset($order)) {
 
                 return responseJsonError(trans('api.order_not_exists'));
             }
 
-            $discount = Coupon::where(['code_name' => $request->discount_code, 'user_id' => $order->provider_id])->first();
+            $discount = Coupon::where(['code_name' => $request->discount_code, 'app_user_id' => $order->provider_id])->first();
 
             if (!isset($discount)) {
                 return responseJsonError(trans('api.discount_not_exist'));
             }
 
-            $checkCode = Order::where(['user_id' => $JwtUser->id, 'coupon' => $discount->code_name])->get();
+            $checkCode = Order::where(['app_user_id' => $JwtUser->id, 'coupon' => $discount->code_name])->get();
 
             if (!$checkCode->isEmpty()) {
                 return responseJsonError(trans('api.discount_expired'));
@@ -1171,7 +1171,7 @@ class UsersController extends Controller
 
             $user = JWTAuth::toUser();
 
-            $order = Order::where(['user_id' => $user->id, 'id' => $request->order_id])->first();
+            $order = Order::where(['app_user_id' => $user->id, 'id' => $request->order_id])->first();
 
             if (!isset($order)) {
 
@@ -1182,7 +1182,7 @@ class UsersController extends Controller
 
                 MoneyAccount::create([
                     'name' => $user->name,
-                    'user_id' => $user->id,
+                    'app_user_id' => $user->id,
                     'order_id' => $order->id,
                     'bank_name' => $request->bank_name,
                     'amount' => $request->amount,
@@ -1239,7 +1239,7 @@ class UsersController extends Controller
         if ($validator->passes()) {
 
             $user = JWTAuth::toUser();
-            $order = Order::where(['user_id' => $user->id, 'id' => $request->order_id])->first();
+            $order = Order::where(['app_user_id' => $user->id, 'id' => $request->order_id])->first();
 
             if (!isset($order)) {
 
@@ -1258,7 +1258,7 @@ class UsersController extends Controller
 
                 MoneyAccount::create([
                     'name' => $user->name,
-                    'user_id' => $user->id,
+                    'app_user_id' => $user->id,
                     'order_id' => $order->id,
                     'bank_name' => $request->bank_name,
                     'amount' => $request->amount,
@@ -1298,7 +1298,7 @@ class UsersController extends Controller
 
         if ($validator->passes()) {
 
-            $orders = Order::where(['user_id' => JWTAuth::toUser()->id]);
+            $orders = Order::where(['app_user_id' => JWTAuth::toUser()->id]);
 
             $data = [];
 
@@ -1372,7 +1372,7 @@ class UsersController extends Controller
         if ($validator->passes()) {
 
             $user = JWTAuth::toUser()->id;
-            $order = Order::where(['user_id' => $user, 'id' => $request->order_id])->first();
+            $order = Order::where(['app_user_id' => $user, 'id' => $request->order_id])->first();
 
             if (!isset($order)) {
 
@@ -1419,7 +1419,7 @@ class UsersController extends Controller
 
             MoneyAccount::create([
                 'name' => $user->name,
-                'user_id' => $user->id,
+                'app_user_id' => $user->id,
                 'package_id' => $package->id,
                 'bank_name' => $request->payment_method == 'online' ? 'online' : $request->bank_name,
                 'amount' => $request->payment_method == 'online' ? $package->price : $request->amount,
@@ -1456,7 +1456,7 @@ class UsersController extends Controller
             if ($request->name && $request->amount) {
 
                 MoneyAccount::create([
-                    'user_id' => $JwtUser,
+                    'app_user_id' => $JwtUser,
                     'amount' => $request->amount,
                     'name' => $request->name,
                     'bank_name' => $request->bank_name,
@@ -1475,7 +1475,7 @@ class UsersController extends Controller
     public function my_dates()
     {
         $user = JWTAuth::toUser();
-        $dates = UserDate::where('user_id', $user->id)->orderBy('date', 'ASC')->get();
+        $dates = UserDate::where('app_user_id', $user->id)->orderBy('date', 'ASC')->get();
 
         $data = [];
 
@@ -1539,7 +1539,7 @@ class UsersController extends Controller
                 return responseJsonError(trans('api.finish_package_num'));
             }
 
-            $request['user_id'] = $user->id;
+            $request['app_user_id'] = $user->id;
 
             UserDate::create($request->all());
 
@@ -1562,7 +1562,7 @@ class UsersController extends Controller
         if ($validator->passes()) {
 
             $user = JWTAuth::toUser();
-            $order = Order::where(['user_id' => $user->id, 'id' => $request->order_id])->first();
+            $order = Order::where(['app_user_id' => $user->id, 'id' => $request->order_id])->first();
 
             if (!isset($order)) {
 
@@ -1570,7 +1570,7 @@ class UsersController extends Controller
             }
 
             $rate = Rate::firstOrNew([
-                'user_id' => $user->id,
+                'app_user_id' => $user->id,
                 'order_id' => $order->id,
             ]);
 
