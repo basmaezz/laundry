@@ -267,7 +267,7 @@ class OrderController extends Controller
         $order = OrderTable::
             whereIn('status_id',[1,2,3,4,5,6,7,8,9])
             ->where('id',$request->get('order_id'))
-            ->with('user')
+           
             ->first();
 
           dd($order);
