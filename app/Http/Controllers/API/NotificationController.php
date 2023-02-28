@@ -89,7 +89,7 @@ class NotificationController extends Controller
         $status_id = 0;
         if($order_id){
             $order = OrderTable::where('id',$order_id)->first();
-     
+
             $status_id = $order->status_id;
         }
         $extra = [

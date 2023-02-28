@@ -264,13 +264,13 @@ class OrderController extends Controller
 
         $app_user_id = auth('app_users_api')->user()->id;
 
+          dd($request->get('order_id'));
         $order = OrderTable::
             whereIn('status_id',[1,2,3,4,5,6,7,8,9])
             ->where('id',$request->get('order_id'))
-           
+            ->with('user')
             ->first();
 
-          dd($order);
         if($order->user_id != $app_user_id && $order->delivery_id != $app_user_id){
             return apiResponseOrders('api.incorrect_data');
         }
