@@ -267,7 +267,7 @@ class UsersController extends Controller
     {
         $user = auth('app_users_api')->user();
         $favorites = Favorite::where([
-            'app_user_id' => $user->id,
+            'user_id' => $user->id,
             'markable_type' => 'App\Models\Subcategory'
         ])->get();
         $name = 'name_' . App::getLocale();
