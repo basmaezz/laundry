@@ -201,6 +201,14 @@ Route::get('usersGet', function () {
     $users = \App\Models\User::all();
     return $users;
 });
+Route::get('getDelegates', function () {
+    $delegates = \App\Models\Delegate::all();
+    return $delegates;
+});
+Route::get('getAppUsers', function () {
+    $appUsers = \App\Models\AppUser::all();
+    return $appUsers;
+});
 
 Route::get('drop', function () {
     Schema::drop('cities');
