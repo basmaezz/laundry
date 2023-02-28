@@ -34,10 +34,10 @@ class UserController extends Controller
         // if(Gate::denies('users.index')){
         //     abort(403);
         // };
-//        $users=User::whereNull('subCategory_id')->paginate();
-        $users=User::whereHas('Roles' , function($query) {
-            $query->where('role','admin');
-        })->get();
+        $users=User::whereNull('subCategory_id')->paginate();
+//        $users=User::whereHas('Roles' , function($query) {
+//            $query->where('role','admin');
+//        })->get();
 
         return view('dashboard.users.index',compact('users'));
     }
