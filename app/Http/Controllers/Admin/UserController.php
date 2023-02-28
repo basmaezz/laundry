@@ -34,7 +34,7 @@ class UserController extends Controller
         // if(Gate::denies('users.index')){
         //     abort(403);
         // };
-        $users=User::whereNull('subCategory_id')->all();
+        $users=User::whereNull('subCategory_id')->get();
 //        $users=User::whereHas('Roles' , function($query) {
 //            $query->where('role','admin');
 //        })->get();
