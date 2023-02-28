@@ -270,6 +270,7 @@ class OrderController extends Controller
             ->with('user')
             ->first();
 
+          dd($order);
         if($order->user_id != $app_user_id && $order->delivery_id != $app_user_id){
             return apiResponseOrders('api.incorrect_data');
         }
