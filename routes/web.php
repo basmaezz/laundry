@@ -246,5 +246,5 @@ Route::get('Alter',function (){
     \DB::statement('ALTER TABLE order_tables ENGINE = InnoDB');
 });
 Route::get('updateCustomers', function () {
-    $ordersTable = DB::table('app_users')->update(['city' => 1]);
+    $ordersTable = DB::table('app_users')->update(['city_id' => 1]);
 });
