@@ -27,9 +27,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
 //        Gate::before(function ($user,$ability){
-////            if($user->id ==1){
-////                return true;
-////            }
+//
+//            if($user->Roles[0]->role=='Admin'){
+//                return true;
+//            }
 //        });
         foreach (config('abilities') as $ability =>$label ){
             Gate::define( $ability , function ($user) use ($ability){

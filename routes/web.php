@@ -52,11 +52,13 @@ Route::middleware('auth')->group(function () {
     Route::get('showDelegate/{id}', [UserController::class, 'showDelegate'])->name('delegate.show');
     Route::get('deleteDelegate/{id}', [UserController::class, 'deleteDelegate'])->name('delegate.delete');
     Route::get('customerDelete/{id}', [UserController::class, 'customerDelete'])->name('customer.delete');
+    Route::get('customerWallet/{id}', [UserController::class, 'customerWallet'])->name('customer.wallet');
+    Route::post('increaseWallet/{id}', [UserController::class, 'increaseWallet'])->name('customer.wallet.increase');
     Route::get('userView/{id}', [UserController::class, 'show'])->name('user.view');
     Route::get('userCreate', [UserController::class, 'create'])->name('user.create');
     Route::post('userStore', [UserController::class, 'store'])->name('user.store');
     Route::get('userEdit/{id}', [UserController::class, 'edit'])->name('user.edit');
-    Route::patch('userUpdate/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::post('userUpdate/{id}', [UserController::class, 'update'])->name('user.update');
     Route::get('userDelete/{id}', [UserController::class, 'destroy'])->name('user.delete');
     Route::post('searchLaundry', [UserController::class, 'destroy'])->name('searchLaundry');
 

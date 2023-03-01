@@ -2,7 +2,7 @@
 @section('content')
     <main class="main">
 
-        <div class="col-md-9">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <strong>اضافه قسم</strong>
@@ -24,8 +24,8 @@
                             <label class="col-md-3 form-control-label">الصلاحيات </label>
                             <div class="form-check">
                                 @foreach(config('abilities') as $ability =>$label)
-                                <label >
-                                    <input type="checkbox"  name="abilities[]" value="{{$ability}}"@if(in_array($ability,($role->abilities ??[]))) checked @endif>{{$label}}
+                                <label class="form-control check-ability-label">
+                                    <input type="checkbox"  class="checkbox-ability" name="abilities[]" value="{{$ability}}"@if(in_array($ability,($role->abilities ??[]))) checked @endif>{{$label}}
                                     <br>
                                 </label>
                                 @endforeach
@@ -33,8 +33,8 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> حفظ</button>
+                            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> الغاء</button>
                         </div>
 
                     </form>
