@@ -166,13 +166,14 @@ class UserController extends Controller
     }
     public function increaseWallet(Request $request,$id)
     {
+        $appUser= AppUser::find($id);
+        $messages = [
+            'amount.required'=>'this Field Required'
+        ];
         $validator = Validator::make($request->all(), [
             'amount'      => 'required|numeric|between:0,99999.99',
-        ]);
-        if (!$validator->passes()) {
-            return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(),500,500);
-        }
-        $appUser= AppUser::find($id);
+          ],$messages);
+
         $appUser->wallet += floatval($request->get("amount"));
         $appUser->save();
         return redirect()->route('customers.index');

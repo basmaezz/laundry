@@ -36,7 +36,7 @@
                                             <td>{{$user->wallet}}</td>
                                             <td>
                                                 <a href="{{route('customer.Orders',$user->id)}}" class="btn btn-info">عرض الطلبات</a>
-                                                <a href="{{route('customer.wallet',$user->id)}}" class="btn btn-info">عرض المحفظه</a>
+                                                <a href="{{route('customer.wallet',$user->id)}}" class="btn btn-info">اضافه للمحفظه</a>
                                                 <a href="{{route('customer.delete',$user->id)}}" class="btn btn-danger">حذف</a>
                                             </td>
                                         </tr>

@@ -20,7 +20,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">اسم العميل</label>
                                             <div class="col-md-9">
-                                                <input type="text" id="text-input" name="name" class="form-control"value="{{$appUser->name}}"required>
+                                                <input type="text" id="text-input" name="name" class="form-control"value="{{$appUser->name}}"disabled>
                                                 @if ($errors->has('name'))
                                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                                 @endif
@@ -29,7 +29,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">المبلغ</label>
                                             <div class="col-md-9">
-                                                <input type="text" id="amount" name="amount" class="form-control" placeholder="100 ريال">
+                                                <input type="text" id="amount" name="amount" class="form-control" placeholder="100 ريال" required>
                                                 @if ($errors->has('amount'))
                                                     <span class="text-danger">{{ $errors->first('amount') }}</span>
                                                 @endif
