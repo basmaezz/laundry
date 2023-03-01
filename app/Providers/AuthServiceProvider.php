@@ -32,15 +32,15 @@ class AuthServiceProvider extends ServiceProvider
 //                return true;
 //            }
 //        });
-        foreach (config('abilities') as $ability =>$label ){
-            Gate::define( $ability , function ($user) use ($ability){
-                foreach ($user->roles as $role){
-                    if(in_array($ability,$role->abilities)){
-                        return  true;
-                    }
-                }
-                return false;
-            });
-        }
+//        foreach (config('abilities') as $ability =>$label ){
+//            Gate::define( $ability , function ($user) use ($ability){
+//                foreach ($user->roles as $role){
+//                    if(in_array($ability,$role->abilities)){
+//                        return  true;
+//                    }
+//                }
+//                return false;
+//            });
+//        }
     }
 }
