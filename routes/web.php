@@ -214,13 +214,13 @@ Route::get('drop', function () {
     Schema::drop('cities');
 });
 
-Route::get('truncateData', function () {
-    \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-    \App\Models\OrderTable::truncate();
-    \App\Models\OrderDetails::truncate();
-    \App\Models\Address::truncate();
-    \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-});
+//Route::get('truncateData', function () {
+//    \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+//    \App\Models\OrderTable::truncate();
+//    \App\Models\OrderDetails::truncate();
+//    \App\Models\Address::truncate();
+//    \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+//});
 
 Route::get('columns', function () {
     $address = new \App\Models\Address();
@@ -244,6 +244,7 @@ Route::get('notifications',function (){
 
 Route::get('Alter',function (){
     \DB::statement('ALTER TABLE order_tables ENGINE = InnoDB');
-
-
+});
+Route::get('updateCustomers', function () {
+    $ordersTable = DB::table('app_users')->update(['city' => 1]);
 });
