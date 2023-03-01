@@ -25,7 +25,7 @@
                             <label class="col-md-3 form-control-label">الصلاحيات </label>
                             <div class="col-md-9">
                                 @foreach(config('abilities') as $ability =>$label)
-                                    <label class="checkbox-inline" for="inline-checkbox1">
+                                    <label class="form-control check-ability-label">
                                         <input type="checkbox" id="inline-checkbox1" name="abilities[]" value="{{$ability}}"@if(in_array($ability,($role->abilities ??[]))) checked @endif>{{$label}}
                                     </label>
                                 @endforeach

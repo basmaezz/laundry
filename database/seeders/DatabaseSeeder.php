@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //  \App\Models\User::factory(10)->create();
-//         \App\Models\User::factory()->create([
-//             'name' => 'Admin',
-//             'email' => 'landuadmin@admin.com',
-//             'password'=>bcrypt('password')
-//         ]);
+         \App\Models\User::factory()->create([
+             'name' => 'Admin',
+             'email' => 'lanadmin@admin.com',
+             'password'=>bcrypt('password')
+         ]);
         $this->call([
 //            AppUserSeeder::class,
 //             carTypesSeeder::class,
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
 //             CitySeeder::class,
 //            CategorySeeder::class,
 //            subCategorySeeder::class,
-            CatgeoryItemSeeder::class,
+//            CatgeoryItemSeeder::class,
 //            productSeeder::class,
 //            productServiceSeeder::class,
 ////            FaqSeeder::class,

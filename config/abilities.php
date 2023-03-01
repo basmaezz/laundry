@@ -2,10 +2,12 @@
 <?php
 
     return[
-      'categoryItems.index'=>' الأقسام ',
+      'categoryItems.index'=>' المغاسل ',
 //      'categoryItems.create'=>'اضافه قسم جديد',
 //      'categoryItems.edit'=>'تعديل بيانات قسم ',
 //      'categoryItems.delete'=>'حذف قسم ',
+
+        'categories.index'=>' التصنيفات ',
 
       'Coupons.index'=>' الكوبونات ',
 //      'Coupons.create'=>'اضافه كوبون جديد ',

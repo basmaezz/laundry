@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Gate;
 
@@ -31,9 +32,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        // if(Gate::denies('users.index')){
-        //     abort(403);
-        // };
+         if(Gate::denies('users.index')){
+             abort(403);
+         };
         $users=User::whereNull('subCategory_id')->get();
 //        $users=User::whereHas('Roles' , function($query) {
 //            $query->where('role','admin');
@@ -49,7 +50,6 @@ class UserController extends Controller
      */
     public function create()
     {
-
         $levels=educationLevel::all();
         $roles=Role::all();
         return view('dashboard.users.create',compact(['levels','roles']));
@@ -101,12 +101,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+
         $user=User::findorFail($id);
-        if($user->level_id !=null ){
-            $levels=educationLevel::all();
+        $roles=Role::all();
+        $levels=educationLevel::all();
         return  view('dashboard.users.edit',compact(['user','levels']));
-        }
-        return  view('dashboard.users.edit',compact('user'));
+
     }
 
     /**
@@ -118,20 +118,23 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $user= User::find($id);
+
         $user->update([
             $user['name']=$request->get('name'),
             $user['last_name']=$request->get('last_name'),
-            $user['password']= Hash::make($request->password),
             $user['email']=$request->get('email'),
             $user['phone']=$request->get('phone'),
             $user['level_id']=$request->get('level_id'),
             $user['birthdate']=$request->get('birthdate'),
             $user['joindate']=$request->get('joindate'),
+            $user['avatar']=$request->file('avatar') ? $filename = request('avatar')->getClientOriginalName() :''  ,
         ]);
 
         $user->save();
-        return redirect()->route('/');
+
+        return redirect()->route('users.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -155,6 +158,24 @@ class UserController extends Controller
     {
         AppUser::find($id)->delete();
         return  redirect()->back();
+    }
+    public function customerWallet($id)
+    {
+        $appUser=AppUser::find($id);
+        return view('dashboard.users.addWallet',compact(('appUser')));
+    }
+    public function increaseWallet(Request $request,$id)
+    {
+        $validator = Validator::make($request->all(), [
+            'amount'      => 'required|numeric|between:0,99999.99',
+        ]);
+        if (!$validator->passes()) {
+            return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(),500,500);
+        }
+        $appUser= AppUser::find($id);
+        $appUser->wallet += floatval($request->get("amount"));
+        $appUser->save();
+        return redirect()->route('customers.index');
     }
     public function customerOrders($id){
         $orders=OrderTable::where('user_id',$id)->with('subCategories')->get();

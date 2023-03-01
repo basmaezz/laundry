@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+    <link href="{{asset('assets/admin/css/customStyle.css')}}" rel="stylesheet">
+
+
 </head>
 
 <body class="navbar-fixed sidebar-nav fixed-nav">
@@ -88,9 +91,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-docs"></i>   المناديب</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="{{route('laundries.admins')}}"><i class="icon-user-follow"></i>  أدمن المغاسل  </a>
-            </li>
+            </li> --}}
 
             <li class="nav-title">
                 المغاسل

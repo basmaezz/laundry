@@ -27,18 +27,15 @@ class UserRequest extends FormRequest
         return [
             'name'=>array('required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
             'last_name'=>array('required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
-            'email'=>'required|email|unique:users,email',
-            'password'=>'required',
+            'email' => 'unique:users,email',
+//            'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore($this->id)],
+//            'email'=>'required|email|unique:users,email',
+//            'password'=>'required',
 //            'birthdate'=> ['required','before:15 years ago'],
+            'birthdate'=> 'required',
             'phone'=>'required|numeric|digits:10',
         ];
-//        if ($this->getMethod() == 'POST') {
-//            $rules += [
-//                'avatar'=>'required',
-//                'level_id'=>'required',
-//                'joinDate'=>'required',
-//                ];
-//        }
+
     }
 
     public function messages()
