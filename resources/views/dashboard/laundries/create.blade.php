@@ -66,8 +66,8 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="country">السعر  </label>
-                                        <input type="text" name="price"class="form-control" id="image" placeholder=" السعر">
+                                        <label for="country">سعر التوصيل  </label>
+                                        <input type="text" name="price"class="form-control" id="image" placeholder=" سعر التوصيل">
                                         @error('price')
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror

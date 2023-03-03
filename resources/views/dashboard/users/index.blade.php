@@ -19,6 +19,7 @@
                                         <th>الاسم </th>
                                         <th>البريد الألكترونى</th>
                                         <th>الجوال</th>
+                                        <th>الصلاحيه</th>
                                         <th>Actions </th>
                                     </tr>
                                     </thead>
@@ -28,6 +29,7 @@
                                         @if(Auth::user()->id!=$user->id)
                                     <tr>
                                         <td>{{$user->name}}</td>
+                                         <td>{{$user->email}} </td>
                                          <td>{{$user->email}} </td>
                                         <td> {{$user->phone}}</td>
                                         <td>

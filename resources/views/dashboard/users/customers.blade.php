@@ -9,6 +9,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i>
+                                <a href="#" class="btn btn-info" style="float: left">تحديث</a>
                             </div>
                             <div class="card-block">
                                 <table id="customers" class="table table-bordered table-striped">
@@ -29,7 +30,7 @@
                                         <tr>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}} </td>
-                                            <td>{{$user->email}} </td>
+                                            <td>{{$user->mobile}} </td>
                                             <td>{{$user->cities->name_ar}} </td>
                                             <td> {{$user->region_name}}</td>
                                             <td>{{$user->gender}}</td>

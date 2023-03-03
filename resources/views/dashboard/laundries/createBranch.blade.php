@@ -63,7 +63,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="country">السعر  </label>
+                                        <label for="country">سعر التوصيل  </label>
                                         <input type="text" name="price"class="form-control" id="image" value=" {{$Subcategory->price}}">
                                         @error('price')
                                         <div class="text-sm text-red-600 text-danger">{{ $message }}</div>

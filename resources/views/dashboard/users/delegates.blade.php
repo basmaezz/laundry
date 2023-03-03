@@ -19,6 +19,7 @@
                                         <th>الصورة</th>
                                         <th>الرقم التسلسلى</th>
                                         <th>الاسم</th>
+                                        <th>المدينه</th>
                                         <th>نوع التعاقد</th>
                                         <th>تاريخ الالتحاق </th>
                                         <th>Status</th>
@@ -31,6 +32,7 @@
                                             <img src="{{asset('/images/'.$delegate->appUser->image)}}" style="width:50px;height:50px;padding:10px">
 
                                         <td>{{$delegate->appUser->id}}</td>
+                                        <td>{{$delegate->city->name_ar}}</td>
                                         <td>{{$delegate->appUser->name}}</td>
                                         <td>{{$delegate->request_employment==0 ?'موظف':'عامل حر'}}</td>
                                         <td>{{$delegate->appUser->created_at->format('Y-M-D')}}</td>

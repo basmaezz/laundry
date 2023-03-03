@@ -24,7 +24,7 @@
 //      'Orders.edit'=>'تعديل بيانات طلب ',
 //      'Orders.delete'=>'حذف طلب ',
 
-      'Laundries.index'=>' المغاسل ',
+//      'Laundries.index'=>' المغاسل ',
 //      'Laundries.create'=>'اضافه مغسله ',
 //      'Laundries.edit'=>'تعديل بيانات مغسله ',
 //      'Laundries.delete'=>'حذف مغسله ',

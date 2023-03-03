@@ -79,9 +79,35 @@
 
                                         <hr>
                                         <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="text-input"> الرقم المدنى</label>
+                                            <label class="col-md-3 form-control-label" for="text-input"> الرقم المدنى (الهويه/الاقامه)</label>
                                             <div class="col-md-9">
                                                 <input type="text" id="text-input" name="id_number" class="form-control" placeholder=" الرقم المدنى"required>
+
+                                                @if ($errors->has('last_name'))
+                                                    <span class="text-danger">{{ $errors->first('last_name') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input"class="form-control"> تاريخ انتهاء الهويه/الاقامه  </label>
+                                            <div class="col-md-9">
+                                                <input type="date" id="license_start_date" name="license_start_date"placeholder="date" class="form-control">
+                                                @if ($errors->has('license_start_date '))
+                                                    <span class="text-danger">{{ $errors->first('license_start_date ') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">الجنسيه</label>
+                                            <div class="col-md-9">
+                                                <select  name="car_type" class="form-control">
+
+                                                        <option value="">سعودى</option>
+                                                        <option value="">سعودى</option>
+                                                        <option value="">سعودى</option>
+                                                        <option value="">أخرى</option>
+
+                                                </select>
 
                                                 @if ($errors->has('last_name'))
                                                     <span class="text-danger">{{ $errors->first('last_name') }}</span>
@@ -112,7 +138,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="text-input"> رقم الحساب البنكى </label>
+                                            <label class="col-md-3 form-control-label" for="text-input"> رقم الحساب البنكى (IBAN) </label>
                                             <div class="col-md-9">
                                                 <input type="text" id="arrears" name="iban_number" class="form-control"placeholder=" رقم الحساب البنكى" required>
 
@@ -140,22 +166,23 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">  موديل السياره</label>
                                             <div class="col-md-9">
-                                                <input type="text" id="manufacture_year" name="manufacture_year" class="form-control"placeholder=" موديل السياره" required>
+                                                <select  name="car_type" class="form-control">
+
+                                                        <option value="">2000</option>
+                                                        <option value="">2001</option>
+                                                        <option value="">2002</option>
+                                                        <option value="">2003</option>
+                                                        <option value="">2004</option>
+
+                                                </select>
+{{--                                                <input type="text" id="manufacture_year" name="manufacture_year" class="form-control"placeholder=" موديل السياره" required>--}}
 
                                                 @if ($errors->has('manufacture_year'))
                                                     <span class="text-danger">{{ $errors->first('manufacture_year') }}</span>
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="text-input"class="form-control"> تاريخ اصدار الرخصه </label>
-                                            <div class="col-md-9">
-                                                <input type="date" id="license_start_date" name="license_start_date"placeholder="date" class="form-control">
-                                                @if ($errors->has('license_start_date '))
-                                                    <span class="text-danger">{{ $errors->first('license_start_date ') }}</span>
-                                                @endif
-                                            </div>
-                                        </div>
+
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"class="form-control"> تاريخ انتهاء الرخصه</label>
                                             <div class="col-md-9">
@@ -179,7 +206,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره ساريه لرخصه القياده  </label>
+                                            <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره  لرخصه القياده ساريه  </label>
                                             <div class="col-md-9">
                                                 <input type="file" id="file-input" name="car_registration" class="form-control">
                                             </div>
@@ -191,7 +218,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الهويه الوطنيه </label>
+                                            <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الهويه / الاقامه  </label>
                                             <div class="col-md-9">
                                                 <input type="file" id="file-input" name="id_image" class="form-control">
                                             </div>

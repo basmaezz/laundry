@@ -145,7 +145,7 @@
 
                     </li>
                     <li class="nav-item">
-                <a class="nav-link" href="{{route('Order.DeliveryOnTheWayToYou')}}"><i class="icon-people"></i>فى الطريف للعميل</a>
+                <a class="nav-link" href="{{route('Order.DeliveryOnTheWayToYou')}}"><i class="icon-people"></i>فى الطريق للعميل</a>
 
                     </li>
                     <li class="nav-item">

@@ -15,6 +15,7 @@
                                 <table id="orders" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
+                                        <th>رقم الطلب  </th>
                                         <th>اسم المغسله </th>
                                         <th>اسم العميل </th>
                                         <th>المدينه </th>
@@ -28,6 +29,7 @@
                                     <tbody>
                                     @foreach($orders as $order)
                                         <tr>
+                                            <td>{{$order->id}}</td>
                                             <td>{{$order->subCategories->name_ar}}</td>
                                             <td>{{$order->user->name}}</td>
                                             <td>{{$order->user->cities->name_ar}}</td>

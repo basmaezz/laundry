@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="hf-email">اسم التصنيف</label>
+                            <label class="col-md-3 form-control-label" for="hf-email"> اسم التصنيف بالانحليزى   </label>
                             <div class="col-md-9">
                                 <input type="text"  name="name_en" class="form-control" value="{{$category->name_en}}" >
                                 @if ($errors->has('category_type'))
@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="hf-email">اسم التصنيف</label>
+                            <label class="col-md-3 form-control-label" for="hf-email">الصوره</label>
                             <div class="col-md-9">
                                 <input type="file" id="file-input" name="image" class="form-control">
                             </div>
