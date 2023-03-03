@@ -6,33 +6,34 @@
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
-                    <form method="post" action="{{route('laundries.update',$subCategory->id)}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('laundries.storeBranch')}}" >
                         @csrf
                         <div class="col-sm-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong>تعديل بيانات المغسله </strong>
+                                    <strong>اضافه فرع للمغسله </strong>
 
                                 </div>
                                 <div class="card-block">
-
-                                    @if($subCategory->parent_id !='')
                                     <div class="form-group">
-                                        <label for="company" n>اسم المغسله الرئيسيه</label>
-                                        <input type="text" name="parent_id"class="form-control" id="name_ar" value="{{$subCategory->parent->name_ar}}" disabled>
+                                        <input name="image" type="hidden" value="{{asset('assets/uploads/laundries/logo/'.$subCategory->image)}}">
+                                    </div>
+
+                                        <div class="form-group">
+                                            <label for="company" n>الفرع الرئيسى </label>
+                                            <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$subCategory->parent->name_ar}}" disabled>
+                                        </div>
+
+                                    <div class="form-group">
+
+                                        <label for="company" n>اسم الفرع</label>
+                                        <input type="text" name="parent_id"class="form-control" id="name_ar" value="{{$subCategory->name_ar}}" disabled>
                                         <input type="hidden" name="parent_id"class="form-control"value="{{$subCategory->id}}">
                                     </div>
-                                    @endif
-                                    <div class="form-group">
-                                        <label for="company" n>اسم الفرع</label>
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$subCategory->name_ar}}">
-                                        @error('name_ar')
-                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+
                                     <div class="form-group">
                                         <label for="company">اسم الفرع بالانجليزيه</label>
-                                        <input type="text" name="name_en"class="form-control" id="name_en" value="{{$subCategory->name_en}}">
+                                        <input type="text" name="name_en"class="form-control" id="name_en" placeholder="اسم الفرع">
                                         @error('name_en')
                                         <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
@@ -56,7 +57,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="country">الموقع(Google Map) </label>
-                                        <input type="text" name="location"class="form-control" id="location" value="">
+                                        <input type="text" name="location"class="form-control" id="location" placeholder="https://maps.google.com/?q=51.03841,-114.01679 " required>
                                         @error('location')
                                         <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
@@ -87,17 +88,6 @@
                                             <input type="time" name="clock_end" value="{{$subCategory->clock_end}}" />
                                         </div>
                                     @endif
-                                    @if($subCategory->parent_id =='')
-                                            <div class="form-group">
-                                                <img src="{{asset('assets/uploads/laundries/logo/'.$subCategory->image)}}" style="width: 100px; height: 100px">
-                                            </div>
-
-                                     <div class="form-group">
-                                        <label for="country">صوره الشعار</label>
-                                        <input type="file" name="image"class="form-control" id="image" placeholder="Country name">
-                                    </div>
-                                    @endif
-
 
                                 </div>
                             </div>
@@ -107,32 +97,34 @@
                                 <div class="card-header">
                                     <strong>اضافه أدمن </strong>
                                 </div>
-
                                 <div class="card-block">
 
                                     <div class="form-group ">
                                         <label >الأسم الأول</label>
-                                        <input type="text" id="text-input" name="name" class="form-control" value="{{$subCategory->user[0]->name}}">
+                                        <input type="text" id="text-input" name="name" class="form-control" placeholder="الأسم الأول">
 
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الأسم الأخير</label>
-                                        <input type="text" id="text-input" name="last_name" class="form-control"value="{{$subCategory->user[0]->last_name}}">
+                                        <input type="text" id="text-input" name="last_name" class="form-control" placeholder="الأسم الأخير ">
                                     </div>
                                     <div class="form-group ">
                                         <label  for="email-input">البريد الألكترونى </label>
-                                        <input type="email" id="email-input" name="email" class="form-control" value="{{$subCategory->user[0]->email}}">
+                                        <input type="email" id="email-input" name="email" class="form-control" placeholder="البريد الالكترونى  ">
                                     </div>
                                     <div class="form-group ">
+                                        <label  for="password-input">كلمه المرور</label>
+                                        <input type="password" id="password-input" name="password" class="form-control" placeholder="كلمه المرور ">                                    </div>
+                                    <div class="form-group ">
                                         <label  for="text-input">الجوال </label>
-                                        <input type="text" id="phone" name="phone" class="form-control"  value="{{$subCategory->user[0]->phone}}">
+                                        <input type="text" id="phone" name="phone" class="form-control"  placeholder="الجوال"required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div>
                             <div class="card-footer col-sm-12">
-                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> تعديل</button>
+                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> حفظ</button>
                                 <button type="reset" onclick="ResetForm()" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> الغاء</button>
                             </div>
                         </div>

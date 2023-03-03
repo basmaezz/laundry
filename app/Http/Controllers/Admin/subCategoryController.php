@@ -273,6 +273,13 @@ class subCategoryController extends Controller
     return  redirect()->route('laundries.index');
 }
 
+    public function editBranch($id){
+        $subCategory= Subcategory::with(['parent','user'])->find($id);
+
+        $cities=City::pluck('id','name_ar');
+        return view('dashboard.laundries.editBranch',compact(['subCategory','cities']));
+    }
+
 public function mainLaundries()
 {
     $subCategories = Subcategory::whereNull('parent_id')->get();

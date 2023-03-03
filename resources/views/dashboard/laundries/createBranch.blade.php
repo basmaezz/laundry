@@ -88,7 +88,7 @@
                                         <input type="time" name="clock_end" value="{{$Subcategory->clock_end}}" />
                                     </div>
                                     @endif
-                                    <
+
                                 </div>
                             </div>
                         </div>
