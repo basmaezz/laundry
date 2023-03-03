@@ -36,7 +36,7 @@
 
                             </div>
                             <h4 class="m-b-0">{{\App\Models\User::count()}}</h4>
-                            <p> مدير المشروع</p>
+                            <p> عدد المدراء  </p>
                         </div>
                         <div class="chart-wrapper" style="height:70px;">
                             <canvas id="card-chart3" class="chart" height="70"></canvas>
@@ -101,8 +101,8 @@
                                 </button>
 
                             </div>
-                            <h4 class="m-b-0">{{\App\Models\CouponShopCart::count()}}</h4>
-                            <p> الكوبونات</p>
+                            <h4 class="m-b-0">{{\App\Models\OrderTable::count()}}</h4>
+                            <p> عدد الطلبات </p>
                         </div>
                         <div class="chart-wrapper" style="height:70px;">
                             <canvas id="card-chart3" class="chart" height="70"></canvas>

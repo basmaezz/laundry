@@ -32,9 +32,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-         if(Gate::denies('users.index')){
-             abort(403);
-         };
+//         if(Gate::denies('users.index')){
+//             abort(403);
+//         };
         $users=User::whereNull('subCategory_id')->get();
 //        $users=User::whereHas('Roles' , function($query) {
 //            $query->where('role','admin');
