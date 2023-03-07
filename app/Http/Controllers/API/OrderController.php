@@ -9,6 +9,7 @@ use App\Models\OrderTable;
 use App\Models\ProductService;
 use App\Models\RateLaundry;
 use App\Models\Subcategory;
+use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -320,6 +321,14 @@ class OrderController extends Controller
             if($request->get("status_id") == self::Completed){
                 $order->user->point++;
                 $order->user->save();
+
+                Transaction::create([
+                    'app_user_id'   => auth('app_users_api')->user()->id,
+                    'type'          => 'point',
+                    'amount'        => ($order->user->point-1),
+                    'current_amount'=> $order->user->point,
+                    'direction'     => 'in'
+                ]);
             }
             return apiResponseOrders('api.status_update',  $order);
         } else {
