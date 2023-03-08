@@ -36,7 +36,7 @@
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->created_at}}</td>
                                             <td>
-                                                <input data-id="{{$order->id}}" class="toggle-class" type="checkbox"
+                                                <input data-id="{{$order->id}}" class="toggle-class" type="checkbox" onclick="changeStatus()"
                                                        data-onstyle="danger" data-offstyle="success" data-toggle="toggle"  data-off="Completed"  data-on="InProgress"
                                                       {{ $order->status_id ? 'checked' : '' }}>
                                             </td>
@@ -55,4 +55,29 @@
     </div>
 
 @endsection
+<script>
+    function changeStatus(){
+        alert('test');
+    }
 
+    // $(function() {
+    //
+    //     $('.toggle-class').change(function() {
+    //         alert('test');
+    //         var status_id = $(this).prop('checked') == true ? 5 : 4;
+    //         console.log(status_id);
+    //         var order_id = $(this).data('id');
+    //         console.log(order_id);
+    //         $.ajax({
+    //
+    //             type: "GET",
+    //             dataType: "json",
+    //             url: '/changeStatus',
+    //             data: {'status_id': status_id, 'id': order_id},
+    //             success: function(data){
+    //                 console.log(data.success)
+    //             }
+    //         });
+    //     })
+    // })
+</script>
