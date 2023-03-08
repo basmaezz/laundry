@@ -19,9 +19,9 @@
                                 @endif
                             </div>
                         </div>            <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="hf-email">قيمه الكوبون</label>
+                            <label class="col-md-3 form-control-label" for="hf-email">قيمه الكوبون (%)</label>
                             <div class="col-md-9">
-                                <input type="text"  name="discount_value" class="form-control" placeholder="قيمه الكوبون " >
+                                <input type="text"  name="discount_value" class="form-control" placeholder="قيمه الكوبون (%) " >
                                 @if ($errors->has('discount_value'))
                                     <span class="text-danger">{{ $errors->first('discount_value') }}</span>
                                 @endif

@@ -16,4 +16,6 @@ class CouponShopCart extends Model
     {
         return $this->belongsTo(AppUser::class,'user_id');
     }
+
+
 }

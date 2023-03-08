@@ -27,7 +27,7 @@ class CouponsController extends Controller
      */
     public function create()
     {
-       return view('dashboard.coupons.create');
+       return view('dashboard.Coupons.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class CouponsController extends Controller
     public function store(CouponRequest $request)
     {
         CouponShopCart::create($request->validated());
-        return redirect()->route('coupons.index')->with('message', 'تمت الاضافه!');
+        return redirect()->route('Coupons.index')->with('message', 'تمت الاضافه!');
 
     }
 
@@ -63,7 +63,7 @@ class CouponsController extends Controller
     public function edit($id)
     {
         $coupon=CouponShopCart::findorfail($id);
-        return view('dashboard.coupons.edit',compact('coupon'));
+        return view('dashboard.Coupons.edit',compact('coupon'));
     }
 
     /**
@@ -76,7 +76,7 @@ class CouponsController extends Controller
     public function update(CouponRequest $request, $id)
     {
         CouponShopCart::where('id',$id)->update($request->validated());
-        return redirect()->route('coupons.index')->with('message', 'تم التعديل بنجاح!');
+        return redirect()->route('Coupons.index')->with('message', 'تم التعديل بنجاح!');
 
     }
 

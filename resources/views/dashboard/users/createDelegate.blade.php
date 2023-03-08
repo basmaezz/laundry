@@ -30,10 +30,10 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="mobile" name="phone" class="form-control"placeholder="الجوال" required>
+                                                <input type="text" id="mobile" name="mobile" class="form-control"placeholder="الجوال" required>
 
-                                                @if ($errors->has('phone'))
-                                                    <span class="text-danger">{{ $errors->first('phone') }}</span>
+                                                @if ($errors->has('mobile'))
+                                                    <span class="text-danger">{{ $errors->first('mobile') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -63,10 +63,10 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الحى </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="region_name" name="region_name" class="form-control"placeholder="الحى" required>
+                                                <input type="text" id="address" name="car_plate_number" class="form-control"placeholder="الحى" required>
 
-                                                @if ($errors->has('arrears'))
-                                                    <span class="text-danger">{{ $errors->first('arrears') }}</span>
+                                                @if ($errors->has('car_plate_number'))
+                                                    <span class="text-danger">{{ $errors->first('car_plate_number') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -100,17 +100,23 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الجنسيه</label>
                                             <div class="col-md-9">
-                                                <select  name="car_type" class="form-control">
-
-                                                        <option value="">سعودى</option>
-                                                        <option value="">سعودى</option>
-                                                        <option value="">سعودى</option>
-                                                        <option value="">أخرى</option>
-
+                                                <select  name="nationality_id" class="form-control">
+                                                   @foreach($nationalities as $nationality)
+                                                        <option onclick="hideInput()"value="{{$nationality->id}}">{{$nationality->name_ar}}</option>
+                                                    @endforeach
+                                                       <option onclick="displayInput()">أخرى</option>
                                                 </select>
-
-                                                @if ($errors->has('last_name'))
-                                                    <span class="text-danger">{{ $errors->first('last_name') }}</span>
+                                                @if ($errors->has('nationality_id'))
+                                                    <span class="text-danger">{{ $errors->first('nationality_id') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row " id="nationality" style="display: none">
+                                            <label class="col-md-3 form-control-label" for="text-input"> </label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="nationality" name="nationality_name" class="form-control"placeholder="الجنسيه" >
+                                                @if ($errors->has('nationality_id'))
+                                                    <span class="text-danger">{{ $errors->first('nationality_id') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -166,19 +172,13 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">  موديل السياره</label>
                                             <div class="col-md-9">
-                                                <select  name="car_type" class="form-control">
-
-                                                        <option value="">2000</option>
-                                                        <option value="">2001</option>
-                                                        <option value="">2002</option>
-                                                        <option value="">2003</option>
-                                                        <option value="">2004</option>
-
+                                                <select name="car_manufacture_year_id" class="form-control">
+                                                     @foreach($years as $year)
+                                                    <option value="{{$year->id}}">{{$year->name}}</option>
+                                                    @endforeach
                                                 </select>
-{{--                                                <input type="text" id="manufacture_year" name="manufacture_year" class="form-control"placeholder=" موديل السياره" required>--}}
-
-                                                @if ($errors->has('manufacture_year'))
-                                                    <span class="text-danger">{{ $errors->first('manufacture_year') }}</span>
+                                                @if ($errors->has('car_manufacture_year_id'))
+                                                    <span class="text-danger">{{ $errors->first('car_manufacture_year_id') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -189,6 +189,22 @@
                                                 <input type="date" id="license_end_date" name="license_end_date"placeholder="date" class="form-control">
                                                 @if ($errors->has('license_end_date'))
                                                     <span class="text-danger">{{ $errors->first('license_end_date') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input"class="form-control"> معلومات لوحه السياره  </label>
+                                            <div class="col-md-2">
+                                                <input type="text" id="car_plate_letter" name="car_plate_letter"placeholder="الأحرف" class="form-control"maxlength="6">
+
+                                                @if ($errors->has('car_plate_letter'))
+                                                    <span class="text-danger">{{ $errors->first('car_plate_letter') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" id="car_plate_number" name="car_plate_number"placeholder="الأرقام" class="form-control" maxlength="4">
+                                                @if ($errors->has('car_plate_number'))
+                                                    -<span class="text-danger">{{ $errors->first('car_plate_number') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -246,3 +262,13 @@
     </main>
 
 @endsection
+<script>
+    function displayInput(){
+        let nationality= document.getElementById('nationality');
+        (nationality.style.display ==="none") ?nationality.style.display ="block" :'';
+    }
+    function hideInput(){
+        let nationality= document.getElementById('nationality');
+        (nationality.style.display ==="block") ?nationality.style.display ="none" :'';
+    }
+</script>

@@ -9,17 +9,20 @@ use App\Models\CarType;
 use App\Models\City;
 use App\Models\Delegate;
 use App\Models\educationLevel;
+use App\Models\Nationality;
 use App\Models\Order;
 use App\Models\OrderAdditional;
 use App\Models\OrderTable;
 use App\Models\ProviderExtra;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Year;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Gate;
 
@@ -184,20 +187,23 @@ class UserController extends Controller
     }
     public function delegates(Request $request)
     {
-        $delegates=Delegate::with('appUser')->get();
+        $delegates=Delegate::with(['appUser','appUser.cities','nationality'])->get();
+
         return view('dashboard.users.delegates',compact('delegates'));
     }
     public function CreateDelegate()
     {
         $cities=City::all();
         $carTypes=CarType::all();
-        return view('dashboard.users.createDelegate',compact(['cities','carTypes']));
+        $years=Year::all();
+        $nationalities=Nationality::all();
+
+        return view('dashboard.users.createDelegate',compact(['cities','carTypes','nationalities','years']));
     }
     public function storeDelegate(Request $request)
     {
-        if($request->file('avatar')){
-            $filename = request('avatar')->getClientOriginalName();
-            request()->file('avatar')->move(public_path().'/images/', $filename);
+        if(!empty($request->file('avatar'))){
+            $filename = uploadFile($request->file('avatar'),'images');
         }
         if($request->file('id_image')){
             $fileNameImageId = request('id_image')->getClientOriginalName();
@@ -223,23 +229,27 @@ class UserController extends Controller
             $fileNameGlassesAvatar = request('glasses_avatar')->getClientOriginalName();
             request()->file('glasses_avatar')->move(public_path().'/images/' ,$fileNameGlassesAvatar);
         }
-     $user=User::create([
+     $user=AppUser::create([
+                     'uuid' => Uuid::uuid1()->toString(),
                      'name'=>$request->name,
-                    'last_name'=>$request->last_name,
                     'password'=> Hash::make($request->password),
                     'email'=>$request->email,
-                    'phone'=>$request->phone,
+                    'mobile'=>$request->mobile,
                     'city_id'=>$request->city_id,
                     'address'=>$request->address,
                     'avatar'=> $filename
               ]);
       Delegate::create([
                    'app_user_id'=>$user->id,
+                   'nationality_id'=>$request->nationality_id,
                   'request_employment'=>$request->request_employment,
                   'bank_name'=>$request->bank_name,
+                  'id_number'=>$request->id_number,
                   'iban_number'=>$request->iban_number,
                   'car_type'=>$request->car_type,
-                  'manufacture_year'=>$request->manufacture_year,
+                  'car_plate_letter'=>$request->car_plate_letter,
+                  'car_plate_number'=>$request->car_plate_number,
+                  'car_manufacture_year_id'=>$request->car_manufacture_year_id,
                   'license_start_date'=>$request->license_start_date,
                   'license_end_date'=>$request->license_end_date,
                   'id_image'=>$fileNameImageId,
@@ -253,7 +263,8 @@ class UserController extends Controller
     }
     public function showDelegate($id)
     {
-        $delegate=Delegate::with(['appUser','car'])->find($id);
+        $delegate=Delegate::with(['appUser','car','year'])->find($id);
+
         return view('dashboard.users.viewDelegate',compact('delegate'));
     }
     public function deleteDelegate($id)

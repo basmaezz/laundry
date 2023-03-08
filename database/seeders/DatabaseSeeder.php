@@ -15,12 +15,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //  \App\Models\User::factory(10)->create();
-         \App\Models\User::factory()->create([
-             'name' => 'Admin',
-             'email' => 'lanadmin@admin.com',
-             'password'=>bcrypt('password')
-         ]);
+//         \App\Models\User::factory()->create([
+//             'name' => 'Admin',
+//             'email' => 'lanadmin@admin.com',
+//             'password'=>bcrypt('password')
+//         ]);
+//        for($i=2000; $i <= 2023; $i++) {
+//            \App\Models\Year::create([
+//                'name'=>$i,
+//            ]);
+//        }
         $this->call([
+            NationalitySeeder::class
+//            NationalitiySeeder::class,
 //            AppUserSeeder::class,
 //             carTypesSeeder::class,
 //             EducationsLevelSeeder::class,
@@ -33,6 +40,7 @@ class DatabaseSeeder extends Seeder
 ////            FaqSeeder::class,
 //            CouponSeeder::class,
 //            UserSeeder::class,
+//            YearSeeder::class
         ]);
     }
 }

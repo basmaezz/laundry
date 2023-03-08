@@ -5,11 +5,12 @@
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-10">
                         <div class="card">
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i>
                                 <a href="{{route('delegate.create')}}" class="btn btn-primary" style="float: left" >اضافه مندوب</a>
+                                <a href="{{route('delegates.index')}}" class="btn btn-info" style="float: left">تحديث</a>
 
                             </div>
                             <div class="card-block">
@@ -20,6 +21,7 @@
                                         <th>الرقم التسلسلى</th>
                                         <th>الاسم</th>
                                         <th>المدينه</th>
+                                        <th>الجنسيه</th>
                                         <th>نوع التعاقد</th>
                                         <th>تاريخ الالتحاق </th>
                                         <th>Status</th>
@@ -32,8 +34,9 @@
                                             <img src="{{asset('/images/'.$delegate->appUser->image)}}" style="width:50px;height:50px;padding:10px">
 
                                         <td>{{$delegate->appUser->id}}</td>
-                                        <td>{{$delegate->city->name_ar}}</td>
                                         <td>{{$delegate->appUser->name}}</td>
+                                        <td>{{$delegate->appUser->cities->name_ar}}</td>
+                                        <td>{{$delegate->nationality->name_ar}}</td>
                                         <td>{{$delegate->request_employment==0 ?'موظف':'عامل حر'}}</td>
                                         <td>{{$delegate->appUser->created_at->format('Y-M-D')}}</td>
                                         <td>

@@ -14,6 +14,7 @@
                                 <table id="ordersPickUp" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
+                                        <th>رقم الطلب  </th>
                                         <th>اسم المغسله </th>
                                         <th>اسم العميل </th>
                                         <th>اسم المندوب  </th>
@@ -25,6 +26,7 @@
                                     <tbody>
                                     @foreach($orderStatusHistories as $orderStatusHistory)
                                         <tr>
+                                            <td>{{$orderStatusHistory->id}}</td>
                                             <td>{{$orderStatusHistory->order->subCategories->name_ar}}</td>
                                             <td>{{$orderStatusHistory->order->user->name}}</td>
                                             <td>{{$orderStatusHistory->order->user->name}}</td>

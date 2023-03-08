@@ -52,7 +52,7 @@ class CarTypeController extends ApiController
         ]);
 
         CarType::create($request->all());
-        Session::flash('success', 'تم اضافة السؤال بنجاح');
+        Session::flash('success', 'تم اضافة النوع بنجاح');
         return redirect()->back();
     }
 

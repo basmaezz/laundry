@@ -9,7 +9,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i>
-                                <a href="#" class="btn btn-info" style="float: left">تحديث</a>
+                                <a href="{{route('customers.index')}}" class="btn btn-info" style="float: left">تحديث</a>
                             </div>
                             <div class="card-block">
                                 <table id="customers" class="table table-bordered table-striped">

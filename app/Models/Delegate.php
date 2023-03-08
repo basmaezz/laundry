@@ -17,6 +17,10 @@ class Delegate extends Model
         'iban_number',
         'bank_name',
         'nid_image',
+        'nationality_id',
+        'car_manufacture_year_id',
+        'car_plate_letter',
+        'car_plate_number',
         'car_picture_front',
         'car_picture_behind',
         'car_registration',
@@ -75,6 +79,12 @@ class Delegate extends Model
 
     public function car(){
         return $this->belongsTo(CarType::class,'car_type');
+    }
+    public function year(){
+        return $this->belongsTo(Year::class,'car_manufacture_year_id');
+    }
+    public function nationality(){
+        return $this->belongsTo(Nationality::class,'nationality_id');
     }
 
 }

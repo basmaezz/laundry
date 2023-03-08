@@ -11,6 +11,8 @@ use App\Http\Controllers\API\SettingController;
 use App\Http\Controllers\API\UsersController;
 use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\API\AddressController;
+use App\Http\Controllers\API\YearController;
+use App\Http\Controllers\API\NationalityController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -170,4 +172,9 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('contact-us', [SettingController::class,'contact_us']);
     Route::any('complaints', [SettingController::class,'complaints']);
     Route::any('calendar', [SettingController::class,'calendar']);
+    Route::any('calendar', [SettingController::class,'calendar']);
+    Route::get('years', [YearController::class,'index']);
+    Route::get('nationalities', [NationalityController::class,'index']);
+    Route::post('nationality/store', [NationalityController::class,'store']);
+
 });

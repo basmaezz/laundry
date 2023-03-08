@@ -96,9 +96,22 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> موديل السياره</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="last_name" class="form-control" value="{{$delegate->manufacture_year}}"disabled>
+                                            <input type="text" id="text-input" name="last_name" class="form-control" value="{{$delegate->year->name}}"disabled>
                                         </div>
                                     </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 form-control-label" for="text-input"class="form-control"> معلومات لوحه السياره  </label>
+                                        <div class="col-md-2">
+                                            <input type="text" id="car_plate_letter" name="car_plate_letter" class="form-control"value="{{$delegate->car_plate_letter}}">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="text" id="car_plate_number" name="car_plate_number"class="form-control" value="{{$delegate->car_plate_number}}">
+
+                                        </div>
+                                    </div>
+
+
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> تاريخ اصدار الرخصه </label>
                                         <div class="col-md-9">
