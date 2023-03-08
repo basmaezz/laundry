@@ -58,8 +58,11 @@
     $(function() {
 
         $('.toggle-class').change(function() {
+            alert('test');
             var status_id = $(this).prop('checked') == true ? 5 : 4;
+            console.log(status_id);
             var order_id = $(this).data('id');
+            console.log(order_id);
             $.ajax({
 
                 type: "GET",
