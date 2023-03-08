@@ -36,10 +36,10 @@
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->created_at}}</td>
                                             <td>
-                                                <input type="button" data-id="{{$order->id}}" id="toggle-class" type="checkbox" onclick="changeStatus()"
+
+                                                <input data-id="{{$order->id}}" id="toggleBtn" type="checkbox"
                                                        data-onstyle="danger" data-offstyle="success" data-toggle="toggle"  data-off="Completed"  data-on="InProgress"
-                                                    {{ $order->status_id ? 'checked' : '' }}>
-                                        
+                                                      {{ $order->status_id ? 'checked' : '' }}>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -57,9 +57,10 @@
 
 @endsection
 <script>
-    function changeStatus(){
-        let statusBtn=document.getElementById('toggle-class');
-        console.log(statusBtn);
+    document.getElementById("toggleBtn").addEventListener("click", changeStatus);
+
+    function changeStatus() {
+       console.log(this)
     }
 
     // $(function() {
