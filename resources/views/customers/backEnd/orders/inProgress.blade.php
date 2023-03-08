@@ -37,8 +37,8 @@
                                             <td>{{$order->created_at}}</td>
                                             <td>
                                                 <input data-id="{{$order->id}}" class="toggle-class" type="checkbox"
-                                                       data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active"
-                                                       data-off="InActive" {{ $order->status_id ? 'checked' : '' }}>
+                                                       data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Completed"
+                                                       data-off="InProgress" {{ $order->status_id ? 'checked' : '' }}>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -54,3 +54,22 @@
         </section>
     </div>
 @endsection
+<script>
+    $(function() {
+
+        $('.toggle-class').change(function() {
+            var status_id = $(this).prop('checked') == true ? 5 : 4;
+            var order_id = $(this).data('id');
+            $.ajax({
+
+                type: "GET",
+                dataType: "json",
+                url: '/changeStatus',
+                data: {'status_id': status_id, 'id': order_id},
+                success: function(data){
+                    console.log(data.success)
+                }
+            });
+        })
+    })
+</script>

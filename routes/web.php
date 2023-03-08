@@ -162,6 +162,7 @@ Route::get('deleteService/{id}', [ProductsController::class, 'deleteService'])->
 
 Route::get('orders/{id}', [OrdersController::class, 'index'])->name('Customer.Orders.index');
 Route::get('ordersInProgress/{id}', [OrdersController::class, 'inProgress'])->name('Customer.Orders.inProgress');
+Route::get('changeStatus', [OrdersController::class,'changeStatus']);
 
 Route::view('datatable', 'dashboard.datatable');
 Route::view('datatableAr', 'dashboard.datatableAr');
@@ -186,7 +187,7 @@ Route::get('updateUser',function (){
 });
 
 Route::get('getData', function () {
-    //   \App\Models\OrderDetails::truncate();
+
     \App\Models\City::truncate();
     //   \App\Models\OrderTable::truncate();
     //   \App\Models\OrderStatusHistory::truncate();

@@ -93,4 +93,13 @@ class OrdersController extends Controller
 
      return  view('customers.backEnd.orders.inProgress',compact('orders'));
     }
+    public function changeStatus(Request $request)
+    {
+        dd($request->all());
+        $order = OrderTable::find($request->order_id);
+        $order->status_id = $request->status_id;
+        $order->save();
+        return response()->json(['success'=>'Status change successfully.']);
+
+    }
 }
