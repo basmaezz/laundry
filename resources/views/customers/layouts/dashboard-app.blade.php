@@ -249,7 +249,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('Customer.Items.index',Auth::user()->subCategory_id)}}" class="nav-link">
+                                    <a href="{{route('Customer.Orders.inProgress',Auth::user()->subCategory_id)}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p> Orders In Progress</p>
                                     </a>
