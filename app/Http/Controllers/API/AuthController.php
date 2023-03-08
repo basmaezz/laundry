@@ -222,6 +222,9 @@ class AuthController extends ApiController
             $delegate->car_registration = uploadFile($request->file('car')['license_image'], 'car_registration');
             $delegate->license_start_date = $request->get('license')['start_date'];
             $delegate->license_end_date = $request->get('license')['expire_date'];
+            $delegate->car_plate_letter=$request->car_plate_letter;
+            $delegate->car_plate_number=$request->car_plate_number;
+            $delegate->car_manufacture_year_id=$request->car_manufacture_year_id;
             $delegate->request_employment = boolval($request->get('request_employment'));
             $delegate->driving_license = uploadFile($request->file('license')['image'], 'driving_license');
             $delegate->manufacture_year = $request->get('car')['year'];
