@@ -28,7 +28,6 @@ class Delegate extends Model
         'license_end_date',
         'request_employment',
         'driving_license',
-        'manufacture_year',
         'car_type',
         'medic_check'
         ];
