@@ -42,6 +42,9 @@ Route::group(['middleware' => ['language'], 'namespace' => 'App\Http\Controllers
 
     Route::get('bank',[BankController::class,'index']);
     Route::get('car_type',[CarTypeController::class,'index']);
+    Route::get('years', [YearController::class,'index']);
+    Route::get('nationalities', [NationalityController::class,'index']);
+    Route::post('nationality/store', [NationalityController::class,'store']);
 
 
 });
@@ -175,8 +178,6 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('complaints', [SettingController::class,'complaints']);
     Route::any('calendar', [SettingController::class,'calendar']);
     Route::any('calendar', [SettingController::class,'calendar']);
-    Route::get('years', [YearController::class,'index']);
-    Route::get('nationalities', [NationalityController::class,'index']);
-    Route::post('nationality/store', [NationalityController::class,'store']);
+
 
 });
