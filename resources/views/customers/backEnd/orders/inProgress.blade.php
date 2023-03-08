@@ -57,8 +57,8 @@
 
 @endsection
 <script>
-    let btn = document.getElementById("toggleBtn").addEventListener("change", changeStatus);
-
+    let btn = document.getElementById('toggleBtn');
+    btn.addEventListener("change", changeStatus)
     function changeStatus() {
        console.log(this)
     }
