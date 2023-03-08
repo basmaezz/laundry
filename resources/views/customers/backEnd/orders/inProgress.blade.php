@@ -36,7 +36,7 @@
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->created_at}}</td>
                                             <td>
-                                                <input data-id="{{$order->id}}" class="toggle-class" type="checkbox" onclick="changeStatus()"
+                                                <input data-id="{{$order->id}}" id="toggle-class" type="checkbox" onclick="changeStatus()"
                                                        data-onstyle="danger" data-offstyle="success" data-toggle="toggle"  data-off="Completed"  data-on="InProgress"
                                                       {{ $order->status_id ? 'checked' : '' }}>
                                             </td>
@@ -57,7 +57,8 @@
 @endsection
 <script>
     function changeStatus(){
-        alert('test');
+        let statusBtn=document.getElementById('toggle-class');
+        console.log(statusBtn);
     }
 
     // $(function() {
