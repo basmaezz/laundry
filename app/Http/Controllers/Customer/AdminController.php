@@ -20,6 +20,7 @@ class AdminController extends Controller
             'password' => 'required',
         ]);
 
+
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials) && Auth::user()->subCategory_id !='' ) {

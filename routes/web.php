@@ -176,6 +176,14 @@ Route::get('updateDB', function () {
     ]);
 });
 
+Route::get('updateUser',function (){
+    DB::table('users')->where('id',9)->update([
+        'password'=>'$2y$10$GUwYIski.LTiYK/qV.rUVOjI5c0ZXqHwswJ2aUynEK8YnJMslcYKK'
+    ]);
+    $user=User::where('id',9)->get();
+    return $user;
+});
+
 Route::get('getData', function () {
     //   \App\Models\OrderDetails::truncate();
     \App\Models\City::truncate();
