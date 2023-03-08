@@ -161,7 +161,7 @@ Route::get('viewAllServices/{id}', [ProductsController::class, 'viewAllServices'
 Route::get('deleteService/{id}', [ProductsController::class, 'deleteService'])->name('Customer.Products.deleteService');
 
 Route::get('orders/{id}', [OrdersController::class, 'index'])->name('Customer.Orders.index');
-Route::get('inProgress', [OrdersController::class, 'inProgress'])->name('Customer.Orders.inProgress');
+Route::get('ordersInProgress/{id}', [OrdersController::class, 'inProgress'])->name('Customer.Orders.inProgress');
 
 Route::view('datatable', 'dashboard.datatable');
 Route::view('datatableAr', 'dashboard.datatableAr');

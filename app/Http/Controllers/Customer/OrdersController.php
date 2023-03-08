@@ -87,11 +87,10 @@ class OrdersController extends Controller
         //
     }
 
-    public function inProgress()
+    public function inProgress($id)
     {
-     $orders=OrderTable::where('status_id',4)->get();
-     dd($orders);
-        return  view('customers.backEnd.orders.inProgress',compact('orders'));
-
+     $orders=OrderTable::orders($id)->where('status_id',4)->get();
+     
+     return  view('customers.backEnd.orders.inProgress',compact('orders'));
     }
 }
