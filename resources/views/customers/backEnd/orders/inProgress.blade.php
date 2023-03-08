@@ -57,8 +57,13 @@
 
 @endsection
 <script>
-    let toggleBtn = document.getElementsByClassName("toggleBtn");
-    console.log(toggleBtn);
+    document.body.addEventListener('click', function (evt) {
+        if (evt.target.className === 'toggleBtn') {
+            alert(this)
+        }
+    }, false);
+    // let toggleBtn = document.getElementsByClassName("toggleBtn");
+    // console.log(toggleBtn);
     // btn.addEventListener("change", changeStatus)
     // function changeStatus() {
     //    console.log(this)
