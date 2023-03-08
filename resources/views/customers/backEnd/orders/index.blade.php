@@ -21,7 +21,7 @@
                                         <th>Discount </th>
                                         <th>note </th>
                                         <th>Date </th>
-                                        <th>Completed</th>
+{{--                                        <th>Completed</th>--}}
 
                                     </tr>
                                     </thead>
@@ -35,11 +35,11 @@
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->created_at}}</td>
-                                            <td>
-                                                <input data-id="{{$order->id}}" class="toggle-class" type="checkbox"
-                                                       data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active"
-                                                       data-off="InActive" {{ $order->status_id ? 'checked' : '' }}>
-                                            </td>
+{{--                                            <td>--}}
+{{--                                                <input data-id="{{$order->id}}" class="toggle-class" type="checkbox"--}}
+{{--                                                       data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active"--}}
+{{--                                                       data-off="InActive" {{ $order->status_id ? 'checked' : '' }}>--}}
+{{--                                            </td>--}}
                                         </tr>
                                     @endforeach
                                     </tbody>
