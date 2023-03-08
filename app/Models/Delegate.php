@@ -24,7 +24,6 @@ class Delegate extends Model
         'car_picture_front',
         'car_picture_behind',
         'car_registration',
-        'license_start_date',
         'license_end_date',
         'request_employment',
         'driving_license',
