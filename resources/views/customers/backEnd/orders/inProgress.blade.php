@@ -36,9 +36,10 @@
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->created_at}}</td>
                                             <td>
-                                                <input data-id="{{$order->id}}" id="toggle-class" type="checkbox" onclick="changeStatus()"
+                                                <input type="button" data-id="{{$order->id}}" id="toggle-class" type="checkbox" onclick="changeStatus()"
                                                        data-onstyle="danger" data-offstyle="success" data-toggle="toggle"  data-off="Completed"  data-on="InProgress"
-                                                      {{ $order->status_id ? 'checked' : '' }}>
+                                                    {{ $order->status_id ? 'checked' : '' }}>
+                                        
                                             </td>
                                         </tr>
                                     @endforeach
