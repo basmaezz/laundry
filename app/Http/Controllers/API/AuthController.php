@@ -157,6 +157,7 @@ class AuthController extends ApiController
             'car.front_image' => 'required|file',
             'car.back_image' => 'required|file',
             'car.type' => 'required',
+            'nationality_id'=>'required',
             'car_plate_letter'=>'required',
             'car_plate_number'=>'required',
             'car_manufacture_year_id'=>'required',
@@ -215,6 +216,7 @@ class AuthController extends ApiController
 
             $delegate = new Delegate();
             $delegate->app_user_id = $user->id;
+            $delegate->nationality_id = $request->nationality_id;
             $delegate->id_number = $request->get('personal')['nid'];
             $delegate->id_image = uploadFile($request->file('personal')['nid_image'], 'nid_image');
             $delegate->iban_number = $request->get('bank')['number'];
