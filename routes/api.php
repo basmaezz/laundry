@@ -95,6 +95,8 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
 
     Route::post('wallet/decrease', [WalletController::class,'decrease']);
     Route::post('wallet/increase', [WalletController::class,'increase']);
+    Route::get('wallet', [WalletController::class,'transactions']);
+    Route::get('wallet/last', [WalletController::class,'last_transaction']);
     Route::get('address', [AddressController::class,'index']);
     Route::any('address/store',[AddressController::class,'store']);
     Route::any('address/update/{id}',[AddressController::class,'update']);

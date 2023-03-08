@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Address;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -36,6 +37,13 @@ class WalletController extends ApiController
         $user= auth('app_users_api')->user();
         $user->wallet += floatval($request->get("amount"));
         $user->save();
+        Transaction::create([
+            'app_user_id'   => auth('app_users_api')->user()->id,
+            'type'          => 'wallet',
+            'amount'        => floatval($request->get("amount")),
+            'current_amount'=> $user->wallet,
+            'direction'     => 'in'
+        ]);
         return apiResponse(trans('api.add_successfully'), $user,200,201);
     }
 
@@ -62,8 +70,24 @@ class WalletController extends ApiController
         }
         $user->wallet -= floatval($request->get("amount"));
         $user->save();
+        Transaction::create([
+            'app_user_id'   => auth('app_users_api')->user()->id,
+            'type'          => 'wallet',
+            'amount'        => floatval($request->get("amount")),
+            'current_amount'=> $user->wallet,
+            'direction'     => 'out'
+        ]);
 
-        return apiResponse(trans('api.successfully_updated'), $user,200,200);
+        return apiResponse(trans('api.successfully_updated'), $user,200,201);
     }
 
+    public function transactions(){
+        $transactions = Transaction::where('app_user_id',auth('app_users_api')->user()->id)->latest()->get();
+        return apiResponse(trans('api.all'), $transactions,200,200);
+    }
+
+    public function last_transaction(){
+        $transaction = Transaction::where('app_user_id',auth('app_users_api')->user()->id)->latest()->first();
+        return apiResponse(trans('api.all'), $transaction,200,200);
+    }
 }
