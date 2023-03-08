@@ -37,7 +37,7 @@
                                             <td>{{$order->created_at}}</td>
                                             <td>
 
-                                                <input data-id="{{$order->id}}" id="toggleBtn" type="checkbox"
+                                                <input data-id="{{$order->id}}" class="toggleBtn" type="checkbox"
                                                        data-onstyle="danger" data-offstyle="success" data-toggle="toggle"  data-off="Completed"  data-on="InProgress"
                                                       {{ $order->status_id ? 'checked' : '' }}>
                                             </td>
@@ -57,8 +57,8 @@
 
 @endsection
 <script>
-    let btn = document.getElementById('toggleBtn');
-    console.log(btn);
+    let toggleBtn = document.getElementsByClassName("toggleBtn");
+    console.log(toggleBtn);
     // btn.addEventListener("change", changeStatus)
     // function changeStatus() {
     //    console.log(this)
