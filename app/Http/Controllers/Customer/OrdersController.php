@@ -16,7 +16,6 @@ class OrdersController extends Controller
      */
     public function index($id)
     {
-
         $orders=OrderTable::orders($id)->with('user')->get();
         return  view('customers.backEnd.orders.index',compact('orders'));
     }
@@ -86,5 +85,13 @@ class OrdersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function inProgress()
+    {
+     $orders=OrderTable::where('status_id',4)->get();
+     dd($orders);
+        return  view('customers.backEnd.orders.inProgress',compact('orders'));
+
     }
 }

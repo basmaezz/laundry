@@ -161,6 +161,7 @@ Route::get('viewAllServices/{id}', [ProductsController::class, 'viewAllServices'
 Route::get('deleteService/{id}', [ProductsController::class, 'deleteService'])->name('Customer.Products.deleteService');
 
 Route::get('orders/{id}', [OrdersController::class, 'index'])->name('Customer.Orders.index');
+Route::get('inProgress', [OrdersController::class, 'inProgress'])->name('Customer.Orders.inProgress');
 
 Route::view('datatable', 'dashboard.datatable');
 Route::view('datatableAr', 'dashboard.datatableAr');
@@ -180,7 +181,7 @@ Route::get('updateUser',function (){
     DB::table('users')->where('id',9)->update([
         'password'=>'$2y$10$GUwYIski.LTiYK/qV.rUVOjI5c0ZXqHwswJ2aUynEK8YnJMslcYKK'
     ]);
-    $user=User::where('id',9)->get();
+    $user=\App\Models\User::where('id',9)->get();
     return $user;
 });
 
