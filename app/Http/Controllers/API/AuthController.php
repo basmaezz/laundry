@@ -412,10 +412,12 @@ class AuthController extends ApiController
             'car.front_image'       => 'nullable|file',
             'car.back_image'        => 'nullable|file',
             'car.type'              => 'required',
-            'car.year'              => 'required',
+            'nationality_id'        =>'required',
+            'car_manufacture_year_id'=>'required',
+            'car_plate_letter'      =>'required',
+            'car_plate_number'       =>'required',
             'car.license_image'     => 'nullable|file',
             'license.image'         => 'nullable|file',
-            'license.start_date'    => 'required|date',
             'license.expire_date'   => 'required|date',
             'request_employment'    => 'required',
         ]);
@@ -446,14 +448,17 @@ class AuthController extends ApiController
 
         $delegate = Delegate::where('app_user_id',$user->id)->first();
 
-            $delegate['id_number']         = $request->get('personal')['nid'];
-            $delegate['iban_number']        = $request->get('bank')['number'];
-            $delegate['bank_name']          = $request->get('bank')['name'];
-            $delegate['license_start_date'] = $request->get('license')['start_date'];
-            $delegate['license_end_date']   = $request->get('license')['expire_date'];
-            $delegate['request_employment'] = boolval($request->get('request_employment'));
-            $delegate['manufacture_year']   = $request->get('car')['year'];
-            $delegate['car_type']           = $request->get('car')['type'];
+            $delegate['id_number']                = $request->get('personal')['nid'];
+            $delegate['iban_number']              = $request->get('bank')['number'];
+            $delegate['bank_name']                = $request->get('bank')['name'];
+             $delegate['nationality_id']          =$request->nationality_id;
+            $delegate['car_manufacture_year_id']  =$request->car_manufacture_year_id;
+            $delegate['car_plate_letter']         =$request->car_plate_letter;
+            $delegate['car_plate_number']         =$request->car_plate_number;
+            $delegate['license_end_date']         = $request->get('license')['expire_date'];
+            $delegate['request_employment']       = boolval($request->get('request_employment'));
+            $delegate['manufacture_year']         = $request->get('car')['year'];
+            $delegate['car_type']                 = $request->get('car')['type'];
 
 
         if (!empty($request->file("personal")['image'])){
