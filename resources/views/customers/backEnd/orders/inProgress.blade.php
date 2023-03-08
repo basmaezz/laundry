@@ -53,26 +53,31 @@
             </div>
         </section>
     </div>
-@endsection
-<script>
-    $(function() {
+    <script>
+        console.log('test');
+        $(function() {
 
-        $('.toggle-class').change(function() {
-            alert('test');
-            var status_id = $(this).prop('checked') == true ? 5 : 4;
-            console.log(status_id);
-            var order_id = $(this).data('id');
-            console.log(order_id);
-            $.ajax({
+            $('.toggle-class').change(function() {
+                alert('test');
+                var status_id = $(this).prop('checked') == true ? 5 : 4;
+                console.log(status_id);
+                var order_id = $(this).data('id');
+                console.log(order_id);
+                $.ajax({
 
-                type: "GET",
-                dataType: "json",
-                url: '/changeStatus',
-                data: {'status_id': status_id, 'id': order_id},
-                success: function(data){
-                    console.log(data.success)
-                }
-            });
+                    type: "GET",
+                    dataType: "json",
+                    url: '/changeStatus',
+                    data: {'status_id': status_id, 'id': order_id},
+                    success: function(data){
+                        console.log(data.success)
+                    }
+                });
+            })
         })
-    })
+    </script>
+@endsection
+
+<script>
+    console.log('after test');
 </script>
