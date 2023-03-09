@@ -165,6 +165,7 @@ Route::get('ordersInProgress/{id}', [OrdersController::class, 'inProgress'])->na
 Route::get('ordersCompleted/{id}', [OrdersController::class, 'completed'])->name('Customer.Orders.completed');
 Route::get('changeStatus', [OrdersController::class,'changeStatus']);
 Route::get('canceledOrder/{id}', [OrdersController::class, 'canceledOrder'])->name('Customer.Orders.canceledOrder');
+Route::get('finishedOrder/{id}', [OrdersController::class, 'finishedOrder'])->name('Customer.Orders.finishedOrder');
 
 Route::view('datatable', 'dashboard.datatable');
 Route::view('datatableAr', 'dashboard.datatableAr');

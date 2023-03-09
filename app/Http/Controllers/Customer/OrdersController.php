@@ -113,19 +113,14 @@ class OrdersController extends Controller
         $order->save();
         return redirect()->back();
     }
-    public function changeStatus(Request $request)
-    {
-        dd($request->all());
-        $order = OrderTable::find($request->order_id);
-        $order->status_id = $request->status_id;
-        $order->save();
-        return response()->json(['success'=>'Status change successfully.']);
-
-    }
-
     public function canceledOrder($id)
     {
         $orders=OrderTable::orders($id)->where('status_id',10)->get();
         return  view('customers.backEnd.orders.canceled',compact('orders'));
+    }
+    public function finishedOrder($id)
+    {
+        $orders=OrderTable::orders($id)->where('status_id',5)->get();
+        return  view('customers.backEnd.orders.finished',compact('orders'));
     }
 }
