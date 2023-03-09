@@ -68,6 +68,7 @@ class UsersController extends Controller
     public function getNotification(){
         $app_user_id = auth('app_users_api')->user()->id;
         $notifications = Notifications::where('app_user_id',$app_user_id)->with('order')->latest()->limit(50)->get();
+        dd($notifications);
         $_data = [];
         /*foreach ($notifications as $k=>$notification){
             $_data[$k] = $notification;
