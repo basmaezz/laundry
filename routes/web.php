@@ -210,7 +210,7 @@ Route::get('updateAll', function () {
     $subcategories = DB::table('subcategories')->whereNull('city_id')->update(['city_id' => 1]);
 });
 Route::get('updateOrder', function () {
-    $ordersTable = DB::table('order_tables')->update(['status_id' => 1]);
+    $ordersTable = DB::table('order_tables')->where('id',39)->update(['status'=>'تم الأنتهاء من الغسيل']);
 });
 
 Route::get('usersGet', function () {
