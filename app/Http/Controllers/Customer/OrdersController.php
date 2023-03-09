@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\Auth;
 
 class OrdersController extends Controller
 {
+    const WaitingForDelivery            = 1;
+    const AcceptedByDelivery            = 2;
+    //const DeliveryOnWay                 = 3;
+    const WayToLaundry                  = 3;
+    const DeliveredToLaundry            = 4;
+    const ClothesReadyForDelivery       = 5;
+    const WaitingForDeliveryToReceiveOrder = 6;
+    const AcceptedByDeliveryToYou       = 7;
+    //const DeliveryOnTheWayToYou         = 9;
+    const Completed                     = 8;
+    const Cancel                        = 10;
     /**
      * Display a listing of the resource.
      *
@@ -93,6 +104,15 @@ class OrdersController extends Controller
 
      return  view('customers.backEnd.orders.inProgress',compact('orders'));
     }
+    public function completed($id)
+    {
+        $order=OrderTable::find($id);
+        $order->update([
+            $order['status_id']=self::ClothesReadyForDelivery
+        ]);
+        $order->save();
+        return redirect()->back();
+    }
     public function changeStatus(Request $request)
     {
         dd($request->all());
@@ -101,5 +121,11 @@ class OrdersController extends Controller
         $order->save();
         return response()->json(['success'=>'Status change successfully.']);
 
+    }
+
+    public function canceledOrder($id)
+    {
+        $orders=OrderTable::orders($id)->where('status_id',10)->get();
+        return  view('customers.backEnd.orders.canceled',compact('orders'));
     }
 }

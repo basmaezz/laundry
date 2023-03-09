@@ -36,11 +36,14 @@
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->created_at}}</td>
                                             <td>
-
-                                                <input data-id="{{$order->id}}" class="toggleBtn" type="checkbox"
-                                                       data-onstyle="danger" data-offstyle="success" data-toggle="toggle"  data-off="Completed"  data-on="InProgress"
-                                                      {{ $order->status_id ? 'checked' : '' }}>
+                                                <a href="{{route('Customer.Orders.completed',$order->id)}}" class="btn btn-info">تم الانتهاء</a>
                                             </td>
+{{--                                            <td>--}}
+
+{{--                                                <input data-id="{{$order->id}}" class="toggleBtn" type="checkbox"--}}
+{{--                                                       data-onstyle="danger" data-offstyle="success" data-toggle="toggle"  data-off="Completed"  data-on="InProgress"--}}
+{{--                                                      {{ $order->status_id ? 'checked' : '' }}>--}}
+{{--                                            </td>--}}
                                         </tr>
                                     @endforeach
                                     </tbody>

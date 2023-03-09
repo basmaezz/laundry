@@ -7,7 +7,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Orders</h3>
+                                <h3 class="card-title">Orders InProgress</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -19,9 +19,7 @@
                                         <th>Total Price </th>
                                         <th>Status </th>
                                         <th>Discount </th>
-                                        <th>note </th>
-                                        <th>Date </th>
-{{--                                        <th>Completed</th>--}}
+                                        <th>Canceled Date</th>
 
                                     </tr>
                                     </thead>
@@ -33,23 +31,19 @@
                                             <td>{{$order->total_price}}</td>
                                             <td>{{$order->status}}</td>
                                             <td>{{$order->discount}}</td>
-                                            <td>{{$order->discount}}</td>
-                                            <td>{{$order->created_at}}</td>
-{{--                                            <td>--}}
-{{--                                                <a href="#" class="btn btn-info">تم الانتهاء</a>--}}
-{{--                                            </td>--}}
-
+                                            <td>{{$order->updated_at}}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
 
                                 </table>
                             </div>
-                            <!-- /.card-body -->
+                        </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
     </div>
+
 @endsection
+

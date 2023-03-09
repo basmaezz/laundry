@@ -162,7 +162,9 @@ Route::get('deleteService/{id}', [ProductsController::class, 'deleteService'])->
 
 Route::get('orders/{id}', [OrdersController::class, 'index'])->name('Customer.Orders.index');
 Route::get('ordersInProgress/{id}', [OrdersController::class, 'inProgress'])->name('Customer.Orders.inProgress');
+Route::get('ordersCompleted/{id}', [OrdersController::class, 'completed'])->name('Customer.Orders.completed');
 Route::get('changeStatus', [OrdersController::class,'changeStatus']);
+Route::get('canceledOrder/{id}', [OrdersController::class, 'canceledOrder'])->name('Customer.Orders.canceledOrder');
 
 Route::view('datatable', 'dashboard.datatable');
 Route::view('datatableAr', 'dashboard.datatableAr');
