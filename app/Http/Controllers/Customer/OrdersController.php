@@ -108,7 +108,8 @@ class OrdersController extends Controller
     {
         $order=OrderTable::find($id);
         $order->update([
-            $order['status_id']=self::ClothesReadyForDelivery
+            $order['status_id']=self::ClothesReadyForDelivery,
+            $order['status']='تم الأنتهاء من الغسيل'
         ]);
         $order->save();
         return redirect()->back();
