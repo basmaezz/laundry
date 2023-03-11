@@ -1,3 +1,9 @@
+html *
+{
+    font-size: 1em !important;
+    /*!*color: #000 !important;*!*/
+    font-family: Nunito, sans-serif;
+}
 .check-ability-label{
     border: 0;
     display: flex;

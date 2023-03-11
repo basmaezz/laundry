@@ -12,6 +12,17 @@ use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
+    const WaitingForDelivery            = 1;
+    const AcceptedByDelivery            = 2;
+    //const DeliveryOnWay                 = 3;
+    const WayToLaundry                  = 3;
+    const DeliveredToLaundry            = 4;
+    const ClothesReadyForDelivery       = 5;
+    const WaitingForDeliveryToReceiveOrder = 6;
+    const AcceptedByDeliveryToYou       = 7;
+    //const DeliveryOnTheWayToYou         = 9;
+    const Completed                     = 8;
+    const Cancel                        = 10;
     /**
      * Display a listing of the resource.
      *
@@ -100,9 +111,15 @@ class OrderController extends Controller
         $order->save();
         return response()->json(['success'=>'Status change successfully.']);
     }
-    public function  pendingDeliveryAcceptance(){
-        $orderStatusHistories=OrderStatusHistory::with('order')->where('status_id',1)->get();
-        return  view('dashboard.Orders.pendingDeliveryAcceptance',compact(['orderStatusHistories']));
+    public function getAllOrders()
+    {
+        $orders=OrderTable::all();
+        return  view('dashboard.Orders.allOrders',compact('orders'));
+    }
+    public function  pendingDeliveryAcceptance()
+    {
+        $orders=OrderTable::where("status_id",self::WaitingForDelivery)->get();
+        return  view('dashboard.Orders.pendingDeliveryAcceptance',compact('orders'));
     }
     public function  DeliveryOnWay(){
         $orderStatusHistories=OrderStatusHistory::with('order')->where('status_id',3)->get();
@@ -126,10 +143,15 @@ class OrderController extends Controller
     }
     public function  DeliveryOnTheWayToYou(){
         $orderStatusHistories=OrderStatusHistory::with('order')->where('status_id',9)->get();
+        $orders=OrderTable::where("status_id",self::Completed)->get();
         return  view('dashboard.Orders.DeliveryOnTheWayToYou',compact(['orderStatusHistories']));
     }
     public function  completed(){
-        $orderStatusHistories=OrderStatusHistory::with('order')->where('status_id',10)->get();
-        return  view('dashboard.Orders.completed',compact(['orderStatusHistories']));
+        $orders=OrderTable::where("status_id",self::Completed)->get();
+        return  view('dashboard.Orders.completed',compact('orders'));
+    }
+    public function  canceled(){
+        $orders=OrderTable::where("status_id",self::Cancel)->get();
+        return  view('dashboard.Orders.completed',compact('orders'));
     }
 }

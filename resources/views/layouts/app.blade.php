@@ -8,9 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
    <title>Admin Dashboard</title>
 
-    <link href="{{asset('assets/admin/css/font-awesome.min.css')}}" rel="stylesheet">
+{{--    <link href="{{asset('assets/admin/css/font-awesome.min.css')}}" rel="stylesheet">--}}
     <link href="{{asset('assets/admin/css/simple-line-icons.css')}}" rel="stylesheet">
     <link href="{{asset('assets/admin/dest/style.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/admin/css/customStyle.css')}}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
@@ -18,10 +19,9 @@
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-    <link href="{{asset('assets/admin/css/customStyle.css')}}" rel="stylesheet">
-
 
 </head>
 
@@ -83,11 +83,11 @@
 {{--                    @if(Auth::user()->can('users.index'))--}}
 {{--            @if(Auth::user()->isAdmin())--}}
                <li class="nav-item">
-                   @can('users.index')
+
             <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> الأدمن  </a>
-                   @endcan
+  
 {{--                <a class="nav-link" href="{{route('user.create')}}"><i class="icon-user-follow"></i> اضافه أدمن  </a>--}}
-                <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>
+{{--                <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>--}}
                 <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
                </li>
 
