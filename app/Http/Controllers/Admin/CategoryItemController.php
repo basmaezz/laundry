@@ -12,6 +12,7 @@ use App\Models\Subcategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryItemController extends Controller
 {
@@ -22,7 +23,9 @@ class CategoryItemController extends Controller
      */
     public function index($id)
     {
-
+        if(Gate::denies('subCategory.index')){
+            abort(403);
+        };
         $subCategory=Subcategory::find($id);
         $categoryItems=CategoryItem::where('subcategory_id',$id)->get();
 
@@ -73,6 +76,9 @@ class CategoryItemController extends Controller
      */
     public function edit($id)
     {
+        if(Gate::denies('categoryItems.index')){
+            abort(403);
+        };
         $categoryItem=CategoryItem::find($id);
         return view('dashboard.CategoryItems.edit',compact('categoryItem'));
     }

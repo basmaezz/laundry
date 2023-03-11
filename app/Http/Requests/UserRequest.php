@@ -28,12 +28,14 @@ class UserRequest extends FormRequest
             'name'=>array('required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
             'last_name'=>array('required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
             'email' => 'unique:users,email',
+            'password'=>'required',
 //            'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore($this->id)],
 //            'email'=>'required|email|unique:users,email',
 //            'password'=>'required',
 //            'birthdate'=> ['required','before:15 years ago'],
             'birthdate'=> 'required',
             'phone'=>'required|numeric|digits:10',
+            'avatar'=>['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ];
 
     }

@@ -54,16 +54,16 @@ class User extends Authenticatable
     public function setPasswordAttribute($password){
         return $this->attributes['password'] = Hash::needsRehash($password) ? Hash::make($password) : $password;
     }
-    public function getImageAttribute()
-    {
-        return $this->avtar;
-    }
-    public function setImageAttribute($value)
-    {
-        $attribute_name = "avatar";
-        //Uploads disk for example
-        $disk = "uploads";
-    }
+//    public function getImageAttribute()
+//    {
+//        return $this->avtar;
+//    }
+//    public function setImageAttribute($value)
+//    {
+//        $attribute_name = "avatar";
+//        //Uploads disk for example
+//        $disk = "uploads";
+//    }
 
     public function Roles(){
         return $this->belongsToMany(Role::class,'role_user');

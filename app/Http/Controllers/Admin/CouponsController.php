@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CouponRequest;
 use App\Models\CouponShopCart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CouponsController extends Controller
 {
@@ -16,6 +17,9 @@ class CouponsController extends Controller
      */
     public function index()
     {
+        if(Gate::denies('Coupons.index')){
+            abort(403);
+        };
          $coupons=CouponShopCart::all();
          return  view('dashboard.Coupons.index',compact('coupons'));
     }

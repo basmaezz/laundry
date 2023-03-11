@@ -10,11 +10,15 @@ use App\Models\ProductImage;
 use App\Models\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
     public function create($id)
     {
+        if(Gate::denies('products.index')){
+            abort(403);
+        };
         $categoryItem=CategoryItem::find($id);
         return view('dashboard.products.create',compact('categoryItem'));
     }
@@ -24,7 +28,6 @@ class ProductController extends Controller
         if($request->file('subProductImage')){
             $filename = request('subProductImage')->getClientOriginalName();
             request()->file('subProductImage')->move(public_path() . '/assets/uploads/laundries/products' , $filename);
-
         }
 //        $product->save();
         Product::create($request->validated()+[
@@ -54,14 +57,23 @@ class ProductController extends Controller
         return  view('dashboard.products.edit',compact('product'));
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request)
     {
-        product::where('id',$id)->update([
-            'name_ar'=>$request->name_ar,
-            'name_en'=>$request->name_en,
-            'desc_ar'=>$request->desc_ar,
-            'desc_en'=>$request->desc_en,
+        $product=Product::find($request->product_id);
+        if(!empty($request->file('subProductImage'))){
+            $filename = request('subProductImage')->getClientOriginalName();
+            request()->file('subProductImage')->move(public_path() . '/assets/uploads/laundries/products' , $filename);
+       $product->update([
+            'image'=>$filename
         ]);
+        }else{
+            $product->update([
+                'name_ar'=>$request->name_ar,
+                'name_en'=>$request->name_en,
+                'desc_ar'=>$request->desc_ar,
+                'desc_en'=>$request->desc_en,
+            ]);
+        }
         return redirect()->route('CategoryItems.show',$request->product_id);
     }
     public function addService($id){

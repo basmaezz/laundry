@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-lg-10">
+                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i>
@@ -23,6 +23,7 @@
                                         <th>المدينه</th>
                                         <th>الجنسيه</th>
                                         <th>نوع التعاقد</th>
+                                        <th> الحاله</th>
                                         <th>تاريخ الالتحاق </th>
                                         <th>Status</th>
                                     </tr>
@@ -38,8 +39,14 @@
                                         <td>{{$delegate->appUser->cities->name_ar}}</td>
                                         <td>{{$delegate->nationality->name_ar}}</td>
                                         <td>{{$delegate->request_employment==0 ?'موظف':'عامل حر'}}</td>
+                                        <td>{{$delegate->appUser->status}}</td>
                                         <td>{{$delegate->appUser->created_at->format('Y-M-D')}}</td>
                                         <td>
+                                            @if($delegate->appUser->status=='active')
+                                            <a href="{{route('delegate.changeStatus',$delegate->id)}}" class="btn btn-info">ايقاف</a>
+                                            @elseif($delegate->appUser->status=='deactivated')
+                                            <a href="{{route('delegate.changeStatus',$delegate->id)}}" class="btn btn-info">تفعيل</a>
+                                            @endif
                                             <a href="{{route('delegate.show',$delegate->id)}}" class="btn btn-info">تفاصيل</a>
                                             <a href="{{route('delegate.delete',$delegate->id)}}" class="btn btn-danger">حذف</a>
                                         </td>

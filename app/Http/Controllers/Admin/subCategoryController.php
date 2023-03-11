@@ -10,6 +10,7 @@ use App\Models\City;
 use App\Models\Subcategory;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\DataTables;
 
 class subCategoryController extends Controller
@@ -23,6 +24,9 @@ class subCategoryController extends Controller
 
     public function index(Request $request)
     {
+        if(Gate::denies('subCategory.index')){
+            abort(403);
+        };
         $subCategories = Subcategory::with(['city','parent'])->get();
         return view('dashboard.laundries.index',compact('subCategories'));
     }

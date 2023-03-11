@@ -35,9 +35,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-//         if(Gate::denies('users.index')){
-//             abort(403);
-//         };
+         if(Gate::denies('users.index')){
+             abort(403);
+         };
         $users=User::whereNull('subCategory_id')->get();
 //        $users=User::whereHas('Roles' , function($query) {
 //            $query->where('role','admin');
@@ -66,9 +66,13 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        if($request->file('avatar')){
-            $filename = request('avatar')->getClientOriginalName();
-            request()->file('avatar')->move(public_path() . '/images/' , $filename);
+//        dd($request->all());
+//        if($request->file('avatar')){
+//            $filename = request('avatar')->getClientOriginalName();
+//            request()->file('avatar')->move(public_path() . '/images/' , $filename);
+//        }
+        if(!empty($request->file('avatar'))){
+            $filename = uploadFile($request->file('avatar'),'images');
         }
        $user=User::create($request->validated()+[
             'avatar'=> $filename
@@ -297,5 +301,13 @@ class UserController extends Controller
 
         $user->save();
         return redirect()->route('users.index');
+    }
+    public function changeStatus($id)
+    {
+       $delegate=Delegate::with('appUser')->find($id);
+        $delegate->appUser->status=='active' ?$delegate->appUser->status='deactivated' :$delegate->appUser->status='active';
+        $delegate->appUser->save();
+
+       return redirect()->back();
     }
 }

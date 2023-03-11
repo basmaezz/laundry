@@ -67,6 +67,7 @@
                                     <div class="form-group">
                                         <label for="company" n>اسم القطعه</label>
 
+                                        <input type="hidden" name="product_id"class="form-control" id="name" value="{{$product->id}}">
                                         <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$product->name_ar}}">
                                         @if ($errors->has('name_ar'))
                                             <span class="text-danger">{{ $errors->first('name_ar') }}</span>
@@ -96,7 +97,7 @@
                                     <img src="{{$product->image}}" style="width: 100px;height: 100px">
                                     <div class="form-group">
                                         <label for="company">الصوره  </label>
-                                        <input type="file" name="subProductImage"class="form-control" id="image" >
+                                        <input type="file" name="subProductImage"class="form-control" id="image" value="{{$product->image}}" >
                                     </div>
                                 </div>
                             </div>

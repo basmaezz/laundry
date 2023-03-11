@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -15,6 +16,9 @@ class RoleController extends Controller
      */
     public function index()
     {
+        if(Gate::denies('roles.index')){
+            abort(403);
+        };
         return view('dashboard.roles.index',[
             'roles'=>Role::withCount('users')->get()
         ]);

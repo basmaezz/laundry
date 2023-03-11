@@ -53,4 +53,5 @@ class AppUser extends Authenticatable implements JWTSubject
         return number_format(floor($value), 2);
     }
 
+
 }

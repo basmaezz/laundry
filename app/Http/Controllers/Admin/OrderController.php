@@ -8,6 +8,7 @@ use App\Models\OrderStatusHistory;
 use App\Models\OrderTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
@@ -18,6 +19,9 @@ class OrderController extends Controller
      */
         public function index()
         {
+            if(Gate::denies('Orders.index')){
+                abort(403);
+            };
            $orders=OrderTable::with(['subCategories','user','user.cities'])->get();
            return  view('dashboard.Orders.index',compact('orders'));
         }

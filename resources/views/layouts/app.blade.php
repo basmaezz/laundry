@@ -80,9 +80,11 @@
 
             {{-- @can('users.index') --}}
 {{--                    @if(Auth::user()->can('users.index'))--}}
-{{--                @if(Gate::allows('users.index'))--}}
+
                <li class="nav-item">
-                <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> الأدمن  </a>
+                   @if(Auth::user()->can('users.index'))
+            <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> الأدمن  </a>
+                   @endif
 {{--                <a class="nav-link" href="{{route('user.create')}}"><i class="icon-user-follow"></i> اضافه أدمن  </a>--}}
                 <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>
                 <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
@@ -98,6 +100,7 @@
             <li class="nav-title">
                 المغاسل
             </li>
+            @can('categories.index')
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> المغاسل</a>
                 <ul class="nav-dropdown-items">
@@ -113,6 +116,7 @@
 
                 </ul>
             </li>
+            @endcan
 
             <li class="nav-title">
                 الطلبات

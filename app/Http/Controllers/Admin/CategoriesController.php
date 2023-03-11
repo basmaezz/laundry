@@ -5,10 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CategoriesController extends Controller
 {
-    public  function index(){
+    public  function index()
+    {
+        if(Gate::denies('categories.index')){
+            abort(403);
+        };
         $categories=Category::All();
         return view('dashboard.Categories.index',compact('categories'));
     }
