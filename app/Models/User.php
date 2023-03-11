@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -68,17 +69,34 @@ class User extends Authenticatable
     public function Roles(){
         return $this->belongsToMany(Role::class,'role_user');
     }
-    public function is($roleName)
+//    public function isAdmin()
+//    {
+//
+//        if(Auth::user()->Roles[0]->role=='Admin'){
+//            return true;
+//        }
+//        return false;
+//
+////        foreach ($this->roles()->get() as $role)
+////        {
+////            if ($role->role == $roleName)
+////            {
+////
+////                return true;
+////            }
+////        }
+////        return false;
+//    }
+
+    public function hasAbility($ability)
     {
-        foreach ($this->roles()->get() as $role)
-        {
-            if ($role->role == $roleName)
-            {
-                return true;
+        foreach ($this->roles as $role){
+            if(in_array($ability,$role->abilities)){
+                return  true;
             }
         }
-
         return false;
+
     }
 
 }
