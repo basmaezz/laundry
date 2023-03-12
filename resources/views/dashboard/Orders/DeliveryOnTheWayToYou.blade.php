@@ -45,8 +45,8 @@
                                             <td>{{$order->payment_method}}</td>
                                             <td>{{$order->vat}}</td>
                                             <td>{{$order->address->address}}</td>
-                                            <td>{{$order->created_at->day}}</td>
-                                            <td>{{$order->updated_at->day}}</td>
+                                            <td>{{$order->created_at->format('d/m/Y')}}</td>
+                                            <td>{{$order->updated_at->format('d/m/Y')}}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
