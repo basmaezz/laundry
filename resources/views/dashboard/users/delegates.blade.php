@@ -41,11 +41,12 @@
                                         <td>{{$delegate->request_employment==0 ?'موظف':'عامل حر'}}</td>
                                         <td>{{$delegate->appUser->status}}</td>
                                         <td>{{$delegate->appUser->created_at->format('Y-M-D')}}</td>
+
                                         <td>
                                             @if($delegate->appUser->status=='active')
-                                            <a href="{{route('delegate.changeStatus',$delegate->id)}}" class="btn btn-info">ايقاف</a>
+                                            <a href="{{url('changeStatus',$delegate->id)}}" class="btn btn-info">ايقاف</a>
                                             @elseif($delegate->appUser->status=='deactivated')
-                                            <a href="{{route('delegate.changeStatus',$delegate->id)}}" class="btn btn-info">تفعيل</a>
+                                            <a href="{{url('changeStatus',$delegate->id)}}" class="btn btn-info">تفعيل</a>
                                             @endif
                                             <a href="{{route('delegate.show',$delegate->id)}}" class="btn btn-info">تفاصيل</a>
                                             <a href="{{route('delegate.delete',$delegate->id)}}" class="btn btn-danger">حذف</a>
