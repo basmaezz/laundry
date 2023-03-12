@@ -267,3 +267,8 @@ Route::get('Alter',function (){
 Route::get('updateCustomers', function () {
     $ordersTable = DB::table('app_users')->update(['city_id' => 1]);
 });
+
+Route::get('allCities',function (){
+    $cities=\App\Models\City::all();
+    return $cities;
+});
