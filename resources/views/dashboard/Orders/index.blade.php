@@ -18,6 +18,7 @@
                                         <th>رقم الطلب  </th>
                                         <th>اسم المغسله </th>
                                         <th>اسم العميل </th>
+                                        <th> نوع التوصيل </th>
                                         <th>المدينه </th>
                                         <th>الحى </th>
                                         <th>السنه </th>
@@ -32,6 +33,7 @@
                                             <td>{{$order->id}}</td>
                                             <td>{{$order->subCategories->name_ar}}</td>
                                             <td>{{$order->user->name}}</td>
+                                            <td>{{$order->delivery_type=='1'?'استلام بواسطه العميل' :'استلام بواسطه المندوب'}}</td>
                                             <td>{{$order->user->cities->name_ar}}</td>
                                             <td>{{$order->user->region_name}}</td>
                                             <td>{{$order->created_at->year}}</td>

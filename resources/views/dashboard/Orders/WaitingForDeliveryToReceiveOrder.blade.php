@@ -22,7 +22,6 @@
                                         <th> السعر </th>
                                         <th> الخصم </th>
                                         <th> الكوبون </th>
-                                        <th> نوع التوصيل </th>
                                         <th> رسوم التوصيل </th>
                                         <th>  طريقه الدفع </th>
                                         <th>   الضريبه </th>
@@ -42,13 +41,12 @@
                                             <td>{{$order->total_price}}</td>
                                             <td>{{$order->discount_value}}</td>
                                             <td>{{$order->coupon ?? ''}}</td>
-                                            <td>{{$order->delivery_type=='1'?'استلام بواسطه العميل' :'استلام بواسطه المندوب'}}</td>
-                                            <td>{{$order->delivery_fees}}></td>
-                                            <td>{{$order->payment_method}}></td>
-                                            <td>{{$order->vat}}></td>
-                                            <td>{{$order->address->address}}></td>
-                                            <td>{{$order->created_at->day}}</td>
-                                            <td>{{$order->updated_at->day}}</td>
+                                            <td>{{$order->delivery_fees}}</td>
+                                            <td>{{$order->payment_method}}</td>
+                                            <td>{{$order->vat}}</td>
+                                            <td>{{$order->address->address}}</td>
+                                            <td>{{$order->created_at}}</td>
+                                            <td>{{$order->updated_at}}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
