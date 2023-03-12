@@ -33,7 +33,9 @@
                                             <td>{{$order->id}}</td>
                                             <td>{{$order->subCategories->name_ar}}</td>
                                             <td>{{$order->user->name}}</td>
+                                            @if($order->delivery_type !='')
                                             <td>{{$order->delivery_type=='1'?'استلام بواسطه العميل' :'استلام بواسطه المندوب'}}</td>
+                                            @endif
                                             <td>{{$order->user->cities->name_ar}}</td>
                                             <td>{{$order->user->region_name}}</td>
                                             <td>{{$order->created_at->year}}</td>
