@@ -14,27 +14,41 @@
                                 <table id="ordersPickUp" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>رقم الطلب  </th>
-                                        <th>اسم المغسله </th>
-                                        <th>اسم العميل </th>
-                                        <th>اسم المندوب  </th>
-                                        <th>تاريخ وصولها المغسله </th>
-                                        <th>تاريخ الانتهاء من الغسيل </th>
-                                        <th>التفاصيل</th>
+                                        <th> رقم الطلب</th>
+                                        <th>اسم المغسله</th>
+                                        <th>اسم العميل</th>
+                                        <th>اسم المندوب</th>
+                                        <th> عدد القطع</th>
+                                        <th> السعر </th>
+                                        <th> الخصم </th>
+                                        <th> الكوبون </th>
+                                        <th> نوع التوصيل </th>
+                                        <th> رسوم التوصيل </th>
+                                        <th>  طريقه الدفع </th>
+                                        <th>   الضريبه </th>
+                                        <th>   العنوان </th>
+                                        <th>   تاريخ الوصول للمغسله </th>
+                                        <th>  تاريخ الانتهاء  </th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$order->id}}</td>
-                                            <td>{{$order->order->subCategories->name_ar}}</td>
-                                            <td>{{$order->order->user->name}}</td>
-                                            <td>{{$order->order->user->name}}</td>
-                                            <td>{{$order->created_at->format('d/m/Y')}}</td>
-                                            <td>{{$order->updated_at->format('d/m/Y')}}</td>
-                                            <td>
-                                                <a class="btn btn-primary btn-sm" href="{{route('Order.show',$orderStatusHistory->id)}}">التفاصيل </a>
-                                            </td>
+                                            <td>{{$order->subCategories->name_ar}}</td>
+                                            <td>{{$order->user->name}}</td>
+                                            <td>{{$order->delivery_id ??''}}</td>
+                                            <td>{{$order->count_products}}</td>
+                                            <td>{{$order->total_price}}</td>
+                                            <td>{{$order->discount_value}}</td>
+                                            <td>{{$order->coupon ?? ''}}</td>
+                                            <td>{{$order->delivery_type=='1'?'استلام بواسطه العميل' :'استلام بواسطه المندوب'}}</td>
+                                            <td>{{$order->delivery_fees}}></td>
+                                            <td>{{$order->payment_method}}></td>
+                                            <td>{{$order->vat}}></td>
+                                            <td>{{$order->address->address}}></td>
+                                            <td>{{$order->created_at->day}}</td>
+                                            <td>{{$order->updated_at->day}}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>

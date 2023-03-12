@@ -134,7 +134,7 @@ class OrderController extends Controller
         return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
     }
     public function  readyPickUp(){
-        $orders=OrderTable::where("status_id",self::ClothesReadyForDelivery)->get();
+        $orders=OrderTable::with(['subCategories','user','address'])->where("status_id",self::ClothesReadyForDelivery)->get();
         dd($orders);
         return  view('dashboard.Orders.ordersPickUp',compact('orders'));
     }
@@ -149,8 +149,7 @@ class OrderController extends Controller
         return  view('dashboard.Orders.DeliveryOnTheWayToYou',compact('orders'));
     }
     public function  completed(){
-        $orders=OrderTable::where("status_id",self::Completed)->get();
-        dd($orders);
+        $orders=OrderTable::with(['subCategories','user'])->where("status_id",self::Completed)->get();
         return  view('dashboard.Orders.completed',compact('orders'));
     }
     public function  canceled(){
