@@ -40,7 +40,7 @@
                                             <div class="col-md-9">
                                                 <select class="form-control"  name="role_id">
                                                     @foreach($roles as $role)
-                                                        <option value="{{$role->id}}" {{$user->Roles[0]->id==$role->id ?'selected' :''}}>{{$role->role}}</option>
+                                                        <option value="{{$role->id}}" {{$user->Roles[0]->id==$role->id ??''}}>{{$role->role}}</option>
                                                     @endforeach
                                                 </select>
 
