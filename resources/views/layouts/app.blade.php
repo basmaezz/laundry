@@ -85,9 +85,9 @@
                <li class="nav-item">
 
             <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> الأدمن  </a>
-  
+
 {{--                <a class="nav-link" href="{{route('user.create')}}"><i class="icon-user-follow"></i> اضافه أدمن  </a>--}}
-{{--                <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>--}}
+                <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>
                 <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
                </li>
 

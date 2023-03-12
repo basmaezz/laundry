@@ -16,6 +16,7 @@
                                 <table id="users" class="table table-bordered table-striped">
                                     <thead >
                                     <tr >
+                                        <th>الرقم </th>
                                         <th>الاسم </th>
                                         <th>البريد الألكترونى</th>
                                         <th>الجوال</th>
@@ -28,10 +29,11 @@
                                     @foreach($users as $user)
                                         @if(Auth::user()->id!=$user->id)
                                     <tr>
+                                        <td>{{$user->id}}</td>
                                         <td>{{$user->name}}</td>
                                          <td>{{$user->email}} </td>
-                                         <td>{{$user->email}} </td>
-                                        <td> {{$user->phone}}</td>
+                                         <td>{{$user->phone}} </td>
+                                        <td> {{$user->Roles[0]->role ??''}}</td>
                                         <td>
                                             <a href="{{route('user.edit',$user->id)}}" class="btn btn-info">تعديل</a>
                                             <a href="{{route('user.delete',$user->id)}}" class="btn btn-danger show_confirm">حذف</a>
@@ -64,26 +66,5 @@
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#users_wrapper .col-md-6:eq(0)');
     </script>
-{{--    <script type="text/javascript">--}}
-
-{{--        $('.show_confirm').click(function(event) {--}}
-{{--            var form =  $(this).closest("form");--}}
-{{--            var name = $(this).data("name");--}}
-{{--            event.preventDefault();--}}
-{{--            swal({--}}
-{{--                title: `هل تريد اكمال الحذف ؟`,--}}
-{{--                text: "هل أنت متأكد  ؟",--}}
-{{--                icon: "warning",--}}
-{{--                buttons: true,--}}
-{{--                dangerMode: true,--}}
-{{--            })--}}
-{{--                .then((willDelete) => {--}}
-{{--                    if (willDelete) {--}}
-{{--                        form.submit();--}}
-{{--                    }--}}
-{{--                });--}}
-{{--        });--}}
-
-{{--    </script>--}}
 @endpush
 

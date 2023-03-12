@@ -232,13 +232,14 @@ Route::get('drop', function () {
     Schema::drop('cities');
 });
 
-//Route::get('truncateData', function () {
+Route::get('truncateData', function () {
 //    \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 //    \App\Models\OrderTable::truncate();
 //    \App\Models\OrderDetails::truncate();
 //    \App\Models\Address::truncate();
+    \App\Models\City::truncate();
 //    \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-//});
+});
 
 Route::get('columns', function () {
     $address = new \App\Models\Address();

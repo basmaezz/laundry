@@ -16,36 +16,36 @@ class CitySeeder extends Seeder
    public function run()
    {
        $cities = [
-//           [
-//               'id' => '1',
-//               'name_ar' => 'الرياض ',
-//               'name_en' => 'Riyadh',
-//           ],
-//       [
-//               'id' => '2',
-//               'name_ar' => 'المدينة المنورة ',
-//               'name_en' => 'Al Madinah Al Munawwarah',
-//           ],
-//          [
-//               'id' => '3',
-//               'name_ar' => 'مكه المكرمه',
-//               'name_en' => 'Mecca',
-//           ],//
-//           [
-//               'id' => '4',
-//               'name_ar' => 'تبوك',
-//               'name_en' => 'Tabuk',
-//           ],          [
-//            'id' => '5',
-//            'name_ar' => "الرياض",
-//            'name_en' => "Riyadh",
-//
-//        ],
-//        [
-//            'id' => '6',
-//            'name_ar' => "حميط",
-//            'name_en' => "Humayt",
-//        ],
+           [
+               'id' => '1',
+               'name_ar' => 'الرياض ',
+               'name_en' => 'Riyadh',
+           ],
+       [
+               'id' => '2',
+               'name_ar' => 'المدينة المنورة ',
+               'name_en' => 'Al Madinah Al Munawwarah',
+           ],
+          [
+               'id' => '3',
+               'name_ar' => 'مكه المكرمه',
+               'name_en' => 'Mecca',
+           ],
+           [
+               'id' => '4',
+               'name_ar' => 'تبوك',
+               'name_en' => 'Tabuk',
+           ],          [
+            'id' => '5',
+            'name_ar' => "الرياض",
+            'name_en' => "Riyadh",
+
+        ],
+        [
+            'id' => '6',
+            'name_ar' => "حميط",
+            'name_en' => "Humayt",
+        ],
           [
             'id' => '7',
             'name_ar' => "الطائف",
@@ -502,25 +502,25 @@ class CitySeeder extends Seeder
                'id'=>84,
                'name_ar'=>"محافظة الجبيل ",
                'name_en'=>"Jubail Governorate",
+           ],[
+               'id' => 85,
+               'name_ar' => "نعمي",
+               'name_en' => "Na'mi",
+
+           ],[
+               'id' => 86,
+
+               'name_ar' => "القليبة",
+               'name_en' => "Al Qalibah",
+
            ],
 
         ];
        City::insert($cities);
 }
 }
-//[
-//    'id' => '2',
-//    'name_ar' => "نعمي",
-//    'name_en' => "Na'mi",
-//
-//],
-//           [
-//               'id' => 79,
-//
-//               'name_ar' => "القليبة",
-//               'name_en' => "Al Qalibah",
-//
-//           ],
+
+
 //           [
 //               'id' => 80,
 //               "region_id" => 4,
