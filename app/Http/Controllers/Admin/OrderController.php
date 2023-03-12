@@ -115,37 +115,30 @@ class OrderController extends Controller
     public function  pendingDeliveryAcceptance()
     {
         $orders=OrderTable::where("status_id",self::WaitingForDelivery)->get();
-        dd($orders);
         return  view('dashboard.Orders.pendingDeliveryAcceptance',compact('orders'));
     }
     public function  DeliveryOnWay(){
         $orders=OrderTable::where("status_id",self::AcceptedByDelivery)->get();
-        dd($orders);
         return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
     }
     public function  WayToLaundry(){
         $orders=OrderTable::where("status_id",self::WayToLaundry)->get();
-        dd($orders);
         return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
     }
     public function  DeliveredToLaundry(){
         $orders=OrderTable::where("status_id",self::DeliveredToLaundry)->get();
-        dd($orders);
         return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
     }
     public function  readyPickUp(){
         $orders=OrderTable::with(['subCategories','user','address'])->where("status_id",self::ClothesReadyForDelivery)->get();
-        dd($orders);
         return  view('dashboard.Orders.ordersPickUp',compact('orders'));
     }
     public function  WaitingForDeliveryToReceiveOrder(){
         $orders=OrderTable::where("status_id",self::WaitingForDeliveryToReceiveOrder)->get();
-        dd($orders);
         return  view('dashboard.Orders.WaitingForDeliveryToReceiveOrder',compact('orders'));
     }
     public function  DeliveryOnTheWayToYou(){
         $orders=OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->get();
-        dd($orders);
         return  view('dashboard.Orders.DeliveryOnTheWayToYou',compact('orders'));
     }
     public function  completed(){
@@ -154,7 +147,6 @@ class OrderController extends Controller
     }
     public function  canceled(){
         $orders=OrderTable::where("status_id",self::Cancel)->get();
-        dd($orders);
         return  view('dashboard.Orders.completed',compact('orders'));
     }
 }
