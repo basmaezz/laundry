@@ -31,7 +31,7 @@ class CouponsController extends Controller
      */
     public function create()
     {
-       return view('dashboard.coupons.create');
+       return view('dashboard.Coupons.create');
     }
 
     /**
