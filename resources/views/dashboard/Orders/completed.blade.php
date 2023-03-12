@@ -44,7 +44,7 @@
                                             <td>{{$order->total_price}}</td>
                                             <td>{{$order->discount_value}}</td>
                                             <td>{{$order->coupon ?? ''}}</td>
-                                            @if($order->delivery_type!=null)
+                                            @if($order->delivery_type !='')
                                             <td>{{$order->delivery_type=='1'?'استلام بواسطه العميل' :'استلام بواسطه المندوب'}}</td>
                                             @endif
                                             <td>{{$order->delivery_fees}}></td>
