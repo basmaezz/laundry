@@ -41,6 +41,7 @@
                                                 <label class="col-md-3 form-control-label" for="text-input">الصلاحيه </label>
                                                 <div class="col-md-9">
                                                     <select class="form-control"  name="role_id">
+                                                        <option  >أختر صلاحيه</option>
                                                         @foreach($roles as $role)
                                                         <option value="{{$role->id}}">{{$role->role}}</option>
                                                         @endforeach
