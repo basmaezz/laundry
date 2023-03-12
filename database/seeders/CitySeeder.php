@@ -79,21 +79,10 @@ class CitySeeder extends Seeder
             'name_en' => "Dammam",
         ],
            [
-               'id' => '7',
+               'id' => '13',
                'name_ar' => "رجم الطيارة",
                'name_en' => "Rajm At Tayarah",
            ],
-           [
-               'id' => 8,
-               'name_ar' => "الثميد",
-               'name_en' => "Ath Thumayd",
-           ],
-           [
-               'id' => 9,
-               'name_ar' => "عسيلة",
-               'name_en' => "'Usaylah",
-           ],
-
            [
                'id' => 14,
                'name_ar' => "المدينة المنورة",
