@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //  \App\Models\User::factory(10)->create();
-                 \App\Models\User::factory()->create([
-                     'name' => 'Admin',
-                     'email' => 'lanudry_admin@admin.com',
-                     'password'=>bcrypt('password')
-                 ]);
+//                 \App\Models\User::factory()->create([
+//                     'name' => 'Admin',
+//                     'email' => 'lanudry_admin@admin.com',
+//                     'password'=>bcrypt('password')
+//                 ]);
 //        for ($i = 2000; $i <= 2023; $i++) {
 //            \App\Models\Year::create([
 //                'name' => $i,
@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             //            AppUserSeeder::class,
             //             carTypesSeeder::class,
             //             EducationsLevelSeeder::class,
-            //             CitySeeder::class,
+                         CitySeeder::class,
             //            CategorySeeder::class,
             //            subCategorySeeder::class,
             //            CatgeoryItemSeeder::class,
