@@ -1,17 +1,21 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        @if($errors->any())
-            <div class="alert alert-danger">
-                <h6>{{$errors->first()}}</h6>
-            </div>
-        @elseif(session()->has('message'))
-            <div class="alert alert-success">
-                {{ session()->get('message') }}
-            </div>
-        @endif
+
 
         <div class="container-fluid">
+            <div class="validationMsg" style="width: 600px">
+                @if($errors->any())
+                    <div class="alert alert-danger" >
+                        <h6>{{$errors->first()}}</h6>
+                    </div>
+                @elseif(session()->has('message'))
+                    <div class="alert alert-success"  >
+                        {{ session()->get('message') }}
+                    </div>
+                @endif
+            </div>
+
             <a href="{{route('coupon.create')}}" class="btn btn-primary">اضافه كوبون</a>
 
                 <div class="animated fadeIn">
@@ -47,8 +51,11 @@
                                                 <td><span class="tag tag-success">Active</span></td>
                                                 @endif
                                                 <td>
-
-{{--                                                    <a href="{{route('coupon.show',$coupon->id)}}" class="btn btn-info">عرض  القطع </a>--}}
+                                                    @if ($coupon->status=='0')
+                                                    <a href="{{route('coupon.changeStatus',$coupon->id)}}" class="btn btn-danger">  تفعيل </a>
+                                                    @else
+                                                        <a href="{{route('coupon.changeStatus',$coupon->id)}}" class="btn btn-info">  ايقاف </a>
+                                                    @endif
                                                     <a href="{{route('coupon.edit',$coupon->id)}}" class="btn btn-primary">تعديل</a>
                                                     <a href="{{route('coupon.destroy',$coupon->id)}}" class="btn btn-danger">حذف</a>
                                                 </td>

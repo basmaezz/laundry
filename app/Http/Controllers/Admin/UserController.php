@@ -33,6 +33,22 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function adminLogin(Request $request){
+
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials) && Auth::user()->subCategory_id =='' ) {
+            return view('dashboard');
+        }
+        return redirect()->back()->with('error', 'Something went wrong.');
+//        return redirect()->back()->withSuccess('Login details are not valid');
+    }
     public function index(Request $request)
     {
         $this->authorize('view',User::class);

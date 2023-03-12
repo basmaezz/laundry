@@ -28,7 +28,7 @@ use App\Http\Controllers\Customer\OrdersController;
 Route::get('/', function () {
     return view('auth.login');
 });
-
+Route::post('adminLogin',[UserController::class,'adminLogin'])->name('adminLogin');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -113,6 +113,7 @@ Route::middleware('auth')->group(function () {
     Route::get('couponEdit/{id}', [CouponsController::class, 'edit'])->name('coupon.edit');
     Route::patch('couponUpdate/{id}', [CouponsController::class, 'update'])->name('coupon.update');
     Route::get('couponDelete/{id}', [CouponsController::class, 'destroy'])->name('coupon.destroy');
+    Route::get('changeStatus/{id}', [CouponsController::class, 'changeStatus'])->name('coupon.changeStatus');
 
     Route::get('getOrders', [OrderController::class, 'index'])->name('Order.index');
     Route::get('viewOrder/{id}', [OrderController::class, 'show'])->name('Order.show');

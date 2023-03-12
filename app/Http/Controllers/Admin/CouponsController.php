@@ -21,7 +21,7 @@ class CouponsController extends Controller
             abort(403);
         };
          $coupons=CouponShopCart::all();
-         return  view('dashboard.Coupons.index',compact('coupons'));
+         return  view('dashboard.coupons.index',compact('coupons'));
     }
 
     /**
@@ -31,7 +31,7 @@ class CouponsController extends Controller
      */
     public function create()
     {
-       return view('dashboard.Coupons.create');
+       return view('dashboard.coupons.create');
     }
 
     /**
@@ -43,7 +43,7 @@ class CouponsController extends Controller
     public function store(CouponRequest $request)
     {
         CouponShopCart::create($request->validated());
-        return redirect()->route('Coupons.index')->with('message', 'تمت الاضافه!');
+        return redirect()->route('coupons.index')->with('message', 'تمت الاضافه!');
 
     }
 
@@ -67,7 +67,7 @@ class CouponsController extends Controller
     public function edit($id)
     {
         $coupon=CouponShopCart::findorfail($id);
-        return view('dashboard.Coupons.edit',compact('coupon'));
+        return view('dashboard.coupons.edit',compact('coupon'));
     }
 
     /**
@@ -80,7 +80,7 @@ class CouponsController extends Controller
     public function update(CouponRequest $request, $id)
     {
         CouponShopCart::where('id',$id)->update($request->validated());
-        return redirect()->route('Coupons.index')->with('message', 'تم التعديل بنجاح!');
+        return redirect()->route('coupons.index')->with('message', 'تم التعديل بنجاح!');
 
     }
 
@@ -94,5 +94,13 @@ class CouponsController extends Controller
     {
         CouponShopCart::find($id)->delete();
         return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
+    }
+
+    public function changeStatus($id)
+    {
+        $coupon=CouponShopCart::findorfail($id);
+        $coupon->status=='0' ? $coupon->status='1' :$coupon->status='0';
+        $coupon->save();
+        return  redirect()->back()->withErrors(['msg' => ' تم تعديل حاله الكوبون']);
     }
 }

@@ -43,7 +43,7 @@ class LoginRequest extends FormRequest
      */
     public function authenticate()
     {
-
+dd('login');
         $this->ensureIsNotRateLimited();
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))||Auth::user()->subCategory_id ='') {
 

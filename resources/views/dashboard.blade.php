@@ -13,9 +13,7 @@
                                     <i class="icon-settings"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+
                                 </div>
                             </div>
                             <h4 class="m-b-0">{{\App\Models\Delegate::count()}}</h4>
@@ -36,7 +34,7 @@
 
                             </div>
                             <h4 class="m-b-0">{{\App\Models\User::count()}}</h4>
-                            <p> عدد المدراء  </p>
+                            <p> المدراء  </p>
                         </div>
                         <div class="chart-wrapper" style="height:70px;">
                             <canvas id="card-chart3" class="chart" height="70"></canvas>

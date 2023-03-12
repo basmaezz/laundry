@@ -41,14 +41,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="#"></a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" style="float: left;
+padding-left: 74px;">
                 <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 
                     <span class="hidden-md-down">{{Auth::user()->name}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-header text-xs-center">
-                        <strong>تنظیمات</strong>
+
                     </div>
                     <a class="dropdown-item" href="{{route('users.profile')}}"><i class="fa fa-user"></i> پروفایل</a>
                     <div class="divider"></div>

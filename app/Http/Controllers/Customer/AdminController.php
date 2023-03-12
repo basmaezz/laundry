@@ -19,14 +19,10 @@ class AdminController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
-
-
         $credentials = $request->only('email', 'password');
-
         if (Auth::attempt($credentials) && Auth::user()->subCategory_id !='' ) {
             return view('customers.backEnd.main');
        }
-
         return redirect()->back()->withSuccess('Login details are not valid');
     }
 
