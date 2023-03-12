@@ -21,7 +21,7 @@ class CouponsController extends Controller
             abort(403);
         };
          $coupons=CouponShopCart::all();
-         return  view('dashboard.coupons.index',compact('coupons'));
+         return  view('dashboard.Coupons.index',compact('coupons'));
     }
 
     /**
@@ -67,7 +67,7 @@ class CouponsController extends Controller
     public function edit($id)
     {
         $coupon=CouponShopCart::findorfail($id);
-        return view('dashboard.coupons.edit',compact('coupon'));
+        return view('dashboard.Coupons.edit',compact('coupon'));
     }
 
     /**
