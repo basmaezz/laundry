@@ -67,11 +67,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-//        dd($request->all());
-//        if($request->file('avatar')){
-//            $filename = request('avatar')->getClientOriginalName();
-//            request()->file('avatar')->move(public_path() . '/images/' , $filename);
-//        }
+
         if(!empty($request->file('avatar'))){
             $filename = uploadFile($request->file('avatar'),'images');
         }
@@ -113,7 +109,7 @@ class UserController extends Controller
         $user=User::findorFail($id);
         $roles=Role::all();
         $levels=educationLevel::all();
-        return  view('dashboard.users.edit',compact(['user','levels']));
+        return  view('dashboard.users.edit',compact(['user','levels','roles']));
 
     }
 

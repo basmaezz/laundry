@@ -7,7 +7,7 @@
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-7">
                             <div class="card">
 
                                 <div class="card-header">
@@ -33,6 +33,17 @@
                                             @if ($errors->has('last_name'))
                                                     <span class="text-danger">{{ $errors->first('last_name') }}</span>
                                                 @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">الصلاحيه </label>
+                                            <div class="col-md-9">
+                                                <select class="form-control"  name="role_id">
+                                                    @foreach($roles as $role)
+                                                        <option value="{{$role->id}}" {{$user->Roles[0]->id==$role->id ?'selected' :''}}>{{$role->role}}</option>
+                                                    @endforeach
+                                                </select>
+
                                             </div>
                                         </div>
                                         <div class="form-group row">

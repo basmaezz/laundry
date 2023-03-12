@@ -7,7 +7,7 @@
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-7">
                             <div class="card">
 
                                     <div class="card-header">
