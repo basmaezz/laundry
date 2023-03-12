@@ -8,32 +8,37 @@
                         <div class="card">
 
                             <div class="card-header">
-                                <i class="fa fa-align-justify"></i> الطلبات المنتهيه
+                                <i class="fa fa-align-justify"></i> الطلبات
+                                <a href="#" class="btn btn-primary" style="float:left;margin-top: 2px;">بحث متقدم  </a>
                             </div>
                             <div class="card-block">
-                                <table id="ordersPickUp" class="table table-bordered table-striped">
+                                <table id="orders" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
                                         <th>رقم الطلب  </th>
                                         <th>اسم المغسله </th>
                                         <th>اسم العميل </th>
-                                        <th>اسم المندوب  </th>
-                                        <th>تاريخ وصولها المغسله </th>
-                                        <th>تاريخ الانتهاء من الغسيل </th>
+                                        <th>المدينه </th>
+                                        <th>الحى </th>
+                                        <th>السنه </th>
+                                        <th>الشهر </th>
+                                        <th>اليوم </th>
                                         <th>التفاصيل</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($orderStatusHistories as $orderStatusHistory)
+                                    @foreach($orders as $order)
                                         <tr>
-                                            <td>{{$orderStatusHistory->id}}</td>
-                                            <td>{{$orderStatusHistory->order->subCategories->name_ar}}</td>
-                                            <td>{{$orderStatusHistory->order->user->name}}</td>
-                                            <td>{{$orderStatusHistory->order->user->name}}</td>
-                                            <td>{{$orderStatusHistory->created_at->format('d/m/Y')}}</td>
-                                            <td>{{$orderStatusHistory->updated_at->format('d/m/Y')}}</td>
+                                            <td>{{$order->id}}</td>
+                                            <td>{{$order->subCategories->name_ar}}</td>
+                                            <td>{{$order->user->name}}</td>
+                                            <td>{{$order->user->cities->name_ar}}</td>
+                                            <td>{{$order->user->region_name}}</td>
+                                            <td>{{$order->created_at->year}}</td>
+                                            <td>{{$order->created_at->month}}</td>
+                                            <td>{{$order->created_at->day}}</td>
                                             <td>
-                                                <a class="btn btn-primary btn-sm" href="{{route('Order.show',$orderStatusHistory->id)}}">التفاصيل </a>
+                                                <a class="btn btn-primary btn-sm" href="{{route('Order.show',$order->id)}}">التفاصيل </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -50,12 +55,13 @@
 
         </div>
     </main>
+
 @endsection
 @push('scripts')
     <script>
-        $("#ordersPickUp").DataTable({
+        $("#orders").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#ordersPickUp_wrapper .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#orders_wrapper .col-md-6:eq(0)');
     </script>
 @endpush

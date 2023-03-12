@@ -30,9 +30,9 @@ class OrderController extends Controller
      */
         public function index()
         {
-            if(Gate::denies('Orders.index')){
-                abort(403);
-            };
+//            if(Gate::denies('Orders.index')){
+//                abort(403);
+//            };
            $orders=OrderTable::with(['subCategories','user','user.cities'])->get();
            return  view('dashboard.Orders.index',compact('orders'));
         }
@@ -111,40 +111,35 @@ class OrderController extends Controller
         $order->save();
         return response()->json(['success'=>'Status change successfully.']);
     }
-    public function getAllOrders()
-    {
-        $orders=OrderTable::all();
-        return  view('dashboard.Orders.allOrders',compact('orders'));
-    }
+
     public function  pendingDeliveryAcceptance()
     {
         $orders=OrderTable::where("status_id",self::WaitingForDelivery)->get();
         return  view('dashboard.Orders.pendingDeliveryAcceptance',compact('orders'));
     }
     public function  DeliveryOnWay(){
-        $orderStatusHistories=OrderStatusHistory::with('order')->where('status_id',3)->get();
-        return  view('dashboard.Orders.DeliveryOnWay',compact(['orderStatusHistories']));
+        $orders=OrderTable::where("status_id",self::AcceptedByDelivery)->get();
+        return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
     }
     public function  WayToLaundry(){
-        $orderStatusHistories=OrderStatusHistory::with('order')->where('status_id',4)->get();
-        return  view('dashboard.Orders.DeliveryOnWay',compact(['orderStatusHistories']));
+        $orders=OrderTable::where("status_id",self::WayToLaundry)->get();
+        return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
     }
     public function  DeliveredToLaundry(){
-        $orderStatusHistories=OrderStatusHistory::with('order')->where('status_id',5)->get();
-        return  view('dashboard.Orders.DeliveryOnWay',compact(['orderStatusHistories']));
+        $orders=OrderTable::where("status_id",self::DeliveredToLaundry)->get();
+        return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
     }
     public function  readyPickUp(){
-        $orderStatusHistories=OrderStatusHistory::with('order')->where('status_id',6)->get();
-        return  view('dashboard.Orders.ordersPickUp',compact(['orderStatusHistories']));
+        $orders=OrderTable::where("status_id",self::ClothesReadyForDelivery)->get();
+        return  view('dashboard.Orders.ordersPickUp',compact('orders'));
     }
     public function  WaitingForDeliveryToReceiveOrder(){
-        $orderStatusHistories=OrderStatusHistory::with('order')->where('status_id',7)->get();
-        return  view('dashboard.Orders.WaitingForDeliveryToReceiveOrder',compact(['orderStatusHistories']));
+        $orders=OrderTable::where("status_id",self::WaitingForDeliveryToReceiveOrder)->get();
+        return  view('dashboard.Orders.WaitingForDeliveryToReceiveOrder',compact('orders'));
     }
     public function  DeliveryOnTheWayToYou(){
-        $orderStatusHistories=OrderStatusHistory::with('order')->where('status_id',9)->get();
-        $orders=OrderTable::where("status_id",self::Completed)->get();
-        return  view('dashboard.Orders.DeliveryOnTheWayToYou',compact(['orderStatusHistories']));
+        $orders=OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->get();
+        return  view('dashboard.Orders.DeliveryOnTheWayToYou',compact('orders'));
     }
     public function  completed(){
         $orders=OrderTable::where("status_id",self::Completed)->get();

@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('createDelegate', [UserController::class, 'CreateDelegate'])->name('delegate.create');
     Route::post('storeDelegate', [UserController::class, 'storeDelegate'])->name('delegate.store');
     Route::get('showDelegate/{id}', [UserController::class, 'showDelegate'])->name('delegate.show');
-    Route::get('changeStatus/{id}', [UserController::class, 'changeStatus'])->name('delegate.changeStatus');
+    Route::get('changeDelegateStatus/{id}', [UserController::class, 'changeDelegateStatus'])->name('delegate.changeDelegateStatus');
     Route::get('deleteDelegate/{id}', [UserController::class, 'deleteDelegate'])->name('delegate.delete');
     Route::get('customerDelete/{id}', [UserController::class, 'customerDelete'])->name('customer.delete');
     Route::get('customerWallet/{id}', [UserController::class, 'customerWallet'])->name('customer.wallet');

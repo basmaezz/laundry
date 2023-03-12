@@ -24,14 +24,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($orderStatusHistories as $orderStatusHistory)
+                                    @foreach($orders as $order)
                                         <tr>
-                                            <td>{{$orderStatusHistory->id}}</td>
-                                            <td>{{$orderStatusHistory->order->subCategories->name_ar}}</td>
-                                            <td>{{$orderStatusHistory->order->user->name}}</td>
-                                            <td>{{$orderStatusHistory->order->user->name}}</td>
-                                            <td>{{$orderStatusHistory->created_at->format('d/m/Y')}}</td>
-                                            <td>{{$orderStatusHistory->updated_at->format('d/m/Y')}}</td>
+                                            <td>{{$order->id}}</td>
+                                            <td>{{$order->order->subCategories->name_ar}}</td>
+                                            <td>{{$order->order->user->name}}</td>
+                                            <td>{{$order->order->user->name}}</td>
+                                            <td>{{$order->created_at->format('d/m/Y')}}</td>
+                                            <td>{{$order->updated_at->format('d/m/Y')}}</td>
                                             <td>
                                                 <a class="btn btn-primary btn-sm" href="{{route('Order.show',$orderStatusHistory->id)}}">التفاصيل </a>
                                             </td>

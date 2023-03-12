@@ -42,8 +42,8 @@
                                                 <div class="col-md-9">
                                                     <select class="form-control"  name="role_id">
                                                         <option  >أختر صلاحيه</option>
-                                                        @foreach($roles as $role)
-                                                        <option value="{{$role->id}}">{{$role->role}}</option>
+                                                        @foreach($roles as $key => $role)
+                                                        <option value="{{$role}}">{{$key}}</option>
                                                         @endforeach
                                                     </select>
 
@@ -94,8 +94,8 @@
                                                 <div class="col-md-9">
                                                     <select name="level_id" id="level_id"  class="form-control" >
                                                         <option>المستوى التعليمى</option>
-                                                        @foreach($levels as $level)
-                                                        <option value="{{$level->id}}">{{$level->name}}</option>
+                                                        @foreach($levels as $key =>$level)
+                                                        <option value="{{$level}}">{{$key}}</option>
                                                         @endforeach
                                                     </select>
                                                     @if ($errors->has('level_id'))

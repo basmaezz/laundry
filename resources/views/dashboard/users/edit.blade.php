@@ -43,7 +43,6 @@
                                                         @if($user->hasRole)
                                                         <option value="{{$role->id}}" {{$user->Roles[0]->id==$role->id ??''}}>{{$role->role}}</option>
                                                         @else
-
                                                         <option value="{{$role->id}}" >{{$role->role}}</option>
                                                         @endif
                                                     @endforeach

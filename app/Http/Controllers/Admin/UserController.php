@@ -33,33 +33,22 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function adminLogin(Request $request){
 
         $request->validate([
             'email' => 'required',
             'password' => 'required',
         ]);
-
         $credentials = $request->only('email', 'password');
-
         if (Auth::attempt($credentials) && Auth::user()->subCategory_id =='' ) {
             return view('dashboard');
         }
         return redirect()->back()->with('error', 'Something went wrong.');
-//        return redirect()->back()->withSuccess('Login details are not valid');
     }
     public function index(Request $request)
     {
         $this->authorize('view',User::class);
-//         if(Gate::denies('users.index')){
-//             abort(403);
-//         };
         $users=User::whereNull('subCategory_id')->get();
-//        $users=User::whereHas('Roles' , function($query) {
-//            $query->where('role','admin');
-//        })->get();
-
         return view('dashboard.users.index',compact('users'));
     }
 
@@ -70,8 +59,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $levels=educationLevel::all();
-        $roles=Role::all();
+        $levels=educationLevel::pluck('id','name');
+        $roles=Role::pluck('id','role');
         return view('dashboard.users.create',compact(['levels','roles']));
     }
 
@@ -121,12 +110,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-
         $user=User::findorFail($id);
         $roles=Role::all();
         $levels=educationLevel::all();
         return  view('dashboard.users.edit',compact(['user','levels','roles']));
-
     }
 
     /**
@@ -315,11 +302,16 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('users.index');
     }
-    public function changeStatus($id)
+    public function changeDelegateStatus($id)
     {
        $delegate=Delegate::with('appUser')->find($id);
         $delegate->appUser->status=='active' ?$delegate->appUser->status='deactivated' :$delegate->appUser->status='active';
         $delegate->appUser->save();
        return redirect()->back();
+    }
+
+    public function changePassword($id)
+    {
+
     }
 }
