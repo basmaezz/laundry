@@ -6,17 +6,9 @@
         <div class="animated fadeIn">
             <div class="row">
                 <div class="col-sm-6 col-lg-4">
-                    <div class="card card-inverse card-primary">
+                    <div class="card card-inverse card-primary"  style="border-radius: 25px">
                         <div class="card-block p-b-0">
-                            <div class="btn-group pull-left">
-                                <button type="button" class="btn btn-transparent active dropdown-toggle p-a-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon-settings"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-
-                                </div>
-                            </div>
-                            <h4 class="m-b-0">{{\App\Models\Delegate::count()}}</h4>
+                               <h4 class="m-b-0">{{\App\Models\Delegate::count()}}</h4>
                             <p> المناديب</p>
                         </div>
                         <div class="chart-wrapper p-x-1" style="height:70px;">
@@ -29,12 +21,12 @@
                         <div class="card-block p-b-0">
                             <div class="btn-group pull-left">
                                 <button type="button" class="btn btn-transparent active dropdown-toggle p-a-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon-settings"></i>
+
                                 </button>
 
                             </div>
                             <h4 class="m-b-0">{{\App\Models\User::count()}}</h4>
-                            <p> المدراء  </p>
+                            <p> عدد المدراء  </p>
                         </div>
                         <div class="chart-wrapper" style="height:70px;">
                             <canvas id="card-chart3" class="chart" height="70"></canvas>
@@ -46,7 +38,7 @@
                         <div class="card-block p-b-0">
                             <div class="btn-group pull-left">
                                 <button type="button" class="btn btn-transparent active dropdown-toggle p-a-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon-settings"></i>
+
                                 </button>
 
                             </div>
@@ -63,7 +55,7 @@
                         <div class="card-block p-b-0">
                             <div class="btn-group pull-left">
                                 <button type="button" class="btn btn-transparent active dropdown-toggle p-a-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon-settings"></i>
+
                                 </button>
 
                             </div>
@@ -95,7 +87,7 @@
                         <div class="card-block p-b-0">
                             <div class="btn-group pull-left">
                                 <button type="button" class="btn btn-transparent active dropdown-toggle p-a-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon-settings"></i>
+
                                 </button>
 
                             </div>

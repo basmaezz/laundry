@@ -320,7 +320,6 @@ class UserController extends Controller
        $delegate=Delegate::with('appUser')->find($id);
         $delegate->appUser->status=='active' ?$delegate->appUser->status='deactivated' :$delegate->appUser->status='active';
         $delegate->appUser->save();
-
        return redirect()->back();
     }
 }
