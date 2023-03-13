@@ -110,7 +110,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user=User::findorFail($id);
+        $user=User::with('Roles')->findorFail($id);
         $roles=Role::all();
         $levels=educationLevel::all();
         return  view('dashboard.users.edit',compact(['user','levels','roles']));
@@ -125,8 +125,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $user= User::find($id);
+        $user= User::findorfail($id);
 
         $user->update([
             $user['name']=$request->get('name'),
@@ -136,11 +135,13 @@ class UserController extends Controller
             $user['level_id']=$request->get('level_id'),
             $user['birthdate']=$request->get('birthdate'),
             $user['joindate']=$request->get('joindate'),
-            $user['avatar']=$request->file('avatar') ? $filename = request('avatar')->getClientOriginalName() :''  ,
         ]);
-
+        if(!empty($request->file('avatar'))){
+            $filename = uploadFile($request->file('avatar'),'images');
+            $user['avatar']=$filename;
+        }
+        $user->roles()->sync([$request->input('role_id')]);
         $user->save();
-
         return redirect()->route('users.index');
     }
     /**
@@ -288,6 +289,7 @@ class UserController extends Controller
     public function updateProfile(Request $request)
     {
         $user= User::find(Auth::user()->id);
+
         $user->update([
             $user['name']=$request->get('name'),
             $user['last_name']=$request->get('last_name'),
@@ -298,7 +300,10 @@ class UserController extends Controller
             $user['birthdate']=$request->get('birthdate'),
             $user['joindate']=$request->get('joindate'),
         ]);
-
+        if(!empty($request->file('avatar'))){
+            $filename = uploadFile($request->file('avatar'),'images');
+            $user['avatar']=$filename;
+        }
         $user->save();
         return redirect()->route('users.index');
     }

@@ -29,7 +29,8 @@ class User extends Authenticatable
         'birthdate',
         'joindate',
         'avatar',
-        'subCategory_id'
+        'subCategory_id',
+        'role_id'
     ];
     protected $dates = ['joindate'];
 
@@ -55,6 +56,11 @@ class User extends Authenticatable
     public function setPasswordAttribute($password){
         return $this->attributes['password'] = Hash::needsRehash($password) ? Hash::make($password) : $password;
     }
+
+//    public function getImageAttribute($image)
+//    {
+//        return  isset($image) ? 'assets/uploads/images/'. $image : '';
+//    }
 //    public function getImageAttribute()
 //    {
 //        return $this->avtar;

@@ -37,11 +37,6 @@
                                         <td>
                                             <a href="{{route('user.edit',$user->id)}}" class="btn btn-info">تعديل</a>
                                             <a href="{{route('user.delete',$user->id)}}" class="btn btn-danger show_confirm">حذف</a>
-{{--                                            <form method="POST" action="{{ route('user.delete', $user->id) }}">--}}
-{{--                                                @csrf--}}
-{{--                                                <input name="_method" type="hidden" value="DELETE">--}}
-{{--                                                <button type="submit" class="btn btn-danger show_confirm" data-toggle="tooltip" title='Delete'>حذف</button>--}}
-{{--                                            </form>--}}
                                         </td>
                                     </tr>
                                         @endif

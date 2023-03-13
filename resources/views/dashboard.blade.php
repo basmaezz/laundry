@@ -58,13 +58,16 @@
                 <div class="col-sm-6 col-lg-12">
                     <div class="col-sm-6 col-lg-8" style="margin-right: 40px !important;">
                         <div class="card card-inverse card-primary"  style="border-radius: 25px">
-                            <div class="card-block p-b-0">
+                            <div class="card-block p-b-0" style="display: inline-block">
                                 <h4 class="m-b-0">{{\App\Models\Subcategory::count()}}</h4>
                                 <p> المغاسل</p>
+                                <h4 class="m-b-0">{{\App\Models\Subcategory::WhereNull('parent_id')->count()}}</h4>
+                                <p> المغاسل الرئيسيه</p>
+                                <h4 class="m-b-0">{{\App\Models\Subcategory::WhereNotNull('parent_id')->count()}}</h4>
+                                <p> المغاسل الفرعيه</p>
                             </div>
-                            <div class="chart-wrapper p-x-1" style="height:70px;">
-                                <canvas id="card-chart1" class="chart" height="70"></canvas>
-                            </div>
+
+
                         </div>
                     </div>
                 </div>

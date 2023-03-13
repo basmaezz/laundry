@@ -16,6 +16,11 @@
                                 <div class="card-block">
                                     <form action="{{url('userUpdate/'.$user->id)}}" method="post" enctype="multipart/form-data" class="form-horizontal ">
                                         @csrf
+                                        <div class="card-body box-profile">
+                                            <img class="profile-user-img img-fluid img-circle"
+                                                 src="{{asset('assets/uploads/images/'.$user->avatar)}}"
+                                                 alt="User profile picture">
+                                        </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
                                             <div class="col-md-9">
@@ -38,13 +43,10 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الصلاحيه </label>
                                             <div class="col-md-9">
+
                                                 <select class="form-control"  name="role_id">
                                                     @foreach($roles as $role)
-                                                        @if($user->hasRole)
-                                                        <option value="{{$role->id}}" {{$user->Roles[0]->id==$role->id ??''}}>{{$role->role}}</option>
-                                                        @else
-                                                        <option value="{{$role->id}}" >{{$role->role}}</option>
-                                                        @endif
+                                                        <option value="{{$role->id}}" {{$user->Roles[0]->id==$role->id ?'selected':''}}>{{$role->role}}</option>
                                                     @endforeach
                                                 </select>
 

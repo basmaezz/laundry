@@ -17,6 +17,11 @@
                                     <form action="{{route('user.updateProfile')}}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                         @csrf
                                         @method('PATCH')
+                                            <div class="card-body box-profile">
+                                                    <img class="profile-user-img img-fluid img-circle"
+                                                         src="{{asset('assets/uploads/images/'.$user->avatar)}}"
+                                                         alt="User profile picture">
+                                        </div>
 
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
@@ -79,7 +84,7 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الملف الشخصى </label>
+                                        <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الملف الشخصى </label>
                                             <div class="col-md-9">
                                                 <input type="file" id="file-input" name="avatar" class="form-control">
                                             </div>
