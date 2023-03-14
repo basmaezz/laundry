@@ -5,7 +5,7 @@
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header">
                                     <strong>  تعديل كلمه المرور {{$user->name}} </strong>
@@ -24,13 +24,13 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">كلمه المرور الجديده </label>
                                             <div class="col-md-9">
-                                                <input type="password" id="text-input" name="new_password" class="form-control"placeholder="new password" required>
+                                                <input type="password" id="text-input" name="new_password" class="form-control"placeholder=" كلمه المرور الجديده" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">اعاده كلمه المرور </label>
                                             <div class="col-md-9">
-                                                <input type="password" id="text-input" name="new_password_confirmation" class="form-control" placeholder="confirm password" required>
+                                                <input type="password" id="text-input" name="new_password_confirmation" class="form-control" placeholder=" اعاده كلمه المرور" required>
                                             </div>
                                         </div>
                                         <div class="card-footer">

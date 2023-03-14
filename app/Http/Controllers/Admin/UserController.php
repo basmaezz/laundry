@@ -86,7 +86,7 @@ class UserController extends Controller
         $user->roles()->attach([
             'role_id'=>$request->role_id,
         ]);
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('message', 'تمت الاضافه بنجاح !');
     }
 
     /**
@@ -139,7 +139,7 @@ class UserController extends Controller
         }
         $user->roles()->sync([$request->input('role_id')]);
         $user->save();
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('message', 'تم تعديل بيانات المستخدم بنجاح !');;
     }
     /**
      * Remove the specified resource from storage.
@@ -150,7 +150,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return  redirect()->back();
+        return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
     }
 
     public function customers(Request $request){
@@ -162,7 +162,7 @@ class UserController extends Controller
     public function customerDelete($id)
     {
         AppUser::find($id)->delete();
-        return  redirect()->back();
+        return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
     }
     public function customerWallet($id)
     {
@@ -181,7 +181,7 @@ class UserController extends Controller
 
         $appUser->wallet += floatval($request->get("amount"));
         $appUser->save();
-        return redirect()->route('customers.index');
+        return redirect()->route('customers.index')->with('message', 'تم الاضافه للمحفظه !');;
     }
     public function customerOrders($id){
         $orders=OrderTable::where('user_id',$id)->with('subCategories')->get();
@@ -268,7 +268,7 @@ class UserController extends Controller
                   'car_registration'=>$fileNameCarBehind,
                   'glasses_avatar'=>$fileNameCarRegistration,
       ]);
-       return redirect()->route('delegates.index');
+       return redirect()->route('delegates.index')->with('message', 'تم اضافه مندوب جديد !');;
     }
     public function showDelegate($id)
     {
@@ -281,7 +281,7 @@ class UserController extends Controller
       $delegate=Delegate::find($id);
       User::where('id',$delegate->user_id)->delete();
       $delegate->delete();
-      return redirect()->back();
+        return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
     }
 
     public function profile()
@@ -309,14 +309,14 @@ class UserController extends Controller
             $user['avatar']=$filename;
         }
         $user->save();
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('message', 'تم تعديل بيانات الملف الخاص بك !');;
     }
     public function changeDelegateStatus($id)
     {
        $delegate=Delegate::with('appUser')->find($id);
         $delegate->appUser->status=='active' ?$delegate->appUser->status='deactivated' :$delegate->appUser->status='active';
         $delegate->appUser->save();
-       return redirect()->back();
+       return redirect()->back()->with('message', 'تم تغيير نشاط المندوب !');;
     }
 
     public function editPassword()
@@ -331,13 +331,15 @@ class UserController extends Controller
             'new_password' => 'required','min:6','regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/','confirmed',
         ]);
         if(!Hash::check($request->old_password, auth()->user()->password)){
-            return back()->with("error", "Old Password Doesn't match!");
+            return back()->with("error", "كلمه المرور غير صحيحه !");
         }
         User::whereId(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
-        return view('dashboard');
+//        return view('dashboard');
 //        return back()->with("status", "Password changed successfully!");
+        \Auth::logout();
+        return redirect('/login')->with('message', 'تم تغيير كلمه المرور بنجاح !');
     }
 
 }

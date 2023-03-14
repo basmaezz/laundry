@@ -3,6 +3,17 @@
     <main class="main">
 
         <div class="container-fluid">
+            <div class="validationMsg" style="width: 600px">
+                @if($errors->any())
+                    <div class="alert alert-danger" >
+                        <h6>{{$errors->first()}}</h6>
+                    </div>
+                @elseif(session()->has('message'))
+                    <div class="alert alert-success"  >
+                        {{ session()->get('message') }}
+                    </div>
+                @endif
+            </div>
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="col-lg-12">
@@ -31,12 +42,12 @@
                                     @foreach($delegates as $delegate)
                                     <tr>
                                         <td>{{$delegate->id}}</td>
-                                        <td>{{$delegate->appUser->name}}</td>
-                                        <td>{{$delegate->appUser->cities->name_ar}}</td>
-                                        <td>{{$delegate->nationality->name_ar}}</td>
+                                        <td>{{$delegate->appUser->name ??''}}</td>
+                                        <td>{{$delegate->appUser->cities->name_ar ??''}}</td>
+                                        <td>{{$delegate->nationality->name_ar ?? ''}}</td>
                                         <td>{{$delegate->request_employment==0 ?'موظف':'عامل حر'}}</td>
-                                        <td>{{$delegate->appUser->status}}</td>
-                                        <td>{{$delegate->appUser->created_at->format('Y-M-D')}}</td>
+                                        <td>{{$delegate->appUser->status ??''}}</td>
+                                        <td>{{$delegate->created_at->format('Y-M-D') ??''}}</td>
 
                                         <td>
                                             @if($delegate->appUser->status=='active')

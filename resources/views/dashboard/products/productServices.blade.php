@@ -1,11 +1,17 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-      @if($errors->any())
-            <div class="alert alert-danger">
-                <h6>{{$errors->first()}}</h6>
-            </div>
-        @endif
+        <div class="validationMsg" style="width: 600px">
+            @if($errors->any())
+                <div class="alert alert-danger" >
+                    <h6>{{$errors->first()}}</h6>
+                </div>
+            @elseif(session()->has('message'))
+                <div class="alert alert-success"  >
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+        </div>
 
         <div class="container-fluid">
 
