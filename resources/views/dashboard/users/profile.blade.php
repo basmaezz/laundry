@@ -7,7 +7,7 @@
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-7">
                             <div class="card">
 
                                 <div class="card-header">
@@ -42,12 +42,6 @@
                                             <label class="col-md-3 form-control-label" for="email-input">البريد الألكترونى </label>
                                             <div class="col-md-9">
                                                 <input type="email" id="email-input" name="email" class="form-control" value=" {{$user->email}} "required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="password-input">كلمه المرور</label>
-                                            <div class="col-md-9">
-                                                <input type="password" id="password-input" name="password" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">

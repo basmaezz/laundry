@@ -25,11 +25,10 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>array('required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
-            'last_name'=>array('required','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
+            'name'=>array('required','unique:users','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
+            'last_name'=>array('required','unique:users','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
             'email' => 'unique:users,email',
             'password'=>'required',
-//            'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore($this->id)],
 //            'email'=>'required|email|unique:users,email',
 //            'password'=>'required',
 //            'birthdate'=> ['required','before:15 years ago'],

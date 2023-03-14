@@ -52,6 +52,7 @@ padding-left: 74px;">
 
                     </div>
                     <a class="dropdown-item" href="{{route('users.profile')}}"><i class="fa fa-user"></i> پروفایل</a>
+                    <a class="dropdown-item" href="{{route('users.editPassword')}}"><i class="fa fa-user"></i> تغيير كلمه المرور</a>
                     <div class="divider"></div>
                         <form method="post" action="{{ route('logout') }}">
                             @csrf

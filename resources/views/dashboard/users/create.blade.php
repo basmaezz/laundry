@@ -20,7 +20,7 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" id="text-input" name="name" class="form-control" placeholder="الاسم الأول"required>
+                                                    <input type="text" id="text-input" name="name" class="form-control" value="{{ Request::old('name') }}" placeholder="الاسم الأول"required>
 
                                                     @if ($errors->has('name'))
                                                         <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -30,7 +30,7 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 form-control-label" for="text-input">الأسم الأخير</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" id="text-input" name="last_name" class="form-control" placeholder="الأسم الأخير"required>
+                                                    <input type="text" id="text-input" name="last_name" class="form-control" value="{{ Request::old('las_name') }}"placeholder="الأسم الأخير"required>
 
                                                     @if ($errors->has('last_name'))
                                                         <span class="text-danger">{{ $errors->first('last_name') }}</span>
@@ -52,7 +52,7 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 form-control-label" for="email-input">البريد الألكترونى </label>
                                                 <div class="col-md-9">
-                                                    <input type="email" id="email-input" name="email" class="form-control" placeholder="البريد الالكترونى "required>
+                                                    <input type="email" id="email-input" name="email" class="form-control"value="{{ Request::old('email') }}" placeholder="البريد الالكترونى "required>
 
                                                     @if ($errors->has('email'))
                                                         <span class="text-danger">{{ $errors->first('email') }}</span>
@@ -72,7 +72,7 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                                 <div class="col-md-9">
-                                                    <input type="text" id="phone" name="phone" class="form-control"placeholder="الجوال" required>
+                                                    <input type="text" id="phone" name="phone" class="form-control" value="{{ Request::old('phone') }}"placeholder="الجوال" required>
 
                                                     @if ($errors->has('phone'))
                                                         <span class="text-danger">{{ $errors->first('phone') }}</span>

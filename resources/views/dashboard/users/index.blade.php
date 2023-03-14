@@ -18,6 +18,7 @@
                                     <tr >
                                         <th>الرقم </th>
                                         <th>الاسم </th>
+                                        <th>الاسم الاخير </th>
                                         <th>البريد الألكترونى</th>
                                         <th>الجوال</th>
                                         <th>الصلاحيه</th>
@@ -31,6 +32,7 @@
                                     <tr>
                                         <td>{{$user->id}}</td>
                                         <td>{{$user->name}}</td>
+                                        <td>{{$user->last_name}}</td>
                                          <td>{{$user->email}} </td>
                                          <td>{{$user->phone}} </td>
                                         <td> {{$user->Roles[0]->role ??''}}</td>

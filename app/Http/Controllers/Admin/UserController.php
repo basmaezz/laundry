@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUser;
 use App\Http\Requests\UserRequest;
 use App\Models\AppUser;
 use App\Models\CarType;
@@ -72,7 +73,6 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-
         if(!empty($request->file('avatar'))){
             $filename = uploadFile($request->file('avatar'),'images');
         }
@@ -123,18 +123,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUser $request, $id)
     {
         $user= User::findorfail($id);
 
         $user->update([
-            $user['name']=$request->get('name'),
-            $user['last_name']=$request->get('last_name'),
-            $user['email']=$request->get('email'),
-            $user['phone']=$request->get('phone'),
-            $user['level_id']=$request->get('level_id'),
-            $user['birthdate']=$request->get('birthdate'),
-            $user['joindate']=$request->get('joindate'),
+          $request->validated()
         ]);
         if(!empty($request->file('avatar'))){
             $filename = uploadFile($request->file('avatar'),'images');
@@ -315,8 +309,26 @@ class UserController extends Controller
        return redirect()->back();
     }
 
-    public function changePassword($id)
+    public function editPassword()
     {
-
+      $user=User::findorfail(Auth::user()->id);
+      return view('dashboard.users.changePassword',compact('user'));
     }
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required','min:6','regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/','confirmed',
+        ]);
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+        return view('dashboard');
+//        return back()->with("status", "Password changed successfully!");
+    }
+
 }
+

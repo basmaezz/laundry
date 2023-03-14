@@ -43,6 +43,8 @@ require __DIR__ . '/auth.php';
 Route::middleware('auth')->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('profile', [UserController::class, 'profile'])->name('users.profile');
+    Route::get('editPassword', [UserController::class, 'editPassword'])->name('users.editPassword');
+    Route::post('updatePassword', [UserController::class, 'updatePassword'])->name('user.updatePassword');
     Route::patch('updateProfile', [UserController::class, 'updateProfile'])->name('user.updateProfile');
     Route::get('customers', [UserController::class, 'customers'])->name('customers.index');
     Route::get('customerOrder/{id}', [UserController::class, 'customerOrders'])->name('customer.Orders');
