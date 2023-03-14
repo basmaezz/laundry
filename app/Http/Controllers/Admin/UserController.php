@@ -48,7 +48,10 @@ class UserController extends Controller
     }
     public function index(Request $request)
     {
-        $this->authorize('view',User::class);
+
+        if(Gate::denies('users.index')){
+            abort(403);
+        };
         $users=User::whereNull('subCategory_id')->get();
         return view('dashboard.users.index',compact('users'));
     }
@@ -228,6 +231,13 @@ class UserController extends Controller
             $fileNameGlassesAvatar = request('glasses_avatar')->getClientOriginalName();
             request()->file('glasses_avatar')->move(public_path().'/images/' ,$fileNameGlassesAvatar);
         }
+
+        if(!empty($request->nationality_name)){
+         $nationality= Nationality::create([
+                'name_en'=>$request->nationality_name,
+                'name_ar'=>$request->nationality_name,
+            ]);
+        }
      $user=AppUser::create([
                      'uuid' => Uuid::uuid1()->toString(),
                      'name'=>$request->name,
@@ -240,7 +250,7 @@ class UserController extends Controller
               ]);
       Delegate::create([
                    'app_user_id'=>$user->id,
-                   'nationality_id'=>$request->nationality_id,
+                   'nationality_id'=>$request->nationality_id  ? $nationality->id : $request->nationality_id ,
                   'request_employment'=>$request->request_employment,
                   'bank_name'=>$request->bank_name,
                   'id_number'=>$request->id_number,

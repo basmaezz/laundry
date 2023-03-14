@@ -31,12 +31,13 @@ class AuthServiceProvider extends ServiceProvider
         });
         foreach (config('abilities') as $ability =>$label ){
             Gate::define( $ability , function ($user) use ($ability){
-                return $user->hasAbility($ability);
+                if( $user->hasAbility($ability))
+                {
+                    return true;
+                }
             });
         }
+        return false;
 
-//        Gate::define('users.index',function ($user){
-//            return false;
-//        });
     }
 }

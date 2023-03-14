@@ -17,7 +17,6 @@
                                 <table id="delegates" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>الصورة</th>
                                         <th>الرقم التسلسلى</th>
                                         <th>الاسم</th>
                                         <th>المدينه</th>
@@ -25,16 +24,13 @@
                                         <th>نوع التعاقد</th>
                                         <th> الحاله</th>
                                         <th>تاريخ الالتحاق </th>
-                                        <th>Status</th>
+                                        <th>الاجراءات</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($delegates as $delegate)
                                     <tr>
-                                        <td>
-                                            <img src="{{asset('/images/'.$delegate->appUser->image)}}" style="width:50px;height:50px;padding:10px">
-
-                                        <td>{{$delegate->appUser->id}}</td>
+                                        <td>{{$delegate->id}}</td>
                                         <td>{{$delegate->appUser->name}}</td>
                                         <td>{{$delegate->appUser->cities->name_ar}}</td>
                                         <td>{{$delegate->nationality->name_ar}}</td>

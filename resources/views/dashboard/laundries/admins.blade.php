@@ -36,8 +36,8 @@
                                         <th>الاسم</th>
                                         <th>البريد الالكترونى</th>
                                         <th>الجوال</th>
-                                        <th>Status</th>
-                                        <th>Status</th>
+                                        <th>الاجراءات</th>
+                                        <th>الاجراءات</th>
                                     </tr>
                                     </thead>
                                     <tbody>

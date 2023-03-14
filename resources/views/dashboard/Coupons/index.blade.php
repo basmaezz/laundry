@@ -35,7 +35,7 @@
                                             <th>بدايه من </th>
                                             <th>نهايه الكوبون </th>
                                             <th> status </th>
-                                            <th>Actions</th>
+                                          <th>الاجراءات</th>
                                         </tr>
                                         </thead>
                                         <tbody>

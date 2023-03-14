@@ -17,7 +17,7 @@
                                     <thead>
                                     <tr>
                                         <th>اسم القسم</th>
-                                        <th>Actions</th>
+                                      <th>الاجراءات</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -28,7 +28,7 @@
                                                 <a href="{{route('product.create',$categoryItem->id)}}" class="btn btn-primary">اضافه قطعه</a>
 
                                                 <a href="{{route('CategoryItems.show',$categoryItem->id)}}" class="btn btn-info">عرض  القطع </a>
-                                             
+
                                                 <a href="{{route('CategoryItems.edit',$categoryItem->id)}}" class="btn btn-primary">تعديل</a>
                                                 <a href="{{route('CategoryItems.destroy',$categoryItem->id)}}" class="btn btn-danger">حذف</a>
                                             </td>

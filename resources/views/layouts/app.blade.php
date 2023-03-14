@@ -75,18 +75,17 @@ padding-left: 74px;">
             <li class="nav-title">
                 مقدمين الخدمه
             </li>
-{{--                    @if(Auth::user()->can('users.index'))--}}
-{{--            @if(Auth::user()->isAdmin())--}}
                <li class="nav-item">
-
+            @can('users.index')
             <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> الأدمن  </a>
-
-{{--                <a class="nav-link" href="{{route('user.create')}}"><i class="icon-user-follow"></i> اضافه أدمن  </a>--}}
+                   @endcan
+            @can('roles.index')
                 <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>
-                <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
+                @endcan
+            @can('customers.index')
+                    <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
+            @endcan
                </li>
-
-            {{-- @endcan --}}
             <li class="nav-item">
                 <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-docs"></i>   المناديب</a>
             </li>
@@ -100,9 +99,12 @@ padding-left: 74px;">
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> المغاسل</a>
                 <ul class="nav-dropdown-items">
+                    @can('categories.index')
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('Categories.index')}}"><i class="icon-people"></i>  التصنيفات  </a>
                     </li>
+                    @endcan
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('laundries.index')}}"><i class="icon-people"></i>  كل المغاسل </a>
                     </li>
@@ -115,6 +117,7 @@ padding-left: 74px;">
             <li class="nav-title">
                 الطلبات
             </li>
+            @can('Orders.index')
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> الطلبات</a>
                 <ul class="nav-dropdown-items">
@@ -152,10 +155,12 @@ padding-left: 74px;">
                     </li>
                 </ul>
             </li>
-
+            @endcan
+            @can('Coupons.index')
             <li class="nav-item">
                 <a class="nav-link" href="{{route('coupons.index')}}"><i class="icon-people"></i> الكوبونات </a>
             </li>
+            @endcan
         </ul>
     </nav>
 </div>

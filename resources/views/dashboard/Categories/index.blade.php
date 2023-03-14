@@ -17,7 +17,7 @@
                                         <tr>
                                             <th> الصورة</th>
                                             <th>اسم التصنيف</th>
-                                            <th>Actions</th>
+                                          <th>الاجراءات</th>
                                         </tr>
                                         </thead>
                                         <tbody>

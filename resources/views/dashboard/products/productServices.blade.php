@@ -24,7 +24,7 @@
                                         <tr>
                                             <th>اسم الخدمه</th>
                                             <th> السعر</th>
-                                            <th>Actions</th>
+                                          <th>الاجراءات</th>
                                         </tr>
                                         </thead>
                                         <tbody>
