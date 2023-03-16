@@ -207,23 +207,23 @@ class UserController extends Controller
         if(!empty($request->file('avatar'))){
             $filename = uploadFile($request->file('avatar'),'images');
         }
-        if($request->file('id_image')){
+        if(!empty($request->file('id_image'))){
             $fileNameImageId = request('id_image')->getClientOriginalName();
             request()->file('id_image')->move(public_path().'/images/',$fileNameImageId);
         }
-        if($request->file('medic_check')){
+        if(!empty($request->file('medic_check'))){
             $fileNameMedicCheck = request('medic_check')->getClientOriginalName();
             request()->file('medic_check')->move(public_path().'/images/',$fileNameMedicCheck);
         }
-        if($request->file('car_picture_front')){
+        if(!empty($request->file('car_picture_front'))){
             $fileNameCarFront = request('car_picture_front')->getClientOriginalName();
             request()->file('car_picture_front')->move(public_path().'/images/',$fileNameCarFront);
         }
-        if($request->file('car_picture_behind')){
+        if(!empty($request->file('car_picture_behind'))){
             $fileNameCarBehind = request('car_picture_behind')->getClientOriginalName();
             request()->file('car_picture_behind')->move(public_path() . '/images/' , $fileNameCarBehind);
         }
-        if($request->file('car_registration')){
+        if(!empty($request->file('car_registration'))){
             $fileNameCarRegistration = request('car_registration')->getClientOriginalName();
             request()->file('car_registration')->move(public_path() . '/images/' , $fileNameCarRegistration);
         }
@@ -238,6 +238,7 @@ class UserController extends Controller
                 'name_ar'=>$request->nationality_name,
             ]);
         }
+        $nationality->save();
      $user=AppUser::create([
                      'uuid' => Uuid::uuid1()->toString(),
                      'name'=>$request->name,
@@ -248,26 +249,32 @@ class UserController extends Controller
                     'address'=>$request->address,
                     'avatar'=> $filename
               ]);
-      Delegate::create([
-                   'app_user_id'=>$user->id,
-                   'nationality_id'=>$request->nationality_id  ? $nationality->id : $request->nationality_id ,
-                  'request_employment'=>$request->request_employment,
-                  'bank_name'=>$request->bank_name,
-                  'id_number'=>$request->id_number,
-                  'iban_number'=>$request->iban_number,
-                  'car_type'=>$request->car_type,
-                  'car_plate_letter'=>$request->car_plate_letter,
-                  'car_plate_number'=>$request->car_plate_number,
-                  'car_manufacture_year_id'=>$request->car_manufacture_year_id,
-                  'license_start_date'=>$request->license_start_date,
-                  'license_end_date'=>$request->license_end_date,
-                  'id_image'=>$fileNameImageId,
-                   'medic_check'=>$fileNameMedicCheck,
-                  'car_picture_front'=>$fileNameMedicCheck,
-                  'car_picture_behind'=>$fileNameCarFront,
-                  'car_registration'=>$fileNameCarBehind,
-                  'glasses_avatar'=>$fileNameCarRegistration,
-      ]);
+        $delegate= new Delegate();
+
+       $delegate['app_user_id']=$user->id;
+       $delegate['request_employment']=$request->request_employment;
+       $delegate['bank_name']=$request->bank_name;
+       $delegate['id_number']=$request->id_number;
+       $delegate['iban_number']=$request->iban_number;
+       $delegate['car_type']=$request->car_type;
+       $delegate['car_plate_letter']=$request->car_plate_letter;
+       $delegate['car_plate_number']=$request->car_plate_number;
+       $delegate['car_manufacture_year_id']=$request->car_manufacture_year_id;
+       $delegate['license_start_date']=$request->license_start_date;
+       $delegate['license_end_date']=$request->license_end_date;
+       $delegate['id_image']=$fileNameImageId;
+       $delegate['medic_check']=$fileNameMedicCheck;
+       $delegate['car_picture_front']=$fileNameMedicCheck;
+       $delegate['car_picture_behind']=$fileNameCarFront;
+       $delegate['car_registration']=$fileNameCarBehind;
+       $delegate['glasses_avatar']=$fileNameCarRegistration;
+       if(!empty($request->nationality_id)){
+           $delegate['nationality_id']=$request->nationality_id;
+       }else{
+           $delegate['nationality_id']= $nationality->id;
+       }
+       $delegate->save();
+
        return redirect()->route('delegates.index')->with('message', 'تم اضافه مندوب جديد !');;
     }
     public function showDelegate($id)

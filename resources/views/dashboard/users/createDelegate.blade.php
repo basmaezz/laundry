@@ -104,7 +104,7 @@
                                                    @foreach($nationalities as $nationality)
                                                         <option onclick="hideInput()"value="{{$nationality->id}}">{{$nationality->name_ar}}</option>
                                                     @endforeach
-                                                       <option onclick="displayInput()">أخرى</option>
+                                                       <option onclick="displayInput()" value="">أخرى</option>
                                                 </select>
                                                 @if ($errors->has('nationality_id'))
                                                     <span class="text-danger">{{ $errors->first('nationality_id') }}</span>
