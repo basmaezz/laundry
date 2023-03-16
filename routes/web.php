@@ -272,3 +272,8 @@ Route::get('allCities',function (){
     $cities=\App\Models\City::all();
     return $cities;
 });
+
+Route::get('getCars',function (){
+    $cars=\App\Models\CarType::all();
+    return $cars;
+});
