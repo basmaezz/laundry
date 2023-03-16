@@ -237,8 +237,9 @@ class UserController extends Controller
                 'name_en'=>$request->nationality_name,
                 'name_ar'=>$request->nationality_name,
             ]);
+            $nationality->save();
         }
-        $nationality->save();
+
      $user=AppUser::create([
                      'uuid' => Uuid::uuid1()->toString(),
                      'name'=>$request->name,
