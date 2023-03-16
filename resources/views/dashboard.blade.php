@@ -20,11 +20,16 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="card card-inverse card-warning"  style="border-radius: 25px">
                             <div class="card-block p-b-0">
-                                <h4 class="m-b-0">{{\App\Models\User::whereNull('subCategory_id')->count()}}</h4>
+                                <h4 class="m-b-0">{{\App\Models\User::count()}}</h4>
                                 <p> عدد المدراء  </p>
-                                <h4 class="m-b-0">{{\App\Models\User::whereNotNull('subCategory_id')->count()}}</h4>
-                                <p> عدد المشرفين  </p>
-                            </div>
+                             </div>
+                            <div class="card-block p-b-0">
+
+                             </div>        <div class="card-block p-b-0">
+
+                             </div>        <div class="card-block p-b-0">
+
+                             </div>
 
                         </div>
                     </div>

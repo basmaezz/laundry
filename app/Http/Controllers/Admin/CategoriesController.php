@@ -27,15 +27,17 @@ class CategoriesController extends Controller
     {
 
        $category= Category::find($id);
-        if($request->file('image')){
-            $filename = request('image')->getClientOriginalName();
-            request()->file('image')->move(public_path() . '/assets/uploads/laundries/' , $filename);
-        }
+
             $category->update([
                 'name_ar'=>$request->name_ar,
                 'name_en'=>$request->name_en,
-                 'image'=>$filename,
             ]);
+        if($request->file('image')){
+            $filename = request('image')->getClientOriginalName();
+            request()->file('image')->move(public_path() . '/assets/uploads/laundries/' , $filename);
+            $category['image']=$filename;
+        }
+        $category->save();
         return redirect()->route('Categories.index');
     }
 }
