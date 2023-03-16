@@ -126,12 +126,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUser $request, $id)
+    public function update(Request $request, $id)
     {
         $user= User::findorfail($id);
-
         $user->update([
-          $request->validated()
+            'name'=>$request->name,
+            'last_name'=>$request->last_name,
+             'phone'=>$request->phone,
+            'birthdate'=>$request->birthdate,
+            'level_id'=>$request->level_id,
+            'joindate'=>$request->joindate
         ]);
         if(!empty($request->file('avatar'))){
             $filename = uploadFile($request->file('avatar'),'images');
@@ -190,7 +194,6 @@ class UserController extends Controller
     public function delegates(Request $request)
     {
         $delegates=Delegate::with(['appUser','appUser.cities','nationality'])->get();
-
         return view('dashboard.users.delegates',compact('delegates'));
     }
     public function CreateDelegate()
@@ -204,12 +207,13 @@ class UserController extends Controller
     }
     public function storeDelegate(Request $request)
     {
-        if(!empty($request->file('avatar'))){
-            $filename = uploadFile($request->file('avatar'),'images');
+        if(!empty($request->file('avatar'))) {
+            $filename = request('avatar')->getClientOriginalName();
+            request()->file('avatar')->move(public_path() . '/images/', $filename);
         }
         if(!empty($request->file('id_image'))){
             $fileNameImageId = request('id_image')->getClientOriginalName();
-            request()->file('id_image')->move(public_path().'/images/',$fileNameImageId);
+            request()->file('id_image')->move(public_path().'/assets/uploads/nid_image/',$fileNameImageId);
         }
         if(!empty($request->file('medic_check'))){
             $fileNameMedicCheck = request('medic_check')->getClientOriginalName();
@@ -217,15 +221,15 @@ class UserController extends Controller
         }
         if(!empty($request->file('car_picture_front'))){
             $fileNameCarFront = request('car_picture_front')->getClientOriginalName();
-            request()->file('car_picture_front')->move(public_path().'/images/',$fileNameCarFront);
+            request()->file('car_picture_front')->move(public_path().'/assets/uploads/car_front/',$fileNameCarFront);
         }
         if(!empty($request->file('car_picture_behind'))){
             $fileNameCarBehind = request('car_picture_behind')->getClientOriginalName();
-            request()->file('car_picture_behind')->move(public_path() . '/images/' , $fileNameCarBehind);
+            request()->file('car_picture_behind')->move(public_path() . '/assets/uploads/car_back/' , $fileNameCarBehind);
         }
         if(!empty($request->file('car_registration'))){
             $fileNameCarRegistration = request('car_registration')->getClientOriginalName();
-            request()->file('car_registration')->move(public_path() . '/images/' , $fileNameCarRegistration);
+            request()->file('car_registration')->move(public_path() . 'assets/uploads/car_registration/' , $fileNameCarRegistration);
         }
         if($request->file('glasses_avatar')){
             $fileNameGlassesAvatar = request('glasses_avatar')->getClientOriginalName();
@@ -265,10 +269,10 @@ class UserController extends Controller
        $delegate['license_end_date']=$request->license_end_date;
        $delegate['id_image']=$fileNameImageId;
        $delegate['medic_check']=$fileNameMedicCheck;
-       $delegate['car_picture_front']=$fileNameMedicCheck;
-       $delegate['car_picture_behind']=$fileNameCarFront;
-       $delegate['car_registration']=$fileNameCarBehind;
-       $delegate['glasses_avatar']=$fileNameCarRegistration;
+       $delegate['car_picture_front']=$fileNameCarFront;
+       $delegate['car_picture_behind']=$fileNameCarBehind;
+       $delegate['car_registration']=$fileNameCarRegistration;
+       $delegate['glasses_avatar']=$fileNameGlassesAvatar;
        if(!empty($request->nationality_id)){
            $delegate['nationality_id']=$request->nationality_id;
        }else{
@@ -281,7 +285,6 @@ class UserController extends Controller
     public function showDelegate($id)
     {
         $delegate=Delegate::with(['appUser','car','year'])->find($id);
-
         return view('dashboard.users.viewDelegate',compact('delegate'));
     }
     public function deleteDelegate($id)

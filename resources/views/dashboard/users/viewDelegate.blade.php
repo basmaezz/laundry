@@ -45,7 +45,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الملف الشخصى </label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('/images/'.$delegate->appUSer->image)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{asset('/images/'.$delegate->appUSer->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -127,7 +127,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> صوره السياره من الأمام </label>
                                         <div class="col-md-9">
-                                            <img src="{{('/images/'.$delegate->car_picture_front)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{($delegate->car_picture_front)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                         </div>
 {{--                                        <div class="col-md-9">--}}
 {{--                                            <img src="{{asset('/images/'.$delegate->car_picture_front)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">--}}
@@ -136,13 +136,13 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"  >صوره السياره من الخلف  </label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('/images/'.$delegate->car_picture_behind)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{$delegate->car_picture_behind}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره ساريه لرخصه القياده  </label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('/images/'.$delegate->car_registration)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{$delegate->car_registration}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                         </div>
                                     </div>
                                     <div class="form-group row">

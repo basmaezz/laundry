@@ -63,7 +63,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الحى </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="address" name="car_plate_number" class="form-control"placeholder="الحى" required>
+                                                <input type="text" id="address" name="address" class="form-control"placeholder="الحى" required>
 
                                                 @if ($errors->has('car_plate_number'))
                                                     <span class="text-danger">{{ $errors->first('car_plate_number') }}</span>
