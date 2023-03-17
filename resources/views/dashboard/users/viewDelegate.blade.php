@@ -45,7 +45,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الملف الشخصى </label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('/images/'.$delegate->appUSer->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{asset('images/'.$delegate->appUSer->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                         </div>
                                     </div>
                                     <div class="form-group row">

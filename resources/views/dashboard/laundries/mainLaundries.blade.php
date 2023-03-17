@@ -25,7 +25,7 @@
                                     <tbody>
                                     @foreach($subCategories as $subCategory)
                                         <tr>
-                                            <td><img src="{{asset('assets/uploads/laundries/logo/'.$subCategory->image)}}" style="width:50px;height:50px"></td>
+                                            <td><img src="{{$subCategory->image}}" style="width:50px;height:50px"></td>
                                             <td>{{$subCategory->name_ar}}</td>
                                             <td>{{$subCategory->city->name_ar}}</td>
                                             <td>{{$subCategory->address}}</td>

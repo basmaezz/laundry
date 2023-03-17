@@ -31,6 +31,13 @@ class Delegate extends Model
         'medic_check'
         ];
 
+    protected function avatar():Attribute
+    {
+        return Attribute::make(
+          get:fn ($value)=>asset('assets/uploads/delegates/avatar'.$value)
+        );
+    }
+
     protected function medicCheck(): Attribute
     {
         return Attribute::make(
