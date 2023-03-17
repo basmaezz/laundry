@@ -286,6 +286,7 @@ class UserController extends Controller
     public function showDelegate($id)
     {
         $delegate=Delegate::with(['appUser','car','year'])->find($id);
+        dd($delegate);
         return view('dashboard.users.viewDelegate',compact('delegate'));
     }
     public function deleteDelegate($id)

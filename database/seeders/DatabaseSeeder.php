@@ -29,9 +29,9 @@ class DatabaseSeeder extends Seeder
             // NationalitySeeder::class
             //            NationalitiySeeder::class,
             //            AppUserSeeder::class,
-            //             carTypesSeeder::class,
+                         carTypesSeeder::class,
             //             EducationsLevelSeeder::class,
-                         CitySeeder::class,
+//                         CitySeeder::class,
             //            CategorySeeder::class,
             //            subCategorySeeder::class,
             //            CatgeoryItemSeeder::class,
