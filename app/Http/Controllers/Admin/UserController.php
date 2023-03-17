@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Expr\FuncCall;
 use Ramsey\Uuid\Uuid;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Gate;
@@ -361,12 +362,31 @@ class UserController extends Controller
 
     public function acceptRegister($id)
     {
-
        $delegate=Delegate::find($id);
        $delegate->registered='1';
        $delegate->appUser->status='active';
        $delegate->save();
-       return redirect()->route('delegates.index')->with('message', 'تم ٌبول طلب التسجيل !');;
+       return redirect()->route('delegates.index')->with('message', 'تم قبول طلب التسجيل !');
+    }
+    public function addRejectReason($id)
+    {
+        $delegate=Delegate::find($id);
+        return view('dashboard.users.rejectReason',compact('delegate'));
+    }
+
+    public function storeRejectReason(Request $request,$id)
+    {
+        $delegate=Delegate::find($id);
+        $delegate['reject_reason']=$request->reject_reason;
+        $delegate->save();
+        return redirect()->route('delegate.registrationRequests');
+    }
+
+    public function  rejectionRequests()
+    {
+        $delegates=Delegate::whereNotNull('reject_reason')->get();
+        return view('dashboard.users.rejectionRegisterRequests',compact('delegates'));
+
     }
 
 }

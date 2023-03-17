@@ -30,30 +30,26 @@
                                         <th>الاسم</th>
                                         <th>المدينه</th>
                                         <th>الجنسيه</th>
-                                        <th>نوع التعاقد</th>
-                                        <th> الحاله</th>
-                                        <th>تاريخ الالتحاق </th>
+                                        <th> سبب الرفض</th>
                                         <th>الاجراءات</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
-                                    @foreach($requests as $delegate)
+                                    @foreach($delegates as $delegate)
 
-                                            <tr>
-                                                <td>{{$delegate->appUser->name ??''}}</td>
-                                                <td>{{$delegate->appUser->cities->name_ar ??''}}</td>
-                                                <td>{{$delegate->nationality->name_ar ?? ''}}</td>
-                                                <td>{{$delegate->request_employment==0 ?'موظف':'عامل حر'}}</td>
-                                                <td>{{$delegate->appUser->status ??''}}</td>
-                                                <td>{{$delegate->created_at->format('Y-M-D') ??''}}</td>
+                                        <tr>
+                                            <td>{{$delegate->appUser->name ??''}}</td>
+                                            <td>{{$delegate->appUser->cities->name_ar ??''}}</td>
+                                            <td>{{$delegate->nationality->name_ar ?? ''}}</td>
+                                            <td>{{$delegate->reject_reason}}</td>
 
-                                                <td>
-                                                    <a href="{{route('delegate.show',$delegate->id)}}" class="btn btn-info">تفاصيل</a>
-                                                    <a href="{{route('delegate.acceptRegister',$delegate->id)}}" class="btn btn-info">قبول</a>
-                                                    <a href="{{route('delegate.addRejectReason',$delegate->id)}}" class="btn btn-danger">رفض</a>
-                                                </td>
-                                            </tr>
+                                            <td>
+                                                <a href="{{route('delegate.show',$delegate->id)}}" class="btn btn-info">تفاصيل</a>
+                                                <a href="{{route('delegate.acceptRegister',$delegate->id)}}" class="btn btn-info">قبول</a>
+                                                <a href="{{route('delegate.addRejectReason',$delegate->id)}}" class="btn btn-danger">رفض</a>
+                                            </td>
+                                        </tr>
 
                                     @endforeach
                                     </tbody>

@@ -88,15 +88,29 @@ padding-left: 74px;">
                </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-docs"></i>   المناديب</a>
-                <a class="nav-link" href="{{route('delegate.registrationRequests')}}"><i class="icon-docs"></i> طلبات التسجيل</a>
             </li>
             {{-- <li class="nav-item">
                 <a class="nav-link" href="{{route('laundries.admins')}}"><i class="icon-user-follow"></i>  أدمن المغاسل  </a>
             </li> --}}
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> طلبات التسجيل</a>
+                <ul class="nav-dropdown-items">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('delegate.registrationRequests')}}"><i class="icon-people"></i>  كل الطلبات  </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('delegate.rejectionRequests')}}"><i class="icon-people"></i>  الطلبات المرفوضه   </a>
+                    </li>
+
+
+                </ul>
+            </li>
 
             <li class="nav-title">
                 المغاسل
             </li>
+
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> المغاسل</a>
                 <ul class="nav-dropdown-items">

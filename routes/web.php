@@ -56,6 +56,9 @@ Route::middleware('auth')->group(function () {
     Route::get('acceptRegister/{id}', [UserController::class, 'acceptRegister'])->name('delegate.acceptRegister');
     Route::get('deleteDelegate/{id}', [UserController::class, 'deleteDelegate'])->name('delegate.delete');
     Route::get('registrationRequests', [UserController::class, 'getRegistrationRequests'])->name('delegate.registrationRequests');
+    Route::get('addRejectReason/{id}', [UserController::class, 'addRejectReason'])->name('delegate.addRejectReason');
+    Route::post('storeRejectReason/{id}', [UserController::class, 'storeRejectReason'])->name('delegate.storeRejectReason');
+    Route::get('rejectionRequests', [UserController::class, 'rejectionRequests'])->name('delegate.rejectionRequests');
     Route::get('customerDelete/{id}', [UserController::class, 'customerDelete'])->name('customer.delete');
     Route::get('customerWallet/{id}', [UserController::class, 'customerWallet'])->name('customer.wallet');
     Route::post('increaseWallet/{id}', [UserController::class, 'increaseWallet'])->name('customer.wallet.increase');
