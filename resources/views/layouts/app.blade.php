@@ -88,7 +88,7 @@ padding-left: 74px;">
                </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-docs"></i>   المناديب</a>
-                <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-docs"></i> طلبات التسجيل</a>
+                <a class="nav-link" href="{{route('delegate.registrationRequests')}}"><i class="icon-docs"></i> طلبات التسجيل</a>
             </li>
             {{-- <li class="nav-item">
                 <a class="nav-link" href="{{route('laundries.admins')}}"><i class="icon-user-follow"></i>  أدمن المغاسل  </a>

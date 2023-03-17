@@ -229,7 +229,7 @@ class UserController extends Controller
         }
         if(!empty($request->file('car_registration'))){
             $fileNameCarRegistration = request('car_registration')->getClientOriginalName();
-            request()->file('car_registration')->move(public_path() . 'assets/uploads/car_registration/' , $fileNameCarRegistration);
+            request()->file('car_registration')->move(public_path() . '/assets/uploads/car_registration/' , $fileNameCarRegistration);
         }
         if($request->file('glasses_avatar')){
             $fileNameGlassesAvatar = request('glasses_avatar')->getClientOriginalName();
@@ -351,6 +351,23 @@ class UserController extends Controller
 //        return back()->with("status", "Password changed successfully!");
         \Auth::logout();
         return redirect('/login')->with('message', 'تم تغيير كلمه المرور بنجاح !');
+    }
+
+    public function getRegistrationRequests()
+    {
+     $requests=Delegate::where('registered',2)->get();
+     return view('dashboard.users.registrationRequests',compact('requests'));
+    }
+
+    public function acceptRegister($id)
+    {
+
+       $delegate=Delegate::find($id);
+
+       $delegate->registered='1';
+       $delegate->appUser->status='active';
+       $delegate->save();
+       return redirect()->route('delegates.index')->with('message', 'تم ٌبول طلب التسجيل !');;
     }
 
 }

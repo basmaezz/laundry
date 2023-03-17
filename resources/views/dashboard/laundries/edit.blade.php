@@ -63,11 +63,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="country">السعر  </label>
-                                        <input type="text" name="price"class="form-control" id="image" value=" {{$subCategory->price}}">
+                                        <input type="text" name="price"class="form-control" id="image" value="{{$subCategory->price}}">
                                         @error('price')
                                         <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                        <div class="form-group">
+                                            <label for="approximate_duration">  المده التقريبيه للغسيل </label>
+                                            <input type="number" name="approximate_duration"class="form-control" id="approximate_duration" value="{{$subCategory->approximate_duration}}" min="1">
+                                            @error('approximate_duration')
+                                            <div class="text-sm text-red-600">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
 
                                     <div class="form-group" >
                                         <div>

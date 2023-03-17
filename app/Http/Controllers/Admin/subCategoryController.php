@@ -67,6 +67,7 @@ class subCategoryController extends Controller
             $subcategory['city_id'] = $request->city_id;
             $subcategory['address'] = $request->address;
             $subcategory['price'] = $request->price;
+            $subcategory['approximate_duration'] = $request->approximate_duration;
             $subcategory['status'] ='1';
             $subcategory['rate'] = '5';
             if($request->around_clock !=''){
@@ -150,6 +151,7 @@ class subCategoryController extends Controller
             'address'=>$request->address,
             'city_id'=>$request->city_id,
             'price'=>$request->price,
+            'approximate_duration'=>$request->approximate_duration,
         ]);
         $subcategory->save();
         User::where('subCategory_id',$id)->update([
@@ -246,6 +248,7 @@ class subCategoryController extends Controller
         $subcategory['city_id'] = $request->city_id;
         $subcategory['address'] = $request->address;
         $subcategory['price'] = $request->price;
+        $subcategory['approximate_duration'] = $request->approximate_duration;
         $subcategory['image']=$request->image;
         $subcategory['parent_id'] = $request->parent_id;
         $subcategory['status'] ='1';
@@ -279,7 +282,6 @@ class subCategoryController extends Controller
 
     public function editBranch($id){
         $subCategory= Subcategory::with(['parent','user'])->find($id);
-
         $cities=City::pluck('id','name_ar');
         return view('dashboard.laundries.editBranch',compact(['subCategory','cities']));
     }

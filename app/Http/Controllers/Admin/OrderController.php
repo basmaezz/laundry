@@ -149,4 +149,6 @@ class OrderController extends Controller
         $orders=OrderTable::where("status_id",self::Cancel)->get();
         return  view('dashboard.Orders.completed',compact('orders'));
     }
+
+
 }

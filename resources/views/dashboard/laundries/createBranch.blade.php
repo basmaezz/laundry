@@ -69,7 +69,13 @@
                                         <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="approximate_duration">  المده التقريبيه للغسيل </label>
+                                        <input type="number" name="approximate_duration"class="form-control" id="approximate_duration" value="{{$Subcategory->approximate_duration??''}}" min="1" >
+                                        @error('approximate_duration')
+                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                     <div class="form-group" >
                                         <div>
                                             <label for="country">فتره التشغيل  </label> <br>
