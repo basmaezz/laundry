@@ -90,7 +90,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> نوع السياره </label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->car->name_ar}}"disabled>
+                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->car->name_ar??''}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
