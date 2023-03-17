@@ -63,6 +63,7 @@ class AuthController extends ApiController
             $user->lat          = $request->input("lat");
             $user->lng          = $request->input("lng");
             $user->address_description = $request->input("address_description");
+            $user->registered   ='2';
             if(!empty($request->file("personal")['image'])) {
                 $user->avatar = uploadFile($request->file("personal")['image'], 'users_avatar');
             }

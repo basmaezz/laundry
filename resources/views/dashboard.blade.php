@@ -35,12 +35,23 @@
                     </div>
 
                 </div>
-                <div class="col-sm-6 col-lg-12">
+                <div class="col-sm-6 col-lg-8">
                     <div class="col-sm-6 col-lg-4">
                         <div class="card card-inverse card-primary"  style="border-radius: 25px">
                             <div class="card-block p-b-0">
                                 <h4 class="m-b-0">{{\App\Models\AppUser::count()}}</h4>
                                 <p> العملاء </p>
+                            </div>
+                            <div class="chart-wrapper p-x-1" style="height:70px;">
+                                <canvas id="card-chart1" class="chart" height="70"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card card-inverse card-danger"  style="border-radius: 25px">
+                            <div class="card-block p-b-0">
+                                <h4 class="m-b-0">{{\App\Models\Delegate::where('registered',2)->count()}}</h4>
+                                <p> طلبات التسجيل</p>
                             </div>
                             <div class="chart-wrapper p-x-1" style="height:70px;">
                                 <canvas id="card-chart1" class="chart" height="70"></canvas>
@@ -71,14 +82,9 @@
                                 <h4 class="m-b-0">{{\App\Models\Subcategory::WhereNotNull('parent_id')->count()}}</h4>
                                 <p> المغاسل الفرعيه</p>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </div>

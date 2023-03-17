@@ -363,7 +363,6 @@ class UserController extends Controller
     {
 
        $delegate=Delegate::find($id);
-
        $delegate->registered='1';
        $delegate->appUser->status='active';
        $delegate->save();
