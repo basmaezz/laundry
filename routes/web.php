@@ -284,3 +284,6 @@ Route::get('getCars',function (){
     $cars=\App\Models\CarType::all();
     return $cars;
 });
+Route::get('updateDelegate', function () {
+    $ordersTable = \App\Models\Delegate::where('id',18)->update(['registered' => 2]);
+});

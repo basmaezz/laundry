@@ -367,9 +367,8 @@ class UserController extends Controller
 
     public function getRegistrationRequests()
     {
-        dd('delegate');
      $requests=Delegate::where('registered',2)->get();
-     dd($requests);
+   
      return view('dashboard.users.registrationRequests',compact('requests'));
     }
 
