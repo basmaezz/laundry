@@ -126,7 +126,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('getOrders', [OrderController::class, 'index'])->name('Order.index');
     Route::get('viewOrder/{id}', [OrderController::class, 'show'])->name('Order.show');
-    Route::get('viewOrder/{id}', [OrderController::class, 'show'])->name('Order.show');
     Route::get('pendingDeliveryAcceptance', [OrderController::class, 'pendingDeliveryAcceptance'])->name('Order.pendingDeliveryAcceptance');
     Route::get('DeliveryOnWay', [OrderController::class, 'DeliveryOnWay'])->name('Order.DeliveryOnWay');
     Route::get('readyPickUp', [OrderController::class, 'readyPickUp'])->name('Order.readyPickUp');

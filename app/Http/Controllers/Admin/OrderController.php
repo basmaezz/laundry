@@ -30,9 +30,9 @@ class OrderController extends Controller
      */
         public function index()
         {
-//            if(Gate::denies('Orders.index')){
-//                abort(403);
-//            };
+            if(Gate::denies('Orders.index')){
+                abort(403);
+            };
            $orders=OrderTable::with(['subCategories','user','user.cities'])->get();
            return  view('dashboard.Orders.index',compact('orders'));
         }
@@ -68,6 +68,7 @@ class OrderController extends Controller
     {
         $order=OrderTable::with(['subCategories','user','user.cities'])->where('id',$id)->first();
         $orderDetails=orderDetails::with(['product','productService'])->where('order_table_id',$id)->get();
+        dd($orderDetails);
         return  view('dashboard.Orders.view',compact(['order','orderDetails']));
     }
 

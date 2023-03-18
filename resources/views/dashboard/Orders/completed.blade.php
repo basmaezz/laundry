@@ -22,13 +22,14 @@
                                         <th> عدد القطع</th>
                                         <th> السعر </th>
                                         <th> الخصم </th>
-                                        <th> الكوبون </th>
-                                        <th> نوع التوصيل </th>
+{{--                                        <th> الكوبون </th>--}}
+{{--                                        <th> نوع التوصيل </th>--}}
                                         <th> رسوم التوصيل </th>
                                         <th>  طريقه الدفع </th>
                                         <th>   الضريبه </th>
                                         <th>   تاريخ الوصول للمغسله </th>
                                         <th>  تاريخ الانتهاء  </th>
+                                        <th>  التفاصيل  </th>
 
                                     </tr>
                                     </thead>
@@ -43,20 +44,20 @@
                                             <td>{{$order->count_products}}</td>
                                             <td>{{$order->total_price}}</td>
                                             <td>{{$order->discount_value}}</td>
-                                            <td>{{$order->coupon ?? ''}}</td>
-                                            @if($order->delivery_type !=null)
-                                            <td>{{$order->delivery_type=='1'?'استلام بواسطه العميل' :'استلام بواسطه المندوب'}}</td>
-                                            @else
-                                            <td></td>
-                                            @endif
+{{--                                            <td>{{$order->coupon ?? ''}}</td>--}}
+{{--                                            @if($order->delivery_type !=null)--}}
+{{--                                            <td>{{$order->delivery_type=='1'?'استلام بواسطه العميل' :'استلام بواسطه المندوب'}}</td>--}}
+{{--                                            @else--}}
+{{--                                            <td></td>--}}
+{{--                                            @endif--}}
                                             <td>{{$order->delivery_fees}}</td>
                                             <td>{{$order->payment_method}}</td>
                                             <td>{{$order->vat}}</td>
                                             <td>{{$order->created_at->format('d/m/Y')}}</td>
                                             <td>{{$order->updated_at->format('d/m/Y')}}</td>
-{{--                                            <td>--}}
-{{--                                                <a class="btn btn-primary btn-sm" href="{{route('Order.show',$order->id)}}">التفاصيل </a>--}}
-{{--                                            </td>--}}
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="{{route('Order.show',$order->id)}}">التفاصيل </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
