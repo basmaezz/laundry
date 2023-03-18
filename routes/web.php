@@ -264,7 +264,7 @@ Route::get('ordersTable',function (){
     return $orders;
 });
 Route::get('getorderDetails',function (){
-    $orderDetails=\App\Models\orderDetails::all();
+    $orderDetails=\App\Models\OrderDetails::all();
     return $orderDetails;
 });
 
