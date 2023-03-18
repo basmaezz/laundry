@@ -21,10 +21,10 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-9">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
+                                <h3 class="card-title">Items Table</h3>
 {{--                                <a href="{{route('Customer.Items.create',Auth::user()->subCategory_id)}}"class="btn btn-info" style="float: right">New Item</a>--}}
                             </div>
                             <!-- /.card-header -->
@@ -33,7 +33,7 @@
                                     <thead>
                                     <tr>
                                         <th>Item Name</th>
-                                      <th>الاجراءات</th>
+{{--                                      <th>ِActions</th>--}}
 
                                     </tr>
                                     </thead>
@@ -41,10 +41,10 @@
                                     @foreach($categoryItems as $item)
                                     <tr>
                                         <td>{{$item->category_type}}</td>
-                                        <td>
+{{--                                        <td>--}}
 {{--                                            <a href="{{route('Customer.Items.edit',$item->id)}}"class="btn btn-info">Edit</a>--}}
 {{--                                            <a href="{{route('Customer.Items.delete',$item->id)}}"class="btn btn-danger">Delete</a>--}}
-                                        </td>
+{{--                                        </td>--}}
 
                                     </tr>
                                     @endforeach
