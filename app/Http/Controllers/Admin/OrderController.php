@@ -68,7 +68,6 @@ class OrderController extends Controller
     {
         $order=OrderTable::with(['subCategories','user','user.cities'])->where('id',$id)->first();
         $orderDetails=orderDetails::with(['product','productService'])->where('order_table_id',$id)->get();
-        dd($orderDetails);
         return  view('dashboard.Orders.view',compact(['order','orderDetails']));
     }
 
