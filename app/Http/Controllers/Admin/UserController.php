@@ -296,6 +296,17 @@ class UserController extends Controller
         return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
     }
 
+    public function editDelegate($id)
+    {
+        $delegate=Delegate::with(['appUser','car','year'])->find($id);
+        return view('dashboard.users.editDelegate',compact('delegate'));
+    }
+    public function updateDelegate($id)
+    {
+
+
+    }
+
     public function profile()
     {
         $user=User::find(Auth::user()->id);
@@ -356,7 +367,9 @@ class UserController extends Controller
 
     public function getRegistrationRequests()
     {
+        dd('delegate');
      $requests=Delegate::where('registered',2)->get();
+     dd($requests);
      return view('dashboard.users.registrationRequests',compact('requests'));
     }
 

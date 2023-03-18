@@ -229,7 +229,6 @@ class AuthController extends ApiController
             $delegate->car_manufacture_year_id=$request->car_manufacture_year_id;
             $delegate->request_employment = boolval($request->get('request_employment'));
             $delegate->driving_license = uploadFile($request->file('license')['image'], 'driving_license');
-//            $delegate->manufacture_year = $request->get('car')['year'];
             $delegate->car_type = $request->get('car')['type'];
             $delegate->medic_check = uploadFile($request->file('personal')['medic_check_image'], 'medic_check');
             $delegate->save();
