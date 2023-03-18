@@ -52,6 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::get('createDelegate', [UserController::class, 'CreateDelegate'])->name('delegate.create');
     Route::post('storeDelegate', [UserController::class, 'storeDelegate'])->name('delegate.store');
     Route::get('showDelegate/{id}', [UserController::class, 'showDelegate'])->name('delegate.show');
+    Route::get('editDelegate/{id}', [UserController::class, 'editDelegate'])->name('delegate.edit');
+    Route::post('updateDelegate/{id}', [UserController::class, 'updateDelegate'])->name('delegate.update');
     Route::get('changeDelegateStatus/{id}', [UserController::class, 'changeDelegateStatus'])->name('delegate.changeDelegateStatus');
     Route::get('acceptRegister/{id}', [UserController::class, 'acceptRegister'])->name('delegate.acceptRegister');
     Route::get('deleteDelegate/{id}', [UserController::class, 'deleteDelegate'])->name('delegate.delete');

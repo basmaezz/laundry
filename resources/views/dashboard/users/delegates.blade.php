@@ -57,6 +57,7 @@
                                             @elseif($delegate->appUser->status=='deactivated')
                                             <a href="{{route('delegate.changeDelegateStatus',$delegate->id)}}" class="btn btn-info">تفعيل</a>
                                             @endif
+                                            <a href="{{route('delegate.edit',$delegate->id)}}" class="btn btn-info">تعديل</a>
                                             <a href="{{route('delegate.show',$delegate->id)}}" class="btn btn-info">تفاصيل</a>
                                             <a href="{{route('delegate.delete',$delegate->id)}}" class="btn btn-danger">حذف</a>
                                         </td>

@@ -125,9 +125,9 @@
                                         <div class="col-md-9">
                                             <img src="{{($delegate->car_picture_front)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                         </div>
-{{--                                        <div class="col-md-9">--}}
-{{--                                            <img src="{{asset('/images/'.$delegate->car_picture_front)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">--}}
-{{--                                        </div>--}}
+                                        {{--                                        <div class="col-md-9">--}}
+                                        {{--                                            <img src="{{asset('/images/'.$delegate->car_picture_front)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">--}}
+                                        {{--                                        </div>--}}
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"  >صوره السياره من الخلف  </label>
