@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Customer\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Models\OrderDetails;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoriesController;
@@ -262,6 +263,11 @@ Route::get('ordersTable',function (){
     $orders=\App\Models\OrderTable::all();
     return $orders;
 });
+Route::get('getorderDetails',function (){
+    $orderDetails=\App\Models\orderDetails::all();
+    return $orderDetails;
+});
+
 Route::get('notifications',function (){
     $notifications=\App\Models\Notifications::all();
     return $notifications;
