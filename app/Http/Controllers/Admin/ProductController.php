@@ -112,4 +112,11 @@ class ProductController extends Controller
         return redirect()->route('product.productServices',$request->product_id);
 
     }
+
+    public function deleteProductService($id)
+    {
+        ProductService::find($id)->delete();
+        return redirect()->back()->withErrors('تم حذف الخدمه  !');
+
+    }
 }
