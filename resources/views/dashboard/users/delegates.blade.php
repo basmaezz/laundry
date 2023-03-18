@@ -29,7 +29,7 @@
                                     <thead>
                                     <tr>
                                         <th>الرقم التسلسلى</th>
-                                        <th>الصوره</th>
+{{--                                        <th>الصوره</th>--}}
                                         <th>الاسم</th>
                                         <th>المدينه</th>
                                         <th>الجنسيه</th>
@@ -43,7 +43,7 @@
                                     @foreach($delegates as $delegate)
                                     <tr>
                                         <td>{{$delegate->id}}</td>
-                                        <td><img src="{{asset('images/'.$delegate->appUSer->avatar)}}" style="width: 100px;height:100px"></td>
+{{--                                        <td><img src="{{asset('images/'.$delegate->appUSer->avatar)}}" style="width: 100px;height:100px"></td>--}}
                                         <td>{{$delegate->appUser->name ??''}}</td>
                                         <td>{{$delegate->appUser->cities->name_ar ??''}}</td>
                                         <td>{{$delegate->nationality->name_ar ?? ''}}</td>

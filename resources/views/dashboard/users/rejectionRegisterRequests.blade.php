@@ -47,7 +47,6 @@
                                             <td>
                                                 <a href="{{route('delegate.show',$delegate->id)}}" class="btn btn-info">تفاصيل</a>
                                                 <a href="{{route('delegate.acceptRegister',$delegate->id)}}" class="btn btn-info">قبول</a>
-                                                <a href="{{route('delegate.addRejectReason',$delegate->id)}}" class="btn btn-danger">رفض</a>
                                             </td>
                                         </tr>
 

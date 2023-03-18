@@ -227,7 +227,7 @@ Route::get('usersGet', function () {
     return $users;
 });
 Route::get('getDelegates', function () {
-    $delegates = \App\Models\Delegate::all();
+    $delegates = \App\Models\Delegate::with('appUser')->all();
     return $delegates;
 });
 Route::get('getAppUsers', function () {
@@ -284,6 +284,6 @@ Route::get('getCars',function (){
     $cars=\App\Models\CarType::all();
     return $cars;
 });
-Route::get('updateDelegate', function () {
-    $ordersTable = \App\Models\Delegate::where('id',18)->update(['registered' => 2]);
-});
+//Route::get('updateDelegate', function () {
+//    $ordersTable = \App\Models\Delegate::where('id',18)->update(['registered' => 2]);
+//});
