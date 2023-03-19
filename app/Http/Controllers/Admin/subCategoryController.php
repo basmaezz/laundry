@@ -11,6 +11,7 @@ use App\Models\Subcategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
 
 class subCategoryController extends Controller
@@ -40,6 +41,7 @@ class subCategoryController extends Controller
     {
         $cities=City::pluck('id','name_ar');
         $categories=Category::where('id',1)->get();
+
         return view('dashboard.laundries.create',compact(['cities','categories']));
     }
 
@@ -117,7 +119,7 @@ class subCategoryController extends Controller
     public function edit($id)
     {
         $subCategory=Subcategory::with(['parent','user'])->find($id);
-        $cities=City::pluck('id','name_ar');
+        $cities=City::all();
         return view('dashboard.laundries.edit',compact(['subCategory','cities']));
     }
 
@@ -154,12 +156,19 @@ class subCategoryController extends Controller
             'approximate_duration'=>$request->approximate_duration,
         ]);
         $subcategory->save();
-        User::where('subCategory_id',$id)->update([
+
+        $user=User::where('subCategory_id',$id)->first();
+        $user->update([
             'name'=>$request->name,
             'last_name'=>$request->last_name,
             'email'=>$request->email,
             'phone'=>$request->phone,
         ]);
+        if($request->password!=''){
+            $user->update([
+                'password'=> Hash::make($request->password)
+            ]);
+        }
         return  redirect()->route('laundries.index');
     }
 

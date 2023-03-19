@@ -40,13 +40,7 @@
                     <a href="#" class="nav-link"></a>
                 </li>
             </ul>
-
-            <!-- Right navbar links -->
-
         </nav>
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -56,7 +50,6 @@
                         <a href="#" class="d-block">{{Auth::user()->name}}</a>
                     </div>
                 </div>
-                <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 

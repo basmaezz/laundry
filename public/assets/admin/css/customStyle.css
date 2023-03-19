@@ -3,6 +3,8 @@ html *
     font-size: 1em !important;
     /*!*color: #000 !important;*!*/
     font-family: Nunito, sans-serif;
+    color:black;
+    font-weight: bold;
 }
 .check-ability-label{
     border: 0;
@@ -33,4 +35,27 @@ html *
 img {
     vertical-align: middle;
     border-style: none;
+}
+
+.col-md-9 {
+    font-weight: bold;
+    color: black;
+}
+.form-group.row {
+    color: black;
+}
+#text-input {
+    color: black;
+}
+/*#email-input {*/
+/*    color: black;*/
+/*}*/
+/*#name_ar {*/
+/*    color: black;*/
+/*}*/
+/*#phone {*/
+/*    color: black;*/
+/*}*/
+.form-control {
+    color: black;
 }

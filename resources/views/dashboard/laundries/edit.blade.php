@@ -42,8 +42,8 @@
                                         <label for="company">المدينه</label>
                                         <select class="form-control" name="city_id">
                                             <option >أختر المدينه</option>
-                                            @foreach($cities as $value=>$key)
-                                                <option value="{{$key}}" {{$subCategory->city_id==$key ?'selected':''}}>{{$value}}</option>
+                                            @foreach($cities as $city)
+                                                <option value="{{$city->id}}" {{$subCategory->city_id==$city->id ?'selected':''}}>{{$city->name_ar}}</option>
                                             @endforeach
                                             @error('city_id')
                                             <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
@@ -126,6 +126,10 @@
                                     <div class="form-group ">
                                         <label  for="text-input">الأسم الأخير</label>
                                         <input type="text" id="text-input" name="last_name" class="form-control"value="{{$subCategory->user[0]->last_name}}">
+                                    </div>
+                                    <div class="form-group ">
+                                        <label  for="text-input">كلمه المرور </label>
+                                        <input type="password" id="text-input" name="password" class="form-control"placeholder="************">
                                     </div>
                                     <div class="form-group ">
                                         <label  for="email-input">البريد الألكترونى </label>

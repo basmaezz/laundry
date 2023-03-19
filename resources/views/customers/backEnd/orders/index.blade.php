@@ -21,6 +21,7 @@
                                         <th>Discount </th>
                                         <th>note </th>
                                         <th>Date </th>
+                                        <th>Actions </th>
 {{--                                        <th>Completed</th>--}}
 
                                     </tr>
@@ -29,12 +30,14 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$order->id}}</td>
-                                            <td>{{$order->user->uuid}}</td>
+                                            <td>{{$order->user->name}}</td>
                                             <td>{{$order->total_price}}</td>
                                             <td>{{$order->status}}</td>
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->created_at}}</td>
+                                            <td>
+                                                <a href="#}" class="edit btn btn-primary btn-sm">التفاصيل</a></td>
 {{--                                            <td>--}}
 {{--                                                <a href="#" class="btn btn-info">تم الانتهاء</a>--}}
 {{--                                            </td>--}}
