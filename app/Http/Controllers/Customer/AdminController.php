@@ -45,5 +45,12 @@ class AdminController extends Controller
 //        dd($appUsers);
         return view('customers.backEnd.main');
     }
+    public function destroyLaundryAdmin(Request $request)
+    {
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('customer.customerLogin');
+    }
 
 }

@@ -133,6 +133,16 @@ class subCategoryController extends Controller
     public function update(Request $request,$id)
     {
         $subcategory=Subcategory::find($id);
+        if ((strpos($request->location, 'maps')) !== false) {
+            $str = $request->location;
+            $x1 = strstr($str, '=');
+            $x2 = str_replace('=', '', $x1);
+            $x3 = explode(',', $x2);
+            array_splice($x3, -1);
+            $x4 = implode(',', $x3);
+            $subcategory['lat'] = $x3[0];
+            $subcategory['lng'] = $x4;
+        }
         if($request->around_clock !=''){
             $subcategory['around_clock'] = $request->around_clock;
             $subcategory['clock_end'] = '';
@@ -241,6 +251,7 @@ class subCategoryController extends Controller
 
     public function storeBranch(Request $request)
 {
+
 
     $subcategory= new Subcategory();
     if ((strpos($request->location, 'maps')) !== false) {

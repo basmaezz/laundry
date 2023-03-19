@@ -156,6 +156,17 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <form method="post" action="{{ route('logoutLaundryAdmin') }}">
+                                @csrf
+
+                                <button type="submit" class="dropdown-item"><i class="nav-link"></i> خروج</button>
+                            </form>
+{{--                            <a href="{{route('Customer.Orders.index',Auth::user()->subCategory_id)}}" class="nav-link">--}}
+{{--                                <i class="far fa-circle nav-icon"></i>--}}
+{{--                                <p>Logout</p>--}}
+{{--                            </a>--}}
+                        </li>
 {{--                        <li class="nav-item">--}}
 {{--                            <a href="#" class="nav-link">--}}
 {{--                                <i class="nav-icon fas fa-tachometer-alt"></i>--}}

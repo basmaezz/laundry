@@ -292,3 +292,5 @@ Route::get('getCars',function (){
 //Route::get('updateDelegate', function () {
 //    $ordersTable = \App\Models\Delegate::where('id',18)->update(['registered' => 2]);
 //});
+Route::post('logoutLaundryAdmin', [AdminController::class, 'destroyLaundryAdmin'])
+        ->name('logoutLaundryAdmin');
