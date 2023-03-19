@@ -20,6 +20,7 @@
                                         <th>Status </th>
                                         <th>Discount </th>
                                         <th>Finished Date</th>
+                                        <th>Actions </th>
 
                                     </tr>
                                     </thead>
@@ -32,6 +33,8 @@
                                             <td>{{$order->status}}</td>
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->updated_at}}</td>
+                                            <td>
+                                                <a href="#}" class="edit btn btn-primary btn-sm">التفاصيل</a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>

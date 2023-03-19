@@ -49,10 +49,10 @@ class UserController extends Controller
     }
     public function index(Request $request)
     {
-
         if(Gate::denies('users.index')){
             abort(403);
         };
+
         $users=User::whereNull('subCategory_id')->get();
         return view('dashboard.users.index',compact('users'));
     }

@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
 });
 require __DIR__ . '/auth.php';
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','IsAdmin'])->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('profile', [UserController::class, 'profile'])->name('users.profile');
     Route::get('editPassword', [UserController::class, 'editPassword'])->name('users.editPassword');
@@ -149,35 +149,39 @@ Route::middleware('auth')->group(function () {
 Route::post('customerLogin', [AdminController::class, 'customerLogin'])->name('customer.customerLogin');
 
 Route::get('signOut', [AdminController::class, 'signOut'])->name('customer.logout');
+Route::middleware(['auth','laundryAdmin'])->group(function(){
 
-Route::get('customerLogin', [AdminController::class, 'index'])->name('customer.login');
-Route::get('aib', [AdminController::class, 'main'])->name('customer.index');
+    Route::get('customerLogin', [AdminController::class, 'index'])->name('customer.login');
+    Route::get('aib', [AdminController::class, 'main'])->name('customer.index');
 
-Route::get('Items/{id}', [ItemsController::class, 'index'])->name('Customer.Items.index');
-Route::get('createItems/{id}', [ItemsController::class, 'create'])->name('Customer.Items.create');
-Route::post('storeItem/{id}', [ItemsController::class, 'store'])->name('Customer.Items.store');
-Route::get('editItem/{id}', [ItemsController::class, 'edit'])->name('Customer.Items.edit');
-Route::post('updateItem/{id}', [ItemsController::class, 'update'])->name('updateItem');
-Route::get('deleteItem/{id}', [ItemsController::class, 'destroy'])->name('Customer.Items.delete');
+    Route::get('Items/{id}', [ItemsController::class, 'index'])->name('Customer.Items.index');
+    Route::get('createItems/{id}', [ItemsController::class, 'create'])->name('Customer.Items.create');
+    Route::post('storeItem/{id}', [ItemsController::class, 'store'])->name('Customer.Items.store');
+    Route::get('editItem/{id}', [ItemsController::class, 'edit'])->name('Customer.Items.edit');
+    Route::post('updateItem/{id}', [ItemsController::class, 'update'])->name('updateItem');
+    Route::get('deleteItem/{id}', [ItemsController::class, 'destroy'])->name('Customer.Items.delete');
 
-Route::get('Products/{id}', [ProductsController::class, 'index'])->name('Customer.Products.index');
-Route::get('createProduct/{id}', [ProductsController::class, 'create'])->name('Customer.Products.create');
-Route::get('editProduct/{id}', [ProductsController::class, 'edit'])->name('Customer.Products.edit');
-Route::post('updateProduct/{id}', [ProductsController::class, 'update'])->name('Customer.Products.update');
-Route::post('createProduct', [ProductsController::class, 'store'])->name('Customer.Products.store');
-Route::get('deleteProduct/{id}', [ProductsController::class, 'destroy'])->name('Customer.Products.destroy');
-Route::get('viewProductService/{id}', [ProductsController::class, 'productServices'])->name('Customer.Products.viewProductServices');
-Route::get('addProductService/{id}', [ProductsController::class, 'addService'])->name('Customer.Products.addProductService');
-Route::post('createService', [ProductsController::class, 'createService'])->name('Customer.Products.createService');
-Route::get('viewAllServices/{id}', [ProductsController::class, 'viewAllServices'])->name('Customer.Products.viewAllServices');
-Route::get('deleteService/{id}', [ProductsController::class, 'deleteService'])->name('Customer.Products.deleteService');
+    Route::get('Products/{id}', [ProductsController::class, 'index'])->name('Customer.Products.index');
+    Route::get('createProduct/{id}', [ProductsController::class, 'create'])->name('Customer.Products.create');
+    Route::get('editProduct/{id}', [ProductsController::class, 'edit'])->name('Customer.Products.edit');
+    Route::post('updateProduct/{id}', [ProductsController::class, 'update'])->name('Customer.Products.update');
+    Route::post('createProduct', [ProductsController::class, 'store'])->name('Customer.Products.store');
+    Route::get('deleteProduct/{id}', [ProductsController::class, 'destroy'])->name('Customer.Products.destroy');
+    Route::get('viewProductService/{id}', [ProductsController::class, 'productServices'])->name('Customer.Products.viewProductServices');
+    Route::get('addProductService/{id}', [ProductsController::class, 'addService'])->name('Customer.Products.addProductService');
+    Route::post('createService', [ProductsController::class, 'createService'])->name('Customer.Products.createService');
+    Route::get('viewAllServices/{id}', [ProductsController::class, 'viewAllServices'])->name('Customer.Products.viewAllServices');
+    Route::get('deleteService/{id}', [ProductsController::class, 'deleteService'])->name('Customer.Products.deleteService');
 
-Route::get('orders/{id}', [OrdersController::class, 'index'])->name('Customer.Orders.index');
-Route::get('ordersInProgress/{id}', [OrdersController::class, 'inProgress'])->name('Customer.Orders.inProgress');
-Route::get('ordersCompleted/{id}', [OrdersController::class, 'completed'])->name('Customer.Orders.completed');
-Route::get('changeStatus', [OrdersController::class,'changeStatus']);
-Route::get('canceledOrder/{id}', [OrdersController::class, 'canceledOrder'])->name('Customer.Orders.canceledOrder');
-Route::get('finishedOrder/{id}', [OrdersController::class, 'finishedOrder'])->name('Customer.Orders.finishedOrder');
+    Route::get('orders/{id}', [OrdersController::class, 'index'])->name('Customer.Orders.index');
+    Route::get('ordersInProgress/{id}', [OrdersController::class, 'inProgress'])->name('Customer.Orders.inProgress');
+    Route::get('ordersCompleted/{id}', [OrdersController::class, 'completed'])->name('Customer.Orders.completed');
+    Route::get('changeStatus', [OrdersController::class,'changeStatus']);
+    Route::get('canceledOrder/{id}', [OrdersController::class, 'canceledOrder'])->name('Customer.Orders.canceledOrder');
+    Route::get('finishedOrder/{id}', [OrdersController::class, 'finishedOrder'])->name('Customer.Orders.finishedOrder');
+
+});
+
 
 Route::view('datatable', 'dashboard.datatable');
 Route::view('datatableAr', 'dashboard.datatableAr');
@@ -241,9 +245,6 @@ Route::get('drop', function () {
 
 Route::get('truncateData', function () {
     \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-//    \App\Models\OrderTable::truncate();
-//    \App\Models\OrderDetails::truncate();
-//    \App\Models\Address::truncate();
     \App\Models\City::truncate();
     \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 });

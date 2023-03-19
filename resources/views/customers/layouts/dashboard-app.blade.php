@@ -160,7 +160,7 @@
                             <form method="post" action="{{ route('logoutLaundryAdmin') }}">
                                 @csrf
 
-                                <button type="submit" class="dropdown-item"><i class="nav-link"></i> خروج</button>
+                                <button type="submit" class="dropdown-item" style="background-color: whitesmoke">   <i class="far fa-circle nav-icon"></i>خروج</button>
                             </form>
 {{--                            <a href="{{route('Customer.Orders.index',Auth::user()->subCategory_id)}}" class="nav-link">--}}
 {{--                                <i class="far fa-circle nav-icon"></i>--}}

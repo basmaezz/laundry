@@ -59,6 +59,12 @@
                                         <label for="company"> ملاحظات  </label>
                                         <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->note}}"disabled>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="company"> الملاحظات الصوتيه </label>
+                                        <audio autoplay id="mainaudio">
+                                            <source src="{{$order->audio_note}}">
+                                        </audio>
+                                    </div>
 
                                 </div>
                             </div>

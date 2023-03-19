@@ -69,5 +69,7 @@ class Kernel extends HttpKernel
         'jwt' 		 => \App\Http\Middleware\JwtMiddleware::class,
         'language'   =>  \App\Http\Middleware\LanguageApi::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'IsAdmin' =>\App\Http\Middleware\IsAdmin::class,
+        'laundryAdmin' =>\App\Http\Middleware\laundryAdmin::class,
     ];
 }

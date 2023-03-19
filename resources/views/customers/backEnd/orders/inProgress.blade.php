@@ -22,6 +22,7 @@
                                         <th>note </th>
                                         <th>Date </th>
                                         <th>Completed</th>
+                                        <th>ACtions</th>
 
                                     </tr>
                                     </thead>
@@ -38,6 +39,8 @@
                                             <td>
                                                 <a href="{{route('Customer.Orders.completed',$order->id)}}" class="btn btn-info">تم الانتهاء</a>
                                             </td>
+                                            <td>
+                                                <a href="#}" class="edit btn btn-primary btn-sm">التفاصيل</a></td>
 {{--                                            <td>--}}
 
 {{--                                                <input data-id="{{$order->id}}" class="toggleBtn" type="checkbox"--}}

@@ -10,39 +10,43 @@ use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('customers.Auth.login');
     }
 
-    public function customerLogin(Request $request){
+    public function customerLogin(Request $request)
+    {
         $request->validate([
             'email' => 'required',
             'password' => 'required',
         ]);
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials) && Auth::user()->subCategory_id !='' ) {
+        if (Auth::attempt($credentials) && Auth::user()->subCategory_id != '') {
             return view('customers.backEnd.main');
-       }
+        }
         return redirect()->back()->withSuccess('Login details are not valid');
     }
 
     public function dashboard()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return view('dashboard');
         }
         return redirect("customer.login")->withSuccess('You are not allowed to access');
     }
 
-    public function signOut() {
+    public function signOut()
+    {
         Session::flush();
         Auth::logout();
         return Redirect()->route('customer.login');
     }
 
-    public function main(){
-        $appUsers=AppUser::count();
-//        dd($appUsers);
+    public function main()
+    {
+        $appUsers = AppUser::count();
+        //        dd($appUsers);
         return view('customers.backEnd.main');
     }
     public function destroyLaundryAdmin(Request $request)
@@ -52,5 +56,4 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('customer.customerLogin');
     }
-
 }
