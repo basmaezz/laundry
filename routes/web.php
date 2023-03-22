@@ -242,7 +242,7 @@ Route::get('drop', function () {
 
 Route::get('truncateData', function () {
     \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-    \App\Models\City::truncate();
+    \App\Models\OrderTable::truncate();
     \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 });
 
