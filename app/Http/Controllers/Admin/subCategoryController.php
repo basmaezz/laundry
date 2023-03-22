@@ -162,7 +162,7 @@ class subCategoryController extends Controller
         $subcategory->save();
 
         $user=User::where('subCategory_id',$id)->first();
-        $user->updateorcreate([
+        $user->updateOrCreate([
             'name'=>$request->name,
             'last_name'=>$request->last_name,
             'email'=>$request->email,
