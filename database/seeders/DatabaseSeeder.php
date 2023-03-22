@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-          \App\Models\User::factory(10)->create();
+        //  \App\Models\User::factory(10)->create();
                  \App\Models\User::factory()->create([
                      'name' => 'Admin',
-                     'email' => 'lanudry_admin@admin.com',
+                     'email' => 'laundry_admin@admin.com',
                      'password'=>bcrypt('password')
                  ]);
         for ($i = 2000; $i <= 2023; $i++) {
@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         $this->call([
-                        NationalitySeeder::class,
-//                        NationalitiySeeder::class,
+             NationalitySeeder::class,
+            //            NationalitiySeeder::class,
                         AppUserSeeder::class,
                          carTypesSeeder::class,
                          EducationsLevelSeeder::class,

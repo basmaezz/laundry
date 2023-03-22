@@ -16,11 +16,7 @@ class CitySeeder extends Seeder
    public function run()
    {
        $cities = [
-           [
-               'id' => '1',
-               'name_ar' => 'الرياض ',
-               'name_en' => 'Riyadh',
-           ],
+
        [
                'id' => '2',
                'name_ar' => 'المدينة المنورة ',
@@ -35,7 +31,8 @@ class CitySeeder extends Seeder
                'id' => '4',
                'name_ar' => 'تبوك',
                'name_en' => 'Tabuk',
-           ],          [
+           ],
+           [
             'id' => '5',
             'name_ar' => "الرياض",
             'name_en' => "Riyadh",
