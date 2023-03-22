@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Enums\SubCategoryStatus;
 use App\Traits\SelfReferenceTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,7 @@ use Maize\Markable\Models\Favorite;
 class Subcategory extends Model
 {
     use Markable;
+    use SoftDeletes;
 
     protected  $table   = 'subcategories';
     protected  $guarded = [];

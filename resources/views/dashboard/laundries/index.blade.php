@@ -28,7 +28,7 @@
                                     <tr>
                                         <td><img src="{{$subCategory->image}}" style="width:50px;height:50px"></td>
                                         <td>{{$subCategory->name_ar}}</td>
-                                        <td>{{$subCategory->name_ar}}</td>
+                                        <td>{{$subCategory->parent->name_ar??''}}</td>
                                         <td>{{$subCategory->city->name_ar}}</td>
                                         <td>{{$subCategory->address}}</td>
                                         @if($subCategory->around_clock !=Null)
@@ -43,7 +43,12 @@
                                                 <a href="{{route('CategoryItems.index',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الأقسام</a>
                                                 <a href="{{route('laundries.edit',$subCategory->id)}}" class="edit btn btn-primary btn-sm">تعديل</a>
                                                 <a href="{{route('laundries.view',$subCategory->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a>
-                                                <a href="{{route('laundries.destroy',$subCategory->id)}}" class="edit btn btn-danger btn-sm">حذف</a>
+                                                    <form class="delete" action="{{route('laundries.destroy',$subCategory->id)}}" method="get">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <input type="submit" value="حذف" class="edit btn btn-danger btn-sm">
+                                                    </form>
+{{--                                                <a href="{{route('laundries.destroy',$subCategory->id)}}" class="edit btn btn-danger btn-sm">حذف</a>--}}
                                         </td>
                                     </tr>
                                     @endforeach
@@ -66,6 +71,11 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#laundries_wrapper .col-md-6:eq(0)');
+    </script>
+    <script>
+        $(".delete").on("submit", function(){
+            return confirm("هل أنت متأكد من حذف المغسله ؟");
+        });
     </script>
 @endpush
 

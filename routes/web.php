@@ -90,6 +90,8 @@ Route::middleware(['auth','IsAdmin'])->group(function () {
     Route::get('editBranch/{id}', [subCategoryController::class, 'editBranch'])->name('laundries.editBranch');
     Route::get('mainLaundries', [subCategoryController::class, 'mainLaundries'])->name('laundries.mainLaundries');
     Route::get('deleteBranch/{id}', [subCategoryController::class, 'deleteBranch'])->name('laundries.deleteBranch');
+    Route::get('viewTrashedLaundries', [subCategoryController::class, 'viewTrashedLaundries'])->name('laundries.viewTrashedLaundries');
+    Route::get('restoreDeleted/{id}', [subCategoryController::class, 'restoreDeleted'])->name('laundries.restoreDeleted');
 
 
     Route::get('CategoriesIndex', [CategoriesController::class, 'index'])->name('Categories.index');
@@ -295,3 +297,9 @@ Route::get('getCars',function (){
 //});
 Route::post('logoutLaundryAdmin', [AdminController::class, 'destroyLaundryAdmin'])
         ->name('logoutLaundryAdmin');
+
+
+Route::get('histories',function (){
+    $histories=\App\Models\OrderStatusHistory::all();
+    return $histories;
+});

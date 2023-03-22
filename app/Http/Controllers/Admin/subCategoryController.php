@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategoriesRequest;
+use App\Http\Requests\subCategoryRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Subcategory;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
@@ -51,9 +53,15 @@ class subCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(subCategoryRequest $request)
     {
         $subcategory= new Subcategory();
+        if($request->file('image') !=''){
+            $filename = request('image')->getClientOriginalName();
+            request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
+            $subcategory['image']=$filename;
+        }
+        Subcategory::create($request->validated());
         if ((strpos($request->location, 'maps')) !== false) {
             $str = $request->location;
             $x1 = strstr($str, '=');
@@ -63,15 +71,6 @@ class subCategoryController extends Controller
             $x4 = implode(',', $x3);
             $subcategory['lat'] = $x3[0];
             $subcategory['lng'] = $x4;
-            $subcategory['category_id'] = $request->category_id;
-            $subcategory['name_ar'] = $request->name_ar;
-            $subcategory['name_en'] = $request->name_en;
-            $subcategory['city_id'] = $request->city_id;
-            $subcategory['address'] = $request->address;
-            $subcategory['price'] = $request->price;
-            $subcategory['approximate_duration'] = $request->approximate_duration;
-            $subcategory['status'] ='1';
-            $subcategory['rate'] = '5';
             if($request->around_clock !=''){
              $subcategory['around_clock'] = $request->around_clock;
             $subcategory['clock_end'] = '';
@@ -80,15 +79,11 @@ class subCategoryController extends Controller
                 $subcategory['clock_end'] = $request->clock_end;
                 $subcategory['clock_at'] = $request->clock_at;
             }
-            if($request->file('image') !=''){
-                $filename = request('image')->getClientOriginalName();
-                request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
-                $subcategory['image']=$filename;
-            }
+
         }
         $subcategory->save();
        $user= User::create([
-            'name'=>$request->name,
+        'name'=>$request->name,
         'last_name'=>$request->last_name,
         'email'=>$request->email,
         'password'=>$request->password,
@@ -315,6 +310,19 @@ public function deleteBranch($id)
 {
     Subcategory::find($id)->delete();
     return redirect()->back();
+}
+
+public function viewTrashedLaundries()
+{
+    $subCategories = Subcategory::with(['city','parent'])->onlyTrashed()->get();
+    return view('dashboard.laundries.trashedLaundries',compact('subCategories'));
+}
+
+public function restoreDeleted($id)
+{
+    Subcategory::withTrashed()->find($id)->restore();
+    Subcategory::withTrashed()->where('parent_id',$id)->restore();
+    return redirect()->route('laundries.index');
 
 }
 }
