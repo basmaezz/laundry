@@ -19,7 +19,7 @@
                                     @if($subCategory->parent_id !='')
                                     <div class="form-group">
                                         <label for="company" n>اسم المغسله الرئيسيه</label>
-                                        <input type="text" name="parent_id"class="form-control" id="name_ar" value="{{$subCategory->parent->name_ar}}" disabled>
+                                        <input type="text" name="parent_id"class="form-control" id="name_ar" value="{{$subCategory->parent->name_ar??''}}" disabled>
                                         <input type="hidden" name="parent_id"class="form-control"value="{{$subCategory->id}}">
                                     </div>
                                     @endif
@@ -120,12 +120,12 @@
 
                                     <div class="form-group ">
                                         <label >الأسم الأول</label>
-                                        <input type="text" id="text-input" name="name" class="form-control" value="{{$subCategory->user[0]->name}}">
+                                        <input type="text" id="text-input" name="name" class="form-control" value="{{$subCategory->user[0]->name ??''}}">
 
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الأسم الأخير</label>
-                                        <input type="text" id="text-input" name="last_name" class="form-control"value="{{$subCategory->user[0]->last_name}}">
+                                        <input type="text" id="text-input" name="last_name" class="form-control"value="{{$subCategory->user[0]->last_name ??''}}">
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">كلمه المرور </label>
@@ -133,11 +133,11 @@
                                     </div>
                                     <div class="form-group ">
                                         <label  for="email-input">البريد الألكترونى </label>
-                                        <input type="email" id="email-input" name="email" class="form-control" value="{{$subCategory->user[0]->email}}">
+                                        <input type="email" id="email-input" name="email" class="form-control" value="{{$subCategory->user[0]->email ??''}}">
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الجوال </label>
-                                        <input type="text" id="phone" name="phone" class="form-control"  value="{{$subCategory->user[0]->phone}}">
+                                        <input type="text" id="phone" name="phone" class="form-control"  value="{{$subCategory->user[0]->phone ??''}}">
                                     </div>
                                 </div>
                             </div>

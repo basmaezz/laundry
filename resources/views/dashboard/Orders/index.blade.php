@@ -9,7 +9,7 @@
 
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i> الطلبات
-                                <a href="#" class="btn btn-primary" style="float:left;margin-top: 2px;">بحث متقدم  </a>
+{{--                                <a href="#" class="btn btn-primary" style="float:left;margin-top: 2px;">بحث متقدم  </a>--}}
                             </div>
                             <div class="card-block">
                                 <table id="orders" class="table table-bordered table-striped">
