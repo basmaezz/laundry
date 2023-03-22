@@ -209,12 +209,7 @@ Route::get('updateUser',function (){
 
 Route::get('getData', function () {
     \App\Models\City::truncate();
-    //   \App\Models\OrderTable::truncate();
-    //   \App\Models\OrderStatusHistory::truncate();
-    //   \App\Models\OrderAdditional::truncate();
-    //   $orders=\App\Models\OrderDetails::all();
-    //    dd($orders);
-    //    $users=\App\Models\AppUser::all();
+
 });
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('config:cache');
@@ -233,7 +228,7 @@ Route::get('usersGet', function () {
     return $users;
 });
 Route::get('getDelegates', function () {
-    $delegates = \App\Models\Delegate::with('appUser')->all();
+    $delegates = \App\Models\Delegate::with('appUser')->get();
     return $delegates;
 });
 Route::get('getAppUsers', function () {
