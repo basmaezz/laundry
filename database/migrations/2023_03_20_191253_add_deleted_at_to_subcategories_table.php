@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('subcategories', function (Blueprint $table) {
-         $table->softDeletes();
+            $table->softDeletes();
         });
     }
 
