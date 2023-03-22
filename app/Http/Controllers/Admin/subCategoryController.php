@@ -42,8 +42,7 @@ class subCategoryController extends Controller
     public function create()
     {
         $cities=City::pluck('id','name_ar');
-        $categories=Category::where('id',1)->get();
-
+        $categories=Category::where('name_ar','مغاسل الملابس')->get();
         return view('dashboard.laundries.create',compact(['cities','categories']));
     }
 
@@ -163,7 +162,7 @@ class subCategoryController extends Controller
         $subcategory->save();
 
         $user=User::where('subCategory_id',$id)->first();
-        $user->update([
+        $user->updateorcreate([
             'name'=>$request->name,
             'last_name'=>$request->last_name,
             'email'=>$request->email,
