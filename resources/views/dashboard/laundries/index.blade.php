@@ -29,7 +29,7 @@
                                         <td><img src="{{$subCategory->image}}" style="width:50px;height:50px"></td>
                                         <td>{{$subCategory->name_ar}}</td>
                                         <td>{{$subCategory->parent->name_ar??''}}</td>
-                                        <td>{{$subCategory->city->name_ar}}</td>
+                                        <td>{{$subCategory->city->name_ar??''}}</td>
                                         <td>{{$subCategory->address}}</td>
                                         @if($subCategory->around_clock !=Null)
                                         <td> طوال اليوم</td>
