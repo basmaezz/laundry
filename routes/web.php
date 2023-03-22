@@ -97,6 +97,7 @@ Route::middleware(['auth','IsAdmin'])->group(function () {
     Route::get('CategoriesIndex', [CategoriesController::class, 'index'])->name('Categories.index');
     Route::get('CategoryEdit/{id}', [CategoriesController::class, 'edit'])->name('category.edit');
     Route::post('CategoryUpdate/{id}', [CategoriesController::class, 'update'])->name('category.update');
+    Route::get('CategoryDelete/{id}', [CategoriesController::class, 'destroy'])->name('category.destroy');
 
     Route::get('CategoryItemsIndex/{id}', [CategoryItemController::class, 'index'])->name('CategoryItems.index');
     Route::get('CategoryItems/{id}', [CategoryItemController::class, 'create'])->name('CategoryItems.create');

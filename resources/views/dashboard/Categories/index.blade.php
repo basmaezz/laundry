@@ -28,7 +28,8 @@
                                                 <td>
 
                                                     <a href="{{route('category.edit',$category->id)}}" class="btn btn-primary" >تعديل</a>
-                                                    <a href="#" class="btn btn-danger">حذف</a>
+                                                    <a href="{{route('category.destroy',$category->id)}}" class="btn btn-danger" >حذف</a>
+
                                                 </td>
                                             </tr>
 
@@ -46,3 +47,4 @@
         </div>
     </main>
 @endsection
+

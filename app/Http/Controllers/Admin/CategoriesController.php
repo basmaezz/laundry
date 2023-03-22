@@ -40,4 +40,10 @@ class CategoriesController extends Controller
         $category->save();
         return redirect()->route('Categories.index');
     }
+    public function destroy($id)
+    {
+
+        Category::find($id)->delete();
+        return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
+    }
 }
