@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         $this->call([
-            // NationalitySeeder::class
-                        NationalitiySeeder::class,
+                        NationalitySeeder::class,
+//                        NationalitiySeeder::class,
                         AppUserSeeder::class,
                          carTypesSeeder::class,
                          EducationsLevelSeeder::class,
