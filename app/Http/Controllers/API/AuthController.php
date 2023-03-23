@@ -38,10 +38,10 @@ class AuthController extends ApiController
 
         if ($validator->passes()) {
             $number      = convert2english(request('mobile'));
-            $checkPhone  = is_unique('mobile',$number,'customer');
-            if ($checkPhone){
-                return  apiResponse('mobile_exists',null,400,400);
-            }
+//            $checkPhone  = is_unique('mobile',$number,'customer');
+//            if ($checkPhone){
+//                return  apiResponse('mobile_exists',null,400,400);
+//            }
 
             $checkEmail  = is_unique('email',$request->email,'customer');
             if ($checkEmail){
@@ -182,10 +182,10 @@ class AuthController extends ApiController
 
         $number      = convert2english($request->get('personal')['mobile']);
 
-        $checkPhone  = is_unique('mobile',$number,'delivery');
-        if ($checkPhone){
-            return  apiResponse('mobile_exists',null,422,422);
-        }
+//        $checkPhone  = is_unique('mobile',$number,'delivery');
+//        if ($checkPhone){
+//            return  apiResponse('mobile_exists',null,422,422);
+//        }
 
         $checkEmail  = is_unique('email',$request->get('personal')['email'],'delivery');
         if ($checkEmail){
@@ -526,13 +526,13 @@ class AuthController extends ApiController
             $user     = User::find($request->user_id);
             $provider = ProviderData::where('user_id',$user->id)->first();
 
-            $checkPhone = User::where(['phone'=>$request->phone])->where('phone','<>',$user->phone)->first();
+//            $checkPhone = User::where(['phone'=>$request->phone])->where('phone','<>',$user->phone)->first();
             $checkEmail = User::where(['email'=>$request->email])->where('email','<>',$user->email)->first();
 
-            if (isset($checkPhone)){
-
-                return responseJsonError(trans('auth.phone_unique'));
-            }
+//            if (isset($checkPhone)){
+//
+//                return responseJsonError(trans('auth.phone_unique'));
+//            }
 
             if (isset($checkEmail)){
 

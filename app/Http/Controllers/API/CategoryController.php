@@ -96,9 +96,6 @@ class CategoryController extends Controller
         ]);
         return apiResponse("api.success", $data);
     }
-
-
-
     /**
      * @return \Illuminate\Http\JsonResponse
      */
@@ -114,7 +111,6 @@ class CategoryController extends Controller
                 'image' => $category->image,
             ];
         }
-
         return apiResponse("api.success", $data);
     }
 
