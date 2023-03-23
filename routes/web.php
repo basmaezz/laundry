@@ -194,9 +194,9 @@ Route::get('updates', function () {
 });
 
 Route::get('updateDB', function () {
-    DB::table('subcategories')->where('id', 24)->update([
-        'lat' => '30.2984486',
-        'lng' => '31.152275'
+    DB::table('subcategories')->where('id', 14)->update([
+        'lat' => '30.3158798',
+        'lng' => '31.1422192'
     ]);
 });
 
