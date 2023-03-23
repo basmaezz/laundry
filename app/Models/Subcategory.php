@@ -62,6 +62,4 @@ class Subcategory extends Model
     public function user(){
         return $this->hasMany(User::class,'subCategory_id');
     }
-
-
 }
