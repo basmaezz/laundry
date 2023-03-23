@@ -1586,10 +1586,4 @@ class UsersController extends Controller
         return response()->json($validator->errors());
     }
 
-    public function setStatus(){
-        $JwtUser = JWTAuth::toUser();
-
-
-    }
-
 }

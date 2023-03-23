@@ -114,6 +114,8 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('count-notification', [UsersController::class,'count_notification']);
     Route::any('update-password', [AuthController::class,'update_password']);
     Route::any('reset-password', [AuthController::class,'reset_password']);
+    Route::any('checkAvailable', [AuthController::class,'checkAvailable']);
+    Route::any('changeAvailable', [AuthController::class,'changeAvailable']);
     Route::any('edit-password', [AuthController::class,'edit_password']);
     Route::any('notifications', [UsersController::class,'notifications']);
     Route::any('editProfile', [AuthController::class,'editProfile']);

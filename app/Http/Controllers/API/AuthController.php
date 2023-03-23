@@ -772,4 +772,34 @@ class AuthController extends ApiController
         return apiResponse("user_has_updated_successfully",$user);
     }
 
+    public function checkAvailable(Request $request)
+    {
+        $JwtUser = JWTAuth::toUser();
+        $user    = User::where('id',$JwtUser->id)->first();
+        if($user->available == '1'){
+            $msg = trans('U Available');
+            return responseDataMessage($msg , userInfo($user->id , App::getLocale()) );
+        }elseif($user->available == '0'){
+            $msg = trans('U Not Available');
+            return responseDataMessage($msg , userInfo($user->id , App::getLocale()) );
+        }
+    }
+
+    public function changeAvailable(Request $request)
+    {
+        $JwtUser = JWTAuth::toUser();
+        $user    = User::where('id',$JwtUser->id)->first();
+        if($user->available == '1'){
+            $user->available == '0';
+        }elseif ($user->available=='0'){
+            $user->available == '1';
+        }
+        if($user->save()){
+            $msg = trans('available Changed');
+            return responseDataMessage($msg , userInfo($user->id , App::getLocale()) );
+        }else{
+            return responseJsonError(trans('auth.password_incorrect'));
+        }
+    }
+
 }
