@@ -128,7 +128,7 @@ class OrderController extends Controller
     public function  DeliveredToLaundry(){
         $orders=OrderTable::with('histories')->where("status_id",self::DeliveredToLaundry)->get();
         dd($orders);
-        return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
+        return  view('dashboard.Orders.DeliveredToLaundry',compact('orders'));
     }
     public function  readyPickUp(){
         $orders=OrderTable::with(['subCategories','user','address'])->where("status_id",self::ClothesReadyForDelivery)->get();
