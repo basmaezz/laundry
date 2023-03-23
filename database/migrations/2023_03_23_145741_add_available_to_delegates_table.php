@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('delegates', function (Blueprint $table) {
-           $table->integer('available')->after('reject_reason')->default(0);
+            $table->integer('available')->after('reject_reason')->default(0);
         });
     }
 
