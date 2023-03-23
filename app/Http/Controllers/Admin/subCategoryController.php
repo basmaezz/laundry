@@ -167,12 +167,13 @@ class subCategoryController extends Controller
             'last_name'=>$request->last_name,
             'email'=>$request->email,
             'phone'=>$request->phone,
+            'password'=> Hash::make($request->password)
         ]);
-        if($request->password!=''){
-            $user->update([
-                'password'=> Hash::make($request->password)
-            ]);
-        }
+//        if($request->password!=''){
+//            $user->update([
+//                'password'=> Hash::make($request->password)
+//            ]);
+//        }
         return  redirect()->route('laundries.index');
     }
 
