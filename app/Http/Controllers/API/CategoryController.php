@@ -22,7 +22,6 @@ class CategoryController extends Controller
 {
     public function getShowSubCategories($id)
     {
-
         $subCategories = Subcategory::where('category_id', $id)->get();
         $name = 'name_' . App::getLocale();
         $data = [];
@@ -39,8 +38,10 @@ class CategoryController extends Controller
                 'rate' => $subcategory->rate_avg,
                 'is_favorite' => (!empty($user))? Favorite::has($subcategory, $user) : false,
                 'image' => $subcategory->image,
+                'location' => $subcategory->location,
                 'lat' => $subcategory->lat,
                 'lng' => $subcategory->lng,
+                'approximate_duration'=> $subcategory->approximate_duration,
                 'distance' => round($distance, 2),
                 'distance_class' =>  getDistanceClass($distance),
                 'distance_class_id' =>  getDistanceClassId($distance),

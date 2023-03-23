@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="country">الموقع(Google Map) </label>
-                                        <input type="text" name="location"class="form-control" id="location" value="">
+                                        <input type="text" name="location"class="form-control" id="location" value="{{$subCategory->location}}">
                                         @error('location')
                                         <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror

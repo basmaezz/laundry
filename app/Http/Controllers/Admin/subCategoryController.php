@@ -55,39 +55,39 @@ class subCategoryController extends Controller
     public function store(subCategoryRequest $request)
     {
         $subcategory= new Subcategory();
-        if($request->file('image') !=''){
-            $filename = request('image')->getClientOriginalName();
-            request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
-            $subcategory['image']=$filename;
-        }
-        Subcategory::create($request->validated());
-        if ((strpos($request->location, 'maps')) !== false) {
+         if ((strpos($request->location, 'maps')) !== false) {
             $str = $request->location;
             $x1 = strstr($str, '=');
             $x2 = str_replace('=', '', $x1);
             $x3 = explode(',', $x2);
             array_splice($x3, -1);
             $x4 = implode(',', $x3);
-            $subcategory['lat'] = $x3[0];
-            $subcategory['lng'] = $x4;
-            if($request->around_clock !=''){
-             $subcategory['around_clock'] = $request->around_clock;
-            $subcategory['clock_end'] = '';
-            $subcategory['clock_at'] = '';
-            }else{
-                $subcategory['clock_end'] = $request->clock_end;
-                $subcategory['clock_at'] = $request->clock_at;
-            }
 
+             if($request->around_clock !=''){
+                 $subcategory['around_clock'] = $request->around_clock;
+                 $subcategory['clock_end'] = '';
+                 $subcategory['clock_at'] = '';
+             }else{
+                 $subcategory['clock_end'] = $request->clock_end;
+                 $subcategory['clock_at'] = $request->clock_at;
+             }
+            if($request->file('image') !=''){
+                $filename = request('image')->getClientOriginalName();
+                request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
+                $subcategory['image']=$filename;
+            }
         }
-        $subcategory->save();
-       $user= User::create([
-        'name'=>$request->name,
-        'last_name'=>$request->last_name,
-        'email'=>$request->email,
-        'password'=>$request->password,
-        'phone'=>$request->phone,
-        'subCategory_id'=>$subcategory->id
+        $subcategory= Subcategory::create($request->validated()+[
+               'lat' => $x3[0],
+               'lng' => $x4,
+           ]);
+        User::create([
+            'name'=>$request->name,
+            'last_name'=>$request->last_name,
+            'email'=>$request->email,
+            'password'=>$request->password,
+            'phone'=>$request->phone,
+            'subCategory_id'=>$subcategory->id
         ]);
         return  redirect()->route('laundries.index');
     }
@@ -249,6 +249,7 @@ class subCategoryController extends Controller
 
     $subcategory= new Subcategory();
     if ((strpos($request->location, 'maps')) !== false) {
+        $subcategory['location'] = $request->location;
         $str = $request->location;
         $x1 = strstr($str, '=');
         $x2 = str_replace('=', '', $x1);

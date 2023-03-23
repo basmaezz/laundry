@@ -35,7 +35,7 @@
                                         <label for="company">اسم المغسله بالانجليزيه</label>
                                         <input type="text" name="name_en"class="form-control" id="name_en" placeholder="اسم المغسله" >
                                         @error('name_en')
-                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        <div class="text-sm text-red-600 danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 

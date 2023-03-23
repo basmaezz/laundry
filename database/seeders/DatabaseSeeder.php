@@ -32,15 +32,15 @@ class DatabaseSeeder extends Seeder
 //                         carTypesSeeder::class,
 //                         EducationsLevelSeeder::class,
 //                         CitySeeder::class,
-//                        CategorySeeder::class,
+                        CategorySeeder::class,
                         subCategorySeeder::class,
-//                        CatgeoryItemSeeder::class,
-//                        productSeeder::class,
-//                        productServiceSeeder::class,
-            //            FaqSeeder::class,
+                        CatgeoryItemSeeder::class,
+                        productSeeder::class,
+                        productServiceSeeder::class,
+                        FaqSeeder::class,
 //                        CouponSeeder::class,
-//                        UserSeeder::class,
-//                        YearSeeder::class
+                        UserSeeder::class,
+                        YearSeeder::class
         ]);
     }
 }

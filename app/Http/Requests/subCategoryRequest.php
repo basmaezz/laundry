@@ -25,8 +25,8 @@ class subCategoryRequest extends FormRequest
     {
         return [
             'category_id'=>'integer',
-            'name_ar' =>'required|unique:subcategories',
-            'name_en' =>'required|unique:subcategories',
+            'name_ar' =>'required',
+            'name_en' =>'required',
             'city_id' =>'required',
             'location'=>'required',
 //            'lat' =>'required',
@@ -36,9 +36,7 @@ class subCategoryRequest extends FormRequest
             'around_clock' =>'required',
             'clock_at' =>'string',
             'clock_end' =>'string',
-        'approximate_duration'=>'required',
-            'status'=>'1',
-            'rate'=>'5',
+            'approximate_duration'=>'required',
             'image' => 'image|mimes:jpg,png,jpeg',
 
         ];

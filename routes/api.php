@@ -178,6 +178,4 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('complaints', [SettingController::class,'complaints']);
     Route::any('calendar', [SettingController::class,'calendar']);
     Route::any('calendar', [SettingController::class,'calendar']);
-
-
 });
