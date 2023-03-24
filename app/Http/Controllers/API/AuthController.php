@@ -789,18 +789,18 @@ class AuthController extends ApiController
     {
         $JwtUser = JWTAuth::toUser();
         $user    = User::where('id',$JwtUser->id)->first();
-        dd($user);
-//        if($user->available == '1'){
-//            $user->available == '0';
-//        }elseif ($user->available=='0'){
-//            $user->available == '1';
-//        }
-//        if($user->save()){
-//            $msg = trans('available Changed');
-//            return responseDataMessage($msg , userInfo($user->id , App::getLocale()) );
-//        }else{
-//            return responseJsonError(trans('auth.password_incorrect'));
-//        }
+//        dd($user);
+        if($user->available == '1'){
+            $user->available == '0';
+        }elseif ($user->available=='0'){
+            $user->available == '1';
+        }
+        if($user->save()){
+            $msg = trans('available Changed');
+            return responseDataMessage($msg , userInfo($user->id , App::getLocale()) );
+        }else{
+            return responseJsonError(trans('auth.password_incorrect'));
+        }
 
 //        if($user->status == $request->get('status')){
 //            $return = [
