@@ -796,7 +796,7 @@ class AuthController extends ApiController
             'code'      => 422,
             'message'   => __('User has change Status'),
             'errors'    => 'Has change status',
-            'items'     => $user->available,
+            'available'     => $user->available,
         ];
         return response()->json($return,422);
 
