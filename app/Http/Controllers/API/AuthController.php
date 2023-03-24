@@ -789,7 +789,7 @@ class AuthController extends ApiController
     {
         $JwtUser = JWTAuth::toUser();
         $user    = AppUser::where('id',$JwtUser->id)->first();
-//        dd($user);
+        dd($user);
         if($user->available == '1'){
             $user->available == '0';
         }elseif ($user->available=='0'){
