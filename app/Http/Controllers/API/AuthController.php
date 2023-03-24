@@ -777,11 +777,9 @@ class AuthController extends ApiController
         $JwtUser = JWTAuth::toUser();
         $user    = AppUser::where('id',$JwtUser->id)->first();
         if($user->available == '1'){
-            $msg = trans('U Available');
-            return responseDataMessage($msg , userInfo($user->id , App::getLocale()) );
+            return apiResponse("OnLine",$user);
         }elseif($user->available == '0'){
-            $msg = trans('U Not Available');
-            return responseDataMessage($msg , userInfo($user->id , App::getLocale()) );
+             return apiResponse("offLine",$user);
         }
     }
 
@@ -799,23 +797,7 @@ class AuthController extends ApiController
             'available'     => $user->available,
         ];
         return response()->json($return,422);
-
         return apiResponse("user_has_updated_successfully",$user);
-
-//        if($user->status == $request->get('status')){
-//            $return = [
-//                'code'      => 422,
-//                'message'   => __('User has already same status'),
-//                'errors'    => 'Has same status',
-//                'items'     => null,
-//            ];
-//            return response()->json($return,422);
-//        }
-//
-//        $user->status = $request->get('status');
-//        $user->save();
-//
-//        return apiResponse("user_has_updated_successfully",$user);
     }
 
 }
