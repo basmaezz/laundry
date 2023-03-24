@@ -805,6 +805,7 @@ class AuthController extends ApiController
         return response()->json($return,422);
         $user->save();
 
+        dd($user);
         return apiResponse("user_has_updated_successfully",$user);
 
 //        if($user->status == $request->get('status')){
