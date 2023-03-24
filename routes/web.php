@@ -194,9 +194,16 @@ Route::get('updates', function () {
 });
 
 Route::get('updateDB', function () {
-    DB::table('subcategories')->where('id', 14)->update([
-        'lat' => '30.3158798',
-        'lng' => '31.1422192'
+    DB::table('subcategories')->where('id', 15)->update([
+        'lat' => '30.2810324',
+        'lng' => '31.1429209'
+    ]);
+});
+
+Route::get('updateDBLaundry', function () {
+    DB::table('subcategories')->where('id', 16)->update([
+        'lat' => '30.2180806',
+        'lng' => '31.133635'
     ]);
 });
 
