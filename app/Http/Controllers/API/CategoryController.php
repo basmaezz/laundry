@@ -188,18 +188,5 @@ class CategoryController extends Controller
 
     }
 
-   public function updateLocation($id,Request $request)
-   {
-       $this->validate($request, [
-           'lat'  => 'required',
-           'lng'  => 'required',
-       ],[
-           'lat.required'    =>'يجب ادخال Lat ',
-           'lng.required'    =>'يجب ادخال Lng',
-       ]);
 
-       $data=Subcategory::where('id',$id)->update($request->except(['_method','_token','id']));
-       Session::flash('success', 'تم التعديل');
-       return apiResponse("api.success", $data);
-   }
 }

@@ -93,7 +93,6 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::get('getNotification',[UsersController::class,'getNotification']);
     Route::get('makeNotificationRead',[UsersController::class,'makeNotificationRead']);
     Route::post('account/delete',[UsersController::class,'deleteAccount']);
-    Route::any('updateLocation/{id}', [CategoryController::class,'updateLocation']);
     Route::post('laundry/rate',[CategoryController::class,'rate']);
     //Route::get('delete/reasons',[UsersController::class,'delete_reason']);
 
@@ -122,6 +121,7 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('editProfile', [AuthController::class,'editProfile']);
     Route::post('editProfile-delegate', [AuthController::class,'editProfileDelegate']);
     Route::post('delegate-status', [AuthController::class,'delegateStatus']);
+    Route::any('updateDelegateLocation/{id}', [CategoryController::class,'updateDelegateLocation']);
     Route::any('editAvatar', [AuthController::class,'editAvatar']);
     Route::any('resend-code', [AuthController::class,'resend_code']);
     Route::any('check-code', [AuthController::class,'check_code']);

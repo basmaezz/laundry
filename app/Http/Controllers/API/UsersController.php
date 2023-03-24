@@ -36,6 +36,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Session;
 use Maize\Markable\Models\Favorite;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Validator;
@@ -1584,6 +1585,21 @@ class UsersController extends Controller
         }
 
         return response()->json($validator->errors());
+    }
+
+    public function updateDelegateLocation($id,Request $request)
+    {
+        $this->validate($request, [
+            'lat'  => 'required',
+            'lng'  => 'required',
+        ],[
+            'lat.required'    =>'يجب ادخال Lat ',
+            'lng.required'    =>'يجب ادخال Lng',
+        ]);
+
+        $data=AppUser::where('id',$id)->update($request->except(['_method','_token','id']));
+        Session::flash('success', 'تم التعديل');
+        return apiResponse("api.success", $data);
     }
 
 }
