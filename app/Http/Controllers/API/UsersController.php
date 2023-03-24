@@ -1247,7 +1247,7 @@ class UsersController extends Controller
                 return responseJsonError(trans('api.data_incorrect'));
             }
 
-            $allDelegates = User::where(['user_type' => 'delegate', 'active' => 1]);
+            $allDelegates = User::where(['user_type' => 'delegate', 'active' => 1,'available'=>1]);
             $delegates = getDistanceHaving($allDelegates, $order->lat, $order->lng, setting()->distance_delegates);
 
             if ($delegates->isEmpty()) {

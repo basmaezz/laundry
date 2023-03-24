@@ -294,6 +294,7 @@ class OrderController extends Controller
                 $users = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
+                    'available'=>'1'
                 ])->get();
                 foreach ($users as $user) {
                     NotificationController::sendDataNotification(
@@ -382,6 +383,7 @@ class OrderController extends Controller
                 $users = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
+                    'available'=>'1'
                 ])->get();
                 foreach ($users as $user) {
                     NotificationController::sendNotification(
