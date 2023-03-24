@@ -1598,6 +1598,8 @@ class UsersController extends Controller
         ]);
 
         $data=AppUser::where('id',$id)->update($request->except(['_method','_token','id']));
+        $data=AppUser::find($id);
+
         Session::flash('success', 'تم التعديل');
         return apiResponse("api.success", $data);
     }
