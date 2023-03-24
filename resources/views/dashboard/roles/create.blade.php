@@ -5,7 +5,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <strong>اضافه قسم</strong>
+                    <strong>اضافه صلاحيه</strong>
                 </div>
                 <div class="card-block">
                     <form method="post" action="{{route('roles.store')}}" >

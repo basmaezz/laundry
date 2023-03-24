@@ -28,6 +28,7 @@
                                         <label for="company" n>اسم المغسله</label>
                                         <input type="text" name="name_ar"class="form-control" id="name_ar" placeholder="اسم المغسله" >
                                          @error('name_ar')
+                                         <span class="text-danger">{{ $message }}</span>
                                          <div class="text-sm text-red-600">{{ $message }}</div>
                                          @enderror
                                     </div>
@@ -35,7 +36,7 @@
                                         <label for="company">اسم المغسله بالانجليزيه</label>
                                         <input type="text" name="name_en"class="form-control" id="name_en" placeholder="اسم المغسله" >
                                         @error('name_en')
-                                        <div class="text-sm text-red-600 danger">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 
@@ -47,7 +48,7 @@
                                                 <option value="{{$key}}">{{$value}}</option>
                                             @endforeach
                                             @error('city_id')
-                                            <div class="text-sm text-red-600">{{ $message }}</div>
+                                            <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </select>
                                     </div>
@@ -62,21 +63,21 @@
                                         <label for="country">الموقع(Google Map) </label>
                                         <input type="text" name="location"class="form-control" id="location" >
                                         @error('location')
-                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="country">سعر التوصيل  </label>
                                         <input type="text" name="price"class="form-control" id="image" placeholder=" سعر التوصيل" >
                                         @error('price')
-                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="approximate_duration">  المده التقريبيه للغسيل </label>
                                         <input type="number" name="approximate_duration"class="form-control" id="approximate_duration" placeholder="  24 ساعه" >
                                         @error('approximate_duration')
-                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group" >
@@ -115,35 +116,35 @@
                                         <label >الأسم الأول</label>
                                             <input type="text" id="text-input" name="name" class="form-control" placeholder="الاسم الأول" >
                                         @error('name')
-                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الأسم الأخير</label>
                                             <input type="text" id="text-input" name="last_name" class="form-control" placeholder=" الأسم الاخير " >
                                         @error('last_name')
-                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group ">
                                         <label  for="email-input">البريد الألكترونى </label>
                                             <input type="email" id="email-input" name="email" class="form-control" placeholder=" البريد الالكترونى" >
                                         @error('email')
-                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group ">
                                         <label  for="password-input">كلمه المرور</label>
                                             <input type="password" id="password-input" name="password" class="form-control" placeholder="Password">
                                         @error('password')
-                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الجوال </label>
                                             <input type="text" id="phone" name="phone" class="form-control">
                                         @error('phone')
-                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                             </div>

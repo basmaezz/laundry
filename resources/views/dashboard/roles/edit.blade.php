@@ -2,10 +2,10 @@
 @section('content')
     <main class="main">
 
-        <div class="col-md-9">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <strong>اضافه قسم</strong>
+                    <strong>تعديل صلاحيه</strong>
                 </div>
                 <div class="card-block">
                     <form method="post" action="{{route('roles.update',$role->id)}}" >
@@ -21,19 +21,20 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group">
                             <label class="col-md-3 form-control-label">الصلاحيات </label>
-                            <div class="col-md-9">
+                            <div class="form-check">
                                 @foreach(config('abilities') as $ability =>$label)
                                     <label class="form-control check-ability-label">
                                         <input type="checkbox" id="inline-checkbox1" name="abilities[]" value="{{$ability}}"@if(in_array($ability,($role->abilities ??[]))) checked @endif>{{$label}}
+                                        <br>
                                     </label>
                                 @endforeach
                             </div>
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> حفظ</button>
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> تعديل</button>
                             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i>  <a href="{{URL::previous()}}" class="btn btn-sm btn-danger">الغاء</a></button>
                         </div>
 

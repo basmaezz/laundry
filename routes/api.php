@@ -121,7 +121,6 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('editProfile', [AuthController::class,'editProfile']);
     Route::post('editProfile-delegate', [AuthController::class,'editProfileDelegate']);
     Route::post('delegate-status', [AuthController::class,'delegateStatus']);
-    Route::any('updateDelegateLocation/{id}', [CategoryController::class,'updateDelegateLocation']);
     Route::any('editAvatar', [AuthController::class,'editAvatar']);
     Route::any('resend-code', [AuthController::class,'resend_code']);
     Route::any('check-code', [AuthController::class,'check_code']);
@@ -151,6 +150,8 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('add-rate', [UsersController::class,'add_rate']);
     Route::any('add-date', [UsersController::class,'add_date']);
     Route::any('costs', [UsersController::class,'costs']);
+    Route::any('updateDelegateLocation/{id}', [UsersController::class,'updateDelegateLocation']);
+
 
 
     Route::get('delegate-orders', [DelegatesController::class,'delegate_orders']);
