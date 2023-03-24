@@ -789,11 +789,9 @@ class AuthController extends ApiController
     {
         $JwtUser = JWTAuth::toUser();
         $user    = AppUser::where('id',$JwtUser->id)->first();
-        if($user->available == '1'){
-            $user->available == '0';
-        }elseif ($user->available=='0'){
-            $user->available == '1';
-        }
+        $user->available=='1' ?$user->available='0' :$user->available='1';
+        $user->save();
+
         $return = [
             'code'      => 422,
             'message'   => __('User has change Status'),
@@ -801,7 +799,6 @@ class AuthController extends ApiController
             'items'     => null,
         ];
         return response()->json($return,422);
-        $user->save();
 
         return apiResponse("user_has_updated_successfully",$user);
 
