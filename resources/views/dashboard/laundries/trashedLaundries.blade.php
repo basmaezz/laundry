@@ -17,7 +17,6 @@
                                         <th> الصوره </th>
                                         <th>اسم المغسله </th>
                                         <th>المدينه </th>
-                                        <th>الحى</th>
                                         <th>Actions </th>
                                     </tr>
                                     </thead>
@@ -31,6 +30,8 @@
                                             <td>{{$subCategory->address}}</td>
 
                                             <td>
+                                                <a href="">حذف نهائى</a>
+                                                    <input type="submit" value=" حذف نهائى" class="edit btn btn-danger btn-sm">
                                                 <form class="delete" action="{{route('laundries.restoreDeleted',$subCategory->id)}}" method="get">
                                                     @csrf
                                                     @method('DELETE')

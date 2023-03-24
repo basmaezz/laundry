@@ -38,10 +38,10 @@ class AuthController extends ApiController
 
         if ($validator->passes()) {
             $number      = convert2english(request('mobile'));
-//            $checkPhone  = is_unique('mobile',$number,'customer');
-//            if ($checkPhone){
-//                return  apiResponse('mobile_exists',null,400,400);
-//            }
+            $checkPhone  = is_unique('mobile',$number,'customer');
+            if ($checkPhone){
+                return  apiResponse('mobile_exists',null,400,400);
+            }
 
             $checkEmail  = is_unique('email',$request->email,'customer');
             if ($checkEmail){
@@ -182,10 +182,10 @@ class AuthController extends ApiController
 
         $number      = convert2english($request->get('personal')['mobile']);
 
-//        $checkPhone  = is_unique('mobile',$number,'delivery');
-//        if ($checkPhone){
-//            return  apiResponse('mobile_exists',null,422,422);
-//        }
+        $checkPhone  = is_unique('mobile',$number,'delivery');
+        if ($checkPhone){
+            return  apiResponse('mobile_exists',null,422,422);
+        }
 
         $checkEmail  = is_unique('email',$request->get('personal')['email'],'delivery');
         if ($checkEmail){
@@ -529,10 +529,10 @@ class AuthController extends ApiController
 //            $checkPhone = User::where(['phone'=>$request->phone])->where('phone','<>',$user->phone)->first();
             $checkEmail = User::where(['email'=>$request->email])->where('email','<>',$user->email)->first();
 
-//            if (isset($checkPhone)){
-//
-//                return responseJsonError(trans('auth.phone_unique'));
-//            }
+            if (isset($checkPhone)){
+
+                return responseJsonError(trans('auth.phone_unique'));
+            }
 
             if (isset($checkEmail)){
 
@@ -789,17 +789,33 @@ class AuthController extends ApiController
     {
         $JwtUser = JWTAuth::toUser();
         $user    = User::where('id',$JwtUser->id)->first();
-        if($user->available == '1'){
-            $user->available == '0';
-        }elseif ($user->available=='0'){
-            $user->available == '1';
-        }
-        if($user->save()){
-            $msg = trans('available Changed');
-            return responseDataMessage($msg , userInfo($user->id , App::getLocale()) );
-        }else{
-            return responseJsonError(trans('auth.password_incorrect'));
-        }
+        dd($user);
+//        if($user->available == '1'){
+//            $user->available == '0';
+//        }elseif ($user->available=='0'){
+//            $user->available == '1';
+//        }
+//        if($user->save()){
+//            $msg = trans('available Changed');
+//            return responseDataMessage($msg , userInfo($user->id , App::getLocale()) );
+//        }else{
+//            return responseJsonError(trans('auth.password_incorrect'));
+//        }
+
+//        if($user->status == $request->get('status')){
+//            $return = [
+//                'code'      => 422,
+//                'message'   => __('User has already same status'),
+//                'errors'    => 'Has same status',
+//                'items'     => null,
+//            ];
+//            return response()->json($return,422);
+//        }
+//
+//        $user->status = $request->get('status');
+//        $user->save();
+//
+//        return apiResponse("user_has_updated_successfully",$user);
     }
 
 }
