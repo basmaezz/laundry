@@ -7,6 +7,7 @@
             <div class="row">
                 <div class="col-sm-4 col-lg-12">
                     <div class="col-sm-4 col-lg-3">
+
                         <div class="card card-inverse card-primary" >
                             <div class="card-block p-b-0">
                                 <h4 class="m-b-0">{{\App\Models\Delegate::count()}}</h4>
@@ -25,7 +26,8 @@
                              </div>
                             <div class="card-block p-b-0">
 
-                             </div>        <div class="card-block p-b-0">
+                             </div>
+                            <div class="card-block p-b-0">
 
                              </div>        <div class="card-block p-b-0">
 
@@ -71,7 +73,7 @@
                     </div>
 
                 </div>
-                <div class="col-sm-6 col-lg-12">
+                <div class="col-sm-6 col-lg-6">
                     <div class="col-sm-6 col-lg-6" >
                         <div class="card card-inverse card-primary"  >
                             <div class="card-block p-b-0" >

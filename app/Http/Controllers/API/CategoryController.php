@@ -13,6 +13,7 @@ use App\Models\RateLaundry;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -185,7 +186,20 @@ class CategoryController extends Controller
             return apiResponse1("api.errors", $data1, $data);
         }
 
-
     }
 
+   public function updateLocation($id,Request $request)
+   {
+       $this->validate($request, [
+           'lat'  => 'required',
+           'lng'  => 'required',
+       ],[
+           'lat.required'    =>'يجب ادخال Lat ',
+           'lng.required'    =>'يجب ادخال Lng',
+       ]);
+
+       $data=Subcategory::where('id',$id)->update($request->except(['_method','_token','id']));
+       Session::flash('success', 'تم التعديل');
+       return apiResponse("api.success", $data);
+   }
 }

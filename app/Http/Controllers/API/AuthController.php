@@ -791,13 +791,12 @@ class AuthController extends ApiController
         $user->save();
 
         $return = [
-            'code'      => 422,
+            'code'      => 200,
             'message'   => __('User has change Status'),
             'errors'    => 'Has change status',
             'available'     => $user->available,
         ];
-        return response()->json($return,422);
+        return response()->json($return,200);
         return apiResponse("user_has_updated_successfully",$user);
     }
-
 }

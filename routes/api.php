@@ -93,6 +93,7 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::get('getNotification',[UsersController::class,'getNotification']);
     Route::get('makeNotificationRead',[UsersController::class,'makeNotificationRead']);
     Route::post('account/delete',[UsersController::class,'deleteAccount']);
+    Route::any('updateLocation/{id}', [CategoryController::class,'updateLocation']);
     Route::post('laundry/rate',[CategoryController::class,'rate']);
     //Route::get('delete/reasons',[UsersController::class,'delete_reason']);
 
@@ -181,3 +182,4 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('calendar', [SettingController::class,'calendar']);
     Route::any('calendar', [SettingController::class,'calendar']);
 });
+
