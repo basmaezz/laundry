@@ -173,7 +173,6 @@ class OrderController extends Controller
         NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(),$order->id);
 
         $users = AppUser::where([
-
             'status' => 'active',
             'user_type' => 'delivery',
             'available'=>'1'

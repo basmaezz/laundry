@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Customer\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Models\AppUser;
 use App\Models\OrderDetails;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
@@ -306,6 +307,15 @@ Route::get('getCars',function (){
 //});
 Route::post('logoutLaundryAdmin', [AdminController::class, 'destroyLaundryAdmin'])
         ->name('logoutLaundryAdmin');
+
+Route::get('getOnLineUsers',function (){
+    $users = AppUser::where([
+        'status' => 'active',
+        'user_type' => 'delivery',
+        'available'=>'1'
+    ])->get();
+    return $users;
+});
 
 
 Route::get('histories',function (){
