@@ -177,7 +177,6 @@ class OrderController extends Controller
             'user_type' => 'delivery',
             'available'=>'1'
         ])->get();
-        dd($users);
         foreach ($users as $user) {
             NotificationController::sendNotification(
                 'New Delivery Request',
@@ -295,7 +294,7 @@ class OrderController extends Controller
                 $users = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
-                    'available'=>'1'
+                    'available'=>'0'
                 ])->get();
                 foreach ($users as $user) {
                     NotificationController::sendDataNotification(
@@ -311,7 +310,7 @@ class OrderController extends Controller
                 $users = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
-                    'available'=>'1'
+                    'available'=>'0'
                 ])->get();
                 foreach ($users as $user) {
                     NotificationController::sendNotification(
@@ -384,7 +383,7 @@ class OrderController extends Controller
                 $users = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
-                    'available'=>'1'
+                    'available'=>'0'
                 ])->get();
                 foreach ($users as $user) {
                     NotificationController::sendNotification(
