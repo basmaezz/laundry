@@ -775,7 +775,7 @@ class AuthController extends ApiController
     public function checkAvailable(Request $request)
     {
         $JwtUser = JWTAuth::toUser();
-        $user    = User::where('id',$JwtUser->id)->first();
+        $user    = AppUser::where('id',$JwtUser->id)->first();
         if($user->available == '1'){
             $msg = trans('U Available');
             return responseDataMessage($msg , userInfo($user->id , App::getLocale()) );
@@ -789,7 +789,6 @@ class AuthController extends ApiController
     {
         $JwtUser = JWTAuth::toUser();
         $user    = AppUser::where('id',$JwtUser->id)->first();
-        dd($user);
         if($user->available == '1'){
             $user->available == '0';
         }elseif ($user->available=='0'){
