@@ -794,7 +794,6 @@ class AuthController extends ApiController
         }elseif ($user->available=='0'){
             $user->available == '1';
         }
-        dd($user);
         $return = [
             'code'      => 422,
             'message'   => __('User has change Status'),
