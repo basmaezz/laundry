@@ -788,7 +788,7 @@ class AuthController extends ApiController
     public function changeAvailable(Request $request)
     {
         $JwtUser = JWTAuth::toUser();
-        $user    = User::where('id',$JwtUser->id)->first();
+        $user    = AppUser::where('id',$JwtUser->id)->first();
 //        dd($user);
         if($user->available == '1'){
             $user->available == '0';
