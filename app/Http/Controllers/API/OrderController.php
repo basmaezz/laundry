@@ -75,7 +75,6 @@ class OrderController extends Controller
         }
         return apiResponse(trans('api.error_validation'), $items=null,500,500);
     }
-
     /**
      * add new order
      * @param Request $request
@@ -106,7 +105,6 @@ class OrderController extends Controller
                 return apiResponseCouponError('api.Coupon_Not_Exists');
             }
         }
-        //Calculate
         $laundry = Subcategory::where('id', $request->get('laundry_id'))->first();
         $distance = getDistanceFirst1(auth('app_users_api')->user(), $laundry->lat, $laundry->lng);
         if ($distance <= 10) {
@@ -232,7 +230,6 @@ class OrderController extends Controller
             foreach ($orders as $order) {
                 $data[] = self::orderObject($order);
             }
-
             /* weird code !!!!!
              * if ($order->status_id == 1 || $order->status_id == 2 || $order->status_id == 3 || $order->status_id == 4) {
                 $count = OrderTable::where('user_id', $app_user_id)->count();
