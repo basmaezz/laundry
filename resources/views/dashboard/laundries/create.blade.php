@@ -67,6 +67,13 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+                                        <label for="approximate_duration"> نطاق التشغيل </label>
+                                        <input type="number" name="range"class="form-control" id="range" placeholder="  10 كيلو" max="50" min="5" >
+                                        @error('range')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
                                         <label for="country">سعر التوصيل  </label>
                                         <input type="text" name="price"class="form-control" id="image" placeholder=" سعر التوصيل" >
                                         @error('price')
@@ -80,6 +87,7 @@
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
+
                                     <div class="form-group" >
                                         <div>
                                             <label for="country">فتره التشغيل  </label> <br>
@@ -101,6 +109,14 @@
                                         <label for="country">صوره الشعار</label>
                                         <input type="file" name="image"class="form-control" id="image" placeholder="Country name">
                                     </div>
+
+{{--                                    <form oninput="result.value = slider.value">--}}
+{{--                                        <label>Select pressure</label><br/>--}}
+{{--                                        <input type="range" id="slider"--}}
+{{--                                               min="0" max="100" step="10" value="30"> <br />--}}
+
+{{--                                        The value is <output name="result" for="slider">30</output> PSI--}}
+{{--                                    </form>--}}
 
                             </div>
                             </div>

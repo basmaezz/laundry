@@ -38,7 +38,7 @@ class OrderController extends Controller
             $orders=OrderTable::where('id',1)->with('histories')->get();
             foreach ($orders as $order){
                 foreach ($order->histories as $history ){
-                    echo($history->created_at);
+                    dd($history->created_at);
                 }
             }
 

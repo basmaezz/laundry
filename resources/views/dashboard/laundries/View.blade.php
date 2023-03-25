@@ -31,6 +31,10 @@
                                         <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->address}}"disabled>
                                     </div>
                                         <div class="form-group">
+                                        <label for="company">نطاق التشغيل</label>
+                                        <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->range}}KM"disabled>
+                                    </div>
+                                        <div class="form-group">
                                         <label for="company">تاريخ اضافته</label>
                                         <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->created_at->format('y-m-d')}}"disabled>
                                     </div>

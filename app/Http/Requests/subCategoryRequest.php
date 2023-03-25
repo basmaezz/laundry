@@ -33,6 +33,7 @@ class subCategoryRequest extends FormRequest
 //            'lng' =>'required',
             'address'=>'required',
             'price' =>'required',
+            'range'=>'required',
             'around_clock' =>'required',
             'clock_at' =>'string',
             'clock_end' =>'string',

@@ -157,6 +157,7 @@ class subCategoryController extends Controller
             'address'=>$request->address,
             'city_id'=>$request->city_id,
             'price'=>$request->price,
+            'range'=>$request->range,
             'approximate_duration'=>$request->approximate_duration,
         ]);
         $subcategory->save();
@@ -264,6 +265,7 @@ class subCategoryController extends Controller
         $subcategory['city_id'] = $request->city_id;
         $subcategory['address'] = $request->address;
         $subcategory['price'] = $request->price;
+        $subcategory['range'] = $request->range;
         $subcategory['approximate_duration'] = $request->approximate_duration;
         $subcategory['image']=$request->image;
         $subcategory['parent_id'] = $request->parent_id;

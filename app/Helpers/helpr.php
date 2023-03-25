@@ -149,22 +149,26 @@ function Role()
     return isset($role) ? $role->role :  'عضو';
 }
 
-function getDistanceClass($distance){
-    if ($distance <= config('setting.distance.in_area')){
+function getDistanceClass($distance,$range){
+    if ($distance <= $range){
         return 'IN_AREA';
-    }elseif ($distance <= config('setting.distance.away_area') && $distance < config('setting.distance.out_area')){
-        return 'AWAY_AREA';
-    }else{
+    }
+//    elseif ($distance <= config('setting.distance.away_area') && $distance < config('setting.distance.out_area')){
+//        return 'AWAY_AREA';
+//    }
+    else{
         return 'OUT_AREA';
     }
 }
 
-function getDistanceClassId($distance){
-    if ($distance <= config('setting.distance.in_area')){
+function getDistanceClassId($distance,$range){
+    if ($distance <= $range){
         return 1;
-    }elseif ($distance <= config('setting.distance.away_area') && $distance < config('setting.distance.out_area')){
-        return 2;
-    }else{
+    }
+//    elseif ($distance <= config('setting.distance.away_area') && $distance < config('setting.distance.out_area')){
+//        return 2;
+//    }
+    else{
         return 3;
     }
 }

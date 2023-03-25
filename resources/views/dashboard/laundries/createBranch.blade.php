@@ -63,6 +63,13 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+                                        <label for="approximate_duration"> نطاق التشغيل </label>
+                                        <input type="number" name="range"class="form-control" id="range" value=" {{$Subcategory->range??''}}" max="50" min="5" >
+                                        @error('range')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
                                         <label for="country">سعر التوصيل  </label>
                                         <input type="text" name="price"class="form-control" id="image" value=" {{$Subcategory->price}}">
                                         @error('price')
