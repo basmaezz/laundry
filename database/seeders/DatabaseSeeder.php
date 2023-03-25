@@ -31,16 +31,16 @@ class DatabaseSeeder extends Seeder
 //                        AppUserSeeder::class,
 //                         carTypesSeeder::class,
 //                         EducationsLevelSeeder::class,
-//                         CitySeeder::class,
-                        CategorySeeder::class,
-                        subCategorySeeder::class,
-                        CatgeoryItemSeeder::class,
-                        productSeeder::class,
-                        productServiceSeeder::class,
-                        FaqSeeder::class,
+                         CitySeeder::class,
+//                        CategorySeeder::class,
+//                        subCategorySeeder::class,
+//                        CatgeoryItemSeeder::class,
+//                        productSeeder::class,
+//                        productServiceSeeder::class,
+//                        FaqSeeder::class,
 //                        CouponSeeder::class,
-                        UserSeeder::class,
-                        YearSeeder::class
+//                        UserSeeder::class,
+//                        YearSeeder::class
         ]);
     }
 }

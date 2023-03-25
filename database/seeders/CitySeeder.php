@@ -17,16 +17,16 @@ class CitySeeder extends Seeder
    {
        $cities = [
 
-       [
-               'id' => '2',
-               'name_ar' => 'المدينة المنورة ',
-               'name_en' => 'Al Madinah Al Munawwarah',
-           ],
-          [
-               'id' => '3',
-               'name_ar' => 'مكه المكرمه',
-               'name_en' => 'Mecca',
-           ],
+//       [
+//               'id' => '2',
+//               'name_ar' => 'المدينة المنورة ',
+//               'name_en' => 'Al Madinah Al Munawwarah',
+//           ],
+//          [
+//               'id' => '3',
+//               'name_ar' => 'مكه المكرمه',
+//               'name_en' => 'Mecca',
+//           ],
            [
                'id' => '4',
                'name_ar' => 'تبوك',
