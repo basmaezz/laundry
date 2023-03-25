@@ -108,6 +108,7 @@ class OrderController extends Controller
         }
         //Calculate
         $laundry = Subcategory::where('id', $request->get('laundry_id'))->first();
+        dd(auth('app_users_api')->user());
         $distance = getDistanceFirst1(auth('app_users_api')->user(), $laundry->lat, $laundry->lng);
         if ($distance <= 10) {
             $delivery_fees = 10;
