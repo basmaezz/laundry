@@ -37,8 +37,10 @@ class OrderController extends Controller
 //           dd($orders);
             $orders=OrderTable::where('id',1)->with('histories')->get();
             foreach ($orders as $order){
-                foreach ($order->histories as $history ){
-                   return $history;
+             foreach ($order->histories as $history ){
+                 for($i=0;$i>$history->count();$i++ ){
+                     return  $history;
+                 }
                 }
             }
 
