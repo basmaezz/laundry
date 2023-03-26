@@ -162,8 +162,8 @@ function getDistanceClass($distance,$range){
 }
 
 function getDistanceClassId($distance,$range){
-//    if ($distance <= config('setting.distance.in_area')){
-    if ($distance <= $range){
+    if ($distance <= config('setting.distance.in_area')){
+//    if ($distance <= $range){
         return 1;
     }elseif ($distance <= config('setting.distance.away_area') && $distance < config('setting.distance.out_area')){
         return 2;
