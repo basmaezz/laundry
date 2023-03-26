@@ -44,7 +44,7 @@ class CategoryController extends Controller
                 'lng' => $subcategory->lng,
                 'approximate_duration'=> $subcategory->approximate_duration,
                 'distance' => round($distance, 2),
-                'range'=>$subcategory->range,
+//                'range'=>$subcategory->range,
                 'distance_class' =>  getDistanceClass($distance),
                 'distance_class_id' =>  getDistanceClassId($distance),
                 'review' => $subcategory->rates
