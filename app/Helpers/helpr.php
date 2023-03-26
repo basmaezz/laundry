@@ -149,7 +149,7 @@ function Role()
     return isset($role) ? $role->role :  'عضو';
 }
 
-function getDistanceClass($distance,$range){
+function getDistanceClass($distance){
     if ($distance <=  config('setting.distance.in_area')){
         return 'IN_AREA';
     }
@@ -161,7 +161,7 @@ function getDistanceClass($distance,$range){
     }
 }
 
-function getDistanceClassId($distance,$range){
+function getDistanceClassId($distance){
     if ($distance <= config('setting.distance.in_area')){
 //    if ($distance <= $range){
         return 1;
