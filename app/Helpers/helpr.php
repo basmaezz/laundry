@@ -150,6 +150,7 @@ function Role()
 }
 
 function getDistanceClass($distance,$range){
+    dd($distance,$range);
     if ($distance <= $range){
         return 'IN_AREA';
     }
