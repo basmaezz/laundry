@@ -46,7 +46,7 @@ class CategoryController extends Controller
                 'distance' => round($distance, 2),
                 'range'=>$subcategory->range,
                 'distance_class' =>  getDistanceClass($distance,$range),
-                'distance_class_id' =>  getDistanceClassId($distance),
+                'distance_class_id' =>  getDistanceClassId($distance,$range),
                 'review' => $subcategory->rates
             ];
         }
