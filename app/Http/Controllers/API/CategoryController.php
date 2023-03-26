@@ -47,7 +47,7 @@ class CategoryController extends Controller
                 'range'=>$subcategory->range,
                 'distance_class' =>  getDistanceClass($distance),
                 'distance_class_id' =>  getDistanceClassId($distance),
-                dd(getDistanceClass($distance)),
+                dd(getDistanceClass($distance,$range)),
                 'review' => $subcategory->rates
             ];
 
