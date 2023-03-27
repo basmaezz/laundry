@@ -177,7 +177,7 @@ class OrderController extends Controller
             'status' => 'active',
             'user_type' => 'delivery',
             'available'=>'1',
-            'user_location' =>  getUserLocation($distance),
+            'user_location'=>getUserLocation($distance)
         ])->get();
         dd($users);
         foreach ($users as $user) {
@@ -470,6 +470,7 @@ class OrderController extends Controller
             ];
         }
         $distance = getDistanceFirst1($app_user, $order->subCategories->lat, $order->subCategories->lng);
+        $range=$order->subCategories->range;
         $qrcode = "
 Order #: {$order->id}
 Laundry Name: {$order->subCategories->$name}
@@ -487,8 +488,9 @@ Customer Name: {$order->user->name}
                 "laundry_lat"=> $order->subCategories->lat,
                 "laundry_lng"=> $order->subCategories->lng,
                 "laundry_address"=> $order->subCategories->address,
-                'distance_class' =>  getDistanceClass($distance),
-                'distance_class_id' =>  getDistanceClassId($distance),
+                'laundry_range'=>$order->subCategories->range,
+                'distance_class' =>  getDistanceClass($distance,$range),
+                'distance_class_id' =>  getDistanceClassId($distance,$range),
                 'rate' => $order->subCategories->rate_avg,
                 "laundry_distance"=>  round($distance, 2),
             ],
@@ -502,6 +504,7 @@ Customer Name: {$order->user->name}
                 'lat' => $order->address->lat ?? '',
                 'lng' => $order->address->lng ?? '',
 //                'image'=>'i.jpg',
+
                 'image_url' => $order->address->image ? asset('assets/uploads/users_image/'.$order->address->image) : null,
             ],
             'user' => [
