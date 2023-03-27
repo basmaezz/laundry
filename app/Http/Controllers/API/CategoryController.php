@@ -49,6 +49,7 @@ class CategoryController extends Controller
                 'distance_class_id' =>  getDistanceClassId($distance,$range),
                 'review' => $subcategory->rates
             ];
+            dd($data);
         }
 
         return apiResponse("api.success", $data);

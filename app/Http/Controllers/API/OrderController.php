@@ -502,7 +502,6 @@ Customer Name: {$order->user->name}
                 'lat' => $order->address->lat ?? '',
                 'lng' => $order->address->lng ?? '',
 //                'image'=>'i.jpg',
-
                 'image_url' => $order->address->image ? asset('assets/uploads/users_image/'.$order->address->image) : null,
             ],
             'user' => [
