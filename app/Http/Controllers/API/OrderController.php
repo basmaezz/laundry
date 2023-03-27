@@ -177,7 +177,7 @@ class OrderController extends Controller
             'status' => 'active',
             'user_type' => 'delivery',
             'available'=>'1',
-            'distance'=>getUserLocation($distance)
+            'distance_class' =>  getUserLocation($distance),
         ])->get();
         dd($users);
         foreach ($users as $user) {
