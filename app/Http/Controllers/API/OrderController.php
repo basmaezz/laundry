@@ -170,12 +170,18 @@ class OrderController extends Controller
         $body = __('api.success_send_to_laundry',['laundry'=>$order->subCategories->$name]);
         NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(),$order->id);
 
+        $distance = (!empty($user))? getDistanceFirst1($user, $laundry->lat, $laundry->lng) : 0;
+//        $userLocation = getDistanceFirst1(auth('app_users_api')->user(), $laundry->lat, $laundry->lng);
+
         $users = AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
-            'available'=>'1'
+            'available'=>'1',
+            'distance'=>getUserLocation($distance)
         ])->get();
+        dd($users);
         foreach ($users as $user) {
+
             NotificationController::sendNotification(
                 'New Delivery Request',
                 'New Delivery Request Number #' . $order->id,

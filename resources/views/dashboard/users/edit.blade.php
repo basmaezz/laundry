@@ -25,7 +25,7 @@
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
                                             <div class="col-md-9">
                                                 <input type="hidden" id="text-input" name="id" class="form-control"value="{{$user->id}}">
-                                                <input type="text" id="text-input" name="name" class="form-control"value="{{$user->name}}"required>
+                                                <input type="text" id="text-input" name="name" class="form-control"value="{{$user->name ??''}}"required>
                                                 @if ($errors->has('name'))
                                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                                 @endif

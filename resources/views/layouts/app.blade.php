@@ -179,6 +179,9 @@ padding-left: 74px;">
                 <a class="nav-link" href="{{route('coupons.index')}}"><i class="icon-people"></i> الكوبونات </a>
             </li>
             @endcan
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('settings.index')}}"><i class="icon-people"></i> الاعدادات </a>
+            </li>
         </ul>
     </nav>
 </div>

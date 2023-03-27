@@ -3,7 +3,6 @@
 use App\Http\Controllers\Customer\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Models\AppUser;
-use App\Models\OrderDetails;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoriesController;
@@ -16,6 +15,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Customer\ItemsController;
 use App\Http\Controllers\Customer\ProductsController;
 use App\Http\Controllers\Customer\OrdersController;
+use App\Http\Controllers\Admin\SettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -147,6 +147,10 @@ Route::middleware(['auth','IsAdmin'])->group(function () {
     Route::get('RolesEdit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
     Route::post('RolesUpdate/{id}', [RoleController::class, 'update'])->name('roles.update');
     Route::get('RolesDelete/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
+
+    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::get('addSettings', [SettingController::class, 'create'])->name('settings.create');
+    Route::post('storeSettings', [SettingController::class, 'store'])->name('settings.store');
 });
 #############################
 

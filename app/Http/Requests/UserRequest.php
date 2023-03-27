@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
         return [
             'name'=>array('required','unique:users','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
             'last_name'=>array('required','unique:users','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
-            'email' => 'unique:users,email',
+            'email' => '|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
             'password'=>'required',
 //            'email'=>'required|email|unique:users,email',
 //            'password'=>'required',

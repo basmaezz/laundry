@@ -149,6 +149,19 @@ function Role()
     return isset($role) ? $role->role :  'عضو';
 }
 
+function getUserLocation($distance){
+//    if ($distance <=  config('setting.distance.in_area')){
+    if ($distance <=  10){
+        return 'IN_AREA';
+    }
+//    elseif ($distance <= config('setting.distance.away_area') && $distance < config('setting.distance.out_area')){
+//        return 'AWAY_AREA';
+//    }
+    else{
+        return 'OUT_AREA';
+    }
+}
+
 function getDistanceClass($distance,$range){
 //    if ($distance <=  config('setting.distance.in_area')){
     if ($distance <=  $range){

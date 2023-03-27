@@ -12,6 +12,7 @@
         'Services.index'=>' الخدمات ',
         'Orders.index'=>' الطلبات ',
         'products.index'=>' المنتجات ',
+        'settings.index'=>' الاعدادات ',
 //      'categoryItems.create'=>'اضافه قسم جديد',
 //      'categoryItems.edit'=>'تعديل بيانات قسم ',
 //      'categoryItems.delete'=>'حذف قسم ',
