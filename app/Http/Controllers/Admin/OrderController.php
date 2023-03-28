@@ -35,7 +35,7 @@ class OrderController extends Controller
             };
 //           $orders=OrderTable::with(['histories','subCategories','user','user.cities'])->get();
 //           dd($orders);
-            $orders=OrderTable::where('id',1)->with('histories')->get();
+            $orders=OrderTable::with('histories')->get();
             dd($orders);
             foreach ($orders as $order){
              foreach ($order->histories as $history ){
