@@ -13,6 +13,7 @@ use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -169,14 +170,16 @@ class OrderController extends Controller
         $name = 'name_' . App::getLocale();
         $body = __('api.success_send_to_laundry',['laundry'=>$order->subCategories->$name]);
         NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(),$order->id);
-        $distance = (!empty($user))? getDistanceFirst1($user, $user->lat, $user->lng) : 0;
-        dd($distance);
 
-        $users = AppUser::where([
+        $users = AppUser::
+        SELECT(['*',   DB::raw(' ( 6371 * acos( cos( radians(' . $app_user_id->lat . ') ) * cos( radians( lat ) )
+           * cos( radians( lng ) - radians(' . $app_user_id->lng . ') ) + sin( radians(' . $app_user_id->lat . ') )
+           * sin( radians( lat ) ) ) )  AS distance')])->
+        where([
             'status' => 'active',
             'user_type' => 'delivery',
             'available'=>'1',
-//            'user_location'=>getUserLocation($distance)
+
         ])->get();
         foreach ($users as $user) {
             NotificationController::sendNotification(
@@ -310,7 +313,7 @@ class OrderController extends Controller
                 $users = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
-                    'available'=>'0'
+                    'available'=>'1'
                 ])->get();
                 foreach ($users as $user) {
                     NotificationController::sendNotification(
