@@ -83,9 +83,7 @@ class OrderController extends Controller
      */
     public function addOrderTable(Request $request)
     {
-
         $app_user_id = auth('app_users_api')->user()->id;
-
         $_totalOrders = OrderTable::where('user_id',$app_user_id)->where("status_id",'<',self::Completed)->count();
         if($_totalOrders >= 3){
             return apiResponseCouponError('api.You reached the maximum number or request',400,400);
