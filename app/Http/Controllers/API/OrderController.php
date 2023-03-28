@@ -83,9 +83,9 @@ class OrderController extends Controller
      */
     public function addOrderTable(Request $request)
     {
-
+        $customer=auth('app_users_api')->user()->get();
         $app_user_id = auth('app_users_api')->user()->id;
-        dd($app_user_id);
+
         $_totalOrders = OrderTable::where('user_id',$app_user_id)->where("status_id",'<',self::Completed)->count();
         if($_totalOrders >= 3){
             return apiResponseCouponError('api.You reached the maximum number or request',400,400);
@@ -173,8 +173,8 @@ class OrderController extends Controller
         NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(),$order->id);
 
         $users = AppUser::
-        SELECT(['*',   DB::raw(' ( 6371 * acos( cos( radians(' . $app_user_id->lat . ') ) * cos( radians( lat ) )
-           * cos( radians( lng ) - radians(' . $app_user_id->lng . ') ) + sin( radians(' . $app_user_id->lat . ') )
+        SELECT(['*',   DB::raw(' ( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
+           * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
            * sin( radians( lat ) ) ) )  AS distance')])->
         where([
             'status' => 'active',
