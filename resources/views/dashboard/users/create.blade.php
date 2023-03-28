@@ -30,7 +30,7 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 form-control-label" for="text-input">الأسم الأخير</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" id="text-input" name="last_name" class="form-control" value="{{ Request::old('las_name') }}"placeholder="الأسم الأخير">
+                                                    <input type="text" id="text-input" name="last_name" class="form-control" value="{{ Request::old('last_name') }}"placeholder="الأسم الأخير">
 
                                                     @if ($errors->has('last_name'))
                                                         <span class="text-danger">{{ $errors->first('last_name') }}</span>
@@ -82,7 +82,7 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 form-control-label" for="text-input">تاريخ الميلاد </label>
                                                 <div class="col-md-9">
-                                                    <input type="date" id="birthday" name="birthdate"placeholder="date" class="form-control">
+                                                    <input type="date" id="birthday" name="birthdate"placeholder="date" class="form-control" value="{{ Request::old('birthday') }}">
 
                                                     @if ($errors->has('birthdate'))
                                                         <span class="text-danger">{{ $errors->first('birthdate') }}</span>
@@ -106,7 +106,7 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 form-control-label" for="text-input"class="form-control"> تاريخ الانضمام للشركة   </label>
                                                 <div class="col-md-9">
-                                                    <input type="date" id="birthday" name="joinDate"placeholder="date" class="form-control">
+                                                    <input type="date" id="joinDate" name="joinDate"placeholder="date" class="form-control" value="{{ Request::old('joindate') }}">
 
                                                     @if ($errors->has('joinDate'))
                                                         <span class="text-danger">{{ $errors->first('joinDate') }}</span>

@@ -25,7 +25,7 @@
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
                                             <div class="col-md-9">
                                                 <input type="hidden" id="text-input" name="id" class="form-control"value="{{$user->id}}">
-                                                <input type="text" id="text-input" name="name" class="form-control"value="{{$user->name ??''}}"required>
+                                                <input type="text" id="text-input" name="name" class="form-control"value="{{$user->name ??''}}">
                                                 @if ($errors->has('name'))
                                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                                 @endif
@@ -54,7 +54,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="email-input">البريد الألكترونى </label>
                                             <div class="col-md-9">
-                                                <input type="email" id="email-input" name="email" class="form-control" value="{{$user->email}}"required>
+                                                <input type="email" id="email-input" name="email" class="form-control" value="{{$user->email}}">
                                             @if ($errors->has('email'))
                                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                                 @endif
@@ -64,7 +64,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                             <div class="col-md-9">
-                                                <input type="tel" id="phone" name="phone"class="form-control" value="{{$user->phone}}"required>
+                                                <input type="tel" id="phone" name="phone"class="form-control" value="{{$user->phone}}">
 
                                             @if ($errors->has('phone'))
                                                     <span class="text-danger">{{ $errors->first('phone') }}</span>

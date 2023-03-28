@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateUser;
+use App\Http\Requests\updateUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\AppUser;
 use App\Models\CarType;
@@ -114,7 +114,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user=User::with('Roles')->findorFail($id);
+        $user=User::with(['Roles','Levels'])->findorFail($id);
         $roles=Role::all();
         $levels=educationLevel::all();
         return  view('dashboard.users.edit',compact(['user','levels','roles']));
@@ -127,22 +127,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(updateUserRequest $request, $id)
     {
-        $user= User::findorfail($id);
-        $user->update([
-            'name'=>$request->name,
-            'last_name'=>$request->last_name,
-             'phone'=>$request->phone,
-            'birthdate'=>$request->birthdate,
-            'level_id'=>$request->level_id,
-            'joindate'=>$request->joindate
-        ]);
         if(!empty($request->file('avatar'))){
             $filename = uploadFile($request->file('avatar'),'images');
-            $user['avatar']=$filename;
+            $user= User::find($id)->update($request->validated()+[
+                    'avatar'=>$filename,
+            ]);
+        }else{
+            $user= User::find($id)->update($request->validated());
         }
-        $user->roles()->sync([$request->input('role_id')]);
+        $user->roles()->sync([
+            'role_id'=>$request->role_id,
+        ]);
         $user->save();
         return redirect()->route('users.index')->with('message', 'تم تعديل بيانات المستخدم بنجاح !');;
     }

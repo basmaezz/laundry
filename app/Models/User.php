@@ -75,24 +75,6 @@ class User extends Authenticatable
     public function Roles(){
         return $this->belongsToMany(Role::class,'role_user');
     }
-//    public function isAdmin()
-//    {
-//
-//        if(Auth::user()->Roles[0]->role=='Admin'){
-//            return true;
-//        }
-//        return false;
-//
-////        foreach ($this->roles()->get() as $role)
-////        {
-////            if ($role->role == $roleName)
-////            {
-////
-////                return true;
-////            }
-////        }
-////        return false;
-//    }
 
     public function hasAbility($ability)
     {
@@ -103,6 +85,10 @@ class User extends Authenticatable
         }
         return false;
 
+    }
+
+    public function Levels(){
+        return $this->belongsTo(educationLevel::class, 	'level_id');
     }
 
 }
