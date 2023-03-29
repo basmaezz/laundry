@@ -172,22 +172,23 @@ class OrderController extends Controller
         NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(),$order->id);
         $customer = auth('app_users_api')->user();
 
-        $users = AppUser::where([
+        $user = AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
             'available'=>'1',
-        ])->with('getUserLocation')->get();
-        dd($users);
+        ])->first();
+        $user=getUserLocation($user,$customer);
+        dd($user);
 
-        foreach ($users as $user) {
-
-
-            NotificationController::sendNotification(
-                'New Delivery Request',
-                'New Delivery Request Number #' . $order->id,
-                $user,
-                $order->id);
-        }
+//        foreach ($users as $user) {
+//            $user=getUserLocation($user,$customer);
+//
+//            NotificationController::sendNotification(
+//                'New Delivery Request',
+//                'New Delivery Request Number #' . $order->id,
+//                $user,
+//                $order->id);
+//        }
         return apiResponseOrders1('api.success_to_shopping_cart', $orders);
     }
 
