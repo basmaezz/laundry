@@ -85,7 +85,7 @@ class UserController extends Controller
             ]
         );
         $user->roles()->attach([
-            'role_id'=>$request->role_id,
+            'role_id'=>$request->role_id??'1',
         ]);
         return redirect()->route('users.index')->with('message', 'تمت الاضافه بنجاح !');
     }

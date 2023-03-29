@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name'=>['required', 'unique:users', 'min:5','max:20',
+            'name'=>['required', 'unique:users', 'min:4','max:20',
                 function ($attribute, $value, $fail) use ($request) {
                     $name_exists = User::where('name', $value)->where('name', request()->input('name'))->count() > 0;
                     if ($name_exists)  {
@@ -43,8 +43,9 @@ class UserRequest extends FormRequest
 //            'password'=>'required',
             'birthdate'=> ['required','before:15 years ago'],
 //            'birthdate'=> 'required',
-            'phone'=>'required|numeric|digits:10',
-            'avatar'=>['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
+
+            'phone'=>'required|unique:users|numeric|digits:10',
+            'avatar'=>['image','required','mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ];
 
     }
@@ -55,7 +56,6 @@ class UserRequest extends FormRequest
             'required'  =>'هذا الحقل مطلوب',
             'name'=>'برجاء ادخال اسم مناسب',
             'last_name'=>'برجاء ادخال اسم مناسب',
-            'min'=>'كلمه المرور لا تقل عن 9أحرف',
             'unique'=>'هذا الأسم موجود مسبقا',
             'email'=>'هذا البريد الالكترونى موجود مسبقا',
             'phone'=>'هذا الرقم غير صحيح',
