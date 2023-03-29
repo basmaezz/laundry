@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name'=>['required', 'unique:users', 'min:5','max:20',
+            'name'=>['required', 'unique:users', 'min:4','max:20',
                 function ($attribute, $value, $fail) use ($request) {
                     $name_exists = User::where('name', $value)->where('name', request()->input('name'))->count() > 0;
                     if ($name_exists)  {
