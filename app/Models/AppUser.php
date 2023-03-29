@@ -53,5 +53,9 @@ class AppUser extends Authenticatable implements JWTSubject
         return number_format(floor($value), 2);
     }
 
+    public function getUserLocation($user,$customer){
+        return getDistanceFirst1($customer, $user->lat, $user->lng);
+    }
+
 
 }

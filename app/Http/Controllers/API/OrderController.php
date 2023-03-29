@@ -176,11 +176,11 @@ class OrderController extends Controller
             'status' => 'active',
             'user_type' => 'delivery',
             'available'=>'1',
-        ])->get();
+        ])->with('getUserLocation')->get();
+        dd($users);
 
         foreach ($users as $user) {
-            $location=getDistanceFirst1($customer, $user->lat, $user->lng);
-            dd($location);
+
 
             NotificationController::sendNotification(
                 'New Delivery Request',
