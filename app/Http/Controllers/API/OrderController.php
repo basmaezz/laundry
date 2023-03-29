@@ -177,7 +177,7 @@ class OrderController extends Controller
             'available'=>'1',
         ])->get();
         foreach ($users as $user) {
-            $user= (!empty(auth('app_users_api')->user()))? getDistanceFirst1($user, $user->lat, $user->lng) : 0;
+            $distance= (!empty(auth('app_users_api')->user()))? getDistanceFirst1($user, $user->lat, $user->lng) : 0;
 
             NotificationController::sendNotification(
                 'New Delivery Request',
