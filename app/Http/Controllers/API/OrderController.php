@@ -86,7 +86,6 @@ class OrderController extends Controller
         $app_user_id = auth('app_users_api')->user()->id;
 
         $_totalOrders = OrderTable::where('user_id',$app_user_id)->where("status_id",'<',self::Completed)->count();
-        dd($_totalOrders);
         if($_totalOrders >= config('setting.max_order')){
             return apiResponseCouponError('api.You reached the maximum number or request',400,400);
         }
