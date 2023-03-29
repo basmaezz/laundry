@@ -33,18 +33,7 @@ class OrderController extends Controller
             if(Gate::denies('Orders.index')){
                 abort(403);
             };
-//           $orders=OrderTable::with(['histories','subCategories','user','user.cities'])->get();
-//           dd($orders);
-            $orders=OrderTable::with('histories')->get();
-            dd($orders);
-            foreach ($orders as $order){
-             foreach ($order->histories as $history ){
-                 for($i=0;$i>$history->count();$i++ ){
-                     return  $history;
-                 }
-                }
-            }
-
+           $orders=OrderTable::with(['histories','subCategories','user','user.cities'])->get();
            return  view('dashboard.Orders.index',compact('orders'));
         }
 
