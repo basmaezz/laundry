@@ -32,7 +32,7 @@ class OrderController extends Controller
     //const DeliveryOnTheWayToYou         = 9;
     const Completed                     = 8;
     const Cancel                        = 10;
-/*
+    /*
  * - انتظار المندوب
 - المندوب قادم اليك (عند قبول الطلب من قبل المندوب)
 - الملابس في الطريق للمغسلة (عند استلام الملابس من المندوب)
@@ -75,7 +75,7 @@ class OrderController extends Controller
 
             return apiResponse($message, $data);
         }
-        return apiResponse(trans('api.error_validation'), $items=null,500,500);
+        return apiResponse(trans('api.error_validation'), $items = null, 500, 500);
     }
     /**
      * add new order
@@ -86,18 +86,17 @@ class OrderController extends Controller
     {
         $app_user_id = auth('app_users_api')->user()->id;
 
-        $_totalOrders = OrderTable::where('user_id',$app_user_id)->where("status_id",'<',self::Completed)->count();
-        if($_totalOrders >= intval(config('setting.max_order',3))){
-            return apiResponseCouponError('api.You reached the maximum number or request',400,400);
+        $_totalOrders = OrderTable::where('user_id', $app_user_id)->where("status_id", '<', self::Completed)->count();
+        if ($_totalOrders >= intval(config('setting.max_order', 3))) {
+            return apiResponseCouponError('api.You reached the maximum number or request', 400, 400);
         }
 
 
         $discount_value = 0;
         if ($request->has('coupon')) {
-            $coupon = CouponShopCart::where('code_name', $request->get('coupon'))->
-            where(function($query) {
-                $query->where('date_from','<=',Carbon::now())->where('date_to','>=',Carbon::now())
-                    ->orWhere(function($query2) {
+            $coupon = CouponShopCart::where('code_name', $request->get('coupon'))->where(function ($query) {
+                $query->where('date_from', '<=', Carbon::now())->where('date_to', '>=', Carbon::now())
+                    ->orWhere(function ($query2) {
                         $query2->whereNull('date_from')->orWhereNull('date_to');
                     });
             })->first();
@@ -119,8 +118,8 @@ class OrderController extends Controller
         $order_data = [
             'user_id'        => $app_user_id,
             'laundry_id'     => $request->get('laundry_id'),
-            'category_item_id'=> $request->get('category_item_id'),
-            'payment_method' => $request->get('payment_method','Cash'),
+            'category_item_id' => $request->get('category_item_id'),
+            'payment_method' => $request->get('payment_method', 'Cash'),
             'address_id'     => $request->get('address_id'),
             'count_products' => count($request->get('items')),
             'note'           => $request->get('note'),
@@ -141,7 +140,7 @@ class OrderController extends Controller
         $item_quantity = 0;
         foreach ($request->get('items') as $key => $item) {
             $product = ProductService::where('product_id', $item['product_id'])->first();
-            if($product) {
+            if ($product) {
                 $item_data = [
                     'order_table_id' => $order->id,
                     'product_id' => $item['product_id'],
@@ -158,9 +157,9 @@ class OrderController extends Controller
 
         $order->total_price    = $total;
         $order->count_products = $item_quantity;
-        $order->discount       = floatval($total*$discount_value);
-        $order->vat            = floatval($total*config('setting.vat'));
-        if($request->hasFile('audio_note')) {
+        $order->discount       = floatval($total * $discount_value);
+        $order->vat            = floatval($total * config('setting.vat'));
+        if ($request->hasFile('audio_note')) {
             $order->audio_note = uploadFile($request->file("audio_note"), 'audio_note');
         }
         $order->save();
@@ -169,22 +168,22 @@ class OrderController extends Controller
             return $q->select('id', 'order_table_id', 'product_id', 'category_item_id', 'price', 'quantity');
         }])->select('id', 'user_id', 'laundry_id')->first();
         $name = 'name_' . App::getLocale();
-        $body = __('api.success_send_to_laundry',['laundry'=>$order->subCategories->$name]);
-        NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(),$order->id);
+        $body = __('api.success_send_to_laundry', ['laundry' => $order->subCategories->$name]);
+        NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(), $order->id);
         $customer = auth('app_users_api')->user();
 
-        $settings=SiteSetting::first();
-        $distanceDelegate=$settings->distance_delegates;
-        $delgates=AppUser::where([
+        $settings = SiteSetting::first();
+        $distanceDelegate = $settings->distance_delegates;
+
+        $delgates = AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
-            'available'=>'1',
-        ])->
-        whereRaw('( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
+            'available' => '1',
+        ])->whereRaw('( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
            * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
-           * sin( radians( lat ) ) ) ) <= '.$distanceDelegate)->get();
+           * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate)->get();
 
-        if(count($delgates) == 0) {
+        if (count($delgates) == 0) {
             $delgates = AppUser::where([
                 'status' => 'active',
                 'user_type' => 'delivery',
@@ -197,7 +196,8 @@ class OrderController extends Controller
                 'New Delivery Request',
                 'New Delivery Request Number #' . $order->id,
                 $user,
-                $order->id);
+                $order->id
+            );
         }
         return apiResponseOrders1('api.success_to_shopping_cart', $orders);
     }
@@ -213,9 +213,9 @@ class OrderController extends Controller
             'code_name' => 'required|min:2|max:7',
         ]);
 
-        $coupon = CouponShopCart::where('code_name', $request->code_name)->where(function($query) {
-            $query->where('date_from','<=',Carbon::now())->where('date_to','>=',Carbon::now())
-                ->orWhere(function($query2) {
+        $coupon = CouponShopCart::where('code_name', $request->code_name)->where(function ($query) {
+            $query->where('date_from', '<=', Carbon::now())->where('date_to', '>=', Carbon::now())
+                ->orWhere(function ($query2) {
                     $query2->whereNull('date_from')->orWhereNull('date_to');
                 });
         })->first();
@@ -225,7 +225,6 @@ class OrderController extends Controller
         } else {
             return apiResponseCouponError('api.Coupon_Not_Exists');
         }
-
     }
 
     /**
@@ -238,7 +237,7 @@ class OrderController extends Controller
         $app_user_id = auth('app_users_api')->user()->id;
 
         $orders = OrderTable::where('user_id', $app_user_id)
-            ->whereIn('status_id',[1,2,3,4,5,6,7,8,9,10])
+            ->whereIn('status_id', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
             ->with(['user', 'histories', 'subCategories', 'orderDetails', 'orderDetails.product', 'orderDetails.productService', 'orderDetails.categoryItem'])->latest()->get();
 
         $data = [];
@@ -253,7 +252,7 @@ class OrderController extends Controller
                 $count = 0;
                 $orders->delete();
             }*/
-            $new_order = collect($data)->where('status_id',self::WaitingForDelivery)->count();
+            $new_order = collect($data)->where('status_id', self::WaitingForDelivery)->count();
             return apiResponseOrders('api.My_Order', $new_order, $data);
         } else {
             return apiResponseOrders('api.incorrect_data');
@@ -273,22 +272,21 @@ class OrderController extends Controller
             'order_id' => 'required',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors()->toArray(), 422);
         }
 
         $app_user_id = auth('app_users_api')->user()->id;
 
-        $order = OrderTable::
-            whereIn('status_id',[1,2,3,4,5,6,7,8,9])
-            ->where('id',$request->get('order_id'))
+        $order = OrderTable::whereIn('status_id', [1, 2, 3, 4, 5, 6, 7, 8, 9])
+            ->where('id', $request->get('order_id'))
             ->with('user')
             ->first();
 
-        if($order->user_id != $app_user_id && $order->delivery_id != $app_user_id){
+        if ($order->user_id != $app_user_id && $order->delivery_id != $app_user_id) {
             return apiResponseOrders('api.incorrect_data');
         }
-        if($request->get('status_id') == self::Cancel && $order->status_id != self::WaitingForDelivery){
+        if ($request->get('status_id') == self::Cancel && $order->status_id != self::WaitingForDelivery) {
             return apiResponseOrders('api.order_no_allowed_canceled');
         }
 
@@ -300,36 +298,37 @@ class OrderController extends Controller
             $name = 'name_' . App::getLocale();
             NotificationController::sendNotification(
                 getStatusName($request->get('status_id')),
-                __('api.order_update',['laundry'=>$order->subCategories->$name,'status'=>getStatusName($request->get('status_id'))]),
+                __('api.order_update', ['laundry' => $order->subCategories->$name, 'status' => getStatusName($request->get('status_id'))]),
                 $order->user,
-                $order->id);
+                $order->id
+            );
 
-            if($request->get('status_id') == self::Cancel){
+            if ($request->get('status_id') == self::Cancel) {
                 $users = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
-                    'available'=>'0'
+                    'available' => '0'
                 ])->get();
                 foreach ($users as $user) {
                     NotificationController::sendDataNotification(
                         $user,
-                        $order->id);
+                        $order->id
+                    );
                 }
             }
 
-            if($request->get('status_id') == self::WaitingForDeliveryToReceiveOrder) {
+            if ($request->get('status_id') == self::WaitingForDeliveryToReceiveOrder) {
                 $order->delivery_id = null;
                 $order->save();
 
-                $delgates=AppUser::where([
+                $delgates = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
-                    'available'=>'1',
-                ])->
-                whereRaw('( 6371 * acos( cos( radians(' . $order->subCategories->lat . ') ) * cos( radians( lat ) )
+                    'available' => '1',
+                ])->whereRaw('( 6371 * acos( cos( radians(' . $order->subCategories->lat . ') ) * cos( radians( lat ) )
                    * cos( radians( lng ) - radians(' . $order->subCategories->lng . ') ) + sin( radians(' . $order->subCategories->lat . ') )
-                   * sin( radians( lat ) ) ) ) <= '.config('setting.distance.in_area'))->get();
-                if (count($delgates)==0) {
+                   * sin( radians( lat ) ) ) ) <= ' . config('setting.distance.in_area'))->get();
+                if (count($delgates) == 0) {
                     $delgates = AppUser::where([
                         'status' => 'active',
                         'user_type' => 'delivery',
@@ -341,18 +340,19 @@ class OrderController extends Controller
                         'New Delivery Request',
                         'New Delivery Request Number #' . $order->id,
                         $user,
-                        $order->id);
+                        $order->id
+                    );
                 }
             }
-            if($request->get("status_id") == self::Completed){
+            if ($request->get("status_id") == self::Completed) {
                 $order->user->point++;
                 $order->user->save();
 
                 Transaction::create([
                     'app_user_id'   => auth('app_users_api')->user()->id,
                     'type'          => 'point',
-                    'amount'        => ($order->user->point-1),
-                    'current_amount'=> $order->user->point,
+                    'amount'        => ($order->user->point - 1),
+                    'current_amount' => $order->user->point,
                     'direction'     => 'in'
                 ]);
             }
@@ -374,24 +374,24 @@ class OrderController extends Controller
             'order_id' => 'required',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors()->toArray(), 422);
         }
 
         $app_user_id = auth('app_users_api')->user()->id;
 
         $order = OrderTable::where('user_id', $app_user_id)
-            ->where('status_id',self::ClothesReadyForDelivery)
-            ->where('id',$request->get('order_id'))
+            ->where('status_id', self::ClothesReadyForDelivery)
+            ->where('id', $request->get('order_id'))
             ->with('user')
             ->first();
 
         if (isset($order)) {
-            $status_id = $request->get('delivery_type') == 1? self::Completed : self::WaitingForDeliveryToReceiveOrder;
+            $status_id = $request->get('delivery_type') == 1 ? self::Completed : self::WaitingForDeliveryToReceiveOrder;
             $order->delivery_type = $request->get('delivery_type');
             $order->status_id = $status_id;
             $order->status    = getStatusName($status_id);
-            if($request->get('delivery_type') == 2){
+            if ($request->get('delivery_type') == 2) {
                 $order->delivery_fees += $order->delivery_fees;
                 $order->delivery_id = null;
             }
@@ -400,21 +400,23 @@ class OrderController extends Controller
             $name = 'name_' . App::getLocale();
             NotificationController::sendNotification(
                 getStatusName($status_id),
-                __('api.order_update',['laundry'=>$order->subCategories->$name,'status'=>getStatusName($status_id)]),
+                __('api.order_update', ['laundry' => $order->subCategories->$name, 'status' => getStatusName($status_id)]),
                 $order->user,
-                $order->id);
-            if($request->get('delivery_type') == 2) {
+                $order->id
+            );
+            if ($request->get('delivery_type') == 2) {
                 $users = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
-                    'available'=>'0'
+                    'available' => '0'
                 ])->get();
                 foreach ($users as $user) {
                     NotificationController::sendNotification(
                         'New Delivery Request',
                         'New Delivery Request Number #' . $order->id,
                         $user,
-                        $order->id);
+                        $order->id
+                    );
                 }
             }
             return apiResponseOrders('api.status_update',  $order);
@@ -428,13 +430,13 @@ class OrderController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getOrder($id,Request $request)
+    public function getOrder($id, Request $request)
     {
 
         $app_user_id = auth('app_users_api')->user()->id;
 
         $order = OrderTable::where('user_id', $app_user_id)
-            ->where('id',$id)
+            ->where('id', $id)
             ->first();
 
         if (isset($order)) {
@@ -450,9 +452,10 @@ class OrderController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function getActiveOrder(){
+    public function getActiveOrder()
+    {
         $order = OrderTable::where('user_id', auth('app_users_api')->user()->id)
-            ->where('status_id', '<>',self::Completed)
+            ->where('status_id', '<>', self::Completed)
             ->with(['user', 'histories', 'subCategories', 'orderDetails', 'orderDetails.product', 'orderDetails.productService', 'orderDetails.categoryItem'])->latest()->first();
 
         if (isset($order)) {
@@ -463,11 +466,12 @@ class OrderController extends Controller
         }
     }
 
-    public static function orderObject($order){
+    public static function orderObject($order)
+    {
         $name = 'name_' . App::getLocale();
         $app_user = auth('app_users_api')->user();
         $status_histories = [];
-        foreach($order->histories as $history){
+        foreach ($order->histories as $history) {
 
             $status_histories[] = [
 
@@ -480,7 +484,7 @@ class OrderController extends Controller
             ];
         }
         $order_details = [];
-        foreach($order->orderDetails as $detail){
+        foreach ($order->orderDetails as $detail) {
             $order_details[] = [
                 'service_id' => $detail->productService->id ?? 0,
                 'service_name' => $detail->productService->services ?? '',
@@ -492,29 +496,29 @@ class OrderController extends Controller
             ];
         }
         $distance = getDistanceFirst1($app_user, $order->subCategories->lat, $order->subCategories->lng);
-        $range=$order->subCategories->range;
+        $range = $order->subCategories->range;
         $qrcode = "
 Order #: {$order->id}
 Laundry Name: {$order->subCategories->$name}
 Customer Name: {$order->user->name}
 ";
 
-        if(!file_exists(public_path('qrcodes/' . $order->id . '.svg'))) {
+        if (!file_exists(public_path('qrcodes/' . $order->id . '.svg'))) {
             QrCode::encoding('UTF-8')->errorCorrection('H')->size(100)->generate($qrcode, public_path('qrcodes/' . $order->id . '.svg'));
         }
         return [
             'laundry' => [
                 'laundry_name' => $order->subCategories->$name,
-                "laundry_id"=> $order->subCategories->id,
-                "laundry_image"=> $order->subCategories->image,
-                "laundry_lat"=> $order->subCategories->lat,
-                "laundry_lng"=> $order->subCategories->lng,
-                "laundry_address"=> $order->subCategories->address,
-                'laundry_range'=>$order->subCategories->range,
-                'distance_class' =>  getDistanceClass($distance,$range),
-                'distance_class_id' =>  getDistanceClassId($distance,$range),
+                "laundry_id" => $order->subCategories->id,
+                "laundry_image" => $order->subCategories->image,
+                "laundry_lat" => $order->subCategories->lat,
+                "laundry_lng" => $order->subCategories->lng,
+                "laundry_address" => $order->subCategories->address,
+                'laundry_range' => $order->subCategories->range,
+                'distance_class' =>  getDistanceClass($distance, $range),
+                'distance_class_id' =>  getDistanceClassId($distance, $range),
                 'rate' => $order->subCategories->rate_avg,
-                "laundry_distance"=>  round($distance, 2),
+                "laundry_distance" =>  round($distance, 2),
             ],
             'address' => [
                 "description" => $order->address->description ?? '',
@@ -525,14 +529,14 @@ Customer Name: {$order->user->name}
                 "building" => $order->address->building ?? '',
                 'lat' => $order->address->lat ?? '',
                 'lng' => $order->address->lng ?? '',
-//                'image'=>'i.jpg',
+                //                'image'=>'i.jpg',
 
-                'image_url' => $order->address->image ? asset('assets/uploads/users_image/'.$order->address->image) : null,
+                'image_url' => $order->address->image ? asset('assets/uploads/users_image/' . $order->address->image) : null,
             ],
             'user' => [
                 //'me' => $app_user->id,
                 "user_name" => $order->user->name,
-                "user_image" => $order->user->image? asset('assets/uploads/users_avatar/'.$order->user->image) : null,
+                "user_image" => $order->user->image ? asset('assets/uploads/users_avatar/' . $order->user->image) : null,
                 "user_id" => $order->user->id,
                 "user_mobile" => $order->user->mobile,
                 "user_lat" => $order->user->lat,
@@ -541,14 +545,14 @@ Customer Name: {$order->user->name}
                 "user_building" => $order->user->building,
                 "user_region_name" => $order->user->region_name,
                 'address_description' => $order->user->address_description,
-                'home_image' => $order->user->home_image? asset('assets/uploads/home_image/'.$order->user->home_image): null,
+                'home_image' => $order->user->home_image ? asset('assets/uploads/home_image/' . $order->user->home_image) : null,
             ],
             'services' => $order_details,
             'order_id' => $order->id,
             'payment_method' => $order->payment_method,
-            'qrcode' => asset('qrcodes/'.$order->id.'.svg'),
-            'rate' => RateLaundry::select('rate')->where('order_id',$order->id)->first()['rate'] ?? null,
-            'is_rated' => boolval(RateLaundry::where('order_id',$order->id)->count()),
+            'qrcode' => asset('qrcodes/' . $order->id . '.svg'),
+            'rate' => RateLaundry::select('rate')->where('order_id', $order->id)->first()['rate'] ?? null,
+            'is_rated' => boolval(RateLaundry::where('order_id', $order->id)->count()),
             'delivery_type' => $order->delivery_type,
             'laundry name' => $order->subCategories->$name,
             'date' => $order->created_at->format("d M"),
@@ -564,23 +568,22 @@ Customer Name: {$order->user->name}
             'vat' => floatval($order->vat),
             'sub_total' => floatval($order->total_price),
             'coupon_code' => $order->coupon,
-            'audio_note' => $order->audio_note? asset('assets/uploads/audio_note/'.$order->audio_note) : null,
+            'audio_note' => $order->audio_note ? asset('assets/uploads/audio_note/' . $order->audio_note) : null,
             'total_price_after_coupon' => $order->total_price - ($order->total_price * $order->discount_value),
             'total_price' => $order->total_price - $order->discount + $order->delivery_fees + $order->vat,
             'histories' => $status_histories,
             'status_list' => [
-                '1'  => ($order->status_id>1)? 3: (($order->status_id==1)? 2 : 1),
-                '2'  => ($order->status_id>2)? 3: (($order->status_id==2)? 2 : 1),
-                '3'  => ($order->status_id>3)? 3: (($order->status_id==3)? 2 : 1),
-                '4'  => ($order->status_id>4)? 3: (($order->status_id==4)? 2 : 1),
-                '5'  => ($order->status_id>5)? 3: (($order->status_id==5)? 2 : 1),
-                '6'  => ($order->status_id>6)? 3: (($order->status_id==6)? 2 : 1),
-                '7'  => ($order->status_id>7)? 3: (($order->status_id==7)? 2 : 1),
-                '8'  => ($order->status_id>8)? 3: (($order->status_id==8)? 2 : 1),
-                '9'  => ($order->status_id>9)? 3: (($order->status_id==9)? 2 : 1),
-                '10' => ($order->status_id>10)? 3: (($order->status_id==10)? 2 : 1),
+                '1'  => ($order->status_id > 1) ? 3 : (($order->status_id == 1) ? 2 : 1),
+                '2'  => ($order->status_id > 2) ? 3 : (($order->status_id == 2) ? 2 : 1),
+                '3'  => ($order->status_id > 3) ? 3 : (($order->status_id == 3) ? 2 : 1),
+                '4'  => ($order->status_id > 4) ? 3 : (($order->status_id == 4) ? 2 : 1),
+                '5'  => ($order->status_id > 5) ? 3 : (($order->status_id == 5) ? 2 : 1),
+                '6'  => ($order->status_id > 6) ? 3 : (($order->status_id == 6) ? 2 : 1),
+                '7'  => ($order->status_id > 7) ? 3 : (($order->status_id == 7) ? 2 : 1),
+                '8'  => ($order->status_id > 8) ? 3 : (($order->status_id == 8) ? 2 : 1),
+                '9'  => ($order->status_id > 9) ? 3 : (($order->status_id == 9) ? 2 : 1),
+                '10' => ($order->status_id > 10) ? 3 : (($order->status_id == 10) ? 2 : 1),
             ]
         ];
     }
-
 }

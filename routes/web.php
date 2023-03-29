@@ -32,7 +32,7 @@ use App\Http\Controllers\Admin\SettingController;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::post('adminLogin',[UserController::class,'adminLogin'])->name('adminLogin');
+Route::post('adminLogin', [UserController::class, 'adminLogin'])->name('adminLogin');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
 });
 require __DIR__ . '/auth.php';
 
-Route::middleware(['auth','IsAdmin'])->group(function () {
+Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('profile', [UserController::class, 'profile'])->name('users.profile');
     Route::get('editPassword', [UserController::class, 'editPassword'])->name('users.editPassword');
@@ -159,7 +159,7 @@ Route::middleware(['auth','IsAdmin'])->group(function () {
 Route::post('customerLogin', [AdminController::class, 'customerLogin'])->name('customer.customerLogin');
 
 Route::get('signOut', [AdminController::class, 'signOut'])->name('customer.logout');
-Route::middleware(['auth','laundryAdmin'])->group(function(){
+Route::middleware(['auth', 'laundryAdmin'])->group(function () {
 
     Route::get('customerLogin', [AdminController::class, 'index'])->name('customer.login');
     Route::get('aib', [AdminController::class, 'main'])->name('customer.index');
@@ -186,10 +186,9 @@ Route::middleware(['auth','laundryAdmin'])->group(function(){
     Route::get('orders/{id}', [OrdersController::class, 'index'])->name('Customer.Orders.index');
     Route::get('ordersInProgress/{id}', [OrdersController::class, 'inProgress'])->name('Customer.Orders.inProgress');
     Route::get('ordersCompleted/{id}', [OrdersController::class, 'completed'])->name('Customer.Orders.completed');
-    Route::get('changeStatus', [OrdersController::class,'changeStatus']);
+    Route::get('changeStatus', [OrdersController::class, 'changeStatus']);
     Route::get('canceledOrder/{id}', [OrdersController::class, 'canceledOrder'])->name('Customer.Orders.canceledOrder');
     Route::get('finishedOrder/{id}', [OrdersController::class, 'finishedOrder'])->name('Customer.Orders.finishedOrder');
-
 });
 
 
@@ -220,17 +219,16 @@ Route::get('updateDBLaundry', function () {
     ]);
 });
 
-Route::get('updateUser',function (){
-    DB::table('users')->where('id',9)->update([
-        'password'=>'$2y$10$GUwYIski.LTiYK/qV.rUVOjI5c0ZXqHwswJ2aUynEK8YnJMslcYKK'
+Route::get('updateUser', function () {
+    DB::table('users')->where('id', 9)->update([
+        'password' => '$2y$10$GUwYIski.LTiYK/qV.rUVOjI5c0ZXqHwswJ2aUynEK8YnJMslcYKK'
     ]);
-    $user=\App\Models\User::where('id',9)->get();
+    $user = \App\Models\User::where('id', 9)->get();
     return $user;
 });
 
 Route::get('getData', function () {
     \App\Models\City::truncate();
-
 });
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('config:cache');
@@ -241,7 +239,7 @@ Route::get('updateAll', function () {
     $subcategories = DB::table('subcategories')->whereNull('city_id')->update(['city_id' => 1]);
 });
 Route::get('updateOrder', function () {
-    $ordersTable = DB::table('order_tables')->where('id',26)->update(['status'=>'تم الأنتهاء من الغسيل']);
+    $ordersTable = DB::table('order_tables')->where('id', 26)->update(['status' => 'تم الأنتهاء من الغسيل']);
 });
 
 Route::get('usersGet', function () {
@@ -278,78 +276,76 @@ Route::get('addresses', function () {
     return $addresses;
 });
 
-Route::get('ordersTable',function (){
-    $orders=\App\Models\OrderTable::all();
+Route::get('ordersTable', function () {
+    $orders = \App\Models\OrderTable::all();
     return $orders;
 });
-Route::get('getorderDetails',function (){
-    $orderDetails=\App\Models\OrderDetails::all();
+Route::get('getorderDetails', function () {
+    $orderDetails = \App\Models\OrderDetails::all();
     return $orderDetails;
 });
 
-Route::get('notifications',function (){
-    $notifications=\App\Models\Notifications::all();
+Route::get('notifications', function () {
+    $notifications = \App\Models\Notifications::all();
     return $notifications;
 });
 
-Route::get('Alter',function (){
+Route::get('Alter', function () {
     \DB::statement('ALTER TABLE order_tables ENGINE = InnoDB');
 });
 Route::get('updateCustomers', function () {
     $ordersTable = DB::table('app_users')->update(['city_id' => 1]);
 });
 
-Route::get('allCities',function (){
-    $cities=\App\Models\City::all();
+Route::get('allCities', function () {
+    $cities = \App\Models\City::all();
     return $cities;
 });
 
-Route::get('getCars',function (){
-    $cars=\App\Models\CarType::all();
+Route::get('getCars', function () {
+    $cars = \App\Models\CarType::all();
     return $cars;
 });
 //Route::get('updateDelegate', function () {
 //    $ordersTable = \App\Models\Delegate::where('id',18)->update(['registered' => 2]);
 //});
 Route::post('logoutLaundryAdmin', [AdminController::class, 'destroyLaundryAdmin'])
-        ->name('logoutLaundryAdmin');
+    ->name('logoutLaundryAdmin');
 
-Route::get('getOnLineUsers',function (){
+Route::get('getOnLineUsers', function () {
     $users = AppUser::where([
         'status' => 'active',
         'user_type' => 'delivery',
-        'available'=>'1'
+        'available' => '1'
     ])->get();
     return $users;
 });
 
 
-Route::get('histories',function (){
-    $histories=\App\Models\OrderStatusHistory::all();
+Route::get('histories', function () {
+    $histories = \App\Models\OrderStatusHistory::all();
     return $histories;
 });
 
 
-Route::get('locations',function (){
-    $user=AppUser::where('id',2)->first();
+Route::get('locations', function () {
+    $user = AppUser::where('id', 2)->first();
     dd($user);
 
-//    $locations=AppUser::SELECT(['*',DB::raw(' ( 6371 * acos( cos( radians(' . $user->lat . ') ) * cos( radians( lat ) )
-//           * cos( radians( lng ) - radians(' . $user->lat . ') ) + sin( radians(' . $user->lat . ') )
-//           * sin( radians( lat ) ) ) )')]);
-//    $raw= DB::SELECT(' ( 6371 * acos( cos( radians(' . $user->lat . ') ) * cos( radians( lat ) )
-//           * cos( radians( lng ) - radians(' . $user->lat . ') ) + sin( radians(' . $user->lat . ') )
-//           * sin( radians( lat ) ) ) )  AS distance');
-//
-//    $raw = AppUser::SELECT('*', $raw)->addSelect($raw)->orderBy('distance')->first();
-//    return $raw;
+    //    $locations=AppUser::SELECT(['*',DB::raw(' ( 6371 * acos( cos( radians(' . $user->lat . ') ) * cos( radians( lat ) )
+    //           * cos( radians( lng ) - radians(' . $user->lat . ') ) + sin( radians(' . $user->lat . ') )
+    //           * sin( radians( lat ) ) ) )')]);
+    //    $raw= DB::SELECT(' ( 6371 * acos( cos( radians(' . $user->lat . ') ) * cos( radians( lat ) )
+    //           * cos( radians( lng ) - radians(' . $user->lat . ') ) + sin( radians(' . $user->lat . ') )
+    //           * sin( radians( lat ) ) ) )  AS distance');
+    //
+    //    $raw = AppUser::SELECT('*', $raw)->addSelect($raw)->orderBy('distance')->first();
+    //    return $raw;
 });
 
-//Route::get('setting',function (){
-//    $settings=SiteSetting::first();
-//    dd($settings->distance_range);
-//});
-Route::get('updateSetting', function () {
-    DB::table('subcategories')->first()->update([
-        'distance_delegates' => '10']);
+Route::get('setting', function () {
+    $settings = SiteSetting::first();
+    dd($settings, $settings->distance_delegates);
+
+    dd($settings->distance_delegates);
 });
