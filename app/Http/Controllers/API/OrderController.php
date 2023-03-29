@@ -8,6 +8,7 @@ use App\Models\OrderDetails;
 use App\Models\OrderTable;
 use App\Models\ProductService;
 use App\Models\RateLaundry;
+use App\Models\SiteSetting;
 use App\Models\Subcategory;
 use App\Models\Transaction;
 use Carbon\Carbon;
@@ -172,6 +173,8 @@ class OrderController extends Controller
         NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(),$order->id);
         $customer = auth('app_users_api')->user();
 
+        $settings=SiteSetting::first();
+        $distanceRange=$settings->distance_range;
         $delgates=AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
@@ -179,7 +182,7 @@ class OrderController extends Controller
         ])->
         whereRaw('( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
            * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
-           * sin( radians( lat ) ) ) ) <= '.config('setting.distance.in_area'))->get();
+           * sin( radians( lat ) ) ) ) <= '.$distanceRange)->get();
 
         if(count($delgates) == 0) {
             $delgates = AppUser::where([
