@@ -174,7 +174,7 @@ class OrderController extends Controller
 
         $delgates=AppUser::SELECT(['*',DB::raw(' ( 6371 * acos( cos( radians(' . auth('app_users_api')->user()->lat . ') ) * cos( radians( lat ) )
            * cos( radians( lng ) - radians(' . auth('app_users_api')->user()->lat . ') ) + sin( radians(' . auth('app_users_api')->user()->lat . ') )
-           * sin( radians( lat ) ) ) )  AS distance')])->get();
+           * sin( radians( lat ) ) ) )  AS distance')])->where('distance','<=',10)->get();
         dd($delgates);
 
         $users =AppUser::where([
