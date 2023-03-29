@@ -172,18 +172,18 @@ class OrderController extends Controller
         NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(),$order->id);
         $customer = auth('app_users_api')->user();
 
-        $users = AppUser::
-        SELECT(['*',DB::raw(' ( 6371 * acos( cos( radians(' . auth('app_users_api')->user()->lat . ') ) * cos( radians( lat ) )
+        $delgates=AppUser::SELECT(['*',DB::raw(' ( 6371 * acos( cos( radians(' . auth('app_users_api')->user()->lat . ') ) * cos( radians( lat ) )
            * cos( radians( lng ) - radians(' . auth('app_users_api')->user()->lat . ') ) + sin( radians(' . auth('app_users_api')->user()->lat . ') )
-           * sin( radians( lat ) ) ) )  AS distance')])->where('distance','<=',10)->
-        where([
+           * sin( radians( lat ) ) ) )  AS distance')])->get();
+        dd($delgates);
+
+        $users =AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
             'available'=>'1',
         ])->get();
 
         foreach ($users as $user) {
-            $user=getUserLocation($user,$customer);
 
             NotificationController::sendNotification(
                 'New Delivery Request',
