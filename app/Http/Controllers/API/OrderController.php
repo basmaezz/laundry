@@ -173,14 +173,14 @@ class OrderController extends Controller
         $customer = auth('app_users_api')->user();
 
         $users = AppUser::
-        SELECT(['*',   DB::raw(' ( 6371 * acos( cos( radians(' . auth('app_users_api')->user()->lat . ') ) * cos( radians( lat ) )
+        SELECT(['*',DB::raw(' ( 6371 * acos( cos( radians(' . auth('app_users_api')->user()->lat . ') ) * cos( radians( lat ) )
            * cos( radians( lng ) - radians(' . auth('app_users_api')->user()->lat . ') ) + sin( radians(' . auth('app_users_api')->user()->lat . ') )
-           * sin( radians( lat ) ) ) )  AS distance')])->
+           * sin( radians( lat ) ) ) )  AS distance')])->where('distance','<=',10)->
         where([
             'status' => 'active',
             'user_type' => 'delivery',
             'available'=>'1',
-        ])->where('distance','<=',10)->get();
+        ])->get();
 
         foreach ($users as $user) {
             $user=getUserLocation($user,$customer);
