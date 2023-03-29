@@ -86,7 +86,7 @@ class OrderController extends Controller
         $app_user_id = auth('app_users_api')->user()->id;
 
         $_totalOrders = OrderTable::where('user_id',$app_user_id)->where("status_id",'<',self::Completed)->count();
-        if($_totalOrders >= 3){
+        if($_totalOrders >= config('setting.max_order')){
             return apiResponseCouponError('api.You reached the maximum number or request',400,400);
         }
 
@@ -172,18 +172,24 @@ class OrderController extends Controller
         NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(),$order->id);
         $customer = auth('app_users_api')->user();
 
-        $delgates=AppUser::SELECT(['*',DB::raw(' ( 6371 * acos( cos( radians(' . auth('app_users_api')->user()->lat . ') ) * cos( radians( lat ) )
-           * cos( radians( lng ) - radians(' . auth('app_users_api')->user()->lat . ') ) + sin( radians(' . auth('app_users_api')->user()->lat . ') )
-           * sin( radians( lat ) ) ) )')])->where('distance','<=',10)->get();
-        dd($delgates);
-
-        $users =AppUser::where([
+        $delgates=AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
             'available'=>'1',
-        ])->get();
+        ])->
+        whereRaw('( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
+           * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
+           * sin( radians( lat ) ) ) ) <= '.config('setting.distance.in_area'))->get();
+        //dd($delgates);
+        if(count($delgates) == 0) {
+            $delgates = AppUser::where([
+                'status' => 'active',
+                'user_type' => 'delivery',
+                'available' => '1',
+            ])->get();
+        }
 
-        foreach ($users as $user) {
+        foreach ($delgates as $user) {
 
             NotificationController::sendNotification(
                 'New Delivery Request',
@@ -313,11 +319,21 @@ class OrderController extends Controller
                 $order->delivery_id = null;
                 $order->save();
 
-                $users = AppUser::where([
+                $delgates=AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
-                    'available'=>'1'
-                ])->get();
+                    'available'=>'1',
+                ])->
+                whereRaw('( 6371 * acos( cos( radians(' . $order->subCategories->lat . ') ) * cos( radians( lat ) )
+                   * cos( radians( lng ) - radians(' . $order->subCategories->lng . ') ) + sin( radians(' . $order->subCategories->lat . ') )
+                   * sin( radians( lat ) ) ) ) <= '.config('setting.distance.in_area'))->get();
+                if (count($delgates)==0) {
+                    $delgates = AppUser::where([
+                        'status' => 'active',
+                        'user_type' => 'delivery',
+                        'available' => '1'
+                    ])->get();
+                }
                 foreach ($users as $user) {
                     NotificationController::sendNotification(
                         'New Delivery Request',
@@ -454,6 +470,7 @@ class OrderController extends Controller
             $status_histories[] = [
 
                 'status_id' => $history->status_id,
+                'spend_time' => $history->spend_time,
                 'status' => $history->status,
                 'name' => getStatusName($history->status_id),
                 'date' => $history->created_at->toDateString(),
