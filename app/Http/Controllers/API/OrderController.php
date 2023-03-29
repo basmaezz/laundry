@@ -179,7 +179,7 @@ class OrderController extends Controller
         ])->get();
 
         foreach ($users as $user) {
-            $location=getDistanceFirst1($user, $customer->lat, $customer->lng);
+            $location=getDistanceFirst1($customer, $user->lat, $user->lng);
             dd($location);
 
             NotificationController::sendNotification(
