@@ -345,7 +345,7 @@ Route::get('locations', function () {
 
 Route::get('setting', function () {
     $settings = SiteSetting::first();
-    dd($settings, $settings->distance_delegates);
+    dd($settings);
 
     dd($settings->distance_delegates);
 });
