@@ -89,7 +89,7 @@ class OrderController extends Controller
         if($_totalOrders >= 3){
             return apiResponseCouponError('api.You reached the maximum number or request',400,400);
         }
-        
+
 
         $discount_value = 0;
         if ($request->has('coupon')) {
@@ -171,17 +171,14 @@ class OrderController extends Controller
         $body = __('api.success_send_to_laundry',['laundry'=>$order->subCategories->$name]);
         NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(),$order->id);
 
-        $users = AppUser::
-        SELECT(['*',   DB::raw(' ( 6371 * acos( cos( radians(' . auth('app_users_api')->user()->lat . ') ) * cos( radians( lat ) )
-           * cos( radians( lng ) - radians(' . auth('app_users_api')->user()->lng . ') ) + sin( radians(' . auth('app_users_api')->user()->lat . ') )
-           * sin( radians( lat ) ) ) )  AS distance')])->
-        where([
+        $users = AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
             'available'=>'1',
-
         ])->get();
         foreach ($users as $user) {
+            $user= (!empty(auth('app_users_api')->user()))? getDistanceFirst1($user, $user->lat, $user->lng) : 0;
+
             NotificationController::sendNotification(
                 'New Delivery Request',
                 'New Delivery Request Number #' . $order->id,
