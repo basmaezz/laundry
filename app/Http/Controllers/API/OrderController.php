@@ -180,7 +180,7 @@ class OrderController extends Controller
         whereRaw('( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
            * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
            * sin( radians( lat ) ) ) ) <= '.config('setting.distance.in_area'))->get();
-        //dd($delgates);
+
         if(count($delgates) == 0) {
             $delgates = AppUser::where([
                 'status' => 'active',
@@ -190,7 +190,6 @@ class OrderController extends Controller
         }
 
         foreach ($delgates as $user) {
-
             NotificationController::sendNotification(
                 'New Delivery Request',
                 'New Delivery Request Number #' . $order->id,

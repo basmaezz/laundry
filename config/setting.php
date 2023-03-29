@@ -1,7 +1,7 @@
 <?php
 return [
     'vat' => env('VAT_VALUE', 0.15),
-    'max_order' => env('MAX_ORDER', 3),
+    'max_order' => env('MAX_ORDER', 5),
     'distance'=>[
         'in_area' => 10,
         'away_area' => 20,
