@@ -43,8 +43,9 @@ class UserRequest extends FormRequest
 //            'password'=>'required',
             'birthdate'=> ['required','before:15 years ago'],
 //            'birthdate'=> 'required',
-            'phone'=>'required|numeric|digits:10',
-            'avatar'=>['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
+
+            'phone'=>'required|unique:users|numeric|digits:10',
+            'avatar'=>['image','required','mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ];
 
     }

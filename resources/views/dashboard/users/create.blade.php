@@ -40,8 +40,7 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 form-control-label" for="text-input">الصلاحيه </label>
                                                 <div class="col-md-9">
-                                                    <select class="form-control"  name="role_id">
-                                                        <option  >أختر صلاحيه</option>
+                                                    <select class="form-control"  name="role_id" required>
                                                         @foreach($roles as $key => $role)
                                                         <option value="{{$role}}">{{$key}}</option>
                                                         @endforeach
@@ -117,6 +116,9 @@
                                                 <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الملف الشخصى </label>
                                                 <div class="col-md-9">
                                                     <input type="file" id="file-input" name="avatar" class="form-control">
+                                                    @if ($errors->has('avatar'))
+                                                        <span class="text-danger">{{ $errors->first('avatar') }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                     <div class="card-footer">
