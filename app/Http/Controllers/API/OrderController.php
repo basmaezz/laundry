@@ -171,13 +171,15 @@ class OrderController extends Controller
         $body = __('api.success_send_to_laundry',['laundry'=>$order->subCategories->$name]);
         NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(),$order->id);
         $customer = auth('app_users_api')->user();
-        dd($customer);
+
         $users = AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
             'available'=>'1',
         ])->get();
+        dd($users);
         foreach ($users as $user) {
+
             $distance=  getDistanceFirst1($customer, $user->lat, $user->lng);
             dd($distance);
             NotificationController::sendNotification(
