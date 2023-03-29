@@ -177,18 +177,16 @@ class OrderController extends Controller
             'user_type' => 'delivery',
             'available'=>'1',
         ])->get();
-        dd($users);
-        foreach ($users as $user) {
 
-            $distance=  getDistanceFirst1($customer, $user->lat, $user->lng);
-            dd($distance);
+        foreach ($users as $user) {
+            $location=getDistanceFirst1($user, $customer->lat, $customer->lng);
+            dd($location);
+
             NotificationController::sendNotification(
                 'New Delivery Request',
                 'New Delivery Request Number #' . $order->id,
                 $user,
                 $order->id);
-
-
         }
         return apiResponseOrders1('api.success_to_shopping_cart', $orders);
     }
