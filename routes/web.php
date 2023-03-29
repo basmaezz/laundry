@@ -330,9 +330,16 @@ Route::get('histories',function (){
 
 
 Route::get('locations',function (){
-    $user=AppUser::where('id',2)->get();
-    $locations=AppUser::SELECT(['*',DB::raw(' ( 6371 * acos( cos( radians(' . $user->lat . ') ) * cos( radians( lat ) )
-           * cos( radians( lng ) - radians(' . $user->lat . ') ) + sin( radians(' . $user->lat . ') )
-           * sin( radians( lat ) ) ) )')]);
-    dd($locations);
+    $user=AppUser::where('id',2)->first();
+    dd($user);
+
+//    $locations=AppUser::SELECT(['*',DB::raw(' ( 6371 * acos( cos( radians(' . $user->lat . ') ) * cos( radians( lat ) )
+//           * cos( radians( lng ) - radians(' . $user->lat . ') ) + sin( radians(' . $user->lat . ') )
+//           * sin( radians( lat ) ) ) )')]);
+//    $raw= DB::SELECT(' ( 6371 * acos( cos( radians(' . $user->lat . ') ) * cos( radians( lat ) )
+//           * cos( radians( lng ) - radians(' . $user->lat . ') ) + sin( radians(' . $user->lat . ') )
+//           * sin( radians( lat ) ) ) )  AS distance');
+//
+//    $raw = AppUser::SELECT('*', $raw)->addSelect($raw)->orderBy('distance')->first();
+//    return $raw;
 });
