@@ -170,20 +170,25 @@ class OrderController extends Controller
         $name = 'name_' . App::getLocale();
         $body = __('api.success_send_to_laundry',['laundry'=>$order->subCategories->$name]);
         NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(),$order->id);
-
+        $customer = auth('app_users_api')->user();
         $users = AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
             'available'=>'1',
         ])->get();
         foreach ($users as $user) {
-            $distance= (!empty(auth('app_users_api')->user()))? getDistanceFirst1($user, $user->lat, $user->lng) : 0;
+            $distance=  getDistanceFirst1($customer, $user->lat, $user->lng);
+            if($distance >10){
+                    dd('out area');
+            }else{
+                NotificationController::sendNotification(
+                    'New Delivery Request',
+                    'New Delivery Request Number #' . $order->id,
+                    $user,
+                    $order->id);
+            }
 
-            NotificationController::sendNotification(
-                'New Delivery Request',
-                'New Delivery Request Number #' . $order->id,
-                $user,
-                $order->id);
+
         }
         return apiResponseOrders1('api.success_to_shopping_cart', $orders);
     }
