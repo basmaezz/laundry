@@ -174,7 +174,7 @@ class OrderController extends Controller
         $customer = auth('app_users_api')->user();
 
         $settings=SiteSetting::first();
-        $distanceRange=$settings->distance_range;
+        $distanceDelegate=$settings->distance_delegates;
         $delgates=AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
@@ -182,7 +182,7 @@ class OrderController extends Controller
         ])->
         whereRaw('( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
            * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
-           * sin( radians( lat ) ) ) ) <= '.$distanceRange)->get();
+           * sin( radians( lat ) ) ) ) <= '.$distanceDelegate)->get();
 
         if(count($delgates) == 0) {
             $delgates = AppUser::where([

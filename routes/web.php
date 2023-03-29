@@ -3,6 +3,7 @@
 use App\Http\Controllers\Customer\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Models\AppUser;
+use App\Models\SiteSetting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
@@ -342,4 +343,13 @@ Route::get('locations',function (){
 //
 //    $raw = AppUser::SELECT('*', $raw)->addSelect($raw)->orderBy('distance')->first();
 //    return $raw;
+});
+
+//Route::get('setting',function (){
+//    $settings=SiteSetting::first();
+//    dd($settings->distance_range);
+//});
+Route::get('updateSetting', function () {
+    DB::table('subcategories')->first()->update([
+        'distance_delegates' => '10']);
 });
