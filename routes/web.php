@@ -3,6 +3,7 @@
 use App\Http\Controllers\Customer\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Models\AppUser;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoriesController;
@@ -325,4 +326,13 @@ Route::get('getOnLineUsers',function (){
 Route::get('histories',function (){
     $histories=\App\Models\OrderStatusHistory::all();
     return $histories;
+});
+
+
+Route::get('locations',function (){
+    $user=AppUser::where('id',2)->get();
+    $locations=AppUser::SELECT(['*',DB::raw(' ( 6371 * acos( cos( radians(' . $user->lat . ') ) * cos( radians( lat ) )
+           * cos( radians( lng ) - radians(' . $user->lat . ') ) + sin( radians(' . $user->lat . ') )
+           * sin( radians( lat ) ) ) )')]);
+    dd($locations);
 });
