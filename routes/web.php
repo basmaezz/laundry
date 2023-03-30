@@ -214,6 +214,12 @@ Route::get('updateDBٍSecond', function () {
         'lng' => '31.1429209'
     ]);
 });
+Route::get('updateLanduary', function () {
+    DB::table('subcategories')->where('id', 18)->update([
+        'lat' => '26.3384526',
+        'lng' => '50.1547065'
+    ]);
+});
 
 Route::get('updateDBLaundry', function () {
     DB::table('subcategories')->where('id', 16)->update([
