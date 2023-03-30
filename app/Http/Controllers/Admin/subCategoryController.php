@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 
 class subCategoryController extends Controller
@@ -81,6 +82,22 @@ class subCategoryController extends Controller
                'lat' => $x3[0],
                'lng' => $x4,
            ]);
+
+        $validateData = $request->validate([
+            'name' => 'required|unique:users',
+            'last_name' => 'required|unique:users',
+            'email' => '|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
+            'password'=>['required','min:6'],
+            'phone'=>'required|unique:users',
+        ],[
+            'required'  =>'هذا الحقل مطلوب',
+            'name'=>'برجاء ادخال اسم مناسب',
+            'last_name'=>'برجاء ادخال اسم مناسب',
+            'unique'=>'هذا الأسم موجود مسبقا',
+            'email'=>'هذا البريد الالكترونى موجود مسبقا',
+            'phone'=>'هذا الرقم غير صحيح',
+        ]);
+
         User::create([
             'name'=>$request->name,
             'last_name'=>$request->last_name,

@@ -26,7 +26,7 @@
                                     </div>
                                      <div class="form-group">
                                         <label for="company" n>اسم المغسله</label>
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" placeholder="اسم المغسله" >
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar"value="{{ Request::old('name_ar') }}" placeholder="اسم المغسله" >
                                          @error('name_ar')
                                          <span class="text-danger">{{ $message }}</span>
                                          <div class="text-sm text-red-600">{{ $message }}</div>
@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company">اسم المغسله بالانجليزيه</label>
-                                        <input type="text" name="name_en"class="form-control" id="name_en" placeholder="اسم المغسله" >
+                                        <input type="text" name="name_en"class="form-control" id="name_en" value="{{ Request::old('name_en') }}"placeholder="اسم المغسله" >
                                         @error('name_en')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -54,35 +54,35 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company">الحى</label>
-                                        <input type="text" name="address"class="form-control" id="address" placeholder="العنوان " >
+                                        <input type="text" name="address"class="form-control" id="address"value="{{ Request::old('address') }}" placeholder="العنوان " >
                                         @error('address')
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="country">الموقع(Google Map) </label>
-                                        <input type="text" name="location"class="form-control" id="location" >
+                                        <input type="text" name="location"class="form-control"value="{{ Request::old('location') }}" id="location" >
                                         @error('location')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="approximate_duration"> نطاق التشغيل </label>
-                                        <input type="number" name="range"class="form-control" id="range" placeholder="  10 كيلو" max="50" min="5" >
+                                        <input type="number" name="range"class="form-control" id="range" value="{{ Request::old('range') }}"placeholder="  10 كيلو" max="50" min="5" >
                                         @error('range')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="country">سعر التوصيل  </label>
-                                        <input type="text" name="price"class="form-control" id="image" placeholder=" سعر التوصيل" >
+                                        <input type="number" name="price"class="form-control" id="image"value="{{ Request::old('price') }}" placeholder=" سعر التوصيل" >
                                         @error('price')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="approximate_duration">  المده التقريبيه للغسيل </label>
-                                        <input type="number" name="approximate_duration"class="form-control" id="approximate_duration" placeholder="  24 ساعه" >
+                                        <input type="number" name="approximate_duration"class="form-control" value="{{ Request::old('approximate_duration') }}"id="approximate_duration" placeholder="  24 ساعه" >
                                         @error('approximate_duration')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -110,14 +110,6 @@
                                         <input type="file" name="image"class="form-control" id="image" placeholder="Country name">
                                     </div>
 
-{{--                                    <form oninput="result.value = slider.value">--}}
-{{--                                        <label>Select pressure</label><br/>--}}
-{{--                                        <input type="range" id="slider"--}}
-{{--                                               min="0" max="100" step="10" value="30"> <br />--}}
-
-{{--                                        The value is <output name="result" for="slider">30</output> PSI--}}
-{{--                                    </form>--}}
-
                             </div>
                             </div>
                         </div>
@@ -130,21 +122,21 @@
 
                                     <div class="form-group ">
                                         <label >الأسم الأول</label>
-                                            <input type="text" id="text-input" name="name" class="form-control" placeholder="الاسم الأول" >
+                                            <input type="text" id="text-input" name="name" class="form-control"value="{{ Request::old('name') }}" placeholder="الاسم الأول" >
                                         @error('name')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الأسم الأخير</label>
-                                            <input type="text" id="text-input" name="last_name" class="form-control" placeholder=" الأسم الاخير " >
+                                            <input type="text" id="text-input" name="last_name" class="form-control"value="{{ Request::old('last_name') }}" placeholder=" الأسم الاخير " >
                                         @error('last_name')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group ">
                                         <label  for="email-input">البريد الألكترونى </label>
-                                            <input type="email" id="email-input" name="email" class="form-control" placeholder=" البريد الالكترونى" >
+                                            <input type="email" id="email-input" name="email" class="form-control"value="{{ Request::old('email') }}" placeholder=" البريد الالكترونى" >
                                         @error('email')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -158,7 +150,7 @@
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الجوال </label>
-                                            <input type="text" id="phone" name="phone" class="form-control">
+                                            <input type="text" id="phone" name="phone"value="{{ Request::old('phone') }}" class="form-control">
                                         @error('phone')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
