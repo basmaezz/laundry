@@ -153,6 +153,9 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::get('addSettings', [SettingController::class, 'create'])->name('settings.create');
     Route::post('storeSettings', [SettingController::class, 'store'])->name('settings.store');
+    Route::get('editSettings', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::post('updateSettings', [SettingController::class, 'update'])->name('settings.update');
+
 });
 #############################
 

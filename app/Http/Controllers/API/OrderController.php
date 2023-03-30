@@ -190,7 +190,6 @@ class OrderController extends Controller
                 'available' => '1',
             ])->get();
         }
-
         foreach ($delgates as $user) {
             NotificationController::sendNotification(
                 'New Delivery Request',

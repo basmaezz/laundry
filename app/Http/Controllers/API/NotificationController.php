@@ -70,11 +70,11 @@ class NotificationController extends Controller
             Notifications::create([
                 'order_table_id' => $order_id,
                 'seen' => 0,
-                'app_user_id'=>auth('app_users_api')->user()->id,
+                'app_user_id'=>$user->id,
                 'content_en' => $body,
                 'content_ar' => $body,
                 'type' => $is_admin ? 'Admin' : 'System',
-                'user_id' => $user->id,
+                'user_id' =>auth('app_users_api')->user()->id ,
                 'title_ar' => $title,
                 'title_en' => $title,
                 'send' => $sent

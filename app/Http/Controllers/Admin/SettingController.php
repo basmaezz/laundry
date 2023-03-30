@@ -12,7 +12,11 @@ class SettingController extends Controller
     public function index()
     {
         $siteSetting=SiteSetting::first();
-        return view('dashboard.settings.index',compact('siteSetting'));
+        if(isset($siteSetting)) {
+            return view('dashboard.settings.index',compact('siteSetting'));
+        }else{
+            return view('dashboard.settings.index');
+        }
     }
     public function create()
     {
@@ -22,7 +26,16 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         SiteSetting::create($request->all());
-        return redirect()->route('settings.index');
-
+        return redirect()->route('settings.index')->with('message', 'تم الاضافه!');;
+    }
+    public function edit()
+    {
+        $siteSetting=SiteSetting::first();
+        return view('dashboard.settings.edit',compact('siteSetting'));
+    }
+    public function update(Request $request)
+    {
+        $siteSetting=SiteSetting::where('id',$request->id)->update($request->except(['_method','_token','id']));
+        return redirect()->route('settings.index')->with('message', 'تمت التعديل!');
     }
 }
