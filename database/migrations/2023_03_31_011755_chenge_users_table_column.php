@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->date('joinDate')->after('birthdate')->nullable();
+
+            $table->renameColumn('joindate', 'joinDate');
 
         });
     }
@@ -26,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('joinDate');
-        });
+        //
     }
 };

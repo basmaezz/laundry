@@ -27,27 +27,14 @@ class UserRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name'=>['required', 'unique:users', 'min:4','max:20',
-                function ($attribute, $value, $fail) use ($request) {
-                    $name_exists = User::where('name', $value)->where('name', request()->input('name'))->count() > 0;
-                    if ($name_exists)  {
-                        $fail($request->name.' هذا الاسم موجود بالفعل.');
-                    }
-                }],
-            'last_name'=>array('required','unique:users','regex:/(^([a-zA-Z]+)(\d+)?$)/u'),
-            'email' => '|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
-            'password'=>['required',
-                'min:6',
-                ],
-//            'email'=>'required|email|unique:users,email',
-//            'password'=>'required',
+            'name'=>['required', 'min:4','max:20'],
+            'last_name'=>['required', 'min:4','max:20'],
+            'email' => 'required|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
+            'password'=>['required','min:6'],
             'birthdate'=> ['required','before:15 years ago'],
-//            'birthdate'=> 'required',
-
             'phone'=>'required|unique:users|numeric|digits:10',
             'avatar'=>['image','required','mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ];
-
     }
 
     public function messages()

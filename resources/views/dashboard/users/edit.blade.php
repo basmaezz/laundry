@@ -100,7 +100,8 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"class="form-control"> تاريخ الانضمام للشركة   </label>
                                             <div class="col-md-9">
-                                                <input type="date" id="joinDate" name="joindate" class="form-control" value="{{$user->joindate}}" >
+                                                <input type="date" id="joinDate" name="joinDate"placeholder="date" class="form-control" value="{{$user->joinDate}}" >
+
                                                 @if ($errors->has('joinDate'))
                                                     <span class="text-danger">{{ $errors->first('joinDate') }}</span>
                                                 @endif

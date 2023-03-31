@@ -1,7 +1,6 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-
         <div class="container-fluid">
             <div class="validationMsg" style="width: 600px">
                 @if($errors->any())
@@ -49,7 +48,12 @@
                                         <td> {{$user->Roles[0]->role ??''}}</td>
                                         <td>
                                             <a href="{{route('user.edit',$user->id)}}" class="btn btn-info">تعديل</a>
-                                            <a href="{{route('user.delete',$user->id)}}" class="btn btn-danger show_confirm">حذف</a>
+                                            <form class="delete" action="{{route('user.delete',$user->id)}}" method="get">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="submit" value="حذف" class="edit btn btn-danger btn-sm">
+                                            </form>
+{{--                                            <a href="{{route('user.delete',$user->id)}}" class="btn btn-danger show_confirm">حذف</a>--}}
                                         </td>
                                     </tr>
                                         @endif
@@ -73,6 +77,11 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#users_wrapper .col-md-6:eq(0)');
+    </script>
+    <script>
+        $(".delete").on("submit", function(){
+            return confirm("هل أنت متأكد من الحذف  ؟");
+        });
     </script>
 @endpush
 

@@ -5,12 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 
 class SettingController extends Controller
 {
     public function index()
     {
+        if(Gate::denies('settings.index')){
+            abort(403);
+        };
+
         $siteSetting=SiteSetting::first();
         if(isset($siteSetting)) {
             return view('dashboard.settings.index',compact('siteSetting'));

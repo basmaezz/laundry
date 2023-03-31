@@ -49,7 +49,7 @@ class UserController extends Controller
     }
     public function index(Request $request)
     {
-        if(Gate::denies('users.index')){
+        if(Gate::denies('admins.index')){
             abort(403);
         };
 
@@ -64,6 +64,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        if(Gate::denies('admins.index')){
+            abort(403);
+        };
         $levels=educationLevel::pluck('id','name');
         $roles=Role::pluck('id','role');
         return view('dashboard.users.create',compact(['levels','roles']));
@@ -77,6 +80,9 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        if(Gate::denies('admins.index')){
+            abort(403);
+        };
         if(!empty($request->file('avatar'))){
             $filename = uploadFile($request->file('avatar'),'images');
         }
@@ -98,6 +104,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        if(Gate::denies('admins.index')){
+            abort(403);
+        };
         $user=User::findorFail($id);
         if($user->level_id !=null ){
             $levels=educationLevel::all();
@@ -114,6 +123,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        if(Gate::denies('admins.index')){
+            abort(403);
+        };
         $user=User::with(['Roles','Levels'])->findorFail($id);
         $roles=Role::all();
         $levels=educationLevel::all();
@@ -129,19 +141,24 @@ class UserController extends Controller
      */
     public function update(updateUserRequest $request, $id)
     {
+
+        $user=User::find($id);
         if(!empty($request->file('avatar'))){
             $filename = uploadFile($request->file('avatar'),'images');
-            $user= User::find($id)->update($request->validated()+[
+            $user->update($request->validated()+[
                     'avatar'=>$filename,
             ]);
         }else{
-            $user= User::find($id)->update($request->validated());
+            $user->update($request->validated());
         }
-        $user->roles()->sync([
-            'role_id'=>$request->role_id,
-        ]);
-        $user->save();
-        return redirect()->route('users.index')->with('message', 'تم تعديل بيانات المستخدم بنجاح !');;
+        if($request->role_id!=''){
+            $user->Roles()->sync( [
+                'role_id' => $request->role_id
+            ]);
+        }
+        return  redirect()->route('users.index')->with('message', 'تم التعديل بنجاح !');;;
+
+
     }
     /**
      * Remove the specified resource from storage.
@@ -151,18 +168,27 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        if(Gate::denies('admins.index')){
+            abort(403);
+        };
         User::find($id)->delete();
         return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
     }
 
-    public function customers(Request $request){
-
+    public function customers(Request $request)
+    {
+        if(Gate::denies('customers.index')){
+            abort(403);
+        };
         $customers=AppUser::with('cities')->get();
         return view('dashboard.users.customers',compact('customers'));
 
     }
     public function customerDelete($id)
     {
+        if(Gate::denies('customers.index')){
+            abort(403);
+        };
         AppUser::find($id)->delete();
         return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
     }
@@ -191,11 +217,17 @@ class UserController extends Controller
     }
     public function delegates(Request $request)
     {
+        if(Gate::denies('delegates.index')){
+            abort(403);
+        };
         $delegates=Delegate::with(['appUser','appUser.cities','nationality'])->get();
         return view('dashboard.users.delegates',compact('delegates'));
     }
     public function CreateDelegate()
     {
+        if(Gate::denies('delegates.index')){
+            abort(403);
+        };
         $cities=City::all();
         $carTypes=CarType::all();
         $years=Year::all();
@@ -362,7 +394,7 @@ class UserController extends Controller
             $user['phone']=$request->get('phone'),
             $user['level_id']=$request->get('level_id'),
             $user['birthdate']=$request->get('birthdate'),
-            $user['joindate']=$request->get('joindate'),
+            $user['joinDate']=$request->get('joinDate'),
         ]);
         if(!empty($request->file('avatar'))){
             $filename = uploadFile($request->file('avatar'),'images');

@@ -24,14 +24,14 @@ class updateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'unique:users,name,'.$this->id,
-            'last_name'=>'unique:users,last_name,'.$this->id,
-            'email'=>'unique:users,email,'.$this->id,
-            'phone'=>'unique:users,phone,'.$this->id,
+            'name'=>'required',
+            'last_name'=>'required',
+            'email'=>'required',
+            'phone'=>'required',
             'level_id'=>'required',
             'birthdate'=>'required',
-            'joindate'=>'required',
-            'avatar'=>['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
+            'joinDate'=>'required',
+//            'avatar'=>['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ];
     }
 }

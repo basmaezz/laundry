@@ -231,6 +231,7 @@ class AuthController extends ApiController
             $delegate->driving_license = uploadFile($request->file('license')['image'], 'driving_license');
             $delegate->car_type = $request->get('car')['type'];
             $delegate->medic_check = uploadFile($request->file('personal')['medic_check_image'], 'medic_check');
+            $delegate->registered='2';
             $delegate->save();
         DB::commit();
 

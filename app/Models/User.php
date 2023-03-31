@@ -27,12 +27,12 @@ class User extends Authenticatable
         'password',
         'level_id',
         'birthdate',
-        'joindate',
+        'joinDate',
         'avatar',
         'subCategory_id',
         'role_id'
     ];
-    protected $dates = ['joindate'];
+    protected $dates = ['joinDate'];
 
     /**
      * The attributes that should be hidden for serialization.

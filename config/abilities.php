@@ -2,7 +2,8 @@
 <?php
 
     return[
-        'users.index'=>' المستخدمين ',
+        'admins.index'=>'الأدمن',
+        'delegates.index'=>' المناديب ',
         'customers.index'=>' العملاء',
         'roles.index'=>' الادوار ',
         'subCategory.index'=>' المغاسل ',

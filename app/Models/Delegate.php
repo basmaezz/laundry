@@ -28,7 +28,8 @@ class Delegate extends Model
         'request_employment',
         'driving_license',
         'car_type',
-        'medic_check'
+        'medic_check',
+        'registered',
         ];
 
     protected function avatar():Attribute
