@@ -62,6 +62,16 @@
                                         </div>
 
                                         <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="email-input">كلمه المرور  </label>
+                                            <div class="col-md-9">
+                                                <input type="password" id="email-input" name="password" class="form-control" value="">
+                                                @if ($errors->has('password'))
+                                                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                             <div class="col-md-9">
                                                 <input type="tel" id="phone" name="phone"class="form-control" value="{{$user->phone}}">

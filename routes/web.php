@@ -358,3 +358,7 @@ Route::get('setting', function () {
 
     dd($settings->distance_delegates);
 });
+Route::get('getCategories',function (){
+    $categories = \App\Models\Category::all();
+    return $categories;
+});

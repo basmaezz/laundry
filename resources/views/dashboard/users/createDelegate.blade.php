@@ -137,7 +137,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"> رقم الحساب البنكى (IBAN) </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="arrears" name="iban_number" class="form-control"placeholder=" رقم الحساب البنكى" required>
+                                                <input type="text" id="arrears" name="iban_number" class="form-control"placeholder=" رقم الحساب البنكى" maxlength="14" required>
 
                                                 @if ($errors->has('arrears'))
                                                     <span class="text-danger">{{ $errors->first('arrears') }}</span>

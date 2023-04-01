@@ -30,6 +30,7 @@ class Delegate extends Model
         'car_type',
         'medic_check',
         'registered',
+        'user_type',
         ];
 
     protected function avatar():Attribute

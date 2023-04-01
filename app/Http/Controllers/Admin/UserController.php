@@ -302,6 +302,7 @@ class UserController extends Controller
        $delegate['car_picture_behind']=$fileNameCarBehind;
        $delegate['car_registration']=$fileNameCarRegistration;
        $delegate['glasses_avatar']=$fileNameGlassesAvatar;
+       $delegate['user_type']="delivery";
        if(!empty($request->nationality_id)){
            $delegate['nationality_id']=$request->nationality_id;
        }else{
