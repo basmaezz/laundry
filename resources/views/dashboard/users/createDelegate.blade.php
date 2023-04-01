@@ -18,7 +18,7 @@
                                         @csrf
 
                                         <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="text-input">الأسم </label>
+                                            <label class="col-md-3 form-control-label" for="text-input">الأسم الثلاثى </label>
                                             <div class="col-md-9">
                                                 <input type="text" id="text-input" name="name" class="form-control" placeholder="الاسم "required>
 
@@ -37,16 +37,7 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="password-input">كلمه المرور</label>
-                                            <div class="col-md-9">
-                                                <input type="password" id="password-input" name="password" class="form-control" placeholder="كلمه المرور"required>
 
-                                                @if ($errors->has('password'))
-                                                    <span class="text-danger">{{ $errors->first('password') }}</span>
-                                                @endif
-                                            </div>
-                                        </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">المدينه  </label>
                                             <div class="col-md-9">
