@@ -38,7 +38,6 @@ class CategoriesController extends Controller
             $category['image']=$filename;
         }
         $category->save();
-        dd($request->all());
         return redirect()->route('Categories.index');
     }
     public function destroy($id)

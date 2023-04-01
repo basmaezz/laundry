@@ -38,7 +38,7 @@
                         <img src="{{$category->image}}" style="width: 100px;height: 100px;margin-right: 140px">
                         <div class="form-group">
                             <label for="company">الصوره  </label>
-                            <input type="file" name="subProductImage"class="form-control" id="image" value="{{$category->image}}" >
+                            <input type="file" id="file-input" name="image" class="form-control">
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> تعديل</button>
