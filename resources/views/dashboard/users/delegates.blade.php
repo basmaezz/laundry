@@ -34,6 +34,7 @@
                                         <th>المدينه</th>
                                         <th>الجنسيه</th>
                                         <th>نوع التعاقد</th>
+                                        <th>رقم الهويه الوطنيه </th>
                                         <th> الحاله</th>
                                         <th>تاريخ الالتحاق </th>
                                         <th>الاجراءات</th>
@@ -48,6 +49,7 @@
                                         <td>{{$delegate->appUser->cities->name_ar ??''}}</td>
                                         <td>{{$delegate->nationality->name_ar ?? ''}}</td>
                                         <td>{{$delegate->request_employment==0 ?'موظف':'عامل حر'}}</td>
+                                        <td>{{$delegate->nationlaity_id}}</td>
                                         <td>{{$delegate->appUser->status ??''}}</td>
                                         <td>{{$delegate->created_at->format('Y-M-D') ??''}}</td>
 
