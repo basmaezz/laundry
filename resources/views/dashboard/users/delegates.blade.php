@@ -61,7 +61,12 @@
                                             @endif
                                             <a href="{{route('delegate.edit',$delegate->id)}}" class="btn btn-info">تعديل</a>
                                             <a href="{{route('delegate.show',$delegate->id)}}" class="btn btn-info">تفاصيل</a>
-                                            <a href="{{route('delegate.delete',$delegate->id)}}" class="btn btn-danger">حذف</a>
+{{--                                            <a href="{{route('delegate.delete',$delegate->id)}}" class="btn btn-danger">حذف</a>--}}
+                                                <form class="delete" action="{{route('delegate.delete',$delegate->id)}}" method="get">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="submit" value="حذف" class="edit btn btn-danger btn-sm">
+                                                </form>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -86,5 +91,10 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#delegates_wrapper .col-md-6:eq(0)');
+    </script>
+    <script>
+        $(".delete").on("submit", function(){
+            return confirm("هل أنت متأكد من الحذف  ؟");
+        });
     </script>
 @endpush

@@ -28,13 +28,7 @@
                                 @endif
                             </div>
                         </div>
-{{--                        <div class="form-group row">--}}
-{{--                        <img src="{{$category->image}}" style="width: 100px;height: 100px">--}}
-{{--                            <label class="col-md-3 form-control-label" for="hf-email">الصوره</label>--}}
-{{--                            <div class="col-md-9">--}}
-{{--                                <input type="file" id="file-input" name="image" class="form-control">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+
                         <img src="{{$category->image}}" style="width: 100px;height: 100px;margin-right: 140px">
                         <div class="form-group">
                             <label for="company">الصوره  </label>
