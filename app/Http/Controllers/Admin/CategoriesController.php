@@ -34,10 +34,11 @@ class CategoriesController extends Controller
             ]);
         if($request->file('image')){
             $filename = request('image')->getClientOriginalName();
-            request()->file('image')->move(public_path() . '/assets/uploads/laundries/' , $filename);
+            request()->file('image')->move(public_path() . '/assets/uploads/laundries/',$filename);
             $category['image']=$filename;
         }
         $category->save();
+        dd($request->all());
         return redirect()->route('Categories.index');
     }
     public function destroy($id)
