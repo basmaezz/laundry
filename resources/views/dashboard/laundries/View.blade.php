@@ -31,6 +31,10 @@
                                         <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->address}}"disabled>
                                     </div>
                                         <div class="form-group">
+                                        <label for="company">الموقع الجعرافى</label>
+                                        <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->location}}"disabled>
+                                    </div>
+                                        <div class="form-group">
                                         <label for="company">latitude</label>
                                         <input type="text" name="lat"class="form-control" id="name_ar" value="{{$subCategory->lat}}"disabled>
                                     </div>

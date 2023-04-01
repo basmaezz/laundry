@@ -362,3 +362,22 @@ Route::get('getCategories',function (){
     $categories = \App\Models\Category::all();
     return $categories;
 });
+
+Route::get('updateCategory', function () {
+    $ordersTable = DB::table('app_users')->update(['city_id' => 1]);
+});
+
+Route::get('updateCategory', function () {
+    DB::table('categories')->where('id', 1)->update([
+        'image' => '',
+    ]);
+    DB::table('categories')->where('id', 2)->update([
+        'image' => '',
+    ]);
+    DB::table('categories')->where('id', 3)->update([
+        'image' => '',
+    ]);
+    DB::table('categories')->where('id', 4)->update([
+        'image' => '',
+    ]);
+});
