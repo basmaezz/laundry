@@ -24,18 +24,18 @@ class CouponRequest extends FormRequest
     public function rules()
     {
         $rules= [
-            'code_name'=>'required|unique:coupon_shop_carts',
+            'code_name'=>'required',
             'discount_value'=>'required',
             'date_from'=>'required',
             'date_to'=>'required',
             'status'=>'required',
         ];
 
-        if ($this->getMethod() == 'POST') {
-            $rules += ['code_name'=>'required|unique:coupon_shop_carts',];
-        }elseif ($this->getMethod() == 'PATCH'){
-            $rules += ['code_name'=>'required|unique:coupon_shop_carts',];
-        }
+//        if ($this->getMethod() == 'POST') {
+//            $rules += ['code_name'=>'required|unique:coupon_shop_carts',];
+//        }elseif ($this->getMethod() == 'PATCH'){
+//            $rules += ['code_name'=>'required|unique:coupon_shop_carts',];
+//        }
         return $rules;
     }
 
