@@ -24,8 +24,8 @@ class productServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'services'=>'required|regex:/^[a-zA-Z]+$/u',
-            'price'=>'required|integer',
+            'services'=>'required',
+            'price'=>'required',
         ];
     }
 
