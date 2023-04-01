@@ -10,6 +10,7 @@
 
                                 <div class="card-header">
                                     <i class="fa fa-align-justify"></i> التصنيفات
+                                    <a href="#" class="btn btn-primary" style="float: left" >اضافه تصنيف</a>
                                 </div>
                                 <div class="card-block">
                                     <table class="table table-striped">

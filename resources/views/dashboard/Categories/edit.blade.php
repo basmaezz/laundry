@@ -28,11 +28,17 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="hf-email">الصوره</label>
-                            <div class="col-md-9">
-                                <input type="file" id="file-input" name="image" class="form-control">
-                            </div>
+{{--                        <div class="form-group row">--}}
+{{--                        <img src="{{$category->image}}" style="width: 100px;height: 100px">--}}
+{{--                            <label class="col-md-3 form-control-label" for="hf-email">الصوره</label>--}}
+{{--                            <div class="col-md-9">--}}
+{{--                                <input type="file" id="file-input" name="image" class="form-control">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+                        <img src="{{$category->image}}" style="width: 100px;height: 100px;margin-right: 140px">
+                        <div class="form-group">
+                            <label for="company">الصوره  </label>
+                            <input type="file" name="subProductImage"class="form-control" id="image" value="{{$category->image}}" >
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> تعديل</button>

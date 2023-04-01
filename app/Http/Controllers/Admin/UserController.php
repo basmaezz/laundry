@@ -464,7 +464,7 @@ class UserController extends Controller
         $delegate['reject_reason']=$request->reject_reason;
         $delegate->registered=3;
         $delegate->save();
-        return redirect()->route('delegate.registrationRequests');
+        return redirect()->route('delegate.rejectionRequests');
     }
 
     public function  rejectionRequests()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\productServiceRequest;
 use App\Models\CategoryItem;
 use App\Models\Product;
 use App\Models\ProductImage;
@@ -47,7 +48,7 @@ class ProductController extends Controller
 
 
     public function view($id){
-        $product=Product::with(['productService','productImages'])->find($id)->get();
+        $product=Product::find($id);
         return  view('dashboard.products.view',compact('product'));
     }
 
@@ -74,19 +75,18 @@ class ProductController extends Controller
                 'desc_en'=>$request->desc_en,
             ]);
         }
-        return redirect()->route('CategoryItems.show',$request->product_id);
+        return redirect()->route('CategoryItems.show',$request->category_item_id);
     }
     public function addService($id){
         $product=Product::find($id);
         return view('dashboard.products.addService',compact('product'));
     }
-    public function createProductService(Request $request){
-        ProductService::create([
-            'product_id'=>$request->product_id,
-            'services'=>$request->services,
-            'price'=>$request->price,
+    public function createProductService(productServiceRequest $request){
+
+        ProductService::create($request->all()+[
+            'product_id'=>$request->product_id
         ]);
-   return redirect()->route('CategoryItems.show',$request->category_item_id);
+        return redirect()->route('product.productServices',$request->product_id);
     }
 
     public function productServices($id){
@@ -102,13 +102,9 @@ class ProductController extends Controller
         $service=productService::find($id);
         return view('dashboard.products.editService',compact('service'));
     }
-    public function updateService(Request $request,$id){
+    public function updateService(productServiceRequest $request,$id){
 
-        productService::where('id',$id)->update([
-            'id'=>$request->service_id,
-            'services'=>$request->services,
-            'price'=>$request->price,
-        ]);
+        productService::where('id',$id)->update($request->except(['_token','service_id']));
         return redirect()->route('product.productServices',$request->product_id);
 
     }

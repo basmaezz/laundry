@@ -13,20 +13,23 @@
                             <div class="form-group">
                             <label  for="hf-email">اسم القطعه</label>
                                 <input type="hidden"  name="product_id" class="form-control" value="{{$product->id}}"  >
-                                <input type="hidden"  name="category_item_id" class="form-control" value="{{$product->category_item_id}}"  >
-                                <input type="text"  name="category_type" class="form-control" value="{{$product->name_ar}}" >
+{{--                                <input type="hidden"  name="category_item_id" class="form-control" value="{{$product->category_item_id}}"  >--}}
+                                <input type="text"  name="category_type" class="form-control" value="{{$product->name_ar}}" disabled >
 
                             </div>
                             <div class="form-group">
                                 <label for="company">اسم الخدمه </label>
-                                <input type="text" name="services"class="form-control" id="services" placeholder="اسم الخدمه">
-                                @if ($errors->has('category_type'))
-                                    <span class="text-danger">{{ $errors->first('category_type') }}</span>
+                                <input type="text" name="services"class="form-control" id="services" placeholder="اسم الخدمه" value="{{Request::old('services')}}">
+                                @if ($errors->has('services'))
+                                    <span class="text-danger">{{ $errors->first('services') }}</span>
                                 @endif
                             </div>
                             <div class="form-group">
                                 <label for="company">السعر  </label>
-                                <input type="text" name="price"class="form-control" id="price" placeholder="السعر ">
+                                <input type="text" name="price"class="form-control" id="price" placeholder="السعر "value="{{Request::old('price')}}">
+                                @if ($errors->has('price'))
+                                    <span class="text-danger">{{ $errors->first('price') }}</span>
+                                @endif
                             </div>
 {{--                            <div class="form-group">--}}
 {{--                                <label for="company">الصوره  </label>--}}

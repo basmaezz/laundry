@@ -56,13 +56,6 @@ class subCategoryController extends Controller
     public function store(subCategoryRequest $request)
     {
         $subcategory= new Subcategory();
-         if ((strpos($request->location, 'maps')) !== false) {
-            $str = $request->location;
-            $x1 = strstr($str, '=');
-            $x2 = str_replace('=', '', $x1);
-            $x3 = explode(',', $x2);
-            array_splice($x3, -1);
-            $x4 = implode(',', $x3);
 
              if($request->around_clock !=''){
                  $subcategory['around_clock'] = $request->around_clock;
@@ -77,11 +70,8 @@ class subCategoryController extends Controller
                 request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
                 $subcategory['image']=$filename;
             }
-        }
-        $subcategory= Subcategory::create($request->validated()+[
-               'lat' => $x3[0],
-               'lng' => $x4,
-           ]);
+
+        $subcategory= Subcategory::create($request->validated());
 
         $validateData = $request->validate([
             'name' => 'required|unique:users',
