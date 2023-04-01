@@ -74,8 +74,8 @@ class subCategoryController extends Controller
         $subcategory= Subcategory::create($request->validated());
 
         $validateData = $request->validate([
-            'name' => 'required|unique:users',
-            'last_name' => 'required|unique:users',
+            'name' => 'required',
+            'last_name' => 'required',
             'email' => '|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
             'password'=>['required','min:6'],
             'phone'=>'required|unique:users',
