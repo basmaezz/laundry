@@ -28,13 +28,11 @@
                                                 <td>
 
                                                     <a href="{{route('category.edit',$category->id)}}" class="btn btn-primary" >تعديل</a>
-                                                    <form class="delete" action="{{route('category.destroy',$category->id)}}" method="get">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <input type="submit" value="حذف" class="edit btn btn-danger btn-sm">
-                                                    </form>
-
-
+{{--                                                    <form class="delete" action="{{route('category.destroy',$category->id)}}" method="get">--}}
+{{--                                                        @csrf--}}
+{{--                                                        @method('DELETE')--}}
+{{--                                                        <input type="submit" value="حذف" class="edit btn btn-danger btn-sm">--}}
+{{--                                                    </form>--}}
                                                 </td>
                                             </tr>
 
@@ -53,10 +51,10 @@
     </main>
 @endsection
 
-@push('scripts')
-    <script>
-        $(".delete").on("submit", function(){
-            return confirm("هل أنت متأكد من الحذف  ؟");
-        });
-    </script>
-@endpush
+{{--@push('scripts')--}}
+{{--    <script>--}}
+{{--        $(".delete").on("submit", function(){--}}
+{{--            return confirm("هل أنت متأكد من الحذف  ؟");--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--@endpush--}}
