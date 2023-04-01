@@ -359,8 +359,6 @@ Route::get('setting', function () {
     dd($settings->distance_delegates);
 });
 Route::get('getCategories',function (){
-    \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-    \App\Models\Category::truncate();
-    \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
+    $categories = \App\Models\Category::all();
+    return $categories;
 });
