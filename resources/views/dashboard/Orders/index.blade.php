@@ -39,6 +39,7 @@
                                             @else
                                             <td></td>
                                             @endif
+                                            <td></td>
                                             <td>{{$order->user->cities->name_ar}}</td>
                                             <td>{{$order->user->region_name}}</td>
                                             <td>{{$order->created_at->year}}</td>
