@@ -28,7 +28,7 @@ class subCategoryRequest extends FormRequest
             'name_ar' =>'required',
             'name_en' =>'required',
             'city_id' =>'required',
-            'location'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],
+            'location'=>'required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i',
             'lat' =>'required',
             'lng' =>'required',
             'address'=>'required',

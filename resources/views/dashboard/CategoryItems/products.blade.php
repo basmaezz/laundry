@@ -38,7 +38,12 @@
                                                 @endif
                                                 <a href="{{route('product.view',$product->id)}}" class="btn btn-info"> التفاصيل</a>
                                                 <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary">تعديل</a>
-                                                <a href="{{route('product.destroy',$product->id)}}" class="btn btn-danger">حذف</a>
+                                                    <form class="delete" action="{{route('product.destroy',$product->id)}}" method="get" >
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <input type="submit" value="حذف" class="edit btn btn-danger btn-sm" style="display: inline">
+                                                    </form>
+
                                             </td>
                                         </tr>
                                         @endforeach
@@ -64,5 +69,10 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#products_wrapper .col-md-6:eq(0)');
+    </script>
+    <script>
+        $(".delete").on("submit", function(){
+            return confirm("هل أنت متأكد من الحذف ؟");
+        });
     </script>
 @endpush

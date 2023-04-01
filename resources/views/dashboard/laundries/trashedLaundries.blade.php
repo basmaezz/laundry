@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-lg-11">
+                    <div class="col-lg-9">
                         <div class="card">
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i> المغاسل المحذوفه
@@ -14,24 +14,24 @@
                                 <table id="laundries" class="table table-bordered table-striped">
                                     <thead >
                                     <tr >
-                                        <th> الصوره </th>
+
                                         <th>اسم المغسله </th>
                                         <th>المدينه </th>
+                                        <th>العنوان </th>
                                         <th>Actions </th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($subCategories as $subCategory)
                                         <tr>
-                                            <td><img src="{{$subCategory->image}}" style="width:50px;height:50px"></td>
+
                                             <td>{{$subCategory->name_ar}}</td>
-                                            <td>{{$subCategory->parent->name_ar??''}}</td>
                                             <td>{{$subCategory->city->name_ar}}</td>
                                             <td>{{$subCategory->address}}</td>
 
                                             <td>
-                                                <a href="">حذف نهائى</a>
-                                                    <input type="submit" value=" حذف نهائى" class="edit btn btn-danger btn-sm">
+{{--                                                <a href="">حذف نهائى</a>--}}
+{{--                                                    <input type="submit" value=" حذف نهائى" class="edit btn btn-danger btn-sm">--}}
                                                 <form class="delete" action="{{route('laundries.restoreDeleted',$subCategory->id)}}" method="get">
                                                     @csrf
                                                     @method('DELETE')

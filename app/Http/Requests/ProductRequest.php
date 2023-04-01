@@ -28,14 +28,14 @@ class ProductRequest extends FormRequest
         return [
             'category_item_id'=>'required',
             'subcategory_id' =>'required',
-            'name_ar'=>['required', 'string', 'min:5','max:20',
+            'name_ar'=>['required', 'string','max:20',
                 function ($attribute, $value, $fail) use ($request) {
                    $name_exists = Product::where('name_ar', $value)->where('category_item_id', request()->input('category_item_id'))->count() > 0;
                     if ($name_exists)  {
                         $fail($request->name_ar.' هذا الاسم موجود بالفعل.');
                     }
                 }],
-            'name_en'=>['required', 'string', 'min:5','max:20',
+            'name_en'=>['required', 'string','max:20',
                 function ($attribute, $value, $fail) use ($request) {
                    $name_exists = Product::where('name_en', $value)->where('category_item_id', request()->input('category_item_id'))->count() > 0;
                     if ($name_exists)  {

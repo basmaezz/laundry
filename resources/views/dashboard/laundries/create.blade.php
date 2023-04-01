@@ -40,10 +40,10 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group" >
                                         <label for="company">المدينه</label>
                                         <select class="form-control" name="city_id">
-                                            <option >أختر المدينه</option>
+
                                             @foreach($cities as $value=>$key)
                                                 <option value="{{$key}}">{{$value}}</option>
                                             @endforeach
@@ -68,22 +68,22 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company">latitude </label>
-                                        <input type="text" name="lat"class="form-control" id="lat"value="{{ Request::old('lat') }}" placeholder="latitude " >
+                                        <input type="text" name="lat" class="form-control" id="lat"value="{{ Request::old('lat') }}" placeholder="latitude " >
                                         @error('lat')
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="company">longitude</label>
-                                        <input type="text" name="lng"class="form-control" id="address"value="{{ Request::old('lng') }}" placeholder="longitude " >
-                                        @error('address')
+                                        <input type="text" name="lng" class="form-control" id="address"value="{{ Request::old('lng') }}" placeholder="longitude " >
+                                        @error('lng')
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="form-group">
                                         <label for="approximate_duration"> نطاق التشغيل </label>
-                                        <input type="number" name="range"class="form-control" id="range" value="{{ Request::old('range') }}"placeholder="  10 كيلو" max="50" min="5" >
+                                        <input type="number" name="range" class="col-sm-3 form-control" id="range" value="{{ Request::old('range') }}"placeholder="  10 كيلو" max="50" min="5" >
                                         @error('range')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -165,7 +165,7 @@
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الجوال </label>
-                                            <input type="text" id="phone" name="phone"value="{{ Request::old('phone') }}" class="form-control">
+                                            <input type="text" id="phone" name="phone"value="{{ Request::old('phone') }}" class="form-control" placeholder="الجوال">
                                         @error('phone')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror

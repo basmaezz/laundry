@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-lg-11">
+                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i> المغاسل المسجله
@@ -30,7 +30,7 @@
                                         <td>{{$subCategory->name_ar}}</td>
                                         <td>{{$subCategory->parent->name_ar??''}}</td>
                                         <td>{{$subCategory->city->name_ar??''}}</td>
-                                        <td>{{$subCategory->address}}</td>
+                                        <td>{{ Str::limit($subCategory->address, 20) }}</td>
                                         @if($subCategory->around_clock !=Null)
                                         <td> طوال اليوم</td>
                                         @else
@@ -43,10 +43,10 @@
                                                 <a href="{{route('CategoryItems.index',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الأقسام</a>
                                                 <a href="{{route('laundries.edit',$subCategory->id)}}" class="edit btn btn-primary btn-sm">تعديل</a>
                                                 <a href="{{route('laundries.view',$subCategory->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a>
-                                                    <form class="delete" action="{{route('laundries.destroy',$subCategory->id)}}" method="get">
+                                                    <form class="delete" action="{{route('laundries.destroy',$subCategory->id)}}" method="get" >
                                                         @csrf
                                                         @method('DELETE')
-                                                        <input type="submit" value="حذف" class="edit btn btn-danger btn-sm">
+                                                        <input type="submit" value="حذف" class="edit btn btn-danger btn-sm" style="display: inline">
                                                     </form>
 {{--                                                <a href="{{route('laundries.destroy',$subCategory->id)}}" class="edit btn btn-danger btn-sm">حذف</a>--}}
                                         </td>

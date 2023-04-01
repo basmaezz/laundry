@@ -39,7 +39,13 @@
                                                 <a href="{{route('CategoryItems.index',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الأقسام</a>
                                                 <a href="{{route('laundries.edit',$subCategory->id)}}" class="edit btn btn-primary btn-sm">تعديل</a>
                                                 <a href="{{route('laundries.view',$subCategory->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a>
-                                                <a href="{{route('laundries.destroy',$subCategory->id)}}" class="edit btn btn-danger btn-sm">حذف</a>
+
+{{--                                                <a href="{{route('laundries.destroy',$subCategory->id)}}" class="edit btn btn-danger btn-sm">حذف</a>--}}
+                                                <form class="delete" action="{{route('laundries.destroy',$subCategory->id)}}" method="get">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="submit" value="حذف" class="edit btn btn-danger btn-sm">
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -63,6 +69,11 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#laundries_wrapper .col-md-6:eq(0)');
+    </script>
+    <script>
+        $(".delete").on("submit", function(){
+            return confirm("هل أنت متأكد من الحذف  ؟");
+        });
     </script>
 @endpush
 

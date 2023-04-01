@@ -63,6 +63,20 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+                                        <label for="company">latitude </label>
+                                        <input type="text" name="lat" class="form-control" id="lat"value="{{ Request::old('lat') }}" placeholder="latitude " >
+                                        @error('lat')
+                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company">longitude</label>
+                                        <input type="text" name="lng" class="form-control" id="address"value="{{ Request::old('lng') }}" placeholder="longitude " >
+                                        @error('lng')
+                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
                                         <label for="approximate_duration"> نطاق التشغيل </label>
                                         <input type="number" name="range"class="form-control" id="range" value=" {{$Subcategory->range??''}}" max="50" min="5" >
                                         @error('range')

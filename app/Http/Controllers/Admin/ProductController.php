@@ -35,7 +35,7 @@ class ProductController extends Controller
                 'user_id'=>Auth::user()->id,
                 'image'=>$filename
             ]);
-        return  redirect()->route('CategoryItems.index',$request->subcategory_id);
+        return redirect()->route('CategoryItems.show',$request->category_item_id);
     }
 
 
@@ -60,6 +60,19 @@ class ProductController extends Controller
 
     public function update(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'name_ar'          => 'required|regex:/^[a-zA-Z]+$/u',
+                'name_en'          => 'required|regex:/^[a-zA-Z]+$/u',
+                'desc_ar'          => 'required',
+                'desc_en'          => 'required',
+            ],
+            [
+            'name_ar.regex'=>'حروف فقط',
+            'required'=>'هذا الحقل الزامى'
+            ]
+        );
         $product=Product::find($request->product_id);
         if(!empty($request->file('subProductImage'))){
             $filename = request('subProductImage')->getClientOriginalName();
