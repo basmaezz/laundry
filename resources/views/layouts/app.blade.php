@@ -65,6 +65,7 @@ padding-left: 74px;">
 
         </ul>
     </div>
+
 </header>
 <div class="sidebar">
     <nav class="sidebar-nav">

@@ -1,7 +1,10 @@
 @extends('../layouts.app')
 @section('content')
+
     <main class="main">
         <div class="container-fluid">
+
+
             <div class="validationMsg" style="width: 600px">
                 @if($errors->any())
                     <div class="alert alert-danger" >

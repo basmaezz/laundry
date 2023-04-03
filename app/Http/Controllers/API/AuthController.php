@@ -212,7 +212,6 @@ class AuthController extends ApiController
             $user->status = 'deactivated';
             $user->save();
 
-
             $delegate = new Delegate();
             $delegate->app_user_id = $user->id;
             $delegate->nationality_id = $request->nationality_id;

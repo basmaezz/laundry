@@ -3,6 +3,13 @@
     <main class="main">
 
         <div class="container-fluid">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                    <li class="breadcrumb-item active"><a href="{{route('users.index')}}">الأدمن</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">تعديل  الادمن</li>
+                </ol>
+            </nav>
 
             <div class="animated fadeIn">
                 <div class="row">
@@ -110,7 +117,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"class="form-control"> تاريخ الانضمام للشركة   </label>
                                             <div class="col-md-9">
-                                                <input type="date" id="joinDate" name="joinDate"placeholder="date" class="form-control" value="{{$user->joinDate}}" >
+                                                <input type="date" id="joinDate" name="joinDate"placeholder="date" class="form-control" value="{{$user->joindate}}" >
 
                                                 @if ($errors->has('joinDate'))
                                                     <span class="text-danger">{{ $errors->first('joinDate') }}</span>

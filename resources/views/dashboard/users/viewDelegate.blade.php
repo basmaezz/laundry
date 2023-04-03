@@ -106,14 +106,6 @@
 
                                         </div>
                                     </div>
-
-
-                                    <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input"> تاريخ اصدار الرخصه </label>
-                                        <div class="col-md-9">
-                                            <input type="text" id="text-input" name="last_name" class="form-control" value="{{$delegate->license_start_date}}"disabled>
-                                        </div>
-                                    </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> تاريخ انتهاء الرخصه</label>
                                         <div class="col-md-9">

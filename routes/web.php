@@ -381,3 +381,6 @@ Route::get('updateCategory', function () {
         'image' => '',
     ]);
 });
+
+
+Route::view('testView','dashboard.test');

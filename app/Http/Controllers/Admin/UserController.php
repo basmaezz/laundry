@@ -127,6 +127,7 @@ class UserController extends Controller
             abort(403);
         };
         $user=User::with(['Roles','Levels'])->findorFail($id);
+
         $roles=Role::all();
         $levels=educationLevel::all();
         return  view('dashboard.users.edit',compact(['user','levels','roles']));
