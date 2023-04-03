@@ -1,7 +1,13 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('Categories.index')}}">التصنيفات</a></li>
+                <li class="breadcrumb-item active" aria-current="page">تعديل التصنيف</li>
+            </ol>
+        </nav>
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">

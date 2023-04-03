@@ -1,6 +1,14 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('product.productServices',$product->id)}}">الخدمات</a></li>
+                <li class="breadcrumb-item active" aria-current="page">اضافه خدمه    </li>
+            </ol>
+        </nav>
+
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
@@ -24,13 +32,17 @@
                                     <span class="text-danger">{{ $errors->first('services') }}</span>
                                 @endif
                             </div>
-                            <div class="form-group">
-                                <label for="company">السعر  </label>
-                                <input type="text" name="price"class="form-control" id="price" placeholder="السعر "value="{{Request::old('price')}}">
-                                @if ($errors->has('price'))
-                                    <span class="text-danger">{{ $errors->first('price') }}</span>
-                                @endif
-                            </div>
+
+                                <div class="form-group">
+                                    <label for="company">السعر  </label><br>
+                                    <input type="text" name="price" class="form-control-plaintext" id="staticEmail" value="{{Request::old('price')}}"> ريال
+{{--                                    <input type="text" name="price"class="form-control" id="price" placeholder="السعر "value="{{Request::old('price')}}">--}}
+                                    @if ($errors->has('price'))
+                                        <span class="text-danger">{{ $errors->first('price') }}</span>
+                                    @endif
+                                </div>
+
+
 {{--                            <div class="form-group">--}}
 {{--                                <label for="company">الصوره  </label>--}}
 {{--                                <input type="file" name="productImage"class="form-control" id="image" >--}}

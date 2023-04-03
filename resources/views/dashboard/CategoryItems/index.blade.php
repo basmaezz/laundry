@@ -1,87 +1,70 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('laundries.view',$subCategory->id)}}">المغسله</a></li>
+                <li class="breadcrumb-item active" aria-current="page">الاقسام</li>
+            </ol>
+        </nav>
         <div class="container-fluid">
-{{--            <a href="{{route('CategoryItems.create',$subCategory->id)}}" class="btn btn-primary" style="margin-bottom: 20px">اضافه قسم</a>--}}
-            @if($categoryItems->count()>0)
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="card">
+                <div class="animated fadeIn">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="card">
 
-                            <div class="card-header">
-                                <i class="fa fa-align-justify"></i> الأقسام
-                            </div>
-                            <div class="card-block">
-                                <table id="laundries" class="table table-bordered table-striped">
-                                    <thead >
-                                    <tr>
-                                        <th>اسم المغسله </th>
-                                        <th>Actions </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($categoryItems as $categoryItem)
+                                <div class="card-header">
+                                    <i class="fa fa-align-justify"></i> الأقسام
+                                    <a href="{{route('CategoryItems.create',$subCategory->id)}}" class="btn btn-primary" style="float: left">اضافه قسم</a>
+                                </div>
+                                <div class="card-block">
+                                    <table class="table table-striped">
+                                        <thead>
                                         <tr>
-                                            <td>{{$categoryItem->category_type}} </td>
-                                            <td>
-                                                <a href="{{route('product.create',$categoryItem->id)}}" class="btn btn-primary">اضافه قطعه</a>
-                                                <a href="{{route('CategoryItems.show',$categoryItem->id)}}" class="btn btn-info">عرض  القطع </a>
-
-                                                <a href="{{route('CategoryItems.edit',$categoryItem->id)}}" class="btn btn-primary">تعديل</a>
-
-                                                <form class="delete" action="{{route('CategoryItems.destroy',$categoryItem->id)}}" method="get">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="submit" value="حذف" class="edit btn btn-danger btn-sm">
-                                                </form>
-                                            </td>
+                                            <th>اسم القسم</th>
+                                            <th>الاجراءات</th>
                                         </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-{{--                                <table class="table table-striped">--}}
-{{--                                    <thead>--}}
-{{--                                    <tr>--}}
-{{--                                        <th>اسم القسم</th>--}}
-{{--                                      <th>الاجراءات</th>--}}
-{{--                                    </tr>--}}
-{{--                                    </thead>--}}
-{{--                                    <tbody>--}}
-{{--                                    @foreach($categoryItems as $categoryItem)--}}
-{{--                                        <tr>--}}
-{{--                                            <td>{{$categoryItem->category_type}} </td>--}}
-{{--                                            <td>--}}
+                                        </thead>
+                                        @if($categoryItems->count() >0)
+                                        <tbody>
+                                        @foreach($categoryItems as $categoryItem)
+                                            <tr>
+                                                <td>{{$categoryItem->category_type}} </td>
+                                                <td>
+                                                    <a href="{{route('product.create',$categoryItem->id)}}" class="btn btn-primary">اضافه قطعه</a>
 
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
+                                                    <a href="{{route('CategoryItems.show',$categoryItem->id)}}" class="btn btn-info">عرض  القطع </a>
 
-{{--                                    @endforeach--}}
-{{--                                    </tbody>--}}
-{{--                                </table>--}}
+                                                    <a href="{{route('CategoryItems.edit',$categoryItem->id)}}" class="btn btn-primary">تعديل</a>
+                                                    <a href="{{route('CategoryItems.destroy',$categoryItem->id)}}" class="btn btn-danger">حذف</a>
+                                                </td>
+                                            </tr>
+
+                                        @endforeach
+                                        </tbody>
+                                        @else
+                                            <tbody>
+                                            <tr>
+                                                <td>لا يوجد بيانات</td>
+                                                <td></td>
+                                            </tr>
+                                            </tbody>
+                                        @endif
+                                    </table>
+
+                                </div>
 
                             </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
-            @endif
+
         </div>
 
         </div>
     </main>
+
+
+
 @endsection
-@push('scripts')
-    <script>
-        $("#laundries").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#delegates_wrapper .col-md-6:eq(0)');
-    </script>
-    <script>
-        $(".delete").on("submit", function(){
-            return confirm("هل أنت متأكد من الحذف  ؟");
-        });
-    </script>
-@endpush

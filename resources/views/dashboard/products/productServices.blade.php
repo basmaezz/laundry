@@ -1,6 +1,13 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('CategoryItems.show',$product->category_item_id)}}">القطع</a></li>
+                <li class="breadcrumb-item active" aria-current="page">الخدمات    </li>
+            </ol>
+        </nav>
         <div class="validationMsg" style="width: 600px">
             @if($errors->any())
                 <div class="alert alert-danger" >
@@ -33,8 +40,8 @@
                                           <th>الاجراءات</th>
                                         </tr>
                                         </thead>
+                                        @if($product->productService->count() >0)
                                         <tbody>
-
                                         @foreach($product->productService as $service)
                                             <tr>
                                                     <td>{{$service->services}}</td>
@@ -44,9 +51,19 @@
                                                         <a href="{{route('product.deleteProductService',$service->id)}}" class="btn btn-danger">حذف</a>
                                                     </td>
                                             </tr>
-
                                         @endforeach
                                         </tbody>
+                                        @else
+                                            <tbody>
+                                            <tr><td>
+                                                    لا يوجد بيانات لعرضها
+
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            </tbody>
+                                        @endif
                                     </table>
 
                                 </div>

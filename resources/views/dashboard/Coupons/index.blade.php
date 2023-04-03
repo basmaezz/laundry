@@ -1,7 +1,12 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active" aria-current="page">الكوبونات  </li>
+            </ol>
+        </nav>
 
         <div class="container-fluid">
             <div class="validationMsg" style="width: 600px">
@@ -16,7 +21,7 @@
                 @endif
             </div>
 
-            <a href="{{route('coupon.create')}}" class="btn btn-primary">اضافه كوبون</a>
+
 
                 <div class="animated fadeIn">
                     <div class="row">
@@ -24,7 +29,8 @@
                             <div class="card">
 
                                 <div class="card-header">
-                                    <i class="fa fa-align-justify"></i> الأقسام
+                                    <i class="fa fa-align-justify"></i> الكوبونات
+                                    <a href="{{route('coupon.create')}}" class="btn btn-primary" style="float: left">اضافه كوبون</a>
                                 </div>
                                 <div class="card-block">
                                     <table id="example1" class="table table-bordered table-striped col-7">
@@ -38,6 +44,7 @@
                                           <th>الاجراءات</th>
                                         </tr>
                                         </thead>
+                                        @if($coupons->count()>0)
                                         <tbody>
                                         @foreach($coupons as $coupon)
                                             <tr>
@@ -63,6 +70,22 @@
 
                                         @endforeach
                                         </tbody>
+                                            @else
+                                            <tbody>
+
+                                                <tr>
+                                                    <td> لا يوجد بيانات</td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+
+                                                        <td></td>
+
+                                                    <td>           </td>
+                                                </tr>
+
+                                            </tbody>
+                                        @endif
                                     </table>
                                 </div>
 

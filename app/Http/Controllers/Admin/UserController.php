@@ -148,9 +148,13 @@ class UserController extends Controller
             $filename = uploadFile($request->file('avatar'),'images');
             $user->update($request->validated()+[
                     'avatar'=>$filename,
+                    'password'=> Hash::make($request->password),
+
             ]);
         }else{
-            $user->update($request->validated());
+            $user->update($request->validated()+[
+                    'password'=> Hash::make($request->password),
+                ]);
         }
         if($request->role_id!=''){
             $user->Roles()->sync( [

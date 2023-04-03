@@ -1,15 +1,15 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('users.index')}}">الأدمن</a></li>
+                <li class="breadcrumb-item active" aria-current="page">تعديل  الادمن</li>
+            </ol>
+        </nav>
         <div class="container-fluid">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                    <li class="breadcrumb-item active"><a href="{{route('users.index')}}">الأدمن</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">تعديل  الادمن</li>
-                </ol>
-            </nav>
+
 
             <div class="animated fadeIn">
                 <div class="row">
@@ -71,7 +71,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="email-input">كلمه المرور  </label>
                                             <div class="col-md-9">
-                                                <input type="password" id="email-input" name="password" class="form-control" value="">
+                                                <input type="password" id="email-input" name="password" class="form-control" value="" placeholder="ادخل كلمه المرور الجديده">
                                                 @if ($errors->has('password'))
                                                     <span class="text-danger">{{ $errors->first('password') }}</span>
                                                 @endif

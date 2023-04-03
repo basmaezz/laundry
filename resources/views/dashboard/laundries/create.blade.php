@@ -1,7 +1,13 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('laundries.index')}}">المغاسل</a></li>
+                <li class="breadcrumb-item active" aria-current="page">اضافه مغسله  </li>
+            </ol>
+        </nav>
 
         <div class="container-fluid">
             <div class="animated fadeIn">
@@ -83,16 +89,19 @@
 
                                     <div class="form-group">
                                         <label for="approximate_duration"> نطاق التشغيل </label>
-                                        <input type="number" name="range" class="col-sm-3 form-control" id="range" value="{{ Request::old('range') }}"placeholder="  10 كيلو" max="50" min="5" >
+                                        <input type="number" name="range"class="form-control-plaintext" id="price"value="{{ Request::old('range') }}"> كيلومتر
+                                        {{--                                            <input type="number" name="range"class="form-control" id="range" value="{{$subCategory->range??''}}" >--}}
                                         @error('range')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="country">سعر التوصيل  </label>
-                                        <input type="number" name="price"class="form-control" id="image"value="{{ Request::old('price') }}" placeholder=" سعر التوصيل" >
+                                        <label for="country">السعر  </label>
+                                        <input type="text" name="price"class="form-control-plaintext" id="price" value="{{ Request::old('price') }}">  ريال
+
+                                        {{--                                        <input type="text" name="price"class="form-control" id="image" value="{{$subCategory->price}}">--}}
                                         @error('price')
-                                        <span class="text-danger">{{ $message }}</span>
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">

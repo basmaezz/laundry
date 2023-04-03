@@ -1,7 +1,13 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('product.productServices',$service->product_id)}}">الخدمات</a></li>
+                <li class="breadcrumb-item active" aria-current="page">اضافه خدمه    </li>
+            </ol>
+        </nav>
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
@@ -24,7 +30,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="company">السعر  </label>
-                                <input type="text" name="price"class="form-control" id="price" value="{{$service->price}}">
+                                <input type="text" name="price"class="form-control-plaintext" id="price" value="{{$service->price}}">  ريال
                                 @if ($errors->has('price'))
                                     <span class="text-danger">{{ $errors->first('price') }}</span>
                                 @endif

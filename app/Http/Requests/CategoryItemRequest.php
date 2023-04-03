@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use App\Models\CategoryItem;
 
+
 class CategoryItemRequest extends FormRequest
 {
     /**
@@ -28,13 +29,13 @@ class CategoryItemRequest extends FormRequest
         return [
             'subcategory_id' => ['required', 'integer', 'min:1'],
             'category_type' => [
-                'required', 'string', 'min:5','max:20',
-                function ($attribute, $value, $fail) use ($request) {
-                    $name_exists = categoryItem::where('category_type', $value)->where('subcategory_id', request()->input('subcategory_id'))->count() > 0;
-                    if ($name_exists)  {
-                        $fail($request->category_type.' هذا الاسم موجود بالفعل.');
-                    }
-                }
+                'required','string',
+//                function ($attribute, $value, $fail) use ($request) {
+//                    $name_exists = categoryItem::where('category_type', $value)->where('subcategory_id', request()->input('subcategory_id'))->count() > 0;
+//                    if ($name_exists)  {
+//                        $fail($request->category_type.' هذا الاسم موجود بالفعل.');
+//                    }
+//                }
             ],
         ];
     }
@@ -42,6 +43,8 @@ class CategoryItemRequest extends FormRequest
     public function  messages()
     {
         return[
+            'string'=>'هذا الحقل يقبل حروف فقط',
+            'regex'=>'هذا الحقل يقبل حروف فقط',
         'required'=>'هذا الحقل مطلوب',
         ];
     }

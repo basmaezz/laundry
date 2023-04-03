@@ -1,7 +1,13 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('laundries.view',$subCategory->id)}}">المغسله</a></li>
+                <li class="breadcrumb-item active" aria-current="page">  تعديل مغسله </li>
+            </ol>
+        </nav>
 
         <div class="container-fluid">
             <div class="animated fadeIn">
@@ -77,14 +83,17 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="approximate_duration"> نطاق التشغيل </label>
-                                            <input type="number" name="range"class="form-control" id="range" value="{{$subCategory->range??''}}" >
+                                            <input type="number" name="range"class="form-control-plaintext" id="price"value="{{$subCategory->range??''}}"> كيلومتر
+{{--                                            <input type="number" name="range"class="form-control" id="range" value="{{$subCategory->range??''}}" >--}}
                                             @error('range')
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     <div class="form-group">
                                         <label for="country">السعر  </label>
-                                        <input type="text" name="price"class="form-control" id="image" value="{{$subCategory->price}}">
+                                        <input type="text" name="price"class="form-control-plaintext" id="price" value="{{$subCategory->price}}">  ريال
+
+{{--                                        <input type="text" name="price"class="form-control" id="image" value="{{$subCategory->price}}">--}}
                                         @error('price')
                                         <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror

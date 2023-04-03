@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Validator;
 
 class CategoryItemController extends Controller
 {
@@ -51,7 +52,6 @@ class CategoryItemController extends Controller
      */
     public function store(CategoryItemRequest $request)
     {
-
         CategoryItem::create( $request->all());
         return  redirect()->route('CategoryItems.index',$request->subcategory_id);
     }
@@ -65,6 +65,7 @@ class CategoryItemController extends Controller
     public function show($id)
     {
         $products=Product::where('category_item_id',$id)->with(['productService','productImages'])->get();
+
         return  view('dashboard.CategoryItems.products',compact(['products','id']));
     }
 
@@ -90,12 +91,15 @@ class CategoryItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryItemRequest $request, $id)
     {
         $categoryItem=CategoryItem::find($id);
-        $categoryItem->update([
-           'category_type'=>$request->category_type
+        $request->validate([
+            'category_type'=>'required'
+        ],[
+            'category_type.required'=>'هذا الحقل مطلوب',
         ]);
+        $categoryItem->update($request->all());
         return redirect()->route('CategoryItems.index',$categoryItem->subcategory_id);
     }
 

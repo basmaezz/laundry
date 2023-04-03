@@ -25,7 +25,7 @@ class productServiceRequest extends FormRequest
     {
         return [
             'services'=>'required',
-            'price'=>'required',
+            'price'=>'required|numeric',
         ];
     }
 
@@ -34,7 +34,7 @@ class productServiceRequest extends FormRequest
         return[
             'regex'=>'هذا الحقل يقبل حروف فقط',
             'required'=>'هذا الحقل مطلوب',
-            'integer'=>'هذا الحقل يقبل أرقام فقط'
+            'numeric'=>'هذا الحقل يقبل أرقام فقط'
         ];
     }
 

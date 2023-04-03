@@ -1,6 +1,13 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('users.index')}}">الأدمن</a></li>
+                <li class="breadcrumb-item active" aria-current="page">تعديل  الادمن</li>
+            </ol>
+        </nav>
 
         <div class="col-md-6">
             <div class="card">
@@ -14,6 +21,9 @@
                             <label class="col-md-3 form-control-label" for="hf-email">اسم القسم</label>
                             <div class="col-md-9">
                                 <input type="text"  name="category_type" class="form-control" value="{{$categoryItem->category_type}}">
+                                @if ($errors->has('category_type'))
+                                    <span class="text-danger">{{ $errors->first('category_type') }}</span>
+                                @endif
                             </div>
                         </div>
                         <div class="card-footer">

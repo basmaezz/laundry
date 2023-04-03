@@ -1,7 +1,13 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('laundries.branches',$Subcategory->id)}}">الفروع</a></li>
+                <li class="breadcrumb-item active" aria-current="page">اضافه فرع  </li>
+            </ol>
+        </nav>
 
         <div class="container-fluid">
             <div class="animated fadeIn">

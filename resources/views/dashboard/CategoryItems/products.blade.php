@@ -1,9 +1,16 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('CategoryItems.index',$products[0]->subcategory_id)}}">القسم</a></li>
+                <li class="breadcrumb-item active" aria-current="page">القطع  </li>
+            </ol>
+        </nav>
         <div class="container-fluid">
 
-            @if($products->count()>0)
+
                 <div class="animated fadeIn">
                     <div class="row">
                         <div class="col-lg-9">
@@ -57,8 +64,7 @@
                         </div>
                     </div>
                 </div>
-            @endif
-                <a href="{{route('product.create',$id)}}" class="btn btn-primary" style="float: right">اضافه قطعه</a>
+
         </div>
         </div>
     </main>
