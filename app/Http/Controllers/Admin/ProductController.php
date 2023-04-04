@@ -96,10 +96,15 @@ class ProductController extends Controller
     }
     public function createProductService(productServiceRequest $request){
 
-        ProductService::create($request->all()+[
+        $service=ProductService::create($request->all()+[
             'product_id'=>$request->product_id
         ]);
-        return redirect()->route('product.productServices',$request->product_id);
+        if ($service) {
+            return redirect()->route('product.productServices',$request->product_id)->with('success', 'تم اضافه الخدمه');
+        } else {
+            return back()->with('failed', 'Failed! User not created');
+        }
+//        return redirect()->route('product.productServices',$request->product_id);
     }
 
     public function productServices($id){

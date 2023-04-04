@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+    {{-- toastr --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
 
 </head>
 
@@ -213,6 +215,19 @@ padding-left: 74px;">
 <script src="{{asset('assets/admin/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('assets/admin/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <script src="{{asset('assets/admin/dist/js/adminlte.min.js')}}"></script>
+{{-- toastr js --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<script>
+    $(document).ready(function() {
+        toastr.options.timeOut = 10000;
+        @if (Session::has('error'))
+        toastr.error('{{ Session::get('error') }}');
+        @elseif(Session::has('success'))
+        toastr.success('{{ Session::get('success') }}');
+        @endif
+    });
+
+</script>
 @stack('scripts')
 
 </body>

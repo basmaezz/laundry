@@ -85,7 +85,7 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 form-control-label" for="text-input">تاريخ الميلاد </label>
                                                 <div class="col-md-9">
-                                                    <input type="date" id="birthday" name="birthdate"placeholder="date" class="form-control" value="{{ Request::old('birthday') }}">
+                                                    <input type="date" id="birthday" name="birthdate"placeholder="date" class="form-control" value="{{ Request::old('birthdate') }}">
 
                                                     @if ($errors->has('birthdate'))
                                                         <span class="text-danger">{{ $errors->first('birthdate') }}</span>
@@ -117,7 +117,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الملف الشخصى </label>
+                                                <label class="col-md-3 form-control-label" for="file-input"class="form-control"accept="image/png, image/jpeg">صوره الملف الشخصى </label>
                                                 <div class="col-md-9">
                                                     <input type="file" id="file-input" name="avatar" class="form-control">
                                                     @if ($errors->has('avatar'))

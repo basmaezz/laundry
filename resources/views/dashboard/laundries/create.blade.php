@@ -90,7 +90,8 @@
                                     <div class="form-group">
                                         <label for="approximate_duration"> نطاق التشغيل </label>
                                         <input type="number" name="range"class="form-control-plaintext" id="price"value="{{ Request::old('range') }}"> كيلومتر
-                                        {{--                                            <input type="number" name="range"class="form-control" id="range" value="{{$subCategory->range??''}}" >--}}
+{{--                                        <input type="number" name="range"class="form-control" id="range" value="{{ Request::old('range') }}" style="width: 50%" >--}}
+                                        <span> كيلومتر</span>
                                         @error('range')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror

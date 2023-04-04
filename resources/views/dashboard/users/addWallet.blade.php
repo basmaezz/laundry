@@ -1,7 +1,13 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item"><a href="{{route('customers.index')}}">العملاء</a></li>
+                <li class="breadcrumb-item active" aria-current="page">اضافه للمحفظه   </li>
+            </ol>
+        </nav>
         <div class="container-fluid">
             <div class="validationMsg" style="width: 600px">
                 @if($errors->any())

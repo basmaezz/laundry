@@ -91,4 +91,6 @@ class User extends Authenticatable
         return $this->belongsTo(educationLevel::class, 	'level_id');
     }
 
+
+
 }

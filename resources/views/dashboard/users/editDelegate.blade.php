@@ -1,6 +1,13 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('delegates.index')}}">المناديب</a></li>
+                <li class="breadcrumb-item active" aria-current="page">تعديل بيانات المندوب  </li>
+            </ol>
+        </nav>
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
