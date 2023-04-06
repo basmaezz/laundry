@@ -26,9 +26,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-//        Gate::before(function ($user,$ability){
-//            return true;
-//        });
+        Gate::before(function ($user,$ability){
+            return true;
+        });
         foreach (config('abilities') as $ability =>$label ){
             Gate::define( $ability , function ($user) use ($ability){
                 if( $user->hasAbility($ability))

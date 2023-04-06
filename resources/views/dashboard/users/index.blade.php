@@ -47,7 +47,7 @@
                                     <tbody>
 
                                     @foreach($users as $user)
-                                        @if(Auth::user()->id!=$user->id)
+{{--                                        @if(Auth::user()->id!=$user->id)--}}
                                     <tr>
                                         <td>{{$user->id}}</td>
                                         <td>{{$user->name}}</td>
@@ -65,7 +65,7 @@
 {{--                                            <a href="{{route('user.delete',$user->id)}}" class="btn btn-danger show_confirm">حذف</a>--}}
                                         </td>
                                     </tr>
-                                        @endif
+{{--                                        @endif--}}
                                     @endforeach
                                     </tbody>
                                 </table>
