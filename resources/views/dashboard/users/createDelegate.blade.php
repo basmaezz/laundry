@@ -1,7 +1,7 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        <nav aria-label="breadcrumb">
+      <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
                 <li class="breadcrumb-item active"><a href="{{route('delegates.index')}}">المناديب</a></li>
@@ -26,7 +26,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الثلاثى </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="text-input" name="name" class="form-control" placeholder="الاسم "required>
+                                                <input type="text" id="text-input" name="name" class="form-control" placeholder="الاسم "value="{{Request::old('name')}}">
 
                                                 @if ($errors->has('name'))
                                                     <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -36,7 +36,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="mobile" name="mobile" class="form-control"placeholder="الجوال" required>
+                                                <input type="text" id="mobile" name="mobile" class="form-control"placeholder="الجوال"value="{{Request::old('mobile')}}" maxlength="10">
 
                                                 @if ($errors->has('mobile'))
                                                     <span class="text-danger">{{ $errors->first('mobile') }}</span>
@@ -52,15 +52,15 @@
                                                     <option value="{{$city->id}}">{{$city->name_ar}}</option>
                                                     @endforeach
                                                 </select>
-                                                @if ($errors->has('city'))
-                                                    <span class="text-danger">{{ $errors->first('city') }}</span>
+                                                @if ($errors->has('city_id'))
+                                                    <span class="text-danger">{{ $errors->first('city_id') }}</span>
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الحى </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="address" name="address" class="form-control"placeholder="الحى" required>
+                                                <input type="text" id="address" name="address" class="form-control"placeholder="الحى" value="{{Request::old('address')}}">
 
                                                 @if ($errors->has('car_plate_number'))
                                                     <span class="text-danger">{{ $errors->first('car_plate_number') }}</span>
@@ -70,7 +70,10 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الملف الشخصى </label>
                                             <div class="col-md-9">
-                                                <input type="file" id="file-input" name="avatar" class="form-control">
+                                                <input type="file" id="file-input" name="avatar" class="form-control" value="{{Request::old('avatar')}}">
+                                                @if ($errors->has('avatar'))
+                                                    <span class="text-danger">{{ $errors->first('avatar') }}</span>
+                                                @endif
                                             </div>
                                         </div>
 
@@ -78,17 +81,17 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"> الرقم المدنى (الهويه/الاقامه)</label>
                                             <div class="col-md-9">
-                                                <input type="text" id="text-input" name="id_number" class="form-control" placeholder=" الرقم المدنى"required>
+                                                <input type="text" id="text-input" name="id_number" class="form-control" value="{{Request::old('id_number')}}"placeholder=" الرقم المدنى" maxlength="10">
 
-                                                @if ($errors->has('last_name'))
-                                                    <span class="text-danger">{{ $errors->first('last_name') }}</span>
+                                                @if ($errors->has('id_number'))
+                                                    <span class="text-danger">{{ $errors->first('id_number') }}</span>
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"class="form-control"> تاريخ انتهاء الهويه/الاقامه  </label>
                                             <div class="col-md-9">
-                                                <input type="date" id="license_start_date" name="license_start_date"placeholder="date" class="form-control">
+                                                <input type="date" id="license_start_date" name="license_start_date"placeholder="date" class="form-control"value="{{Request::old('license_start_date')}}">
                                                 @if ($errors->has('license_start_date '))
                                                     <span class="text-danger">{{ $errors->first('license_start_date ') }}</span>
                                                 @endif
@@ -111,9 +114,9 @@
                                         <div class="form-group row " id="nationality" style="display: none">
                                             <label class="col-md-3 form-control-label" for="text-input"> </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="nationality" name="nationality_name" class="form-control"placeholder="الجنسيه" >
-                                                @if ($errors->has('nationality_id'))
-                                                    <span class="text-danger">{{ $errors->first('nationality_id') }}</span>
+                                                <input type="text" id="nationality" name="name_ar" class="form-control"placeholder="الجنسيه" value="{{Request::old('name_ar')}}">
+                                                @if ($errors->has('name_ar'))
+                                                    <span class="text-danger">{{ $errors->first('name_ar') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -133,20 +136,20 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">اسم البنك </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="arrears" name="bank_name" class="form-control"placeholder="اسم البنك" required>
+                                                <input type="text" id="arrears" name="bank_name" class="form-control"placeholder="اسم البنك" value="{{Request::old('bank_name')}}">
 
-                                                @if ($errors->has('arrears'))
-                                                    <span class="text-danger">{{ $errors->first('arrears') }}</span>
+                                                @if ($errors->has('bank_name'))
+                                                    <span class="text-danger">{{ $errors->first('bank_name') }}</span>
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"> رقم الحساب البنكى (IBAN) </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="arrears" name="iban_number" class="form-control"placeholder=" رقم الحساب البنكى" maxlength="14" required>
+                                                <input type="text" id="arrears" name="iban_number" class="form-control"placeholder=" رقم الحساب البنكى" maxlength="14"value="{{Request::old('iban_number')}}" >
 
-                                                @if ($errors->has('arrears'))
-                                                    <span class="text-danger">{{ $errors->first('arrears') }}</span>
+                                                @if ($errors->has('iban_number'))
+                                                    <span class="text-danger">{{ $errors->first('iban_number') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -183,7 +186,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"class="form-control"> تاريخ انتهاء الرخصه</label>
                                             <div class="col-md-9">
-                                                <input type="date" id="license_end_date" name="license_end_date"placeholder="date" class="form-control">
+                                                <input type="date" id="license_end_date" name="license_end_date"placeholder="date" class="form-control"value="{{Request::old('license_end_date')}}">
                                                 @if ($errors->has('license_end_date'))
                                                     <span class="text-danger">{{ $errors->first('license_end_date') }}</span>
                                                 @endif
@@ -192,14 +195,14 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"class="form-control"> معلومات لوحه السياره  </label>
                                             <div class="col-md-2">
-                                                <input type="text" id="car_plate_letter" name="car_plate_letter"placeholder="الأحرف" class="form-control"maxlength="6">
+                                                <input type="text" id="car_plate_letter" name="car_plate_letter"placeholder="الأحرف" class="form-control"maxlength="6"value="{{Request::old('car_plate_letter')}}">
 
                                                 @if ($errors->has('car_plate_letter'))
                                                     <span class="text-danger">{{ $errors->first('car_plate_letter') }}</span>
                                                 @endif
                                             </div>
                                             <div class="col-md-2">
-                                                <input type="text" id="car_plate_number" name="car_plate_number"placeholder="الأرقام" class="form-control" maxlength="4">
+                                                <input type="text" id="car_plate_number" name="car_plate_number"placeholder="الأرقام" class="form-control" maxlength="4"value="{{Request::old('car_plate_number')}}">
                                                 @if ($errors->has('car_plate_number'))
                                                     -<span class="text-danger">{{ $errors->first('car_plate_number') }}</span>
                                                 @endif
@@ -208,7 +211,10 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره السياره من الأمام </label>
                                             <div class="col-md-9">
-                                                <input type="file" id="file-input" name="car_picture_front" class="form-control">
+                                                <input type="file" id="file-input" name="car_picture_front" class="form-control" >
+                                                @if ($errors->has('car_picture_front'))
+                                                    <span class="text-danger">{{ $errors->first('car_picture_front') }}</span>
+                                                @endif
                                             </div>
                                         </div>
 
@@ -216,30 +222,45 @@
                                             <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره السياره من الخلف  </label>
                                             <div class="col-md-9">
                                                 <input type="file" id="file-input" name="car_picture_behind" class="form-control">
+                                                @if ($errors->has('car_picture_behind'))
+                                                    <span class="text-danger">{{ $errors->first('car_picture_behind') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره  لرخصه القياده ساريه  </label>
                                             <div class="col-md-9">
                                                 <input type="file" id="file-input" name="car_registration" class="form-control">
+                                                @if ($errors->has('car_registration'))
+                                                    <span class="text-danger">{{ $errors->first('car_registration') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره استمارة السيارة</label>
                                             <div class="col-md-9">
                                                 <input type="file" id="file-input" name="glasses_avatar" class="form-control">
+                                                @if ($errors->has('glasses_avatar'))
+                                                    <span class="text-danger">{{ $errors->first('glasses_avatar') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الهويه / الاقامه  </label>
                                             <div class="col-md-9">
                                                 <input type="file" id="file-input" name="id_image" class="form-control">
+                                                @if ($errors->has('id_image'))
+                                                    <span class="text-danger">{{ $errors->first('id_image') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الفحص الطبى </label>
                                             <div class="col-md-9">
                                                 <input type="file" id="medic_check" name="medic_check" class="form-control">
+                                                @if ($errors->has('medic_check'))
+                                                    <span class="text-danger">{{ $errors->first('medic_check') }}</span>
+                                                @endif
                                             </div>
                                         </div>
 
@@ -261,7 +282,9 @@
 @endsection
 <script>
     function displayInput(){
+
         let nationality= document.getElementById('nationality');
+        console.log(nationality);
         (nationality.style.display ==="none") ?nationality.style.display ="block" :'';
     }
     function hideInput(){

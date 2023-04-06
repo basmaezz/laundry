@@ -2,7 +2,7 @@
 @section('content')
 
     <main class="main">
-        <nav aria-label="breadcrumb">
+      <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
                 <li class="breadcrumb-item active" aria-current="page">  الادمن</li>

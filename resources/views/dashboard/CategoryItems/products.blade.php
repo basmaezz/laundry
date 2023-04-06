@@ -1,10 +1,10 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        <nav aria-label="breadcrumb">
+      <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('CategoryItems.index',$products[0]->subcategory_id)}}">القسم</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('CategoryItems.index',$products[1]->subcategory_id)}}">الأقسام</a></li>
                 <li class="breadcrumb-item active" aria-current="page">القطع  </li>
             </ol>
         </nav>

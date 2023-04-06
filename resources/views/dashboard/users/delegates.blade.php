@@ -1,7 +1,7 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        <nav aria-label="breadcrumb">
+      <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
                 <li class="breadcrumb-item active" aria-current="page">المناديب   </li>
@@ -54,7 +54,7 @@
                                         <td>{{$delegate->appUser->cities->name_ar ??''}}</td>
                                         <td>{{$delegate->nationality->name_ar ?? ''}}</td>
                                         <td>{{$delegate->request_employment==0 ?'موظف':'عامل حر'}}</td>
-                                        <td>{{$delegate->nationlaity_id}}</td>
+                                        <td>{{$delegate->id_number}}</td>
                                         <td>{{$delegate->appUser->status ??''}}</td>
                                         <td>{{$delegate->created_at->format('Y-M-D') ??''}}</td>
 

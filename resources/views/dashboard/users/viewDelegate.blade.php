@@ -1,7 +1,7 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        <nav aria-label="breadcrumb">
+      <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
                 <li class="breadcrumb-item active"><a href="{{route('delegates.index')}}">المناديب</a></li>
@@ -51,13 +51,24 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الملف الشخصى </label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('images/'.$delegate->appUSer->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <a href="{{asset('images/'.$delegate->appUser->avatar)}}" download>
+                                            <img src="{{asset('images/'.$delegate->appUser->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الهوية الوطنية   </label>
                                         <div class="col-md-9">
+                                            @if(pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='pdf')
+                                                <a href="{{$delegate->id_image}}" download>
+                                                    Download
+                                                </a>
+                                            @else
+
+                                            <a href="{{$delegate->id_image}}" download>
                                             <img src="{{$delegate->id_image}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -122,28 +133,60 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> صوره السياره من الأمام </label>
                                         <div class="col-md-9">
+                                            @if(pathinfo($delegate['car_picture_front'], PATHINFO_EXTENSION)=='pdf')
+                                                <a href="{{asset('/images/'.$delegate->car_picture_front)}}" download>
+                                                 Download
+                                                </a>
+                                            @else
+                                            <a href="{{($delegate->car_picture_front)}}" download>
                                             <img src="{{($delegate->car_picture_front)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            </a>
+                                            @endif
                                         </div>
-{{--                                        <div class="col-md-9">--}}
-{{--                                            <img src="{{asset('/images/'.$delegate->car_picture_front)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">--}}
-{{--                                        </div>--}}
+
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"  >صوره السياره من الخلف  </label>
                                         <div class="col-md-9">
-                                            <img src="{{$delegate->car_picture_behind}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            @if(pathinfo($delegate['car_picture_behind'], PATHINFO_EXTENSION)=='pdf')
+                                                <a href="{{asset('/images/'.$delegate->car_picture_behind)}}" download>
+                                                    Download
+                                                </a>
+                                            @else
+                                            <a href="{{$delegate->car_picture_behind}}" download>
+                                                <img src="{{$delegate->car_picture_behind}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            @endif
+
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره ساريه لرخصه القياده  </label>
                                         <div class="col-md-9">
+                                            @if(pathinfo($delegate['car_registration'], PATHINFO_EXTENSION)=='pdf')
+                                                <a href="{{asset('/images/'.$delegate->car_registration)}}" download>
+                                                    Download
+                                                </a>
+                                            @else
+                                            <a href="{{$delegate->car_registration}}" download>
                                             <img src="{{$delegate->car_registration}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            </a>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره استمارة السيارة</label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('/images/'.$delegate->glasses_avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            @if(pathinfo($delegate['glasses_avatar'], PATHINFO_EXTENSION)=='pdf')
+                                                <a href="{{asset('/images/'.$delegate->glasses_avatar)}}" download>
+                                                    Download
+{{--                                                  {{$delegate->glasses_avatar}}--}}
+                                                </a>
+                                            @else
+                                                <a href="{{asset('/images/'.$delegate->glasses_avatar)}}" download>
+                                                    <img src="{{asset('/images/'.$delegate->glasses_avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;" >
+                                                </a>
+                                            @endif
+
                                         </div>
                                     </div>
                                 </div>

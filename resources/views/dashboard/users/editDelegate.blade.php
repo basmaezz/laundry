@@ -1,7 +1,7 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        <nav aria-label="breadcrumb">
+      <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
                 <li class="breadcrumb-item active"><a href="{{route('delegates.index')}}">المناديب</a></li>
@@ -44,6 +44,29 @@
                                             <input type="text"  name="address" class="form-control" value="{{$delegate->appUSer->address}}">
                                         </div>
                                     </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">الجنسيه</label>
+                                            <div class="col-md-9">
+                                                <select  name="nationality_id" class="form-control">
+                                                    @foreach($nationalities as $nationality)
+                                                        <option onclick="hideInput()"value="{{$nationality->id}}"{{$delegate->nationality_id==$nationality->id ?'selected':''}}>{{$nationality->name_ar}}</option>
+                                                    @endforeach
+                                                    <option onclick="displayInput()" value="0">أخرى</option>
+                                                </select>
+                                                @if ($errors->has('nationality_id'))
+                                                    <span class="text-danger">{{ $errors->first('nationality_id') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row " id="nationality" style="display: none">
+                                            <label class="col-md-3 form-control-label" for="text-input"> </label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="nationality" name="nationality_name" class="form-control"placeholder="الجنسيه" value="{{Request::old('nationality_name')}}">
+                                                @if ($errors->has('nationality_id'))
+                                                    <span class="text-danger">{{ $errors->first('nationality_id') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"> نوع التعاقد </label>
                                             <div class="col-md-9">
@@ -201,3 +224,14 @@
     </main>
 
 @endsection
+<script>
+    function displayInput(){
+        console.log('test');
+        let nationality= document.getElementById('nationality');
+        (nationality.style.display ==="none") ?nationality.style.display ="block" :'';
+    }
+    function hideInput(){
+        let nationality= document.getElementById('nationality');
+        (nationality.style.display ==="block") ?nationality.style.display ="none" :'';
+    }
+</script>

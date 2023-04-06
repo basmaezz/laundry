@@ -48,6 +48,9 @@
                 <div class="form-group">
                     <label for="company">الصوره  </label>
                     <input type="file" name="subProductImage"class="form-control" id="image" >
+                    @if ($errors->has('subProductImage'))
+                        <span class="text-danger">{{ $errors->first('subProductImage') }}</span>
+                    @endif
                 </div>
             </div>
         </div>
