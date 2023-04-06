@@ -23,7 +23,7 @@
                                 <div class="card-block">
 
                                     <div class="form-group">
-                                        <label for="company" n>اسم القطعه</label>
+                                        <label for="company">اسم القطعه</label>
                                         <input type="hidden" name="product_id"class="form-control" id="name" value="{{$product->id}}">
                                         <input type="hidden" name="category_item_id"class="form-control" id="name" value="{{$product->category_item_id}}">
                                         <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$product->name_ar}}">

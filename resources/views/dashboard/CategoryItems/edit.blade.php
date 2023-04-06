@@ -4,8 +4,8 @@
       <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('users.index')}}">الأدمن</a></li>
-                <li class="breadcrumb-item active" aria-current="page">تعديل  الادمن</li>
+                <li class="breadcrumb-item active"><a href="{{route('CategoryItems.index',$categoryItem->subcategory_id)}}">الأقسام</a></li>
+                <li class="breadcrumb-item active" aria-current="page">تعديل  القسم</li>
             </ol>
         </nav>
 
