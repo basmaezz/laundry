@@ -30,7 +30,6 @@ class ProductController extends Controller
             $filename = request('subProductImage')->getClientOriginalName();
             request()->file('subProductImage')->move(public_path() . '/assets/uploads/laundries/products' , $filename);
         }
-//        $product->save();
         Product::create($request->validated()+[
                 'user_id'=>Auth::user()->id,
                 'image'=>$filename
@@ -102,9 +101,8 @@ class ProductController extends Controller
         if ($service) {
             return redirect()->route('product.productServices',$request->product_id)->with('success', 'تم اضافه الخدمه');
         } else {
-            return back()->with('failed', 'Failed! User not created');
+            return back()->with('failed', 'Failed! product not created');
         }
-//        return redirect()->route('product.productServices',$request->product_id);
     }
 
     public function productServices($id){
@@ -123,14 +121,14 @@ class ProductController extends Controller
     public function updateService(productServiceRequest $request,$id){
 
         productService::where('id',$id)->update($request->except(['_token','service_id']));
-        return redirect()->route('product.productServices',$request->product_id);
+        return redirect()->route('product.productServices',$request->product_id)->with('success', 'تم التعديل');
 
     }
 
     public function deleteProductService($id)
     {
         ProductService::find($id)->delete();
-        return redirect()->back()->withErrors('تم حذف الخدمه  !');
+        return redirect()->back()->with('failed', 'تم الحذف');
 
     }
 }

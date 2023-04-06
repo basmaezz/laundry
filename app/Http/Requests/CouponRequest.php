@@ -25,7 +25,7 @@ class CouponRequest extends FormRequest
     {
         $rules= [
             'code_name'=>'required',
-            'discount_value'=>'required',
+            'discount_value'=>'required|integer',
             'date_from'=>'required',
             'date_to'=>'required',
             'status'=>'required',
@@ -43,7 +43,8 @@ class CouponRequest extends FormRequest
     {
         return [
             'unique'=>'اسم الكود موجود مسبقا',
-            'required'=>'هذا الحقل مطلوب'
+            'required'=>'هذا الحقل مطلوب',
+            'integer'=>'أرقام فقط'
         ];
     }
 }

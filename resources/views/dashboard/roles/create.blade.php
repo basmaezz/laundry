@@ -30,9 +30,12 @@
                                 </label>
                                 @endforeach
                             </div>
+                            @if ($errors->has('abilities'))
+                                <span class="text-danger">{{ $errors->first('abilities') }}</span>
+                            @endif
                         </div>
 
-                        <div class="card-footer">
+                        <div class="card-footer" style="margin-top: 10px">
                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> حفظ</button>
                             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i>  <a href="{{URL::previous()}}" class="btn btn-sm btn-danger">الغاء</a></button>
                         </div>

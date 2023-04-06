@@ -65,7 +65,6 @@ class CategoryItemController extends Controller
     public function show($id)
     {
         $products=Product::where('category_item_id',$id)->with(['productService','productImages'])->get();
-
         return  view('dashboard.CategoryItems.products',compact(['products','id']));
     }
 

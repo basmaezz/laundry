@@ -43,7 +43,7 @@ class CouponsController extends Controller
     public function store(CouponRequest $request)
     {
         CouponShopCart::create($request->validated());
-        return redirect()->route('coupons.index')->with('message', 'تمت الاضافه!');
+        return redirect()->route('coupons.index')->with('success', 'تمت الاضافه!');
 
     }
 
@@ -101,6 +101,6 @@ class CouponsController extends Controller
         $coupon=CouponShopCart::findorfail($id);
         $coupon->status=='0' ? $coupon->status='1' :$coupon->status='0';
         $coupon->save();
-        return  redirect()->back()->withErrors(['msg' => ' تم تعديل حاله الكوبون']);
+        return  redirect()->back()->with('message', 'تم التعديل بنجاح!');
     }
 }

@@ -75,7 +75,7 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                                 <div class="col-md-9">
-                                                    <input type="text" id="phone" name="phone" class="form-control" value="{{ Request::old('phone') }}"placeholder="الجوال" >
+                                                    <input type="text" id="phone" name="phone" class="form-control" value="{{ Request::old('phone') }}"placeholder="الجوال" maxlength="10" >
 
                                                     @if ($errors->has('phone'))
                                                         <span class="text-danger">{{ $errors->first('phone') }}</span>
@@ -96,7 +96,7 @@
                                                 <label class="col-md-3 form-control-label" for="text-input"> المستوى التعليمى </label>
                                                 <div class="col-md-9">
                                                     <select name="level_id" id="level_id"  class="form-control" >
-                                                        <option>المستوى التعليمى</option>
+                                                        <option value="">المستوى التعليمى</option>
                                                         @foreach($levels as $key =>$level)
                                                         <option value="{{$level}}">{{$key}}</option>
                                                         @endforeach
@@ -119,9 +119,9 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 form-control-label" for="file-input"class="form-control"accept="image/png, image/jpeg">صوره الملف الشخصى </label>
                                                 <div class="col-md-9">
-                                                    <input type="file" id="file-input" name="avatar" class="form-control">
-                                                    @if ($errors->has('avatar'))
-                                                        <span class="text-danger">{{ $errors->first('avatar') }}</span>
+                                                    <input type="file" id="file-input" name="profileImage" class="form-control">
+                                                    @if ($errors->has('profileImage'))
+                                                        <span class="text-danger">{{ $errors->first('profileImage') }}</span>
                                                     @endif
                                                 </div>
                                             </div>

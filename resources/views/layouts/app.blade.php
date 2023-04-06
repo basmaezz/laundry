@@ -79,7 +79,7 @@ padding-left: 74px;">
                 مقدمين الخدمه
             </li>
                <li class="nav-item">
-            @can('users.index')
+            @can('admins.index')
             <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> الأدمن  </a>
                    @endcan
             @can('roles.index')
@@ -89,27 +89,24 @@ padding-left: 74px;">
                     <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
             @endcan
                </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-docs"></i>   المناديب</a>
-            </li>
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="{{route('laundries.admins')}}"><i class="icon-user-follow"></i>  أدمن المغاسل  </a>
-            </li> --}}
+            @can('delegates.index')
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> طلبات التسجيل</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> المناديب</a>
                 <ul class="nav-dropdown-items">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('delegate.registrationRequests')}}"><i class="icon-people"></i>  كل الطلبات  </a>
+                        <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-people"></i>   المناديب  </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('delegate.rejectionRequests')}}"><i class="icon-people"></i>  الطلبات المرفوضه   </a>
+                        <a class="nav-link" href="{{route('delegate.registrationRequests')}}"><i class="icon-people"></i>   طلبات التسجيل  </a>
                     </li>
-
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('delegate.rejectionRequests')}}"><i class="icon-people"></i>  طلبات التسجيل المرفوضه   </a>
+                    </li>
                 </ul>
             </li>
-
+            @endcan
+        @can('subCategory.index')
             <li class="nav-title">
                 المغاسل
             </li>
@@ -135,10 +132,12 @@ padding-left: 74px;">
 
                 </ul>
             </li>
-            <li class="nav-title">
-                الطلبات
-            </li>
+            @endcan
+
             @can('Orders.index')
+                <li class="nav-title">
+                    الطلبات
+                </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> الطلبات</a>
                 <ul class="nav-dropdown-items">
@@ -182,9 +181,11 @@ padding-left: 74px;">
                 <a class="nav-link" href="{{route('coupons.index')}}"><i class="icon-people"></i> الكوبونات </a>
             </li>
             @endcan
+            @can('settings.index')
             <li class="nav-item">
                 <a class="nav-link" href="{{route('settings.index')}}"><i class="icon-people"></i> الاعدادات </a>
             </li>
+            @endcan
         </ul>
     </nav>
 </div>

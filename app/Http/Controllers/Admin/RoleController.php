@@ -48,6 +48,8 @@ class RoleController extends Controller
         $request->validate([
             'role'=>'required',
             'abilities'=>'required|array'
+        ],[
+            'required'=>'يرجى تعبئه الحقول'
         ]);
         $role=Role::create($request->all());
         return redirect()->route('roles.index')

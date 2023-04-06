@@ -49,7 +49,7 @@ class UserController extends Controller
     }
     public function index(Request $request)
     {
-        if(Gate::denies('admins.index')){
+        if(!Gate::allows('admins.index')){
             abort(403);
         };
 
@@ -83,8 +83,8 @@ class UserController extends Controller
         if(Gate::denies('admins.index')){
             abort(403);
         };
-        if(!empty($request->file('avatar'))){
-            $filename = uploadFile($request->file('avatar'),'images');
+        if(!empty($request->file('profileImage'))){
+            $filename = uploadFile($request->file('profileImage'),'images');
         }
        $user=User::create($request->validated()+[
             'avatar'=> $filename
@@ -142,7 +142,9 @@ class UserController extends Controller
      */
     public function update(updateUserRequest $request, $id)
     {
-
+        if(!Gate::allows('admins.index')){
+            abort(403);
+        };
         $user=User::find($id);
         if(!empty($request->file('avatar'))){
             $filename = uploadFile($request->file('avatar'),'images');
@@ -199,6 +201,9 @@ class UserController extends Controller
     }
     public function customerWallet($id)
     {
+        if(Gate::denies('customers.index')){
+            abort(403);
+        };
         $appUser=AppUser::find($id);
         return view('dashboard.users.addWallet',compact(('appUser')));
     }
@@ -217,6 +222,9 @@ class UserController extends Controller
         return redirect()->route('customers.index')->with('message', 'تم الاضافه للمحفظه !');;
     }
     public function customerOrders($id){
+        if(Gate::denies('customers.index')){
+            abort(403);
+        };
         $orders=OrderTable::where('user_id',$id)->with('subCategories')->get();
         return view('dashboard.users.customerOrder',compact('orders'));
     }
@@ -242,9 +250,44 @@ class UserController extends Controller
     }
     public function storeDelegate(Request $request)
     {
+        $request->validate([
+                        'name'=>'required',
+                        'mobile'=>'required|integer|min:10|unique:app_users',
+                        'city_id'=>'required',
+                        'address'=>'required',
+                        'id_number'=>'required|integer|min:10|unique:delegates',
+                        'license_start_date'=>'required',
+                        'nationality_id'=>'nullable',
+                        'name_ar'=>'unique:nationalities',
+                        'request_employment'=>'required',
+                        'bank_name'=>'required',
+                        'iban_number'=>'required|integer|min:14',
+                        'car_type'=>'required',
+                        'car_manufacture_year_id'=>'required',
+                        'car_plate_letter'=>'required|string',
+                        'car_plate_number'=>'required|integer',
+                        'avatar'=>'required',
+                        'id_image'=>'required',
+                        'medic_check'=>'required',
+                        'car_picture_front'=>'required',
+                        'car_picture_behind'=>'required',
+                        'car_registration'=>'required',
+                        'glasses_avatar'=>'required',
+                        'license_end_date'=>'required',
+
+        ],[
+            'unique'=>'الاسم موجود مسبقا',
+            'string'=>'حروف فقط',
+            'integer'=>'أرقام فقط',
+            'required'=>'هذا الحقل مطلوب',
+            'mobile'=>'الرقم موجود مسبقا',
+            'min'=>'أقل من 10 أرقام'
+        ]);
+        $user=new AppUser();
         if(!empty($request->file('avatar'))) {
             $filename = request('avatar')->getClientOriginalName();
-            request()->file('avatar')->move(public_path() . '/images/', $filename);
+            request()->file('avatar')->move(public_path() . '/images/avatar/', $filename);
+            $user['avatar']= $filename;
         }
         if(!empty($request->file('id_image'))){
             $fileNameImageId = request('id_image')->getClientOriginalName();
@@ -271,23 +314,25 @@ class UserController extends Controller
             request()->file('glasses_avatar')->move(public_path().'/images/' ,$fileNameGlassesAvatar);
         }
         if(!empty($request->nationality_name)){
-         $nationality= Nationality::create([
+           $nationality= Nationality::create([
                 'name_en'=>$request->nationality_name,
                 'name_ar'=>$request->nationality_name,
             ]);
             $nationality->save();
         }
+        $user=AppUser::create([
+            'uuid'=>Uuid::uuid1()->toString(),
+            'name'=>$request->name,
+            'password'=>Hash::make($request->password),
+            'email'=>$request->email,
+            'mobile'=>$request->mobile,
+            'city_id'=>$request->city_id,
+            'address'=>$request->address,
+            'avatar'=>$filename,
+            'user_type'=>'delivery',
+            'status'=>'active',
+        ]);
 
-     $user=AppUser::create([
-                     'uuid' => Uuid::uuid1()->toString(),
-                     'name'=>$request->name,
-                    'password'=> Hash::make($request->password),
-                    'email'=>$request->email,
-                    'mobile'=>$request->mobile,
-                    'city_id'=>$request->city_id,
-                    'address'=>$request->address,
-                    'avatar'=> $filename
-              ]);
         $delegate= new Delegate();
 
        $delegate['app_user_id']=$user->id;
@@ -307,23 +352,34 @@ class UserController extends Controller
        $delegate['car_picture_behind']=$fileNameCarBehind;
        $delegate['car_registration']=$fileNameCarRegistration;
        $delegate['glasses_avatar']=$fileNameGlassesAvatar;
-       $delegate['user_type']="delivery";
+
        if(!empty($request->nationality_id)){
            $delegate['nationality_id']=$request->nationality_id;
        }else{
            $delegate['nationality_id']= $nationality->id;
        }
-       $delegate->save();
+  if( $delegate){
+      $delegate->save();
+      return redirect()->route('delegates.index')->with('message', 'تم اضافه مندوب جديد !');
+  }else{
+      AppUser::where('id',$user->id)->delete();
+      return  redirect()->back();
+  }
 
-       return redirect()->route('delegates.index')->with('message', 'تم اضافه مندوب جديد !');;
     }
     public function showDelegate($id)
     {
+        if(Gate::denies('delegates.index')){
+            abort(403);
+        };
         $delegate=Delegate::with(['appUser','car','year'])->find($id);
         return view('dashboard.users.viewDelegate',compact('delegate'));
     }
     public function deleteDelegate($id)
     {
+        if(Gate::denies('delegates.index')){
+            abort(403);
+        };
       $delegate=Delegate::find($id);
       User::where('id',$delegate->user_id)->delete();
       $delegate->delete();
@@ -332,8 +388,12 @@ class UserController extends Controller
 
     public function editDelegate($id)
     {
-        $delegate=Delegate::with(['appUser','car','year'])->find($id);
-        return view('dashboard.users.editDelegate',compact('delegate'));
+        if(Gate::denies('delegates.index')){
+            abort(403);
+        };
+        $delegate=Delegate::with(['appUser','nationality','car','year'])->find($id);
+        $nationalities=Nationality::get();
+        return view('dashboard.users.editDelegate',compact(['delegate','nationalities']));
     }
     public function updateDelegate(Request $request,$id)
     {
@@ -375,6 +435,13 @@ class UserController extends Controller
             $delegate['glasses_avatar']=$fileNameGlassesAvatar;
 
         }
+        if(!empty($request->nationality_name)){
+            $nationality= Nationality::create([
+                'name_en'=>$request->nationality_name,
+                'name_ar'=>$request->nationality_name,
+            ]);
+            $nationality->save();
+        }
       $delegate->update($request->all());
       $delegate->appUSer->update($request->all());
       $delegate->save();
@@ -411,6 +478,9 @@ class UserController extends Controller
     }
     public function changeDelegateStatus($id)
     {
+        if(Gate::denies('delegates.index')){
+            abort(403);
+        };
        $delegate=Delegate::with('appUser')->find($id);
         $delegate->appUser->status=='active' ?$delegate->appUser->status='deactivated' :$delegate->appUser->status='active';
         $delegate->appUser->save();
@@ -442,6 +512,9 @@ class UserController extends Controller
 
     public function getRegistrationRequests()
     {
+        if(Gate::denies('delegates.index')){
+            abort(403);
+        };
      $requests=Delegate::where('registered',2)->get();
 
      return view('dashboard.users.registrationRequests',compact('requests'));
@@ -449,6 +522,9 @@ class UserController extends Controller
 
     public function acceptRegister($id)
     {
+        if(Gate::denies('delegates.index')){
+            abort(403);
+        };
        $delegate=Delegate::find($id);
        if($delegate->reject_reason!=''){
            $delegate->reject_reason='';
@@ -460,6 +536,9 @@ class UserController extends Controller
     }
     public function addRejectReason($id)
     {
+        if(Gate::denies('delegates.index')){
+            abort(403);
+        };
         $delegate=Delegate::find($id);
         return view('dashboard.users.rejectReason',compact('delegate'));
     }

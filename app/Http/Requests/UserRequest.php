@@ -27,13 +27,15 @@ class UserRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name'=>['required', 'min:4','max:20'],
-            'last_name'=>['required', 'min:4','max:20'],
+            'name'=>['required', 'min:3','max:20'],
+            'last_name'=>['required', 'min:3','max:20'],
             'email' => 'required|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
             'password'=>['required','min:6'],
+            'level_id'=>'required',
+            'joinDate'=>'nullable',
             'birthdate'=> ['required','before:15 years ago'],
             'phone'=>'required|unique:users|numeric|digits:10',
-            'avatar'=>['image','required','mimes:jpeg,png,jpg,gif,svg', 'max:2048']
+            'profileImage'=>['image','required','mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ];
     }
 
