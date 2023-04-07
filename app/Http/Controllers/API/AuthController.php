@@ -150,6 +150,7 @@ class AuthController extends ApiController
             'personal.city_id' => 'required',
             'personal.region_name' => 'required',
             'personal.nid' => 'required',
+            'personal.identity_expiration_date' => 'required',
             'personal.nid_image' => 'required|file',
             'personal.medic_check_image' => 'required|file',
             'bank.name' => 'required',
@@ -216,6 +217,7 @@ class AuthController extends ApiController
             $delegate->app_user_id = $user->id;
             $delegate->nationality_id = $request->nationality_id;
             $delegate->id_number = $request->get('personal')['nid'];
+            $delegate->identity_expiration_date = $request->get('personal')['identity_expiration_date'];
             $delegate->id_image = uploadFile($request->file('personal')['nid_image'], 'nid_image');
             $delegate->iban_number = $request->get('bank')['number'];
             $delegate->bank_name = $request->get('bank')['name'];

@@ -92,9 +92,9 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"class="form-control"> تاريخ انتهاء الهويه/الاقامه  </label>
                                             <div class="col-md-9">
-                                                <input type="date" id="license_start_date" name="license_start_date" class="form-control" value="{{$delegate->license_start_date}}">
-                                                @if ($errors->has('license_start_date '))
-                                                    <span class="text-danger">{{ $errors->first('license_start_date ') }}</span>
+                                                <input type="date" id="license_start_date" name="identity_expiration_date" class="form-control" value="{{$delegate->identity_expiration_date}}">
+                                                @if ($errors->has('identity_expiration_date '))
+                                                    <span class="text-danger">{{ $errors->first('identity_expiration_date ') }}</span>
                                                 @endif
                                             </div>
                                         </div>

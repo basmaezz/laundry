@@ -91,9 +91,9 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"class="form-control"> تاريخ انتهاء الهويه/الاقامه  </label>
                                             <div class="col-md-9">
-                                                <input type="date" id="license_start_date" name="license_start_date"placeholder="date" class="form-control"value="{{Request::old('license_start_date')}}">
-                                                @if ($errors->has('license_start_date '))
-                                                    <span class="text-danger">{{ $errors->first('license_start_date ') }}</span>
+                                                <input type="date" id="identity_expiration_date" name="identity_expiration_date"placeholder="date" class="form-control"value="{{Request::old('identity_expiration_date')}}">
+                                                @if ($errors->has('identity_expiration_date '))
+                                                    <span class="text-danger">{{ $errors->first('identity_expiration_date ') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -257,9 +257,9 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الفحص الطبى </label>
                                             <div class="col-md-9">
-                                                <input type="file" id="medic_check" name="medic_check" class="form-control">
-                                                @if ($errors->has('medic_check'))
-                                                    <span class="text-danger">{{ $errors->first('medic_check') }}</span>
+                                                <input type="file" id="medic_check" name="medicCheck" class="form-control">
+                                                @if ($errors->has('medicCheck'))
+                                                    <span class="text-danger">{{ $errors->first('medicCheck') }}</span>
                                                 @endif
                                             </div>
                                         </div>

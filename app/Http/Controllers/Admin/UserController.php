@@ -256,7 +256,7 @@ class UserController extends Controller
                         'city_id'=>'required',
                         'address'=>'required',
                         'id_number'=>'required|integer|min:10|unique:delegates',
-                        'license_start_date'=>'required',
+                        'identity_expiration_date'=>'required',
                         'nationality_id'=>'nullable',
                         'name_ar'=>'unique:nationalities',
                         'request_employment'=>'required',
@@ -268,14 +268,12 @@ class UserController extends Controller
                         'car_plate_number'=>'required|integer',
                         'avatar'=>'required',
                         'id_image'=>'required',
-                        'medic_check'=>'required',
+                        'medicCheck'=>'required',
                         'car_picture_front'=>'required',
                         'car_picture_behind'=>'required',
                         'car_registration'=>'required',
                         'glasses_avatar'=>'required',
-                        'license_end_date'=>'required',
-
-        ],[
+                      ],[
             'unique'=>'الاسم موجود مسبقا',
             'string'=>'حروف فقط',
             'integer'=>'أرقام فقط',
@@ -293,9 +291,9 @@ class UserController extends Controller
             $fileNameImageId = request('id_image')->getClientOriginalName();
             request()->file('id_image')->move(public_path().'/assets/uploads/nid_image/',$fileNameImageId);
         }
-        if(!empty($request->file('medic_check'))){
-            $fileNameMedicCheck = request('medic_check')->getClientOriginalName();
-            request()->file('medic_check')->move(public_path().'/images/',$fileNameMedicCheck);
+        if(!empty($request->file('medicCheck'))){
+            $fileNameMedicCheck = request('medicCheck')->getClientOriginalName();
+            request()->file('medicCheck')->move(public_path().'/images/',$fileNameMedicCheck);
         }
         if(!empty($request->file('car_picture_front'))){
             $fileNameCarFront = request('car_picture_front')->getClientOriginalName();
@@ -344,7 +342,7 @@ class UserController extends Controller
        $delegate['car_plate_letter']=$request->car_plate_letter;
        $delegate['car_plate_number']=$request->car_plate_number;
        $delegate['car_manufacture_year_id']=$request->car_manufacture_year_id;
-       $delegate['license_start_date']=$request->license_start_date;
+       $delegate['identity_expiration_date']=$request->identity_expiration_date;
        $delegate['license_end_date']=$request->license_end_date;
        $delegate['id_image']=$fileNameImageId;
        $delegate['medic_check']=$fileNameMedicCheck;

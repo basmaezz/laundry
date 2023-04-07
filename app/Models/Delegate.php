@@ -31,6 +31,7 @@ class Delegate extends Model
         'medic_check',
         'registered',
         'user_type',
+            'identity_expiration_date'
         ];
 
     protected function avatar():Attribute
