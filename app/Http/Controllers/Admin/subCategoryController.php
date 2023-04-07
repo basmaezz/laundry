@@ -101,7 +101,7 @@ class subCategoryController extends Controller
                 $subcategory['image']=$filename;
             }
 
-        $subcategory= Subcategory::create($request->validated());
+        $subcategory= Subcategory::create($request->all());
 
         User::create([
             'name'=>$request->name,
