@@ -64,6 +64,10 @@ class OrderTable extends Model
     {
         return $this->belongsTo(AppUser::class ,'user_id','id' );
     }
+    public function delegate()
+    {
+        return $this->belongsTo(AppUser::class ,'delivery_id','id' );
+    }
 
     public function productService()
     {
