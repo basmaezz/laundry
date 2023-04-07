@@ -16,6 +16,7 @@
                                     <thead>
                                     <tr>
                                         <th>رقم الطلب  </th>
+                                        <th>رقم الطلب  </th>
                                         <th>اسم المغسله </th>
                                         <th>اسم العميل </th>
                                         <th> نوع التوصيل </th>
@@ -32,6 +33,7 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$order->id}}</td>
+                                            <td>{{$order->histories->WHERE('status_id',$order->id)->first()->spend_time ?? 0}}</td>
                                             <td>{{$order->subCategories->name_ar}}</td>
                                             <td>{{$order->user->name}}</td>
                                             @if($order->delivery_type !=null)
