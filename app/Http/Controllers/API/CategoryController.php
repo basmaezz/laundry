@@ -11,6 +11,7 @@ use App\Models\OrderTable;
 use App\Models\ProductService;
 use App\Models\RateLaundry;
 use App\Models\Subcategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
@@ -27,7 +28,8 @@ class CategoryController extends Controller
         $name = 'name_' . App::getLocale();
         $data = [];
 
-        $user = auth('app_users_api')->user();
+        //$user = auth('app_users_api')->user();
+        $user = User::where('id',27)->first();
 
         foreach ($subCategories as $subcategory) {
             $distance = (!empty($user))? getDistanceFirst1($user, $subcategory->lat, $subcategory->lng) : 0;
