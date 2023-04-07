@@ -46,7 +46,7 @@ class subCategoryRequest extends FormRequest
     public function messages(){
         return[
             'unique'=>'هذا الاسم موجود بالفعل ',
-            'location.format'=>'لارابط غير صحيح ',
+            'location.format'=>'الرابط غير صحيح ',
             'required' =>'هذا الحقل مطلوب '
         ];
     }

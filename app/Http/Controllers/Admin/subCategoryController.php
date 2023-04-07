@@ -53,9 +53,39 @@ class subCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(subCategoryRequest $request)
+    public function store(Request $request)
     {
         $subcategory= new Subcategory();
+        $request->validate([
+            'category_id'=>'integer',
+            'name_ar' =>'required',
+            'name_en' =>'required',
+            'city_id' =>'required',
+            'location'=>'required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i',
+            'lat' =>'required',
+            'lng' =>'required',
+            'address'=>'required',
+            'price' =>'required',
+            'range'=>'required',
+            'around_clock' =>'required',
+            'clock_at' =>'string',
+            'clock_end' =>'string',
+            'approximate_duration'=>'required',
+            'image' => 'image|mimes:jpg,png,jpeg',
+            'name' => 'required',
+            'last_name' => 'required',
+            'email' => '|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
+            'password'=>['required','min:6'],
+            'phone'=>'required|unique:users',
+        ],[
+            'required'  =>'هذا الحقل مطلوب',
+            'name'=>'برجاء ادخال اسم مناسب',
+            'last_name'=>'برجاء ادخال اسم مناسب',
+            'unique'=>'هذا الأسم موجود مسبقا',
+            'email'=>'هذا البريد الالكترونى موجود مسبقا',
+            'phone'=>'هذا الرقم غير صحيح',
+            'location.format'=>'الرابط غير صحيح ',
+        ]);
 
              if($request->around_clock !=''){
                  $subcategory['around_clock'] = $request->around_clock;
@@ -72,21 +102,6 @@ class subCategoryController extends Controller
             }
 
         $subcategory= Subcategory::create($request->validated());
-
-        $validateData = $request->validate([
-            'name' => 'required',
-            'last_name' => 'required',
-            'email' => '|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
-            'password'=>['required','min:6'],
-            'phone'=>'required|unique:users',
-        ],[
-            'required'  =>'هذا الحقل مطلوب',
-            'name'=>'برجاء ادخال اسم مناسب',
-            'last_name'=>'برجاء ادخال اسم مناسب',
-            'unique'=>'هذا الأسم موجود مسبقا',
-            'email'=>'هذا البريد الالكترونى موجود مسبقا',
-            'phone'=>'هذا الرقم غير صحيح',
-        ]);
 
         User::create([
             'name'=>$request->name,
