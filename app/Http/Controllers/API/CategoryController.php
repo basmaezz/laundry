@@ -36,6 +36,7 @@ class CategoryController extends Controller
             $range=$subcategory->range;
             $data [] = [
                 'id' => $subcategory->id,
+                'user' => $user,
                 'name' => $subcategory->$name,
                 'address' => $subcategory->address,
                 'rate' => $subcategory->rate_avg,
