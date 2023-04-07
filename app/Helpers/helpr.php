@@ -439,9 +439,8 @@ function getDistanceFirst1($user, $latitude, $longitude)
            * sin( radians( lat ) ) ) )  AS distance');
 
     $results = $user->select('*', $raw)->addSelect($raw)->orderBy('distance')->first();
-
-    return  $results;
-//    return $results->distance;
+//    dd($results);
+    return $results->distance;
 }
 
 function minutesToHumanReadable($minutes){
