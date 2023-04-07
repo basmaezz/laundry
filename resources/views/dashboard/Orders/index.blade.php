@@ -16,7 +16,6 @@
                                     <thead>
                                     <tr>
                                         <th>رقم الطلب  </th>
-                                        <th>رقم الطلب  </th>
                                         <th>اسم المغسله </th>
                                         <th>اسم العميل </th>
                                         <th> نوع التوصيل </th>
@@ -33,7 +32,6 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$order->id}}</td>
-                                            <td>{{minutesToHumanReadable($order->histories->where('status_id',$order->status_id)->first()->spend_time ?? 0)}}</td>
                                             <td>{{$order->subCategories->name_ar}}</td>
                                             <td>{{$order->user->name}}</td>
                                             @if($order->delivery_type !=null)
@@ -41,7 +39,7 @@
                                             @else
                                             <td></td>
                                             @endif
-                                            <td></td>
+                                            <td>{{minutesToHumanReadable($order->histories->where('status_id',$order->status_id)->first()->spend_time ?? 0)}}</td>
                                             <td>{{$order->user->cities->name_ar}}</td>
                                             <td>{{$order->user->region_name}}</td>
                                             <td>{{$order->created_at->year}}</td>
