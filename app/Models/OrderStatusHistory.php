@@ -26,7 +26,7 @@ class OrderStatusHistory extends Model
     {
         $next = OrderStatusHistory::where([
             'order_id' => $this->attributes['order_id'],
-            'status_id' => $this->attributes['status_id']+1,
+            'status_id' => $this->attributes['status_id']-1,
         ])->first();
         if($next) {
             return $next->created_at->diffInMinutes(Carbon::parse($this->attributes['created_at']));
