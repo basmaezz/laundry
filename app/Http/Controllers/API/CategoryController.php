@@ -37,8 +37,8 @@ class CategoryController extends Controller
             $range=$subcategory->range;
             $data [] = [
                 'id' => $subcategory->id,
-                'user' => $user,
-                'user2' => auth()->user(),
+                //'user' => $user,
+                //'user2' => auth()->user(),
                 //'distanceObject' => $distanceObject,
                 'name' => $subcategory->$name,
                 'address' => $subcategory->address,
