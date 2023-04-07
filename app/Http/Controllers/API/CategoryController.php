@@ -49,7 +49,7 @@ class CategoryController extends Controller
                 'lat' => $subcategory->lat,
                 'lng' => $subcategory->lng,
                 'approximate_duration'=> $subcategory->approximate_duration,
-//                'distance' => round($distance, 2),
+                'distance' => round($distance, 2),
                 'range'=>$subcategory->range,
                 'distance_class' =>  getDistanceClass($distance,$range),
                 'distance_class_id' =>  getDistanceClassId($distance,$range),
