@@ -443,6 +443,19 @@ function getDistanceFirst1($user, $latitude, $longitude)
     return $results->distance;
 }
 
+function minutesToHumanReadable($minutes){
+//
+// Assuming that your minutes value is $minutes
+//
+    $d = floor ($minutes / 1440);
+    $h = floor (($minutes - $d * 1440) / 60);
+    $m = $minutes - ($d * 1440) - ($h * 60);
+//
+// Then you can output it like so...
+//
+    return "{$d} يوم - {$h} ساعة - {$m} دقيقة";
+}
+
 #No3man
 function responseJsonData($data){
     $response = [
