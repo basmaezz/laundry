@@ -189,6 +189,22 @@
 
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره الفحص الطبى</label>
+                                        <div class="col-md-9">
+                                            @if(pathinfo($delegate['medic_check'], PATHINFO_EXTENSION)=='pdf')
+                                                <a href="{{$delegate->medic_check}}" download>
+                                                    Download
+{{--                                                  {{$delegate->glasses_avatar}}--}}
+                                                </a>
+                                            @else
+                                                <a href="{{$delegate->medic_check}}" download>
+                                                    <img src="{{$delegate->medic_check}}" style="width:200px;height:200px;padding:15px;border-radius:20px;" >
+                                                </a>
+                                            @endif
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -403,37 +403,36 @@ class UserController extends Controller
             request()->file('avatar')->move(public_path() . '/images/', $filename);
             $delegate->appUSer->Avatar=$filename;
         }
-        if(!empty($request->file('id_image'))){
-            $fileNameImageId = request('id_image')->getClientOriginalName();
-            request()->file('id_image')->move(public_path().'/assets/uploads/nid_image/',$fileNameImageId);
+        if(!empty($request->file('idImage'))){
+            $fileNameImageId = request('idImage')->getClientOriginalName();
+            request()->file('idImage')->move(public_path().'/assets/uploads/nid_image/',$fileNameImageId);
             $delegate['id_image']=$fileNameImageId;
         }
-        if(!empty($request->file('medic_check'))){
-            $fileNameMedicCheck = request('medic_check')->getClientOriginalName();
-            request()->file('medic_check')->move(public_path().'/images/',$fileNameMedicCheck);
+        if(!empty($request->file('medicCheck'))){
+            $fileNameMedicCheck = request('medicCheck')->getClientOriginalName();
+//            request()->file('medicCheck')->move(public_path().'/images/',$fileNameMedicCheck);
+            request()->file('medicCheck')->move(public_path().'/assets/uploads/medic_check/',$fileNameMedicCheck);
             $delegate['medic_check']=$fileNameMedicCheck;
         }
-        if(!empty($request->file('car_picture_front'))){
-            $fileNameCarFront = request('car_picture_front')->getClientOriginalName();
-            request()->file('car_picture_front')->move(public_path().'/assets/uploads/car_front/',$fileNameCarFront);
+        if(!empty($request->file('carPictureFront'))){
+            $fileNameCarFront = request('carPictureFront')->getClientOriginalName();
+            request()->file('carPictureFront')->move(public_path().'/assets/uploads/car_front/',$fileNameCarFront);
             $delegate['car_picture_front']=$fileNameCarFront;
         }
-        if(!empty($request->file('car_picture_behind'))){
-            $fileNameCarBehind = request('car_picture_behind')->getClientOriginalName();
-            request()->file('car_picture_behind')->move(public_path() . '/assets/uploads/car_back/' , $fileNameCarBehind);
+        if(!empty($request->file('carPictureBehind'))){
+            $fileNameCarBehind = request('carPictureBehind')->getClientOriginalName();
+            request()->file('carPictureBehind')->move(public_path() . '/assets/uploads/car_back/' , $fileNameCarBehind);
             $delegate['car_picture_behind']=$fileNameCarBehind;
         }
-        if(!empty($request->file('car_registration'))){
-            $fileNameCarRegistration = request('car_registration')->getClientOriginalName();
-            request()->file('car_registration')->move(public_path() . '/assets/uploads/car_registration/' , $fileNameCarRegistration);
+        if(!empty($request->file('carRegistration'))){
+            $fileNameCarRegistration = request('carRegistration')->getClientOriginalName();
+            request()->file('carRegistration')->move(public_path() . '/assets/uploads/car_registration/' , $fileNameCarRegistration);
             $delegate['car_registration']=$fileNameCarRegistration;
-
         }
         if($request->file('glasses_avatar')){
             $fileNameGlassesAvatar = request('glasses_avatar')->getClientOriginalName();
             request()->file('glasses_avatar')->move(public_path().'/images/' ,$fileNameGlassesAvatar);
             $delegate['glasses_avatar']=$fileNameGlassesAvatar;
-
         }
         if(!empty($request->nationality_name)){
             $nationality= Nationality::create([

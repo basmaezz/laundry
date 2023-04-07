@@ -109,7 +109,7 @@
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الهوية الوطنية   </label>
                                         <div class="col-md-9">
                                             <img src="{{asset('/images/'.$delegate->id_image)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
-                                            <input type="file" id="file-input" name="id_image" class="form-control">
+                                            <input type="file" id="file-input" name="idImage" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -175,7 +175,7 @@
                                         <label class="col-md-3 form-control-label" for="text-input"> صوره السياره من الأمام </label>
                                         <div class="col-md-9">
                                             <img src="{{($delegate->car_picture_front)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
-                                            <input type="file" id="file-input" name="car_picture_front" class="form-control">
+                                            <input type="file" id="file-input" name="carPictureFront" class="form-control">
                                         </div>
 
                                     </div>
@@ -183,14 +183,14 @@
                                         <label class="col-md-3 form-control-label" for="file-input"  >صوره السياره من الخلف  </label>
                                         <div class="col-md-9">
                                             <img src="{{$delegate->car_picture_behind}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
-                                            <input type="file" id="file-input" name="car_picture_behind" class="form-control">
+                                            <input type="file" id="file-input" name="carPictureBehind" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره ساريه لرخصه القياده  </label>
                                         <div class="col-md-9">
                                             <img src="{{$delegate->car_registration}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
-                                            <input type="file" id="file-input" name="car_registration" class="form-control">
+                                            <input type="file" id="file-input" name="carRegistration" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -204,7 +204,7 @@
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الفحص الطبى </label>
                                         <div class="col-md-9">
                                             <img src="{{asset('/images/'.$delegate->medic_check)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
-                                            <input type="file" id="medic_check" name="medic_check" class="form-control">
+                                            <input type="file" id="medic_check" name="medicCheck" class="form-control">
                                         </div>
                                     </div>
                                 </div>
