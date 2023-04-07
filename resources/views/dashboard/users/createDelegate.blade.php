@@ -60,10 +60,10 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الحى </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="address" name="address" class="form-control"placeholder="الحى" value="{{Request::old('address')}}">
+                                                <input type="text" id="region_name" name="region_name" class="form-control"placeholder="الحى" value="{{Request::old('address')}}">
 
-                                                @if ($errors->has('address'))
-                                                    <span class="text-danger">{{ $errors->first('address') }}</span>
+                                                @if ($errors->has('region_name'))
+                                                    <span class="text-danger">{{ $errors->first('region_name') }}</span>
                                                 @endif
                                             </div>
                                         </div>
