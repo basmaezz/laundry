@@ -11,6 +11,7 @@ use App\Models\OrderTable;
 use App\Models\ProductService;
 use App\Models\RateLaundry;
 use App\Models\Subcategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
@@ -28,12 +29,17 @@ class CategoryController extends Controller
         $data = [];
 
         $user = auth('app_users_api')->user();
+        //$user = AppUser::where('id',27)->first();
 
         foreach ($subCategories as $subcategory) {
-            $distance = (!empty($user))? getDistanceFirst1($user, $subcategory->lat, $subcategory->lng) : 0;
+            $distance = (!empty($user))? getDistanceFirst1($subcategory, $user->lat, $user->lng) : 0;
+            //$distanceObject = (!empty($user))? getDistanceFirst($user, $subcategory->lat, $subcategory->lng) : 0;
             $range=$subcategory->range;
             $data [] = [
                 'id' => $subcategory->id,
+                //'user' => $user,
+                //'user2' => auth()->user(),
+                //'distanceObject' => $distanceObject,
                 'name' => $subcategory->$name,
                 'address' => $subcategory->address,
                 'rate' => $subcategory->rate_avg,
