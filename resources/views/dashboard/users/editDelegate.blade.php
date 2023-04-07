@@ -203,7 +203,7 @@
                                    <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الفحص الطبى </label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('/images/'.$delegate->medic_check)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{$delegate->medic_check}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                             <input type="file" id="medic_check" name="medicCheck" class="form-control">
                                         </div>
                                     </div>
