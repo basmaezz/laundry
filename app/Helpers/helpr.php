@@ -440,7 +440,8 @@ function getDistanceFirst1($user, $latitude, $longitude)
 
     $results = $user->select('*', $raw)->addSelect($raw)->orderBy('distance')->first();
 
-    return $results->distance;
+    return  $results;
+//    return $results->distance;
 }
 
 function minutesToHumanReadable($minutes){
