@@ -49,6 +49,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="col-md-3 form-control-label" for="text-input"> الرقم المدنى </label>
+                                        <div class="col-md-9">
+                                            <input type="email" id="email-input" name="id_number" class="form-control" value="{{$delegate->id_number}}"disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 form-control-label" for="text-input">تاريخ انتهاء الهويه / الاقامه  </label>
+                                        <div class="col-md-9">
+                                            <input type="email" id="email-input" name="identity_expiration_date" class="form-control" value="{{$delegate->identity_expiration_date}}"disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الملف الشخصى </label>
                                         <div class="col-md-9">
                                             <a href="{{asset('images/'.$delegate->appUser->avatar)}}" download>
