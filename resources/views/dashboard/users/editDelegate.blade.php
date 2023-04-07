@@ -108,7 +108,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الهوية الوطنية   </label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('/images/'.$delegate->id_image)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{$delegate->id_image}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                             <input type="file" id="file-input" name="idImage" class="form-control">
                                         </div>
                                     </div>
