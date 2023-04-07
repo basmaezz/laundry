@@ -39,7 +39,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الحى </label>
                                         <div class="col-md-9">
-                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUSer->address}}"disabled>
+                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->region_name}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
