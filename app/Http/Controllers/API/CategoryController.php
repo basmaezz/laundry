@@ -28,17 +28,17 @@ class CategoryController extends Controller
         $name = 'name_' . App::getLocale();
         $data = [];
 
-        //$user = auth('app_users_api')->user();
-        $user = AppUser::where('id',27)->first();
+        $user = auth('app_users_api')->user();
+        //$user = AppUser::where('id',27)->first();
 
         foreach ($subCategories as $subcategory) {
-            $distance = (!empty($user))? getDistanceFirst1($user, $subcategory->lat, $subcategory->lng) : 0;
-            $distanceObject = (!empty($user))? getDistanceFirst($user, $subcategory->lat, $subcategory->lng) : 0;
+            $distance = (!empty($user))? getDistanceFirst1($subcategory, $user->lat, $user->lng) : 0;
+            //$distanceObject = (!empty($user))? getDistanceFirst($user, $subcategory->lat, $subcategory->lng) : 0;
             $range=$subcategory->range;
             $data [] = [
                 'id' => $subcategory->id,
-                'user' => $user,
-                'distanceObject' => $distanceObject,
+                //'user' => $user,
+                //'distanceObject' => $distanceObject,
                 'name' => $subcategory->$name,
                 'address' => $subcategory->address,
                 'rate' => $subcategory->rate_avg,
