@@ -66,7 +66,7 @@ class OrderTable extends Model
     }
     public function delegate()
     {
-        return $this->hasMany(Delegate::class ,'id','delivery_id');
+        return $this->hasOne(Delegate::class ,'id','delivery_id');
     }
 
     public function productService()
