@@ -428,7 +428,7 @@ function getDistanceFirst($user, $latitude, $longitude)
            * cos( radians( lng ) - radians(' . $longitude . ') ) + sin( radians(' . $latitude . ') )
            * sin( radians( lat ) ) ) )  AS distance');
 
-    $results = $user->select('*', $raw)->addSelect($raw)->get();
+    $results = $user->select('*', $raw)->addSelect($raw)->orderBy('distance')->get();
 
     return $results;
 }
@@ -438,7 +438,7 @@ function getDistanceFirst1($user, $latitude, $longitude)
            * cos( radians( lng ) - radians(' . $longitude . ') ) + sin( radians(' . $latitude . ') )
            * sin( radians( lat ) ) ) )  AS distance');
 
-    $results = $user->select('*', $raw)->addSelect($raw)->get();
+    $results = $user->select('*', $raw)->addSelect($raw)->orderBy('distance')->get();
 
     return $results->distance;
 }
