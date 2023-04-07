@@ -440,7 +440,7 @@ class UserController extends Controller
             $nationality->save();
         }
       $delegate->update($request->all());
-      $delegate->appUSer->update($request->all());
+      $delegate->appUser->update($request->all());
       $delegate->save();
 
       return redirect()->route('delegates.index');
