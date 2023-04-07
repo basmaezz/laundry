@@ -66,7 +66,7 @@ class OrderTable extends Model
     }
     public function delegate()
     {
-        return $this->belongsTo(AppUser::class ,'delivery_id','id' );
+        return $this->belongsTo(Delegate::class ,'delivery_id','id' );
     }
 
     public function productService()
