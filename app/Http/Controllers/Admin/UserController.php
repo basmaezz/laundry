@@ -252,7 +252,7 @@ class UserController extends Controller
     {
         $request->validate([
                         'name'=>'required',
-                        'mobile'=>'required|integer|min:10|unique:app_users',
+                        'mobile'=>'required|min:10|unique:app_users',
                         'city_id'=>'required',
                         'address'=>'required',
                         'id_number'=>'required|integer|min:10|unique:delegates',
@@ -265,7 +265,7 @@ class UserController extends Controller
                         'car_type'=>'required',
                         'car_manufacture_year_id'=>'required',
                         'car_plate_letter'=>'required|string',
-                        'car_plate_number'=>'required|integer',
+                        'car_plate_number'=>'required',
                         'avatar'=>'required',
                         'id_image'=>'required',
                         'medicCheck'=>'required',

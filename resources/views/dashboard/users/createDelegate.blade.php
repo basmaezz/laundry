@@ -62,8 +62,8 @@
                                             <div class="col-md-9">
                                                 <input type="text" id="address" name="address" class="form-control"placeholder="الحى" value="{{Request::old('address')}}">
 
-                                                @if ($errors->has('car_plate_number'))
-                                                    <span class="text-danger">{{ $errors->first('car_plate_number') }}</span>
+                                                @if ($errors->has('address'))
+                                                    <span class="text-danger">{{ $errors->first('address') }}</span>
                                                 @endif
                                             </div>
                                         </div>
