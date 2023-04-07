@@ -395,6 +395,7 @@ class UserController extends Controller
     }
     public function updateDelegate(Request $request,$id)
     {
+        dd($request->all());
       $delegate=Delegate::find($id);
         if(!empty($request->file('avatar'))) {
             $filename = request('avatar')->getClientOriginalName();
