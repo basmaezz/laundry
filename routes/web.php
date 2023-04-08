@@ -29,7 +29,7 @@ use App\Http\Controllers\Admin\BankController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('customerLogin', [AdminController::class, 'index'])->name('customer.login');
+Route::post('customerLogin', [AdminController::class, 'customerLogin'])->name('customer.customerLogin');
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -170,7 +170,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
 });
 #############################
 
-//Route::post('customerLogin', [AdminController::class, 'customerLogin'])->name('customer.customerLogin');
+//
 
 Route::get('signOut', [AdminController::class, 'signOut'])->name('customer.logout');
 Route::middleware(['auth', 'laundryAdmin'])->group(function () {
