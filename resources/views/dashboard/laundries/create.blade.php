@@ -113,7 +113,11 @@
 
                                     <div class="form-group">
                                         <label for="approximate_duration">  المده التقريبيه للغسيل </label>
-                                        <input type="number" name="approximate_duration"class="form-control" value="{{ Request::old('approximate_duration') }}"id="approximate_duration" placeholder="  24 ساعه" >
+                                        <div class="input-group">
+                                            <input type="text"name="approximate_duration" class="form-control" placeholder="24" value="{{Request::old('range')}}" >
+                                            <span class="input-group-addon"> ساعه</i>
+                                                </span>
+                                        </div>
                                         @error('approximate_duration')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror

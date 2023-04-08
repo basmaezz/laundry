@@ -20,14 +20,14 @@
                                         <th>اسم العميل</th>
                                         <th>اسم المندوب</th>
                                         <th>المده المستغرقه </th>
-                                        <th> عدد القطع</th>
-                                        <th> السعر </th>
-                                        <th> الخصم </th>
+{{--                                        <th> عدد القطع</th>--}}
+{{--                                        <th> السعر </th>--}}
+{{--                                        <th> الخصم </th>--}}
 {{--                                        <th> الكوبون </th>--}}
 {{--                                        <th> نوع التوصيل </th>--}}
-                                        <th> رسوم التوصيل </th>
-                                        <th>  طريقه الدفع </th>
-                                        <th>   الضريبه </th>
+{{--                                        <th> رسوم التوصيل </th>--}}
+{{--                                        <th>  طريقه الدفع </th>--}}
+{{--                                        <th>   الضريبه </th>--}}
                                         <th>   تاريخ الوصول للمغسله </th>
                                         <th>  تاريخ الانتهاء  </th>
                                         <th>  التفاصيل  </th>
@@ -41,20 +41,20 @@
                                             <td>{{$order->id}}</td>
                                             <td>{{$order->subCategories->name_ar}}</td>
                                             <td>{{$order->user->name}}</td>
-                                            <td>{{$order->delivery_id ??''}}</td>
+                                            <td>{{$order->delegate->appUser->name ??''}}</td>
                                             <td>{{minutesToHumanReadable($order->histories->where('status_id',$order->status_id)->first()->spend_time ?? 0)}}</td>
-                                            <td>{{$order->count_products}}</td>
-                                            <td>{{$order->total_price}}</td>
-                                            <td>{{$order->discount_value}}</td>
+{{--                                            <td>{{$order->count_products}}</td>--}}
+{{--                                            <td>{{$order->total_price}}</td>--}}
+{{--                                            <td>{{$order->discount_value}}</td>--}}
 {{--                                            <td>{{$order->coupon ?? ''}}</td>--}}
 {{--                                            @if($order->delivery_type !=null)--}}
 {{--                                            <td>{{$order->delivery_type=='1'?'استلام بواسطه العميل' :'استلام بواسطه المندوب'}}</td>--}}
 {{--                                            @else--}}
 {{--                                            <td></td>--}}
 {{--                                            @endif--}}
-                                            <td>{{$order->delivery_fees}}</td>
-                                            <td>{{$order->payment_method}}</td>
-                                            <td>{{$order->vat}}</td>
+{{--                                            <td>{{$order->delivery_fees}}</td>--}}
+{{--                                            <td>{{$order->payment_method}}</td>--}}
+{{--                                            <td>{{$order->vat}}</td>--}}
                                             <td>{{$order->created_at->format('d/m/Y')}}</td>
                                             <td>{{$order->updated_at->format('d/m/Y')}}</td>
                                             <td>
