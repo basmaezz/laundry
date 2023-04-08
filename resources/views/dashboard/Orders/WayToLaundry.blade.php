@@ -29,6 +29,7 @@
 {{--                                        <th>   العنوان </th>--}}
                                         <th>   تاريخ الوصول للمغسله </th>
                                         <th>  تاريخ الانتهاء  </th>
+                                        <th>   التفاصيل  </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -49,6 +50,9 @@
 {{--                                            <td>{{$order->address->address}}</td>--}}
                                             <td>{{$order->created_at->format('d/m/Y')}}</td>
                                             <td>{{$order->updated_at->format('d/m/Y')}}</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="{{route('Order.show',$order->id)}}">التفاصيل </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
