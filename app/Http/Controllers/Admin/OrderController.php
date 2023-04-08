@@ -150,5 +150,10 @@ class OrderController extends Controller
         return  view('dashboard.Orders.completed',compact('orders'));
     }
 
+    public function delegateOrders($id)
+    {
+        $orders=OrderTable::where('delivery_id',$id)->get();
+        return  view('dashboard.Orders.delegateOrders',compact('orders'));
+    }
 
 }

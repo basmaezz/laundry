@@ -143,6 +143,8 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('WaitingForDeliveryToReceiveOrder', [OrderController::class, 'WaitingForDeliveryToReceiveOrder'])->name('Order.WaitingForDeliveryToReceiveOrder');
     Route::get('completed', [OrderController::class, 'completed'])->name('Order.completed');
     Route::get('changeStatus/', [OrderController::class, 'changeStatus']);
+    Route::get('delegateOrders/{id}', [OrderController::class, 'delegateOrders'])->name('Order.delegateOrders');
+
 
     Route::get('Roles', [RoleController::class, 'index'])->name('roles.index');
     Route::get('RolesCreate', [RoleController::class, 'create'])->name('roles.create');
