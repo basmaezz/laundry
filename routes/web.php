@@ -29,11 +29,11 @@ use App\Http\Controllers\Admin\BankController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('customerLogin', [AdminController::class, 'index'])->name('customer.login');
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('customerLogin', [AdminController::class, 'index'])->name('customer.login');
+
 Route::post('adminLogin', [UserController::class, 'adminLogin'])->name('adminLogin');
 Route::get('/dashboard', function () {
     return view('dashboard');
