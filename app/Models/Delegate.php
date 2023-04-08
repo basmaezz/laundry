@@ -15,7 +15,7 @@ class Delegate extends Model
         'id_image',
         'app_user_id',
         'iban_number',
-        'bank_name',
+        'bank_id',
         'nid_image',
         'nationality_id',
         'car_manufacture_year_id',
@@ -91,8 +91,13 @@ class Delegate extends Model
     public function year(){
         return $this->belongsTo(Year::class,'car_manufacture_year_id');
     }
+    public function bank(){
+        return $this->belongsTo(Bank::class,'bank_id');
+    }
     public function nationality(){
         return $this->belongsTo(Nationality::class,'nationality_id');
     }
+
+
 
 }

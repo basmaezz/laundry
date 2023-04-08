@@ -25,19 +25,37 @@
 
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الثلاثى </label>
-                                            <div class="col-md-9">
-                                                <input type="text" id="text-input" name="name" class="form-control" placeholder="الاسم "value="{{Request::old('name')}}">
+                                            <div class="col-md-3">
+                                                <input type="text" id="text-input" name="first_name" class="form-control" placeholder="الاسم الاول "value="{{Request::old('first_name')}}">
 
-                                                @if ($errors->has('name'))
-                                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                                @if ($errors->has('first_name'))
+                                                    <span class="text-danger">{{ $errors->first('first_name') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" id="text-input" name="second_name" class="form-control" placeholder="الاسم الثانى "value="{{Request::old('second_name')}}">
+
+                                                @if ($errors->has('second_name'))
+                                                    <span class="text-danger">{{ $errors->first('second_name') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" id="text-input" name="third_name" class="form-control" placeholder="الاسم الاخير "value="{{Request::old('third_name')}}">
+
+                                                @if ($errors->has('third_name'))
+                                                    <span class="text-danger">{{ $errors->first('third_name') }}</span>
                                                 @endif
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="mobile" name="mobile" class="form-control"placeholder="الجوال"value="{{Request::old('mobile')}}" maxlength="10">
-
+                                                <div class="input-group">
+                                                  <input type="text"name="mobile" class="form-control" placeholder="الجوال" value="{{Request::old('mobile')}}" maxlength="9"style="direction: ltr">
+                                                    <span class="input-group-addon">00966</i>
+                                                </span>
+                                                </div>
                                                 @if ($errors->has('mobile'))
                                                     <span class="text-danger">{{ $errors->first('mobile') }}</span>
                                                 @endif
@@ -60,7 +78,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الحى </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="region_name" name="region_name" class="form-control"placeholder="الحى" value="{{Request::old('address')}}">
+                                                <input type="text" id="region_name" name="region_name" class="form-control"placeholder="الحى" value="{{Request::old('region_name')}}">
 
                                                 @if ($errors->has('region_name'))
                                                     <span class="text-danger">{{ $errors->first('region_name') }}</span>
@@ -79,9 +97,11 @@
 
                                         <hr>
                                         <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="text-input"> الرقم المدنى (الهويه/الاقامه)</label>
+                                            <label class="col-md-3 form-control-label" for="text-input">
+                                                الرقم المدنى (الهويه/الاقامه)
+                                            </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="text-input" name="id_number" class="form-control" value="{{Request::old('id_number')}}"placeholder=" الرقم المدنى" maxlength="10">
+                                                <input type="text"  name="id_number" class="form-control" value="{{Request::old('id_number')}}"placeholder=" الرقم المدنى" maxlength="10">
 
                                                 @if ($errors->has('id_number'))
                                                     <span class="text-danger">{{ $errors->first('id_number') }}</span>
@@ -136,10 +156,13 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">اسم البنك </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="arrears" name="bank_name" class="form-control"placeholder="اسم البنك" value="{{Request::old('bank_name')}}">
-
-                                                @if ($errors->has('bank_name'))
-                                                    <span class="text-danger">{{ $errors->first('bank_name') }}</span>
+                                                <select  name="bank_id" class="form-control">
+                                                    @foreach($banks as $bank)
+                                                        <option value="{{$bank->id}}">{{$bank->name_ar}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('bank_id'))
+                                                    <span class="text-danger">{{ $errors->first('bank_id') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -194,11 +217,22 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"class="form-control"> معلومات لوحه السياره  </label>
-                                            <div class="col-md-2">
-                                                <input type="text" id="car_plate_letter" name="car_plate_letter"placeholder="الأحرف" class="form-control"maxlength="6"value="{{Request::old('car_plate_letter')}}">
-
-                                                @if ($errors->has('car_plate_letter'))
-                                                    <span class="text-danger">{{ $errors->first('car_plate_letter') }}</span>
+                                            <div class="col-md-1">
+                                                <input type="text" id="car_plate_letter1" name="car_plate_letter1"placeholder="الأحرف" class="form-control"maxlength="1"value="{{Request::old('car_plate_letter1')}}">
+                                                     @if ($errors->has('car_plate_letter1'))
+                                                    -<span class="text-danger">{{ $errors->first('car_plate_letter1') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="col-md-1">
+                                                <input type="text" id="car_plate_letter2" name="car_plate_letter2"placeholder="الأحرف" class="form-control"maxlength="1"value="{{Request::old('car_plate_letter2')}}">
+                                                     @if ($errors->has('car_plate_letter2'))
+                                                    -<span class="text-danger">{{ $errors->first('car_plate_letter2') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="col-md-1">
+                                                <input type="text" id="car_plate_letter3" name="car_plate_letter3"placeholder="الأحرف" class="form-control"maxlength="1"value="{{Request::old('car_plate_letter3')}}">
+                                                     @if ($errors->has('car_plate_letter3'))
+                                                    -<span class="text-danger">{{ $errors->first('car_plate_letter3') }}</span>
                                                 @endif
                                             </div>
                                             <div class="col-md-2">

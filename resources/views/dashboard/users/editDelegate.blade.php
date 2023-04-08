@@ -29,7 +29,12 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                         <div class="col-md-9">
-                                            <input type="text"  name="mobile" class="form-control" value="{{$delegate->appUSer->mobile}}">
+{{--                                            <input type="text"  name="mobile" class="form-control" value="{{$delegate->appUSer->mobile}}">--}}
+                                            <div class="input-group">
+                                                <input type="text"name="mobile" class="form-control" value="{{$delegate->appUSer->mobile}}" style="direction: ltr"maxlength="9">
+                                                <span class="input-group-addon">00966</i>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -41,7 +46,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الحى </label>
                                         <div class="col-md-9">
-                                            <input type="text"  name="region_name" class="form-control" value="{{$delegate->region_name}}">
+                                            <input type="text"  name="region_name" class="form-control" value="{{$delegate->appUser->region_name}}">
                                         </div>
                                     </div>
                                         <div class="form-group row">
@@ -115,16 +120,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header">
                                     <strong> بيانات البنك  </strong>
                                 </div>
                                 <div class="card-block">
                                     <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input"> اسم البنك</label>
+                                        <label class="col-md-3 form-control-label" for="text-input">اسم البنك </label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="bank_name" class="form-control"value="{{$delegate->bank_name}}">
+                                            <select  name="bank_id" class="form-control">
+                                                @foreach($banks as $bank)
+                                                    <option value="{{$bank->id}}"{{$delegate->bank_id==$bank->id ?'selected' :''}}>{{$bank->name_ar}}</option>
+                                                @endforeach
+                                            </select>
+                                            @if ($errors->has('bank_id'))
+                                                <span class="text-danger">{{ $errors->first('bank_id') }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="form-group row">

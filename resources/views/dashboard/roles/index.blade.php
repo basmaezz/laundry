@@ -3,7 +3,6 @@
     <main class="main">
 
        <div class="container-fluid">
-            <a href="{{route('roles.create')}}" class="btn btn-primary">اضافه صلاحيه</a>
 
             <div class="animated fadeIn">
                 <div class="row">
@@ -12,6 +11,8 @@
 
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i> الصلاحيات
+                                <a href="{{route('roles.create')}}" class="btn btn-primary" style="float: left">اضافه صلاحيه</a>
+
                             </div>
                             <div class="card-block">
                                 <table class="table table-striped">

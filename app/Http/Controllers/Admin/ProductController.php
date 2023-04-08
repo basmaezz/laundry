@@ -128,7 +128,7 @@ class ProductController extends Controller
     public function deleteProductService($id)
     {
         ProductService::find($id)->delete();
-        return redirect()->back()->with('failed', 'تم الحذف');
+        return  redirect()->back()->with('error', 'تم الحذف');
 
     }
 }

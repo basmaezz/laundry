@@ -18,6 +18,7 @@ use App\Http\Controllers\Customer\ItemsController;
 use App\Http\Controllers\Customer\ProductsController;
 use App\Http\Controllers\Customer\OrdersController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\BankController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -155,6 +156,13 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::post('storeSettings', [SettingController::class, 'store'])->name('settings.store');
     Route::get('editSettings', [SettingController::class, 'edit'])->name('settings.edit');
     Route::post('updateSettings', [SettingController::class, 'update'])->name('settings.update');
+
+    Route::get('banks', [BankController::class, 'index'])->name('banks.index');
+    Route::get('bankCreate', [BankController::class, 'create'])->name('bank.create');
+    Route::post('bankStore', [BankController::class, 'store'])->name('bank.store');
+    Route::get('bankEdit/{id}', [BankController::class, 'edit'])->name('bank.edit');
+    Route::post('bankUpdate/{id}', [BankController::class, 'update'])->name('bank.update');
+    Route::get('bankDelete/{id}', [BankController::class, 'destroy'])->name('bank.destroy');
 
 });
 #############################

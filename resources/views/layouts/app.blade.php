@@ -186,6 +186,11 @@ padding-left: 74px;">
                 <a class="nav-link" href="{{route('settings.index')}}"><i class="icon-people"></i> الاعدادات </a>
             </li>
             @endcan
+            @can('banks.index')
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('banks.index')}}"><i class="icon-people"></i> البنوك </a>
+            </li>
+            @endcan
         </ul>
     </nav>
 </div>

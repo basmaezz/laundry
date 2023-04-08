@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use App\Models\Bank;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
-class RoleController extends Controller
+class BankController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +15,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        if(Gate::denies('roles.index')){
-            abort(403);
-        };
-        return view('dashboard.roles.index',[
-            'roles'=>Role::withCount('users')->get()
-        ]);
-
+        $banks=Bank::all();
+        return view('dashboard.banks.index',compact('banks'));
     }
 
     /**
@@ -32,9 +26,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return  view('dashboard.roles.create',[
-            'role'=>new Role,
-        ]);
+        return view('dashboard.banks.create');
     }
 
     /**
@@ -46,17 +38,15 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'role'=>'required',
-            'abilities'=>'required|array'
+            'name_ar'=>'required',
+            'name_en'=>'required',
         ],[
-            'required'=>'يرجى تعبئه الحقول'
+            'required'=>'اجبارى',
         ]);
-        $role=Role::create($request->all());
-        return redirect()->route('roles.index')
-            ->with('success ',__('Role :name created!',[
-                'name'=>$role->name,
-            ]));
+        Bank::create($request->all());
+        return  redirect()->route('banks.index')->with('success', 'تمت الاضافه');
     }
+
     /**
      * Display the specified resource.
      *
@@ -76,10 +66,8 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role=Role::find($id);
-//        dd(json_decode('$role->abilities'));
-        return view('dashboard.roles.edit',compact('role'));
-
+        $bank=Bank::find($id);
+        return view('dashboard.banks.edit',compact('bank'));
     }
 
     /**
@@ -89,15 +77,16 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $role=Role::find($id);
         $request->validate([
-            'role'=>'required',
-            'abilities'=>'required|array'
+            'name_ar'=>'required',
+            'name_en'=>'required',
+        ],[
+            'required'=>'اجبارى'
         ]);
-        $role->update($request->all());
-        return redirect()->route('roles.index');
+        Bank::where('id',$id)->update($request->except(['_token']));
+        return  redirect()->route('banks.index')->with('success', 'تم التعديل');
     }
 
     /**
@@ -108,7 +97,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        Role::find($id)->delete();
+        Bank::find($id)->delete();
         return  redirect()->back()->with('error', 'تم الحذف');
     }
 }

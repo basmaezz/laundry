@@ -17,6 +17,15 @@ class AppUser extends Authenticatable implements JWTSubject
     protected $dates = ['deleted_at'];
     protected $withCount = ['orders'];
     protected $with = ['default_address'];
+    protected $fillable=['uuid','name',
+'password',
+'email',
+ 'mobile',
+'city_id',
+'region_name',
+'avatar',
+'user_type',
+'status'];
 
     public function getJWTIdentifier()
     {
@@ -57,8 +66,12 @@ class AppUser extends Authenticatable implements JWTSubject
         return getDistanceFirst1($customer, $user->lat, $user->lng);
     }
 
-    public function setPhoneAttribute($value){
-        $this->attributes['phone'] = '966'.$value;
+    public function setMobileAttribute($value){
+        return  $this->attributes['mobile'] = '966'.$value;
+    }
+    public function getMobileAttribute($value)
+    {
+        return $this->attributes['mobile'] =substr($value, -9);
     }
 
 

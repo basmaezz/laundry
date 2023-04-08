@@ -27,7 +27,12 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                         <div class="col-md-9">
-                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUSer->mobile}}"disabled>
+{{--                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUSer->mobile}}"disabled>--}}
+                                            <div class="input-group">
+                                                <input type="text"name="mobile" class="form-control" value="{{$delegate->appUSer->mobile}}"disabled style="direction: ltr">
+                                                <span class="input-group-addon">00966</i>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -39,7 +44,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الحى </label>
                                         <div class="col-md-9">
-                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->region_name}}"disabled>
+                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUser->region_name}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -95,7 +100,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> اسم البنك</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->bank_name}}"disabled>
+                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->bank->name_ar}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">

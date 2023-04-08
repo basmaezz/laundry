@@ -8,17 +8,7 @@
             </ol>
         </nav>
         <div class="container-fluid">
-            <div class="validationMsg" style="width: 600px">
-                @if($errors->any())
-                    <div class="alert alert-danger" >
-                        <h6>{{$errors->first()}}</h6>
-                    </div>
-                @elseif(session()->has('message'))
-                    <div class="alert alert-success"  >
-                        {{ session()->get('message') }}
-                    </div>
-                @endif
-            </div>
+
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="col-lg-12">

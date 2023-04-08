@@ -93,7 +93,7 @@ class CouponsController extends Controller
     public function destroy($id)
     {
         CouponShopCart::find($id)->delete();
-        return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
+        return  redirect()->back()->with('error', 'تم الحذف');
     }
 
     public function changeStatus($id)

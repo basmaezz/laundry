@@ -14,6 +14,7 @@
         'Orders.index'=>' الطلبات ',
         'products.index'=>' المنتجات ',
         'settings.index'=>' الاعدادات ',
+        'banks.index'=>' البنوك ',
 //      'categoryItems.create'=>'اضافه قسم جديد',
 //      'categoryItems.edit'=>'تعديل بيانات قسم ',
 //      'categoryItems.delete'=>'حذف قسم ',

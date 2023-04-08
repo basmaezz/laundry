@@ -44,6 +44,6 @@ class CategoriesController extends Controller
     {
 
         Category::find($id)->delete();
-        return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
+        return  redirect()->back()->with('error', 'تم الحذف');
     }
 }

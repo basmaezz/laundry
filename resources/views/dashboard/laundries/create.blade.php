@@ -86,25 +86,31 @@
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
                                     </div>
-
-                                    <div class="form-group">
+                                    <div class="form-group ">
                                         <label for="approximate_duration"> نطاق التشغيل </label>
-                                        <input type="number" name="range"class="form-control-plaintext" id="price"value="{{ Request::old('range') }}"> كيلومتر
-{{--                                        <input type="number" name="range"class="form-control" id="range" value="{{ Request::old('range') }}" style="width: 50%" >--}}
-                                        <span> كيلومتر</span>
-                                        @error('range')
-                                        <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="country">السعر  </label>
-                                        <input type="text" name="price"class="form-control-plaintext" id="price" value="{{ Request::old('price') }}">  ريال
 
-                                        {{--                                        <input type="text" name="price"class="form-control" id="image" value="{{$subCategory->price}}">--}}
-                                        @error('price')
-                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                            <div class="input-group">
+                                                <input type="text"name="range" class="form-control" placeholder="نطاق التشغيل" value="{{Request::old('range')}}" >
+                                                <span class="input-group-addon"> كيلومتر</i>
+                                                </span>
+                                            </div>
+                                            @if ($errors->has('range'))
+                                                <span class="text-danger">{{ $errors->first('range') }}</span>
+                                            @endif
+                                        </div>
+                                    <div class="form-group ">
+                                        <label for="approximate_duration"> السعر  </label>
+
+                                            <div class="input-group">
+                                                <input type="text"name="price" class="form-control" placeholder="السعر " value="{{Request::old('range')}}" >
+                                                <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                            </div>
+                                            @if ($errors->has('price'))
+                                                <span class="text-danger">{{ $errors->first('price') }}</span>
+                                            @endif
+                                        </div>
+
                                     <div class="form-group">
                                         <label for="approximate_duration">  المده التقريبيه للغسيل </label>
                                         <input type="number" name="approximate_duration"class="form-control" value="{{ Request::old('approximate_duration') }}"id="approximate_duration" placeholder="  24 ساعه" >

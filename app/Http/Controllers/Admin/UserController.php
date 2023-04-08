@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\updateUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\AppUser;
+use App\Models\Bank;
 use App\Models\CarType;
 use App\Models\City;
 use App\Models\Delegate;
@@ -179,7 +180,7 @@ class UserController extends Controller
             abort(403);
         };
         User::find($id)->delete();
-        return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
+        return  redirect()->back()->with('error', 'تم الحذف');
     }
 
     public function customers(Request $request)
@@ -245,41 +246,49 @@ class UserController extends Controller
         $carTypes=CarType::all();
         $years=Year::all();
         $nationalities=Nationality::all();
+        $banks=Bank::all();
 
-        return view('dashboard.users.createDelegate',compact(['cities','carTypes','nationalities','years']));
+        return view('dashboard.users.createDelegate',compact(['cities','carTypes','nationalities','years','banks']));
     }
     public function storeDelegate(Request $request)
     {
         $request->validate([
-                        'name'=>'required',
-                        'mobile'=>'required|min:10|unique:app_users',
+                        'first_name'=>'required',
+                        'second_name'=>'required',
+                        'third_name'=>'required',
+                        'mobile'=>'required|min:9',
                         'city_id'=>'required',
                         'region_name'=>'required',
-                        'id_number'=>'required|integer|min:10|unique:delegates',
+                        'id_number'=>'required|integer|min:9|unique:delegates',
                         'identity_expiration_date'=>'required',
                         'nationality_id'=>'nullable',
                         'name_ar'=>'unique:nationalities',
                         'request_employment'=>'required',
-                        'bank_name'=>'required',
+                        'bank_id'=>'required',
                         'iban_number'=>'required|integer|min:14',
                         'car_type'=>'required',
                         'car_manufacture_year_id'=>'required',
-                        'car_plate_letter'=>'required|string',
+                        'car_plate_letter1'=>'required|string',
+                        'car_plate_letter2'=>'required|string',
+                        'car_plate_letter3'=>'required|string',
                         'car_plate_number'=>'required',
-                        'avatar'=>'required',
+                        'avatar'=>'required|mimes:jpeg,bmp,png|max:500',
                         'id_image'=>'required',
-                        'medicCheck'=>'required',
-                        'car_picture_front'=>'required',
-                        'car_picture_behind'=>'required',
-                        'car_registration'=>'required',
-                        'glasses_avatar'=>'required',
+                        'medicCheck'=>'required|max:1000',
+                        'car_picture_front'=>'required|max:1000',
+                        'car_picture_behind'=>'required|max:1000',
+                        'car_registration'=>'required|max:1000',
+                        'glasses_avatar'=>'required|max:1000',
                       ],[
-            'unique'=>'الاسم موجود مسبقا',
-            'string'=>'حروف فقط',
-            'integer'=>'أرقام فقط',
-            'required'=>'هذا الحقل مطلوب',
-            'mobile'=>'الرقم موجود مسبقا',
-            'min'=>'أقل من 10 أرقام'
+                         'id_number.required'=>'رقم الهويه موجود مسبقا',
+                         'unique'=>'الاسم موجود مسبقا',
+                         'string'=>'حروف فقط',
+                         'integer'=>'أرقام فقط',
+                         'required'=>'هذا الحقل مطلوب',
+                         'mobile'=>'الرقم موجود مسبقا',
+                         'min'=>'أقل من 10 أرقام',
+                          'max'=>'تجاوزت الحجم المسموح به فقط 1 M',
+                        'mimes'=>'الصيغ المدعومه فقط jpeg,bmp,png  '
         ]);
         $user=new AppUser();
         if(!empty($request->file('avatar'))) {
@@ -320,7 +329,7 @@ class UserController extends Controller
         }
         $user=AppUser::create([
             'uuid'=>Uuid::uuid1()->toString(),
-            'name'=>$request->name,
+            'name'=>$request->first_name.' '.$request->second_name.' '.$request->third_name,
             'password'=>Hash::make($request->password),
             'email'=>$request->email,
             'mobile'=>$request->mobile,
@@ -335,11 +344,11 @@ class UserController extends Controller
 
        $delegate['app_user_id']=$user->id;
        $delegate['request_employment']=$request->request_employment;
-       $delegate['bank_name']=$request->bank_name;
+       $delegate['bank_id']=$request->bank_id;
        $delegate['id_number']=$request->id_number;
        $delegate['iban_number']=$request->iban_number;
        $delegate['car_type']=$request->car_type;
-       $delegate['car_plate_letter']=$request->car_plate_letter;
+       $delegate['car_plate_letter']=$request->car_plate_letter1.$request->car_plate_letter2.$request->car_plate_letter3 ;
        $delegate['car_plate_number']=$request->car_plate_number;
        $delegate['car_manufacture_year_id']=$request->car_manufacture_year_id;
        $delegate['identity_expiration_date']=$request->identity_expiration_date;
@@ -358,7 +367,7 @@ class UserController extends Controller
        }
   if( $delegate){
       $delegate->save();
-      return redirect()->route('delegates.index')->with('message', 'تم اضافه مندوب جديد !');
+      return redirect()->route('delegates.index')->with('success', 'تمت الاضافه  !');
   }else{
       AppUser::where('id',$user->id)->delete();
       return  redirect()->back();
@@ -381,7 +390,7 @@ class UserController extends Controller
       $delegate=Delegate::find($id);
       User::where('id',$delegate->user_id)->delete();
       $delegate->delete();
-        return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
+        return  redirect()->back()->with('error', 'تم الحذف');
     }
 
     public function editDelegate($id)
@@ -389,9 +398,10 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-        $delegate=Delegate::with(['appUser','nationality','car','year'])->find($id);
+        $delegate=Delegate::with(['appUser','nationality','car','year','bank'])->find($id);
         $nationalities=Nationality::get();
-        return view('dashboard.users.editDelegate',compact(['delegate','nationalities']));
+        $banks=Bank::all();
+        return view('dashboard.users.editDelegate',compact(['delegate','nationalities','banks']));
     }
     public function updateDelegate(Request $request,$id)
     {
