@@ -154,7 +154,7 @@
                                     <strong> بيانات السياره  </strong>
                                 </div>
                                 <div class="card-block">
-                         
+
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">نوع السياره  </label>
                                         <div class="col-md-9">
@@ -168,19 +168,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input">نوع السياره  </label>
-                                        <div class="col-md-9">
-                                            <select  name="car_type" class="form-control">
-                                                @foreach($carTypes as $carType)
-                                                    <option value="{{$carType->id}}">{{$carType->name_ar}}</option>
-                                                @endforeach
-                                            </select>
-                                            @if ($errors->has('car_type'))
-                                                <span class="text-danger">{{ $errors->first('car_type') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
+
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> موديل السياره</label>
                                         <div class="col-md-9">
