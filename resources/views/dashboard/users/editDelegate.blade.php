@@ -175,7 +175,7 @@
                                         <div class="col-md-9">
                                             <select name="car_manufacture_year_id" class="form-control">
                                                 @foreach($years as $year)
-                                                    <option value="{{$year->id}}" {{$delegate->year->id==$year->id ?'selected':''}}>{{$year->name}}</option>
+                                                    <option value="{{$year->id}}" {{$delegate->car_manufacture_year_id==$year->id ?'selected':''}}>{{$year->name}}</option>
                                                 @endforeach
                                             </select>
                                             @if ($errors->has('car_manufacture_year_id'))

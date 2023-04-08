@@ -395,6 +395,7 @@ class UserController extends Controller
 
     public function editDelegate($id)
     {
+
         if(Gate::denies('delegates.index')){
             abort(403);
         };
@@ -402,7 +403,8 @@ class UserController extends Controller
         $nationalities=Nationality::get();
         $banks=Bank::all();
         $carTypes=CarType::all();
-        return view('dashboard.users.editDelegate',compact(['delegate','nationalities','banks','carTypes']));
+        $years=Year::all();
+        return view('dashboard.users.editDelegate',compact(['delegate','nationalities','banks','carTypes','years']));
     }
     public function updateDelegate(Request $request,$id)
     {
