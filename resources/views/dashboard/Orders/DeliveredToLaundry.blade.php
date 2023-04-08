@@ -18,8 +18,7 @@
                                         <th>اسم المغسله</th>
                                         <th>اسم العميل</th>
                                         <th>اسم المندوب</th>
-                                        <th>اسم </th>
-                                        <th>الوقت المستغرق </th>
+                                        <th>المده المستغرقه </th>
                                         <th>   تاريخ الوصول للمغسله </th>
                                         <th>  تاريخ الانتهاء  </th>
                                     </tr>
@@ -32,8 +31,8 @@
                                             <td>{{$order->user->name}}</td>
                                             <td>{{$order->histories->WHERE('status_id',$order->id)->first()->spend_time ?? 0}}</td>
                                             <td>{{$order->delivery_id ??''}}</td>
-                                            <td></td>
-                                            <td>{{$order->created_at->format('d/m/Y')}}</td>
+                                            <td>{{minutesToHumanReadable($order->histories->where('status_id',$order->status_id)->first()->spend_time ?? 0)}}</td>
+                                             <td>{{$order->created_at->format('d/m/Y')}}</td>
                                             <td>{{$order->updated_at->format('d/m/Y')}}</td>
                                         </tr>
                                     @endforeach

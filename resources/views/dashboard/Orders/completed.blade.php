@@ -19,6 +19,7 @@
                                         <th>اسم المغسله</th>
                                         <th>اسم العميل</th>
                                         <th>اسم المندوب</th>
+                                        <th>المده المستغرقه </th>
                                         <th> عدد القطع</th>
                                         <th> السعر </th>
                                         <th> الخصم </th>
@@ -41,6 +42,7 @@
                                             <td>{{$order->subCategories->name_ar}}</td>
                                             <td>{{$order->user->name}}</td>
                                             <td>{{$order->delivery_id ??''}}</td>
+                                            <td>{{minutesToHumanReadable($order->histories->where('status_id',$order->status_id)->first()->spend_time ?? 0)}}</td>
                                             <td>{{$order->count_products}}</td>
                                             <td>{{$order->total_price}}</td>
                                             <td>{{$order->discount_value}}</td>

@@ -118,7 +118,7 @@ class OrderController extends Controller
         return  view('dashboard.Orders.pendingDeliveryAcceptance',compact('orders'));
     }
     public function  DeliveryOnWay(){
-        $orders=OrderTable::where("status_id",self::AcceptedByDelivery)->get();
+        $orders=OrderTable::where("status_id",self::AcceptedByDelivery)->with('delegate.appUser')->get();
         return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
     }
     public function  WayToLaundry(){
@@ -126,11 +126,11 @@ class OrderController extends Controller
         return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
     }
     public function  DeliveredToLaundry(){
-        $orders=OrderTable::with('histories')->where("status_id",self::DeliveredToLaundry)->get();
+        $orders=OrderTable::with(['histories','delegate.appUser'])->where("status_id",self::DeliveredToLaundry)->get();
         return  view('dashboard.Orders.DeliveredToLaundry',compact('orders'));
     }
     public function  readyPickUp(){
-        $orders=OrderTable::with(['subCategories','user','address'])->where("status_id",self::ClothesReadyForDelivery)->get();
+        $orders=OrderTable::with(['subCategories','user','address','delegate.appUser'])->where("status_id",self::ClothesReadyForDelivery)->get();
         return  view('dashboard.Orders.ordersPickUp',compact('orders'));
     }
     public function  WaitingForDeliveryToReceiveOrder(){
@@ -138,15 +138,15 @@ class OrderController extends Controller
         return  view('dashboard.Orders.WaitingForDeliveryToReceiveOrder',compact('orders'));
     }
     public function  DeliveryOnTheWayToYou(){
-        $orders=OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->get();
+        $orders=OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegate.appUser')->get();
         return  view('dashboard.Orders.DeliveryOnTheWayToYou',compact('orders'));
     }
     public function  completed(){
-        $orders=OrderTable::with(['subCategories','user'])->where("status_id",self::Completed)->get();
+        $orders=OrderTable::with(['subCategories','user','delegate.appUser'])->where("status_id",self::Completed)->get();
         return  view('dashboard.Orders.completed',compact('orders'));
     }
     public function  canceled(){
-        $orders=OrderTable::where("status_id",self::Cancel)->get();
+        $orders=OrderTable::where("status_id",self::Cancel)->with('delegate.appUser')->get();
         return  view('dashboard.Orders.completed',compact('orders'));
     }
 

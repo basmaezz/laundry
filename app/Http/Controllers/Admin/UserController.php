@@ -332,7 +332,7 @@ class UserController extends Controller
             'name'=>$request->first_name.' '.$request->second_name.' '.$request->third_name,
             'password'=>Hash::make($request->password),
             'email'=>$request->email,
-            'mobile'=>$request->mobile,
+            'mobile'=>'966'.$request->mobile,
             'city_id'=>$request->city_id,
             'region_name'=>$request->region_name,
             'avatar'=>$filename,
