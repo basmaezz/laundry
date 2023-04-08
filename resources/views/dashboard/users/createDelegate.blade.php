@@ -218,19 +218,19 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"class="form-control"> معلومات لوحه السياره  </label>
                                             <div class="col-md-1">
-                                                <input type="text" id="car_plate_letter1" name="car_plate_letter1"placeholder="الأحرف" class="form-control"maxlength="1"value="{{Request::old('car_plate_letter1')}}">
+                                                <input type="text" id="car_plate_letter1" name="car_plate_letter1"placeholder="ق" class="form-control"maxlength="1"value="{{Request::old('car_plate_letter1')}}">
                                                      @if ($errors->has('car_plate_letter1'))
                                                     -<span class="text-danger">{{ $errors->first('car_plate_letter1') }}</span>
                                                 @endif
                                             </div>
                                             <div class="col-md-1">
-                                                <input type="text" id="car_plate_letter2" name="car_plate_letter2"placeholder="الأحرف" class="form-control"maxlength="1"value="{{Request::old('car_plate_letter2')}}">
+                                                <input type="text" id="car_plate_letter2" name="car_plate_letter2"placeholder="ف" class="form-control"maxlength="1"value="{{Request::old('car_plate_letter2')}}">
                                                      @if ($errors->has('car_plate_letter2'))
                                                     -<span class="text-danger">{{ $errors->first('car_plate_letter2') }}</span>
                                                 @endif
                                             </div>
                                             <div class="col-md-1">
-                                                <input type="text" id="car_plate_letter3" name="car_plate_letter3"placeholder="الأحرف" class="form-control"maxlength="1"value="{{Request::old('car_plate_letter3')}}">
+                                                <input type="text" id="car_plate_letter3" name="car_plate_letter3"placeholder="ق" class="form-control"maxlength="1"value="{{Request::old('car_plate_letter3')}}">
                                                      @if ($errors->has('car_plate_letter3'))
                                                     -<span class="text-danger">{{ $errors->first('car_plate_letter3') }}</span>
                                                 @endif
