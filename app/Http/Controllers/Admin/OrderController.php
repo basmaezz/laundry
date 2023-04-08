@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Delegate;
 use App\Models\OrderDetails;
 use App\Models\OrderStatusHistory;
 use App\Models\OrderTable;
@@ -152,7 +153,8 @@ class OrderController extends Controller
 
     public function delegateOrders($id)
     {
-        $orders=OrderTable::where('delivery_id',$id)->get();
+        $delegate=Delegate::find($id);
+        $orders=OrderTable::where('delivery_id',$delegate->app_user_id)->get();
         return  view('dashboard.Orders.delegateOrders',compact('orders'));
     }
 
