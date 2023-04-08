@@ -33,7 +33,8 @@ class CategoryController extends Controller
         //$user = AppUser::where('id',27)->first();
 
         foreach ($subCategories as $subcategory) {
-            $distance = (!empty($user))? getDistanceFirst1($user, $subcategory->lat, $subcategory->lng) : 0;
+            //$distance = (!empty($user))? getDistanceFirst1($user, $subcategory->lat, $subcategory->lng) : 0;
+            $distance = (!empty($user))? distance($user->lat,$user->lng, $subcategory->lat, $subcategory->lng) : 0;
             //$distanceObject = (!empty($user))? getDistanceFirst($user, $subcategory->lat, $subcategory->lng) : 0;
             $range=$subcategory->range;
             $data [] = [
@@ -50,6 +51,7 @@ class CategoryController extends Controller
                 'lat' => $subcategory->lat,
                 'lng' => $subcategory->lng,
                 'approximate_duration'=> $subcategory->approximate_duration,
+                //'distance' => round($distance, 2),
                 'distance' => round($distance, 2),
                 'range'=>$subcategory->range,
                 'distance_class' =>  getDistanceClass($distance,$range),
