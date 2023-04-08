@@ -169,32 +169,40 @@
                                         </div>
                                     </div>
 
+
                                     <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input"> موديل السياره</label>
+                                        <label class="col-md-3 form-control-label" for="text-input">  موديل السياره</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="car_year" class="form-control" value="{{$delegate->year->name ??''}}">
+                                            <select name="car_manufacture_year_id" class="form-control">
+                                                @foreach($years as $year)
+                                                    <option value="{{$year->id}}" {{$delegate->year->id==$year->id ?'selected':''}}>{{$year->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            @if ($errors->has('car_manufacture_year_id'))
+                                                <span class="text-danger">{{ $errors->first('car_manufacture_year_id') }}</span>
+                                            @endif
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"class="form-control"> معلومات لوحه السياره  </label>
                                         <div class="col-md-2">
-                                            <input type="text" id="car_plate_letter1" name="car_plate_letter" class="form-control"value="{{mb_substr($delegate->car_plate_letter, 0, 1)}}">                                            @if ($errors->has('car_plate_letter1'))
+                                            <input type="text"  name="car_plate_letter1" class="form-control"value="{{mb_substr($delegate->car_plate_letter, 0, 1)}}">                                            @if ($errors->has('car_plate_letter1'))
                                                 -<span class="text-danger">{{ $errors->first('car_plate_letter1') }}</span>
                                             @endif
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" id="car_plate_letter2" name="car_plate_letter" class="form-control"value="{{mb_substr($delegate->car_plate_letter, 1, 1)}}">                                            @if ($errors->has('car_plate_letter2'))
+                                            <input type="text"  name="car_plate_letter2" class="form-control"value="{{mb_substr($delegate->car_plate_letter, 1, 1)}}">                                            @if ($errors->has('car_plate_letter2'))
                                                 -<span class="text-danger">{{ $errors->first('car_plate_letter2') }}</span>
                                             @endif
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" id="car_plate_letter3" name="car_plate_letter" class="form-control"value="{{mb_substr($delegate->car_plate_letter, 2, 1)}}">                                            @if ($errors->has('car_plate_letter3'))
+                                            <input type="text"  name="car_plate_letter3" class="form-control"value="{{mb_substr($delegate->car_plate_letter, 2, 1)}}">                                            @if ($errors->has('car_plate_letter3'))
                                                 -<span class="text-danger">{{ $errors->first('car_plate_letter3') }}</span>
                                             @endif
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" id="car_plate_number" name="car_plate_number"class="form-control" value="{{$delegate->car_plate_number}}">
+                                            <input type="text"  name="car_plate_number"class="form-control" value="{{$delegate->car_plate_number}}">
                                             @if ($errors->has('car_plate_number'))
                                                 -<span class="text-danger">{{ $errors->first('car_plate_number') }}</span>
                                             @endif

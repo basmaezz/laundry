@@ -450,25 +450,23 @@ class UserController extends Controller
             ]);
             $nationality->save();
         }
-        $delegate=Delegate::find($id)->update([
-
+       $delegate->update([
         'request_employment'=>$request->request_employment,
         'bank_id'=>$request->bank_id,
         'id_number'=>$request->id_number,
         'iban_number'=>$request->iban_number,
         'car_type'=>$request->car_type,
-        'car_plate_letter'=>'$request->car_plate_letter1.$request->car_plate_letter2.$request->car_plate_letter3' ,
+        'car_plate_letter'=>$request->car_plate_letter1.$request->car_plate_letter2.$request->car_plate_letter3 ,
         'car_plate_number'=>$request->car_plate_number,
         'car_manufacture_year_id'=>$request->car_manufacture_year_id,
         'identity_expiration_date'=>$request->identity_expiration_date,
         'license_end_date'=>$request->license_end_date,
-        'id_image'=>$fileNameImageId,
-        'medic_check'=>$fileNameMedicCheck,
-        'car_picture_front'=>$fileNameCarFront,
-        'car_picture_behind'=>$fileNameCarBehind,
-        'car_registration'=>$fileNameCarRegistration,
-        'glasses_avatar'=>$fileNameGlassesAvatar,
-
+//        'id_image'=>$fileNameImageId,
+//        'medic_check'=>$fileNameMedicCheck,
+//        'car_picture_front'=>$fileNameCarFront,
+//        'car_picture_behind'=>$fileNameCarBehind,
+//        'car_registration'=>$fileNameCarRegistration,
+//        'glasses_avatar'=>$fileNameGlassesAvatar,
       ]);
       $delegate->appUser->update($request->all());
       $delegate->save();

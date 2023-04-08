@@ -66,13 +66,13 @@ class AppUser extends Authenticatable implements JWTSubject
         return getDistanceFirst1($customer, $user->lat, $user->lng);
     }
 
-    public function setMobileAttribute($value){
-        return  $this->attributes['mobile'] = '966'.$value;
-    }
-    public function getMobileAttribute($value)
-    {
-        return $this->attributes['mobile'] =substr($value, -9);
-    }
+//    public function setMobileAttribute($value){
+//        return  $this->attributes['mobile'] = '966'.$value;
+//    }
+//    public function getMobileAttribute($value)
+//    {
+//        return $this->attributes['mobile'] =substr($value, -9);
+//    }
 
 
 }
