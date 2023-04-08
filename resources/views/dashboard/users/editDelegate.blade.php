@@ -157,13 +157,13 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> نوع السياره </label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="car_name" class="form-control"value="{{$delegate->car->name_ar}}">
+                                            <input type="text" id="text-input" name="car_name" class="form-control"value="{{$delegate->car->name_ar ??''}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> موديل السياره</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="car_year" class="form-control" value="{{$delegate->year->name}}">
+                                            <input type="text" id="text-input" name="car_year" class="form-control" value="{{$delegate->year->name ??''}}">
                                         </div>
                                     </div>
 
