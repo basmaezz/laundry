@@ -52,8 +52,8 @@
                                             <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                             <div class="col-md-9">
                                                 <div class="input-group">
-                                                  <input type="text"name="mobile" class="form-control" placeholder="الجوال" value="{{Request::old('mobile')}}" maxlength="9"style="direction: ltr">
-                                                    <span class="input-group-addon">00966</i>
+                                                  <input type="text"name="mobile" class="form-control" placeholder="الجوال" value="{{Request::old('mobile')}}" maxlength="12"style="direction: ltr">
+                                                    <span class="input-group-addon">966</i>
                                                 </span>
                                                 </div>
                                                 @if ($errors->has('mobile'))
