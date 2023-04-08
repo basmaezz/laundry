@@ -636,7 +636,7 @@ function getUserObject($user)
         'lng' => $user->lng,
         'address_description' => $user->address_description,
         'ordersCount' => $user->orders_count,
-        'image' => $user->avatar?asset('assets/images/'.$user->avatar):null,
+        'image' => $user->avatar?asset('/images/'.$user->avatar):null,
         'home_image' => $user->avatar?asset('assets/uploads/home_image/'.$user->home_image):null,
     ];
 }
