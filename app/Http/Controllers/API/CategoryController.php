@@ -34,13 +34,13 @@ class CategoryController extends Controller
 
         foreach ($subCategories as $subcategory) {
             $distance = (!empty($user))? getDistanceFirst1($user, $subcategory->lat, $subcategory->lng) : 0;
-            //$distanceObject = (!empty($user))? getDistanceFirst($user, $subcategory->lat, $subcategory->lng) : 0;
+            $distanceObject = (!empty($user))? getDistanceFirst($user, $subcategory->lat, $subcategory->lng) : 0;
             $range=$subcategory->range;
             $data [] = [
                 'id' => $subcategory->id,
-                //'user' => $user,
-                //'user2' => auth()->user(),
-                //'distanceObject' => $distanceObject,
+                'user' => $user,
+                'user2' => auth()->user(),
+                'distanceObject' => $distanceObject,
                 'name' => $subcategory->$name,
                 'address' => $subcategory->address,
                 'rate' => $subcategory->rate_avg,
