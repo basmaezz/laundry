@@ -439,7 +439,6 @@ function getDistanceFirst1($user, $latitude, $longitude)
            * sin( radians( lat ) ) ) )  AS distance');
 
     $results = $user->select('*', $raw)->addSelect($raw)->orderBy('distance')->first();
-//    dd($results);
     return $results->distance;
 }
 
