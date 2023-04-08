@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\BankController;
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('customerLogin', [AdminController::class, 'index'])->name('customer.login');
 Route::post('adminLogin', [UserController::class, 'adminLogin'])->name('adminLogin');
 Route::get('/dashboard', function () {
     return view('dashboard');

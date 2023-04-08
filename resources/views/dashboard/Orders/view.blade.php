@@ -59,13 +59,13 @@
                                         <label for="company"> ملاحظات  </label>
                                         <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->note}}"disabled>
                                     </div>
-{{--                                    <div class="form-group">--}}
-{{--                                        <label for="company"> الملاحظات الصوتيه </label>--}}
-{{--                                        <audio controls>--}}
-{{--                                            <source src="/mp3/{{$record->recording_filename}}" type="audio/mpeg">--}}
-{{--                                        </audio>--}}
-{{--                                        <a class="btn btn-success" href="/mp3/{{$record->recording_filename}}" download>Download</a>--}}
-{{--                                    </div>--}}
+                                    <div class="form-group">
+                                        <label for="company"> الملاحظات الصوتيه </label>
+                                        <audio controls>
+                                            <source src="/mp3/{{$record->recording_filename}}" type="audio/mpeg">
+                                        </audio>
+                                        <a class="btn btn-success" href="/mp3/{{$record->recording_filename}}" download>Download</a>
+                                    </div>
 
                                 </div>
                             </div>
