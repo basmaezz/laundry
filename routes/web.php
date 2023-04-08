@@ -175,7 +175,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
 Route::get('signOut', [AdminController::class, 'signOut'])->name('customer.logout');
 Route::middleware(['auth', 'laundryAdmin'])->group(function () {
 
-    Route::get('customerLogin', [AdminController::class, 'index'])->name('customer.login');
+//    Route::get('customerLogin', [AdminController::class, 'index'])->name('customer.login');
     Route::get('aib', [AdminController::class, 'main'])->name('customer.index');
 
     Route::get('Items/{id}', [ItemsController::class, 'index'])->name('Customer.Items.index');
