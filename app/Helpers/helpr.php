@@ -432,13 +432,13 @@ function getDistanceFirst($user, $latitude, $longitude)
 
     return $results;
 }
-function getDistanceFirst1($subcategory, $latitude, $longitude)
+function getDistanceFirst1($user, $latitude, $longitude)
 {
     $raw   = DB::raw(' ( 6371 * acos( cos( radians(' . $latitude . ') ) * cos( radians( lat ) )
            * cos( radians( lng ) - radians(' . $longitude . ') ) + sin( radians(' . $latitude . ') )
            * sin( radians( lat ) ) ) )  AS distance');
 
-    $results = $subcategory->select('*', $raw)->addSelect($raw)->orderBy('distance')->first();
+    $results = $user->select('*', $raw)->addSelect($raw)->orderBy('distance')->first();
     return $results->distance;
 }
 
