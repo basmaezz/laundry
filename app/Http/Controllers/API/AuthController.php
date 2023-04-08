@@ -221,7 +221,7 @@ class AuthController extends ApiController
             $delegate->identity_expiration_date = $request->get('personal')['identity_expiration_date'];
             $delegate->id_image = uploadFile($request->file('personal')['nid_image'], 'nid_image');
             $delegate->iban_number = $request->get('bank')['number'];
-            $delegate->bank_id = $request->get('bank')['bank_id'];
+            $delegate->bank_id = $request->get('bank')['id'];
             $delegate->car_picture_front = uploadFile($request->file('car')['front_image'], 'car_front');
             $delegate->car_picture_behind = uploadFile($request->file('car')['back_image'], 'car_back');
             $delegate->car_registration = uploadFile($request->file('car')['license_image'], 'car_registration');
@@ -408,7 +408,7 @@ class AuthController extends ApiController
             'personal.nid'          => 'required',
             'personal.nid_image'    => 'nullable|file',
             'personal.medic_check_image' => 'nullable|file',
-            'bank.bank_id'             => 'required',
+            'bank.id'          => 'required',
             'bank.number'           => 'required',
             'car.registration_image'=> 'nullable|file',
             'car.front_image'       => 'nullable|file',
@@ -452,7 +452,7 @@ class AuthController extends ApiController
 
             $delegate['id_number']                = $request->get('personal')['nid'];
             $delegate['iban_number']              = $request->get('bank')['number'];
-            $delegate['bank_id']                = $request->get('bank')['bank_id'];
+            $delegate['bank_id']                = $request->get('bank')['id'];
              $delegate['nationality_id']          =$request->nationality_id;
             $delegate['car_manufacture_year_id']  =$request->car_manufacture_year_id;
             $delegate['car_plate_letter']         =$request->car_plate_letter;
