@@ -401,7 +401,8 @@ class UserController extends Controller
         $delegate=Delegate::with(['appUser','nationality','car','year','bank'])->find($id);
         $nationalities=Nationality::get();
         $banks=Bank::all();
-        return view('dashboard.users.editDelegate',compact(['delegate','nationalities','banks']));
+        $carTypes=CarType::all();
+        return view('dashboard.users.editDelegate',compact(['delegate','nationalities','banks','carTypes']));
     }
     public function updateDelegate(Request $request,$id)
     {
