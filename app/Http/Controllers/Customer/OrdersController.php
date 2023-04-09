@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\OrderDetails;
 use App\Models\OrderTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -123,5 +124,12 @@ class OrdersController extends Controller
     {
         $orders=OrderTable::orders($id)->where('status_id',5)->get();
         return  view('customers.backEnd.orders.finished',compact('orders'));
+    }
+
+    public function orderDetails($id)
+    {
+        $order=OrderTable::with(['subCategories','user','user.cities','delegate.appUser'])->where('id',$id)->first();
+        $orderDetails=orderDetails::with(['product','productService'])->where('order_table_id',$id)->get();
+        return  view('customers.backEnd.orders.orderDetails',compact(['order','orderDetails']));
     }
 }

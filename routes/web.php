@@ -200,6 +200,7 @@ Route::middleware(['auth', 'laundryAdmin'])->group(function () {
     Route::get('changeStatus', [OrdersController::class, 'changeStatus']);
     Route::get('canceledOrder/{id}', [OrdersController::class, 'canceledOrder'])->name('Customer.Orders.canceledOrder');
     Route::get('finishedOrder/{id}', [OrdersController::class, 'finishedOrder'])->name('Customer.Orders.finishedOrder');
+    Route::get('orderDetails/{id}', [OrdersController::class, 'orderDetails'])->name('Customer.Orders.orderDetails');
 });
 
 
