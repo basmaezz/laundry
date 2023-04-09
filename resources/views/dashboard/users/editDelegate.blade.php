@@ -106,7 +106,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الملف الشخصى </label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('images/'.$delegate->appUSer->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{asset('assets/uploads/users_avatar/'.$delegate->appUser->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                             <input type="file" id="file-input" name="avatar" class="form-control">
                                         </div>
                                     </div>
@@ -233,14 +233,14 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره ساريه لرخصه القياده  </label>
                                         <div class="col-md-9">
-                                            <img src="{{$delegate->car_registration}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{$delegate->driving_license}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                             <input type="file" id="file-input" name="carRegistration" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره استمارة السيارة</label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('/images/'.$delegate->glasses_avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{$delegate->car_registration}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                             <input type="file" id="file-input" name="glasses_avatar" class="form-control">
                                         </div>
                                     </div>
