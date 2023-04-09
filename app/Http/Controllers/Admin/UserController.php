@@ -235,6 +235,7 @@ class UserController extends Controller
             abort(403);
         };
         $delegates=Delegate::with(['appUser','appUser.cities','nationality'])->get();
+        dd($delegates);
         return view('dashboard.users.delegates',compact('delegates'));
     }
     public function CreateDelegate()
