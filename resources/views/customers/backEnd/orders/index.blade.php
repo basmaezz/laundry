@@ -37,7 +37,7 @@
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->created_at}}</td>
                                             <td>
-                                                <a href="{{route('Customer.Orders.orderDetails')}}" class="edit btn btn-primary btn-sm">التفاصيل</a></td>
+                                                <a href="{{route('Customer.Orders.orderDetails',$order->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a></td>
 {{--                                            <td>--}}
 {{--                                                <a href="#" class="btn btn-info">تم الانتهاء</a>--}}
 {{--                                            </td>--}}
