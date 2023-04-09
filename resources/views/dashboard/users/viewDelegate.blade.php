@@ -73,8 +73,8 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الملف الشخصى </label>
                                         <div class="col-md-9">
-                                            <a href="{{asset('assets/uploads/users_avatar/'.$delegate->appUser->avatar)}}" download>
-                                            <img src="{{asset('assets/uploads/users_avatar/'.$delegate->appUser->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <a href="{{asset('uploads/users_avatar/'.$delegate->appUser->avatar)}}" download>
+                                            <img src="{{asset('uploads/users_avatar/'.$delegate->appUser->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                             </a>
                                         </div>
                                     </div>
@@ -135,7 +135,6 @@
                                             <input type="text" id="text-input" name="last_name" class="form-control" value="{{$delegate->year->name}}"disabled>
                                         </div>
                                     </div>
-
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"class="form-control"> معلومات لوحه السياره  </label>
                                         <div class="col-md-2">
@@ -197,7 +196,7 @@
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره ساريه لرخصه القياده  </label>
                                         <div class="col-md-9">
                                             @if(pathinfo($delegate['car_registration'], PATHINFO_EXTENSION)=='pdf')
-                                                <a href="{{asset('/assets/uploads/car_registration/'.$delegate->car_registration)}}" download>
+                                                <a href="{{asset('/images/'.$delegate->car_registration)}}" download>
                                                     Download
                                                 </a>
                                             @else
@@ -211,13 +210,13 @@
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره استمارة السيارة</label>
                                         <div class="col-md-9">
                                             @if(pathinfo($delegate['glasses_avatar'], PATHINFO_EXTENSION)=='pdf')
-                                                <a href="{{asset('/images/'.$delegate->glasses_avatar)}}" download>
+                                                <a href="{{asset('uploads/car_registration/'.$delegate->car_registration)}}" download>
                                                     Download
 {{--                                                  {{$delegate->glasses_avatar}}--}}
                                                 </a>
                                             @else
-                                                <a href="{{asset('/images/'.$delegate->glasses_avatar)}}" download>
-                                                    <img src="{{asset('/images/'.$delegate->glasses_avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;" >
+                                                <a href="{{asset('uploads/car_registration/'.$delegate->car_registration)}}" download>
+                                                    <img src="{{asset('uploads/car_registration/'.$delegate->car_registration)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;" >
                                                 </a>
                                             @endif
 
