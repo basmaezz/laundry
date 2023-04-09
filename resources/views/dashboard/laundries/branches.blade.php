@@ -39,7 +39,13 @@
                                                 <a href="{{route('CategoryItems.index',$branch->parent_id)}}" class="edit btn btn-primary btn-sm">الأقسام</a>
                                                 <a href="{{route('laundries.editBranch',$branch->id)}}" class="edit btn btn-primary btn-sm">تعديل</a>
                                                 <a href="{{route('laundries.view',$branch->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a>
-                                                <a href="{{route('laundries.deleteBranch',$branch->id)}}" class="edit btn btn-danger btn-sm">حذف</a>
+                                                 <a href="{{route('laundries.orders',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الطلبات</a>
+{{--                                                <a href="{{route('laundries.deleteBranch',$branch->id)}}" class="edit btn btn-danger btn-sm">حذف</a>--}}
+                                                 <form class="delete" action="{{route('laundries.deleteBranch',$branch->id)}}" method="get">
+                                                     @csrf
+                                                     @method('DELETE')
+                                                     <input type="submit" value="حذف" class="edit btn btn-danger btn-sm">
+                                                 </form>
                                             </td>
                                         </tr>@endforeach
                                     </tbody>
@@ -61,6 +67,11 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#branches_wrapper .col-md-6:eq(0)');
+    </script>
+    <script>
+        function delConfirm(){
+            return confirm("هل أنت متأكد من حذف المغسله ؟");
+        }
     </script>
 @endpush
 

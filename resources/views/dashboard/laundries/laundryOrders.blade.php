@@ -4,7 +4,7 @@
         <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item"><a href="{{route('customers.index')}}">العملاء</a></li>
+                <li class="breadcrumb-item"><a href="{{route('laundries.index')}}">المغاسل</a></li>
                 <li class="breadcrumb-item active" aria-current="page">الطلبات   </li>
             </ol>
         </nav>
@@ -14,7 +14,7 @@
                     <div class="col-lg-9">
                         <div class="card">
                             <div class="card-header">
-                                <i class="fa fa-align-justify"> عرض طلبات العميل</i>
+                                <i class="fa fa-align-justify"> عرض طلبات المغسله</i>
                             </div>
                             <div class="card-block">
                                 <table id="orders" class="table table-bordered table-striped">
