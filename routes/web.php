@@ -264,9 +264,10 @@ Route::get('usersGet', function () {
     $users = \App\Models\User::all();
     return $users;
 });
-Route::get('getDelegates', function () {
-    $delegates = \App\Models\Delegate::with('appUser')->get();
-    return $delegates;
+Route::get('deleteDelegate', function () {
+    $delegate = \App\Models\Delegate::where('id',23)->get();
+     $delegate->delete();
+     return 'deleted';
 });
 Route::get('getAppUsers', function () {
     $appUsers = \App\Models\AppUser::all();
