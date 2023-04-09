@@ -409,3 +409,10 @@ Route::get('deleteDelegate',function (){
         return 'deleted';
 
 });
+
+
+Route::get('getPone',function (){
+    $phone=DB::table('app_users')->where('mobile',966542882969)->get();
+    return $phone;
+
+});
