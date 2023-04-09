@@ -405,7 +405,7 @@ Route::get('getDelivery',function (){
 
 
 Route::get('deleteDelegate',function (){
-    $delivery=DB::table('app_users')->where('id','54')->first();
+    $delivery=AppUser::where('id','54')->first();
     $delivery->delete();
     return'deleted';
 
