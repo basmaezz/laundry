@@ -23,7 +23,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الأسم   </label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->appUSer->name}}">
+                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->appUser->name}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -40,7 +40,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">المدينة </label>
                                         <div class="col-md-9">
-                                            <input type="text"  name="city" class="form-control" value="{{$delegate->appUSer->cities->name_ar}}">
+                                            <input type="text"  name="city" class="form-control" value="{{$delegate->appUser->cities->name_ar}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
