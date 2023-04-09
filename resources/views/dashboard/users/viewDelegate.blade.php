@@ -73,8 +73,8 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الملف الشخصى </label>
                                         <div class="col-md-9">
-                                            <a href="{{asset('images/'.$delegate->appUser->avatar)}}" download>
-                                            <img src="{{asset('images/'.$delegate->appUser->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <a href="{{asset('uploads/users_avatar/'.$delegate->appUser->avatar)}}" download>
+                                            <img src="{{asset('uploads/users_avatar/'.$delegate->appUser->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                             </a>
                                         </div>
                                     </div>

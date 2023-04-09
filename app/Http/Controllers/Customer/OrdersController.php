@@ -122,7 +122,7 @@ class OrdersController extends Controller
     }
     public function finishedOrder($id)
     {
-        $orders=OrderTable::orders($id)->where('status_id',5)->get();
+        $orders=OrderTable::orders($id)->where('status_id',8)->get();
         return  view('customers.backEnd.orders.finished',compact('orders'));
     }
 
