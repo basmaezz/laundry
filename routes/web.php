@@ -404,7 +404,7 @@ Route::get('getDelivery',function (){
 });
 
 
-Rpute::get('deleteDelegate',function (){
+Route::get('deleteDelegate',function (){
     $delivery=DB::table('app_users')->where('id',54)->delete();
         return 'deleted';
 
