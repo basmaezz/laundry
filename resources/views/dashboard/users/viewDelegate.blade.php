@@ -195,13 +195,13 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره ساريه لرخصه القياده  </label>
                                         <div class="col-md-9">
-                                            @if(pathinfo($delegate['car_registration'], PATHINFO_EXTENSION)=='pdf')
-                                                <a href="{{asset('/images/'.$delegate->car_registration)}}" download>
+                                            @if(pathinfo($delegate['driving_license'], PATHINFO_EXTENSION)=='pdf')
+                                                <a href="{{asset('/images/'.$delegate->driving_license)}}" download>
                                                     Download
                                                 </a>
                                             @else
-                                            <a href="{{$delegate->car_registration}}" download>
-                                            <img src="{{$delegate->car_registration}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <a href="{{$delegate->driving_license}}" download>
+                                            <img src="{{$delegate->driving_license}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                             </a>
                                             @endif
                                         </div>
@@ -209,7 +209,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره استمارة السيارة</label>
                                         <div class="col-md-9">
-                                            @if(pathinfo($delegate['glasses_avatar'], PATHINFO_EXTENSION)=='pdf')
+                                            @if(pathinfo($delegate['car_registration'], PATHINFO_EXTENSION)=='pdf')
                                                 <a href="{{$delegate->car_registration}}" download>
                                                     Download
 {{--                                                  {{$delegate->glasses_avatar}}--}}
