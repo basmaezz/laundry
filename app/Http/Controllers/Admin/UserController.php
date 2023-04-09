@@ -557,7 +557,8 @@ class UserController extends Controller
            $delegate->reject_reason='';
        }
        $delegate->registered=Null;
-        $delegate->appUser->status='active';
+       $delegate->appUser->status='active';
+       $delegate->appUser->save();
        $delegate->save();
        return redirect()->route('delegates.index')->with('message', 'تم قبول طلب التسجيل !');
     }
