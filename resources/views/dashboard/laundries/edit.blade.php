@@ -4,7 +4,7 @@
       <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('laundries.view',$subCategory->id)}}">المغسله</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('laundries.index')}}">المغاسل</a></li>
                 <li class="breadcrumb-item active" aria-current="page">  تعديل مغسله </li>
             </ol>
         </nav>
@@ -83,29 +83,37 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="approximate_duration"> نطاق التشغيل </label>
-                                            <input type="number" name="range"class="form-control-plaintext" id="price"value="{{$subCategory->range??''}}"> كيلومتر
-{{--                                            <input type="number" name="range"class="form-control" id="range" value="{{$subCategory->range??''}}" >--}}
+                                            <div class="input-group">
+                                                <input type="text"name="range" class="form-control" value="{{$subCategory->range??''}}" max="50" min="5"  >
+                                                <span class="input-group-addon"> كيلومتر</i>
+                                                </span>
+                                            </div>
                                             @error('range')
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     <div class="form-group">
                                         <label for="country">السعر  </label>
-                                        <input type="text" name="price"class="form-control-plaintext" id="price" value="{{$subCategory->price}}">  ريال
-
-{{--                                        <input type="text" name="price"class="form-control" id="image" value="{{$subCategory->price}}">--}}
+                                        <div class="input-group">
+                                            <input type="text"name="price" class="form-control" value="{{$subCategory->price}}" >
+                                            <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                        </div>
                                         @error('price')
                                         <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                         <div class="form-group">
                                             <label for="approximate_duration">  المده التقريبيه للغسيل </label>
-                                            <input type="number" name="approximate_duration"class="form-control" id="approximate_duration" value="{{$subCategory->approximate_duration}}" min="1">
+                                            <div class="input-group">
+                                                <input type="text"name="approximate_duration" class="form-control" placeholder="24"  value="{{$subCategory->approximate_duration??''}}" min="1" >
+                                                <span class="input-group-addon"> ساعه</i>
+                                                </span>
+                                            </div>
                                             @error('approximate_duration')
-                                            <div class="text-sm text-red-600">{{ $message }}</div>
+                                            <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-
 
                                     <div class="form-group" >
                                         <div>
@@ -143,7 +151,7 @@
                         <div class="col-sm-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong>اضافه أدمن </strong>
+                                    <strong>تعديل أدمن </strong>
                                 </div>
 
                                 <div class="card-block">

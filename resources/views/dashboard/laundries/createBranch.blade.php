@@ -82,25 +82,42 @@
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
+
+                                    <div class="form-group ">
                                         <label for="approximate_duration"> نطاق التشغيل </label>
-                                        <input type="number" name="range"class="form-control" id="range" value=" {{$Subcategory->range??''}}" max="50" min="5" >
-                                        @error('range')
-                                        <span class="text-danger">{{ $message }}</span>
-                                        @enderror
+
+                                        <div class="input-group">
+                                            <input type="text"name="range" class="form-control" placeholder="نطاق التشغيل" value=" {{$Subcategory->range??''}}" max="50" min="5"  >
+                                            <span class="input-group-addon"> كيلومتر</i>
+                                                </span>
+                                        </div>
+                                        @if ($errors->has('range'))
+                                            <span class="text-danger">{{ $errors->first('range') }}</span>
+                                        @endif
                                     </div>
-                                    <div class="form-group">
-                                        <label for="country">سعر التوصيل  </label>
-                                        <input type="text" name="price"class="form-control" id="image" value=" {{$Subcategory->price}}">
-                                        @error('price')
-                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
-                                        @enderror
+
+                                    <div class="form-group ">
+                                        <label for="approximate_duration"> السعر  </label>
+
+                                        <div class="input-group">
+                                            <input type="text"name="price" class="form-control" placeholder="السعر " value="{{$Subcategory->price}}" >
+                                            <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                        </div>
+                                        @if ($errors->has('price'))
+                                            <span class="text-danger">{{ $errors->first('price') }}</span>
+                                        @endif
                                     </div>
+
                                     <div class="form-group">
                                         <label for="approximate_duration">  المده التقريبيه للغسيل </label>
-                                        <input type="number" name="approximate_duration"class="form-control" id="approximate_duration" value="{{$Subcategory->approximate_duration??''}}" min="1" >
+                                        <div class="input-group">
+                                            <input type="text"name="approximate_duration" class="form-control" placeholder="24"  value="{{$Subcategory->approximate_duration??''}}" min="1" >
+                                            <span class="input-group-addon"> ساعه</i>
+                                                </span>
+                                        </div>
                                         @error('approximate_duration')
-                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group" >
@@ -150,7 +167,7 @@
                                         <input type="password" id="password-input" name="password" class="form-control" placeholder="كلمه المرور ">                                    </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الجوال </label>
-                                        <input type="text" id="phone" name="phone" class="form-control"  placeholder="الجوال"required>
+                                        <input type="text" id="phone" name="phone" class="form-control"  placeholder="الجوال"required maxlength="9">
                                     </div>
                                 </div>
                             </div>

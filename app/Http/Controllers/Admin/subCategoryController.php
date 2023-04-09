@@ -263,44 +263,54 @@ class subCategoryController extends Controller
     public function storeBranch(Request $request)
 {
 
-
     $subcategory= new Subcategory();
-    if ((strpos($request->location, 'maps')) !== false) {
-        $subcategory['location'] = $request->location;
-        $str = $request->location;
-        $x1 = strstr($str, '=');
-        $x2 = str_replace('=', '', $x1);
-        $x3 = explode(',', $x2);
-        array_splice($x3, -1);
-        $x4 = implode(',', $x3);
-        $subcategory['lat'] = $x3[0];
-        $subcategory['lng'] = $x4;
-        $subcategory['name_ar'] = $request->name_ar;
-        $subcategory['name_en'] = $request->name_en;
-        $subcategory['city_id'] = $request->city_id;
-        $subcategory['address'] = $request->address;
-        $subcategory['price'] = $request->price;
-        $subcategory['range'] = $request->range;
-        $subcategory['approximate_duration'] = $request->approximate_duration;
-        $subcategory['image']=$request->image;
-        $subcategory['parent_id'] = $request->parent_id;
-        $subcategory['status'] ='1';
-        $subcategory['rate'] = '5';
-        if($request->around_clock !=''){
-            $subcategory['around_clock'] = $request->around_clock;
-            $subcategory['clock_end'] = '';
-            $subcategory['clock_at'] = '';
-        }else{
-            $subcategory['clock_end'] = $request->clock_end;
-            $subcategory['clock_at'] = $request->clock_at;
-        }
-        if($request->file('image') !=''){
-            $filename = request('image')->getClientOriginalName();
-            request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
+    $request->validate([
+        'parent_id'=>'required',
+        'name_ar' =>'required',
+        'name_en' =>'required',
+        'city_id' =>'required',
+        'location'=>'required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i',
+        'lat' =>'required',
+        'lng' =>'required',
+        'address'=>'required',
+        'price' =>'required',
+        'range'=>'required',
+        'around_clock' =>'required',
+        'clock_at' =>'string',
+        'clock_end' =>'string',
+        'approximate_duration'=>'required',
+        'name' => 'required',
+        'last_name' => 'required',
+        'email' => '|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
+        'password'=>['required','min:6'],
+        'phone'=>'required|unique:users',
+    ],[
+        'required'  =>'هذا الحقل مطلوب',
+        'name'=>'برجاء ادخال اسم مناسب',
+        'last_name'=>'برجاء ادخال اسم مناسب',
+        'unique'=>'هذا الأسم موجود مسبقا',
+        'email'=>'هذا البريد الالكترونى موجود مسبقا',
+        'phone'=>'هذا الرقم غير صحيح',
+        'location.format'=>'الرابط غير صحيح ',
+    ]);
 
-        }
+    if($request->around_clock !=''){
+        $subcategory['around_clock'] = $request->around_clock;
+        $subcategory['clock_end'] = '';
+        $subcategory['clock_at'] = '';
+    }else{
+        $subcategory['clock_end'] = $request->clock_end;
+        $subcategory['clock_at'] = $request->clock_at;
     }
-    $subcategory->save();
+    if($request->file('image') !=''){
+        $filename = request('image')->getClientOriginalName();
+        request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/' , $filename);
+        $subcategory['image']=$filename;
+    }
+
+    $subcategory= Subcategory::create($request->all()+[
+        'parent_id'=>$request->parent_id
+        ]);
 
     User::create([
         'name'=>$request->name,
@@ -308,7 +318,7 @@ class subCategoryController extends Controller
         'email'=>$request->email,
         'password'=>$request->password,
         'phone'=>$request->phone,
-        'subCategory_id'=>$subcategory->subCategory_id
+        'subCategory_id'=>$subcategory->id
     ]);
     return  redirect()->route('laundries.index');
 }
