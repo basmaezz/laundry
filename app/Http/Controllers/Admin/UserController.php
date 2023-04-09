@@ -234,7 +234,7 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-        $delegates=Delegate::with(['appUser','appUser.cities','nationality'])->get();
+        $delegates=Delegate::where('user_type',"customer")->with(['appUser','appUser.cities','nationality'])->get();
         return view('dashboard.users.delegates',compact('delegates'));
     }
     public function CreateDelegate()
