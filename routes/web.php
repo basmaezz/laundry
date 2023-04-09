@@ -398,7 +398,7 @@ Route::get('updateCategory', function () {
 
 Route::view('testView','dashboard.test');
 
-Route::get('deleteDelivery',function (){
-    $delivery=DB::table('app_users')->where('user_type','delivery')->delete();
-    return AppUser::all();
+Route::get('getDelivery',function (){
+    $delivery=DB::table('app_users')->where('user_type','delivery')->all();
+    return $delivery();
 });
