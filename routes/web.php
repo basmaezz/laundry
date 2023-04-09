@@ -400,5 +400,5 @@ Route::view('testView','dashboard.test');
 
 Route::get('getDelivery',function (){
     $delivery=DB::table('app_users')->where('user_type','delivery')->get();
-    return $delivery();
+    return $delivery;
 });
