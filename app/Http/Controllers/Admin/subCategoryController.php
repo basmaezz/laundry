@@ -173,13 +173,12 @@ class subCategoryController extends Controller
             'price'=>$request->price,
             'range'=>$request->range,
             'lat'=>$request->lat,
-'lng'=>$request->lng,
+            'lng'=>$request->lng,
             'approximate_duration'=>$request->approximate_duration,
         ]);
         $subcategory->save();
 
-        $user=User::where('subCategory_id',$id)->first();
-        User::updated([
+        $user=User::where('subCategory_id',$id)->update([
             'name'=>$request->name,
             'last_name'=>$request->last_name,
             'email'=>$request->email,
@@ -187,11 +186,11 @@ class subCategoryController extends Controller
 //            'password'=> Hash::make($request->password)
         ]);
         if($request->password!=''){
-            $user->update([
+            User::where('subCategory_id',$id)->update([
                 'password'=> Hash::make($request->password)
             ]);
         }
-        return  redirect()->route('laundries.index');
+        return  redirect()->route('laundries.index')->with('success','تم التعديل');
     }
 
     /**
