@@ -388,7 +388,7 @@ class UserController extends Controller
             abort(403);
         };
       $delegate=Delegate::find($id);
-      $appUser=AppUser::where('id',$delegate->app_user_id)->get();
+      $appUser=AppUser::where('id',$delegate->app_user_id)->first();
       $appUser->delete();
       $delegate->delete();
         return  redirect()->back()->with('error', 'تم الحذف');
