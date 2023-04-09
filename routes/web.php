@@ -345,9 +345,9 @@ Route::get('histories', function () {
     return $histories;
 });
 
-Route::get('deleteUser',function (){
-    $appUser=AppUser::where('id',42)->delete();
-    return 'deleted';
+Route::get('getUser',function (){
+    $appUser=AppUser::where('mobile','966566666222')->get();
+    return $appUser;
 });
 Route::get('locations', function () {
     $user = AppUser::where('id', 2)->first();
