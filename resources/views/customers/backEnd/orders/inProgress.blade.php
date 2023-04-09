@@ -40,7 +40,7 @@
                                                 <a href="{{route('Customer.Orders.completed',$order->id)}}" class="btn btn-info">تم الانتهاء</a>
                                             </td>
                                             <td>
-                                                <a href="#}" class="edit btn btn-primary btn-sm">التفاصيل</a></td>
+                                                <a href="{{route('Customer.Orders.orderDetails',$order->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a></td>
 {{--                                            <td>--}}
 
 {{--                                                <input data-id="{{$order->id}}" class="toggleBtn" type="checkbox"--}}

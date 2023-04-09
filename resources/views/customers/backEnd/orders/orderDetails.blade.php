@@ -5,9 +5,6 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Validation</h1>
-                    </div>
-                    <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{route('Customer.Products.viewAllServices',Auth::user()->subCategory_id)}}">Orders</a></li>
                             <li class="breadcrumb-item active">order Details</li>
@@ -25,49 +22,48 @@
                                     <h3 class="card-title">Order Details</h3>
                                 </div>
                                 <div class="card-body">
-                                    <h4>Input</h4>
                                     <div class="form-group">
-                                        <label for="exampleInputBorder">اسم المغسله </label>
+                                        <label for="exampleInputBorder"> Laundry Name </label>
                                         <input type="text" class="form-control form-control-border" id="exampleInputBorder" value="{{$order->subCategories->name_ar}}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="company" n>اسم العميل</label>
+                                        <label for="company" n>Customer name </label>
                                         <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->user->name}}"disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="company" n>اسم المندوب</label>
+                                        <label for="company" n>Delegate name </label>
                                         <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->delegate->appUser->name ??''}}"disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="company">المدينه  </label>
+                                        <label for="company">City  </label>
                                         <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->user->cities->name_ar}}"disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="company">الحى  </label>
+                                        <label for="company">Region  </label>
                                         <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->user->region_name}}"disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="company">التاريخ  </label>
+                                        <label for="company">Date  </label>
                                         <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->created_at}}"disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="company"> عدد القطع </label>
+                                        <label for="company"> Pieces Count </label>
                                         <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->count_products}}"disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="company">المبلغ المطلوب  </label>
+                                        <label for="company">Price   </label>
                                         <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->total_price}}"disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="company">كوبون   </label>
+                                        <label for="company">Coupon   </label>
                                         <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->coupon}}"disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="company">خصم   </label>
+                                        <label for="company">Discount   </label>
                                         <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->discount}}"disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="company"> ملاحظات  </label>
+                                        <label for="company"> Note  </label>
                                         <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->note}}"disabled>
                                     </div>
 

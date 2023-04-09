@@ -34,7 +34,7 @@
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->updated_at}}</td>
                                             <td>
-                                                <a href="#}" class="edit btn btn-primary btn-sm">التفاصيل</a></td>
+                                                <a href="{{route('Customer.Orders.orderDetails',$order->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
