@@ -34,6 +34,15 @@ class Delegate extends Model
             'identity_expiration_date'
         ];
 
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($delegate) { // before delete() method call this
+            Delegate::with('appUser')->delete();
+            // do the rest of the cleanup...
+        });
+    }
+
     protected function avatar():Attribute
     {
         return Attribute::make(

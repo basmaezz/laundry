@@ -256,7 +256,7 @@ class UserController extends Controller
                         'first_name'=>'required',
                         'second_name'=>'required',
                         'third_name'=>'required',
-                        'mobile'=>'required|min:9',
+                        'mobile'=>'required|min:9|unique:app_users',
                         'city_id'=>'required',
                         'region_name'=>'required',
                         'id_number'=>'required|integer|min:9|unique:delegates',
@@ -387,10 +387,9 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-      $delegate=Delegate::find($id);
-      $appUser=AppUser::where('id',$delegate->app_user_id)->first();
-      $appUser->delete();
-      $delegate->delete();
+        Delegate::with('appUser')->where('id',$id)->delete();
+
+//        $delegate->delete();
         return  redirect()->back()->with('error', 'تم الحذف');
     }
 
