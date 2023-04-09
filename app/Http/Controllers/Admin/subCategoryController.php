@@ -8,6 +8,7 @@ use App\Http\Requests\subCategoryRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\OrderTable;
 use App\Models\Subcategory;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -203,7 +204,8 @@ class subCategoryController extends Controller
     {
         Subcategory::find($id)->delete();
         Subcategory::where('parent_id',$id)->delete();
-        return redirect()->back();
+        return  redirect()->back()->with('error', 'تم الحذف');
+
     }
     public function createAdmin(){
 
@@ -337,7 +339,7 @@ public function mainLaundries()
 public function deleteBranch($id)
 {
     Subcategory::find($id)->delete();
-    return redirect()->back();
+    return  redirect()->back()->with('error', 'تم الحذف');
 }
 
 public function viewTrashedLaundries()
@@ -350,7 +352,12 @@ public function restoreDeleted($id)
 {
     Subcategory::withTrashed()->find($id)->restore();
     Subcategory::withTrashed()->where('parent_id',$id)->restore();
-    return redirect()->route('laundries.index');
+    return redirect()->route('laundries.index')->with('error', 'تم الحذف');;
+}
 
+public function getOrders($id)
+{
+    $orders=OrderTable::where('laundry_id',$id)->with(['user','delegate.appUser'])->get();
+    return view('dashboard.laundries.laundryOrders',compact('orders'));
 }
 }

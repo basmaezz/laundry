@@ -198,7 +198,7 @@ class UserController extends Controller
             abort(403);
         };
         AppUser::find($id)->delete();
-        return  redirect()->back()->withErrors(['msg' => ' تم الحذف']);
+        return  redirect()->back()->with('error', 'تم الحذف');
     }
     public function customerWallet($id)
     {
@@ -220,7 +220,7 @@ class UserController extends Controller
 
         $appUser->wallet += floatval($request->get("amount"));
         $appUser->save();
-        return redirect()->route('customers.index')->with('message', 'تم الاضافه للمحفظه !');;
+        return redirect()->route('customers.index')->with('success', 'تم الاضافه للمحفظه !');;
     }
     public function customerOrders($id){
         if(Gate::denies('customers.index')){

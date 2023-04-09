@@ -87,6 +87,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('createAdminLaundries', [subCategoryController::class, 'createAdmin'])->name('laundries.createAdmin');
     Route::post('storeLaundryAdmin', [subCategoryController::class, 'storeLaundryAdmin'])->name('laundries.storeAdmin');
     Route::get('laundryView/{id}', [subCategoryController::class, 'show'])->name('laundries.view');
+    Route::get('laundryOrders/{id}', [subCategoryController::class, 'getOrders'])->name('laundries.orders');
     Route::get('laundryUpdateStats', [subCategoryController::class, 'updateStats']);
     Route::get('branches/{id}', [subCategoryController::class, 'branches'])->name('laundries.branches');
     Route::get('createBranch/{id}', [subCategoryController::class, 'createBranch'])->name('laundries.branches.create');

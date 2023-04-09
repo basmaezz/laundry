@@ -9,17 +9,6 @@
         </nav>
 
         <div class="container-fluid">
-            <div class="validationMsg" style="width: 600px">
-                @if($errors->any())
-                    <div class="alert alert-danger" >
-                        <h6>{{$errors->first()}}</h6>
-                    </div>
-                @elseif(session()->has('message'))
-                    <div class="alert alert-success"  >
-                        {{ session()->get('message') }}
-                    </div>
-                @endif
-            </div>
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="col-lg-12">
@@ -55,7 +44,12 @@
                                             <td>
                                                 <a href="{{route('customer.Orders',$user->id)}}" class="btn btn-info">عرض الطلبات</a>
                                                 <a href="{{route('customer.wallet',$user->id)}}" class="btn btn-info">اضافه للمحفظه</a>
-                                                <a href="{{route('customer.delete',$user->id)}}" class="btn btn-danger">حذف</a>
+{{--                                                <a href="{{route('customer.delete',$user->id)}}" class="btn btn-danger">حذف</a>--}}
+                                                <form class="delete" action="{{route('customer.delete',$user->id)}}" method="get">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="submit" value="حذف" class="edit btn btn-danger btn-sm">
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -77,6 +71,11 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#customers_wrapper .col-md-6:eq(0)');
+    </script>
+    <script>
+        $(".delete").on("submit", function(){
+            return confirm("هل أنت متأكد من الحذف  ؟");
+        });
     </script>
 @endpush
 

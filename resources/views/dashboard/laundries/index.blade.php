@@ -49,6 +49,7 @@
                                                 <a href="{{route('CategoryItems.index',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الأقسام</a>
                                                 <a href="{{route('laundries.edit',$subCategory->id)}}" class="edit btn btn-primary btn-sm">تعديل</a>
                                                 <a href="{{route('laundries.view',$subCategory->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a>
+                                                <a href="{{route('laundries.orders',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الطلبات</a>
 {{--                                                    <form class="delete" action="{{route('laundries.destroy',$subCategory->id)}}" method="get" >--}}
 {{--                                                        @csrf--}}
 {{--                                                        @method('DELETE')--}}
