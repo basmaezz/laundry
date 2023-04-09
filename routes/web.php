@@ -265,7 +265,7 @@ Route::get('usersGet', function () {
     return $users;
 });
 Route::get('deleteDelegate', function () {
-    $delegate = \App\Models\Delegate::where('id',23)->get();
+    $delegate = \App\Models\Delegate::where('id',23)->first();
      $delegate->delete();
      return 'deleted';
 });
