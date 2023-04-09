@@ -13,6 +13,11 @@
                 <div class="row">
                     <form method="post" action="{{url('laundryStore')}}" enctype="multipart/form-data">
                         @csrf
+                        <div class="card-body box-profile">
+                            <img class="profile-user-img img-fluid img-circle"
+                                 src="{{$subCategory->image}}"
+                                 alt="User profile picture">
+                        </div>
                         <div class="col-sm-5">
                             <div class="card">
                                 <div class="card-header">

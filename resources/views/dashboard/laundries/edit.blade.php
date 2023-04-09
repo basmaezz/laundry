@@ -135,7 +135,7 @@
                                     @endif
                                     @if($subCategory->parent_id =='')
                                             <div class="form-group">
-                                                <img src="{{asset('assets/uploads/laundries/logo/'.$subCategory->image)}}" style="width: 100px; height: 100px">
+                                                <img src="{{$subCategory->image}}" style="width: 100px; height: 100px">
                                             </div>
 
                                      <div class="form-group">
