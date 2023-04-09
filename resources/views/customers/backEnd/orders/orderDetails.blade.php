@@ -9,8 +9,8 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Validation</li>
+                            <li class="breadcrumb-item"><a href="{{route('Customer.Products.viewAllServices',Auth::user()->subCategory_id)}}">Orders</a></li>
+                            <li class="breadcrumb-item active">order Details</li>
                         </ol>
                     </div>
                 </div>
@@ -21,13 +21,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Edit Laundry information</h3>
-                            </div>
-
-                            <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Different Styles</h3>
+                                    <h3 class="card-title">Order Details</h3>
                                 </div>
                                 <div class="card-body">
                                     <h4>Input</h4>
@@ -80,11 +75,38 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                @foreach($orderDetails as $orderDetail)
+                    <div class="col-sm-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>عرض تفاصيل القطع  </strong>
 
+                            </div>
+
+                            <div class="card-block">
+
+                                <div class="form-group">
+                                    <label for="company" n>اسم القطعه</label>
+                                    <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$orderDetail->product->name_ar}}"disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="company" n>اسم الخدمه</label>
+                                    <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$orderDetail->productService->services}}"disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="company" n>السعر </label>
+                                    <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$orderDetail->price}}"disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="company">الكميه  </label>
+                                    <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$orderDetail->quantity}}"disabled>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                @endforeach
                 </div>
-            </div>
+
         </section>
     </div>
 @endsection
