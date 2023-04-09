@@ -197,7 +197,7 @@
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره ساريه لرخصه القياده  </label>
                                         <div class="col-md-9">
                                             @if(pathinfo($delegate['car_registration'], PATHINFO_EXTENSION)=='pdf')
-                                                <a href="{{asset('/images/'.$delegate->car_registration)}}" download>
+                                                <a href="{{asset('/assets/uploads/car_registration/'.$delegate->car_registration)}}" download>
                                                     Download
                                                 </a>
                                             @else
