@@ -401,6 +401,7 @@ class UserController extends Controller
             abort(403);
         };
         $delegate=Delegate::with(['appUser','nationality','car','year','bank'])->find($id);
+        dd($delegate,$delegate->appUser->name);
         $nationalities=Nationality::get();
         $banks=Bank::all();
         $carTypes=CarType::all();
