@@ -49,10 +49,12 @@
                                         <td>{{$delegate->created_at->format('Y-M-D') ??''}}</td>
 
                                         <td>
-                                            @if($delegate->appUser->status !=''&& $delegate->appUser->status=='active')
+                                            @if(isset($delegate->appUser))
+                                            @if($delegate->appUser->status=='active')
                                             <a href="{{route('delegate.changeDelegateStatus',$delegate->id)}}" class="btn btn-danger">ايقاف</a>
                                             @elseif($delegate->appUser->status=='deactivated')
                                             <a href="{{route('delegate.changeDelegateStatus',$delegate->id)}}" class="btn btn-info">تفعيل</a>
+                                            @endif
                                             @endif
                                             <a href="{{route('delegate.edit',$delegate->id)}}" class="btn btn-info">تعديل</a>
                                             <a href="{{route('Order.delegateOrders',$delegate->id)}}" class="btn btn-info">الطلبات</a>
