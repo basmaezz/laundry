@@ -402,3 +402,11 @@ Route::get('getDelivery',function (){
     $delivery=DB::table('app_users')->where('user_type','delivery')->get();
     return $delivery;
 });
+
+
+Rpute::get('deleteDelegate',function (){
+    $delivery=DB::table('app_users')->where('id','54')->first();
+    $delivery->delete();
+    return'deleted';
+
+});
