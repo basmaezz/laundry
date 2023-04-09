@@ -188,7 +188,7 @@ class UserController extends Controller
         if(Gate::denies('customers.index')){
             abort(403);
         };
-        $customers=AppUser::with('cities')->get();
+        $customers=AppUser::where('user_type',"customer")->with('cities')->get();
         return view('dashboard.users.customers',compact('customers'));
 
     }
