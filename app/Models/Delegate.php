@@ -87,7 +87,7 @@ class Delegate extends Model
         );
     }
 
-    public  function appUser(){
+    public  function appUserTrashed(){
         return $this->belongsTo(AppUser::class,'app_user_id');
     }
 

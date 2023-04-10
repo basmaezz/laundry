@@ -21,11 +21,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company" n>اسم العميل</label>
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->user->name ??'حساب العميل محذوف'}}"disabled>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->user->name }}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company" n>اسم المندوب</label>
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->delegate->appUser->name ??''}}"disabled>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->delegateTrashed->appUserTrashed->name ??''}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">المدينه  </label>
