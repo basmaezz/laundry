@@ -28,9 +28,9 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$order->id}}</td>
-                                            <td>{{$order->subCategories->name_ar}}</td>
-                                            <td>{{$order->user->name}}</td>
-                                            <td>{{$order->delegate->appUser->name ??''}}</td>
+                                            <td>{{$order->subCategoriesTrashed->name_ar}}</td>
+                                            <td>{{$order->userTrashed->name}}</td>
+                                            <td>{{$order->delegateTrashed->appUserTrashed->name ??''}}</td>
                                             <td>{{minutesToHumanReadable($order->histories->where('status_id',$order->status_id)->first()->spend_time ?? 0)}}</td>
                                              <td>{{$order->created_at->format('d/m/Y')}}</td>
                                             <td>{{$order->updated_at->format('d/m/Y')}}</td>

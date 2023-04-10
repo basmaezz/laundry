@@ -34,7 +34,7 @@ class OrderController extends Controller
             if(Gate::denies('Orders.index')){
                 abort(403);
             };
-           $orders=OrderTable::with(['histories','subCategoriesTrashed','user','user.cities'])->get();
+           $orders=OrderTable::with(['histories','subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed'])->get();
            return  view('dashboard.Orders.index',compact('orders'));
         }
 
@@ -139,7 +139,7 @@ class OrderController extends Controller
         return  view('dashboard.Orders.WaitingForDeliveryToReceiveOrder',compact('orders'));
     }
     public function  DeliveryOnTheWayToYou(){
-        $orders=OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTRahed.appUserTRahed')->get();
+        $orders=OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->get();
         return  view('dashboard.Orders.DeliveryOnTheWayToYou',compact('orders'));
     }
     public function  completed(){

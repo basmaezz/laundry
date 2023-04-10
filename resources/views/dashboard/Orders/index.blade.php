@@ -33,15 +33,15 @@
                                         <tr>
                                             <td>{{$order->id}}</td>
                                             <td>{{$order->subCategoriesTrashed->name_ar}}</td>
-                                            <td>{{$order->user->name}}</td>
+                                            <td>{{$order->userTrashed->name}}</td>
                                             @if($order->delivery_type !=null)
                                             <td>{{$order->delivery_type=='1'?'استلام بواسطه العميل' :'استلام بواسطه المندوب'}}</td>
                                             @else
                                             <td></td>
                                             @endif
                                             <td>{{minutesToHumanReadable($order->histories->where('status_id',$order->status_id)->first()->spend_time ?? 0)}}</td>
-                                            <td>{{$order->user->cities->name_ar}}</td>
-                                            <td>{{$order->user->region_name}}</td>
+                                            <td>{{$order->userTrashed->citiesTrashed->name_ar}}</td>
+                                            <td>{{$order->userTrashed->region_name}}</td>
                                             <td>{{$order->created_at->year}}</td>
                                             <td>{{$order->created_at->month}}</td>
                                             <td>{{$order->created_at->day}}</td>

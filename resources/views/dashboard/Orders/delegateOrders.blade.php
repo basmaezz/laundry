@@ -31,7 +31,7 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$order->id}}</td>
-                                            <td>{{$order->subCategories->name_ar}} </td>
+                                            <td>{{$order->subCategoriesTrashed->name_ar}} </td>
                                             <td>{{$order->status}}</td>
                                             <td>{{$order->created_at->format('Y-m-d')}}</td>
                                             <td>
