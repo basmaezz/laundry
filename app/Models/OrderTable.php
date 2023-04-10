@@ -69,14 +69,14 @@ class OrderTable extends Model
         return $this->belongsTo(Delegate::class ,'delivery_id','app_user_id');
     }
 
-    public function productService()
+    public function productServiceTrashed()
     {
-        return $this->belongsTo(ProductService::class, 'product_service_id');
+        return $this->belongsTo(ProductService::class, 'product_service_id')->withTrashed();;
     }
 
-    public function subCategories()
+    public function subCategoriesTrashed()
     {
-        return $this->belongsTo(Subcategory::class, 'laundry_id');
+        return $this->belongsTo(Subcategory::class, 'laundry_id')->withTrashed();;
     }
 
     public function histories()

@@ -354,7 +354,7 @@ class subCategoryController extends Controller
     {
         Subcategory::withTrashed()->find($id)->restore();
         Subcategory::withTrashed()->where('parent_id', $id)->restore();
-        return redirect()->route('laundries.index')->with('error', 'تم الحذف');;
+        return redirect()->route('laundries.index')->with('success', 'تم استعاده الحذف');;
     }
 
     public function getOrders($id)
