@@ -17,11 +17,11 @@
 
                                     <div class="form-group">
                                         <label for="company" n>اسم المغسله</label>
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->subCategories->name_ar}}"disabled>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->subCategories->name_ar??'مغسله محذوفه'}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company" n>اسم العميل</label>
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->user->name}}"disabled>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->user->name ??'حساب العميل محذوف'}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company" n>اسم المندوب</label>
@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company">الحى  </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->user->region_name}}"disabled>
+                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->user->region_name??'الحى غير محدد'}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">التاريخ  </label>
@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company">المبلغ المطلوب  </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->total_price}}"disabled>
+                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->total_price??''}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">كوبون   </label>

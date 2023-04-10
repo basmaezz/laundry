@@ -62,8 +62,8 @@ class ProductController extends Controller
         $this->validate(
             $request,
             [
-                'name_ar'          => 'required|regex:/^[a-zA-Z]+$/u',
-                'name_en'          => 'required|regex:/^[a-zA-Z]+$/u',
+                'name_ar'          => 'required|',
+                'name_en'          => 'required|',
                 'desc_ar'          => 'required',
                 'desc_en'          => 'required',
             ],
