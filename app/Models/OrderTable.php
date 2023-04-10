@@ -60,7 +60,7 @@ class OrderTable extends Model
         return $this->hasMany(OrderDetails::class ,'order_table_id' ,'id');
     }
 
-    public function user()
+    public function userTrashed()
     {
         return $this->belongsTo(AppUser::class ,'user_id','id' );
     }
