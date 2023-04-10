@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class City extends Model
 {
     protected $table   = 'cities';
     protected $guarded = [];
+    use SoftDeletes;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -39,20 +39,20 @@
                                     @foreach($delegates as $delegate)
                                     <tr>
                                         <td>{{$delegate->id}}</td>
-{{--                                        <td><img src="{{asset('images/'.$delegate->appUSer->avatar)}}" style="width: 100px;height:100px"></td>--}}
-                                        <td>{{$delegate->appUser->name ??''}}</td>
-                                        <td>{{$delegate->appUser->cities->name_ar ??''}}</td>
+{{--                                        <td><img src="{{asset('images/'.$delegate->appUserTrashed->avatar)}}" style="width: 100px;height:100px"></td>--}}
+                                        <td>{{$delegate->appUserTrashedTrashed->name ??''}}</td>
+                                        <td>{{$delegate->appUserTrashedTrashed->citiesTrashed->name_ar ??''}}</td>
                                         <td>{{$delegate->nationality->name_ar ?? ''}}</td>
                                         <td>{{$delegate->request_employment==0 ?'موظف':'عامل حر'}}</td>
                                         <td>{{$delegate->id_number}}</td>
-                                        <td>{{$delegate->appUser->status ??''}}</td>
+                                        <td>{{$delegate->appUserTrashed->status ??''}}</td>
                                         <td>{{$delegate->created_at->format('Y-M-D') ??''}}</td>
 
                                         <td>
-                                            @if(isset($delegate->appUser))
-                                            @if($delegate->appUser->status=='active')
+                                            @if(isset($delegate->appUserTrashed))
+                                            @if($delegate->appUserTrashed->status=='active')
                                             <a href="{{route('delegate.changeDelegateStatus',$delegate->id)}}" class="btn btn-danger">ايقاف</a>
-                                            @elseif($delegate->appUser->status=='deactivated')
+                                            @elseif($delegate->appUserTrashed->status=='deactivated')
                                             <a href="{{route('delegate.changeDelegateStatus',$delegate->id)}}" class="btn btn-info">تفعيل</a>
                                             @endif
                                             @endif

@@ -38,7 +38,7 @@ class AppUser extends Authenticatable implements JWTSubject
     }
 
     public function citiesTrashed() {
-        return $this->belongsTo(City::class,'city_id');
+        return $this->belongsTo(City::class,'city_id')->withTrashed();
     }
 
     public function rates(){

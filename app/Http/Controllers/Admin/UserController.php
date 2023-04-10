@@ -188,7 +188,7 @@ class UserController extends Controller
         if(Gate::denies('customers.index')){
             abort(403);
         };
-        $customers=AppUser::where('user_type',"customer")->with('cities')->get();
+        $customers=AppUser::where('user_type',"customer")->with('citiesTrashed')->get();
         return view('dashboard.users.customers',compact('customers'));
 
     }
@@ -237,7 +237,7 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-        $delegates=Delegate::with(['appUser','appUser.cities','nationality'])->get();
+        $delegates=Delegate::with(['appUserTrashed','appUserTrashed.citiesTrashed','nationality'])->get();
         return view('dashboard.users.delegates',compact('delegates'));
     }
     public function CreateDelegate()
@@ -384,7 +384,7 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-        $delegate=Delegate::with(['appUser','car','year'])->find($id);
+        $delegate=Delegate::with(['appUserTrashed','car','year'])->find($id);
         return view('dashboard.users.viewDelegate',compact('delegate'));
     }
     public function deleteDelegate($id)
@@ -405,7 +405,7 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-        $delegate=Delegate::with(['appUser','nationality','car','year','bank'])->find($id);
+        $delegate=Delegate::with(['appUserTrashed','nationality','car','year','bank'])->find($id);
 
         $nationalities=Nationality::get();
         $banks=Bank::all();
@@ -419,7 +419,7 @@ class UserController extends Controller
         if(!empty($request->file('avatar'))) {
             $filename = request('avatar')->getClientOriginalName();
             request()->file('avatar')->move(public_path() . '/images/', $filename);
-            $delegate->appUSer->Avatar=$filename;
+            $delegate->appUserTrashed->Avatar=$filename;
         }
         if(!empty($request->file('idImage'))){
             $fileNameImageId = request('idImage')->getClientOriginalName();
@@ -477,7 +477,7 @@ class UserController extends Controller
 //        'car_registration'=>$fileNameCarRegistration,
 //        'glasses_avatar'=>$fileNameGlassesAvatar,
       ]);
-      $delegate->appUser->update($request->all());
+      $delegate->appUserTrashed->update($request->all());
       $delegate->save();
 
       return redirect()->route('delegates.index');
@@ -515,9 +515,9 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-       $delegate=Delegate::with('appUser')->find($id);
-        $delegate->appUser->status=='active' ?$delegate->appUser->status='deactivated' :$delegate->appUser->status='active';
-        $delegate->appUser->save();
+       $delegate=Delegate::with('appUserTrashed')->find($id);
+        $delegate->appUserTrashed->status=='active' ?$delegate->appUserTrashed->status='deactivated' :$delegate->appUserTrashed->status='active';
+        $delegate->appUserTrashed->save();
        return redirect()->back()->with('message', 'تم تغيير نشاط المندوب !');;
     }
 
@@ -564,8 +564,8 @@ class UserController extends Controller
            $delegate->reject_reason='';
        }
        $delegate->registered=Null;
-       $delegate->appUser->status='active';
-       $delegate->appUser->save();
+       $delegate->appUserTrashed->status='active';
+       $delegate->appUserTrashed->save();
        $delegate->save();
        return redirect()->route('delegates.index')->with('message', 'تم قبول طلب التسجيل !');
     }

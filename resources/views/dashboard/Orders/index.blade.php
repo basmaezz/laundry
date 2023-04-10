@@ -32,7 +32,7 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$order->id}}</td>
-                                            <td>{{$order->subCategories->name_ar}}</td>
+                                            <td>{{$order->subCategoriesTrashed->name_ar}}</td>
                                             <td>{{$order->user->name}}</td>
                                             @if($order->delivery_type !=null)
                                             <td>{{$order->delivery_type=='1'?'استلام بواسطه العميل' :'استلام بواسطه المندوب'}}</td>

@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Delegate extends Model
 {
     protected $table   = 'delegates';
+    use SoftDeletes;
     protected $guarded = [];
     protected $fillable=
         ['user_id',
@@ -34,14 +36,14 @@ class Delegate extends Model
             'identity_expiration_date'
         ];
 
-    public static function boot() {
-        parent::boot();
-
-        static::deleting(function($delegate) { // before delete() method call this
-            Delegate::with('appUser')->delete();
-            // do the rest of the cleanup...
-        });
-    }
+//    public static function boot() {
+//        parent::boot();
+//
+//        static::deleting(function($delegate) { // before delete() method call this
+//            Delegate::with('appUserTrashed')->delete();
+//            // do the rest of the cleanup...
+//        });
+//    }
 
     protected function avatar():Attribute
     {
@@ -88,7 +90,7 @@ class Delegate extends Model
     }
 
     public  function appUserTrashed(){
-        return $this->belongsTo(AppUser::class,'app_user_id');
+        return $this->belongsTo(AppUser::class,'app_user_id')->withTrashed();
     }
 
 

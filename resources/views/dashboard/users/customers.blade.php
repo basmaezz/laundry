@@ -37,7 +37,7 @@
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}} </td>
                                             <td>{{$user->mobile}} </td>
-                                            <td>{{$user->cities->name_ar ??''}} </td>
+                                            <td>{{$user->citiesTrashed->name_ar ??''}} </td>
                                             <td> {{$user->region_name}}</td>
                                             <td>{{$user->gender}}</td>
                                             <td>{{$user->wallet}}</td>
