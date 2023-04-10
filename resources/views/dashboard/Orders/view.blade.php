@@ -21,7 +21,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company" n>اسم العميل</label>
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->user->name }}"disabled>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->userTrashed->name }}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company" n>اسم المندوب</label>
@@ -29,7 +29,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company">المدينه  </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->user->cities->name_ar}}"disabled>
+                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->userTrashed->citiesTrashed->name_ar}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">الحى  </label>
