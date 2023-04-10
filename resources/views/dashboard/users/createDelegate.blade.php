@@ -55,10 +55,11 @@
                                                   <input type="text"name="mobile" class="form-control" placeholder="الجوال" value="{{Request::old('mobile')}}" maxlength="9"style="direction: ltr">
                                                     <span class="input-group-addon">966</i>
                                                 </span>
+                                                    @if ($errors->has('mobile'))
+                                                        <span class="text-danger">{{ $errors->first('mobile') }}</span>
+                                                    @endif
                                                 </div>
-                                                @if ($errors->has('mobile'))
-                                                    <span class="text-danger">{{ $errors->first('mobile') }}</span>
-                                                @endif
+
                                             </div>
                                         </div>
 

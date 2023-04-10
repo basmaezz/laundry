@@ -259,6 +259,7 @@ class UserController extends Controller
                         'mobile'=>'required|min:9|unique:app_users',
                         'city_id'=>'required',
                         'region_name'=>'required',
+                        'license_end_date'=>'required',
                         'id_number'=>'required|integer|min:9|unique:delegates',
                         'identity_expiration_date'=>'required',
                         'nationality_id'=>'nullable',
@@ -271,17 +272,18 @@ class UserController extends Controller
                         'car_plate_letter1'=>'required|string',
                         'car_plate_letter2'=>'required|string',
                         'car_plate_letter3'=>'required|string',
-                        'car_plate_number'=>'required',
+                        'car_plate_number'=>'required|integer',
                         'avatar'=>'required|mimes:jpeg,bmp,png|max:500',
-                        'id_image'=>'required',
-                        'medicCheck'=>'required|max:1000',
-                        'car_picture_front'=>'required|max:1000',
-                        'car_picture_behind'=>'required|max:1000',
-                        'car_registration'=>'required|max:1000',
-                        'glasses_avatar'=>'required|max:1000',
+                        'id_image'=>'required|mimes:jpeg,bmp,png',
+                        'medicCheck'=>'required|mimes:jpeg,bmp,png|max:500',
+                        'car_picture_front'=>'required|mimes:jpeg,bmp,png|max:500',
+                        'car_picture_behind'=>'required|mimes:jpeg,bmp,png|max:500',
+                        'car_registration'=>'required|mimes:jpeg,bmp,png|max:500',
+                        'glasses_avatar'=>'required|mimes:jpeg,bmp,png|max:500',
                       ],[
+                          'mobile.unique'=>'الرقم موجود مسبقا',
                          'id_number.required'=>'رقم الهويه موجود مسبقا',
-                         'unique'=>'الاسم موجود مسبقا',
+                         'unique'=>' موجود مسبقا',
                          'string'=>'حروف فقط',
                          'integer'=>'أرقام فقط',
                          'required'=>'هذا الحقل مطلوب',
@@ -387,9 +389,10 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-        Delegate::with('appUser')->where('id',$id)->delete();
+       $delegate=Delegate::find($id);
+       AppUser::where('id',$delegate->app_user_id)->forcedelete();
+       $delegate->delete();
 
-//        $delegate->delete();
         return  redirect()->back()->with('error', 'تم الحذف');
     }
 
@@ -400,7 +403,7 @@ class UserController extends Controller
             abort(403);
         };
         $delegate=Delegate::with(['appUser','nationality','car','year','bank'])->find($id);
-        dd($delegate);
+
         $nationalities=Nationality::get();
         $banks=Bank::all();
         $carTypes=CarType::all();
