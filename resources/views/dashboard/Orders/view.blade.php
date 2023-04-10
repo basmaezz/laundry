@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company">الحى  </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->user->region_name??'الحى غير محدد'}}"disabled>
+                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->userTrashed->region_name}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">التاريخ  </label>
