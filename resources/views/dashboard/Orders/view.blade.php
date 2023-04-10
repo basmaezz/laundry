@@ -17,7 +17,7 @@
 
                                     <div class="form-group">
                                         <label for="company" n>اسم المغسله</label>
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->subCategories->name_ar??'مغسله محذوفه'}}"disabled>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->subCategories->name_ar}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company" n>اسم العميل</label>
