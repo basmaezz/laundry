@@ -34,7 +34,7 @@ class OrderController extends Controller
             if(Gate::denies('Orders.index')){
                 abort(403);
             };
-           $orders=OrderTable::with(['histories','subCategories','user','user.cities'])->get();
+           $orders=OrderTable::with(['histories','subCategoriesTrashed','user','user.cities'])->get();
            return  view('dashboard.Orders.index',compact('orders'));
         }
 
@@ -68,7 +68,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $order=OrderTable::with(['subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed','delegateTrashed.appUserTrashed'])->where('id',$id)->first();
-        $orderDetails=orderDetails::with(['product','productService'])->where('order_table_id',$id)->get();
+        $orderDetails=orderDetails::with(['product','productServiceTrashed'])->where('order_table_id',$id)->get();
         return  view('dashboard.Orders.view',compact(['order','orderDetails']));
     }
 
@@ -119,7 +119,7 @@ class OrderController extends Controller
         return  view('dashboard.Orders.pendingDeliveryAcceptance',compact('orders'));
     }
     public function  DeliveryOnWay(){
-        $orders=OrderTable::where("status_id",self::AcceptedByDelivery)->with('delegate.appUser')->get();
+        $orders=OrderTable::where("status_id",self::AcceptedByDelivery)->with('delegateTrashed.appUserTrashed')->get();
         return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
     }
     public function  WayToLaundry(){
@@ -139,15 +139,15 @@ class OrderController extends Controller
         return  view('dashboard.Orders.WaitingForDeliveryToReceiveOrder',compact('orders'));
     }
     public function  DeliveryOnTheWayToYou(){
-        $orders=OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegate.appUser')->get();
+        $orders=OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTRahed.appUserTRahed')->get();
         return  view('dashboard.Orders.DeliveryOnTheWayToYou',compact('orders'));
     }
     public function  completed(){
-        $orders=OrderTable::with(['subCategories','user','delegate.appUser'])->where("status_id",self::Completed)->get();
+        $orders=OrderTable::with(['subCategoriesTrashed','userTrashed','delegateTrashed.appUserTrashed'])->where("status_id",self::Completed)->get();
         return  view('dashboard.Orders.completed',compact('orders'));
     }
     public function  canceled(){
-        $orders=OrderTable::where("status_id",self::Cancel)->with('delegate.appUser')->get();
+        $orders=OrderTable::where("status_id",self::Cancel)->with('delegateTrashed.appUserTrashed')->get();
         return  view('dashboard.Orders.completed',compact('orders'));
     }
 
