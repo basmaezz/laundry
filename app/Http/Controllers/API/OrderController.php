@@ -494,9 +494,7 @@ class OrderController extends Controller
                 'price' => $detail->price,
             ];
         }
-        dd($order->subCategories);
         $distance = getDistanceFirst1($app_user, $order->subCategories->lat, $order->subCategories->lng);
-        dd($order->subCategories->lat ,$order->subCategories->lng );
         $range = $order->subCategories->range;
         $qrcode = "
                     Order #: {$order->id}
