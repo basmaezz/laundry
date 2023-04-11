@@ -30,7 +30,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="company">السعر  </label>
-                                <input type="text" name="price"class="form-control-plaintext" id="price" value="{{$service->price}}">  ريال
+                                <div class="input-group">
+                                    <input type="text"name="price" class="form-control" placeholder="السعر " value="{{$service->price}}" >
+                                    <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                </div>
                                 @if ($errors->has('price'))
                                     <span class="text-danger">{{ $errors->first('price') }}</span>
                                 @endif

@@ -35,13 +35,16 @@
 
                                 <div class="form-group">
                                     <label for="company">السعر  </label><br>
-                                    <input type="text" name="price" class="form-control-plaintext" id="staticEmail" value="{{Request::old('price')}}"> ريال
-{{--                                    <input type="text" name="price"class="form-control" id="price" placeholder="السعر "value="{{Request::old('price')}}">--}}
+                                    <div class="input-group">
+                                        <input type="text"name="price" class="form-control" placeholder="السعر " value="{{Request::old('range')}}" >
+                                        <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                    </div>
+
                                     @if ($errors->has('price'))
                                         <span class="text-danger">{{ $errors->first('price') }}</span>
                                     @endif
                                 </div>
-
 
 {{--                            <div class="form-group">--}}
 {{--                                <label for="company">الصوره  </label>--}}

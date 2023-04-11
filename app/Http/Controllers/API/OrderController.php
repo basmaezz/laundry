@@ -495,11 +495,12 @@ class OrderController extends Controller
             ];
         }
         $distance = getDistanceFirst1($app_user, $order->subCategories->lat, $order->subCategories->lng);
+        dd($order->subCategories->lat ,$order->subCategories->lng );
         $range = $order->subCategories->range;
         $qrcode = "
-Order #: {$order->id}
-Laundry Name: {$order->subCategories->$name}
-Customer Name: {$order->user->name}
+                    Order #: {$order->id}
+                    Laundry Name: {$order->subCategories->$name}
+                    Customer Name: {$order->user->name}
 ";
 
         if (!file_exists(public_path('qrcodes/' . $order->id . '.svg'))) {
