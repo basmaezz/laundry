@@ -351,8 +351,8 @@ class OrderController extends Controller
                 Transaction::create([
                     'app_user_id'   => auth('app_users_api')->user()->id,
                     'type'          => 'point',
-                    'amount'        => ($order->user->point - 1),
-                    'current_amount' => $order->user->point,
+                    'amount'        => ($order->userTrashed->point - 1),
+                    'current_amount' => $order->userTrashed->point,
                     'direction'     => 'in'
                 ]);
             }
