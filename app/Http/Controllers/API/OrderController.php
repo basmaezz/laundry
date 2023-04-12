@@ -168,7 +168,7 @@ class OrderController extends Controller
             return $q->select('id', 'order_table_id', 'product_id', 'category_item_id', 'price', 'quantity');
         }])->select('id', 'user_id', 'laundry_id')->first();
         $name = 'name_' . App::getLocale();
-        $body = __('api.success_send_to_laundry', ['laundry' => $order->subCategories->$name]);
+        $body = __('api.success_send_to_laundry', ['laundry' => $order->subCategoriesTrashed->$name]);
         NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(), $order->id);
         $customer = auth('app_users_api')->user();
 
@@ -298,7 +298,7 @@ class OrderController extends Controller
             $name = 'name_' . App::getLocale();
             NotificationController::sendNotification(
                 getStatusName($request->get('status_id')),
-                __('api.order_update', ['laundry' => $order->subCategories->$name, 'status' => getStatusName($request->get('status_id'))]),
+                __('api.order_update', ['laundry' => $order->subCategoriesTrahed->$name, 'status' => getStatusName($request->get('status_id'))]),
                 $order->user,
                 $order->id
             );
@@ -325,8 +325,8 @@ class OrderController extends Controller
                     'status' => 'active',
                     'user_type' => 'delivery',
                     'available' => '1',
-                ])->whereRaw('( 6371 * acos( cos( radians(' . $order->subCategories->lat . ') ) * cos( radians( lat ) )
-                   * cos( radians( lng ) - radians(' . $order->subCategories->lng . ') ) + sin( radians(' . $order->subCategories->lat . ') )
+                ])->whereRaw('( 6371 * acos( cos( radians(' . $order->subCategoriesTrashed->lat . ') ) * cos( radians( lat ) )
+                   * cos( radians( lng ) - radians(' . $order->subCategoriesTrashed->lng . ') ) + sin( radians(' . $order->subCategoriesTrashed->lat . ') )
                    * sin( radians( lat ) ) ) ) <= ' . config('setting.distance.in_area'))->get();
                 if (count($delgates) == 0) {
                     $delgates = AppUser::where([
@@ -400,7 +400,7 @@ class OrderController extends Controller
             $name = 'name_' . App::getLocale();
             NotificationController::sendNotification(
                 getStatusName($status_id),
-                __('api.order_update', ['laundry' => $order->subCategories->$name, 'status' => getStatusName($status_id)]),
+                __('api.order_update', ['laundry' => $order->subCategoriesTrashed->$name, 'status' => getStatusName($status_id)]),
                 $order->user,
                 $order->id
             );
@@ -456,7 +456,7 @@ class OrderController extends Controller
     {
         $order = OrderTable::where('user_id', auth('app_users_api')->user()->id)
             ->where('status_id', '<>', self::Completed)
-            ->with(['user', 'histories', 'subCategories', 'orderDetails', 'orderDetails.product', 'orderDetails.productService', 'orderDetails.categoryItem'])->latest()->first();
+            ->with(['user', 'histories', 'subCategoriesTrashed', 'orderDetails', 'orderDetails.product', 'orderDetails.productService', 'orderDetails.categoryItem'])->latest()->first();
 
         if (isset($order)) {
             $data = self::orderObject($order);
