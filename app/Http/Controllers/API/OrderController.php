@@ -283,7 +283,7 @@ class OrderController extends Controller
             ->where('id', $request->get('order_id'))
             ->with(['userTrashed','subCategoriesTrashed'])
             ->first();
-dd($order->subCategoriesTrashed->name_ar);
+
         if ($order->user_id != $app_user_id && $order->delivery_id != $app_user_id) {
             return apiResponseOrders('api.incorrect_data');
         }
@@ -292,6 +292,7 @@ dd($order->subCategoriesTrashed->name_ar);
         }
 
         if (isset($order)) {
+            $order->subCategoriesTrashed->name_ar;
             $order->status_id = $request->get('status_id');
             $order->status    = getStatusName($request->get('status_id'));
             $order->save();
