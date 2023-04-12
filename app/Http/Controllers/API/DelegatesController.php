@@ -202,7 +202,7 @@ class DelegatesController extends Controller
         $name = 'name_' . App::getLocale();
         NotificationController::sendNotification(
             getStatusName($order->status_id),
-            __('api.order_update',['laundry'=>$order->subCategories->$name,'status'=>getStatusName($order->status_id)]),
+            __('api.order_update',['laundry'=>$order->subCategoriesTrashed->$name,'status'=>getStatusName($order->status_id)]),
             $order->user,
             $order->id);
 

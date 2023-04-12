@@ -299,7 +299,7 @@ class OrderController extends Controller
             NotificationController::sendNotification(
                 getStatusName($request->get('status_id')),
                 __('api.order_update', ['laundry' => $order->subCategoriesTrahed->$name, 'status' => getStatusName($request->get('status_id'))]),
-                $order->user,
+                $order->userTrashed,
                 $order->id
             );
 
@@ -345,8 +345,8 @@ class OrderController extends Controller
                 }
             }
             if ($request->get("status_id") == self::Completed) {
-                $order->user->point++;
-                $order->user->save();
+                $order->userTrashed->point++;
+                $order->userTrashed->save();
 
                 Transaction::create([
                     'app_user_id'   => auth('app_users_api')->user()->id,
