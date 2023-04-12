@@ -385,7 +385,7 @@ class OrderController extends Controller
         $order = OrderTable::where('user_id', $app_user_id)
             ->where('status_id', self::ClothesReadyForDelivery)
             ->where('id', $request->get('order_id'))
-            ->with('user')
+            ->with('userTrashed')
             ->first();
 
         if (isset($order)) {
