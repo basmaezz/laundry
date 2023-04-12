@@ -468,7 +468,6 @@ class OrderController extends Controller
 
     public static function orderObject($order)
     {
-        dd($order->subCategoriesTrashed);
         $name = 'name_' . App::getLocale();
         $app_user = auth('app_users_api')->user();
         $status_histories = [];
