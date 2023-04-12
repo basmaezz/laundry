@@ -4,6 +4,7 @@ use App\Http\Controllers\Customer\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Models\AppUser;
 use App\Models\SiteSetting;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
@@ -417,3 +418,7 @@ Route::get('getPone',function (){
 
 });
 
+Route::get('getLaundry',function (){
+    $laundry=subCategory::where('id',24)->get();
+    return $laundry;
+});
