@@ -281,9 +281,9 @@ class OrderController extends Controller
 
         $order = OrderTable::whereIn('status_id', [1, 2, 3, 4, 5, 6, 7, 8, 9])
             ->where('id', $request->get('order_id'))
-            ->with('userTrashed')
+            ->with(['userTrashed','subCategoriesTrashed'])
             ->first();
-
+dd($order);
         if ($order->user_id != $app_user_id && $order->delivery_id != $app_user_id) {
             return apiResponseOrders('api.incorrect_data');
         }
@@ -297,7 +297,7 @@ class OrderController extends Controller
             $order->save();
 
             $name = 'name_' . App::getLocale();
-             dd($order);
+
             NotificationController::sendNotification(
                 getStatusName($request->get('status_id')),
                 __('api.order_update', ['laundry' => $order->subCategoriesTrahed->$name, 'status' => getStatusName($request->get('status_id'))]),
