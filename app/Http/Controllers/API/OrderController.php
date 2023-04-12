@@ -293,7 +293,7 @@ class OrderController extends Controller
 
         if ($order!=null) {
 
-dd($order->subCategoriesTrahed->name_ar);
+dd($order->subCategoriesTrahed);
             $order->status_id = $request->get('status_id');
             $order->status    = getStatusName($request->get('status_id'));
             $order->save();
