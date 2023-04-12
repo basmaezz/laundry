@@ -554,7 +554,7 @@ class OrderController extends Controller
             'rate' => RateLaundry::select('rate')->where('order_id', $order->id)->first()['rate'] ?? null,
             'is_rated' => boolval(RateLaundry::where('order_id', $order->id)->count()),
             'delivery_type' => $order->delivery_type,
-            'laundry name' => $order->subCategories->$name,
+            'laundry name' => $order->subCategoriesTrashed->$name,
             'date' => $order->created_at->format("d M"),
             'status_id' => $order->status_id,
             'status' => getStatusName($order->status_id),
