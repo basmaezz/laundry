@@ -291,9 +291,9 @@ class OrderController extends Controller
             return apiResponseOrders('api.order_no_allowed_canceled');
         }
 
-        if ($order!=null) {
+        if (isset($order)) {
 
-dd($order->subCategoriesTrahed);
+            dd($order->subCategoriesTrahed);
             $order->status_id = $request->get('status_id');
             $order->status    = getStatusName($request->get('status_id'));
             $order->save();
