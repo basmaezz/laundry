@@ -496,10 +496,10 @@ class OrderController extends Controller
             ];
         }
         $distance = getDistanceFirst1($app_user, $order->subCategoriesTrashed->lat, $order->subCategoriesTrashed->lng);
-        $range = $order->subCategories->range;
+        $range = $order->subCategoriesTrashed->range;
         $qrcode = "
                     Order #: {$order->id}
-                    Laundry Name: {$order->subCategories->$name}
+                    Laundry Name: {$order->subCategoriesTrashed->$name}
                     Customer Name: {$order->user->name}
 ";
 
@@ -508,16 +508,16 @@ class OrderController extends Controller
         }
         return [
             'laundry' => [
-                'laundry_name' => $order->subCategories->$name,
-                "laundry_id" => $order->subCategories->id,
-                "laundry_image" => $order->subCategories->image,
-                "laundry_lat" => $order->subCategories->lat,
-                "laundry_lng" => $order->subCategories->lng,
-                "laundry_address" => $order->subCategories->address,
-                'laundry_range' => $order->subCategories->range,
+                'laundry_name' => $order->subCategoriesTrashed->$name,
+                "laundry_id" => $order->subCategoriesTrashed->id,
+                "laundry_image" => $order->subCategoriesTrashed->image,
+                "laundry_lat" => $order->subCategoriesTrashed->lat,
+                "laundry_lng" => $order->subCategoriesTrashed->lng,
+                "laundry_address" => $order->subCategoriesTrashed->address,
+                'laundry_range' => $order->subCategoriesTrashed->range,
                 'distance_class' =>  getDistanceClass($distance, $range),
                 'distance_class_id' =>  getDistanceClassId($distance, $range),
-                'rate' => $order->subCategories->rate_avg,
+                'rate' => $order->subCategoriesTrashed->rate_avg,
                 "laundry_distance" =>  round($distance, 2),
             ],
             'address' => [
@@ -535,17 +535,17 @@ class OrderController extends Controller
             ],
             'user' => [
                 //'me' => $app_user->id,
-                "user_name" => $order->user->name,
-                "user_image" => $order->user->image ? asset('assets/uploads/users_avatar/' . $order->user->image) : null,
-                "user_id" => $order->user->id,
-                "user_mobile" => $order->user->mobile,
-                "user_lat" => $order->user->lat,
-                "user_lng" => $order->user->lng,
-                "user_address" => $order->user->address,
-                "user_building" => $order->user->building,
-                "user_region_name" => $order->user->region_name,
-                'address_description' => $order->user->address_description,
-                'home_image' => $order->user->home_image ? asset('assets/uploads/home_image/' . $order->user->home_image) : null,
+                "user_name" => $order->userTrashed->name,
+                "user_image" => $order->userTrashed->image ? asset('assets/uploads/users_avatar/' . $order->userTrashed->image) : null,
+                "user_id" => $order->userTrashed->id,
+                "user_mobile" => $order->userTrashed->mobile,
+                "user_lat" => $order->userTrashed->lat,
+                "user_lng" => $order->userTrashed->lng,
+                "user_address" => $order->userTrashed->address,
+                "user_building" => $order->userTrashed->building,
+                "user_region_name" => $order->userTrashed->region_name,
+                'address_description' => $order->userTrashed->address_description,
+                'home_image' => $order->userTrashed->home_image ? asset('assets/uploads/home_image/' . $order->userTrashed->home_image) : null,
             ],
             'services' => $order_details,
             'order_id' => $order->id,
