@@ -468,7 +468,7 @@ class OrderController extends Controller
 
     public static function orderObject($order)
     {
-        dd($order);
+        dd($order->subCategoriesTrashed);
         $name = 'name_' . App::getLocale();
         $app_user = auth('app_users_api')->user();
         $status_histories = [];
@@ -496,7 +496,7 @@ class OrderController extends Controller
                 'price' => $detail->price,
             ];
         }
-        $distance = getDistanceFirst1($app_user, $order->subCategories->lat, $order->subCategories->lng);
+        $distance = getDistanceFirst1($app_user, $order->subCategoriesTrashed->lat, $order->subCategoriesTrashed->lng);
         $range = $order->subCategories->range;
         $qrcode = "
                     Order #: {$order->id}
