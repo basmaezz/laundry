@@ -290,9 +290,9 @@ class OrderController extends Controller
         if ($request->get('status_id') == self::Cancel && $order->status_id != self::WaitingForDelivery) {
             return apiResponseOrders('api.order_no_allowed_canceled');
         }
-
+dd($order->subCategoriesTrashed->name_ar);
         if (isset($order)) {
-            $order->subCategoriesTrashed->name_ar;
+
             $order->status_id = $request->get('status_id');
             $order->status    = getStatusName($request->get('status_id'));
             $order->save();
