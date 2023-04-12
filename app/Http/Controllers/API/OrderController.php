@@ -500,7 +500,7 @@ class OrderController extends Controller
         $qrcode = "
                     Order #: {$order->id}
                     Laundry Name: {$order->subCategoriesTrashed->$name}
-                    Customer Name: {$order->user->name}
+                    Customer Name: {$order->userTrashed->name}
 ";
 
         if (!file_exists(public_path('qrcodes/' . $order->id . '.svg'))) {
