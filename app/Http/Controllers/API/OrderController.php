@@ -298,7 +298,7 @@ class OrderController extends Controller
             $order->save();
 
             $name = 'name_' . App::getLocale();
-dd($order->subCategoriesTrahed->$name);
+dd($order->subCategoriesTrahed->name_ar);
             NotificationController::sendNotification(
                 getStatusName($request->get('status_id')),
                 __('api.order_update', ['laundry' => $order->subCategoriesTrahed->$name, 'status' => getStatusName($request->get('status_id'))]),
