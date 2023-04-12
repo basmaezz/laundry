@@ -239,6 +239,8 @@ class OrderController extends Controller
             ->whereIn('status_id', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
             ->with(['userTrashed', 'histories', 'subCategoriesTrashed', 'orderDetails', 'orderDetails.product', 'orderDetails.productService', 'orderDetails.categoryItem'])->latest()->get();
 
+        dd($orders);
+
         $data = [];
         if (isset($orders)) {
             foreach ($orders as $order) {
