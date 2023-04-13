@@ -113,9 +113,19 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الهوية الوطنية   </label>
                                         <div class="col-md-9">
-                                            <img src="{{$delegate->id_image}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
-                                            <input type="file" id="file-input" name="idImage" class="form-control">
+                                            @if(pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='pdf'||pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='docx')
+                                                <a href="{{$delegate->id_image}}" download>
+                                                    Download
+                                                </a>
+                                            @else
+
+                                                <a href="{{$delegate->id_image}}" download>
+                                                    <img src="{{$delegate->id_image}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                                </a>
+                                            @endif
+                                                <input type="file" id="file-input" name="idImage" class="form-control">
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
