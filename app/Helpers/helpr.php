@@ -648,7 +648,7 @@ function getUserObject($user)
         'title' => $user->title?$user->title->$title:'',
         'status' => $user->status,
         'city_id' => $user->city_id,
-        'city_name' => $user->cities?->name,
+        'city_name' => $user->citiesTrashed?->name,
         'region_name' => $user->region_name,
         'address' => $user->address,
         'building' => $user->building,
