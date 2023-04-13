@@ -68,8 +68,9 @@ class OrderController extends Controller
     public function show($id)
     {
         $order=OrderTable::with(['subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed','delegateTrashed.appUserTrashed'])->where('id',$id)->first();
+
         $orderDetails=orderDetails::with(['productTrashed','productService'])->where('order_table_id',$id)->get();
-        dd($orderDetails);
+        dd($orderDetails,$order);
         return  view('dashboard.Orders.view',compact(['order','orderDetails']));
     }
 
