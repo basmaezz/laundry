@@ -300,11 +300,10 @@ class OrderController extends Controller
             $name = 'name_' . App::getLocale();
             NotificationController::sendNotification(
                 getStatusName($request->get('status_id')),
-                __('api.order_update', ['laundry' => $order->subCategoriesTrahed->$name, 'status' => getStatusName($request->get('status_id'))]),
+                __('api.order_update', ['laundry' => $order->subCategoriesTrashed->$name, 'status' => getStatusName($request->get('status_id'))]),
                 $order->userTrashed,
                 $order->id
             );
-//            dd($order->userTrashed->name,$order->subCategoriesTrashed->name_ar);
 
             if ($request->get('status_id') == self::Cancel) {
                 $users = AppUser::where([
