@@ -9,7 +9,7 @@ class OrderDetails extends Model
     protected $table   = 'order_details';
     protected $guarded = [];
      protected $fillable=['order_table_id','product_id','category_item_id','product_service_id','price','quantity'];
- use SoftDeletes;
+    use SoftDeletes;
 
     public function orderTables()
     {
