@@ -34,7 +34,7 @@
                                     <tr>
                                         <td><img src="{{$subCategory->image}}" style="width:50px;height:50px"></td>
                                         <td>{{$subCategory->name_ar}}</td>
-                                        <td>{{$subCategory->parent->name_ar??''}}</td>
+                                        <td>{{$subCategory->parentTrashed->name_ar??''}}</td>
                                         <td>{{$subCategory->city->name_ar??''}}</td>
                                         <td>{{ Str::limit($subCategory->address, 20) }}</td>
                                         @if($subCategory->around_clock !=Null)
@@ -43,7 +43,7 @@
                                             <td>{{abs($hours=((int)$subCategory->clock_end)-((int)$subCategory->clock_at))}}  ساعة </td>
                                         @endif
                                             <td>
-                                                @if($subCategory->parent_id=='')
+                                                @if($subCategory->parentTrashed_id=='')
                                                 <a href="{{route('laundries.branches',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الفروع</a>
                                                 @endif
                                                 <a href="{{route('CategoryItems.index',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الأقسام</a>

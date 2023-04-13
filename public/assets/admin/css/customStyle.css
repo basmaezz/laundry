@@ -47,18 +47,16 @@ img {
 #text-input {
     color: black;
 }
-/*#email-input {*/
-/*    color: black;*/
-/*}*/
-/*#name_ar {*/
-/*    color: black;*/
-/*}*/
-/*#phone {*/
-/*    color: black;*/
-/*}*/
 .form-control {
     color: black;
 }
 .navBreadCrumb{
     margin-top: -27px;
+}
+.delete {
+    display: inline-block;
+}
+.edit.btn.btn-danger.btn-sm {
+    height: 27px;
+    width: 73px;
 }

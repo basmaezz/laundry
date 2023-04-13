@@ -470,12 +470,12 @@ class UserController extends Controller
         'car_manufacture_year_id'=>$request->car_manufacture_year_id,
         'identity_expiration_date'=>$request->identity_expiration_date,
         'license_end_date'=>$request->license_end_date,
-//        'id_image'=>$fileNameImageId,
-//        'medic_check'=>$fileNameMedicCheck,
-//        'car_picture_front'=>$fileNameCarFront,
-//        'car_picture_behind'=>$fileNameCarBehind,
-//        'car_registration'=>$fileNameCarRegistration,
-//        'glasses_avatar'=>$fileNameGlassesAvatar,
+        'id_image'=>$fileNameImageId,
+        'medic_check'=>$fileNameMedicCheck,
+        'car_picture_front'=>$fileNameCarFront,
+        'car_picture_behind'=>$fileNameCarBehind,
+        'car_registration'=>$fileNameCarRegistration,
+        'glasses_avatar'=>$fileNameGlassesAvatar,
       ]);
       $delegate->appUserTrashed->update($request->all());
       $delegate->save();

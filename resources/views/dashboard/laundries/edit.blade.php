@@ -25,7 +25,7 @@
                                     @if($subCategory->parent_id !='')
                                     <div class="form-group">
                                         <label for="company" n>اسم المغسله الرئيسيه</label>
-                                        <input type="text" name="parent_id"class="form-control" id="name_ar" value="{{$subCategory->parent->name_ar??''}}" disabled>
+                                        <input type="text" name="parent_id"class="form-control" id="name_ar" value="{{$subCategory->parentTrashed->name_ar??''}}" disabled>
                                         <input type="hidden" name="parent_id"class="form-control"value="{{$subCategory->id}}">
                                     </div>
                                     @endif

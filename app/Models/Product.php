@@ -23,9 +23,9 @@ class Product extends Model
     }
 
 
-    public function subcategory()
+    public function subcategoryTrashed()
     {
-        return $this->belongsTo(Subcategory::class, 'subcategory_id');
+        return $this->belongsTo(Subcategory::class, 'subcategory_id')->withTrashed();;
     }
 
     public function categoryItem()
@@ -33,9 +33,9 @@ class Product extends Model
         return $this->belongsTo(CategoryItem::class, 'category_item_id');
     }
 
-    public function product()
+    public function productTrashed()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'product_id')->withTrashed();;
     }
 
     public function user()

@@ -32,7 +32,7 @@ class subCategoryController extends Controller
         if (Gate::denies('subCategory.index')) {
             abort(403);
         };
-        $subCategories = Subcategory::with(['city', 'parent'])->get();
+        $subCategories = Subcategory::with(['city', 'parentTrashed'])->get();
         return view('dashboard.laundries.index', compact('subCategories'));
     }
 
@@ -135,7 +135,7 @@ class subCategoryController extends Controller
      */
     public function edit($id)
     {
-        $subCategory = Subcategory::with(['parent', 'user'])->find($id);
+        $subCategory = Subcategory::with(['parentTrashed', 'user'])->find($id);
         $cities = City::all();
         return view('dashboard.laundries.edit', compact(['subCategory', 'cities']));
     }
@@ -328,7 +328,7 @@ class subCategoryController extends Controller
 
     public function editBranch($id)
     {
-        $subCategory = Subcategory::with(['parent', 'user'])->find($id);
+        $subCategory = Subcategory::with(['parentTrashed', 'user'])->find($id);
         $cities = City::pluck('id', 'name_ar');
         return view('dashboard.laundries.editBranch', compact(['subCategory', 'cities']));
     }
@@ -346,7 +346,7 @@ class subCategoryController extends Controller
 
     public function viewTrashedLaundries()
     {
-        $subCategories = Subcategory::with(['city', 'parent'])->onlyTrashed()->get();
+        $subCategories = Subcategory::with(['city', 'parentTrashed'])->onlyTrashed()->get();
         return view('dashboard.laundries.trashedLaundries', compact('subCategories'));
     }
 

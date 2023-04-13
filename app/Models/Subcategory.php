@@ -52,12 +52,12 @@ class Subcategory extends Model
         return $this->hasMany(RateLaundry::class,'laundry_id','id');
     }
 
-    public function children(){
-        return $this->hasMany(Subcategory::class,'parent_id');
+    public function childrenTrashed(){
+        return $this->hasMany(Subcategory::class,'parent_id')->withTrashed();
     }
 
-    public function parent(){
-        return $this->belongsTo(Subcategory::class);
+    public function parentTrashed(){
+        return $this->belongsTo(Subcategory::class)->withTrashed();
     }
     public function user(){
         return $this->hasMany(User::class,'subCategory_id');

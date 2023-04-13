@@ -34,4 +34,12 @@ class updateUserRequest extends FormRequest
 //            'avatar'=>['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ];
     }
+
+    public function messages()
+    {
+        return[
+        'required' =>'هذا الحقل مطلوب',
+
+        ];
+    }
 }

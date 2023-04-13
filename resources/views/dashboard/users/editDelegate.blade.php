@@ -23,7 +23,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الأسم   </label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->appUser->name}}">
+                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->appUserTrashed->name}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -31,7 +31,7 @@
                                         <div class="col-md-9">
 {{--                                            <input type="text"  name="mobile" class="form-control" value="{{$delegate->appUSer->mobile}}">--}}
                                             <div class="input-group">
-                                                <input type="text"name="mobile" class="form-control" value="{{mb_substr($delegate->appUser->mobile, 3, 9)}}" style="direction: ltr"maxlength="9">
+                                                <input type="text"name="mobile" class="form-control" value="{{mb_substr($delegate->appUserTrashed->mobile, 3, 9)}}" style="direction: ltr"maxlength="9">
                                                 <span class="input-group-addon">00966</i>
                                                 </span>
                                             </div>
@@ -40,13 +40,13 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">المدينة </label>
                                         <div class="col-md-9">
-                                            <input type="text"  name="city" class="form-control" value="{{$delegate->appUser->cities->name_ar}}">
+                                            <input type="text"  name="city" class="form-control" value="{{$delegate->appUserTrashed->citiesTrashed->name_ar}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الحى </label>
                                         <div class="col-md-9">
-                                            <input type="text"  name="region_name" class="form-control" value="{{$delegate->appUser->region_name}}">
+                                            <input type="text"  name="region_name" class="form-control" value="{{$delegate->appUserTrashed->region_name}}">
                                         </div>
                                     </div>
                                         <div class="form-group row">
@@ -106,7 +106,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الملف الشخصى </label>
                                         <div class="col-md-9">
-                                            <img src="{{asset('assets/uploads/users_avatar/'.$delegate->appUser->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <img src="{{asset('assets/uploads/users_avatar/'.$delegate->appUserTrashed->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                             <input type="file" id="file-input" name="avatar" class="form-control">
                                         </div>
                                     </div>
