@@ -41,8 +41,8 @@
                                     @foreach($requests as $delegate)
 
                                             <tr>
-                                                <td>{{$delegate->appUser->name ??''}}</td>
-                                                <td>{{$delegate->appUser->cities->name_ar ??''}}</td>
+                                                <td>{{$delegate->appUserTrashed->name ??''}}</td>
+                                                <td>{{$delegate->appUserTrashed->citiesTrashed->name_ar ??''}}</td>
                                                 <td>{{$delegate->nationality->name_ar ?? ''}}</td>
                                                 <td>{{$delegate->request_employment==0 ?'موظف':'عامل حر'}}</td>
                                                 <td>{{$delegate->appUser->status ??''}}</td>
