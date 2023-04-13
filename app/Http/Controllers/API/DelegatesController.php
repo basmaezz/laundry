@@ -185,7 +185,6 @@ class DelegatesController extends Controller
     public function accept_order(Request $request,$order_id){
 
         $app_user_id = auth('app_users_api')->user()->id;
-//        $order = OrderTable::whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::WaitingForDeliveryToReceiveOrder])
         $order = OrderTable::whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::WaitingForDeliveryToReceiveOrder])
             ->where('id',$order_id)
             ->firstOrFail();
@@ -203,7 +202,7 @@ class DelegatesController extends Controller
         NotificationController::sendNotification(
             getStatusName($order->status_id),
             __('api.order_update',['laundry'=>$order->subCategoriesTrashed->$name,'status'=>getStatusName($order->status_id)]),
-            $order->user,
+            $order->userTrashed,
             $order->id);
 
         $users = AppUser::where([
