@@ -17,7 +17,7 @@ class OrderDetails extends Model
     }
 
     public function productTrashed(){
-        return $this->belongsTo(Product::class)->withTrashed();
+        return $this->belongsTo(Product::class,'product_id')->withTrashed();
     }
 
     public function productService()
