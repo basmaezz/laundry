@@ -490,8 +490,8 @@ class OrderController extends Controller
             $order_details[] = [
                 'service_id' => $detail->productService->id ?? 0,
                 'service_name' => $detail->productService->services ?? '',
-                'product_name' => $detail->product->$name,
-                'product_image' => $detail->product->image,
+                'product_name' => $detail->productTrashed->$name,
+                'product_image' => $detail->productTrashed->image,
                 'category_name' => $detail->categoryItem->$name ?? '',
                 'count' => $detail->quantity,
                 'price' => $detail->price,
