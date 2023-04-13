@@ -212,14 +212,12 @@
                                             @if(pathinfo($delegate['car_registration'], PATHINFO_EXTENSION)=='pdf'||pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='docx')
                                                 <a href="{{$delegate->car_registration}}" download>
                                                     Download
-{{--                                                  {{$delegate->glasses_avatar}}--}}
                                                 </a>
                                             @else
                                                 <a href="{{$delegate->car_registration}}" download>
                                                     <img src="{{$delegate->car_registration}}" style="width:200px;height:200px;padding:15px;border-radius:20px;" >
                                                 </a>
                                             @endif
-
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -228,14 +226,12 @@
                                             @if(pathinfo($delegate['medic_check'], PATHINFO_EXTENSION)=='pdf'||pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='docx')
                                                 <a href="{{$delegate->medic_check}}" download>
                                                     Download
-{{--                                                  {{$delegate->glasses_avatar}}--}}
                                                 </a>
                                             @else
                                                 <a href="{{$delegate->medic_check}}" download>
                                                     <img src="{{$delegate->medic_check}}" style="width:200px;height:200px;padding:15px;border-radius:20px;" >
                                                 </a>
                                             @endif
-
                                         </div>
                                     </div>
                                 </div>
