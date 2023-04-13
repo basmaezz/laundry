@@ -238,7 +238,6 @@ class UserController extends Controller
             abort(403);
         };
         $delegates=Delegate::with(['appUserTrashed','appUserTrashed.citiesTrashed','nationality'])->get();
-        dd($delegates);
         return view('dashboard.users.delegates',compact('delegates'));
     }
     public function CreateDelegate()

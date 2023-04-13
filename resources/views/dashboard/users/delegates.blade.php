@@ -40,8 +40,8 @@
                                     <tr>
                                         <td>{{$delegate->id}}</td>
 {{--                                        <td><img src="{{asset('images/'.$delegate->appUserTrashed->avatar)}}" style="width: 100px;height:100px"></td>--}}
-                                        <td>{{$delegate->appUserTrashedTrashed->name ??''}}</td>
-                                        <td>{{$delegate->appUserTrashedTrashed->citiesTrashed->name_ar ??''}}</td>
+                                        <td>{{$delegate->appUserTrashed->name ??''}}</td>
+                                        <td>{{$delegate->appUserTrashed->citiesTrashed->name_ar ??''}}</td>
                                         <td>{{$delegate->nationality->name_ar ?? ''}}</td>
                                         <td>{{$delegate->request_employment==0 ?'موظف':'عامل حر'}}</td>
                                         <td>{{$delegate->id_number}}</td>
