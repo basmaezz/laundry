@@ -81,7 +81,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الهوية الوطنية   </label>
                                         <div class="col-md-9">
-                                            @if(pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='pdf')
+                                            @if(pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='pdf'||pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='docx')
                                                 <a href="{{$delegate->id_image}}" download>
                                                     Download
                                                 </a>
@@ -166,7 +166,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> صوره السياره من الأمام </label>
                                         <div class="col-md-9">
-                                            @if(pathinfo($delegate['car_picture_front'], PATHINFO_EXTENSION)=='pdf')
+                                            @if(pathinfo($delegate['car_picture_front'], PATHINFO_EXTENSION)=='pdf'||pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='docx')
                                                 <a href="{{asset('/images/'.$delegate->car_picture_front)}}" download>
                                                  Download
                                                 </a>
@@ -181,7 +181,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"  >صوره السياره من الخلف  </label>
                                         <div class="col-md-9">
-                                            @if(pathinfo($delegate['car_picture_behind'], PATHINFO_EXTENSION)=='pdf')
+                                            @if(pathinfo($delegate['car_picture_behind'], PATHINFO_EXTENSION)=='pdf'||pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='docx')
                                                 <a href="{{asset('/images/'.$delegate->car_picture_behind)}}" download>
                                                     Download
                                                 </a>
@@ -195,7 +195,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره ساريه لرخصه القياده  </label>
                                         <div class="col-md-9">
-                                            @if(pathinfo($delegate['driving_license'], PATHINFO_EXTENSION)=='pdf')
+                                            @if(pathinfo($delegate['driving_license'], PATHINFO_EXTENSION)=='pdf'||pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='docx')
                                                 <a href="{{asset('/images/'.$delegate->driving_license)}}" download>
                                                     Download
                                                 </a>
@@ -209,7 +209,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره استمارة السيارة</label>
                                         <div class="col-md-9">
-                                            @if(pathinfo($delegate['car_registration'], PATHINFO_EXTENSION)=='pdf')
+                                            @if(pathinfo($delegate['car_registration'], PATHINFO_EXTENSION)=='pdf'||pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='docx')
                                                 <a href="{{$delegate->car_registration}}" download>
                                                     Download
 {{--                                                  {{$delegate->glasses_avatar}}--}}
@@ -225,7 +225,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره الفحص الطبى</label>
                                         <div class="col-md-9">
-                                            @if(pathinfo($delegate['medic_check'], PATHINFO_EXTENSION)=='pdf')
+                                            @if(pathinfo($delegate['medic_check'], PATHINFO_EXTENSION)=='pdf'||pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='docx')
                                                 <a href="{{$delegate->medic_check}}" download>
                                                     Download
 {{--                                                  {{$delegate->glasses_avatar}}--}}
