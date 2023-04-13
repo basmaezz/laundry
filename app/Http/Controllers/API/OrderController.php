@@ -296,7 +296,7 @@ class OrderController extends Controller
             $order->status_id = $request->get('status_id');
             $order->status    = getStatusName($request->get('status_id'));
             $order->save();
-            dd($order);
+            dd($order->userTrashed->name,$order->userTrashed->name);
 
             $name = 'name_' . App::getLocale();
             NotificationController::sendNotification(
