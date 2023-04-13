@@ -82,7 +82,7 @@
 
                                     <div class="form-group">
                                         <label for="company" n>اسم القطعه</label>
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$orderDetail->product->name_ar}}"disabled>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$orderDetail->productTrashed->name_ar}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company" n>اسم الخدمه</label>
