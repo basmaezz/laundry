@@ -21,14 +21,14 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الأسم   </label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->appUSer->name}}"disabled>
+                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->appUserTrashed->name}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                         <div class="col-md-9">
                                             <div class="input-group">
-                                                <input type="text"name="mobile" class="form-control" value="{{mb_substr($delegate->appUser->mobile, 3, 9)}}"disabled style="direction: ltr">
+                                                <input type="text"name="mobile" class="form-control" value="{{mb_substr($delegate->appUserTrashed->mobile, 3, 9)}}"disabled style="direction: ltr">
                                                 <span class="input-group-addon">00966</i>
                                                 </span>
                                             </div>
@@ -43,13 +43,13 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">المدينة </label>
                                         <div class="col-md-9">
-                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUSer->cities->name_ar}}"disabled>
+                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUserTrashed->citiesTrashed->name_ar}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الحى </label>
                                         <div class="col-md-9">
-                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUser->region_name}}"disabled>
+                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUserTrashed->region_name}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -73,8 +73,8 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="file-input">صوره الملف الشخصى </label>
                                         <div class="col-md-9">
-                                            <a href="{{asset('assets/uploads/users_avatar/'.$delegate->appUser->avatar)}}" download>
-                                            <img src="{{asset('assets/uploads/users_avatar/'.$delegate->appUser->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
+                                            <a href="{{asset('assets/uploads/users_avatar/'.$delegate->appUserTrashed->avatar)}}" download>
+                                            <img src="{{asset('assets/uploads/users_avatar/'.$delegate->appUserTrashed->avatar)}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                             </a>
                                         </div>
                                     </div>
