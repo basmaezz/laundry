@@ -226,7 +226,7 @@ class UserController extends Controller
         if(Gate::denies('customers.index')){
             abort(403);
         };
-        $orders=OrderTable::where('user_id',$id)->with(['subCategories'=>function($query){
+        $orders=OrderTable::where('user_id',$id)->with(['subCategoriesTrashed'=>function($query){
             return $query->withTrashed();
         }])->get();
         return view('dashboard.users.customerOrder',compact('orders'));
