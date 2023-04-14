@@ -149,27 +149,30 @@ class AuthController extends ApiController
             'personal.mobile' => 'required',
             'personal.city_id' => 'required',
             'personal.region_name' => 'required',
-            'personal.nid' => 'required',
+            'personal.nid' => 'required|required|mimes:jpeg,bmp,png,pdf|max:500',
 
-            'personal.identity_expiration_date' => 'required',
+            'personal.identity_expiration_date' => 'required|date',
             'personal.nid_image' => 'required|file',
-            'personal.medic_check_image' => 'required|file',
+            'personal.medic_check_image' => 'required|required|mimes:jpeg,bmp,png,pdf|max:500',
             'bank.id' => 'required',
             'bank.number' => 'required',
-            'car.front_image' => 'required|file',
-            'car.back_image' => 'required|file',
+            'car.front_image' => 'required|required|required|mimes:jpeg,bmp,png,pdf|max:500',
+            'car.back_image' => 'required|required|required|mimes:jpeg,bmp,png,pdf|max:500',
             'car.type' => 'required',
             'nationality_id'=>'required',
             'car_plate_letter'=>'required',
             'car_plate_number'=>'required',
             'car_manufacture_year_id'=>'required',
-            'car.license_image' => 'required|file',
-            'license.image' => 'required|file',
+            'car.license_image' => 'required|required|mimes:jpeg,bmp,png,pdf|max:500',
+            'license.image' => 'required|required|mimes:jpeg,bmp,png,pdf|max:500',
             'license.expire_date' => 'required|date',
             'request_employment' => 'required',
             'lat'=>'required',
             'lng'=>'required',
             'fcm_token'=>'required'
+        ],[
+          'mimes'=>'invalid File Format',
+          'size'=>'invalid Size'
         ]);
 
         if ($validator->fails()) {
