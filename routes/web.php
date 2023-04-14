@@ -266,7 +266,7 @@ Route::get('usersGet', function () {
     return $users;
 });
 Route::get('getDelegates', function () {
-    $delegates = \App\Models\Delegate::with('appUser')->get();
+    $delegates = \App\Models\Delegate::with('appUserTrashed')->get();
     return $delegates;
 });
 Route::get('getAppUsers', function () {

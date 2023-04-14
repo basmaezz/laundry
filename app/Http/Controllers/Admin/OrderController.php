@@ -127,11 +127,11 @@ class OrderController extends Controller
         return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
     }
     public function  DeliveredToLaundry(){
-        $orders=OrderTable::with(['histories','delegate.appUser'])->where("status_id",self::DeliveredToLaundry)->get();
+        $orders=OrderTable::with(['histories','delegateTrashed.appUserTrashed'])->where("status_id",self::DeliveredToLaundry)->get();
         return  view('dashboard.Orders.DeliveredToLaundry',compact('orders'));
     }
     public function  readyPickUp(){
-        $orders=OrderTable::with(['subCategories','user','address','delegate.appUser'])->where("status_id",self::ClothesReadyForDelivery)->get();
+        $orders=OrderTable::with(['subCategoriesTrashed','userTrashed','address','delegateTrashed.appUserTrashed'])->where("status_id",self::ClothesReadyForDelivery)->get();
         return  view('dashboard.Orders.ordersPickUp',compact('orders'));
     }
     public function  WaitingForDeliveryToReceiveOrder(){
