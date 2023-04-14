@@ -163,16 +163,13 @@ class AuthController extends ApiController
             'car_plate_letter'=>'required',
             'car_plate_number'=>'required',
             'car_manufacture_year_id'=>'required',
-            'car.license_image' => 'required|required|mimes:jpeg,bmp,png,pdf|max:500',
-            'license.image' => 'required|required|mimes:jpeg,bmp,png,pdf|max:500',
+            'car.license_image' => 'required',
+            'license.image' => 'required',
             'license.expire_date' => 'required|date',
             'request_employment' => 'required',
             'lat'=>'required',
             'lng'=>'required',
             'fcm_token'=>'required'
-        ],[
-          'mimes'=>'invalid File Format',
-          'size'=>'invalid Size'
         ]);
 
         if ($validator->fails()) {
