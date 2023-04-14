@@ -21,7 +21,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الأسم   </label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->appUserTrashed->name}}"disabled>
+                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->appUserTrashed->name ??''}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -37,19 +37,19 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الجنسيه </label>
                                         <div class="col-md-9">
-                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->nationality->name_ar}}"disabled>
+                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->nationality->name_ar??''}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">المدينة </label>
                                         <div class="col-md-9">
-                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUserTrashed->citiesTrashed->name_ar}}"disabled>
+                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUserTrashed->citiesTrashed->name_ar ??''}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الحى </label>
                                         <div class="col-md-9">
-                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUserTrashed->region_name}}"disabled>
+                                            <input type="email" id="email-input" name="email" class="form-control" value="{{$delegate->appUserTrashed->region_name ??''}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -61,13 +61,13 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> الرقم المدنى </label>
                                         <div class="col-md-9">
-                                            <input type="email" id="email-input" name="id_number" class="form-control" value="{{$delegate->id_number}}"disabled>
+                                            <input type="email" id="email-input" name="id_number" class="form-control" value="{{$delegate->id_number ??''}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">تاريخ انتهاء الهويه / الاقامه  </label>
                                         <div class="col-md-9">
-                                            <input type="email" id="email-input" name="identity_expiration_date" class="form-control" value="{{$delegate->identity_expiration_date}}"disabled>
+                                            <input type="email" id="email-input" name="identity_expiration_date" class="form-control" value="{{$delegate->identity_expiration_date ??''}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -111,7 +111,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> رقم الحساب البنكى</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="last_name" class="form-control" value="{{$delegate->iban_number}}"disabled>
+                                            <input type="text" id="text-input" name="last_name" class="form-control" value="{{$delegate->iban_number??''}}"disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +126,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input"> نوع السياره </label>
                                         <div class="col-md-9">
-                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->car->name_ar}}"disabled>
+                                            <input type="text" id="text-input" name="name" class="form-control"value="{{$delegate->car->name_ar??''}}"disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
