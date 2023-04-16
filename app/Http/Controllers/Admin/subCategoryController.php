@@ -12,6 +12,7 @@ use App\Models\OrderTable;
 use App\Models\Subcategory;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -128,6 +129,7 @@ class subCategoryController extends Controller
     public function show($id)
     {
         $subCategory = Subcategory::with('user')->find($id);
+
         return view('dashboard.laundries.View', compact('subCategory'));
     }
 
@@ -154,14 +156,6 @@ class subCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $subcategory = Subcategory::find($id);
-
-//        if ($request->around_clock != '') {
-//            $subcategory['around_clock'] = $request->around_clock;
-//            $subcategory['clock_end'] = '';
-//            $subcategory['clock_at'] = '';
-//        } else {
-//
-//        }
         if ($request->file('image') != '') {
             $filename = request('image')->getClientOriginalName();
             request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/', $filename);
