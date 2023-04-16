@@ -90,7 +90,7 @@
                                         <label for="approximate_duration"> نطاق التشغيل </label>
 
                                             <div class="input-group">
-                                                <input type="text"name="range" class="form-control" placeholder="نطاق التشغيل" value="{{Request::old('range')}}" >
+                                                <input type="number"name="range" class="form-control" placeholder="نطاق التشغيل" value="{{Request::old('range')}}" >
                                                 <span class="input-group-addon"> كيلومتر</i>
                                                 </span>
                                             </div>
@@ -114,7 +114,7 @@
                                     <div class="form-group">
                                         <label for="approximate_duration">  المده التقريبيه للغسيل </label>
                                         <div class="input-group">
-                                            <input type="text"name="approximate_duration" class="form-control" placeholder="24" value="{{Request::old('range')}}" >
+                                            <input type="number"name="approximate_duration" class="form-control" placeholder="24" value="{{Request::old('range')}}" >
                                             <span class="input-group-addon"> ساعه</i>
                                                 </span>
                                         </div>
@@ -142,7 +142,10 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="country">صوره الشعار</label>
-                                        <input type="file" name="image"class="form-control" id="image" placeholder="Country name">
+                                        <input type="file" name="image"class="form-control" id="image" required>
+                                        @error('image')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                             </div>
@@ -185,7 +188,7 @@
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الجوال </label>
-                                            <input type="text" id="phone" name="phone"value="{{ Request::old('phone') }}" class="form-control" placeholder="الجوال">
+                                            <input type="text" id="phone" name="phone"value="{{ Request::old('phone') }}" class="form-control" placeholder="الجوال" maxlength="10">
                                         @error('phone')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror

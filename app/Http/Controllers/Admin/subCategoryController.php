@@ -54,55 +54,59 @@ class subCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(subCategoryRequest $request)
     {
         $subcategory = new Subcategory();
-        $request->validate([
-            'category_id' => 'integer',
-            'name_ar' => 'required',
-            'name_en' => 'required',
-            'city_id' => 'required',
-            'location' => 'required', 'regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i',
-            'lat' => 'required',
-            'lng' => 'required',
-            'address' => 'required',
-            'price' => 'required',
-            'range' => 'required',
-            'around_clock' => 'required',
-            'clock_at' => 'string',
-            'clock_end' => 'string',
-            'approximate_duration' => 'required',
-            'image' => 'image|mimes:jpg,png,jpeg',
-            'name' => 'required',
-            'last_name' => 'required',
-            'email' => '|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
-            'password' => ['required', 'min:6'],
-            'phone' => 'required|unique:users',
-        ], [
-            'required'  => 'هذا الحقل مطلوب',
-            'name' => 'برجاء ادخال اسم مناسب',
-            'last_name' => 'برجاء ادخال اسم مناسب',
-            'unique' => 'هذا الأسم موجود مسبقا',
-            'email' => 'هذا البريد الالكترونى موجود مسبقا',
-            'phone' => 'هذا الرقم غير صحيح',
-            'location.format' => 'الرابط غير صحيح ',
+//        dd($request->all());
+//        $validated = $request->validate([
+//            'category_id' => 'integer',
+//            'name_ar' => 'required',
+//            'name_en' => 'required',
+//            'city_id' => 'required',
+//            'location' => 'required', 'regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i',
+//            'lat' => 'required',
+//            'lng' => 'required',
+//            'address' => 'required',
+//            'price' => 'required',
+//            'range' => 'required',
+//            'around_clock' => 'required',
+//            'clock_at' => 'string',
+//            'clock_end' => 'string',
+//            'approximate_duration' => 'required',
+//            'image' => 'required|image|mimes:jpg,png,jpeg',
+//            'name' => 'required',
+//            'last_name' => 'required',
+//            'email' => '|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
+//            'password' => ['required', 'min:6'],
+//            'phone' => 'required|unique:users',
+//        ], [
+//            'required'  => 'هذا الحقل مطلوب',
+//            'name' => 'برجاء ادخال اسم مناسب',
+//            'last_name' => 'برجاء ادخال اسم مناسب',
+//            'unique' => 'هذا الأسم موجود مسبقا',
+//            'email' => 'هذا البريد الالكترونى موجود مسبقا',
+//            'phone' => 'هذا الرقم غير صحيح',
+//            'location.format' => 'الرابط غير صحيح ',
+//        ]);
+
+//        if ($request->around_clock != '') {
+//            $subcategory['around_clock'] = $request->around_clock;
+//            $subcategory['clock_end'] = '';
+//            $subcategory['clock_at'] = '';
+//        } else {
+//            $subcategory['clock_end'] = $request->clock_end;
+//            $subcategory['clock_at'] = $request->clock_at;
+//        }
+//        if ($request->file('image')) {
+//            $filename = request('image')->getClientOriginalName();
+//            request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/', $filename);
+//        }
+       Subcategory::create($request->validated()+[
+            'image'=>uploadFile($request->file('image'), 'laundries/logo/'),
+               'around_clock' => $request->around_clock,
+                'clock_end' =>$request->clock_end,
+                'clock_at' => $request->clock_at,
         ]);
-
-        if ($request->around_clock != '') {
-            $subcategory['around_clock'] = $request->around_clock;
-            $subcategory['clock_end'] = '';
-            $subcategory['clock_at'] = '';
-        } else {
-            $subcategory['clock_end'] = $request->clock_end;
-            $subcategory['clock_at'] = $request->clock_at;
-        }
-        if ($request->file('image') != '') {
-            $filename = request('image')->getClientOriginalName();
-            request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/', $filename);
-            $subcategory['image'] = $filename;
-        }
-
-        $subcategory = Subcategory::create($request->all());
 
         User::create([
             'name' => $request->name,
@@ -151,14 +155,13 @@ class subCategoryController extends Controller
     {
         $subcategory = Subcategory::find($id);
 
-        if ($request->around_clock != '') {
-            $subcategory['around_clock'] = $request->around_clock;
-            $subcategory['clock_end'] = '';
-            $subcategory['clock_at'] = '';
-        } else {
-            $subcategory['clock_end'] = $request->clock_end;
-            $subcategory['clock_at'] = $request->clock_at;
-        }
+//        if ($request->around_clock != '') {
+//            $subcategory['around_clock'] = $request->around_clock;
+//            $subcategory['clock_end'] = '';
+//            $subcategory['clock_at'] = '';
+//        } else {
+//
+//        }
         if ($request->file('image') != '') {
             $filename = request('image')->getClientOriginalName();
             request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/', $filename);
@@ -175,6 +178,9 @@ class subCategoryController extends Controller
             'lat' => $request->lat,
             'lng' => $request->lng,
             'approximate_duration' => $request->approximate_duration,
+            'around_clock' => $request->around_clock,
+            'clock_end' => $request->clock_end,
+            'clock_at' => $request->clock_at,
         ]);
         $subcategory->save();
 

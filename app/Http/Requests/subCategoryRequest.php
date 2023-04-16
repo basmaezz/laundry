@@ -24,21 +24,21 @@ class subCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id'=>'integer',
-            'name_ar' =>'required',
-            'name_en' =>'required',
-            'city_id' =>'required',
-            'location'=>'required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i',
-            'lat' =>'required',
-            'lng' =>'required',
-            'address'=>'required',
-            'price' =>'required',
-            'range'=>'required',
-            'around_clock' =>'required',
-            'clock_at' =>'string',
-            'clock_end' =>'string',
-            'approximate_duration'=>'required',
-            'image' => 'image|mimes:jpg,png,jpeg',
+            'category_id' => 'integer',
+            'name_ar' => 'required',
+            'name_en' => 'required',
+            'city_id' => 'required',
+            'location' => 'required', 'regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i',
+            'lat' => 'required',
+            'lng' => 'required',
+            'address' => 'required',
+            'price' => 'required',
+            'range' => 'required',
+            'name' => 'required',
+            'last_name' => 'required',
+            'email' => '|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
+            'password' => ['required', 'min:6'],
+            'phone' => 'required|unique:users',
 
         ];
     }
@@ -47,7 +47,8 @@ class subCategoryRequest extends FormRequest
         return[
             'unique'=>'هذا الاسم موجود بالفعل ',
             'location.format'=>'الرابط غير صحيح ',
-            'required' =>'هذا الحقل مطلوب '
+            'required' =>'هذا الحقل مطلوب ',
+            'phone.required'=>'رقم الجوال موجود مسبقا'
         ];
     }
 }

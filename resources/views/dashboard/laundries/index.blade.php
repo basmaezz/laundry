@@ -37,9 +37,10 @@
                                         <td>{{$subCategory->parentTrashed->name_ar??''}}</td>
                                         <td>{{$subCategory->city->name_ar??''}}</td>
                                         <td>{{ Str::limit($subCategory->address, 20) }}</td>
-                                        @if($subCategory->around_clock !=Null)
+                                        @if($subCategory->around_clock ==1)
                                         <td> طوال اليوم</td>
                                         @else
+
                                             <td>{{abs($hours=((int)$subCategory->clock_end)-((int)$subCategory->clock_at))}}  ساعة </td>
                                         @endif
                                             <td>

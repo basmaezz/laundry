@@ -120,11 +120,11 @@
                                             <label for="country">فتره التشغيل  </label> <br>
                                             <input type="radio"  name="around_clock" value="1" onchange="hideDurations()"{{$subCategory->around_clock ==1 ? 'checked' :''}} >
                                             <label for="age1">طوال اليوم</label><br>
-                                            <input type="radio" name="around_clock" value="0"  id="specificDuration" onchange="showDurations()"{{$subCategory->around_clock ==Null ? 'checked' :''}}>
+                                            <input type="radio" name="around_clock" value="0"  id="specificDuration" {{$subCategory->around_clock ==0 ? 'checked' :''}}>
                                             <label for="age2"> فتره محدده </label><br>
                                         </div>
                                     </div>
-                                    @if($subCategory->around_clock ==Null)
+                                    @if($subCategory->around_clock =='0')
                                         <div class="form-group" id="durations" >
                                             <label for="country">بدايه الفتره </label>
                                             <input type="time" name="clock_at" value="{{$subCategory->clock_at}}" />
@@ -132,6 +132,14 @@
                                             <label for="country">نهايه الفتره </label>
                                             <input type="time" name="clock_end" value="{{$subCategory->clock_end}}" />
                                         </div>
+                                        @elseif($subCategory->around_clock =='1')
+                                            <div class="form-group" id="durations" >
+                                                <label for="country">بدايه الفتره </label>
+                                                <input type="time" name="clock_at" value="22:00" />
+
+                                                <label for="country">نهايه الفتره </label>
+                                                <input type="time" name="clock_end"value="22:00" />
+                                            </div>
                                     @endif
                                     @if($subCategory->parent_id =='')
                                             <div class="form-group">
@@ -199,6 +207,10 @@
         document.getElementById('name_en').value='';
         document.getElementById('address').value='';
         document.getElementById('image').value='';
+    }
+
+    function alert(){
+        alert('test');
     }
 
     function showDurations(){

@@ -145,6 +145,9 @@ class CategoryController extends Controller
                     'lat' => $subcategory->lat,
                     'lng' => $subcategory->lng,
                     'distance' => round($distance, 2),
+                    'around_clock'=>$subcategory->around_clock,
+                    'from'=>$subcategory->clock_at,
+                    'to'=>$subcategory->clock_end,
                     'distance_class' =>  getDistanceClass($distance),
                     'distance_class_id' =>  getDistanceClassId($distance),
                     'review' => $subcategory->rates
