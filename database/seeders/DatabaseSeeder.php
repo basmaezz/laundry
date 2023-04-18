@@ -20,11 +20,11 @@ class DatabaseSeeder extends Seeder
                      'email' => 'laundry_admin@admin.com',
                      'password'=>bcrypt('password')
                  ]);
-        for ($i = 2000; $i <= 2023; $i++) {
-            \App\Models\Year::create([
-                'name' => $i,
-            ]);
-        }
+//        for ($i = 2000; $i <= 2023; $i++) {
+//            \App\Models\Year::create([
+//                'name' => $i,
+//            ]);
+//        }
         $this->call([
 //             NationalitySeeder::class,
             //            NationalitiySeeder::class,
