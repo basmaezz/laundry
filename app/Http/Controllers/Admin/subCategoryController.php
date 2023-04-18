@@ -361,7 +361,7 @@ class subCategoryController extends Controller
 
     public function getOrders($id)
     {
-        $orders = OrderTable::where('laundry_id', $id)->with(['user', 'delegate.appUser'])->get();
+        $orders = OrderTable::where('laundry_id', $id)->with(['userTrashed', 'delegateTrashed.appUserTrashed'])->get();
         return view('dashboard.laundries.laundryOrders', compact('orders'));
     }
 }

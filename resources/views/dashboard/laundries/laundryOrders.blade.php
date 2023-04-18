@@ -32,8 +32,8 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$order->id}}</td>
-                                            <td>{{$order->user->name}} </td>
-                                            <td>{{$order->delegate->appUser->name ??''}} </td>
+                                            <td>{{$order->userTrashed->name}} </td>
+                                            <td>{{$order->delegateTrashed->appUserTrashed->name ??''}} </td>
                                             <td>{{$order->status}}</td>
                                             <td>{{$order->created_at->format('Y-m-d')}}</td>
                                             <td>
