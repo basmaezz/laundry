@@ -149,9 +149,9 @@ class CategoryController extends Controller
                     'around_clock'=>$subcategory->around_clock,
                     'from'=>$subcategory->clock_at,
                     'to'=>$subcategory->clock_end,
+                    'status'=>$status,
                     'distance_class' =>  getDistanceClass($distance),
                     'distance_class_id' =>  getDistanceClassId($distance),
-                    'status'=>$status,
                     'review' => $subcategory->rates
                 ];
             }

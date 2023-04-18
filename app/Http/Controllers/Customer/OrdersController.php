@@ -28,7 +28,7 @@ class OrdersController extends Controller
      */
     public function index($id)
     {
-        $orders=OrderTable::orders($id)->with('user')->get();
+        $orders=OrderTable::orders($id)->with('userTrashed')->get();
         return  view('customers.backEnd.orders.index',compact('orders'));
     }
 
@@ -128,8 +128,8 @@ class OrdersController extends Controller
 
     public function orderDetails($id)
     {
-        $order=OrderTable::with(['subCategories','user','user.cities','delegate.appUser'])->where('id',$id)->first();
-        $orderDetails=orderDetails::with(['product','productService'])->where('order_table_id',$id)->get();
+        $order=OrderTable::with(['subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed','delegateTrashed.appUserTrashed'])->where('id',$id)->first();
+        $orderDetails=orderDetails::with(['productTrashed','productServiceTrashed'])->where('order_table_id',$id)->get();
         return  view('customers.backEnd.orders.orderDetails',compact(['order','orderDetails']));
     }
 }

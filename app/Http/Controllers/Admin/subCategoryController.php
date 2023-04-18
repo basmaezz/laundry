@@ -102,7 +102,7 @@ class subCategoryController extends Controller
 //            $filename = request('image')->getClientOriginalName();
 //            request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/', $filename);
 //        }
-       Subcategory::create($request->validated()+[
+        $subcategory=Subcategory::create($request->validated()+[
             'image'=>uploadFile($request->file('image'), 'laundries/logo/'),
                'around_clock' => $request->around_clock,
                 'clock_end' =>$request->clock_end,

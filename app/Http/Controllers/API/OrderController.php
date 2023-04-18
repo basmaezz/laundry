@@ -476,7 +476,6 @@ class OrderController extends Controller
         foreach ($order->histories as $history) {
 
             $status_histories[] = [
-
                 'status_id' => $history->status_id,
                 'spend_time' => $history->spend_time,
                 'status' => $history->status,

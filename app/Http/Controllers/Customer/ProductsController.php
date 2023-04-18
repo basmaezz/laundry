@@ -132,7 +132,7 @@ class ProductsController extends Controller
     }
 
     public function productServices($id){
-        $product=Product::with('productService')->find($id);
+        $product=Product::with('productTrashed')->find($id);
         return view('customers.backEnd.Products.productServices',compact('product'));
     }
 
