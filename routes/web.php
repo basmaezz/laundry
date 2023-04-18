@@ -395,7 +395,11 @@ Route::get('updateCategory', function () {
     ]);
 });
 
-
+Route::get('updateAdmin',function(){
+    DB::table('users')->where('id',33)->update([
+        'subCategory_id'=>28
+    ]);
+});
 
 Route::view('testView','dashboard.test');
 
