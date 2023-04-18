@@ -30,7 +30,7 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$order->id}}</td>
-                                            <td>{{$order->user->name}}</td>
+                                            <td>{{$order->userTrashed->name}}</td>
                                             <td>{{$order->total_price}}</td>
                                             <td>{{$order->status}}</td>
                                             <td>{{$order->discount}}</td>
