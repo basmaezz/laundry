@@ -5,10 +5,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-{{--                        <ol class="breadcrumb float-sm-right">--}}
-{{--                            <li class="breadcrumb-item"><a href="{{route('Customer.Products.viewAllServices',Auth::user()->subCategory_id)}}">Orders</a></li>--}}
-{{--                            <li class="breadcrumb-item active">order Details</li>--}}
-{{--                        </ol>--}}
+
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -81,7 +78,7 @@
                                 <div class="card-block">
 
                                     <div class="form-group">
-                                        <label for="company" n>اسم القطعه</label>
+                                        <label for="company" >اسم القطعه</label>
                                         <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$orderDetail->productTrashed->name_ar}}"disabled>
                                     </div>
                                     <div class="form-group">
