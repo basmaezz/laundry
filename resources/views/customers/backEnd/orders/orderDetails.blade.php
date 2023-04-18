@@ -24,7 +24,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputBorder"> Laundry Name </label>
-                                        <input type="text" class="form-control form-control-border" id="exampleInputBorder" value="{{$order->subCategories->name_ar}}">
+                                        <input type="text" class="form-control form-control-border" id="exampleInputBorder" value="{{$order->subCategoriesTrashed->name_ar}}">
                                     </div>
                                     <div class="form-group">
                                         <label for="company" n>Customer name </label>
