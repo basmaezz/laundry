@@ -110,7 +110,7 @@ class subCategoryController extends Controller
                 'clock_at' => $request->clock_at,
         ]);
 
-        User::create([
+        $user=User::create([
             'name' => $request->name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -118,6 +118,8 @@ class subCategoryController extends Controller
             'phone' => $request->phone,
             'subCategory_id' => $subcategory->id
         ]);
+        $user->save();
+
         return  redirect()->route('laundries.index');
     }
 
