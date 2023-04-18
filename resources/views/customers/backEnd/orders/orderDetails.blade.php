@@ -70,47 +70,48 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @foreach($orderDetails as $orderDetail)
-                    <div class="col-sm-5">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong>عرض تفاصيل القطع  </strong>
+                    @foreach($orderDetails as $orderDetail)
+                        <div class="col-sm-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>عرض تفاصيل القطع  </strong>
 
-                            </div>
+                                </div>
 
-                            <div class="card-block">
+                                <div class="card-block">
 
-                                <div class="form-group">
-                                    <label for="company" n>اسم القطعه</label>
-                                    <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$orderDetail->productTrashed->name_ar}}"disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="company" n>اسم الخدمه</label>
-                                    <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$orderDetail->productService->services}}"disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="company" n>السعر </label>
-                                    <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$orderDetail->price}}"disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="company">الكميه  </label>
-                                    <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$orderDetail->quantity}}"disabled>
-                                </div>
-                                @if($order->audio_note!= Null)
                                     <div class="form-group">
-                                        <label for="company"> الملاحظات الصوتيه </label>
-                                        <br>
-                                        <audio controls>
-                                            <source src="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" type="audio/mpeg">
-                                        </audio>
-                                        <a class="btn btn-info" href="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" download style="margin-top: -32px;">Download</a>
+                                        <label for="company" n>اسم القطعه</label>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$orderDetail->productTrashed->name_ar}}"disabled>
                                     </div>
-                                @endif
+                                    <div class="form-group">
+                                        <label for="company" n>اسم الخدمه</label>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$orderDetail->productService->services}}"disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company" n>السعر </label>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$orderDetail->price}}"disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company">الكميه  </label>
+                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$orderDetail->quantity}}"disabled>
+                                    </div>
+                                    @if($order->audio_note!= Null)
+                                        <div class="form-group">
+                                            <label for="company"> الملاحظات الصوتيه </label>
+                                            <br>
+                                            <audio controls>
+                                                <source src="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" type="audio/mpeg">
+                                            </audio>
+                                            <a class="btn btn-info" href="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" download style="margin-top: -32px;">Download</a>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
+                    @endforeach
                     </div>
-                @endforeach
+
                 </div>
 
         </section>
