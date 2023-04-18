@@ -129,7 +129,7 @@ class OrdersController extends Controller
     public function orderDetails($id)
     {
         $order=OrderTable::with(['subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed','delegateTrashed.appUserTrashed'])->where('id',$id)->first();
-        $orderDetails=orderDetails::with(['productTrashed','productServiceTrashed'])->where('order_table_id',$id)->get();
+        $orderDetails=orderDetails::with(['productTrashed','productService'])->where('order_table_id',$id)->get();
         return  view('customers.backEnd.orders.orderDetails',compact(['order','orderDetails']));
     }
 }

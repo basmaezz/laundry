@@ -28,19 +28,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company" n>Customer name </label>
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->user->name}}"disabled>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->userTrashed->name}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company" n>Delegate name </label>
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->delegate->appUser->name ??''}}"disabled>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$order->delegateTrashed->appUserTrashed->name ??''}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">City  </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->user->cities->name_ar}}"disabled>
+                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->userTrashed->citiesTrashed->name_ar}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">Region  </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->user->region_name}}"disabled>
+                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->userTrashed->region_name}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">Date  </label>
