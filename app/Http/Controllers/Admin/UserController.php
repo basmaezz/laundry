@@ -148,6 +148,12 @@ class UserController extends Controller
         };
         $user=User::find($id);
         if(!empty($request->file('avatar'))){
+            $request->validate([
+                'avatar' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:1000',
+            ],[
+                    'max'=>'حجم الصوره غير مناسب '
+                ]
+            );
             $filename = uploadFile($request->file('avatar'),'images');
             $user->update($request->validated()+[
                     'avatar'=>$filename,
@@ -504,6 +510,12 @@ class UserController extends Controller
             $user['joinDate']=$request->get('joinDate'),
         ]);
         if(!empty($request->file('avatar'))){
+            $request->validate([
+                'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:1000',
+            ],[
+               'max'=>'حجم الصوره غير مناسب '
+                ]
+            );
             $filename = uploadFile($request->file('avatar'),'images');
             $user['avatar']=$filename;
         }
