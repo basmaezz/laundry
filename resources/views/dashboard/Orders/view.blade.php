@@ -59,13 +59,16 @@
                                         <label for="company"> ملاحظات  </label>
                                         <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->note}}"disabled>
                                     </div>
+                                    @if($order->audio_note!= Null)
                                     <div class="form-group">
                                         <label for="company"> الملاحظات الصوتيه </label>
+                                        <br>
                                         <audio controls>
                                             <source src="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" type="audio/mpeg">
                                         </audio>
                                         <a class="btn btn-success" href="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" download>Download</a>
                                     </div>
+                                    @endif
 
                                 </div>
                             </div>
