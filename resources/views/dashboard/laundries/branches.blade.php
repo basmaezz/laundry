@@ -39,7 +39,7 @@
                                                 <a href="{{route('CategoryItems.index',$branch->parent_id)}}" class="edit btn btn-primary btn-sm">الأقسام</a>
                                                 <a href="{{route('laundries.editBranch',$branch->id)}}" class="edit btn btn-primary btn-sm">تعديل</a>
                                                 <a href="{{route('laundries.view',$branch->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a>
-                                                 <a href="{{route('laundries.orders',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الطلبات</a>
+                                                 <a href="{{route('laundries.orders',$branch->id)}}" class="edit btn btn-primary btn-sm">الطلبات</a>
 {{--                                                <a href="{{route('laundries.deleteBranch',$branch->id)}}" class="edit btn btn-danger btn-sm">حذف</a>--}}
                                                  <form class="delete" action="{{route('laundries.deleteBranch',$branch->id)}}" method="get">
                                                      @csrf

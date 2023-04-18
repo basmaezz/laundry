@@ -35,6 +35,7 @@ class subCategoryRequest extends FormRequest
             'price' => 'required',
             'range' => 'required',
             'name' => 'required',
+            'approximate_duration'=>'required',
             'last_name' => 'required',
             'email' => '|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
             'password' => ['required', 'min:6'],

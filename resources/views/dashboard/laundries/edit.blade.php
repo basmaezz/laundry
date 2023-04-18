@@ -106,7 +106,7 @@
                                         <div class="form-group">
                                             <label for="approximate_duration">  المده التقريبيه للغسيل </label>
                                             <div class="input-group">
-                                                <input type="text"name="approximate_duration" class="form-control" placeholder="24"  value="{{$subCategory->approximate_duration??''}}" min="1" >
+                                                <input type="text"name="approximate_duration" class="form-control"  value="{{$subCategory->approximate_duration}}"  >
                                                 <span class="input-group-addon"> ساعه</i>
                                                 </span>
                                             </div>

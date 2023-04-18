@@ -18,8 +18,8 @@
                             </div>
                             <div class="card-block">
                                 <table id="laundries" class="table table-bordered table-striped">
-                                    <thead >
-                                        <tr >
+                                    <thead>
+                                        <tr>
                                             <th> الصوره </th>
                                             <th>اسم المغسله </th>
                                             <th>الفرع الرئيسى </th>
@@ -32,7 +32,11 @@
                                     <tbody>
                                     @foreach($subCategories as $subCategory)
                                     <tr>
+                                        @if($subCategory->parent_id !=null)
+                                        <td><img src="{{$subCategory->parentTrashed->image}}" style="width:50px;height:50px"></td>
+                                        @else
                                         <td><img src="{{$subCategory->image}}" style="width:50px;height:50px"></td>
+                                        @endif
                                         <td>{{$subCategory->name_ar}}</td>
                                         <td>{{$subCategory->parentTrashed->name_ar??''}}</td>
                                         <td>{{$subCategory->city->name_ar??''}}</td>
@@ -44,7 +48,7 @@
                                             <td>{{abs($hours=((int)$subCategory->clock_end)-((int)$subCategory->clock_at))}}  ساعة </td>
                                         @endif
                                             <td>
-                                                @if($subCategory->parentTrashed_id=='')
+                                                @if($subCategory->parent_id==Null)
                                                 <a href="{{route('laundries.branches',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الفروع</a>
                                                 @endif
                                                 <a href="{{route('CategoryItems.index',$subCategory->id)}}" class="edit btn btn-primary btn-sm">الأقسام</a>

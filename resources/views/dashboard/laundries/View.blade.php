@@ -13,11 +13,19 @@
                 <div class="row">
                     <form method="post" action="{{url('laundryStore')}}" enctype="multipart/form-data">
                         @csrf
+                        @if($subCategory->parent_id !=null)
                         <div class="card-body box-profile">
                             <img class="profile-user-img img-fluid img-circle"
-                                 src="{{$subCategory->image}}"
-                                 alt="User profile picture">
+                                 src="{{$subCategory->parentTrashed->image}}"
+                                 alt="{{$subCategory->parentTrashed->name_ar}}">
                         </div>
+                        @else
+                            <div class="card-body box-profile">
+                                <img class="profile-user-img img-fluid img-circle"
+                                     src="{{$subCategory->image}}"
+                                     alt="{{$subCategory->name_ar}}">
+                            </div>
+                        @endif
                         <div class="col-sm-5">
                             <div class="card">
                                 <div class="card-header">
@@ -54,18 +62,53 @@
                                         <label for="company">longitude</label>
                                         <input type="text" name="lng"class="form-control" id="name_ar" value="{{$subCategory->lng}}"disabled>
                                     </div>
+
                                         <div class="form-group">
-                                        <label for="company">نطاق التشغيل</label>
-                                        <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->range}}KM"disabled>
-                                    </div>
+                                            <label for="company">نطاق التشغيل</label>
+                                            <div class="input-group">
+                                                <input type="text"name="price" class="form-control" value="{{$subCategory->range}}" disabled >
+                                                <span class="input-group-addon"> كيلومتر</i>
+                                                </span>
+                                            </div>
+                                            @error('price')
+                                            <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+
                                         <div class="form-group">
-                                        <label for="company">تاريخ اضافته</label>
+                                            <label for="country">السعر  </label>
+                                            <div class="input-group">
+                                                <input type="text"name="price" class="form-control" value="{{$subCategory->price}}" disabled >
+                                                <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                            </div>
+                                            @error('price')
+                                            <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="approximate_duration">  المده التقريبيه للغسيل </label>
+                                            <div class="input-group">
+                                                <input type="text"name="approximate_duration" class="form-control"  value="{{$subCategory->approximate_duration}}" disabled >
+                                                <span class="input-group-addon"> ساعه</i>
+                                                </span>
+                                            </div>
+                                            @error('approximate_duration')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                        <label for="company">تاريخ الاضافه</label>
                                         <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->created_at->format('y-m-d')}}"disabled>
                                     </div>
                                         <div class="form-group">
                                         <label for="company">مواعيد الدوام</label>
-                                            @if(isset($subCategory->around_clock))
-                                        <input type="text" name="address"class="form-control" id="name_ar" value="'طوال اليوم"disabled>
+                                            @if($subCategory->around_clock ==1)
+                                        <input type="text" name="address"class="form-control" id="name_ar" value="طوال اليوم"disabled>
+                                            @else
+                                        <input type="text" name="address"class="form-control" id="name_ar" value="{{abs($hours=((int)$subCategory->clock_end)-((int)$subCategory->clock_at))}}"disabled>
+
                                             @endif
                                     </div>
                                 </div>

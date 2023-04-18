@@ -57,7 +57,7 @@ class Subcategory extends Model
     }
 
     public function parentTrashed(){
-        return $this->belongsTo(Subcategory::class)->withTrashed();
+        return $this->belongsTo(Subcategory::class,'parent_id')->withTrashed();
     }
     public function user(){
         return $this->hasMany(User::class,'subCategory_id');

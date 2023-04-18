@@ -1,7 +1,13 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main">
-        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="navBreadCrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('laundries.index')}}">المغاسل</a></li>
+                <li class="breadcrumb-item active" aria-current="page">  تعديل مغسله </li>
+            </ol>
+        </nav>
 
         <div class="container-fluid">
             <div class="animated fadeIn">
@@ -21,13 +27,13 @@
 
                                         <div class="form-group">
                                             <label for="company" n>الفرع الرئيسى </label>
-                                            <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$subCategory->parent->name_ar}}" disabled>
+                                            <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$subCategory->parentTrashed->name_ar}}" disabled>
                                         </div>
 
                                     <div class="form-group">
 
                                         <label for="company" n>اسم الفرع</label>
-                                        <input type="text" name="parent_id"class="form-control" id="name_ar" value="{{$subCategory->name_ar}}" disabled>
+                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$subCategory->name_ar}}" >
                                         <input type="hidden" name="parent_id"class="form-control"value="{{$subCategory->id}}">
                                     </div>
 
@@ -62,25 +68,42 @@
                                         <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
-                                        <label for="approximate_duration"> نطاق التشغيل </label>
-                                        <input type="number" name="range"class="form-control-plaintext" id="price"value="{{$subCategory->range??''}}"> كيلومتر
-                                        @error('range')
-                                        <span class="text-danger">{{ $message }}</span>
-                                        @enderror
+
+                                    <div class="form-group ">
+                                        <label for="range"> نطاق التشغيل </label>
+
+                                        <div class="input-group">
+                                            <input type="number"name="range" class="form-control" placeholder="نطاق التشغيل" value="{{$subCategory->range??''}}" >
+                                            <span class="input-group-addon"> كيلومتر</i>
+                                                </span>
+                                        </div>
+                                        @if ($errors->has('range'))
+                                            <span class="text-danger">{{ $errors->first('range') }}</span>
+                                        @endif
                                     </div>
-                                    <div class="form-group">
-                                        <label for="country">السعر  </label>
-                                        <input type="text" name="price"class="form-control-plaintext" id="price" value="{{$subCategory->price}}">  ريال
-                                        @error('price')
-                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
-                                        @enderror
+
+                                    <div class="form-group ">
+                                        <label for="price"> السعر  </label>
+
+                                        <div class="input-group">
+                                            <input type="text"name="price" class="form-control" placeholder="السعر " value="{{$subCategory->price}}" >
+                                            <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                        </div>
+                                        @if ($errors->has('price'))
+                                            <span class="text-danger">{{ $errors->first('price') }}</span>
+                                        @endif
                                     </div>
+
                                     <div class="form-group">
                                         <label for="approximate_duration">  المده التقريبيه للغسيل </label>
-                                        <input type="number" name="approximate_duration"class="form-control" id="approximate_duration" value="{{$subCategory->approximate_duration}}" min="1">
+                                        <div class="input-group">
+                                            <input type="number"name="approximate_duration" class="form-control" placeholder="24" value="{{$subCategory->approximate_duration}}" >
+                                            <span class="input-group-addon"> ساعه</i>
+                                                </span>
+                                        </div>
                                         @error('approximate_duration')
-                                        <div class="text-sm text-red-600">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 

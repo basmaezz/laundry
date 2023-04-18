@@ -87,7 +87,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group ">
-                                        <label for="approximate_duration"> نطاق التشغيل </label>
+                                        <label for="range"> نطاق التشغيل </label>
 
                                             <div class="input-group">
                                                 <input type="number"name="range" class="form-control" placeholder="نطاق التشغيل" value="{{Request::old('range')}}" >
@@ -99,7 +99,7 @@
                                             @endif
                                         </div>
                                     <div class="form-group ">
-                                        <label for="approximate_duration"> السعر  </label>
+                                        <label for="price"> السعر  </label>
 
                                             <div class="input-group">
                                                 <input type="text"name="price" class="form-control" placeholder="السعر " value="{{Request::old('range')}}" >

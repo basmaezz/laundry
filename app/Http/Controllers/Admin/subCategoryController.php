@@ -34,6 +34,7 @@ class subCategoryController extends Controller
             abort(403);
         };
         $subCategories = Subcategory::with(['city', 'parentTrashed'])->get();
+
         return view('dashboard.laundries.index', compact('subCategories'));
     }
 
@@ -128,7 +129,7 @@ class subCategoryController extends Controller
      */
     public function show($id)
     {
-        $subCategory = Subcategory::with('user')->find($id);
+        $subCategory = Subcategory::with(['user','parentTrashed'])->find($id);
 
         return view('dashboard.laundries.View', compact('subCategory'));
     }
@@ -222,6 +223,7 @@ class subCategoryController extends Controller
         $user = User::create(
             [
                 'subCategory_id' => $request->subCategory_id,
+                'approximate_duration' => $request->approximate_duration,
                 'name' => $request->name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
