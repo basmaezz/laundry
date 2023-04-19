@@ -507,8 +507,7 @@ class OrderController extends Controller
         if (!file_exists(public_path('qrcodes/' . $order->id . '.svg'))) {
             QrCode::encoding('UTF-8')->errorCorrection('H')->size(100)->generate($qrcode, public_path('qrcodes/' . $order->id . '.svg'));
         }
-        $settings=SiteSetting::first();
-        $delegate_range=$settings->distance_delegates;
+
         return [
 
             'laundry' => [
@@ -588,7 +587,7 @@ class OrderController extends Controller
                 '9'  => ($order->status_id > 9) ? 3 : (($order->status_id == 9) ? 2 : 1),
                 '10' => ($order->status_id > 10) ? 3 : (($order->status_id == 10) ? 2 : 1),
             ],
-            'delegate_range'=>$delegate_range
+
         ];
     }
 }
