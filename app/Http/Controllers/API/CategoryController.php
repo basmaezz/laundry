@@ -187,6 +187,9 @@ class CategoryController extends Controller
                     'is_favorite' => (!empty($user))? Favorite::has($subcategory, $user) : false,
                     'lat' => $subcategory->lat,
                     'lng' => $subcategory->lng,
+                    'from'=>$subcategory->clock_at,
+                    'to'=>$subcategory->clock_end,
+                    'status'=>getStatus($subcategory)
                 ];
                 foreach ($subCategoriesServices as $subcategoryproduct) {
                     $data [] = [
