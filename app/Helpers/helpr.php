@@ -465,7 +465,7 @@ function getDistanceFirst1($user, $latitude, $longitude)
 function getStatus($laundry)
 {
     if($laundry->around_clock =='1'){
-        return 'opened';
+        return 'All Day';
     }elseif($laundry->around_clock =='0'){
         $startDate=$laundry->clock_at;
         $endDate=$laundry->clock_end;
