@@ -134,9 +134,10 @@ class CategoryController extends Controller
         if (count($result)) {
             $user = auth('app_users_api')->user();
             foreach ($result as $subcategory) {
-                dd($user, $subcategory->lat, $subcategory->lng);
+
                 $distance = (!empty($user))? getDistanceFirst1($user, $subcategory->lat, $subcategory->lng) : 0;
                 $status=getStatus($subcategory);
+                $range=$subcategory->range;
                 $data [] = [
                     'id' => $subcategory->id,
                     'name' => $subcategory->$name1,
@@ -151,8 +152,8 @@ class CategoryController extends Controller
                     'from'=>$subcategory->clock_at,
                     'to'=>$subcategory->clock_end,
                     'status'=>$status,
-                    'distance_class' =>  getDistanceClass($distance),
-                    'distance_class_id' =>  getDistanceClassId($distance),
+                    'distance_class' =>  getDistanceClass($distance,$range),
+                    'distance_class_id' =>  getDistanceClassId($distance,$range),
                     'review' => $subcategory->rates
                 ];
             }
