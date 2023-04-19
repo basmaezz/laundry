@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\Controller;
 use App\Models\OrderDetails;
 use App\Models\OrderTable;
@@ -113,6 +114,14 @@ class OrdersController extends Controller
             $order['status']='تم الأنتهاء من الغسيل'
         ]);
         $order->save();
+
+        NotificationController::sendNotification(
+                'Clothes Ready For Delivery , please select delivery method',
+                'Your order number Number #' . $order->id,
+                $order->user_id,
+                $order->id
+            );
+
         return redirect()->back();
     }
     public function canceledOrder($id)
