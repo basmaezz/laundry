@@ -134,6 +134,7 @@ class CategoryController extends Controller
         if (count($result)) {
             $user = auth('app_users_api')->user();
             foreach ($result as $subcategory) {
+                dd($user, $subcategory->lat, $subcategory->lng);
                 $distance = (!empty($user))? getDistanceFirst1($user, $subcategory->lat, $subcategory->lng) : 0;
                 $status=getStatus($subcategory);
                 $data [] = [
