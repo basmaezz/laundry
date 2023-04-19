@@ -48,6 +48,7 @@ class DelegatesController extends Controller
         }
         $settings=SiteSetting::first();
         $delegate_range=$settings->distance_delegates;
+        dd($delegate_range);
 
         return apiResponseOrders('api.My_Order', count($data), $data, $delegate_range);
     }
