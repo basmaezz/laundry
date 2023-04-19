@@ -510,9 +510,7 @@ class OrderController extends Controller
         $settings=SiteSetting::first();
         $delegate_range=$settings->distance_delegates;
         return [
-            'delegate_range'=>[
-                'delegate_range'=>$delegate_range
-            ],
+
             'laundry' => [
                 'laundry_name' => $order->subCategoriesTrashed->$name,
                 "laundry_id" => $order->subCategoriesTrashed->id,
@@ -589,7 +587,8 @@ class OrderController extends Controller
                 '8'  => ($order->status_id > 8) ? 3 : (($order->status_id == 8) ? 2 : 1),
                 '9'  => ($order->status_id > 9) ? 3 : (($order->status_id == 9) ? 2 : 1),
                 '10' => ($order->status_id > 10) ? 3 : (($order->status_id == 10) ? 2 : 1),
-            ]
+            ],
+            'delegate_range'=>$delegate_range
         ];
     }
 }
