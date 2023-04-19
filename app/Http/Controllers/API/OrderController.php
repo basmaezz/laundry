@@ -389,7 +389,7 @@ class OrderController extends Controller
             ->first();
 
         if (isset($order)) {
-            $status_id = $request->get('delivery_type') == 2 ? self::Completed : self::WaitingForDeliveryToReceiveOrder;
+            $status_id = $request->get('delivery_type') == 1 ? self::Completed : self::WaitingForDeliveryToReceiveOrder;
             $order->delivery_type = $request->get('delivery_type');
             $order->status_id = $status_id;
             $order->status    = getStatusName($status_id);
