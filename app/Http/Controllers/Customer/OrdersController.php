@@ -116,6 +116,7 @@ class OrdersController extends Controller
         ]);
         $order->save();
         $user=$order->user_id;
+        $user->user_type =='user_channel';
         NotificationController::sendNotification(
                 'Clothes Ready For Delivery , please select delivery method',
                 'Your order number Number #' . $order->id,
