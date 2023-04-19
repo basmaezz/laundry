@@ -278,6 +278,7 @@ class UsersController extends Controller
             $subcategory = Subcategory::where('id',$favorite->markable_id)->first();
             if($subcategory) {
                 $distance = getDistanceFirst1($user, $subcategory->lat, $subcategory->lng);
+                $range=$subcategory->range;
                 $data [] = [
                     'id' => $subcategory->id,
                     'name' => $subcategory->$name,
@@ -287,7 +288,8 @@ class UsersController extends Controller
                     'image' => $subcategory->image,
                     'lat' => $subcategory->lat,
                     'lng' => $subcategory->lng,
-                    'distance' => round($distance, 2)
+                    'distance' => round($distance, 2),
+                    'distance_class_id' =>  getDistanceClassId($distance,$range),
                 ];
             }
         }
