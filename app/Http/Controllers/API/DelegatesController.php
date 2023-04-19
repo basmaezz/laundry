@@ -45,7 +45,7 @@ class DelegatesController extends Controller
         foreach ($orders as $order){
             $data[] = OrderController::orderObject($order);
         }
-        $settings=SettingController::all();
+        $settings=SettingController::first();
         $delegate_range=$settings->distance_delegates;
         return apiResponseOrders('api.My_Order', count($data), $data,$delegate_range);
     }
