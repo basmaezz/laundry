@@ -507,7 +507,12 @@ class OrderController extends Controller
         if (!file_exists(public_path('qrcodes/' . $order->id . '.svg'))) {
             QrCode::encoding('UTF-8')->errorCorrection('H')->size(100)->generate($qrcode, public_path('qrcodes/' . $order->id . '.svg'));
         }
+        $settings=SiteSetting::first();
+        $delegate_range=$settings->distance_delegates;
         return [
+            'delegate_range'=>[
+                'delegate_range'=>$delegate_range
+            ],
             'laundry' => [
                 'laundry_name' => $order->subCategoriesTrashed->$name,
                 "laundry_id" => $order->subCategoriesTrashed->id,
