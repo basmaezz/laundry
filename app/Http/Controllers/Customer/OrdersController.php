@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\Controller;
+use App\Models\AppUser;
 use App\Models\OrderDetails;
 use App\Models\OrderTable;
 use Illuminate\Http\Request;
