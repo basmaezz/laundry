@@ -465,15 +465,15 @@ function getDistanceFirst1($user, $latitude, $longitude)
 function getStatus($laundry)
 {
     if($laundry->around_clock =='1'){
-        return 'All Day';
+        return 1;
     }elseif($laundry->around_clock =='0'){
         $startDate=$laundry->clock_at;
         $endDate=$laundry->clock_end;
         $check = Carbon::now()->between($startDate, $endDate, true);
         if($check){
-            return'open';
+            return 1;
         }else{
-            return'closed';
+            return 0;
         }
     }
 
