@@ -115,11 +115,11 @@ class OrdersController extends Controller
             $order['status']='تم الأنتهاء من الغسيل'
         ]);
         $order->save();
-
+        $user=$order->user_id;
         NotificationController::sendNotification(
                 'Clothes Ready For Delivery , please select delivery method',
                 'Your order number Number #' . $order->id,
-                $order->user_id,
+                $user,
                 $order->id
             );
 
