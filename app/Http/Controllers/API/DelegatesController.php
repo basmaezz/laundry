@@ -6,6 +6,7 @@ use App\Models\AppUser;
 use App\Models\DeliveryHistory;
 use App\Models\DeliveryRejection;
 use App\Models\OrderTable;
+use App\Models\SiteSetting;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Request;
 use App\Models\Notifications;
@@ -45,7 +46,7 @@ class DelegatesController extends Controller
         foreach ($orders as $order){
             $data[] = OrderController::orderObject($order);
         }
-        $settings=SettingController::first();
+        $settings=SiteSetting::first();
         $delegate_range=$settings->distance_delegates;
         return apiResponseOrders('api.My_Order', count($data), $data,$delegate_range);
     }
