@@ -384,7 +384,7 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-        $delegate=Delegate::with(['appUserTrashed','car','year'])->find($id);
+        $delegate=Delegate::withTrashed()->with(['appUserTrashed','car','year'])->find($id);
         return view('dashboard.users.viewDelegate',compact('delegate'));
     }
     public function deleteDelegate($id)
@@ -393,7 +393,7 @@ class UserController extends Controller
             abort(403);
         };
        $delegate=Delegate::find($id);
-       AppUser::where('id',$delegate->app_user_id)->forcedelete();
+       AppUser::where('id',$delegate->app_user_id)->delete();
        $delegate->delete();
 
         return  redirect()->back()->with('error', 'تم الحذف');
@@ -481,6 +481,21 @@ class UserController extends Controller
       $delegate->save();
 
       return redirect()->route('delegates.index');
+    }
+
+    public function trashedDelegates()
+    {
+        $delegates=Delegate::with(['appUserTrashed','appUserTrashed.citiesTrashed','nationality'])->onlyTrashed()->get();
+
+        return view('dashboard.users.trashedDelegates',compact('delegates'));
+    }
+
+    public function restoreDeletedDelegates($id)
+    {
+        $delegate=Delegate::withTrashed()->find($id);
+        AppUser::where('id',$delegate->app_user_id)->withTrashed()->restore();
+        $delegate->restore();
+        return redirect()->route('delegates.index')->with('success', 'تم استعاده الحذف');;
     }
 
     public function profile()

@@ -131,7 +131,7 @@ class subCategoryController extends Controller
      */
     public function show($id)
     {
-        $subCategory = Subcategory::with(['user','parentTrashed'])->find($id);
+        $subCategory = Subcategory::withTrashed()->with(['userTrashed','parentTrashed'])->find($id);
 
         return view('dashboard.laundries.View', compact('subCategory'));
     }
@@ -144,7 +144,7 @@ class subCategoryController extends Controller
      */
     public function edit($id)
     {
-        $subCategory = Subcategory::with(['parentTrashed', 'user'])->find($id);
+        $subCategory = Subcategory::with(['parentTrashed', 'userTrashed'])->find($id);
         $cities = City::all();
         return view('dashboard.laundries.edit', compact(['subCategory', 'cities']));
     }
@@ -332,7 +332,7 @@ class subCategoryController extends Controller
 
     public function editBranch($id)
     {
-        $subCategory = Subcategory::with(['parentTrashed', 'user'])->find($id);
+        $subCategory = Subcategory::with(['parentTrashed', 'userTrashed'])->find($id);
         $cities = City::pluck('id', 'name_ar');
         return view('dashboard.laundries.editBranch', compact(['subCategory', 'cities']));
     }

@@ -13,7 +13,7 @@
                 <div class="row">
                     <form method="post" action="{{url('laundryStore')}}" enctype="multipart/form-data">
                         @csrf
-                        @if($subCategory->parent_id !=null)
+                        @if(isset($subCategory->parent_id))
                         <div class="card-body box-profile">
                             <img class="profile-user-img img-fluid img-circle"
                                  src="{{$subCategory->parentTrashed->image}}"
@@ -22,8 +22,8 @@
                         @else
                             <div class="card-body box-profile">
                                 <img class="profile-user-img img-fluid img-circle"
-                                     src="{{$subCategory->image}}"
-                                     alt="{{$subCategory->name_ar}}">
+                                     src="{{$subCategory->image ??''}}"
+                                     alt="{{$subCategory->name_ar ??''}}">
                             </div>
                         @endif
                         <div class="col-sm-5">
@@ -114,7 +114,7 @@
                                 </div>
                             </div>
                         </div>
-                        @foreach($subCategory->user as $admin )
+                        @foreach($subCategory->userTrashed as $admin )
                         <div class="col-md-6">
                             <div class="card">
 

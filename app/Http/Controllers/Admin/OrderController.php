@@ -153,7 +153,8 @@ class OrderController extends Controller
 
     public function delegateOrders($id)
     {
-        $delegate=Delegate::find($id);
+        $delegate=Delegate::withTrashed()->find($id);
+
         $orders=OrderTable::where('delivery_id',$delegate->app_user_id)->get();
         return  view('dashboard.Orders.delegateOrders',compact('orders'));
     }

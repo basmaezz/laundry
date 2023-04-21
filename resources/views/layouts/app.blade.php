@@ -103,6 +103,9 @@ padding-left: 74px;">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('delegate.rejectionRequests')}}"><i class="icon-people"></i>  طلبات التسجيل المرفوضه   </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('delegate.trashedDelegates')}}"><i class="icon-people"></i>  المناديب المحذوفه   </a>
+                    </li>
                 </ul>
             </li>
             @endcan

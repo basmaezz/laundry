@@ -32,6 +32,7 @@
                                                 <td>{{$subCategory->city->name_ar??''}}</td>
                                                 <td>{{ Str::limit($subCategory->address, 20) }}</td>
                                                 <td>
+                                                    <a href="{{route('laundries.view',$subCategory->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a>
                                                     <form class="delete" action="{{route('laundries.restoreDeleted',$subCategory->id)}}" method="get">
                                                         @csrf
                                                         @method('DELETE')

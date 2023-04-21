@@ -58,11 +58,13 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('createDelegate', [UserController::class, 'CreateDelegate'])->name('delegate.create');
     Route::post('storeDelegate', [UserController::class, 'storeDelegate'])->name('delegate.store');
     Route::get('showDelegate/{id}', [UserController::class, 'showDelegate'])->name('delegate.show');
+    Route::get('restoreDeletedDelegates/{id}', [UserController::class, 'restoreDeletedDelegates'])->name('delegate.restoreDeletedDelegates');
     Route::get('editDelegate/{id}', [UserController::class, 'editDelegate'])->name('delegate.edit');
     Route::post('updateDelegate/{id}', [UserController::class, 'updateDelegate'])->name('delegate.update');
     Route::get('changeDelegateStatus/{id}', [UserController::class, 'changeDelegateStatus'])->name('delegate.changeDelegateStatus');
     Route::get('acceptRegister/{id}', [UserController::class, 'acceptRegister'])->name('delegate.acceptRegister');
     Route::get('deleteDelegate/{id}', [UserController::class, 'deleteDelegate'])->name('delegate.delete');
+    Route::get('trashedDelegates', [UserController::class, 'trashedDelegates'])->name('delegate.trashedDelegates');
     Route::get('registrationRequests', [UserController::class, 'getRegistrationRequests'])->name('delegate.registrationRequests');
     Route::get('addRejectReason/{id}', [UserController::class, 'addRejectReason'])->name('delegate.addRejectReason');
     Route::post('storeRejectReason/{id}', [UserController::class, 'storeRejectReason'])->name('delegate.storeRejectReason');
