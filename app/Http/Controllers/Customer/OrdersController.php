@@ -116,12 +116,12 @@ class OrdersController extends Controller
         ]);
         $order->save();
         $user=$order->user_id;
-        NotificationController::sendNotification(
-                'Clothes Ready For Delivery , please select delivery method',
-                'Your order number Number #' . $order->id,
-                $user,
-                $order->id
-            );
+//        NotificationController::sendNotification(
+//                'Clothes Ready For Delivery , please select delivery method',
+//                'Your order number Number #' . $order->id,
+//                $user,
+//                $order->id
+//            );
 
         return redirect()->back();
     }
