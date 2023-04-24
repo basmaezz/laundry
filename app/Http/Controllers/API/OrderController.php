@@ -175,7 +175,7 @@ class OrderController extends Controller
         $settings = SiteSetting::first();
         $distanceDelegate = $settings->distance_delegates ?? 0;
 
-        $delgates = AppUser::withTrashed()->where([
+        $delgates = AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
             'available' => '1',
@@ -184,7 +184,7 @@ class OrderController extends Controller
            * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate)->get();
 
         if (count($delgates) == 0) {
-            $delgates = AppUser::withTrashed()->where([
+            $delgates = AppUser::where([
                 'status' => 'active',
                 'user_type' => 'delivery',
                 'available' => '1',

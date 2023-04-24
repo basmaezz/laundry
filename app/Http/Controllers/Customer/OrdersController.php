@@ -122,6 +122,7 @@ class OrdersController extends Controller
                  $order->userTrashed,
                  $order->id
             );
+
         return redirect()->back();
     }
     public function canceledOrder($id)
