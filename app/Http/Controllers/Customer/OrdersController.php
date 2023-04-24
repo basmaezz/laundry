@@ -109,20 +109,20 @@ class OrdersController extends Controller
     }
     public function completed($id)
     {
-        $order=OrderTable::find($id);
+        $order=OrderTable::with('userTrashed')->where('id',$id)->first();
         $order->update([
             $order['status_id']=self::ClothesReadyForDelivery,
             $order['status']='تم الأنتهاء من الغسيل'
         ]);
         $order->save();
-        $user=$order->user_id;
-//        NotificationController::sendNotification(
-//                'Clothes Ready For Delivery , please select delivery method',
-//                'Your order number Number #' . $order->id,
-//                $user,
-//                $order->id
-//            );
-
+        $app_user_id = auth()->user()->id;
+        NotificationController::sendNotification(
+                'ملابسك جاهزه للاستلام , نرجو اختيار طريقه الاستلام',
+                'طلب رقم #' . $order->id,
+                 $order->userTrashed,
+                 $order->id,
+                 $app_user_id
+            );
         return redirect()->back();
     }
     public function canceledOrder($id)
