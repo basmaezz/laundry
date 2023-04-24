@@ -120,7 +120,6 @@ class OrdersController extends Controller
                 'طلب رقم #' . $order->id,
                  $order->userTrashed,
                  $order->id,
-
             );
         return redirect()->back();
     }
