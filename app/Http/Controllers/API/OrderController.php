@@ -188,7 +188,7 @@ class OrderController extends Controller
                 'status' => 'active',
                 'user_type' => 'delivery',
                 'available' => '1',
-            ])->get();
+            ])->withTrashed->get();
         }
         foreach ($delgates as $user) {
             NotificationController::sendNotification(
@@ -310,7 +310,7 @@ class OrderController extends Controller
                     'status' => 'active',
                     'user_type' => 'delivery',
                     'available' => '0'
-                ])->get();
+                ])->withTrashed()->get();
                 foreach ($users as $user) {
                     NotificationController::sendDataNotification(
                         $user,
