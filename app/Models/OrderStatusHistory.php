@@ -16,20 +16,27 @@ class OrderStatusHistory extends Model
         'user_id'
     ];
 
-    protected $appends = ['spend_time'];
+    protected $appends = ['spend_time','is_finished'];
 
     public function order(){
         return $this->belongsTo(OrderTable::class,'order_id','id');
     }
 
+    public function getIsFinishedAttribute(){
+        $next = OrderStatusHistory::where([
+            'order_id' => $this->attributes['order_id'],
+            'status_id' => $this->attributes['status_id']+1,
+        ])->first();
+        return $next ?? false;
+    }
     public function getSpendTimeAttribute()
     {
-        $next = OrderStatusHistory::where([
+        $previous = OrderStatusHistory::where([
             'order_id' => $this->attributes['order_id'],
             'status_id' => $this->attributes['status_id']-1,
         ])->first();
-        if($next) {
-            return $next->created_at->diffInMinutes(Carbon::parse($this->attributes['created_at']));
+        if($previous) {
+            return $previous->created_at->diffInMinutes(Carbon::parse($this->attributes['created_at']));
         }
         return 0;
     }
