@@ -371,7 +371,7 @@ class OrderController extends Controller
      */
     public function updateDeliveryType(Request $request)
     {
-        dd($request->get('delivery_type'));
+
         $validator = Validator::make($request->all(), [
             'delivery_type' => 'required|in:1,2',
             'order_id' => 'required',
