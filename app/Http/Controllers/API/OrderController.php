@@ -405,6 +405,7 @@ class OrderController extends Controller
                 $order->user,
                 $order->id
             );
+            dd($request->get('delivery_type'));
             if ($request->get('delivery_type') == 2) {
                 $users = AppUser::where([
                     'status' => 'active',
