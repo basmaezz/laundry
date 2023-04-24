@@ -115,9 +115,8 @@ class OrdersController extends Controller
             $order['status']='تم الأنتهاء من الغسيل'
         ]);
         $order->save();
-        NotificationController::sendNotification(
-                'ملابسك جاهزه للاستلام , نرجو اختيار طريقه الاستلام',
-                'طلب رقم #' . $order->id,
+        NotificationController::sendDataNotification(
+
                  $order->userTrashed,
                  $order->id,
             );
