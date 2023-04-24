@@ -110,17 +110,15 @@ class OrdersController extends Controller
     public function completed($id)
     {
         $order=OrderTable::with('userTrashed')->where('id',$id)->first();
-        dd($order->userTrashed->id);
         $order->update([
             $order['status_id']=self::ClothesReadyForDelivery,
             $order['status']='تم الأنتهاء من الغسيل'
         ]);
         $order->save();
-   NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(), $order->id);
         NotificationController::sendNotification(
                 'Clothes Ready For Delivery , please select delivery method',
                 'Your order number Number #' . $order->id,
-                 $order->userTrashed->id,
+                 $order->userTrashed,
                  $order->id
             );
 
