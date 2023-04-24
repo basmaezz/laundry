@@ -116,11 +116,16 @@ class OrdersController extends Controller
         ]);
         $order->save();
         NotificationController::sendNotification(
-                'ملابسك جاهزه للاستلام , نرجو اختيار طريقه الاستلام',
-                'طلب رقم #' . $order->id,
-                 $order->userTrashed,
-                 $order->id
-            );
+            __('api.order_update'),
+            $order->userTrashed,
+            $order->id
+        );
+//        NotificationController::sendNotification(
+//                'ملابسك جاهزه للاستلام , نرجو اختيار طريقه الاستلام',
+//                'طلب رقم #' . $order->id,
+//                 $order->userTrashed,
+//                 $order->id
+//            );
 
         return redirect()->back();
     }
