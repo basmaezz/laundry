@@ -411,7 +411,7 @@ class OrderController extends Controller
                     'status' => 'active',
                     'user_type' => 'delivery',
                     'available' => '0'
-                ])->get();
+                ])->withTrashed()->get();
                 foreach ($users as $user) {
                     NotificationController::sendNotification(
                         'New Delivery Request',
