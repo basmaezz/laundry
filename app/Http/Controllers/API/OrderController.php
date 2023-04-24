@@ -371,6 +371,7 @@ class OrderController extends Controller
      */
     public function updateDeliveryType(Request $request)
     {
+        dd($request->get('delivery_type'));
         $validator = Validator::make($request->all(), [
             'delivery_type' => 'required|in:1,2',
             'order_id' => 'required',
@@ -405,7 +406,7 @@ class OrderController extends Controller
                 $order->user,
                 $order->id
             );
-            dd($request->get('delivery_type'));
+
             if ($request->get('delivery_type') == 2) {
                 $users = AppUser::where([
                     'status' => 'active',
