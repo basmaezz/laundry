@@ -109,7 +109,7 @@ class OrdersController extends Controller
     }
     public function completed($id)
     {
-        $order=OrderTable::find($id);
+        $order=OrderTable::with('userTrashed')->where('id',$id)->first();
         $order->update([
             $order['status_id']=self::ClothesReadyForDelivery,
             $order['status']='تم الأنتهاء من الغسيل'
@@ -120,7 +120,7 @@ class OrdersController extends Controller
                 'Clothes Ready For Delivery , please select delivery method',
                 'Your order number Number #' . $order->id,
                  $order->userTrashed->id,
-                $order->id
+                 $order->id
             );
 
         return redirect()->back();
