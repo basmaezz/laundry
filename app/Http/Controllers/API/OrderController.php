@@ -406,7 +406,7 @@ class OrderController extends Controller
                 $order->id
             );
             if ($request->get('delivery_type') == 2) {
-                $users = AppUser::withTrashed()->where([
+                $users = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
                     'available' => '0'
