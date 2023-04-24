@@ -299,7 +299,7 @@ Route::get('addresses', function () {
 
 Route::get('ordersTable', function () {
     $orders = \App\Models\OrderTable::all();
-    return $orders;
+    dd ($orders);
 });
 Route::get('getorderDetails', function () {
     $orderDetails = \App\Models\OrderDetails::all();
@@ -355,16 +355,6 @@ Route::get('getUser',function (){
 Route::get('locations', function () {
     $user = AppUser::where('id', 2)->first();
     dd($user);
-
-    //    $locations=AppUser::SELECT(['*',DB::raw(' ( 6371 * acos( cos( radians(' . $user->lat . ') ) * cos( radians( lat ) )
-    //           * cos( radians( lng ) - radians(' . $user->lat . ') ) + sin( radians(' . $user->lat . ') )
-    //           * sin( radians( lat ) ) ) )')]);
-    //    $raw= DB::SELECT(' ( 6371 * acos( cos( radians(' . $user->lat . ') ) * cos( radians( lat ) )
-    //           * cos( radians( lng ) - radians(' . $user->lat . ') ) + sin( radians(' . $user->lat . ') )
-    //           * sin( radians( lat ) ) ) )  AS distance');
-    //
-    //    $raw = AppUser::SELECT('*', $raw)->addSelect($raw)->orderBy('distance')->first();
-    //    return $raw;
 });
 
 Route::get('setting', function () {
@@ -382,18 +372,21 @@ Route::get('updateCategory', function () {
     $ordersTable = DB::table('app_users')->update(['city_id' => 1]);
 });
 
-Route::get('updateCategory', function () {
-    DB::table('categories')->where('id', 1)->update([
-        'image' => '',
+Route::get('updateOrders', function () {
+    DB::table('order_tables')->where('id', 109)->update([
+        'status_id' => '4',
     ]);
-    DB::table('categories')->where('id', 2)->update([
-        'image' => '',
+    DB::table('order_tables')->where('id', 110)->update([
+        'status_id' => '4',
     ]);
-    DB::table('categories')->where('id', 3)->update([
-        'image' => '',
+    DB::table('order_tables')->where('id', 111)->update([
+        'status_id' => '4',
     ]);
-    DB::table('categories')->where('id', 4)->update([
-        'image' => '',
+    DB::table('order_tables')->where('id', 112)->update([
+        'status_id' => '4',
+    ]);
+    DB::table('order_tables')->where('id', 113)->update([
+        'status_id' => '4',
     ]);
 });
 
@@ -427,4 +420,13 @@ Route::get('getPone',function (){
 Route::get('getLaundry',function (){
     $laundry=subCategory::where('id',24)->get();
     return $laundry;
+});
+
+Route::get('getDeliverys',function (){
+    $users = AppUser::where([
+        'status' => 'active',
+        'user_type' => 'delivery',
+        'available' => '1'
+    ])->get();
+    dd($users);
 });

@@ -371,7 +371,7 @@ class OrderController extends Controller
      */
     public function updateDeliveryType(Request $request)
     {
-        dd($request->get('delivery_type'));
+
         $validator = Validator::make($request->all(), [
             'delivery_type' => 'required|in:1,2',
             'order_id' => 'required',
@@ -411,9 +411,9 @@ class OrderController extends Controller
                 $users = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
-                    'available' => '0'
+                    'available' => '1'
                 ])->get();
-                dd($users);
+               dd($users);
                 foreach ($users as $user) {
                     NotificationController::sendNotification(
                         'New Delivery Request',
