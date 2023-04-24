@@ -413,6 +413,7 @@ class OrderController extends Controller
                     'user_type' => 'delivery',
                     'available' => '1'
                 ])->get();
+                dd($users);
                 foreach ($users as $user) {
                     NotificationController::sendNotification(
                         'New Delivery Request',

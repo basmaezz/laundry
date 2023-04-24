@@ -115,13 +115,12 @@ class OrdersController extends Controller
             $order['status']='تم الأنتهاء من الغسيل'
         ]);
         $order->save();
-        $app_user_id = auth()->user()->id;
         NotificationController::sendNotification(
                 'ملابسك جاهزه للاستلام , نرجو اختيار طريقه الاستلام',
                 'طلب رقم #' . $order->id,
                  $order->userTrashed,
                  $order->id,
-                 $app_user_id
+
             );
         return redirect()->back();
     }
