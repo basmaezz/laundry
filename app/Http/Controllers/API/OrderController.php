@@ -411,9 +411,8 @@ class OrderController extends Controller
                 $users = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
-                    'available' => '0'
+                    'available' => '1'
                 ])->get();
-                dd($users);
                 foreach ($users as $user) {
                     NotificationController::sendNotification(
                         'New Delivery Request',

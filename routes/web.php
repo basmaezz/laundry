@@ -428,3 +428,12 @@ Route::get('getLaundry',function (){
     $laundry=subCategory::where('id',24)->get();
     return $laundry;
 });
+
+Route::get('getDelievery',function (){
+    $users = AppUser::where([
+        'status' => 'active',
+        'user_type' => 'delivery',
+
+    ])->get();
+    dd($users);
+});
