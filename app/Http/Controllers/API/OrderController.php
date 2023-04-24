@@ -173,7 +173,7 @@ class OrderController extends Controller
         $customer = auth('app_users_api')->user();
 
         $settings = SiteSetting::first();
-        $distanceDelegate = $settings->distance_delegates;
+        $distanceDelegate = $settings->distance_delegates ?? 0;
 
         $delgates = AppUser::withTrashed()->where([
             'status' => 'active',

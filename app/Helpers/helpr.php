@@ -455,6 +455,9 @@ function getDistanceFirst($user, $latitude, $longitude)
 }
 function getDistanceFirst1($user, $latitude, $longitude)
 {
+    if(empty($latitude) || empty($longitude) || empty($user)){
+        return 0;
+    }
     $raw   = DB::raw(' ( 6371 * acos( cos( radians(' . $latitude . ') ) * cos( radians( lat ) )
            * cos( radians( lng ) - radians(' . $longitude . ') ) + sin( radians(' . $latitude . ') )
            * sin( radians( lat ) ) ) )  AS distance');

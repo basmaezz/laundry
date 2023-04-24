@@ -103,7 +103,7 @@ class OrdersController extends Controller
 
     public function inProgress($id)
     {
-     $orders=OrderTable::orders($id)->where('status_id',4)->get();
+     $orders=OrderTable::orders($id)->where('status_id',self::DeliveredToLaundry)->get();
 
      return  view('customers.backEnd.orders.inProgress',compact('orders'));
     }
@@ -115,24 +115,23 @@ class OrdersController extends Controller
             $order['status']='تم الأنتهاء من الغسيل'
         ]);
         $order->save();
-        $app_user_id = auth()->user()->id;
+        //$app_user_id = auth()->user()->id;
         NotificationController::sendNotification(
                 'ملابسك جاهزه للاستلام , نرجو اختيار طريقه الاستلام',
                 'طلب رقم #' . $order->id,
                  $order->userTrashed,
-                 $order->id,
-                 $app_user_id
+                 $order->id
             );
         return redirect()->back();
     }
     public function canceledOrder($id)
     {
-        $orders=OrderTable::orders($id)->where('status_id',10)->get();
+        $orders=OrderTable::orders($id)->where('status_id',self::Cancel)->get();
         return  view('customers.backEnd.orders.canceled',compact('orders'));
     }
     public function finishedOrder($id)
     {
-        $orders=OrderTable::orders($id)->where('status_id',8)->get();
+        $orders=OrderTable::orders($id)->where('status_id',self::Completed)->get();
         return  view('customers.backEnd.orders.finished',compact('orders'));
     }
 

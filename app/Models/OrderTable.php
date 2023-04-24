@@ -84,6 +84,11 @@ class OrderTable extends Model
         return $this->hasMany(OrderStatusHistory::class,'order_id','id');
     }
 
+    public function getLastHistoryAttribute()
+    {
+        return $this->histories()->orderBy('status_id','desc')->first();
+    }
+
     public function rates(){
         return $this->hasMany(RateLaundry::class,'order_id','id');
     }

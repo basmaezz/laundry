@@ -39,7 +39,11 @@
                                             @else
                                             <td></td>
                                             @endif
-                                            <td>{{minutesToHumanReadable($order->histories->where('status_id',$order->status_id)->first()->spend_time ?? 0)}}</td>
+                                            @if($order->lastHistory->is_finished)
+                                                <td>{{minutesToHumanReadable($order->lastHistory->spend_time ?? 0)}}</td>
+                                            @else
+                                                <td><time class="timeago" datetime="{{$order->lastHistory->created_at->toISOString() ?? $order->created_at->toISOString()}}">{{$order->lastHistory->created_at->toDateString() ?? $order->created_at->toDateString() }}</time></td>
+                                            @endif
                                             <td>{{$order->userTrashed->citiesTrashed->name_ar}}</td>
                                             <td>{{$order->userTrashed->region_name}}</td>
                                             <td>{{$order->created_at->year}}</td>
@@ -83,10 +87,14 @@
 {{--    </script>--}}
 @endsection
 @push('scripts')
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
     <script>
         $("#orders").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#orders_wrapper .col-md-6:eq(0)');
+        jQuery(document).ready(function() {
+            jQuery("time.timeago").timeago();
+        });
     </script>
 @endpush

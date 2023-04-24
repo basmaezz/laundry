@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\Admin\OrderController;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +24,9 @@ class OrderStatusHistory extends Model
     }
 
     public function getIsFinishedAttribute(){
+        if($this->attributes['status_id'] >= OrderController::Completed){
+            return true;
+        }
         $next = OrderStatusHistory::where([
             'order_id' => $this->attributes['order_id'],
             'status_id' => $this->attributes['status_id']+1,
