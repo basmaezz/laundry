@@ -116,8 +116,8 @@ class OrdersController extends Controller
         ]);
         $order->save();
         NotificationController::sendNotification(
-                'Clothes Ready For Delivery , please select delivery method',
-                'Your order number Number #' . $order->id,
+                'ملابسك جاهزه للاستلام , نرجو اختيار طريقه الاستلام',
+                'طلب رقم #' . $order->id,
                  $order->userTrashed,
                  $order->id
             );
