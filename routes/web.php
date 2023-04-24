@@ -433,7 +433,7 @@ Route::get('getDelievery',function (){
     $users = AppUser::where([
         'status' => 'active',
         'user_type' => 'delivery',
-
+        'available' => '1'
     ])->get();
     dd($users);
 });
