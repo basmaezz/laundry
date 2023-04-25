@@ -406,7 +406,7 @@ class OrderController extends Controller
             NotificationController::sendNotification(
                 getStatusName($status_id),
                 __('api.order_update', ['laundry' => $order->subCategoriesTrashed->$name, 'status' => getStatusName($status_id)]),
-                $order->user,
+                $order->userTrashed,
                 $order->id
             );
 

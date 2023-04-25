@@ -39,10 +39,10 @@
                                             @else
                                             <td></td>
                                             @endif
-                                            @if($order->lastHistory->is_finished)
-                                                <td>{{minutesToHumanReadable($order->lastHistory->spend_time ?? 0)}}</td>
+                                            @if($order->is_finished)
+                                                <td>{{minutesToHumanReadable($order->histories->sum('spend_time') ?? 0)}}</td>
                                             @else
-                                                <td><time class="timeago" datetime="{{$order->lastHistory->created_at->toISOString() ?? $order->created_at->toISOString()}}">{{$order->lastHistory->created_at->toDateString() ?? $order->created_at->toDateString() }}</time></td>
+                                                <td><time class="timeago" datetime="{{$order->created_at->toISOString()}}">{{ $order->created_at->toDateString() }}</time></td>
                                             @endif
                                             <td>{{$order->userTrashed->citiesTrashed->name_ar}}</td>
                                             <td>{{$order->userTrashed->region_name}}</td>

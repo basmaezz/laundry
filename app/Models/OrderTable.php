@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\API\OrderController;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -54,6 +55,7 @@ class OrderTable extends Model
         'vat',
         'address_id'
     ];
+    protected $appends = ['is_finnish'];
 
     public function orderDetails()
     {
@@ -81,7 +83,7 @@ class OrderTable extends Model
 
     public function histories()
     {
-        return $this->hasMany(OrderStatusHistory::class,'order_id','id');
+        return $this->hasMany(OrderStatusHistory::class,'order_id','id')->latest();
     }
 
     public function getLastHistoryAttribute()
@@ -100,8 +102,11 @@ class OrderTable extends Model
     public function ScopeOrders($query,$id){
         return $query->where('laundry_id',Auth::user()->subCategory_id);
     }
-    /*public function getCreatedAtAttribute($value)
+    public function getIsFinnishAttribute($value): bool
     {
-        return Carbon::parse($value)->format('d M');
-    }*/
+        return in_array($this->attributes['status_id'], [
+            OrderController::Cancel,
+            OrderController::Completed,
+        ]);
+    }
 }
