@@ -104,6 +104,9 @@ class OrderTable extends Model
     }
     public function getIsFinnishAttribute($value): bool
     {
+        if(!isset($this->attributes['status_id']) || empty($this->attributes['status_id'])){
+            return false;
+        }
         return in_array($this->attributes['status_id'], [
             OrderController::Cancel,
             OrderController::Completed,

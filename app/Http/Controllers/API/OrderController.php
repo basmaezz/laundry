@@ -93,7 +93,7 @@ class OrderController extends Controller
 
 
         $discount_value = 0;
-        if ($request->has('coupon')) {
+        if ($request->has('coupon') && !empty($request->get('coupon'))) {
             $coupon = CouponShopCart::where('code_name', $request->get('coupon'))->where(function ($query) {
                 $query->where('date_from', '<=', Carbon::now())->where('date_to', '>=', Carbon::now())
                     ->orWhere(function ($query2) {
