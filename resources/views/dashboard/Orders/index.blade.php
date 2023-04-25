@@ -88,6 +88,7 @@
 @endsection
 @push('scripts')
     <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
     <script>
         $("#orders").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,

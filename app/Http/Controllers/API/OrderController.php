@@ -173,9 +173,9 @@ class OrderController extends Controller
         $customer = auth('app_users_api')->user();
 
         $settings = SiteSetting::first();
-        $distanceDelegate = $settings->distance_delegates ?? 0;
+        $distanceDelegate = $settings->distance_delegates ?? config('setting.distance.in_area');
 
-        $delgates = AppUser::where([
+        $delegates = AppUser::where([
             'status' => 'active',
             'user_type' => 'delivery',
             'available' => '1',
@@ -183,14 +183,14 @@ class OrderController extends Controller
            * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
            * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate)->get();
 
-        if (count($delgates) == 0) {
-            $delgates = AppUser::where([
+        if (count($delegates) == 0) {
+            $delegates = AppUser::where([
                 'status' => 'active',
                 'user_type' => 'delivery',
                 'available' => '1',
             ])->get();
         }
-        foreach ($delgates as $user) {
+        foreach ($delegates as $user) {
             NotificationController::sendNotification(
                 'New Delivery Request',
                 'New Delivery Request Number #' . $order->id,
@@ -306,7 +306,7 @@ class OrderController extends Controller
             );
 
             if ($request->get('status_id') == self::Cancel) {
-                $users = AppUser::withTrashed()->where([
+                $users = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
                     'available' => '0'
@@ -323,24 +323,27 @@ class OrderController extends Controller
                 $order->delivery_id = null;
                 $order->save();
 
-                $delgates = AppUser::withTrashed()->where([
+                $settings = SiteSetting::first();
+                $distanceDelegate = $settings->distance_delegates ?? config('setting.distance.in_area');
+
+                $delegates = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
                     'available' => '1',
                 ])->whereRaw('( 6371 * acos( cos( radians(' . $order->subCategoriesTrashed->lat . ') ) * cos( radians( lat ) )
                    * cos( radians( lng ) - radians(' . $order->subCategoriesTrashed->lng . ') ) + sin( radians(' . $order->subCategoriesTrashed->lat . ') )
-                   * sin( radians( lat ) ) ) ) <= ' . config('setting.distance.in_area'))->get();
-                if (count($delgates) == 0) {
-                    $delgates = AppUser::withTrashed()->where([
+                   * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate)->get();
+                if (count($delegates) == 0) {
+                    $delegates = AppUser::where([
                         'status' => 'active',
                         'user_type' => 'delivery',
                         'available' => '1'
                     ])->get();
                 }
-                foreach ($users as $user) {
+                foreach ($delegates as $user) {
                     NotificationController::sendNotification(
                         'New Delivery Request',
-                        'New Delivery Request Number #' . $order->id,
+                        'New Delivery Request from laundry, Order Number #' . $order->id,
                         $user,
                         $order->id
                     );
@@ -408,16 +411,28 @@ class OrderController extends Controller
             );
 
             if ($request->get('delivery_type') == 2) {
-                $users = AppUser::where([
+                $settings = SiteSetting::first();
+                $distanceDelegate = $settings->distance_delegates ?? config('setting.distance.in_area');
+
+                $delegates = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
-                    'available' => '1'
-                ])->get();
-               dd($users);
-                foreach ($users as $user) {
+                    'available' => '1',
+                ])->whereRaw('( 6371 * acos( cos( radians(' . $order->subCategoriesTrashed->lat . ') ) * cos( radians( lat ) )
+                   * cos( radians( lng ) - radians(' . $order->subCategoriesTrashed->lng . ') ) + sin( radians(' . $order->subCategoriesTrashed->lat . ') )
+                   * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate)->get();
+                if (count($delegates) == 0) {
+                    $delegates = AppUser::where([
+                        'status' => 'active',
+                        'user_type' => 'delivery',
+                        'available' => '1'
+                    ])->get();
+                }
+               //dd($users);
+                foreach ($delegates as $user) {
                     NotificationController::sendNotification(
                         'New Delivery Request',
-                        'New Delivery Request Number #' . $order->id,
+                        'New Delivery Request from laundry, Order Number #' . $order->id,
                         $user,
                         $order->id
                     );
