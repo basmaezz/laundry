@@ -58,6 +58,30 @@ class UserController extends Controller
         return view('dashboard.users.index',compact('users'));
     }
 
+    public function adminTrashed()
+    {
+        if(!Gate::allows('admins.index')){
+            abort(403);
+        };
+
+        $users=User::whereNull('subCategory_id')->onlyTrashed()->get();
+        return view('dashboard.users.adminTrashed',compact('users'));
+    }
+    public function forceDelete($id)
+    {
+        if(Gate::denies('admins.index')){
+            abort(403);
+        };
+        User::withTrashed()->find($id)->forceDelete();
+        return  redirect()->back()->with('error', 'تم الحذف');
+    }
+
+    public function restoreDeletedAdmins($id)
+    {
+        $admin=User::withTrashed()->find($id);
+        $admin->restore();
+        return redirect()->route('users.index')->with('success', 'تم استعاده الحذف');;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -127,8 +151,7 @@ class UserController extends Controller
         if(Gate::denies('admins.index')){
             abort(403);
         };
-        $user=User::with(['Roles','Levels'])->findorFail($id);
-
+        $user=User::with(['roles','Levels'])->findorFail($id);
         $roles=Role::all();
         $levels=educationLevel::all();
         return  view('dashboard.users.edit',compact(['user','levels','roles']));

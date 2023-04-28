@@ -81,6 +81,7 @@ padding-left: 74px;">
                <li class="nav-item">
             @can('admins.index')
             <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> الأدمن  </a>
+            <a class="nav-link" href="{{route('users.adminTrashed')}}"><i class="icon-user-follow"></i> الأدمن المحذوفين   </a>
                    @endcan
             @can('roles.index')
                 <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>

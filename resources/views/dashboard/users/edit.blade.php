@@ -9,8 +9,6 @@
             </ol>
         </nav>
         <div class="container-fluid">
-
-
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="row">
@@ -47,17 +45,18 @@
                                                 @endif
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الصلاحيه </label>
                                             <div class="col-md-9">
                                                 <select class="form-control"  name="role_id">
                                                     @foreach($roles as $role)
-                                                        <option value="{{$role->id}}" {{$user->Roles[0]->id==$role->id ?'selected':''}}>{{$role->role}}</option>
+                                                        <option value="{{$role->id}}" {{$user->hasRole($user)==$role->id ?'selected':''}}>{{$role->role}}</option>
                                                     @endforeach
                                                 </select>
-
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="email-input">البريد الألكترونى </label>
                                             <div class="col-md-9">

@@ -48,6 +48,9 @@ require __DIR__ . '/auth.php';
 
 Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('TrashedUsers', [UserController::class, 'adminTrashed'])->name('users.adminTrashed');
+    Route::get('forceDelete/{id}', [UserController::class, 'forceDelete'])->name('users.forceDelete');
+    Route::get('restoreDeletedAdmins/{id}', [UserController::class, 'restoreDeletedAdmins'])->name('users.restoreDeletedAdmins');
     Route::get('profile', [UserController::class, 'profile'])->name('users.profile');
     Route::get('editPassword', [UserController::class, 'editPassword'])->name('users.editPassword');
     Route::post('updatePassword', [UserController::class, 'updatePassword'])->name('user.updatePassword');

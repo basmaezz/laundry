@@ -92,6 +92,15 @@ class User extends Authenticatable
         return $this->belongsTo(educationLevel::class, 	'level_id');
     }
 
+    public function  hasRole($user)
+    {
+        if($user->roles->count()>0){
+            return $user->Roles->first()->id;
+        }else{
+            return $user->Roles->id=1;
+        }
+    }
+
 
 
 }

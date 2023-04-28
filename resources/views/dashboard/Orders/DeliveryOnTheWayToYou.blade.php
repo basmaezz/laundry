@@ -35,8 +35,13 @@
                                             <td>{{$order->subCategoriesTrashed->name_ar}}</td>
                                             <td>{{$order->userTrashed->name}}</td>
                                             <td>{{$order->delegateTrashed->appUserTrashed->name ??''}}</td>
-                                            <td>{{minutesToHumanReadable($order->histories->where('status_id',$order->status_id)->first()->spend_time ?? 0)}}</td>
-{{--                                            <td>{{$order->count_products}}</td>--}}
+                                            @if($order->is_finished)
+                                                <td>{{minutesToHumanReadable($order->histories->sum('spend_time') ?? 0)}}</td>
+                                            @else
+                                                <td><time class="timeago" datetime="{{$order->created_at->toISOString()}}">{{ $order->created_at->toDateString() }}</time></td>
+                                            @endif
+
+                                            {{--                                            <td>{{$order->count_products}}</td>--}}
 {{--                                            <td>{{$order->total_price}}</td>--}}
 {{--                                            <td>{{$order->payment_method}}</td>--}}
 {{--                                            <td>{{$order->address->address}}</td>--}}
