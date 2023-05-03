@@ -43,11 +43,7 @@
                                             <td>{{$order->userTrashed->name}}</td>
                                             <td>{{$order->delegateTrashed->appUserTrashed->name ??''}}</td>
 
-                                            @if($order->is_finished)
-                                                <td>{{minutesToHumanReadable($order->histories->sum('spend_time') ?? 0)}}</td>
-                                            @else
-                                                <td><time class="timeago" datetime="{{$order->created_at->toISOString()}}">{{ $order->created_at->toDateString() }}</time></td>
-                                            @endif
+                                            <td>{{minutesToHumanReadable($order->histories->sum('spend_time') ?? 0)}}</td>
 
                                             {{--                                            <td>{{$order->count_products}}</td>--}}
 {{--                                            <td>{{$order->total_price}}</td>--}}
@@ -85,7 +81,12 @@
 
 @endsection
 @push('scripts')
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
     <script>
+        jQuery(document).ready(function() {
+            jQuery("time.timeago").timeago();
+        });
         $("#orders").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]

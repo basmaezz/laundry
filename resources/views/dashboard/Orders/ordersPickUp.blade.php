@@ -33,15 +33,19 @@
                                     </thead>
                                     <tbody>
                                     @foreach($orders as $order)
+                                        @php
+                                            $current = $order->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::ClothesReadyForDelivery)->first();
+                                            $next = $order->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDeliveryToReceiveOrder)->first();
+                                        @endphp
                                         <tr>
                                             <td>{{$order->id}}</td>
                                             <td>{{$order->subCategoriesTrashed->name_ar}}</td>
                                             <td>{{$order->userTrashed->name}}</td>
                                             <td>{{$order->delegateTrashed->appUserTrashed->name ??''}}</td>
-                                            @if($order->lastHistory->is_finished)
-                                                <td>{{minutesToHumanReadable($order->lastHistory->spend_time ?? 0)}}</td>
+                                            @if($next)
+                                                <td>{{minutesToHumanReadable($current->spend_time ?? 0)}}</td>
                                             @else
-                                                <td><time class="timeago" datetime="{{$order->lastHistory->created_at->toISOString() ?? $order->created_at->toISOString()}}">{{$order->lastHistory->created_at->toDateString() ?? $order->created_at->toDateString() }}</time></td>
+                                                <td><time class="timeago" datetime="{{$current->created_at->toISOString()}}">{{ $current->created_at->toDateString() }}</time></td>
                                             @endif
 {{--                                            <td>{{$order->count_products}}</td>--}}
 {{--                                            <td>{{$order->total_price}}</td>--}}
@@ -72,7 +76,12 @@
     </main>
 @endsection
 @push('scripts')
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
     <script>
+        jQuery(document).ready(function() {
+            jQuery("time.timeago").timeago();
+        });
         $("#ordersPickUp").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]

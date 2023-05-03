@@ -26,15 +26,19 @@
                                     </thead>
                                     <tbody>
                                     @foreach($orders as $order)
+                                        @php
+                                            $current = $order->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::DeliveredToLaundry)->first();
+                                            $next = $order->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::ClothesReadyForDelivery)->first();
+                                        @endphp
                                         <tr>
                                             <td>{{$order->id}}</td>
                                             <td>{{$order->subCategoriesTrashed->name_ar}}</td>
                                             <td>{{$order->userTrashed->name}}</td>
                                             <td>{{$order->delegateTrashed->appUserTrashed->name ??''}}</td>
-                                            @if($order->is_finished)
-                                                <td>{{minutesToHumanReadable($order->histories->sum('spend_time') ?? 0)}}</td>
+                                            @if($next)
+                                                <td>{{minutesToHumanReadable($current->spend_time ?? 0)}}</td>
                                             @else
-                                                <td><time class="timeago" datetime="{{$order->created_at->toISOString()}}">{{ $order->created_at->toDateString() }}</time></td>
+                                                <td><time class="timeago" datetime="{{$current->created_at->toISOString()}}">{{ $current->created_at->toDateString() }}</time></td>
                                             @endif
                                              <td>{{$order->created_at->format('d/m/Y')}}</td>
                                             <td>{{$order->updated_at->format('d/m/Y')}}</td>
@@ -58,7 +62,12 @@
     </main>
 @endsection
 @push('scripts')
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
     <script>
+        jQuery(document).ready(function() {
+            jQuery("time.timeago").timeago();
+        });
         $("#ordersPickUp").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
