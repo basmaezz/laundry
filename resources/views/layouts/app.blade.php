@@ -171,6 +171,9 @@ padding-left: 74px;">
                 </ul>
             </li>
             @endcan
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('banks.index')}}"><i class="icon-people"></i> الاشعارات </a>
+            </li>
             @can('Coupons.index')
             <li class="nav-item">
                 <a class="nav-link" href="{{route('coupons.index')}}"><i class="icon-people"></i> الكوبونات </a>
@@ -186,6 +189,7 @@ padding-left: 74px;">
                 <a class="nav-link" href="{{route('banks.index')}}"><i class="icon-people"></i> البنوك </a>
             </li>
             @endcan
+
         </ul>
     </nav>
 </div>

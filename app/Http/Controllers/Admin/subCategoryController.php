@@ -280,10 +280,38 @@ class subCategoryController extends Controller
         return response()->json(['success' => 'Status change successfully.']);
     }
 
-    public function branches($id)
+    public function branches(Request $request)
     {
-        $branches = Subcategory::with('city')->where('parent_id', $id)->get();
-        return view('dashboard.laundries.branches', compact(['branches', 'id']));
+     $id=$request->id;
+        if(request()->ajax()) {
+            $data = Subcategory::with('city')->where('parent_id',$id )->get();
+
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('image', function ($row) {
+                    $image=$row->image =='null' ? $row->parentTrashed->image :$row->image;
+                    return '<img style="width:50px; height:50px" src="'. $image .'" />';
+                })->addColumn('city', function ($row) {
+                    return $row->city->name_ar??'';
+                })->addColumn('parentTrashed', function ($row) {
+                    return $row->parentTrashed->name_ar??'';
+                })->addColumn('around_clock', function ($row) {
+                    return $row->around_clock==1 ?'طوال اليوم' :abs($hours=((int)$row->clock_end)-((int)$row->clock_at)).'ساعه' ;
+                })
+                ->addColumn('action', function ($row) {
+
+                    $btns=' <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm" >الأقسام</a>
+                            <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-success btn-sm" >تعديل</a>
+                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>
+                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات</a>
+                            <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                    return $btns;
+                })
+                ->rawColumns(['action', 'city','parentTrashed','around_clock','image'])
+                ->make(true);
+        }
+
+        return view('dashboard.laundries.branches', compact('id'));
     }
 
     public function createBranch($id)
