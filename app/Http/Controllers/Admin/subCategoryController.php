@@ -228,6 +228,7 @@ class subCategoryController extends Controller
      */
     public function destroy(Request $request)
     {
+
         if (is_numeric($request->id)) {
             Subcategory::find($request->id)->delete();
             Subcategory::where('parent_id', $request->id)->delete();
@@ -451,10 +452,12 @@ class subCategoryController extends Controller
         return view('dashboard.laundries.trashedLaundries');
     }
 
-    public function restoreDeleted($id)
+    public function restoreDeleted(Request $request)
     {
-        Subcategory::withTrashed()->find($id)->restore();
-        Subcategory::withTrashed()->where('parent_id', $id)->restore();
+        if (is_numeric($request->id)) {
+            Subcategory::withTrashed()->find($request->id)->restore();
+            Subcategory::withTrashed()->where('parent_id', $request->id)->restore();
+        }
         return redirect()->route('laundries.index')->with('success', 'تم استعاده الحذف');;
     }
 

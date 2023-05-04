@@ -223,7 +223,7 @@
         });
         $('body').on('click', '#deleteBtn', function () {
             // $('#myModal').modal('show');
-            if (confirm("هل تريد استعاده المحذوف ؟") == true) {
+            if (confirm("هل تريد استعاده الحذف ؟") == true) {
                 var id = $(this).data('id');
                 window.location.reload();
                 $.ajax({
@@ -238,6 +238,7 @@
                 });
             }
         });
+
     </script>
 
 @endpush
