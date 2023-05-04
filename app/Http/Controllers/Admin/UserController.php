@@ -53,9 +53,21 @@ class UserController extends Controller
         if(!Gate::allows('admins.index')){
             abort(403);
         };
-
-        $users=User::whereNull('subCategory_id')->get();
-        return view('dashboard.users.index',compact('users'));
+        if(request()->ajax()) {
+            $data = User::whereNull('subCategory_id')->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('role', function ($row) {
+                    return $row->hasRoleName($row);
+                })
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . Route('user.edit', $row->id) . '"  class="edit btn btn-success btn-sm" ><i class="fa fa-edit"></i></a>
+             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                })
+                ->rawColumns(['action', 'role'])
+                ->make(true);
+        }
+        return view('dashboard.users.index');
     }
 
     public function adminTrashed()
@@ -63,16 +75,33 @@ class UserController extends Controller
         if(!Gate::allows('admins.index')){
             abort(403);
         };
+        if(request()->ajax()) {
+            $data = User::whereNull('subCategory_id')->onlyTrashed()->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('role', function ($row) {
+                    return $row->hasRoleName($row);
+                })
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . Route('users.restoreDeletedAdmins', $row->id) . '"  class="edit btn btn-success btn-sm" ><i class="fa-solid fa-rotate-right"></i></a>
+             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                })
+                ->rawColumns(['action', 'role'])
+                ->make(true);
+        }
 
-        $users=User::whereNull('subCategory_id')->onlyTrashed()->get();
-        return view('dashboard.users.adminTrashed',compact('users'));
+        return view('dashboard.users.adminTrashed');
     }
-    public function forceDelete($id)
+    public function forceDelete(Request $request )
     {
+
         if(Gate::denies('admins.index')){
             abort(403);
         };
-        User::withTrashed()->find($id)->forceDelete();
+
+        if (is_numeric($request->id)) {
+            User::where('id', $request->id)->forceDelete();
+        }
         return  redirect()->back()->with('error', 'تم الحذف');
     }
 
@@ -197,12 +226,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+
         if(Gate::denies('admins.index')){
             abort(403);
         };
-        User::find($id)->delete();
+        if (is_numeric($request->id)) {
+            User::where('id', $request->id)->delete();
+        }
+
         return  redirect()->back()->with('error', 'تم الحذف');
     }
 
@@ -211,16 +244,34 @@ class UserController extends Controller
         if(Gate::denies('customers.index')){
             abort(403);
         };
-        $customers=AppUser::where('user_type',"customer")->with('citiesTrashed')->get();
-        return view('dashboard.users.customers',compact('customers'));
+
+        if(request()->ajax()) {
+            $data=AppUser::where('user_type',"customer")->with('citiesTrashed')->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('city', function ($row) {
+                    return  $row->citiesTrashed->name_ar??'';
+                })
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . Route('customer.Orders',$row->id) . '"  class="edit btn btn-info btn-sm" >عرض الطلبات</a>
+                            <a href="' . Route('customer.wallet',$row->id) . '"  class="edit btn btn-info btn-sm" >اضافه للمحفظه </a>
+             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                })
+                ->rawColumns(['action', 'city'])
+                ->make(true);
+        }
+        return view('dashboard.users.customers');
+
 
     }
-    public function customerDelete($id)
+    public function customerDelete(Request $request)
     {
         if(Gate::denies('customers.index')){
             abort(403);
         };
-        AppUser::find($id)->delete();
+        if (is_numeric($request->id)) {
+            AppUser::where('id', $request->id)->delete();
+        }
         return  redirect()->back()->with('error', 'تم الحذف');
     }
     public function customerWallet($id)
@@ -260,8 +311,33 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-        $delegates=Delegate::with(['appUserTrashed','appUserTrashed.citiesTrashed','nationality'])->get();
-        return view('dashboard.users.delegates',compact('delegates'));
+       if(request()->ajax()) {
+            $data=Delegate::with(['appUserTrashed','appUserTrashed.citiesTrashed','nationality'])->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('name', function ($row) {
+                    return  $row->appUserTrashed->name ??'';
+                })->addColumn('city', function ($row) {
+                    return  $row->appUserTrashed->citiesTrashed->name_ar ??'';
+                })->addColumn('nationality', function ($row) {
+                    return $row->nationality->name_ar ?? '';
+                })->addColumn('request_employment', function ($row) {
+                    return  $row->request_employment==0 ?'موظف':'عامل حر';
+                })->addColumn('status', function ($row) {
+                    return  $row->appUserTrashed->status ??'';
+                })->addColumn('created_at', function ($row) {
+                    return  $row->created_at->format('Y-M-D') ??'';
+                })
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . Route('delegate.edit',$row->id) . '"  class="edit btn btn-info btn-sm" >تعديل</a>
+                            <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات  </a>
+                            <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل  </a>
+             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                })
+                ->rawColumns(['name', 'city','nationality','request_employment','status','created_at','action'])
+                ->make(true);
+        }
+        return view('dashboard.users.delegates');
     }
     public function CreateDelegate()
     {
@@ -410,15 +486,17 @@ class UserController extends Controller
         $delegate=Delegate::withTrashed()->with(['appUserTrashed','car','year'])->find($id);
         return view('dashboard.users.viewDelegate',compact('delegate'));
     }
-    public function deleteDelegate($id)
+    public function deleteDelegate(Request $request)
     {
+
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-       $delegate=Delegate::find($id);
-       AppUser::where('id',$delegate->app_user_id)->delete();
-       $delegate->delete();
-
+        if (is_numeric($request->id)) {
+            $delegate=Delegate::find($request->id);
+            AppUser::where('id',$delegate->app_user_id)->delete();
+            $delegate->delete();
+        }
         return  redirect()->back()->with('error', 'تم الحذف');
     }
 
@@ -508,9 +586,35 @@ class UserController extends Controller
 
     public function trashedDelegates()
     {
-        $delegates=Delegate::with(['appUserTrashed','appUserTrashed.citiesTrashed','nationality'])->onlyTrashed()->get();
 
-        return view('dashboard.users.trashedDelegates',compact('delegates'));
+        if(request()->ajax()) {
+            $data=Delegate::with(['appUserTrashed','appUserTrashed.citiesTrashed','nationality'])->onlyTrashed()->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('name', function ($row) {
+                    return  $row->appUserTrashed->name ??'';
+                })->addColumn('city', function ($row) {
+                    return  $row->appUserTrashed->citiesTrashed->name_ar ??'';
+                })->addColumn('nationality', function ($row) {
+                    return $row->nationality->name_ar ?? '';
+                })->addColumn('request_employment', function ($row) {
+                    return  $row->request_employment==0 ?'موظف':'عامل حر';
+                })->addColumn('status', function ($row) {
+                    return  $row->appUserTrashed->status ??'';
+                })->addColumn('created_at', function ($row) {
+                    return  $row->created_at->format('Y-M-D') ??'';
+                })
+                ->addColumn('action', function ($row) {
+                    return '
+                            <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات  </a>
+                            <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل  </a>
+             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                })
+                ->rawColumns(['name', 'city','nationality','request_employment','status','created_at','action'])
+                ->make(true);
+        }
+
+        return view('dashboard.users.trashedDelegates');
     }
 
     public function restoreDeletedDelegates($id)
@@ -587,9 +691,35 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-     $requests=Delegate::where('registered',2)->get();
 
-     return view('dashboard.users.registrationRequests',compact('requests'));
+        if(request()->ajax()) {
+            $data = Delegate::where('registered',2)->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('name', function ($row) {
+                    return  $row->appUserTrashed->name ??'';
+                })->addColumn('city', function ($row) {
+                    return  $row->appUserTrashed->citiesTrashed->name_ar ??'';
+                })->addColumn('nationality', function ($row) {
+                    return $row->nationality->name_ar ?? '';
+                })->addColumn('request_employment', function ($row) {
+                    return  $row->request_employment==0 ?'موظف':'عامل حر';
+                })->addColumn('status', function ($row) {
+                    return  $row->appUserTrashed->status ??'';
+                })->addColumn('created_at', function ($row) {
+                    return  $row->created_at->format('Y-M-D') ??'';
+                })
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . Route('delegate.show', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>
+                            <a href="' . Route('delegate.acceptRegister', $row->id) . '"  class="edit btn btn-success btn-sm" >قبول</a>
+                            <a href="' . Route('delegate.addRejectReason', $row->id) . '"  class="edit btn btn-danger btn-sm" >رفض</a>
+             ';
+                })
+                ->rawColumns(['name','city','nationality','request_employment','status','created_at','action'])
+                ->make(true);
+        }
+
+     return view('dashboard.users.registrationRequests');
     }
 
     public function acceptRegister($id)
@@ -627,9 +757,27 @@ class UserController extends Controller
 
     public function  rejectionRequests()
     {
-        $delegates=Delegate::where('registered',3)->get();
-        return view('dashboard.users.rejectionRegisterRequests',compact('delegates'));
 
+        if(request()->ajax()) {
+            $data = Delegate::where('registered',3)->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('name', function ($row) {
+                    return  $row->appUserTrashed->name ??'';
+                })->addColumn('city', function ($row) {
+                    return  $row->appUserTrashed->citiesTrashed->name_ar ??'';
+                })->addColumn('nationality', function ($row) {
+                    return $row->nationality->name_ar ?? '';
+                })
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . Route('delegate.show', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>
+                            <a href="' . Route('delegate.acceptRegister', $row->id) . '"  class="edit btn btn-success btn-sm" >قبول</a>
+                            ';
+                })
+                ->rawColumns(['name','city','nationality','action'])
+                ->make(true);
+        }
+        return view('dashboard.users.rejectionRegisterRequests');
     }
 
 }

@@ -48,8 +48,9 @@ require __DIR__ . '/auth.php';
 
 Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('getUsers', [UserController::class, 'getUsers'])->name('users.getUsers');
     Route::get('TrashedUsers', [UserController::class, 'adminTrashed'])->name('users.adminTrashed');
-    Route::get('forceDelete/{id}', [UserController::class, 'forceDelete'])->name('users.forceDelete');
+    Route::get('forceDelete', [UserController::class, 'forceDelete'])->name('users.forceDelete');
     Route::get('restoreDeletedAdmins/{id}', [UserController::class, 'restoreDeletedAdmins'])->name('users.restoreDeletedAdmins');
     Route::get('profile', [UserController::class, 'profile'])->name('users.profile');
     Route::get('editPassword', [UserController::class, 'editPassword'])->name('users.editPassword');
@@ -66,13 +67,13 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::post('updateDelegate/{id}', [UserController::class, 'updateDelegate'])->name('delegate.update');
     Route::get('changeDelegateStatus/{id}', [UserController::class, 'changeDelegateStatus'])->name('delegate.changeDelegateStatus');
     Route::get('acceptRegister/{id}', [UserController::class, 'acceptRegister'])->name('delegate.acceptRegister');
-    Route::get('deleteDelegate/{id}', [UserController::class, 'deleteDelegate'])->name('delegate.delete');
+    Route::get('deleteDelegate', [UserController::class, 'deleteDelegate'])->name('delegate.delete');
     Route::get('trashedDelegates', [UserController::class, 'trashedDelegates'])->name('delegate.trashedDelegates');
     Route::get('registrationRequests', [UserController::class, 'getRegistrationRequests'])->name('delegate.registrationRequests');
     Route::get('addRejectReason/{id}', [UserController::class, 'addRejectReason'])->name('delegate.addRejectReason');
     Route::post('storeRejectReason/{id}', [UserController::class, 'storeRejectReason'])->name('delegate.storeRejectReason');
     Route::get('rejectionRequests', [UserController::class, 'rejectionRequests'])->name('delegate.rejectionRequests');
-    Route::get('customerDelete/{id}', [UserController::class, 'customerDelete'])->name('customer.delete');
+    Route::get('customerDelete', [UserController::class, 'customerDelete'])->name('customer.delete');
     Route::get('customerWallet/{id}', [UserController::class, 'customerWallet'])->name('customer.wallet');
     Route::post('increaseWallet/{id}', [UserController::class, 'increaseWallet'])->name('customer.wallet.increase');
     Route::get('userView/{id}', [UserController::class, 'show'])->name('user.view');
@@ -80,7 +81,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::post('userStore', [UserController::class, 'store'])->name('user.store');
     Route::get('userEdit/{id}', [UserController::class, 'edit'])->name('user.edit');
     Route::post('userUpdate/{id}', [UserController::class, 'update'])->name('user.update');
-    Route::get('userDelete/{id}', [UserController::class, 'destroy'])->name('user.delete');
+    Route::get('userDelete', [UserController::class, 'destroy'])->name('user.delete');
     Route::post('searchLaundry', [UserController::class, 'destroy'])->name('searchLaundry');
 
     Route::get('laundries', [subCategoryController::class, 'index'])->name('laundries.index');
@@ -88,7 +89,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::post('laundryStore', [subCategoryController::class, 'store'])->name('laundries.store');
     Route::get('laundryEdit/{id}', [subCategoryController::class, 'edit'])->name('laundries.edit');
     Route::post('laundryUpdate/{id}', [subCategoryController::class, 'update'])->name('laundries.update');
-    Route::get('laundryDestroy/{id}', [subCategoryController::class, 'destroy'])->name('laundries.destroy');
+    Route::get('laundryDestroy', [subCategoryController::class, 'destroy'])->name('laundries.destroy');
     Route::get('adminLaundries', [subCategoryController::class, 'adminLaundries'])->name('laundries.admins');
     Route::get('createAdminLaundries', [subCategoryController::class, 'createAdmin'])->name('laundries.createAdmin');
     Route::post('storeLaundryAdmin', [subCategoryController::class, 'storeLaundryAdmin'])->name('laundries.storeAdmin');
@@ -102,7 +103,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('mainLaundries', [subCategoryController::class, 'mainLaundries'])->name('laundries.mainLaundries');
     Route::get('deleteBranch/{id}', [subCategoryController::class, 'deleteBranch'])->name('laundries.deleteBranch');
     Route::get('viewTrashedLaundries', [subCategoryController::class, 'viewTrashedLaundries'])->name('laundries.viewTrashedLaundries');
-    Route::get('restoreDeleted/{id}', [subCategoryController::class, 'restoreDeleted'])->name('laundries.restoreDeleted');
+    Route::get('restoreDeleted', [subCategoryController::class, 'restoreDeleted'])->name('laundries.restoreDeleted');
 
 
     Route::get('CategoriesIndex', [CategoriesController::class, 'index'])->name('Categories.index');

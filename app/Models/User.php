@@ -100,6 +100,15 @@ class User extends Authenticatable
             return $user->Roles->id=1;
         }
     }
+    public function  hasRoleName($user)
+    {
+        if($user->roles->count()>0){
+            return $user->Roles->first()->role;
+        }else{
+            return '';
+        }
+    }
+
 
 
 

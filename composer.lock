@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34f6fb6a8a76de09d2a4751d5b06b1aa",
+    "content-hash": "c892183eee09fe7d29ae0d6c0bade4ed",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -6816,16 +6816,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v10.2.3",
+            "version": "v10.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "ad60c4aecc80257ae7dbfb7463076639d89c7739"
+                "reference": "fcbecbcc5f4d475ceb33cf84c20363137a4e5d82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/ad60c4aecc80257ae7dbfb7463076639d89c7739",
-                "reference": "ad60c4aecc80257ae7dbfb7463076639d89c7739",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/fcbecbcc5f4d475ceb33cf84c20363137a4e5d82",
+                "reference": "fcbecbcc5f4d475ceb33cf84c20363137a4e5d82",
                 "shasum": ""
             },
             "require": {
@@ -6838,8 +6838,7 @@
             },
             "require-dev": {
                 "nunomaduro/larastan": "^2.1",
-                "orchestra/testbench": "^7.3",
-                "yajra/laravel-datatables-html": "^9.0"
+                "orchestra/testbench": "^7.3"
             },
             "suggest": {
                 "yajra/laravel-datatables-buttons": "Plugin for server-side exporting of dataTables.",
@@ -6887,7 +6886,7 @@
             ],
             "support": {
                 "issues": "https://github.com/yajra/laravel-datatables/issues",
-                "source": "https://github.com/yajra/laravel-datatables/tree/v10.2.3"
+                "source": "https://github.com/yajra/laravel-datatables/tree/v10.0.0"
             },
             "funding": [
                 {
@@ -6895,15 +6894,11 @@
                     "type": "custom"
                 },
                 {
-                    "url": "https://github.com/yajra",
-                    "type": "github"
-                },
-                {
                     "url": "https://www.patreon.com/yajra",
                     "type": "patreon"
                 }
             ],
-            "time": "2023-01-18T04:33:27+00:00"
+            "time": "2022-05-07T16:58:13+00:00"
         }
     ],
     "packages-dev": [

@@ -33,9 +33,33 @@ class subCategoryController extends Controller
         if (Gate::denies('subCategory.index')) {
             abort(403);
         };
-        $subCategories = Subcategory::with(['city', 'parentTrashed'])->get();
-
-        return view('dashboard.laundries.index', compact('subCategories'));
+        if(request()->ajax()) {
+            $data = Subcategory::with(['city', 'parentTrashed'])->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('image', function ($row) {
+                    $image=$row->image =='null' ? $row->parentTrashed->image :$row->image;
+                      return '<img style="width:50px; height:50px" src="'. $image .'" />';
+                })->addColumn('city', function ($row) {
+                    return $row->city->name_ar??'';
+                })->addColumn('parentTrashed', function ($row) {
+                    return $row->parentTrashed->name_ar??'';
+                })->addColumn('around_clock', function ($row) {
+                    return $row->around_clock==1 ?'طوال اليوم' :abs($hours=((int)$row->clock_end)-((int)$row->clock_at)).'ساعه' ;
+                })
+                ->addColumn('action', function ($row) {
+                    $main='<a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm" >الفروع</a>';
+                    $branch=' <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm" >الأقسام</a>
+                            <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-success btn-sm" >تعديل</a>
+                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>
+                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات</a>
+                            <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                    return $row->parent_id==Null ? $main .$branch : $branch;
+                })
+                ->rawColumns(['action', 'city','parentTrashed','around_clock','image'])
+                ->make(true);
+        }
+        return view('dashboard.laundries.index');
     }
 
     /**
@@ -202,10 +226,12 @@ class subCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Subcategory::find($id)->delete();
-        Subcategory::where('parent_id', $id)->delete();
+        if (is_numeric($request->id)) {
+            Subcategory::find($request->id)->delete();
+            Subcategory::where('parent_id', $request->id)->delete();
+        }
         return  redirect()->back()->with('error', 'تم الحذف');
     }
     public function createAdmin()
@@ -339,8 +365,32 @@ class subCategoryController extends Controller
 
     public function mainLaundries()
     {
-        $subCategories = Subcategory::whereNull('parent_id')->get();
-        return view('dashboard.laundries.mainLaundries', compact('subCategories'));
+        if(request()->ajax()) {
+            $data = Subcategory::whereNull('parent_id')->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('image', function ($row) {
+                    $image=$row->image =='null' ? $row->parentTrashed->image :$row->image;
+                    return '<img style="width:50px; height:50px" src="'. $image .'" />';
+                })->addColumn('city', function ($row) {
+                    return $row->city->name_ar??'';
+                })->addColumn('around_clock', function ($row) {
+                    return $row->around_clock==1 ?'طوال اليوم' :abs($hours=((int)$row->clock_end)-((int)$row->clock_at)).'ساعه' ;
+                })
+                ->addColumn('action', function ($row) {
+
+                    $btns=' <a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm" >الفروع</a>
+                    <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm" >الأقسام</a>
+                            <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-success btn-sm" >تعديل</a>
+                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>
+                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات</a>
+                            <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                    return $btns;
+                })
+                ->rawColumns(['action', 'city','around_clock','image'])
+                ->make(true);
+        }
+        return view('dashboard.laundries.mainLaundries');
     }
     public function deleteBranch($id)
     {
@@ -350,8 +400,27 @@ class subCategoryController extends Controller
 
     public function viewTrashedLaundries()
     {
-        $subCategories = Subcategory::with(['city', 'parentTrashed'])->onlyTrashed()->get();
-        return view('dashboard.laundries.trashedLaundries', compact('subCategories'));
+
+
+        if(request()->ajax()) {
+            $data = Subcategory::with(['city', 'parentTrashed'])->onlyTrashed()->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('city', function ($row) {
+                    return $row->city->name_ar??'';
+                })
+                ->addColumn('action', function ($row) {
+                    $btns='
+                    <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a>
+                    <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>
+                    ';
+
+                    return $btns;
+                })
+                ->rawColumns(['action', 'city'])
+                ->make(true);
+        }
+        return view('dashboard.laundries.trashedLaundries');
     }
 
     public function restoreDeleted($id)

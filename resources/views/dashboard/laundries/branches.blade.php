@@ -21,11 +21,7 @@
                                 <table id="branches" class="table table-bordered table-striped">
                                     <thead >
                                     <tr >
-                                        <th>الاسم </th>
-                                        <th>المدينه </th>
-                                        <th>الحى</th>
-                                   {{--  <th>Status </th>--}}
-                                        <th>Actions </th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -40,7 +36,7 @@
                                                 <a href="{{route('laundries.editBranch',$branch->id)}}" class="edit btn btn-primary btn-sm">تعديل</a>
                                                 <a href="{{route('laundries.view',$branch->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a>
                                                  <a href="{{route('laundries.orders',$branch->id)}}" class="edit btn btn-primary btn-sm">الطلبات</a>
-{{--                                                <a href="{{route('laundries.deleteBranch',$branch->id)}}" class="edit btn btn-danger btn-sm">حذف</a>--}}
+                                                <a href="{{route('laundries.deleteBranch',$branch->id)}}" class="edit btn btn-danger btn-sm">حذف</a>
                                                  <form class="delete" action="{{route('laundries.deleteBranch',$branch->id)}}" method="get">
                                                      @csrf
                                                      @method('DELETE')

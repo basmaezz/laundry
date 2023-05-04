@@ -32,7 +32,9 @@
                                             <td>{{$role->users_count}}</td>
                                             <td>
                                                 <a href="{{route('roles.edit',$role->id)}}" class="btn btn-info">تعديل</a>
+                                                @if($role->id!=1)
                                                 <a href="{{route('roles.destroy',$role->id)}}" class="btn btn-danger">حذف</a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
