@@ -104,13 +104,10 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('deleteBranch/{id}', [subCategoryController::class, 'deleteBranch'])->name('laundries.deleteBranch');
     Route::get('viewTrashedLaundries', [subCategoryController::class, 'viewTrashedLaundries'])->name('laundries.viewTrashedLaundries');
     Route::get('restoreDeleted', [subCategoryController::class, 'restoreDeleted'])->name('laundries.restoreDeleted');
-
-
     Route::get('CategoriesIndex', [CategoriesController::class, 'index'])->name('Categories.index');
     Route::get('CategoryEdit/{id}', [CategoriesController::class, 'edit'])->name('category.edit');
     Route::post('CategoryUpdate/{id}', [CategoriesController::class, 'update'])->name('category.update');
     Route::get('CategoryDelete/{id}', [CategoriesController::class, 'destroy'])->name('category.destroy');
-
     Route::get('CategoryItemsIndex/{id}', [CategoryItemController::class, 'index'])->name('CategoryItems.index');
     Route::get('CategoryItems/{id}', [CategoryItemController::class, 'create'])->name('CategoryItems.create');
     Route::get('CategoryItemsEdit/{id}', [CategoryItemController::class, 'edit'])->name('CategoryItems.edit');
