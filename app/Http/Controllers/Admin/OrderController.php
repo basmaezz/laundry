@@ -174,7 +174,7 @@ class OrderController extends Controller
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','deliveryType','finished','city','regionName','year','month','day'])
+                ->rawColumns(['action','category','user','delegate','duration'])
                 ->make(true);
         }
 
