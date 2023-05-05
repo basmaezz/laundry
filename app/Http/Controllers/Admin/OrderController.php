@@ -150,8 +150,6 @@ class OrderController extends Controller
 
     public function  pendingDeliveryAcceptance()
     {
-
-
         if(request()->ajax()) {
             $data = OrderTable::where("status_id",self::WaitingForDelivery)->get();
             return   Datatables::of($data)
@@ -183,8 +181,35 @@ class OrderController extends Controller
         return  view('dashboard.Orders.pendingDeliveryAcceptance');
     }
     public function  DeliveryOnWay(){
-        $orders=OrderTable::where("status_id",self::AcceptedByDelivery)->with('delegateTrashed.appUserTrashed')->get();
-        return  view('dashboard.Orders.DeliveryOnWay',compact('orders'));
+
+        if(request()->ajax()) {
+            $data = OrderTable::where("status_id",self::AcceptedByDelivery)->with('delegateTrashed.appUserTrashed')->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('category',function ($row){
+                    return $row->subCategoriesTrashed->name_ar;
+                })->addColumn('user',function ($row){
+                    return $row->userTrashed->name ;
+                })->addColumn('delegate',function ($row){
+                    return $row->delegateTrashed->appUserTrashed->name ??'';
+                })->addColumn('duration',function ($row){
+                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
+                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    if($next){
+                        return  minutesToHumanReadable($current->spend_time);
+                    }else{
+                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
+                    }
+                })->addColumn('created_at',function ($row){
+                    return $row->created_at->format('d/m/Y') ;
+                })->addColumn('action', function ($row) {
+                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a> ';
+                    return $btns;
+                })
+                ->rawColumns(['action','category','user','delegate','duration','created_at'])
+                ->make(true);
+        }
+        return  view('dashboard.Orders.DeliveryOnWay');
     }
     public function  WayToLaundry(){
         $orders=OrderTable::where("status_id",self::WayToLaundry)->get();
