@@ -57,20 +57,20 @@
                     data: 'user',
                     name: 'user'
                 },{
-                    data:'city',
-                    name:'city'
-                },{
                     data:'deliveryType',
                     name:'deliveryType'
                 },{
                     data:'finished',
                     name:'finished'
                 },{
+                    data:'city',
+                    name:'city'
+                },{
                     data:'regionName',
                     name:'regionName'
                 },{
-                  data:'year',
-                  name:'year'
+                    data:'year',
+                    name:'year'
                 },{
                     data:'month',
                     name:'month'
@@ -78,11 +78,11 @@
                     data:'day',
                     name:'day'
                 },{
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
 
                 ]
             });
