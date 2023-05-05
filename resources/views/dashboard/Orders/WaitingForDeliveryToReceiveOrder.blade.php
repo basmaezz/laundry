@@ -146,8 +146,8 @@
                     data: 'user',
                     name: 'user'
                 },{
-                    data:'delegate',
-                    name:'delegate'
+                    data:'deliveryType',
+                    name:'deliveryType'
                 },{
                     data:'duration',
                     name:'duration'

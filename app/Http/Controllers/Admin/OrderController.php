@@ -317,28 +317,21 @@ class OrderController extends Controller
                     return $row->userTrashed->name;
                 })->addColumn('deliveryType',function ($row){
                     return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
-                })->addColumn('finished',function ($row){
-                    if($row->is_finished){
-                        return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
+                })->addColumn('duration',function ($row){
+                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
+                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    if($next){
+                        return  minutesToHumanReadable($current->spend_time);
                     }else{
-                        return  '<time class="timeago" datetime="{{$row->created_at->toISOString()}}">'. $row->created_at->toDateString() .'</time>';
+                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
                     }
-                })->addColumn('city', function ($row) {
-                    return $row->userTrashed->citiesTrashed->name_ar;
-                })->addColumn('regionName', function ($row) {
-                    return $row->userTrashed->region_name;
-                })->addColumn('year', function ($row) {
-                    return $row->created_at->year;
-                })->addColumn('month', function ($row) {
-                    return $row->created_at->month;
-                })->addColumn('day', function ($row) {
-                    return $row->created_at->day;
-                })
-                ->addColumn('action', function ($row) {
+                })->addColumn('created_at',function ($row){
+                    return $row->created_at->format('d/m/Y') ;
+                })->addColumn('action', function ($row) {
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','deliveryType','finished','city','regionName','year','month','day'])
+                ->rawColumns(['category','user','deliveryType','duration','created_at','action'])
                 ->make(true);
         }
         return  view('dashboard.Orders.WaitingForDeliveryToReceiveOrder');
