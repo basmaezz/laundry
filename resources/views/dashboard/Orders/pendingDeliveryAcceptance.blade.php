@@ -110,6 +110,9 @@
                     data:'duration',
                     name:'duration'
                 },{
+                    data:'created_at',
+                    name:'created_at'
+                },{
                     data: 'action',
                     name: 'action',
                     orderable: false,
