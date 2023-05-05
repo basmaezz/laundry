@@ -10,6 +10,7 @@ use App\Models\OrderTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 
 class OrderController extends Controller
 {
@@ -34,8 +35,42 @@ class OrderController extends Controller
             if(Gate::denies('Orders.index')){
                 abort(403);
             };
-           $orders=OrderTable::with(['histories','subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed'])->get();
-           return  view('dashboard.Orders.index',compact('orders'));
+
+            if(request()->ajax()) {
+                $data = OrderTable::with(['histories','subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed'])->get();
+                return   Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('category',function ($row){
+                        return $row->subCategoriesTrashed->name_ar;
+                    })->addColumn('user',function ($row){
+                        return $row->userTrashed->name;
+                    })->addColumn('deliveryType',function ($row){
+                        return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
+                    })->addColumn('finished',function ($row){
+                      if($row->is_finished){
+                          return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
+                      }else{
+                        return  '<time class="timeago" datetime="{{$row->created_at->toISOString()}}">{{ $row->created_at->toDateString() }}</time>';
+                      }
+                    })->addColumn('city', function ($row) {
+                        return $row->userTrashed->citiesTrashed->name_ar;
+                    })->addColumn('regionName', function ($row) {
+                        return $row->userTrashed->region_name;
+                    })->addColumn('year', function ($row) {
+                        return $row->created_at->year;
+                    })->addColumn('month', function ($row) {
+                        return $row->created_at->month;
+                    })->addColumn('day', function ($row) {
+                        return $row->created_at->day;
+                    })
+                    ->addColumn('action', function ($row) {
+                        $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a> ';
+                        return $btns;
+                    })
+                    ->rawColumns(['action','category','user','deliveryType','finished','city','regionName','year','month','day'])
+                    ->make(true);
+            }
+           return  view('dashboard.Orders.index');
         }
 
     /**

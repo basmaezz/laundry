@@ -429,8 +429,6 @@ class subCategoryController extends Controller
 
     public function viewTrashedLaundries()
     {
-
-
         if(request()->ajax()) {
             $data = Subcategory::with(['city', 'parentTrashed'])->onlyTrashed()->get();
             return   Datatables::of($data)

@@ -2,100 +2,90 @@
 @section('content')
     <main class="main">
         <div class="container-fluid">
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
+            <nav aria-label="breadcrumb" class="navBreadCrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">الطلبات   </li>
+                </ol>
+            </nav>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-align-justify"></i>
 
-                            <div class="card-header">
-                                <i class="fa fa-align-justify"></i> الطلبات
-{{--                                <a href="#" class="btn btn-primary" style="float:left;margin-top: 2px;">بحث متقدم  </a>--}}
-                            </div>
-                            <div class="card-block">
-                                <table id="orders" class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>رقم الطلب  </th>
-                                        <th>اسم المغسله </th>
-                                        <th>اسم العميل </th>
-                                        <th> نوع التوصيل </th>
-                                        <th> المده المستغرقه  </th>
-                                        <th>المدينه </th>
-                                        <th>الحى </th>
-                                        <th>السنه </th>
-                                        <th>الشهر </th>
-                                        <th>اليوم </th>
-                                        <th>التفاصيل</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($orders as $order)
-                                        <tr>
-                                            <td>{{$order->id}}</td>
-                                            <td>{{$order->subCategoriesTrashed->name_ar}}</td>
-                                            <td>{{$order->userTrashed->name}}</td>
-                                            @if($order->delivery_type !=null)
-                                            <td>{{$order->delivery_type=='1'?'استلام بواسطه العميل' :'استلام بواسطه المندوب'}}</td>
-                                            @else
-                                            <td></td>
-                                            @endif
-                                            @if($order->is_finished)
-                                                <td>{{minutesToHumanReadable($order->histories->sum('spend_time') ?? 0)}}</td>
-                                            @else
-                                                <td><time class="timeago" datetime="{{$order->created_at->toISOString()}}">{{ $order->created_at->toDateString() }}</time></td>
-                                            @endif
-                                            <td>{{$order->userTrashed->citiesTrashed->name_ar}}</td>
-                                            <td>{{$order->userTrashed->region_name}}</td>
-                                            <td>{{$order->created_at->year}}</td>
-                                            <td>{{$order->created_at->month}}</td>
-                                            <td>{{$order->created_at->day}}</td>
-                                            <td>
-                                                <a class="btn btn-primary btn-sm" href="{{route('Order.show',$order->id)}}">التفاصيل </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                    </div>
+                    <div class="card-block">
+                        <table class="table table-striped" id="table_id">
+                            <thead>
+                            <tr>
+                                <th>رقم الطلب  </th>
+                                <th>اسم المغسله </th>
+                                <th>اسم العميل </th>
+                                <th> نوع التوصيل </th>
+                                <th> المده المستغرقه  </th>
+                                <th>المدينه </th>
+                                <th>الحى </th>
+                                <th>السنه </th>
+                                <th>الشهر </th>
+                                <th>اليوم </th>
+                                <th>التفاصيل</th>
+                            </tr>
+                            </thead>
 
-                        </div>
+                        </table>
+
                     </div>
                 </div>
             </div>
-
-        </div>
-
         </div>
     </main>
-
-{{--    <script>--}}
-{{--        $(function() {--}}
-{{--            $('.toggle-class').change(function() {--}}
-{{--                var status_id = $(this).prop('checked') == true ? 1 : 0;--}}
-{{--                var order_id = $(this).data('id');--}}
-{{--                $.ajax({--}}
-{{--                    type: "GET",--}}
-{{--                    dataType: "json",--}}
-{{--                    url: '/changeStatus',--}}
-{{--                    data: {'status_id': status_id, 'id': order_id},--}}
-{{--                    success: function(data){--}}
-{{--                        console.log(data.success)--}}
-{{--                    }--}}
-{{--                });--}}
-{{--            })--}}
-{{--        })--}}
-{{--    </script>--}}
 @endsection
-@push('scripts')
-    <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
-    <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
-    <script>
-        $("#orders").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#orders_wrapper .col-md-6:eq(0)');
-        jQuery(document).ready(function() {
-            jQuery("time.timeago").timeago();
+@push('javascripts')
+    <script type="text/javascript">
+        $(function() {
+            var table = $('#table_id').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ Route('Order.index') }}",
+                columns: [{
+                    data: 'id',
+                    name: 'id'
+                },{
+                    data: 'category',
+                    name: 'category'
+                },{
+                    data: 'user',
+                    name: 'user'
+                },{
+                    data:'city',
+                    name:'city'
+                },{
+                    data:'deliveryType',
+                    name:'deliveryType'
+                },{
+                    data:'finished',
+                    name:'finished'
+                },{
+                    data:'regionName',
+                    name:'regionName'
+                },{
+                  data:'year',
+                  name:'year'
+                },{
+                    data:'month',
+                    name:'month'
+                },{
+                    data:'day',
+                    name:'day'
+                },{
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+
+                ]
+            });
         });
     </script>
 @endpush
