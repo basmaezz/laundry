@@ -159,9 +159,9 @@ class OrderController extends Controller
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
                 })->addColumn('user',function ($row){
-                    return $row->userTrashed->name;
+                    return $row->userTrashed->name ;
                 })->addColumn('delegate',function ($row){
-                    return $row->delegateTrashed->appUserTrashed->name;
+                    return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->addColumn('duration',function ($row){
                     $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
                     $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
