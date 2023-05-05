@@ -50,7 +50,7 @@ class OrderController extends Controller
                       if($row->is_finished){
                           return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
                       }else{
-                        return  '<time class="timeago" datetime="{{$row->created_at->toISOString()}}">{{ $row->created_at->toDateString() }}</time>';
+                        return  '<time class="timeago" datetime="{{$row->created_at->toISOString()}}">$row->created_at->toDateString()</time>';
                       }
                     })->addColumn('city', function ($row) {
                         return $row->userTrashed->citiesTrashed->name_ar;
