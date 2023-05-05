@@ -93,7 +93,7 @@
             var table = $('#table_id').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ Route('Order.index') }}",
+                ajax: "{{ Route('Order.pendingDeliveryAcceptance') }}",
                 columns: [{
                     data: 'id',
                     name: 'id'

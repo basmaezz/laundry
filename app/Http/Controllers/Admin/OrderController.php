@@ -170,11 +170,13 @@ class OrderController extends Controller
                     }else{
                         return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
                     }
+                })->addColumn('created_at',function ($row){
+                    return $row->created_at->format('d/m/Y') ;
                 })->addColumn('action', function ($row) {
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','duration'])
+                ->rawColumns(['action','category','user','delegate','duration','created_at'])
                 ->make(true);
         }
 
