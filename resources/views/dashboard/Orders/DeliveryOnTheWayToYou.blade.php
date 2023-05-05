@@ -53,9 +53,6 @@
                     data: 'user',
                     name: 'user'
                 },{
-                    data:'delegate',
-                    name:'delegate'
-                },{
                     data:'duration',
                     name:'duration'
                 },{
