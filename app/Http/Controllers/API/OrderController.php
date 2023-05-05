@@ -417,7 +417,6 @@ class OrderController extends Controller
                 $delegates = AppUser::where([
                     'status' => 'active',
                     'user_type' => 'delivery',
-<<<<<<< Updated upstream
                     'available' => '1',
                 ])->whereRaw('( 6371 * acos( cos( radians(' . $order->subCategoriesTrashed->lat . ') ) * cos( radians( lat ) )
                    * cos( radians( lng ) - radians(' . $order->subCategoriesTrashed->lng . ') ) + sin( radians(' . $order->subCategoriesTrashed->lat . ') )
@@ -431,11 +430,6 @@ class OrderController extends Controller
                 }
                //dd($users);
                 foreach ($delegates as $user) {
-=======
-                    'available' => '1'
-                ])->get();
-                foreach ($users as $user) {
->>>>>>> Stashed changes
                     NotificationController::sendNotification(
                         'New Delivery Request',
                         'New Delivery Request from laundry, Order Number #' . $order->id,
