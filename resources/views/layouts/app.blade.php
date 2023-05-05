@@ -208,7 +208,15 @@ padding-left: 74px;">
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+<script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
+<script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
 <script>
+    jQuery(document).ready(function() {
+        jQuery("time.timeago").timeago();
+    });
+</script>
+<script>
+
     var allEditors = document.querySelectorAll('#editor');
     for (var i = 0; i < allEditors.length; ++i) {
         ClassicEditor.create(allEditors[i]);

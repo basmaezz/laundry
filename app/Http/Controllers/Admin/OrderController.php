@@ -275,24 +275,166 @@ class OrderController extends Controller
         return  view('dashboard.Orders.DeliveredToLaundry');
     }
     public function  readyPickUp(){
-        $orders=OrderTable::with(['subCategoriesTrashed','userTrashed','address','delegateTrashed.appUserTrashed'])->where("status_id",self::ClothesReadyForDelivery)->get();
-        return  view('dashboard.Orders.ordersPickUp',compact('orders'));
+
+        if(request()->ajax()) {
+            $data = OrderTable::with(['subCategoriesTrashed','userTrashed','address','delegateTrashed.appUserTrashed'])->where("status_id",self::ClothesReadyForDelivery)->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('category',function ($row){
+                    return $row->subCategoriesTrashed->name_ar;
+                })->addColumn('user',function ($row){
+                    return $row->userTrashed->name ;
+                })->addColumn('delegate',function ($row){
+                    return $row->delegateTrashed->appUserTrashed->name ??'';
+                })->addColumn('duration',function ($row){
+                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
+                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    if($next){
+                        return  minutesToHumanReadable($current->spend_time);
+                    }else{
+                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
+                    }
+                })->addColumn('created_at',function ($row){
+                    return $row->created_at->format('d/m/Y') ;
+                })->addColumn('action', function ($row) {
+                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a> ';
+                    return $btns;
+                })
+                ->rawColumns(['action','category','user','delegate','duration','created_at'])
+                ->make(true);
+        }
+        return  view('dashboard.Orders.ordersPickUp');
     }
     public function  WaitingForDeliveryToReceiveOrder(){
-        $orders=OrderTable::where("status_id",self::WaitingForDeliveryToReceiveOrder)->get();
-        return  view('dashboard.Orders.WaitingForDeliveryToReceiveOrder',compact('orders'));
+
+        if(request()->ajax()) {
+            $data = OrderTable::where("status_id",self::WaitingForDeliveryToReceiveOrder)->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('category',function ($row){
+                    return $row->subCategoriesTrashed->name_ar;
+                })->addColumn('user',function ($row){
+                    return $row->userTrashed->name;
+                })->addColumn('deliveryType',function ($row){
+                    return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
+                })->addColumn('finished',function ($row){
+                    if($row->is_finished){
+                        return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
+                    }else{
+                        return  '<time class="timeago" datetime="{{$row->created_at->toISOString()}}">'. $row->created_at->toDateString() .'</time>';
+                    }
+                })->addColumn('city', function ($row) {
+                    return $row->userTrashed->citiesTrashed->name_ar;
+                })->addColumn('regionName', function ($row) {
+                    return $row->userTrashed->region_name;
+                })->addColumn('year', function ($row) {
+                    return $row->created_at->year;
+                })->addColumn('month', function ($row) {
+                    return $row->created_at->month;
+                })->addColumn('day', function ($row) {
+                    return $row->created_at->day;
+                })
+                ->addColumn('action', function ($row) {
+                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a> ';
+                    return $btns;
+                })
+                ->rawColumns(['action','category','user','deliveryType','finished','city','regionName','year','month','day'])
+                ->make(true);
+        }
+        return  view('dashboard.Orders.WaitingForDeliveryToReceiveOrder');
     }
     public function  DeliveryOnTheWayToYou(){
-        $orders=OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->get();
-        return  view('dashboard.Orders.DeliveryOnTheWayToYou',compact('orders'));
+
+
+        if(request()->ajax()) {
+            $data = OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->get();            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('category',function ($row){
+                    return $row->subCategoriesTrashed->name_ar;
+                })->addColumn('user',function ($row){
+                    return $row->userTrashed->name ;
+                })->addColumn('delegate',function ($row){
+                    return $row->delegateTrashed->appUserTrashed->name ??'';
+                })->addColumn('duration',function ($row){
+                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
+                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    if($next){
+                        return  minutesToHumanReadable($current->spend_time);
+                    }else{
+                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
+                    }
+                })->addColumn('created_at',function ($row){
+                    return $row->created_at->format('d/m/Y') ;
+                })->addColumn('action', function ($row) {
+                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a> ';
+                    return $btns;
+                })
+                ->rawColumns(['action','category','user','delegate','duration','created_at'])
+                ->make(true);
+        }
+        return  view('dashboard.Orders.DeliveryOnTheWayToYou');
     }
     public function  completed(){
-        $orders=OrderTable::with(['subCategoriesTrashed','userTrashed','delegateTrashed.appUserTrashed'])->where("status_id",self::Completed)->get();
-        return  view('dashboard.Orders.completed',compact('orders'));
+
+        if(request()->ajax()) {
+            $data=OrderTable::with(['subCategoriesTrashed','userTrashed','delegateTrashed.appUserTrashed'])->where("status_id",self::Completed)->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('category',function ($row){
+                    return $row->subCategoriesTrashed->name_ar;
+                })->addColumn('user',function ($row){
+                    return $row->userTrashed->name ;
+                })->addColumn('delegate',function ($row){
+                    return $row->delegateTrashed->appUserTrashed->name ??'';
+                })->addColumn('duration',function ($row){
+                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
+                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    if($next){
+                        return  minutesToHumanReadable($current->spend_time);
+                    }else{
+                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
+                    }
+                })->addColumn('created_at',function ($row){
+                    return $row->created_at->format('d/m/Y') ;
+                })->addColumn('action', function ($row) {
+                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a> ';
+                    return $btns;
+                })
+                ->rawColumns(['action','category','user','delegate','duration','created_at'])
+                ->make(true);
+        }
+
+        return  view('dashboard.Orders.completed');
     }
     public function  canceled(){
-        $orders=OrderTable::where("status_id",self::Cancel)->with('delegateTrashed.appUserTrashed')->get();
-        return  view('dashboard.Orders.completed',compact('orders'));
+
+        if(request()->ajax()) {
+            $data = OrderTable::where("status_id",self::Cancel)->with('delegateTrashed.appUserTrashed')->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('category',function ($row){
+                    return $row->subCategoriesTrashed->name_ar;
+                })->addColumn('user',function ($row){
+                    return $row->userTrashed->name;
+                })->addColumn('delegate',function ($row){
+                    return $row->delegateTrashed->appUserTrashed->name ??'';
+                })->addColumn('duration',function ($row){
+                    return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
+                })->addColumn('created_at',function ($row){
+                    return $row->created_at->format('d/m/Y');
+                })->addColumn('updated_at',function ($row){
+                    return $row->updated_at->format('d/m/Y');
+                })
+                ->addColumn('action', function ($row) {
+                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a> ';
+                    return $btns;
+                })
+                ->rawColumns(['action','category','user','delegate','duration','created_at','updated_at'])
+                ->make(true);
+        }
+
+
+        return  view('dashboard.Orders.completed');
     }
 
     public function delegateOrders($id)
