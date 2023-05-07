@@ -1,6 +1,6 @@
 @extends('../layouts.app')
 @section('content')
-    <main class="main">
+    <main class="main" style="margin-top: 25px">
 
         <!-- Breadcrumb -->
         <ol class="breadcrumb">

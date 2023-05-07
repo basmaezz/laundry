@@ -185,12 +185,14 @@ class AuthController extends ApiController
         $number      = convert2english($request->get('personal')['mobile']);
 
         $checkPhone  = is_unique('mobile',$number,'delivery');
-        if ($checkPhone){
+        $checkExist  = is_trashed('mobile',$number,'delivery');
+        if ($checkPhone || $checkExist){
             return  apiResponse('mobile_exists',null,422,422);
         }
 
         $checkEmail  = is_unique('email',$request->get('personal')['email'],'delivery');
-        if ($checkEmail){
+        $checkEmailExist  = is_trashed('email',$request->get('personal')['email'],'delivery');
+        if ($checkEmail || $checkEmailExist){
             return  apiResponse('email_exists',null,422,422);
         }
 

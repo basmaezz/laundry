@@ -256,6 +256,18 @@ function is_unique($key,$value,$type = null){
     }
     return false;
 }
+function is_trashed($key,$value,$type = null){
+
+    $user = \App\Models\AppUser::where($key , $value)->withTrashed();
+    if($type){
+        $user = $user->where('user_type',$type);
+    }
+    $user = $user->first();
+    if($user){
+        return true;
+    }
+    return false;
+}
 
 function is_unique2($key,$value){
 

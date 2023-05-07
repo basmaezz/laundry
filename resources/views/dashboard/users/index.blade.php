@@ -1,6 +1,6 @@
 @extends('../layouts.app')
 @section('content')
-    <main class="main">
+    <main class="main" style="margin-top: 25px">
     <div class="container-fluid">
         <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
@@ -97,7 +97,6 @@
             });
         });
         $('body').on('click', '#deleteBtn', function () {
-            // $('#myModal').modal('show');
             if (confirm("هل تريد اتمام الحذف ؟") == true) {
                 var id = $(this).data('id');
                 window.location.reload();

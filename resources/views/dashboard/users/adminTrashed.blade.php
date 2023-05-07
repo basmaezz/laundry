@@ -1,6 +1,6 @@
 @extends('../layouts.app')
 @section('content')
-    <main class="main">
+    <main class="main" style="margin-top: 25px">
         <div class="container-fluid">
             <nav aria-label="breadcrumb" class="navBreadCrumb">
                 <ol class="breadcrumb">
@@ -35,30 +35,6 @@
             </div>
         </div>
     </main>
-    {{--    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"--}}
-    {{--         aria-hidden="true">--}}
-    {{--        <div class="modal-dialog">--}}
-    {{--            <form action="{{ Route('dashboard.users.delete') }}" method="POST">--}}
-    {{--                <div class="modal-content">--}}
-
-    {{--                    <div class="modal-body">--}}
-    {{--                        @csrf--}}
-    {{--                        <div class="form-group">--}}
-    {{--                            <p>{{ __('words.sure delete') }}</p>--}}
-    {{--                            @csrf--}}
-    {{--                            <input type="hidden" name="id" id="id">--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                    <div class="modal-footer">--}}
-    {{--                        <button type="button" class="btn btn-info" data-dismiss="modal">{{ __('words.close') }}</button>--}}
-    {{--                        <button type="submit" class="btn btn-danger">{{ __('words.delete') }} </button>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </form>--}}
-    {{--            <!-- /.modal-content -->--}}
-    {{--        </div>--}}
-    {{--        <!-- /.modal-dialog -->--}}
-    {{--    </div>--}}
 @endsection
 @push('javascripts')
     <script type="text/javascript">

@@ -1,6 +1,6 @@
 {{--@extends('../layouts.app')--}}
 {{--@section('content')--}}
-{{--    <main class="main">--}}
+{{--    <main class="main" style="margin-top: 25px">--}}
 {{--            <div class="animated fadeIn">--}}
 {{--                <div class="row">--}}
 {{--                    <div class="col-lg-9">--}}
@@ -61,7 +61,7 @@
 
 @extends('../layouts.app')
 @section('content')
-    <main class="main">
+    <main class="main" style="margin-top: 25px">
         <div class="container-fluid">
             <nav aria-label="breadcrumb" class="navBreadCrumb">
                 <ol class="breadcrumb">

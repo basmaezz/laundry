@@ -59,7 +59,7 @@ class OrderController extends Controller
 
             $distance = getDistanceFirst1($user, $laundry->lat, $laundry->lng);
             $data = [
-                'delivery_fees' => $laundry->lat,
+                'delivery_fees' => $laundry->price,
                 'vat' => config('setting.vat'),
             ];
 

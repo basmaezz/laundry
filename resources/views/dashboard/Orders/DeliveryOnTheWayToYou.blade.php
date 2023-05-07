@@ -1,6 +1,6 @@
 @extends('../layouts.app')
 @section('content')
-    <main class="main">
+    <main class="main" style="margin-top: 25px">
         <div class="container-fluid">
             <nav aria-label="breadcrumb" class="navBreadCrumb">
                 <ol class="breadcrumb">
@@ -21,7 +21,6 @@
                                 <th>رقم الطلب  </th>
                                 <th>اسم المغسله </th>
                                 <th>اسم العميل </th>
-                                <th> نوع التوصيل </th>
                                 <th> المده المستغرقه  </th>
                                 <th> تاريخ وصول المغسله  </th>
                                 <th>التفاصيل</th>
@@ -37,12 +36,14 @@
     </main>
 @endsection
 @push('javascripts')
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
     <script type="text/javascript">
         $(function() {
             var table = $('#table_id').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ Route('Order.WaitingForDeliveryToReceiveOrder') }}",
+                ajax: "{{ Route('Order.DeliveryOnTheWayToYou') }}",
                 columns: [{
                     data: 'id',
                     name: 'id'
@@ -67,6 +68,11 @@
 
                 ]
             });
+        });
+    </script>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery("time.timeago").timeago();
         });
     </script>
 @endpush

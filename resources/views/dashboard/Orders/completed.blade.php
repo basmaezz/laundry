@@ -1,6 +1,6 @@
 {{--@extends('../layouts.app')--}}
 {{--@section('content')--}}
-{{--    <main class="main">--}}
+{{--    <main class="main" style="margin-top: 25px">--}}
 {{--        <div class="container-fluid">--}}
 {{--            <div class="animated fadeIn">--}}
 {{--                <div class="row">--}}
@@ -97,7 +97,7 @@
 
 {{--@extends('../layouts.app')--}}
 {{--@section('content')--}}
-{{--    <main class="main">--}}
+{{--    <main class="main" style="margin-top: 25px">--}}
 {{--        <div class="container-fluid">--}}
 {{--            <div class="animated fadeIn">--}}
 {{--                <div class="row">--}}
@@ -173,12 +173,9 @@
 {{--    </main>--}}
 {{--@endsection--}}
 {{--@push('scripts')--}}
-{{--    <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>--}}
-{{--    <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>--}}
+
 {{--    <script>--}}
-{{--        jQuery(document).ready(function() {--}}
-{{--            jQuery("time.timeago").timeago();--}}
-{{--        });--}}
+
 {{--        $("#ordersPickUp").DataTable({--}}
 {{--            "responsive": true, "lengthChange": false, "autoWidth": false,--}}
 {{--            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]--}}
@@ -188,7 +185,8 @@
 
 @extends('../layouts.app')
 @section('content')
-    <main class="main">
+
+    <main class="main" style="margin-top: 25px">
         <div class="container-fluid">
             <nav aria-label="breadcrumb" class="navBreadCrumb">
                 <ol class="breadcrumb">
@@ -225,6 +223,7 @@
     </main>
 @endsection
 @push('javascripts')
+
     <script type="text/javascript">
         $(function() {
             var table = $('#table_id').DataTable({
@@ -263,4 +262,5 @@
             });
         });
     </script>
+
 @endpush

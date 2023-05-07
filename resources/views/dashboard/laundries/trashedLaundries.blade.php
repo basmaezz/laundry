@@ -1,6 +1,6 @@
 {{--@extends('../layouts.app')--}}
 {{--@section('content')--}}
-{{--    <main class="main">--}}
+{{--    <main class="main" style="margin-top: 25px">--}}
 {{--        <nav aria-label="breadcrumb" class="navBreadCrumb">--}}
 {{--            <ol class="breadcrumb">--}}
 {{--                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>--}}
@@ -68,7 +68,7 @@
 
 {{--@extends('../layouts.app')--}}
 {{--@section('content')--}}
-{{--    <main class="main">--}}
+{{--    <main class="main" style="margin-top: 25px">--}}
 {{--        <nav aria-label="breadcrumb" class="navBreadCrumb">--}}
 {{--            <ol class="breadcrumb">--}}
 {{--                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>--}}
@@ -161,7 +161,7 @@
 
 @extends('../layouts.app')
 @section('content')
-    <main class="main">
+    <main class="main" style="margin-top: 25px">
         <div class="container-fluid">
             <nav aria-label="breadcrumb" class="navBreadCrumb">
                 <ol class="breadcrumb">

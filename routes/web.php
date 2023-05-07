@@ -20,6 +20,7 @@ use App\Http\Controllers\Customer\ProductsController;
 use App\Http\Controllers\Customer\OrdersController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BankController;
+use App\Http\Controllers\Admin\NotificationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -67,7 +68,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::post('updateDelegate/{id}', [UserController::class, 'updateDelegate'])->name('delegate.update');
     Route::get('changeDelegateStatus/{id}', [UserController::class, 'changeDelegateStatus'])->name('delegate.changeDelegateStatus');
     Route::get('acceptRegister/{id}', [UserController::class, 'acceptRegister'])->name('delegate.acceptRegister');
-    Route::get('deleteDelegate', [UserController::class, 'deleteDelegate'])->name('delegate.delete');
+    Route::get('deleteDelegate', [UserController::class, 'deleteDelegate'])->name('delete.delegate');
     Route::get('trashedDelegates', [UserController::class, 'trashedDelegates'])->name('delegate.trashedDelegates');
     Route::get('registrationRequests', [UserController::class, 'getRegistrationRequests'])->name('delegate.registrationRequests');
     Route::get('addRejectReason/{id}', [UserController::class, 'addRejectReason'])->name('delegate.addRejectReason');
@@ -170,6 +171,9 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('bankEdit/{id}', [BankController::class, 'edit'])->name('bank.edit');
     Route::post('bankUpdate/{id}', [BankController::class, 'update'])->name('bank.update');
     Route::get('bankDelete/{id}', [BankController::class, 'destroy'])->name('bank.destroy');
+
+
+    Route::get('sendNotification', [NotificationController::class, 'create'])->name('notification.create');
 
 });
 #############################
@@ -405,11 +409,11 @@ Route::get('getDelivery',function (){
 });
 
 
-Route::get('deleteDelegate',function (){
-    $delivery=DB::table('app_users')->where('id',54)->delete();
-        return 'deleted';
-
-});
+//Route::get('deleteDelegate',function (){
+//    $delivery=DB::table('app_users')->where('id',54)->delete();
+//        return 'deleted';
+//
+//});
 
 
 Route::get('getPone',function (){

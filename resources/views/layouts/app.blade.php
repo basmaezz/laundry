@@ -8,11 +8,14 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
     <title>Laundry Dashboard</title>
+{{--    <link href="{{asset('assets/admin/css/mdb.rtl.min.css')}}" rel="stylesheet">--}}
     <link href="{{ asset('assets/admin/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/simple-line-icons.css') }}" rel="stylesheet">
     <link href="{{asset('assets/admin/css/customStyle.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/newLayout/dest/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"/>
 </head>
 <body class="navbar-fixed sidebar-nav fixed-nav">
 <header class="navbar">
@@ -172,7 +175,7 @@ padding-left: 74px;">
             </li>
             @endcan
             <li class="nav-item">
-                <a class="nav-link" href="{{route('banks.index')}}"><i class="icon-people"></i> الاشعارات </a>
+                <a class="nav-link" href="{{route('notification.create')}}"><i class="icon-people"></i> الاشعارات </a>
             </li>
             @can('Coupons.index')
             <li class="nav-item">
@@ -204,19 +207,21 @@ padding-left: 74px;">
 <script src="{{ asset('assets/newLayout/js/libs/Chart.min.js') }}"></script>
 <script src="{{ asset('assets/newLayout/js/app.js') }}"></script>
 <script src="{{ asset('assets/newLayout/js/views/main.js') }}"></script>
+<script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
+<script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-<script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
-<script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
+
+<script src="{{asset('assets/admin/js/mdb.min.js')}}" ></script>
+
 <script>
     jQuery(document).ready(function() {
         jQuery("time.timeago").timeago();
     });
 </script>
 <script>
-
     var allEditors = document.querySelectorAll('#editor');
     for (var i = 0; i < allEditors.length; ++i) {
         ClassicEditor.create(allEditors[i]);

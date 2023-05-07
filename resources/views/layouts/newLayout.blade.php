@@ -89,7 +89,7 @@
 </header>
 
 <!-- Main content -->
-<main class="main">
+<main class="main" style="margin-top: 25px">
     @yield('body')
 </main>
 

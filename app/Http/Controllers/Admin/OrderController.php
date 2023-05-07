@@ -240,7 +240,7 @@ class OrderController extends Controller
                 ->rawColumns(['action','category','user','delegate','duration','created_at'])
                 ->make(true);
         }
-        return  view('dashboard.Orders.DeliveryOnWay');
+        return  view('dashboard.Orders.wayToLaundry');
     }
     public function  DeliveredToLaundry(){
 
@@ -340,7 +340,8 @@ class OrderController extends Controller
 
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->get();            return   Datatables::of($data)
+            $data = OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->get();
+            return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;

@@ -229,9 +229,9 @@ class UserController extends Controller
     public function destroy(Request $request)
     {
 
-        if(Gate::denies('admins.index')){
-            abort(403);
-        };
+//        if(Gate::denies('admins.index')){
+//            abort(403);
+//        };
         if (is_numeric($request->id)) {
             User::where('id', $request->id)->delete();
         }
@@ -332,7 +332,7 @@ class UserController extends Controller
                     return '<a href="' . Route('delegate.edit',$row->id) . '"  class="edit btn btn-info btn-sm" >تعديل</a>
                             <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات  </a>
                             <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل  </a>
-             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                            <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
                 ->rawColumns(['name', 'city','nationality','request_employment','status','created_at','action'])
                 ->make(true);
@@ -489,9 +489,6 @@ class UserController extends Controller
     public function deleteDelegate(Request $request)
     {
 
-        if(Gate::denies('delegates.index')){
-            abort(403);
-        };
         if (is_numeric($request->id)) {
             $delegate=Delegate::find($request->id);
             AppUser::where('id',$delegate->app_user_id)->delete();
@@ -608,7 +605,8 @@ class UserController extends Controller
                     return '
                             <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات  </a>
                             <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل  </a>
-             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                            <a href="' . Route('delegate.restoreDeletedDelegates',$row->id) . '"  class="edit btn btn-danger btn-sm" >استعاده الحذف  </a>
+            ';
                 })
                 ->rawColumns(['name', 'city','nationality','request_employment','status','created_at','action'])
                 ->make(true);
