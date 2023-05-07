@@ -330,13 +330,13 @@ class UserController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     if($row->appUserTrashed->status=='active'){
-                        $btnStatus='<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-success btn-sm" >تعطيل</a>';
+                        $btnStatus='<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-danger btn-sm" >تعطيل</a>';
                         return $btnStatus;
                     }else{
                         $btnStatus='<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-success btn-sm" >تفعيل</a>';
                         return $btnStatus;
                     }
-                    return $btnStatus.'
+                    return '.$btnStatus.
                     <a href="' . Route('delegate.edit',$row->id) . '"  class="edit btn btn-info btn-sm" >تعديل</a>
                             <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات  </a>
                             <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل  </a>
