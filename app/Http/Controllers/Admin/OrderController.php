@@ -240,7 +240,7 @@ class OrderController extends Controller
                 ->rawColumns(['action','category','user','delegate','duration','created_at'])
                 ->make(true);
         }
-        return  view('dashboard.Orders.wayToLaundry');
+        return  view('dashboard.Orders.WayToLaundry');
     }
     public function  DeliveredToLaundry(){
 
