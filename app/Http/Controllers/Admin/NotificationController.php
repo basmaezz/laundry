@@ -24,8 +24,15 @@ class NotificationController extends Controller
             'gender'=>$request->gender
         ])->get();
 
-        dd($appUsers);
+        foreach ($appUsers as $user) {
+            \App\Http\Controllers\API\NotificationController::sendNotification(
+                $request->title,
+                $request->body,
+                $user,
+            );
+        }
 
+        return redirect()->back();
 
     }
 }

@@ -34,10 +34,13 @@
                             <input type="checkbox"   name="gender[]" value="m">رجال
                             <input type="checkbox"   name="gender[]" value="f">نساء
                         </div>
-
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="hf-email">العنوان </label>
+                            <input type="text" class="form-control" name="title">
+                        </div>
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="hf-email">الاشعار </label>
-                            <textarea class="form-control" name="content"></textarea>
+                            <textarea class="form-control" name="body"></textarea>
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> ارسال</button>
