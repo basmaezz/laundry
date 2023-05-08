@@ -173,7 +173,8 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('bankDelete/{id}', [BankController::class, 'destroy'])->name('bank.destroy');
 
 
-    Route::get('sendNotification', [NotificationController::class, 'create'])->name('notification.create');
+    Route::get('Notification', [NotificationController::class, 'create'])->name('notification.create');
+    Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('notification.send');
 
 });
 #############################

@@ -8,14 +8,12 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
     <title>Laundry Dashboard</title>
-{{--    <link href="{{asset('assets/admin/css/mdb.rtl.min.css')}}" rel="stylesheet">--}}
     <link href="{{ asset('assets/admin/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/simple-line-icons.css') }}" rel="stylesheet">
     <link href="{{asset('assets/admin/css/customStyle.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/newLayout/dest/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"/>
 </head>
 <body class="navbar-fixed sidebar-nav fixed-nav">
 <header class="navbar">

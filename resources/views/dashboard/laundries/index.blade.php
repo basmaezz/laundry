@@ -90,36 +90,7 @@
                 });
             }
         });
-        $('body').on('click', '#branches-btn', function () {
-            console.log('test')
-            {{--var id = $(this).data('id');--}}
 
-            {{--var table = $('#table_id').DataTable({--}}
-            {{--    processing: true,--}}
-            {{--    serverSide: true,--}}
-            {{--    ajax: "{{ Route('laundries.branches',"+id+") }}" ,--}}
-
-            {{--    columns: [{--}}
-            {{--        data: 'id',--}}
-            {{--        name: 'id'--}}
-            {{--    },{--}}
-            {{--        data: 'name_ar',--}}
-            {{--        name: 'name_ar'--}}
-            {{--    },{--}}
-            {{--        data:'city',--}}
-            {{--        name:'city'--}}
-            {{--    },{--}}
-            {{--        data:'address',--}}
-            {{--        name:'address'--}}
-            {{--    },{--}}
-            {{--        data: 'action',--}}
-            {{--        name: 'action',--}}
-            {{--        orderable: false,--}}
-            {{--        searchable: false--}}
-            {{--    },--}}
-            {{--    ]--}}
-            {{--});--}}
-        });
     </script>
 
 @endpush

@@ -324,19 +324,19 @@ class UserController extends Controller
                 })->addColumn('request_employment', function ($row) {
                     return  $row->request_employment==0 ?'موظف':'عامل حر';
                 })->addColumn('status', function ($row) {
-                    return  $row->appUserTrashed->status ??'';
+                    if($row->appUserTrashed->status=='active'){
+                        return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-success btn-sm" >'.$row->appUserTrashed->status.'</a>';
+
+                    }else{
+                        return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-danger btn-sm" >'.$row->appUserTrashed->status.'</a>';
+
+                    }
                 })->addColumn('created_at', function ($row) {
                     return  $row->created_at->format('Y-M-D') ??'';
                 })
                 ->addColumn('action', function ($row) {
-                    if($row->appUserTrashed->status=='active'){
-                        $btnStatus='<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-danger btn-sm" >تعطيل</a>';
 
-                    }else{
-                        $btnStatus='<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-success btn-sm" >تفعيل</a>';
-
-                    }
-                    return  $btnStatus .'
+                    return '
                     <a href="' . Route('delegate.edit',$row->id) . '"  class="edit btn btn-info btn-sm" >تعديل</a>
                             <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات  </a>
                             <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل  </a>
