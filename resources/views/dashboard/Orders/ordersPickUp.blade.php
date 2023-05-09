@@ -128,6 +128,8 @@
     </main>
 @endsection
 @push('javascripts')
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
     <script type="text/javascript">
         $(function() {
             var table = $('#table_id').DataTable({
@@ -161,6 +163,7 @@
 
                 ]
             });
+            $("#table_id").on('draw.dt', function(){ jQuery("time.timeago").timeago(); });
         });
     </script>
 @endpush

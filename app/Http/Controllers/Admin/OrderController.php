@@ -28,7 +28,7 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -50,7 +50,7 @@ class OrderController extends Controller
                     if($row->is_finished){
                         return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
                     }else{
-                        return  '<time class="timeago" datetime="{{$row->created_at->toISOString()}}">'. $row->created_at->toDateString() .'</time>';
+                        return  '<time class="timeago" datetime="'.$row->created_at->toISOString().'">'. $row->created_at->toDateString() .'</time>';
                     }
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
@@ -166,7 +166,7 @@ class OrderController extends Controller
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
-                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
+                        return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
@@ -184,7 +184,7 @@ class OrderController extends Controller
 
         if(request()->ajax()) {
             $data = OrderTable::where("status_id",self::AcceptedByDelivery)->with('delegateTrashed.appUserTrashed')->get();
-            return   Datatables::of($data)
+            return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
@@ -198,7 +198,7 @@ class OrderController extends Controller
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
-                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
+                        return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
@@ -215,7 +215,7 @@ class OrderController extends Controller
 
         if(request()->ajax()) {
             $data = OrderTable::where("status_id",self::WayToLaundry)->get();
-            return   Datatables::of($data)
+            return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
@@ -229,7 +229,7 @@ class OrderController extends Controller
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
-                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
+                        return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
@@ -246,7 +246,7 @@ class OrderController extends Controller
 
         if(request()->ajax()) {
             $data = OrderTable::with(['histories','delegateTrashed.appUserTrashed'])->where("status_id",self::DeliveredToLaundry)->get();
-            return   Datatables::of($data)
+            return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
@@ -260,7 +260,7 @@ class OrderController extends Controller
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
-                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
+                        return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
@@ -278,7 +278,7 @@ class OrderController extends Controller
 
         if(request()->ajax()) {
             $data = OrderTable::with(['subCategoriesTrashed','userTrashed','address','delegateTrashed.appUserTrashed'])->where("status_id",self::ClothesReadyForDelivery)->get();
-            return   Datatables::of($data)
+            return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
@@ -292,7 +292,7 @@ class OrderController extends Controller
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
-                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
+                        return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
@@ -309,7 +309,7 @@ class OrderController extends Controller
 
         if(request()->ajax()) {
             $data = OrderTable::where("status_id",self::WaitingForDeliveryToReceiveOrder)->get();
-            return   Datatables::of($data)
+            return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
@@ -323,7 +323,7 @@ class OrderController extends Controller
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
-                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
+                        return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
@@ -341,7 +341,7 @@ class OrderController extends Controller
 
         if(request()->ajax()) {
             $data = OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->get();
-            return   Datatables::of($data)
+            return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
@@ -353,7 +353,7 @@ class OrderController extends Controller
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
-                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
+                        return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
@@ -370,7 +370,7 @@ class OrderController extends Controller
 
         if(request()->ajax()) {
             $data=OrderTable::with(['subCategoriesTrashed','userTrashed','delegateTrashed.appUserTrashed'])->where("status_id",self::Completed)->get();
-            return   Datatables::of($data)
+            return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
@@ -384,7 +384,7 @@ class OrderController extends Controller
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
-                        return '<time class="timeago" datetime="{{$current->created_at->toISOString()}}"> ' . $current->created_at->toDateString() .' </time>';
+                        return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;

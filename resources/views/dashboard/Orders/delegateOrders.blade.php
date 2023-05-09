@@ -52,12 +52,15 @@
 
 @endsection
 @push('scripts')
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
+    <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
     <script>
         $("#users").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#users_wrapper .col-md-6:eq(0)');
+        $("#table_id").on('draw.dt', function(){ jQuery("time.timeago").timeago(); });
     </script>
 
 @endpush

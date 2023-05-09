@@ -68,11 +68,7 @@
 
                 ]
             });
-        });
-    </script>
-    <script>
-        jQuery(document).ready(function() {
-            jQuery("time.timeago").timeago();
+            $("#table_id").on('draw.dt', function(){ jQuery("time.timeago").timeago(); });
         });
     </script>
 @endpush
