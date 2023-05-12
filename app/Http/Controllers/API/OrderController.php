@@ -63,17 +63,18 @@ class OrderController extends Controller
                 'vat' => config('setting.vat'),
             ];
 
-            if ($distance <= 10) {
-                $data['delivery_fees'] = 10;
-                $message = trans('api.Values_After_Calc_Vat_And_Fees');
-            } elseif ($distance > 10 || $distance <= 20) {
-                $data['delivery_fees'] = 20;
-                $message = trans('api.Values_After_Calc_Vat_And_Fees');
-            } else {
-                $message = 'out of distance';
-            }
+//            if ($distance <= 10) {
+//                $data['delivery_fees'] = 10;
+//                $message = trans('api.Values_After_Calc_Vat_And_Fees');
+//            } elseif ($distance > 10 || $distance <= 20) {
+//                $data['delivery_fees'] = 20;
+//                $message = trans('api.Values_After_Calc_Vat_And_Fees');
+//            } else {
+//                $message = 'out of distance';
+//            }
 
-            return apiResponse($message, $data);
+//            return apiResponse($message, $data);
+            return apiResponse( $data);
         }
         return apiResponse(trans('api.error_validation'), $items = null, 500, 500);
     }
