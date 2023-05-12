@@ -73,8 +73,12 @@ class OrderController extends Controller
 //                $message = 'out of distance';
 //            }
 
-//            return apiResponse($message, $data);
-            return apiResponse( $data);
+            if($distance!=''){
+                $data['delivery_fees']=$laundry->price;
+                $message = trans('api.Values_After_Calc_Vat_And_Fees');
+            }
+            return apiResponse($message, $data);
+
         }
         return apiResponse(trans('api.error_validation'), $items = null, 500, 500);
     }
