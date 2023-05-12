@@ -74,9 +74,9 @@ class OrderController extends Controller
 //            }
 
 //            return apiResponse($message, $data);
-            return apiOrderResponse( $data);
+            return apiResponse( $data);
         }
-        return apiOrderResponse(trans('api.error_validation'), $items = null, 500, 500);
+        return apiResponse(trans('api.error_validation'), $items = null, 500, 500);
     }
     /**
      * add new order
