@@ -34,12 +34,12 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{$order->id}}</td>
-                                            <td>{{$order->userTrashed->name}} </td>
+                                            <td>{{$order->userTrashed->name}} </td>.
                                             <td>{{$order->delegateTrashed->appUserTrashed->name ??''}} </td>
                                             <td>{{$order->status}}</td>
                                             <td>{{$order->total_price}}</td>
                                             <td>{{$order->subCategoriesTrashed}}</td>
-                                            <td>{{$order->Percentage()}}</td>
+                                            <td>{{($order->subCategoriesTrashed->total_price *$order->subCategoriesTrashed->percentage)/100}}</td>
                                             <td>{{$order->created_at->format('Y-m-d')}}</td>
                                             <td>
                                                 <a href="{{route('Order.show',$order->id)}}" class="btn btn-info">التفاصيل</a>

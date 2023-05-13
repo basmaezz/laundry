@@ -116,6 +116,7 @@ class OrderTable extends Model
     public function getPercentage()
     {
             $result=($this->subCategoriesTrashed->total_price *$this->subCategoriesTrashed->percentage)/100;
+
             return $result;
     }
 }
