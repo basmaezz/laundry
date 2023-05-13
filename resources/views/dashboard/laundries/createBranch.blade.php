@@ -108,6 +108,18 @@
                                             <span class="text-danger">{{ $errors->first('price') }}</span>
                                         @endif
                                     </div>
+                                    <div class="form-group ">
+                                        <label for="approximate_duration"> النسبه  </label>
+
+                                        <div class="input-group">
+                                            <input type="text"name="percentage" class="form-control" placeholder="النسبه " value="{{$Subcategory->percentage}}" >
+                                            <span class="input-group-addon"> %</i>
+                                                </span>
+                                        </div>
+                                        @if ($errors->has('percentage'))
+                                            <span class="text-danger">{{ $errors->first('percentage') }}</span>
+                                        @endif
+                                    </div>
 
                                     <div class="form-group">
                                         <label for="approximate_duration">  المده التقريبيه للغسيل </label>

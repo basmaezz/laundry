@@ -103,6 +103,17 @@
                                         <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="form-group">
+                                        <label for="country">النسبه  </label>
+                                        <div class="input-group">
+                                            <input type="text"name="percentage" class="form-control" value="{{$subCategory->percentage}}" >
+                                            <span class="input-group-addon"> %</i>
+                                                </span>
+                                        </div>
+                                        @error('percentage')
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                         <div class="form-group">
                                             <label for="approximate_duration">  المده التقريبيه للغسيل </label>
                                             <div class="input-group">

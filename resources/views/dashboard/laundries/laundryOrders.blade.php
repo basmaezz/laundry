@@ -24,6 +24,8 @@
                                         <th>اسم العميل</th>
                                         <th>اسم المندوب</th>
                                         <th>حاله الطلب</th>
+                                        <th> المبلغ الاجمالى</th>
+                                        <th>المبلغ المستحق </th>
                                         <th>التاريخ</th>
                                         <th>Actions </th>
                                     </tr>
@@ -35,6 +37,9 @@
                                             <td>{{$order->userTrashed->name}} </td>
                                             <td>{{$order->delegateTrashed->appUserTrashed->name ??''}} </td>
                                             <td>{{$order->status}}</td>
+                                            <td>{{$order->total_price}}</td>
+                                            <td>{{$order->subCategoriesTrashed}}</td>
+                                            <td>{{$order->Percentage()}}</td>
                                             <td>{{$order->created_at->format('Y-m-d')}}</td>
                                             <td>
                                                 <a href="{{route('Order.show',$order->id)}}" class="btn btn-info">التفاصيل</a>

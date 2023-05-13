@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i>
-                        <a href="{{route('laundries.create')}}" class="btn btn-primary" style="float: left" >اضافه مغسله</a>
+                        <a href="{{route('laundries.branches.create',$id)}}" class="btn btn-primary" style="float: left" >اضافه فرع</a>
                     </div>
                     <div class="card-block">
                         <table class="table table-striped" id="table_id">

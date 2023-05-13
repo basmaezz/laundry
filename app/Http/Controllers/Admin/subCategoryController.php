@@ -82,51 +82,6 @@ class subCategoryController extends Controller
      */
     public function store(subCategoryRequest $request)
     {
-        $subcategory = new Subcategory();
-//        dd($request->all());
-//        $validated = $request->validate([
-//            'category_id' => 'integer',
-//            'name_ar' => 'required',
-//            'name_en' => 'required',
-//            'city_id' => 'required',
-//            'location' => 'required', 'regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i',
-//            'lat' => 'required',
-//            'lng' => 'required',
-//            'address' => 'required',
-//            'price' => 'required',
-//            'range' => 'required',
-//            'around_clock' => 'required',
-//            'clock_at' => 'string',
-//            'clock_end' => 'string',
-//            'approximate_duration' => 'required',
-//            'image' => 'required|image|mimes:jpg,png,jpeg',
-//            'name' => 'required',
-//            'last_name' => 'required',
-//            'email' => '|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
-//            'password' => ['required', 'min:6'],
-//            'phone' => 'required|unique:users',
-//        ], [
-//            'required'  => 'هذا الحقل مطلوب',
-//            'name' => 'برجاء ادخال اسم مناسب',
-//            'last_name' => 'برجاء ادخال اسم مناسب',
-//            'unique' => 'هذا الأسم موجود مسبقا',
-//            'email' => 'هذا البريد الالكترونى موجود مسبقا',
-//            'phone' => 'هذا الرقم غير صحيح',
-//            'location.format' => 'الرابط غير صحيح ',
-//        ]);
-
-//        if ($request->around_clock != '') {
-//            $subcategory['around_clock'] = $request->around_clock;
-//            $subcategory['clock_end'] = '';
-//            $subcategory['clock_at'] = '';
-//        } else {
-//            $subcategory['clock_end'] = $request->clock_end;
-//            $subcategory['clock_at'] = $request->clock_at;
-//        }
-//        if ($request->file('image')) {
-//            $filename = request('image')->getClientOriginalName();
-//            request()->file('image')->move(public_path() . '/assets/uploads/laundries/logo/', $filename);
-//        }
         $subcategory=Subcategory::create($request->validated()+[
             'image'=>uploadFile($request->file('image'), 'laundries/logo/'),
                'around_clock' => $request->around_clock,
@@ -195,6 +150,7 @@ class subCategoryController extends Controller
             'address' => $request->address,
             'city_id' => $request->city_id,
             'price' => $request->price,
+            'percentage' => $request->percentage,
             'range' => $request->range,
             'lat' => $request->lat,
             'lng' => $request->lng,
@@ -210,7 +166,6 @@ class subCategoryController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
-            //            'password'=> Hash::make($request->password)
         ]);
         if ($request->password != '') {
             User::where('subCategory_id', $id)->update([
@@ -336,6 +291,7 @@ class subCategoryController extends Controller
             'lng' => 'required',
             'address' => 'required',
             'price' => 'required',
+            'percentage' => 'required',
             'range' => 'required',
             'around_clock' => 'required',
             'clock_at' => 'string',

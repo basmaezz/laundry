@@ -112,4 +112,10 @@ class OrderTable extends Model
             OrderController::Completed,
         ]);
     }
+
+    public function getPercentage()
+    {
+            $result=($this->subCategoriesTrashed->total_price *$this->subCategoriesTrashed->percentage)/100;
+            return $result;
+    }
 }
