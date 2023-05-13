@@ -415,9 +415,27 @@ class subCategoryController extends Controller
         return redirect()->route('laundries.index')->with('success', 'تم استعاده الحذف');;
     }
 
-    public function getOrders($id)
+    public function getOrders(Request $request)
     {
-        $orders = OrderTable::where('laundry_id', $id)->with(['userTrashed', 'delegateTrashed.appUserTrashed'])->get();
-        return view('dashboard.laundries.laundryOrders', compact('orders'));
+        $id=$request->id;
+        if(request()->ajax()) {
+            $data =  OrderTable::where('laundry_id', $id)->with(['userTrashed', 'delegateTrashed.appUserTrashed'])->get();
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('userTrashed', function ($row) {
+                    return $row->userTrashed->name;
+                })->addColumn('delegateTrashed', function ($row) {
+                    return $row->delegateTrashed->appUserTrashed->name??'';
+                })->addColumn('percentage', function ($row) {
+                    return $row->subCategoriesTrashed->total_price *$row->subCategoriesTrashed->percentage/100 ;
+                })
+                ->addColumn('action', function ($row) {
+                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>';
+                    return $btns;
+                })
+                ->rawColumns(['action', 'userTrashed','delegateTrashed','percentage'])
+                ->make(true);
+        }
+        return view('dashboard.laundries.laundryOrders',compact('id'));
     }
 }
