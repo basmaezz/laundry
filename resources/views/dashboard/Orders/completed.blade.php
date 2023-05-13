@@ -57,9 +57,6 @@
                     data:'delegate',
                     name:'delegate'
                 },{
-                    data:'duration',
-                    name:'duration'
-                },{
                     data: 'action',
                     name: 'action',
                     orderable: false,

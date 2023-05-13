@@ -378,23 +378,16 @@ class OrderController extends Controller
                     return $row->userTrashed->name ;
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
-                })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDeliveryToYou)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::Completed)->first();
-                    if($next){
-                        return  minutesToHumanReadable($current->spend_time);
-                    }else{
-                        return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
-                    }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('action', function ($row) {
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','duration','created_at'])
+                ->rawColumns(['action','category','user','delegate','created_at'])
                 ->make(true);
         }
+
         return  view('dashboard.Orders.completed');
 
 
