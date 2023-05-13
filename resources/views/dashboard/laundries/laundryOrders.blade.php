@@ -110,7 +110,8 @@
             var table = $('#table_id').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ Route('laundries.orders') }}",
+                ajax: "{{ Route('laundries.orders',$id) }}",
+                data: { id: id},
                 columns: [{
                     data: 'id',
                     name: 'id'
