@@ -31,7 +31,6 @@ class NotificationController extends Controller
                 $user,
             );
         }
-
         return redirect()->back();
 
     }

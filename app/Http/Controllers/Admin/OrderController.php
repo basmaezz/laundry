@@ -193,8 +193,8 @@ class OrderController extends Controller
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WayToLaundry)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -224,8 +224,8 @@ class OrderController extends Controller
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WayToLaundry)->first();
+                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::DeliveredToLaundry)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -255,8 +255,8 @@ class OrderController extends Controller
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::DeliveredToLaundry)->first();
+                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::ClothesReadyForDelivery)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -287,8 +287,8 @@ class OrderController extends Controller
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::ClothesReadyForDelivery)->first();
+                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDeliveryToYou)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -318,8 +318,8 @@ class OrderController extends Controller
                 })->addColumn('deliveryType',function ($row){
                     return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDeliveryToReceiveOrder)->first();
+                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDeliveryToYou)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -348,8 +348,8 @@ class OrderController extends Controller
                 })->addColumn('user',function ($row){
                     return $row->userTrashed->name ;
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDeliveryToYou)->first();
+                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::Completed)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -369,7 +369,7 @@ class OrderController extends Controller
     public function  completed(){
 
         if(request()->ajax()) {
-            $data=OrderTable::with(['subCategoriesTrashed','userTrashed','delegateTrashed.appUserTrashed'])->where("status_id",self::Completed)->get();
+            $data = OrderTable::where("status_id",self::Completed)->with('delegateTrashed.appUserTrashed')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -379,8 +379,8 @@ class OrderController extends Controller
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDeliveryToYou)->first();
+                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::Completed)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -395,8 +395,9 @@ class OrderController extends Controller
                 ->rawColumns(['action','category','user','delegate','duration','created_at'])
                 ->make(true);
         }
-
         return  view('dashboard.Orders.completed');
+
+
     }
     public function  canceled(){
 

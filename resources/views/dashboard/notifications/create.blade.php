@@ -11,11 +11,15 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <strong>اضافه كوبون</strong>
+                    <strong>ارسال اشعار  </strong>
                 </div>
                 <div class="card-block">
                     <form method="post" action="{{route('notification.send')}}" >
                         @csrf
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="hf-email">العنوان </label>
+                            <input type="text" class="form-control" name="title">
+                        </div>
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="hf-email">المدينه </label>
                             <div class="col-md-9">
@@ -34,10 +38,7 @@
                             <input type="checkbox"   name="gender[]" value="m">رجال
                             <input type="checkbox"   name="gender[]" value="f">نساء
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="hf-email">العنوان </label>
-                            <input type="text" class="form-control" name="title">
-                        </div>
+
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="hf-email">الاشعار </label>
                             <textarea class="form-control" name="body"></textarea>
