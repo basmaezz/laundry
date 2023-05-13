@@ -435,7 +435,7 @@ class subCategoryController extends Controller
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>';
                     return $btns;
                 })
-                ->rawColumns(['action', 'userTrashed','delegateTrashed','percentage'])
+                ->rawColumns(['action','created_at','userTrashed','delegateTrashed','percentage'])
                 ->make(true);
         }
         return view('dashboard.laundries.laundryOrders',compact('id'));
