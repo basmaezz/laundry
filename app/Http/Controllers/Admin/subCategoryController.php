@@ -48,11 +48,11 @@ class subCategoryController extends Controller
                     return $row->around_clock==1 ?'طوال اليوم' :abs($hours=((int)$row->clock_end)-((int)$row->clock_at)).'ساعه' ;
                 })
                 ->addColumn('action', function ($row) {
-                    $main='<a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm" >الفروع</a>';
-                    $branch=' <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm" >الأقسام</a>
-                            <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-success btn-sm" >تعديل</a>
-                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>
-                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات</a>
+                    $main='<a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >الفروع</a>';
+                    $branch=' <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >الأقسام</a>
+                            <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
+                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >تفاصيل</a>
+                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >الطلبات</a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                     return $row->parent_id==Null ? $main .$branch : $branch;
                 })
@@ -256,10 +256,10 @@ class subCategoryController extends Controller
                 })
                 ->addColumn('action', function ($row) {
 
-                    $btns=' <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm" >الأقسام</a>
-                            <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-success btn-sm" >تعديل</a>
-                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>
-                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات</a>
+                    $btns=' <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >الأقسام</a>
+                            <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >تعديل</a>
+                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >تفاصيل</a>
+                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >الطلبات</a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                     return $btns;
                 })
@@ -364,11 +364,11 @@ class subCategoryController extends Controller
                 })
                 ->addColumn('action', function ($row) {
 
-                    $btns=' <a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm" >الفروع</a>
-                    <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm" >الأقسام</a>
-                            <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-success btn-sm" >تعديل</a>
-                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>
-                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات</a>
+                    $btns=' <a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >الفروع</a>
+                    <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >الأقسام</a>
+                            <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >تعديل</a>
+                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >تفاصيل</a>
+                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >الطلبات</a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                     return $btns;
                 })
@@ -394,7 +394,7 @@ class subCategoryController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $btns='
-                    <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل</a>
+                    <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >التفاصيل</a>
                     <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>
                     ';
 
@@ -432,7 +432,7 @@ class subCategoryController extends Controller
                     return $row->created_at->format('Y-m-d') ;
                 })
                 ->addColumn('action', function ($row) {
-                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>';
+                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm customOrder customOrder" >تفاصيل</a>';
                     return $btns;
                 })
                 ->rawColumns(['action','created_at','userTrashed','delegateTrashed','percentage'])

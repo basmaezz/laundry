@@ -7,7 +7,7 @@
                 <li class="breadcrumb-item active" aria-current="page">التصنيفات  </li>
             </ol>
         </nav>
-        <div class="container-fluid">
+    <div>
 
                 <div class="animated fadeIn">
                     <div class="row">

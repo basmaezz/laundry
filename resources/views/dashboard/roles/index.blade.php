@@ -2,7 +2,7 @@
 @section('content')
     <main class="main" style="margin-top: 25px">
 
-       <div class="container-fluid">
+   <div>
 
             <div class="animated fadeIn">
                 <div class="row">

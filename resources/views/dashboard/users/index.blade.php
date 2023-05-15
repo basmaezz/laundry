@@ -1,7 +1,7 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main" style="margin-top: 25px">
-    <div class="container-fluid">
+    <div >
         <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-align-justify"></i>
-                    <a href="{{route('user.create')}}" class="btn btn-primary" style="float: left" >اضافه أدمن</a>
+                    <a href="{{route('user.create')}}" class="btn btn-primary custom" style="float: left; width: 100px; height: 35px " >اضافه أدمن</a>
                 </div>
                 <div class="card-block">
                     <table class="table table-striped" id="table_id">

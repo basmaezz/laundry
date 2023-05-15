@@ -7,7 +7,7 @@
 {{--                <li class="breadcrumb-item active" aria-current="page">المناديب المحذوفه  </li>--}}
 {{--            </ol>--}}
 {{--        </nav>--}}
-{{--        <div class="container-fluid">--}}
+{{--    <div>--}}
 
 {{--            <div class="animated fadeIn">--}}
 {{--                <div class="row">--}}
@@ -150,7 +150,7 @@
 {{--                <li class="breadcrumb-item active" aria-current="page">المناديب   </li>--}}
 {{--            </ol>--}}
 {{--        </nav>--}}
-{{--        <div class="container-fluid">--}}
+{{--    <div>--}}
 
 {{--            <div class="animated fadeIn">--}}
 {{--                <div class="row">--}}
@@ -232,7 +232,7 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main" style="margin-top: 25px">
-        <div class="container-fluid">
+    <div>
             <nav aria-label="breadcrumb" class="navBreadCrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>

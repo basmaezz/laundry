@@ -27,7 +27,7 @@
 
 <body class="navbar-fixed sidebar-nav fixed-nav">
 <header class="navbar">
-    <div class="container-fluid">
+<div>
         <button class="navbar-toggler mobile-toggler hidden-lg-up" type="button">&#9776;</button>
         <a class="navbar-brand" href="#" ></a>
         <ul class="nav navbar-nav hidden-md-down">

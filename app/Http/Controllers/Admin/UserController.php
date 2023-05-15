@@ -61,7 +61,7 @@ class UserController extends Controller
                     return $row->hasRoleName($row);
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . Route('user.edit', $row->id) . '"  class="edit btn btn-success btn-sm" ><i class="fa fa-edit"></i></a>
+                    return '<a href="' . Route('user.edit', $row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
              <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
                 ->rawColumns(['action', 'role'])
@@ -83,7 +83,7 @@ class UserController extends Controller
                     return $row->hasRoleName($row);
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . Route('users.restoreDeletedAdmins', $row->id) . '"  class="edit btn btn-success btn-sm" ><i class="fa-solid fa-rotate-right"></i></a>
+                    return '<a href="' . Route('users.restoreDeletedAdmins', $row->id) . '"  class="edit btn btn-success btn-sm" style="width: 18px;height: 20px;" ><i class="fa-solid fa-rotate-right"></i></a>
              <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
                 ->rawColumns(['action', 'role'])
@@ -204,7 +204,6 @@ class UserController extends Controller
             $user->update($request->validated()+[
                     'avatar'=>$filename,
                     'password'=> Hash::make($request->password),
-
             ]);
         }else{
             $user->update($request->validated()+[
@@ -253,8 +252,8 @@ class UserController extends Controller
                     return  $row->citiesTrashed->name_ar??'';
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . Route('customer.Orders',$row->id) . '"  class="edit btn btn-info btn-sm" >عرض الطلبات</a>
-                            <a href="' . Route('customer.wallet',$row->id) . '"  class="edit btn btn-info btn-sm" >اضافه للمحفظه </a>
+                    return '<a href="' . Route('customer.Orders',$row->id) . '"  class="edit btn btn-info btn-sm  custom" >عرض الطلبات</a>
+                            <a href="' . Route('customer.wallet',$row->id) . '"  class="edit btn btn-info btn-sm custom" >اضافه للمحفظه </a>
              <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
                 ->rawColumns(['action', 'city'])
@@ -325,10 +324,10 @@ class UserController extends Controller
                     return  $row->request_employment==0 ?'موظف':'عامل حر';
                 })->addColumn('status', function ($row) {
                     if($row->appUserTrashed->status=='active'){
-                        return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-success btn-sm" >'.$row->appUserTrashed->status.'</a>';
+                        return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-success btn-sm custom " >'.$row->appUserTrashed->status.'</a>';
 
                     }else{
-                        return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-danger btn-sm" >'.$row->appUserTrashed->status.'</a>';
+                        return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-danger btn-sm custom" >'.$row->appUserTrashed->status.'</a>';
 
                     }
                 })->addColumn('created_at', function ($row) {
@@ -337,9 +336,9 @@ class UserController extends Controller
                 ->addColumn('action', function ($row) {
 
                     return '
-                    <a href="' . Route('delegate.edit',$row->id) . '"  class="edit btn btn-info btn-sm" >تعديل</a>
-                            <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات  </a>
-                            <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل  </a>
+                    <a href="' . Route('delegate.edit',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
+                            <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm customOrder " >الطلبات  </a>
+                            <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm customOrder" >التفاصيل  </a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
                 ->rawColumns(['name', 'city','nationality','request_employment','status','created_at','action'])
@@ -611,8 +610,8 @@ class UserController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     return '
-                            <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm" >الطلبات  </a>
-                            <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm" >التفاصيل  </a>
+                            <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm custom" >الطلبات  </a>
+                            <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm custom" >التفاصيل  </a>
                             <a href="' . Route('delegate.restoreDeletedDelegates',$row->id) . '"  class="edit btn btn-danger btn-sm" >استعاده الحذف  </a>
             ';
                 })
@@ -686,8 +685,7 @@ class UserController extends Controller
         User::whereId(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
-//        return view('dashboard');
-//        return back()->with("status", "Password changed successfully!");
+
         \Auth::logout();
         return redirect('/login')->with('message', 'تم تغيير كلمه المرور بنجاح !');
     }
@@ -716,9 +714,9 @@ class UserController extends Controller
                     return  $row->created_at->format('Y-M-D') ??'';
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . Route('delegate.show', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>
-                            <a href="' . Route('delegate.acceptRegister', $row->id) . '"  class="edit btn btn-success btn-sm" >قبول</a>
-                            <a href="' . Route('delegate.addRejectReason', $row->id) . '"  class="edit btn btn-danger btn-sm" >رفض</a>
+                    return '<a href="' . Route('delegate.show', $row->id) . '"  class="edit btn btn-info btn-sm custom" >تفاصيل</a>
+                            <a href="' . Route('delegate.acceptRegister', $row->id) . '"  class="edit btn btn-success btn-sm custom" >قبول</a>
+                            <a href="' . Route('delegate.addRejectReason', $row->id) . '"  class="edit btn btn-danger btn-sm custom" >رفض</a>
              ';
                 })
                 ->rawColumns(['name','city','nationality','request_employment','status','created_at','action'])
@@ -776,8 +774,8 @@ class UserController extends Controller
                     return $row->nationality->name_ar ?? '';
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . Route('delegate.show', $row->id) . '"  class="edit btn btn-info btn-sm" >تفاصيل</a>
-                            <a href="' . Route('delegate.acceptRegister', $row->id) . '"  class="edit btn btn-success btn-sm" >قبول</a>
+                    return '<a href="' . Route('delegate.show', $row->id) . '"  class="edit btn btn-info btn-sm custom" >تفاصيل</a>
+                            <a href="' . Route('delegate.acceptRegister', $row->id) . '"  class="edit btn btn-success btn-sm custom" >قبول</a>
                             ';
                 })
                 ->rawColumns(['name','city','nationality','action'])

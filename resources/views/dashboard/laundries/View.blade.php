@@ -8,7 +8,7 @@
                 <li class="breadcrumb-item active" aria-current="page">بيانات المغسله  </li>
             </ol>
         </nav>
-        <div class="container-fluid">
+    <div>
             <div class="animated fadeIn">
                 <div class="row">
                     <form method="post" action="{{url('laundryStore')}}" enctype="multipart/form-data">

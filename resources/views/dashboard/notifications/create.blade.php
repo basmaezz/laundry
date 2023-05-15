@@ -44,7 +44,7 @@
                             <textarea class="form-control" name="body"></textarea>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> ارسال</button>
+                           <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> ارسال</button>
                             <a href="{{route('coupons.index')}}" class="btn btn-sm btn-danger">الغاء </a>
                         </div>
 

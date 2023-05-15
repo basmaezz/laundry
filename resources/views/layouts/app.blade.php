@@ -8,6 +8,8 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="">
     <title>Laundry Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link href="{{ asset('assets/admin/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/simple-line-icons.css') }}" rel="stylesheet">
     <link href="{{asset('assets/admin/css/customStyle.css')}}" rel="stylesheet">
@@ -15,9 +17,19 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 </head>
+<style>
+    .custom{
+        width: 90px;
+        height: 32px;
+    }
+    .customOrder{
+        width: 35px;
+        height: 20px;
+    }
+</style>
 <body class="navbar-fixed sidebar-nav fixed-nav">
 <header class="navbar">
-    <div class="container-fluid">
+<div>
         <button class="navbar-toggler mobile-toggler hidden-lg-up" type="button">&#9776;</button>
         <a class="navbar-brand" href="#"></a>
         <ul class="nav navbar-nav hidden-md-down">
@@ -198,11 +210,12 @@ padding-left: 74px;">
 @yield('content')
 <footer class="footer">
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 <script src="{{ asset('assets/newLayout/js/libs/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/newLayout/js/libs/tether.min.js') }}"></script>
 <script src="{{ asset('assets/newLayout/js/libs/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/newLayout/js/libs/pace.min.js') }}"></script>
-<script src="{{ asset('assets/newLayout/js/libs/Chart.min.js') }}"></script>
+{{--<script src="{{ asset('assets/newLayout/js/libs/Chart.min.js') }}"></script>--}}
 <script src="{{ asset('assets/newLayout/js/app.js') }}"></script>
 <script src="{{ asset('assets/newLayout/js/views/main.js') }}"></script>
 <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
@@ -210,7 +223,8 @@ padding-left: 74px;">
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+{{--<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>--}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 
 <script src="{{asset('assets/admin/js/mdb.min.js')}}" ></script>
 

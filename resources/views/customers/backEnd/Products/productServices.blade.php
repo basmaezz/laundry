@@ -3,7 +3,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <div class="container-fluid">
+        <div>
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>DataTables</h1>
@@ -19,7 +19,7 @@
         </section>
 
         <section class="content">
-            <div class="container-fluid">
+        <div>
                 <div class="row">
                     <div class="col-9">
                         <div class="card">

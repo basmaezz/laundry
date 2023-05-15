@@ -23,27 +23,27 @@ class DatabaseSeeder extends Seeder
 //        $user->roles()->attach([
 //            'role_id'=>'1',
 //        ]);
-//        for ($i = 2000; $i <= 2023; $i++) {
-//            \App\Models\Year::create([
-//                'name' => $i,
-//            ]);
-//        }
+        for ($i = 2000; $i <= 2023; $i++) {
+            \App\Models\Year::create([
+                'name' => $i,
+            ]);
+        }
         $this->call([
 //             NationalitySeeder::class,
 //                        NationalitiySeeder::class,
-                        AppUserSeeder::class,
-                         carTypesSeeder::class,
-                         EducationsLevelSeeder::class,
-                         CitySeeder::class,
-                        CategorySeeder::class,
-                        subCategorySeeder::class,
-                        CatgeoryItemSeeder::class,
-                        productSeeder::class,
-                        productServiceSeeder::class,
-                        FaqSeeder::class,
-                        CouponSeeder::class,
-                        UserSeeder::class,
-                        YearSeeder::class
+//                        AppUserSeeder::class,
+//                         carTypesSeeder::class,
+//                         EducationsLevelSeeder::class,
+//                         CitySeeder::class,
+//                        CategorySeeder::class,
+//                        subCategorySeeder::class,
+//                        CatgeoryItemSeeder::class,
+//                        productSeeder::class,
+//                        productServiceSeeder::class,
+//                        FaqSeeder::class,
+//                        CouponSeeder::class,
+//                        UserSeeder::class,
+//                        YearSeeder::class
         ]);
     }
 }

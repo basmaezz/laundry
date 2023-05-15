@@ -8,7 +8,7 @@
                 <li class="breadcrumb-item active" aria-current="page">الاقسام</li>
             </ol>
         </nav>
-        <div class="container-fluid">
+    <div>
                 <div class="animated fadeIn">
                     <div class="row">
                         <div class="col-lg-9">

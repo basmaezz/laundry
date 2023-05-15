@@ -8,7 +8,7 @@
             </ol>
         </nav>
 
-        <div class="container-fluid">
+    <div>
             <div class="validationMsg" style="width: 600px">
                 @if($errors->any())
                     <div class="alert alert-danger" >

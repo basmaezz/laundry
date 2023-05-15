@@ -7,7 +7,7 @@
                 <li class="breadcrumb-item active" aria-current="page">الاعدادات  </li>
             </ol>
         </nav>
-        <div class="container-fluid">
+    <div>
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="validationMsg" style="width: 600px">

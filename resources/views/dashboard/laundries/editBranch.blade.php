@@ -9,7 +9,7 @@
             </ol>
         </nav>
 
-        <div class="container-fluid">
+    <div>
             <div class="animated fadeIn">
                 <div class="row">
                     <form method="post" action="{{route('laundries.storeBranch')}}" >
@@ -176,7 +176,7 @@
                         </div>
                         <div>
                             <div class="card-footer col-sm-12">
-                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> حفظ</button>
+                               <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> حفظ</button>
                                 <button type="reset" onclick="ResetForm()" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i>  <a href="{{URL::previous()}}" class="btn btn-sm btn-danger">الغاء</a></button>
                             </div>
                         </div>

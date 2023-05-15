@@ -19,7 +19,7 @@
             </li>
         </ol>
 
-        <div class="container-fluid">
+    <div>
 
             <div class="animated fadeIn">
                 <div class="row">

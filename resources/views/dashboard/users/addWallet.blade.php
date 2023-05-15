@@ -8,7 +8,7 @@
                 <li class="breadcrumb-item active" aria-current="page">اضافه للمحفظه   </li>
             </ol>
         </nav>
-        <div class="container-fluid">
+    <div>
             <div class="validationMsg" style="width: 600px">
                 @if($errors->any())
                     <div class="alert alert-danger" >
@@ -53,8 +53,8 @@
                                         </div>
 
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> اضافه</button>
-                                            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i>  <a href="{{URL::previous()}}" class="btn btn-sm btn-danger">الغاء</a></button>
+                                           <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> اضافه</button>
+                                            <button type="reset" class="btn btn-sm btn-danger customOrder"><i class="fa fa-ban"></i>  <a href="{{URL::previous()}}" class="btn btn-sm btn-danger">الغاء</a></button>
                                         </div>
                                     </form>
                                 </div>
