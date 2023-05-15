@@ -68,7 +68,7 @@
                         </div>
                         <div class="card-footer">
                            <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> حفظ</button>
-                            <button type="reset" class="btn btn-sm btn-danger customOrder"><i class="fa fa-ban"></i>  <a href="{{URL::previous()}}" class="btn btn-sm btn-danger">الغاء</a></button>
+                            <a href="{{URL::previous()}}" class="btn btn-sm btn-danger custom ">الغاء</a>
                         </div>
 
                     </form>

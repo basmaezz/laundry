@@ -35,7 +35,7 @@
                                             <td>{{$order->status}}</td>
                                             <td>{{$order->created_at->format('Y-m-d')}}</td>
                                             <td>
-                                                <a href="{{route('Order.show',$order->id)}}" class="btn btn-info">التفاصيل</a>
+                                                <a href="{{route('Order.show',$order->id)}}" class="btn btn-info customOrder">التفاصيل</a>
                                             </td>
                                         </tr>
                                     @endforeach

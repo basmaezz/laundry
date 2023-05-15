@@ -334,9 +334,7 @@ class UserController extends Controller
                     return  $row->created_at->format('Y-M-D') ??'';
                 })
                 ->addColumn('action', function ($row) {
-
-                    return '
-                    <a href="' . Route('delegate.edit',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
+                    return '<a href="' . Route('delegate.edit',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
                             <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm customOrder " >الطلبات  </a>
                             <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm customOrder" >التفاصيل  </a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';

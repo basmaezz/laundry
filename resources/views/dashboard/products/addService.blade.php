@@ -21,7 +21,6 @@
                             <div class="form-group">
                             <label  for="hf-email">اسم القطعه</label>
                                 <input type="hidden"  name="product_id" class="form-control" value="{{$product->id}}"  >
-{{--                                <input type="hidden"  name="category_item_id" class="form-control" value="{{$product->category_item_id}}"  >--}}
                                 <input type="text"  name="category_type" class="form-control" value="{{$product->name_ar}}" disabled >
 
                             </div>
@@ -46,14 +45,10 @@
                                     @endif
                                 </div>
 
-{{--                            <div class="form-group">--}}
-{{--                                <label for="company">الصوره  </label>--}}
-{{--                                <input type="file" name="productImage"class="form-control" id="image" >--}}
-{{--                            </div>--}}
                         </div>
                         <div class="card-footer">
                            <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> حفظ</button>
-                            <button type="reset" class="btn btn-sm btn-danger customOrder"><i class="fa fa-ban"></i>  <a href="{{URL::previous()}}" class="btn btn-sm btn-danger">الغاء</a></button>
+                            <a href="{{URL::previous()}}" class="btn btn-sm btn-danger custom ">الغاء</a>
                         </div>
 
                     </form>

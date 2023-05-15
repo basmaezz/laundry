@@ -12,8 +12,8 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i>
-                        <a href="{{route('delegate.create')}}" class="btn btn-primary" style="float: left;margin-right:5px" >اضافه مندوب</a>
-                        <a href="{{route('delegates.index')}}" class="btn btn-success" style="float: left">تحديث</a>
+                        <a href="{{route('delegate.create')}}" class="btn btn-primary custom" style="float: left;margin-right:5px" >اضافه مندوب</a>
+                        <a href="{{route('delegates.index')}}" class="btn btn-success custom" style="float: left">تحديث</a>
 
                     </div>
                     <div class="card-block">

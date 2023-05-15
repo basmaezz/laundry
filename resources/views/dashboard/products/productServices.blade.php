@@ -29,7 +29,7 @@
 
                                 <div class="card-header">
                                     <i class="fa fa-align-justify"></i>
-                                    <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary" style="float: left">اضافه خدمه</a>
+                                    <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary custom" style="float: left">اضافه خدمه</a>
                                 </div>
                                 <div class="card-block">
                                     <table class="table table-striped">
@@ -47,8 +47,8 @@
                                                     <td>{{$service->services}}</td>
                                                     <td>{{$service->price}}</td>
                                                     <td>
-                                                        <a href="{{route('product.editService',$service->id)}}" class="btn btn-primary">تعديل</a>
-                                                        <a href="{{route('product.deleteProductService',$service->id)}}" class="btn btn-danger">حذف</a>
+                                                        <a href="{{route('product.editService',$service->id)}}" class="btn btn-primary custom">تعديل</a>
+                                                        <a href="{{route('product.deleteProductService',$service->id)}}" class="btn btn-danger custom">حذف</a>
                                                     </td>
                                             </tr>
                                         @endforeach

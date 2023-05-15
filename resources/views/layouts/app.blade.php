@@ -26,6 +26,9 @@
         width: 35px;
         height: 20px;
     }
+    .customRole{
+        width: 100px;
+    }
 </style>
 <body class="navbar-fixed sidebar-nav fixed-nav">
 <header class="navbar">
