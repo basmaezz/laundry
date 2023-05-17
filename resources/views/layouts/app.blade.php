@@ -211,8 +211,7 @@ padding-left: 74px;">
 </div>
 
 @yield('content')
-<footer class="footer">
-</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 <script src="{{ asset('assets/newLayout/js/libs/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/newLayout/js/libs/tether.min.js') }}"></script>
