@@ -44,6 +44,7 @@ class CategoryController extends Controller
                 //'distanceObject' => $distanceObject,
                 'name' => $subcategory->$name,
                 'address' => $subcategory->address,
+                'delivery_fees' => $subcategory->price,
                 'rate' => $subcategory->rate_avg,
                 'is_favorite' => (!empty($user))? Favorite::has($subcategory, $user) : false,
                 'image' => $subcategory->image,
