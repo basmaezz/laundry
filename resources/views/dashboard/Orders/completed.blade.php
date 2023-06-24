@@ -22,8 +22,7 @@
                                 <th>اسم المغسله </th>
                                 <th>اسم العميل </th>
                                 <th>  اسم المندوب  </th>
-                                <th> نوع التوصيل </th>
-                                <th> المده المستغرقه  </th>
+                                <th>   نوع التوصيل   </th>
                                 <th>المدينه </th>
                                 <th>الحى </th>
                                 <th>السنه </th>
@@ -65,9 +64,6 @@
                 },{
                     data:'deliveryType',
                     name:'deliveryType'
-                },{
-                    data:'finished',
-                    name:'finished'
                 },{
                     data:'city',
                     name:'city'
