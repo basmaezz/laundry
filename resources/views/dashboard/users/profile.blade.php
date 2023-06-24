@@ -32,8 +32,8 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
                                             <div class="col-md-9">
-                                                <input type="hidden"  name="id" class="form-control" value="{{Auth::user()->id}} "required>
-                                                <input type="text" id="text-input" name="name" class="form-control" value="{{$user->name}} "required>
+                                                <input type="hidden"  name="id" class="form-control view" value="{{Auth::user()->id}} "required>
+                                                <input type="text" id="text-input" name="name" class="form-control view" value="{{$user->name}} "required>
 
                                             </div>
                                         </div>
@@ -41,31 +41,31 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأخير</label>
                                             <div class="col-md-9">
-                                                <input type="text" id="text-input" name="last_name" class="form-control" value="{{$user->last_name}} "required>
+                                                <input type="text" id="text-input" name="last_name" class="form-control view" value="{{$user->last_name}} "required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="email-input">البريد الألكترونى </label>
                                             <div class="col-md-9">
-                                                <input type="email" id="email-input" name="email" class="form-control" value=" {{$user->email}} "required>
+                                                <input type="email" id="email-input" name="email" class="form-control view" value=" {{$user->email}} "required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="phone" name="phone" class="form-control"value="{{$user->phone}}" required>
+                                                <input type="text" id="phone" name="phone" class="form-control view"value="{{$user->phone}}" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">تاريخ الميلاد </label>
                                             <div class="col-md-9">
-                                                <input type="date" id="birthday" name="birthdate" class="form-control" value="{{$user->birthdate}}"required>
+                                                <input type="date" id="birthday" name="birthdate" class="form-control view" value="{{$user->birthdate}}"required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input"> المستوى التعليمى </label>
                                             <div class="col-md-9">
-                                                <select name="level_id" id="level_id"  class="form-control" >
+                                                <select name="level_id" id="level_id"  class="form-control view" >
                                                     <option>المستوى التعليمى</option>
                                                     @foreach($levels as $level)
                                                         <option value="{{$level->id}}" {{$level->id==$user->level_id ? 'selected':''}}>{{$level->name}}</option>
@@ -77,16 +77,16 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="text-input"class="form-control"> تاريخ الانضمام للشركة   </label>
+                                            <label class="col-md-3 form-control-label" for="text-input"class="form-control view"> تاريخ الانضمام للشركة   </label>
                                             <div class="col-md-9">
-                                                <input type="date" id="birthday" name="joinDate" class="form-control" value="{{$user->joindate}}">
+                                                <input type="date" id="birthday" name="joinDate" class="form-control view" value="{{$user->joindate}}">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الملف الشخصى </label>
+                                        <label class="col-md-3 form-control-label" for="file-input"class="form-control view">صوره الملف الشخصى </label>
                                             <div class="col-md-9">
-                                                <input type="file" id="file-input" name="avatar" class="form-control">
+                                                <input type="file" id="file-input" name="avatar" class="form-control view">
                                             </div>
                                         </div>
                                         <div class="card-footer">

@@ -22,6 +22,13 @@
                                 <th>اسم المغسله </th>
                                 <th>اسم العميل </th>
                                 <th>  اسم المندوب  </th>
+                                <th> نوع التوصيل </th>
+                                <th> المده المستغرقه  </th>
+                                <th>المدينه </th>
+                                <th>الحى </th>
+                                <th>السنه </th>
+                                <th>الشهر </th>
+                                <th>اليوم </th>
                                 <th>التفاصيل</th>
                             </tr>
                             </thead>
@@ -55,6 +62,27 @@
                 },{
                     data:'delegate',
                     name:'delegate'
+                },{
+                    data:'deliveryType',
+                    name:'deliveryType'
+                },{
+                    data:'finished',
+                    name:'finished'
+                },{
+                    data:'city',
+                    name:'city'
+                },{
+                    data:'regionName',
+                    name:'regionName'
+                },{
+                    data:'year',
+                    name:'year'
+                },{
+                    data:'month',
+                    name:'month'
+                },{
+                    data:'day',
+                    name:'day'
                 },{
                     data: 'action',
                     name: 'action',

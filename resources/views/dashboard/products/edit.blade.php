@@ -24,30 +24,30 @@
 
                                     <div class="form-group">
                                         <label for="company">اسم القطعه</label>
-                                        <input type="hidden" name="product_id"class="form-control" id="name" value="{{$product->id}}">
-                                        <input type="hidden" name="category_item_id"class="form-control" id="name" value="{{$product->category_item_id}}">
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$product->name_ar}}">
+                                        <input type="hidden" name="product_id"class="form-control view" id="name" value="{{$product->id}}">
+                                        <input type="hidden" name="category_item_id"class="form-control view" id="name" value="{{$product->category_item_id}}">
+                                        <input type="text" name="name_ar"class="form-control view" id="name_ar" value="{{$product->name_ar}}">
                                         @if ($errors->has('name_ar'))
                                             <span class="text-danger">{{ $errors->first('name_ar') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="company" >اسم القطعه بالانجليزيه</label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$product->name_en}}">
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$product->name_en}}">
                                         @if ($errors->has('name_en'))
                                             <span class="text-danger">{{ $errors->first('name_en') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="company" >الوصف  </label>
-                                        <input type="text" name="desc_ar"class="form-control" id="name_ar" value="{{$product->desc_ar}}">
+                                        <input type="text" name="desc_ar"class="form-control view" id="name_ar" value="{{$product->desc_ar}}">
                                         @if ($errors->has('desc_ar'))
                                             <span class="text-danger">{{ $errors->first('desc_ar') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="company" >الوصف  بالانجليزيه</label>
-                                        <input type="text" name="desc_en"class="form-control" id="name_ar" value="{{$product->desc_en}}">
+                                        <input type="text" name="desc_en"class="form-control view" id="name_ar" value="{{$product->desc_en}}">
                                         @if ($errors->has('desc_en'))
                                             <span class="text-danger">{{ $errors->first('desc_en') }}</span>
                                         @endif
@@ -55,7 +55,7 @@
                                     <img src="{{$product->image}}" style="width: 100px;height: 100px">
                                     <div class="form-group">
                                         <label for="company">الصوره  </label>
-                                        <input type="file" name="subProductImage"class="form-control" id="image" value="{{$product->image}}" >
+                                        <input type="file" name="subProductImage"class="form-control view" id="image" value="{{$product->image}}" >
                                     </div>
                                 </div>
                             </div>

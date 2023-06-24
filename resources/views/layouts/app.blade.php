@@ -29,10 +29,13 @@
     .customRole{
         width: 100px;
     }
+    .form-control{
+        color: black;
+    }
 </style>
 <body class="navbar-fixed sidebar-nav fixed-nav">
 <header class="navbar">
-<div>
+    <div>
         <button class="navbar-toggler mobile-toggler hidden-lg-up" type="button">&#9776;</button>
         <a class="navbar-brand" href="#"></a>
         <ul class="nav navbar-nav hidden-md-down">
@@ -63,9 +66,9 @@ padding-left: 74px;">
                     <a class="dropdown-item" href="{{route('users.profile')}}"><i class="fa fa-user"></i> پروفایل</a>
                     <a class="dropdown-item" href="{{route('users.editPassword')}}"><i class="fa fa-user"></i> تغيير كلمه المرور</a>
                     <div class="divider"></div>
-                        <form method="post" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="dropdown-item"><i class="fa fa-lock"></i> خروج</button>
+                    <form method="post" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="dropdown-item"><i class="fa fa-lock"></i> خروج</button>
                     </form>
                 </div>
             </li>
@@ -85,125 +88,125 @@ padding-left: 74px;">
             <li class="nav-title">
                 مقدمين الخدمه
             </li>
-               <li class="nav-item">
-            @can('admins.index')
-            <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> الأدمن  </a>
-            <a class="nav-link" href="{{route('users.adminTrashed')}}"><i class="icon-user-follow"></i> الأدمن المحذوفين   </a>
-                   @endcan
-            @can('roles.index')
-                <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>
-                @endcan
-            @can('customers.index')
-                    <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
-            @endcan
-               </li>
-            @can('delegates.index')
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> المناديب</a>
-                <ul class="nav-dropdown-items">
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-people"></i>   المناديب  </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('delegate.registrationRequests')}}"><i class="icon-people"></i>   طلبات التسجيل  </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('delegate.rejectionRequests')}}"><i class="icon-people"></i>  طلبات التسجيل المرفوضه   </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('delegate.trashedDelegates')}}"><i class="icon-people"></i>  المناديب المحذوفه   </a>
-                    </li>
-                </ul>
-            </li>
-            @endcan
-        @can('subCategory.index')
-            <li class="nav-title">
-                المغاسل
-            </li>
-
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> المغاسل</a>
-                <ul class="nav-dropdown-items">
-                    @can('categories.index')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('Categories.index')}}"><i class="icon-people"></i>  التصنيفات  </a>
-                    </li>
-                    @endcan
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('laundries.index')}}"><i class="icon-people"></i>  كل المغاسل </a>
-                    </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('laundries.mainLaundries')}}"><i class="icon-people"></i>  المغاسل الرئيسيه</a>
+                @can('admins.index')
+                    <a class="nav-link" href="{{route('users.index')}}"><i class="icon-user-follow"></i> الأدمن  </a>
+                    <a class="nav-link" href="{{route('users.adminTrashed')}}"><i class="icon-user-follow"></i> الأدمن المحذوفين   </a>
+                @endcan
+                @can('roles.index')
+                    <a class="nav-link" href="{{route('roles.index')}}"><i class="icon-people"></i>  الأدوار - الصلاحيات</a>
+                @endcan
+                @can('customers.index')
+                    <a class="nav-link" href="{{route('customers.index')}}"><i class="icon-user-follow"></i> العملاء </a>
+                @endcan
             </li>
-                        <li class="nav-item">
-                <a class="nav-link" href="{{route('laundries.viewTrashedLaundries')}}"><i class="icon-people"></i>  المغاسل المحذوفه</a>
-            </li>
+            @can('delegates.index')
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> المناديب</a>
+                    <ul class="nav-dropdown-items">
 
-                </ul>
-            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('delegates.index')}}"><i class="icon-people"></i>   المناديب  </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('delegate.registrationRequests')}}"><i class="icon-people"></i>   طلبات التسجيل  </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('delegate.rejectionRequests')}}"><i class="icon-people"></i>  طلبات التسجيل المرفوضه   </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('delegate.trashedDelegates')}}"><i class="icon-people"></i>  المناديب المحذوفه   </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+            @can('subCategory.index')
+                <li class="nav-title">
+                    المغاسل
+                </li>
+
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> المغاسل</a>
+                    <ul class="nav-dropdown-items">
+                        @can('categories.index')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('Categories.index')}}"><i class="icon-people"></i>  التصنيفات  </a>
+                            </li>
+                        @endcan
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('laundries.index')}}"><i class="icon-people"></i>  كل المغاسل </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('laundries.mainLaundries')}}"><i class="icon-people"></i>  المغاسل الرئيسيه</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('laundries.viewTrashedLaundries')}}"><i class="icon-people"></i>  المغاسل المحذوفه</a>
+                        </li>
+
+                    </ul>
+                </li>
             @endcan
 
             @can('Orders.index')
                 <li class="nav-title">
                     الطلبات
                 </li>
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> الطلبات</a>
-                <ul class="nav-dropdown-items">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('Order.index')}}"><i class="icon-people"></i> الطلبات </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('Order.pendingDeliveryAcceptance')}}"><i class="icon-people"></i> انتظار قبول المندوب </a>
-                    </li>
-                    <li class="nav-item">
-                <a class="nav-link" href="{{route('Order.DeliveryOnWay')}}"><i class="icon-people"></i> المندوب فى الطريق للعميل </a>
-                    </li>
-                    <li class="nav-item">
-                <a class="nav-link" href="{{route('Order.WayToLaundry')}}"><i class="icon-people"></i>   المندوب فى الطريق للمغسله </a>
-                    </li>
-                    <li class="nav-item">
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> الطلبات</a>
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('Order.index')}}"><i class="icon-people"></i> الطلبات </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('Order.pendingDeliveryAcceptance')}}"><i class="icon-people"></i> انتظار قبول المندوب </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('Order.DeliveryOnWay')}}"><i class="icon-people"></i> المندوب فى الطريق للعميل </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('Order.WayToLaundry')}}"><i class="icon-people"></i>   المندوب فى الطريق للمغسله </a>
+                        </li>
+                        <li class="nav-item">
 
-                <a class="nav-link" href="{{route('Order.DeliveredToLaundry')}}"><i class="icon-people"></i> فى المغسله  </a>
-                    </li>
-                    <li class="nav-item">
-                <a class="nav-link" href="{{route('Order.readyPickUp')}}"><i class="icon-people"></i>الأنتهاء  من الغسيل </a>
+                            <a class="nav-link" href="{{route('Order.DeliveredToLaundry')}}"><i class="icon-people"></i> فى المغسله  </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('Order.readyPickUp')}}"><i class="icon-people"></i>الأنتهاء  من الغسيل </a>
 
-                    </li>
-                    <li class="nav-item">
-                <a class="nav-link" href="{{route('Order.WaitingForDeliveryToReceiveOrder')}}"><i class="icon-people"></i> انتظار موافقه المندوب </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('Order.WaitingForDeliveryToReceiveOrder')}}"><i class="icon-people"></i> انتظار موافقه المندوب </a>
 
-                    </li>
-                    <li class="nav-item">
-                <a class="nav-link" href="{{route('Order.DeliveryOnTheWayToYou')}}"><i class="icon-people"></i>فى الطريق للعميل</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('Order.DeliveryOnTheWayToYou')}}"><i class="icon-people"></i>فى الطريق للعميل</a>
 
-                    </li>
-                    <li class="nav-item">
-                <a class="nav-link" href="{{route('Order.completed')}}"><i class="icon-people"></i>الطلبات المنتهيه </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('Order.completed')}}"><i class="icon-people"></i>الطلبات المنتهيه </a>
 
-                    </li>
-                </ul>
-            </li>
+                        </li>
+                    </ul>
+                </li>
             @endcan
             <li class="nav-item">
                 <a class="nav-link" href="{{route('notification.create')}}"><i class="icon-people"></i> الاشعارات </a>
             </li>
             @can('Coupons.index')
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('coupons.index')}}"><i class="icon-people"></i> الكوبونات </a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('coupons.index')}}"><i class="icon-people"></i> الكوبونات </a>
+                </li>
             @endcan
             @can('settings.index')
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('settings.index')}}"><i class="icon-people"></i> الاعدادات </a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('settings.index')}}"><i class="icon-people"></i> الاعدادات </a>
+                </li>
             @endcan
             @can('banks.index')
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('banks.index')}}"><i class="icon-people"></i> البنوك </a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('banks.index')}}"><i class="icon-people"></i> البنوك </a>
+                </li>
             @endcan
 
         </ul>

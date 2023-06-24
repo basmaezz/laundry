@@ -20,13 +20,13 @@
                         <div class="form-group row">
                             <div class="form-group">
                             <label  for="hf-email">اسم القطعه</label>
-                                <input type="hidden"  name="product_id" class="form-control" value="{{$product->id}}"  >
-                                <input type="text"  name="category_type" class="form-control" value="{{$product->name_ar}}" disabled >
+                                <input type="hidden"  name="product_id" class="form-control view" value="{{$product->id}}"  >
+                                <input type="text"  name="category_type" class="form-control view" value="{{$product->name_ar}}" disabled >
 
                             </div>
                             <div class="form-group">
                                 <label for="company">اسم الخدمه </label>
-                                <input type="text" name="services"class="form-control" id="services" placeholder="اسم الخدمه" value="{{Request::old('services')}}">
+                                <input type="text" name="services"class="form-control view" id="services" placeholder="اسم الخدمه" value="{{Request::old('services')}}">
                                 @if ($errors->has('services'))
                                     <span class="text-danger">{{ $errors->first('services') }}</span>
                                 @endif
@@ -35,7 +35,7 @@
                                 <div class="form-group">
                                     <label for="company">السعر  </label><br>
                                     <div class="input-group">
-                                        <input type="text"name="price" class="form-control" placeholder="السعر " value="{{Request::old('range')}}" >
+                                        <input type="text"name="price" class="form-control view" placeholder="السعر " value="{{Request::old('range')}}" >
                                         <span class="input-group-addon"> ريال</i>
                                                 </span>
                                     </div>

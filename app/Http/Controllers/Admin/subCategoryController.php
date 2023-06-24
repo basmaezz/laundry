@@ -87,6 +87,7 @@ class subCategoryController extends Controller
                'around_clock' => $request->around_clock,
                 'clock_end' =>$request->clock_end,
                 'clock_at' => $request->clock_at,
+                'service_fee' => $request->service_fee,
         ]);
 
         $user=User::create([

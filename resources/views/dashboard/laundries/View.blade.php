@@ -35,79 +35,81 @@
                                     @if(isset($subCategory->parent->name_ar))
                                         <div class="form-group">
                                             <label for="company" n>الفرع الرئيسى </label>
-                                            <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$subCategory->parent->name_ar}}" disabled>
+                                            <input type="text" name="name_ar"class="form-control view" id="name_ar" value="{{$subCategory->parent->name_ar}}" disabled>
                                         </div>
                                     @endif
                                     <div class="form-group">
                                         <label for="company" n>اسم المغسله</label>
-                                        <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$subCategory->name_ar}}"disabled>
+                                        <input type="text" name="name_ar"class="form-control view" id="name_ar" value="{{$subCategory->name_ar}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">اسم المغسله بالانجليزيه</label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$subCategory->name_en}}"disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$subCategory->name_en}}"disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">العنوان</label>
-                                        <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->address}}"disabled>
+                                        <input type="text" name="address"class="form-control view" id="name_ar" value="{{$subCategory->address}}"disabled>
                                     </div>
                                         <div class="form-group">
                                         <label for="company">الموقع الجعرافى</label>
-                                        <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->location}}"disabled>
+                                        <input type="text" name="address"class="form-control view" id="name_ar" value="{{$subCategory->location}}"disabled>
                                     </div>
                                         <div class="form-group">
                                         <label for="company">latitude</label>
-                                        <input type="text" name="lat"class="form-control" id="name_ar" value="{{$subCategory->lat}}"disabled>
+                                        <input type="text" name="lat"class="form-control view" id="name_ar" value="{{$subCategory->lat}}"disabled>
                                     </div>
                                         <div class="form-group">
                                         <label for="company">longitude</label>
-                                        <input type="text" name="lng"class="form-control" id="name_ar" value="{{$subCategory->lng}}"disabled>
+                                        <input type="text" name="lng"class="form-control view" id="name_ar" value="{{$subCategory->lng}}"disabled>
                                     </div>
 
                                         <div class="form-group">
                                             <label for="company">نطاق التشغيل</label>
                                             <div class="input-group">
-                                                <input type="text"name="price" class="form-control" value="{{$subCategory->range}}" disabled >
+                                                <input type="text"name="price" class="form-control view" value="{{$subCategory->range}}" disabled >
                                                 <span class="input-group-addon"> كيلومتر</i>
                                                 </span>
                                             </div>
-                                            @error('price')
-                                            <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
-                                            @enderror
+
                                         </div>
 
 
                                         <div class="form-group">
-                                            <label for="country">السعر  </label>
+                                            <label for="country">سعر التوصيل  </label>
                                             <div class="input-group">
-                                                <input type="text"name="price" class="form-control" value="{{$subCategory->price}}" disabled >
+                                                <input type="text"name="price" class="form-control view" value="{{$subCategory->price}}" disabled >
                                                 <span class="input-group-addon"> ريال</i>
                                                 </span>
                                             </div>
-                                            @error('price')
-                                            <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
-                                            @enderror
                                         </div>
+                                        <div class="form-group">
+                                            <label for="country">رسوم الخدمه  </label>
+                                            <div class="input-group">
+                                                <input type="text"name="price" class="form-control view" value="{{$subCategory->service_fee}}" disabled >
+                                                <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                            </div>
+                                       </div>
+
                                         <div class="form-group">
                                             <label for="approximate_duration">  المده التقريبيه للغسيل </label>
                                             <div class="input-group">
-                                                <input type="text"name="approximate_duration" class="form-control"  value="{{$subCategory->approximate_duration}}" disabled >
+                                                <input type="text"name="approximate_duration" class="form-control view"  value="{{$subCategory->approximate_duration}}" disabled >
                                                 <span class="input-group-addon"> ساعه</i>
                                                 </span>
                                             </div>
-                                            @error('approximate_duration')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
+
                                         </div>
                                         <div class="form-group">
                                         <label for="company">تاريخ الاضافه</label>
-                                        <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->created_at->format('y-m-d')}}"disabled>
+                                        <input type="text" name="address"class="form-control view" id="name_ar" value="{{$subCategory->created_at->format('y-m-d')}}"disabled>
                                     </div>
                                         <div class="form-group">
                                         <label for="company">مواعيد الدوام</label>
                                             @if($subCategory->around_clock ==1)
-                                        <input type="text" name="address"class="form-control" id="name_ar" value="طوال اليوم"disabled>
+                                        <input type="text" name="address"class="form-control view" id="name_ar" value="طوال اليوم"disabled>
                                             @else
-                                        <input type="text" name="address"class="form-control" id="name_ar" value="{{abs($hours=((int)$subCategory->clock_end)-((int)$subCategory->clock_at))}}"disabled>
+                                        <input type="text" name="address"class="form-control view" id="name_ar" value="{{abs($hours=((int)$subCategory->clock_end)-((int)$subCategory->clock_at))}}"disabled>
 
                                             @endif
                                     </div>
@@ -125,31 +127,31 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="disabled-input">الصلاحيه </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="مدير المغسله" disabled>
+                                                <input type="text" id="disabled-input" name="disabled-input" class="form-control view" placeholder="مدير المغسله" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
                                             <div class="col-md-9">
-                                                <input type="text" id="text-input" name="name" class="form-control" value="{{$admin->name}}"disabled>
+                                                <input type="text" id="text-input" name="name" class="form-control view" value="{{$admin->name}}"disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الأسم الأخير</label>
                                             <div class="col-md-9">
-                                                <input type="text" id="text-input" name="last_name" class="form-control" value="{{$admin->last_name}}"disabled>
+                                                <input type="text" id="text-input" name="last_name" class="form-control view" value="{{$admin->last_name}}"disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="email-input">البريد الألكترونى </label>
                                             <div class="col-md-9">
-                                                <input type="email" id="email-input" name="email" class="form-control" value="{{$admin->email}}"disabled>
+                                                <input type="email" id="email-input" name="email" class="form-control view" value="{{$admin->email}}"disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                             <div class="col-md-9">
-                                                <input type="text" id="phone" name="phone" class="form-control"value="{{$admin->phone}}"disabled>
+                                                <input type="text" id="phone" name="phone" class="form-control view"value="{{$admin->phone}}"disabled>
                                             </div>
                                         </div>
                                 </div>

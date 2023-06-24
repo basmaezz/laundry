@@ -15,47 +15,47 @@
 
                                     <div class="form-group">
                                         <label for="company">اسم المغسله</label>
-                                        <input type="text" name="name_ar" class="form-control" id="name_ar" value="{{$order->subCategoriesTrashed->name_ar}}" disabled>
+                                        <input type="text" name="name_ar" class="form-control view" id="name_ar" value="{{$order->subCategoriesTrashed->name_ar}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">اسم العميل</label>
-                                        <input type="text" name="name_ar" class="form-control" id="name_ar" value="{{$order->userTrashed->name }}" disabled>
+                                        <input type="text" name="name_ar" class="form-control view" id="name_ar" value="{{$order->userTrashed->name }}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">اسم المندوب</label>
-                                        <input type="text" name="name_ar" class="form-control" id="name_ar" value="{{$order->delegateTrashed->appUserTrashed->name ??''}}" disabled>
+                                        <input type="text" name="name_ar" class="form-control view" id="name_ar" value="{{$order->delegateTrashed->appUserTrashed->name ??''}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">المدينه  </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->userTrashed->citiesTrashed->name_ar}}" disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->userTrashed->citiesTrashed->name_ar}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">الحى  </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->userTrashed->region_name}}" disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->userTrashed->region_name}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">التاريخ  </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->created_at}}" disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->created_at}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company"> عدد القطع </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->count_products}}" disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->count_products}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">المبلغ المطلوب  </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->total_price??''}}" disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->total_price??''}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">كوبون   </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->coupon}}" disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->coupon}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">خصم   </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->discount}}" disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->discount}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company"> ملاحظات  </label>
-                                        <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$order->note}}" disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->note}}" disabled>
                                     </div>
                                     @if($order->audio_note!= Null)
                                     <div class="form-group">
@@ -83,19 +83,19 @@
 
                                     <div class="form-group">
                                         <label for="company">اسم القطعه</label>
-                                        <input type="text" name="name_ar" class="form-control" id="name_ar" value="{{$orderDetail->productTrashed->name_ar}}" disabled>
+                                        <input type="text" name="name_ar" class="form-control view" id="name_ar" value="{{$orderDetail->productTrashed->name_ar}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">اسم الخدمه</label>
-                                        <input type="text" name="name_ar" class="form-control" id="name_ar" value="{{$orderDetail->productService->services}}" disabled>
+                                        <input type="text" name="name_ar" class="form-control view" id="name_ar" value="{{$orderDetail->productService->services}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">السعر </label>
-                                        <input type="text" name="name_ar" class="form-control" id="name_ar" value="{{$orderDetail->price}}" disabled>
+                                        <input type="text" name="name_ar" class="form-control view" id="name_ar" value="{{$orderDetail->price}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">الكميه  </label>
-                                        <input type="text" name="name_en" class="form-control" id="name_ar" value="{{$orderDetail->quantity}}" disabled>
+                                        <input type="text" name="name_en" class="form-control view" id="name_ar" value="{{$orderDetail->quantity}}" disabled>
                                     </div>
                                 </div>
                             </div>

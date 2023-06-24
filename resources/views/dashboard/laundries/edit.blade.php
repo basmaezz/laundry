@@ -93,9 +93,20 @@
                                             @enderror
                                         </div>
                                     <div class="form-group">
-                                        <label for="country">السعر  </label>
+                                        <label for="country">سعر التوصيل  </label>
                                         <div class="input-group">
                                             <input type="text"name="price" class="form-control" value="{{$subCategory->price}}" >
+                                            <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                        </div>
+                                        @error('price')
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="country">رسوم الخدمه   </label>
+                                        <div class="input-group">
+                                            <input type="text"name="service_fee" class="form-control" value="{{$subCategory->service_fee}}" >
                                             <span class="input-group-addon"> ريال</i>
                                                 </span>
                                         </div>

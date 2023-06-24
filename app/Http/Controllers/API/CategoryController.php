@@ -186,7 +186,7 @@ class CategoryController extends Controller
                     'subcate_id' => $subcategory->id,
                     'name' => $subcategory->$name,
                     'is_favorite' => (!empty($user))? Favorite::has($subcategory, $user) : false,
-                    'deliveryFees'=>$subcategory->price,
+                    'deliveryFees'=>$subcategory->price + $subcategory->service_fee,
                     'lat' => $subcategory->lat,
                     'lng' => $subcategory->lng,
                     'from'=>$subcategory->clock_at,
