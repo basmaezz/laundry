@@ -72,6 +72,17 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card card-inverse card-primary" >
+                            <div class="card-block p-b-0">
+                                <h4 class="m-b-0">{{\App\Models\OrderTable::select('*')->whereMonth('created_at', \Carbon\Carbon::now()->month)->count()}}</h4>
+                                <p>اجمالى الطلبات لشهر {{\Carbon\Carbon::now()->monthName}}  </p>
+                            </div>
+                            <div class="chart-wrapper p-x-1" style="height:70px;">
+                                <canvas id="card-chart1" class="chart" height="70"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 </div>
 
