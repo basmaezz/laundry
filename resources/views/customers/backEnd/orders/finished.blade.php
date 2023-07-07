@@ -30,7 +30,7 @@
                                             <td>{{$order->id}}</td>
                                             <td>{{$order->userTrashed->name}}</td>
                                             <td>{{$order->total_price}}</td>
-                                            <td>{{$order->status}}</td>
+                                            <td><button class="edit btn btn-danger btn-sm">Order  Finished</button></td>
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->updated_at}}</td>
                                             <td>
