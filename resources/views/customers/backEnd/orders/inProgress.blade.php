@@ -37,10 +37,10 @@
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->created_at}}</td>
                                             <td>
-                                                <a href="{{route('Customer.Orders.completed',$order->id)}}" class="btn btn-info">تم الانتهاء</a>
+                                                <a href="{{route('Customer.Orders.completed',$order->id)}}" class="btn btn-info">Finished </a>
                                             </td>
                                             <td>
-                                                <a href="{{route('Customer.Orders.orderDetails',$order->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a></td>
+                                                <a href="{{route('Customer.Orders.orderDetails',$order->id)}}" class="edit btn btn-primary btn-sm">Details</a></td>
 {{--                                            <td>--}}
 
 {{--                                                <input data-id="{{$order->id}}" class="toggleBtn" type="checkbox"--}}

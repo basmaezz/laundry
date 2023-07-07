@@ -9,7 +9,6 @@
                             <div class="card-header">
                                 <h3 class="card-title">Orders</h3>
                             </div>
-                            <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped col-7">
                                     <thead>
@@ -22,8 +21,6 @@
                                         <th>note </th>
                                         <th>Date </th>
                                         <th>Actions </th>
-{{--                                        <th>Completed</th>--}}
-
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -37,11 +34,7 @@
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->created_at}}</td>
                                             <td>
-                                                <a href="{{route('Customer.Orders.orderDetails',$order->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a></td>
-{{--                                            <td>--}}
-{{--                                                <a href="#" class="btn btn-info">تم الانتهاء</a>--}}
-{{--                                            </td>--}}
-
+                                                <a href="{{route('Customer.Orders.orderDetails',$order->id)}}" class="edit btn btn-primary btn-sm">Details</a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>

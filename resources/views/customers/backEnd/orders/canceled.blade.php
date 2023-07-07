@@ -30,11 +30,11 @@
                                             <td>{{$order->id}}</td>
                                             <td>{{$order->userTrashed->name}}</td>
                                             <td>{{$order->total_price}}</td>
-                                            <td>{{$order->status}}</td>
+                                            <td><button class="edit btn btn-danger btn-sm">Order  Cancelled</button></td>
                                             <td>{{$order->discount}}</td>
                                             <td>{{$order->updated_at}}</td>
                                             <td>
-                                                <a href="{{route('Customer.Orders.orderDetails',$order->id)}}" class="edit btn btn-primary btn-sm">التفاصيل</a></td>
+                                                <a href="{{route('Customer.Orders.orderDetails',$order->id)}}" class="edit btn btn-primary btn-sm">Details</a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
