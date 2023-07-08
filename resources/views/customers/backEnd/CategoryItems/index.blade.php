@@ -33,7 +33,7 @@
                                     <thead>
                                     <tr>
                                         <th>Item Name</th>
-{{--                                      <th>ِActions</th>--}}
+                                      <th>ِActions</th>
 
                                     </tr>
                                     </thead>

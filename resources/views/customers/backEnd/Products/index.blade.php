@@ -32,7 +32,7 @@
                                     <thead>
                                     <tr>
                                         <th>Item Name</th>
-                                      <th>الاجراءات</th>
+                                      <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
