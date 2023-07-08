@@ -17,9 +17,16 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+//    public function index($id)
+//    {
+//        $products=Product::where('subcategory_id',$id)->get();
+//        return view('customers.backEnd.Products.index',compact('products'));
+//    }
+
     public function index($id)
     {
-        $products=Product::where('subcategory_id',$id)->get();
+        $subCategory=CategoryItem::find($id);
+        $products=Product::where('category_item_id',$id)->with(['productService','productImages'])->get();
         return view('customers.backEnd.Products.index',compact('products'));
     }
 

@@ -82,80 +82,97 @@
                                 <li class="nav-item">
                                     <a href="{{route('Customer.Items.index',Auth::user()->subCategory_id)}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Items</p>
+                                        <p>Categories</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Products
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{route('Customer.Products.index',Auth::user()->subCategory_id)}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Products</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Services
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{route('Customer.Products.viewAllServices',Auth::user()->subCategory_id)}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>All Services</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Orders
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{route('Customer.Orders.index',Auth::user()->subCategory_id)}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>All Orders</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('Customer.Orders.inProgress',Auth::user()->subCategory_id)}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p> Orders In Progress</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('Customer.Orders.finishedOrder',Auth::user()->subCategory_id)}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p> Orders Finished</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('Customer.Orders.canceledOrder',Auth::user()->subCategory_id)}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p> Canceled Orders</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="#" class="nav-link">--}}
+{{--                                <i class="nav-icon fas fa-tachometer-alt"></i>--}}
+{{--                                <p>--}}
+{{--                                    Items--}}
+{{--                                    <i class="right fas fa-angle-left"></i>--}}
+{{--                                </p>--}}
+{{--                            </a>--}}
+{{--                            <ul class="nav nav-treeview">--}}
+{{--                                <li class="nav-item">--}}
+{{--                                    <a href="{{route('Customer.Items.index',Auth::user()->subCategory_id)}}" class="nav-link">--}}
+{{--                                        <i class="far fa-circle nav-icon"></i>--}}
+{{--                                        <p>Items</p>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="#" class="nav-link">--}}
+{{--                                <i class="nav-icon fas fa-tachometer-alt"></i>--}}
+{{--                                <p>--}}
+{{--                                    Products--}}
+{{--                                    <i class="right fas fa-angle-left"></i>--}}
+{{--                                </p>--}}
+{{--                            </a>--}}
+{{--                            <ul class="nav nav-treeview">--}}
+{{--                                <li class="nav-item">--}}
+{{--                                    <a href="{{route('Customer.Products.index',Auth::user()->subCategory_id)}}" class="nav-link">--}}
+{{--                                        <i class="far fa-circle nav-icon"></i>--}}
+{{--                                        <p>Products</p>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="#" class="nav-link">--}}
+{{--                                <i class="nav-icon fas fa-tachometer-alt"></i>--}}
+{{--                                <p>--}}
+{{--                                    Services--}}
+{{--                                    <i class="right fas fa-angle-left"></i>--}}
+{{--                                </p>--}}
+{{--                            </a>--}}
+{{--                            <ul class="nav nav-treeview">--}}
+{{--                                <li class="nav-item">--}}
+{{--                                    <a href="{{route('Customer.Products.viewAllServices',Auth::user()->subCategory_id)}}" class="nav-link">--}}
+{{--                                        <i class="far fa-circle nav-icon"></i>--}}
+{{--                                        <p>All Services</p>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="#" class="nav-link">--}}
+{{--                                <i class="nav-icon fas fa-tachometer-alt"></i>--}}
+{{--                                <p>--}}
+{{--                                    Orders--}}
+{{--                                    <i class="right fas fa-angle-left"></i>--}}
+{{--                                </p>--}}
+{{--                            </a>--}}
+{{--                            <ul class="nav nav-treeview">--}}
+{{--                                <li class="nav-item">--}}
+{{--                                    <a href="{{route('Customer.Orders.index',Auth::user()->subCategory_id)}}" class="nav-link">--}}
+{{--                                        <i class="far fa-circle nav-icon"></i>--}}
+{{--                                        <p>All Orders</p>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                                <li class="nav-item">--}}
+{{--                                    <a href="{{route('Customer.Orders.inProgress',Auth::user()->subCategory_id)}}" class="nav-link">--}}
+{{--                                        <i class="far fa-circle nav-icon"></i>--}}
+{{--                                        <p> Orders In Progress</p>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                                <li class="nav-item">--}}
+{{--                                    <a href="{{route('Customer.Orders.finishedOrder',Auth::user()->subCategory_id)}}" class="nav-link">--}}
+{{--                                        <i class="far fa-circle nav-icon"></i>--}}
+{{--                                        <p> Orders Finished</p>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                                <li class="nav-item">--}}
+{{--                                    <a href="{{route('Customer.Orders.canceledOrder',Auth::user()->subCategory_id)}}" class="nav-link">--}}
+{{--                                        <i class="far fa-circle nav-icon"></i>--}}
+{{--                                        <p> Canceled Orders</p>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
                         <li class="nav-item">
                             <form method="post" action="{{ route('logoutLaundryAdmin') }}">
                                 @csrf

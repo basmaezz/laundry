@@ -6,12 +6,12 @@
         <div>
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>DataTables</h1>
+
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">DataTables</li>
+                            <li class="breadcrumb-item active">Categories</li>
                         </ol>
                     </div>
                 </div>
@@ -41,10 +41,10 @@
                                     @foreach($categoryItems as $item)
                                     <tr>
                                         <td>{{$item->category_type}}</td>
-{{--                                        <td>--}}
-{{--                                            <a href="{{route('Customer.Items.edit',$item->id)}}"class="btn btn-info">Edit</a>--}}
+                                        <td>
+                                            <a href="{{route('Customer.Products.index',$item->id)}}"class="btn btn-info">pieces</a>
 {{--                                            <a href="{{route('Customer.Items.delete',$item->id)}}"class="btn btn-danger">Delete</a>--}}
-{{--                                        </td>--}}
+                                        </td>
 
                                     </tr>
                                     @endforeach
