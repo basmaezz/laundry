@@ -28,7 +28,7 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>{{\App\Models\OrderTable::count()}}</h3>
+                                <h3>{{\App\Models\OrderTable::where('laundry_id',Auth::user()->subCategory_id)->count()}}</h3>
 
                                 <p>Total Orders</p>
                             </div>
@@ -43,9 +43,9 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{\App\Models\OrderTable::where('status_id',4)->count()}}<sup style="font-size: 20px"></sup></h3>
+                                <h3>{{\App\Models\OrderTable::where('laundry_id',Auth::user()->subCategory_id)->where('status_id',4)->count()}}<sup style="font-size: 20px"></sup></h3>
 
-                                <p>Order in ptogress</p>
+                                <p>Order in progress</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
@@ -58,7 +58,7 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>{{\App\Models\OrderTable::where('status_id',8)->count()}}</h3>
+                                <h3>{{\App\Models\OrderTable::where('laundry_id',Auth::user()->subCategory_id)->where('status_id',8)->count()}}</h3>
 
                                 <p>Completed Orders</p>
                             </div>
@@ -73,7 +73,7 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>{{\App\Models\OrderTable::where('status_id',10)->count()}}</h3>
+                                <h3>{{\App\Models\OrderTable::where('laundry_id',Auth::user()->subCategory_id)->where('status_id',10)->count()}}</h3>
 
                                 <p>Cancelled Orders </p>
                             </div>
