@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+{{--    @if(App::isLocale('en'))--}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/customers/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -14,6 +15,22 @@
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" ></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <link rel="stylesheet" href="{{asset('assets/customers/dist/css/adminlte.min.css')}}">
+{{--    @else--}}
+
+{{--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">--}}
+{{--        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--}}
+{{--        <link rel="stylesheet" href="{{asset('assets/customers/Arabic/dist/css/AdminLTE.min.css')}}">--}}
+{{--        <link rel="stylesheet" href="{{asset('assets/customers/Arabic/dist/css/skins/_all-skins.min.css')}}">--}}
+{{--        <link rel="stylesheet" href="{{asset('assets/customers/Arabic/plugins/iCheck/flat/blue.css')}}">--}}
+{{--        <link rel="stylesheet" href="{{asset('assets/customers/Arabic/plugins/morris/morris.css')}}">--}}
+{{--        <link rel="stylesheet" href="{{asset('assets/customers/Arabic/plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">--}}
+{{--        <link rel="stylesheet" href="{{asset('assets/customers/Arabic/plugins/datepicker/datepicker3.css')}}">--}}
+{{--        <link rel="stylesheet" href="{{asset('assets/customers/Arabic/plugins/daterangepicker/daterangepicker-bs3.css')}}">--}}
+{{--        <link rel="stylesheet" href="{{asset('assets/customers/Arabic/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">--}}
+{{--        <link rel="stylesheet" href="{{asset('assets/customers/Arabic/dist/fonts/fonts-fa.css')}}">--}}
+{{--        <link rel="stylesheet" href="{{asset('assets/customers/Arabic/dist/css/bootstrap-rtl.min.css')}}">--}}
+{{--        <link rel="stylesheet" href="{{asset('assets/customers/Arabic/dist/css/rtl.css')}}">--}}
+{{--    @endif--}}
 
 </head>
 
@@ -39,7 +56,7 @@
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{}}">
+
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{Auth::user()->name}}</a>
@@ -161,7 +178,7 @@
                                         <p> Orders Finished</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="background-color: red">
                                     <a href="{{route('Customer.Orders.canceledOrder',Auth::user()->subCategory_id)}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p> Canceled Orders</p>
