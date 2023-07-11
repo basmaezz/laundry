@@ -12,20 +12,14 @@ class AdminDashboardController extends Controller
     {
         $data = [];
 
-        $citiesWithOrderCount = City::select('cities.*', DB::raw('COUNT(orders.id) as orders_count'))
-            ->leftJoin('users', 'cities.id', '=','users.city_id')
-            ->leftJoin('orders', 'users.id', '=', 'orders.user_id')
+        $citiesWithOrderCount = City::select('cities.id', 'cities.name_ar', DB::raw('COUNT(order_tables.id) as orders_count'))
+            ->leftJoin('app_users', 'cities.id', '=','app_users.city_id')
+            ->leftJoin('order_tables', 'app_users.id', '=', 'order_tables.user_id')
             ->groupBy('cities.id')
+            ->havingRaw('orders_count > 0')
             ->get()
         ;
 
-        $cities = City::select('name_ar', 'id')->get();
-
-        return [
-            'citiesWithOrderCount' => $citiesWithOrderCount,
-//            'cities' => $cities,
-        ];
-
-        //return view('dashboard');
+        return view('dashboard', compact('citiesWithOrderCount'));
     }
 }

@@ -89,7 +89,7 @@
                 <div class="row">
 
 
-                    <div>
+                    <div class="col-lg-6">
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
                         <canvas id="oilChart" width="600" height="400"></canvas>
                         <script>
@@ -99,28 +99,22 @@
                             Chart.defaults.global.defaultFontSize = 18;
 
                             var oilData = {
-                                labels: [
-                                    "Saudi Arabia",
-                                    "Russia",
-                                    "Iraq",
-                                    "United Arab Emirates",
-                                    "Canada"
-                                ],
+                                labels: @json($citiesWithOrderCount->pluck('name_ar')->toArray()),
                                 datasets: [
                                     {
-                                        data: [133.3, 86.2, 52.2, 51.2, 50.2],
+                                        data: @json($citiesWithOrderCount->pluck('orders_count')->toArray()),
                                         backgroundColor: [
                                             "#FF6384",
-                                            "#63FF84",
-                                            "#84FF63",
-                                            "#8463FF",
-                                            "#6384FF"
-                                        ]
+                                            //  "#63FF84",
+                                            //"#84FF63",
+                                            // "#8463FF",
+                                            //    "#6384FF"
+                                        ]//
                                     }]
                             };
 
                             var pieChart = new Chart(oilCanvas, {
-                                type: 'pie',
+                                type: 'pie',   /// هنا بيتغير على حسب الشكل
                                 data: oilData
                             });
                         </script>
