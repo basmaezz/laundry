@@ -44,7 +44,7 @@ class UserController extends Controller
         ]);
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials) && Auth::user()->subCategory_id =='' ) {
-            return route('dashboard');
+            return redirect()->route('dashboard');
         }
         return redirect()->back()->with('error', 'Something went wrong.');
     }
