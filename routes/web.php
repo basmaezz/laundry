@@ -34,7 +34,8 @@ use App\Http\Controllers\Admin\NotificationController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('index');
+//    return view('auth.login');
 });
 Route::post('adminLogin', [UserController::class, 'adminLogin'])->name('adminLogin');
 Route::get('/dashboard', [AdminDashboardController::class, 'index'])
@@ -437,4 +438,4 @@ Route::get('getDeliverys',function (){
     dd($users);
 });
 
-
+//Route::view('landing','index');
