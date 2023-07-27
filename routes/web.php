@@ -37,6 +37,9 @@ Route::get('/', function () {
     return view('index');
 //    return view('auth.login');
 });
+Route::get('/admin', function () {
+    return view('auth.login');
+});
 Route::post('adminLogin', [UserController::class, 'adminLogin'])->name('adminLogin');
 Route::get('/dashboard', [AdminDashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('dashboard');
@@ -179,7 +182,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
 
 });
 #############################
-Route::get('customerLaundryLogin', [AdminController::class, 'index'])->name('customer.laundryLogin');
+Route::get('store', [AdminController::class, 'index'])->name('customer.laundryLogin');
 Route::post('customerLogin', [AdminController::class, 'customerLogin'])->name('customer.customerLogin');
 
 Route::get('signOut', [AdminController::class, 'signOut'])->name('customer.logout');
