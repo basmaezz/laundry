@@ -10,14 +10,16 @@ class languageController extends Controller
 {
     public function index(Request $request)
     {
+
         App::setLocale($request->lang);
         session()->put('locale', $request->lang);
-        $previousRoute=url()->previous();
-        if (Str::contains($previousRoute, ['customerLogin'])) {
-            return view('customers.backEnd.main');
-        }else{
-            return redirect()->back();
-        }
-//        return view('customers.backEnd.main');
+        $previousRoute = url()->previous();
+//        if (Str::contains($previousRoute, ['customerLogin'])) {
+//            return view('customers.backEnd.main');
+//        } else {
+//            return view('customers.backEnd.main');
+//
+//        }
+                return view('customers.backEnd.main');
     }
 }

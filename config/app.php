@@ -215,6 +215,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ])->toArray(),
 
 ];

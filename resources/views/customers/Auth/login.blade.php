@@ -12,7 +12,8 @@
                     <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
                     </a>
                     <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
-                        <div class="w-100 d-lg-flex align-items-center justify-content-center px-5"><img class="img-fluid" src="{{asset('assets/customers/app-assets/images/pages/login/logo.png')}}" alt="Login V2" /></div>
+                        <div class="w-100 d-lg-flex align-items-center justify-content-center px-5 logoImg">
+                            <img class="img-fluid" src="{{asset('assets/customers/app-assets/images/pages/login/logo.png')}}" alt="Login V2" /></div>
                     </div>
                     <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
                         <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">

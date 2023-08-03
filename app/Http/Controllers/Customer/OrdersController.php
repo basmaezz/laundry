@@ -9,6 +9,7 @@ use App\Models\OrderDetails;
 use App\Models\OrderTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\DataTables;
 
 class OrdersController extends Controller
 {
@@ -30,8 +31,22 @@ class OrdersController extends Controller
      */
     public function index($id)
     {
-        $orders=OrderTable::orders($id)->with('userTrashed')->get();
-        return  view('customers.backEnd.orders.index',compact('orders'));
+
+        if(request()->ajax()) {
+            $data=OrderTable::orders($id)->with('userTrashed')->get();
+
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('user', function ($row) {
+                    return $row->userTrashed->name;
+                })->addColumn('action', function ($row) {
+                    return '<a href="' . Route('Customer.Orders.orderDetails',$row->id) . '" class="edit btn btn-success btn-sm">'.trans('lang.details').'</a>';
+                })
+                ->rawColumns(['user','action'])
+                ->make(true);
+        }
+
+        return  view('customers.backEnd.orders.index',compact('id'));
     }
 
 
@@ -103,9 +118,28 @@ class OrdersController extends Controller
 
     public function inProgress($id)
     {
-     $orders=OrderTable::orders($id)->where('status_id',self::DeliveredToLaundry)->get();
 
-     return  view('customers.backEnd.orders.inProgress',compact('orders'));
+        if(request()->ajax()) {
+            $data=OrderTable::orders($id)->where('status_id',self::DeliveredToLaundry)->get();
+
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('user', function ($row) {
+                    return $row->userTrashed->name;
+                })->addColumn('inProgress', function ($row) {
+                    return '<button class="edit btn btn-info btn-sm">Order In Progress</button>';
+                })->addColumn('finished', function ($row) {
+                    return '<a href="' . Route('Customer.Orders.completed', $row->id) . '" class="edit btn btn-success btn-sm">'.trans('lang.Finished').'</a>';
+                })->addColumn('details', function ($row) {
+                    return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">'.trans('lang.details').'</a>';
+                })
+                ->rawColumns(['user','inProgress','finished','details'])
+                ->make(true);
+        }
+
+        return view('customers.backEnd.orders.inProgress',compact('id'));
+
+
     }
     public function completed($id)
     {
@@ -132,8 +166,22 @@ class OrdersController extends Controller
     }
     public function finishedOrder($id)
     {
-        $orders=OrderTable::orders($id)->where('status_id',self::Completed)->get();
-        return  view('customers.backEnd.orders.finished',compact('orders'));
+
+        if(request()->ajax()) {
+            $data=OrderTable::orders($id)->where('status_id',self::Completed)->get();
+
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('user', function ($row) {
+                    return $row->userTrashed->name;
+                })->addColumn('details', function ($row) {
+                    return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">'.trans('lang.details').'</a>';
+                })
+                ->rawColumns(['user','details'])
+                ->make(true);
+        }
+        return  view('customers.backEnd.orders.finished',compact('id'));
+
     }
 
     public function orderDetails($id)

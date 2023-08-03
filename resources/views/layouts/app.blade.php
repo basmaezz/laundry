@@ -223,9 +223,7 @@ padding-left: 74px;">
 {{--<script src="{{ asset('assets/newLayout/js/libs/Chart.min.js') }}"></script>--}}
 <script src="{{ asset('assets/newLayout/js/app.js') }}"></script>
 <script src="{{ asset('assets/newLayout/js/views/main.js') }}"></script>
-<script src="{{asset('assets/admin/js/libs/jquery.tim
-
-eago.js')}}"></script>
+<script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
 <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>

@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryItemRequest;
 use App\Models\CategoryItem;
 use App\Models\Subcategory;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\DataTables;
 
 class itemsController extends Controller
 {
@@ -15,10 +18,22 @@ class itemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index($id,Request $request)
     {
-        $categoryItems=CategoryItem::items()->get();
-        return view('customers.backEnd.CategoryItems.index',compact('categoryItems'));
+
+        if(request()->ajax()) {
+            $data=CategoryItem::where('subcategory_id',$id)->get();
+
+             return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . Route('Customer.Products.index', $row->id) . '" class="edit btn btn-success btn-sm">'.trans('lang.pieces').'</a>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('customers.backEnd.CategoryItems.index',compact('id'));
     }
 
     /**

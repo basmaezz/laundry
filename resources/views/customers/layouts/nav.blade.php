@@ -67,10 +67,10 @@
             </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="index.html"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" >{{ __('lang.orders') }}</span><span class="badge badge-light-warning badge-pill ml-auto mr-1">4</span></a>
                 <ul class="menu-content">
-                    <li class=""><a class="d-flex align-items-center" href="{{route('Customer.Items.index',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">{{__('lang.ordersInProgress')}}</span></a></li>
-                    <li class=""><a class="d-flex align-items-center" href="{{route('Customer.Items.index',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">{{__('lang.allOrders')}}</span></a></li>
-                    <li class=""><a class="d-flex align-items-center" href="{{route('Customer.Items.index',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">{{__('lang.OrdersFinished')}}</span></a></li>
-                    <li class=""><a class="d-flex align-items-center" href="{{route('Customer.Items.index',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">{{__('lang.CanceledOrders')}}</span></a></li>
+                    <li class="" style="background-color: #0a4e25"><a class="d-flex align-items-center" href="{{route('Customer.Orders.inProgress',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">{{__('lang.ordersInProgress')}}</span></a></li>
+                    <li class=""><a class="d-flex align-items-center" href="{{route('Customer.Orders.index',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">{{__('lang.allOrders')}}</span></a></li>
+                    <li class=""><a class="d-flex align-items-center" href="{{route('Customer.Orders.finishedOrder',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">{{__('lang.OrdersFinished')}}</span></a></li>
+                    <li class="" style="background-color: red"><a class="d-flex align-items-center" href="{{route('Customer.Orders.canceledOrder',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">{{__('lang.CanceledOrders')}}</span></a></li>
 
                 </ul>
             </li>

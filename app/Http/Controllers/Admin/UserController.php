@@ -68,6 +68,7 @@ class UserController extends Controller
                 ->make(true);
         }
         return view('dashboard.users.index');
+
     }
 
     public function adminTrashed()

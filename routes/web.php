@@ -36,7 +36,7 @@ use App\Http\Controllers\Admin\NotificationController;
 
 Route::get('/', function () {
     return view('index');
-//    return view('auth.login');
+    //    return view('auth.login');
 });
 Route::get('/admin', function () {
     return view('auth.login');
@@ -180,10 +180,9 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
 
     Route::get('Notification', [NotificationController::class, 'create'])->name('notification.create');
     Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('notification.send');
-
 });
 #############################
-Route::get('Lang/{lang}',[languageController::class,'index']);
+Route::get('Lang/{lang}', [languageController::class, 'index']);
 
 Route::get('store', [AdminController::class, 'index'])->name('customer.laundryLogin');
 Route::post('customerLogin', [AdminController::class, 'customerLogin'])->name('customer.customerLogin');
@@ -313,7 +312,7 @@ Route::get('addresses', function () {
 
 Route::get('ordersTable', function () {
     $orders = \App\Models\OrderTable::all();
-    dd ($orders);
+    dd($orders);
 });
 Route::get('getorderDetails', function () {
     $orderDetails = \App\Models\OrderDetails::all();
@@ -362,8 +361,8 @@ Route::get('histories', function () {
     return $histories;
 });
 
-Route::get('getUser',function (){
-    $appUser=AppUser::where('mobile','966566666222')->get();
+Route::get('getUser', function () {
+    $appUser = AppUser::where('mobile', '966566666222')->get();
     return $appUser;
 });
 Route::get('locations', function () {
@@ -377,7 +376,7 @@ Route::get('setting', function () {
 
     dd($settings->distance_delegates);
 });
-Route::get('getCategories',function (){
+Route::get('getCategories', function () {
     $categories = \App\Models\Category::all();
     return $categories;
 });
@@ -404,39 +403,30 @@ Route::get('updateOrders', function () {
     ]);
 });
 
-Route::get('updateAdmin',function(){
-    DB::table('users')->where('id',33)->update([
-        'subCategory_id'=>28
+Route::get('updateAdmin', function () {
+    DB::table('users')->where('id', 33)->update([
+        'subCategory_id' => 28
     ]);
 });
 
-Route::view('testView','dashboard.test');
+Route::view('testView', 'dashboard.test');
 
-Route::get('getDelivery',function (){
-    $delivery=DB::table('app_users')->where('user_type','delivery')->get();
+Route::get('getDelivery', function () {
+    $delivery = DB::table('app_users')->where('user_type', 'delivery')->get();
     return $delivery;
 });
 
-
-//Route::get('deleteDelegate',function (){
-//    $delivery=DB::table('app_users')->where('id',54)->delete();
-//        return 'deleted';
-//
-//});
-
-
-Route::get('getPone',function (){
-    $phone=DB::table('app_users')->where('mobile',966542882969)->delete();
+Route::get('getPone', function () {
+    $phone = DB::table('app_users')->where('mobile', 966542882969)->delete();
     return 'deleted';
-
 });
 
-Route::get('getLaundry',function (){
-    $laundry=subCategory::where('id',24)->get();
+Route::get('getLaundry', function () {
+    $laundry = subCategory::where('id', 24)->get();
     return $laundry;
 });
 
-Route::get('getDeliverys',function (){
+Route::get('getDeliverys', function () {
     $users = AppUser::where([
         'status' => 'active',
         'user_type' => 'delivery',
@@ -445,4 +435,6 @@ Route::get('getDeliverys',function (){
     dd($users);
 });
 
+//Route::view('landing','index');
 
+Route::view('dataTable', 'customers.backEnd.dataTable');

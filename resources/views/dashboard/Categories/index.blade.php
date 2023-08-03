@@ -56,11 +56,3 @@
         </div>
     </main>
 @endsection
-
-{{--@push('scripts')--}}
-{{--    <script>--}}
-{{--        $(".delete").on("submit", function(){--}}
-{{--            return confirm("هل أنت متأكد من الحذف  ؟");--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--@endpush--}}

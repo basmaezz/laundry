@@ -14,5 +14,25 @@ return[
     "English"=>"English",
     "Arabic"=>"Arabic",
     "logout"=>"Logout",
-    "Nodata"=>"No Data"
+    "Nodata"=>"No Data",
+    "pieces"=>"Pieces",
+    "actions"=>"Actions",
+    "number"=>"Number",
+    "productName"=>"productName",
+    "services"=>"Services",
+    "service"=>"service",
+    "price"=>"price",
+    "orderNumber"=>"Order Number",
+    "customerName"=>"Customer Name",
+    "totalPrice"=>"Total Price",
+    "status"=>"Status",
+    "discount"=>"Discount",
+    "note"=>"note",
+    "date"=>"Date",
+    "completed"=>"Completed",
+    "finished"=>"Finished",
+    "details"=>"Details",
+    "finishedDate"=>"Finished Date",
+    "cancelledDate"=>"cancelled Date"
+
 ];
