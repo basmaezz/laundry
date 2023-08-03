@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Customer\AdminController;
+use App\Http\Controllers\languageController;
 use App\Http\Controllers\ProfileController;
 use App\Models\AppUser;
 use App\Models\SiteSetting;
@@ -182,11 +183,14 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
 
 });
 #############################
+Route::get('Lang/{lang}',[languageController::class,'index']);
+
 Route::get('store', [AdminController::class, 'index'])->name('customer.laundryLogin');
 Route::post('customerLogin', [AdminController::class, 'customerLogin'])->name('customer.customerLogin');
 
 Route::get('signOut', [AdminController::class, 'signOut'])->name('customer.logout');
 Route::middleware(['auth', 'laundryAdmin'])->group(function () {
+
     Route::get('aib', [AdminController::class, 'main'])->name('customer.index');
     Route::get('Items/{id}', [ItemsController::class, 'index'])->name('Customer.Items.index');
     Route::get('createItems/{id}', [ItemsController::class, 'create'])->name('Customer.Items.create');
@@ -441,4 +445,4 @@ Route::get('getDeliverys',function (){
     dd($users);
 });
 
-//Route::view('landing','index');
+
