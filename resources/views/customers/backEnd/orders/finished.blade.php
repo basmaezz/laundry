@@ -58,8 +58,8 @@
                     data: 'discount',
                     name: 'discount'
                 },{
-                    data: 'updated_at',
-                    name: 'updated_at'
+                    data: 'date',
+                    name: 'date'
                 },{
                     data: 'details',
                     name: 'details',

@@ -39,82 +39,18 @@ class OrdersController extends Controller
                 ->addIndexColumn()
                 ->addColumn('user', function ($row) {
                     return $row->userTrashed->name;
-                })->addColumn('action', function ($row) {
+                })->addColumn('date', function ($row) {
+                    return $row->created_at->format('d-m-Y');;
+            })->addColumn('action', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
                 })
-                ->rawColumns(['user', 'action'])
+                ->rawColumns(['user','date' ,'action'])
                 ->make(true);
         }
 
         return  view('customers.backEnd.orders.index', compact('id'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
     public function inProgress($id)
     {
@@ -126,14 +62,14 @@ class OrdersController extends Controller
                 ->addIndexColumn()
                 ->addColumn('user', function ($row) {
                     return $row->userTrashed->name;
-                })->addColumn('inProgress', function ($row) {
-                    return '<button class="edit btn btn-info btn-sm">Order In Progress</button>';
+                })->addColumn('date', function ($row) {
+                    return $row->created_at->format('d-m-Y');;
                 })->addColumn('finished', function ($row) {
                     return '<a href="' . Route('Customer.Orders.completed', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.finish') . '</a>';
                 })->addColumn('details', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
                 })
-                ->rawColumns(['user', 'inProgress', 'finished', 'details'])
+                ->rawColumns(['user','date','finished', 'details'])
                 ->make(true);
         }
 
@@ -185,10 +121,12 @@ class OrdersController extends Controller
                 ->addIndexColumn()
                 ->addColumn('user', function ($row) {
                     return $row->userTrashed->name;
+                })->addColumn('date', function ($row) {
+                    return $row->updated_at->format('d-m-Y');;
                 })->addColumn('details', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
                 })
-                ->rawColumns(['user', 'details'])
+                ->rawColumns(['user','date' ,'details'])
                 ->make(true);
         }
         return  view('customers.backEnd.orders.finished', compact('id'));

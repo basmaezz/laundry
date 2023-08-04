@@ -16,7 +16,6 @@
                                 <th>{{__('lang.orderNumber')}}</th>
                                 <th>{{__('lang.customerName')}}</th>
                                 <th>{{__('lang.totalPrice')}} </th>
-                                <th>{{__('lang.status')}} </th>
                                 <th>{{__('lang.discount')}} </th>
                                 <th>{{__('lang.date')}} </th>
                                 <th>{{__('lang.completed')}}</th>
@@ -57,11 +56,11 @@
                     data: 'total_price',
                     name: 'total_price'
                 },{
-                    data: 'inProgress',
-                    name: 'inProgress'
-                },{
                     data: 'discount',
                     name: 'discount'
+                },{
+                    data: 'date',
+                    name: 'date'
                 },{
                     data: 'finished',
                     name: 'finished'

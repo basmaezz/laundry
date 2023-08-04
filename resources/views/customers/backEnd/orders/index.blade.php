@@ -118,8 +118,8 @@
                     data: 'discount',
                     name: 'discount'
                 },{
-                    data: 'created_at',
-                    name: 'created_at'
+                    data: 'date',
+                    name: 'date'
                 },{
                     data: 'action',
                     name: 'action',
