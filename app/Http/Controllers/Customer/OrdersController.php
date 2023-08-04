@@ -103,10 +103,12 @@ class OrdersController extends Controller
                 ->addIndexColumn()
                 ->addColumn('user', function ($row) {
                     return $row->userTrashed->name;
-                })->addColumn('details', function ($row) {
+                })->addColumn('date', function ($row) {
+                        return $row->updated_at->format('d-m-Y');;
+                    })->addColumn('details', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
                 })
-                ->rawColumns(['user', 'details'])
+                ->rawColumns(['user', 'date','details'])
                 ->make(true);
         }
         return  view('customers.backEnd.orders.canceled', compact('id'));
