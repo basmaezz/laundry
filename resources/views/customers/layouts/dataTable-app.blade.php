@@ -30,21 +30,21 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
     @elseif(app()->getlocale()=='ar')
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/vendors/css/vendors-rtl.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/vendors/css/tables/datatable/rowGroup.bootstrap4.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/css-rtl/bootstrap.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/css-rtl/bootstrap-extended.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/css-rtl/colors.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/css-rtl/components.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/css-rtl/themes/dark-layout.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/css-rtl/themes/bordered-layout.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/css-rtl/themes/semi-dark-layout.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/css-rtl/core/menu/menu-types/vertical-menu.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/customers/app-assets/css-rtl/custom-rtl.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/vendors/css/vendors-rtl.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/vendors/css/tables/datatable/rowGroup.bootstrap4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css-rtl/bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css-rtl/bootstrap-extended.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css-rtl/colors.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css-rtl/components.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css-rtl/themes/dark-layout.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css-rtl/themes/bordered-layout.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css-rtl/themes/semi-dark-layout.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css-rtl/core/menu/menu-types/vertical-menu.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css-rtl/custom-rtl.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style-rtl.css')}}">
     @endif
 

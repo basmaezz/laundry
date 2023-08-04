@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header border-bottom">
-                        <h4 class="card-title">{{__('lang.products')}}</h4>
+                        <h4 class="card-title">{{__('lang.orders')}}</h4>
                     </div>
                     <div class="card-datatable">
                         <table class="dt-multi table" id="productTable">
