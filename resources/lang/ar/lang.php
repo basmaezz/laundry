@@ -30,7 +30,7 @@ return[
     "note"=>"ملاحظات",
     "date"=>"التاريخ",
     "completed"=>"الانتهاء",
-    "finished"=>"انهاء",
+    "finish"=>"انهاء",
     "details"=>"التفاصيل",
     "finishedDate"=>"تاريخ الانتهاء  ",
     "cancelledDate"=>"تاريخ الالغاء "

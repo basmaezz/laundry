@@ -60,6 +60,9 @@
                     data: 'inProgress',
                     name: 'inProgress'
                 },{
+                    data: 'discount',
+                    name: 'discount'
+                },{
                     data: 'finished',
                     name: 'finished'
                 },{
