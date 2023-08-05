@@ -262,7 +262,7 @@
                                                         </audio>
                                                         <a class="btn btn-info" href="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" download style="margin-top: -32px;">Download</a>
                                                         @else
-                                                            <input id="mobile" type="text" class="form-control" placeholder="{{'lang.notFound'}}"/>
+                                                            <input id="mobile" type="text" class="form-control" placeholder="{{__('lang.notFound')}}" disabled/>
                                                         @endif
                                                     </div>
                                                 </td>
