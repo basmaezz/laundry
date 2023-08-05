@@ -230,27 +230,27 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-{{--                                            @foreach($orderDetails as $orderDetail)--}}
+                                            @foreach($orderDetails as $orderDetail)
                                             <tr>
 
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-{{--                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->productTrashed->name_ar}}" name="phone" />--}}
+                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->productTrashed->name_ar}}" name="phone" />
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-{{--                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->productService->services}}" name="phone" />--}}
+                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->productService->services}}" name="phone" />
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-{{--                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->price}}" name="phone" />--}}
+                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->price}}" name="phone" />
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-{{--                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->quantity}}" name="phone" />--}}
+                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->quantity}}" name="phone" />
                                                     </div>
                                                 </td>
 
