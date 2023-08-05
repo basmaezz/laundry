@@ -261,7 +261,8 @@
                                                             <source src="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" type="audio/mpeg">
                                                         </audio>
                                                         <a class="btn btn-info" href="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" download style="margin-top: -32px;">Download</a>
-                                                        @endif
+                                                        @else
+                                                            <input id="mobile" type="text" class="form-control" placeholder="{{'lang.notFound'}}"/>
                                                     </div>
                                                 </td>
 

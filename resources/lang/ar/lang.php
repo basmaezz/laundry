@@ -39,10 +39,12 @@ return[
     "orderDetails"=>"بيانات الطلب",
     "city"=>"المدينه",
     "region"=>"الحى",
+    "orderInformation"=>"بيانات الطلب ",
     "customerInformation"=>"بيانات العميل",
     "pieceName"=>"اسم القطعه",
     "serviceName"=>"اسم الخدمه",
     "quantity"=>"الكميه",
     "delegateName"=>"اسم المندوب ",
-    "audioNote"=>"الملاحظات الصوتيه"
+    "audioNote"=>"الملاحظات الصوتيه",
+    "notFound"=>" لا يوجد "
 ];
