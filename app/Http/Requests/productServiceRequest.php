@@ -26,6 +26,7 @@ class productServiceRequest extends FormRequest
         return [
             'services'=>'required',
             'price'=>'required|numeric',
+            'commission'=>'required'
         ];
     }
 

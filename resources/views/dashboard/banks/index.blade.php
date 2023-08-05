@@ -4,7 +4,7 @@
         <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item active" aria-current="page">الكوبونات  </li>
+                <li class="breadcrumb-item active" aria-current="page">البنوك  </li>
             </ol>
         </nav>
 

@@ -93,10 +93,12 @@ class ProductController extends Controller
         $product=Product::find($id);
         return view('dashboard.products.addService',compact('product'));
     }
-    public function createProductService(productServiceRequest $request){
+    public function createProductService(productServiceRequest $request)
+    {
 
         $service=ProductService::create($request->all()+[
-            'product_id'=>$request->product_id
+            'product_id'=>$request->product_id,
+
         ]);
         if ($service) {
             return redirect()->route('product.productServices',$request->product_id)->with('success', 'تم اضافه الخدمه');

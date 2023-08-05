@@ -110,18 +110,7 @@
                                                 <span class="text-danger">{{ $errors->first('price') }}</span>
                                             @endif
                                         </div>
-                                    <div class="form-group ">
-                                        <label for="price"> رسوم الخدمه   </label>
 
-                                            <div class="input-group">
-                                                <input type="text"name="service_fee" class="form-control" placeholder="رسوم الخدمه  " value="{{Request::old('service_fee')}}" >
-                                                <span class="input-group-addon"> ريال</i>
-                                                </span>
-                                            </div>
-                                            @if ($errors->has('service_fee'))
-                                                <span class="text-danger">{{ $errors->first('service_fee') }}</span>
-                                            @endif
-                                        </div>
                                     <div class="form-group ">
                                         <label for="price"> النسبه  </label>
 

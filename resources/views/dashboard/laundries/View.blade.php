@@ -82,14 +82,6 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="country">رسوم الخدمه  </label>
-                                            <div class="input-group">
-                                                <input type="text"name="price" class="form-control view" value="{{$subCategory->service_fee}}" disabled >
-                                                <span class="input-group-addon"> ريال</i>
-                                                </span>
-                                            </div>
-                                       </div>
 
                                         <div class="form-group">
                                             <label for="approximate_duration">  المده التقريبيه للغسيل </label>

@@ -37,6 +37,7 @@
                                         <tr>
                                             <th>اسم الخدمه</th>
                                             <th> السعر</th>
+                                            <th> العموله</th>
                                           <th>الاجراءات</th>
                                         </tr>
                                         </thead>
@@ -46,6 +47,7 @@
                                             <tr>
                                                     <td>{{$service->services}}</td>
                                                     <td>{{$service->price}}</td>
+                                                    <td>{{$service->commission}}</td>
                                                     <td>
                                                         <a href="{{route('product.editService',$service->id)}}" class="btn btn-primary custom">تعديل</a>
                                                         <a href="{{route('product.deleteProductService',$service->id)}}" class="btn btn-danger custom">حذف</a>

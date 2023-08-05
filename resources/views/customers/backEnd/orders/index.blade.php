@@ -100,8 +100,6 @@
                 serverSide: true,
                 ajax: "{{ route('Customer.Orders.index',$id) }}",
                 data:{id:id},
-
-
                 columns: [{
                     data: 'id',
                     name: 'id'

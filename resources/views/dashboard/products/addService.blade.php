@@ -44,6 +44,16 @@
                                         <span class="text-danger">{{ $errors->first('price') }}</span>
                                     @endif
                                 </div>
+                            <div class="form-group">
+                                    <label for="company">العموله  </label><br>
+                                    <div class="input-group">
+                                        <input type="text"name="commission" class="form-control view" placeholder="العموله " value="{{Request::old('commission')}}" >
+                                    </div>
+
+                                    @if ($errors->has('commission'))
+                                        <span class="text-danger">{{ $errors->first('commission') }}</span>
+                                    @endif
+                                </div>
 
                         </div>
                         <div class="card-footer">

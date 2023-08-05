@@ -22,6 +22,8 @@ use App\Http\Controllers\Customer\ProductsController;
 use App\Http\Controllers\Customer\OrdersController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BankController;
+use App\Http\Controllers\Admin\CarController;
+use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\NotificationController;
 /*
 |--------------------------------------------------------------------------
@@ -177,6 +179,21 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::post('bankUpdate/{id}', [BankController::class, 'update'])->name('bank.update');
     Route::get('bankDelete/{id}', [BankController::class, 'destroy'])->name('bank.destroy');
 
+
+    Route::get('cars', [CarController::class, 'index'])->name('cars.index');
+    Route::get('carCreate', [CarController::class, 'create'])->name('car.create');
+    Route::post('carStore', [CarController::class, 'store'])->name('car.store');
+    Route::get('carEdit/{id}', [CarController::class, 'edit'])->name('car.edit');
+    Route::post('carUpdate/{id}', [CarController::class, 'update'])->name('car.update');
+    Route::get('carDelete', [CarController::class, 'destroy'])->name('car.destroy');
+
+
+    Route::get('cities', [CityController::class, 'index'])->name('cities.index');
+    Route::get('cityCreate', [CityController::class, 'create'])->name('city.create');
+    Route::post('cityStore', [CityController::class, 'store'])->name('city.store');
+    Route::get('cityEdit/{id}', [CityController::class, 'edit'])->name('city.edit');
+    Route::post('cityUpdate/{id}', [CityController::class, 'update'])->name('city.update');
+    Route::get('cityDelete', [CityController::class, 'destroy'])->name('city.destroy');
 
     Route::get('Notification', [NotificationController::class, 'create'])->name('notification.create');
     Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('notification.send');

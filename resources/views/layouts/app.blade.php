@@ -208,6 +208,16 @@ padding-left: 74px;">
                     <a class="nav-link" href="{{route('banks.index')}}"><i class="icon-people"></i> البنوك </a>
                 </li>
             @endcan
+            @can('cars.index')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cars.index')}}"><i class="icon-people"></i> السيارات </a>
+                </li>
+            @endcan
+            @can('cities.index')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cities.index')}}"><i class="icon-people"></i> البلاد </a>
+                </li>
+            @endcan
 
         </ul>
     </nav>
@@ -227,7 +237,7 @@ padding-left: 74px;">
 <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>--}}
 {{--<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>--}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 
