@@ -45,5 +45,6 @@ return[
     "pieceName"=>"piece Name",
     "serviceName"=>"service Name",
     "quantity"=>"quantity",
+    "delegateName"=>"Delegate Name"
 
 ];

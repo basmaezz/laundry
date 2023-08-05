@@ -43,4 +43,5 @@ return[
     "pieceName"=>"اسم القطعه",
     "serviceName"=>"اسم الخدمه",
     "quantity"=>"الكميه",
+    "delegateName"=>"اسم المندوب "
 ];

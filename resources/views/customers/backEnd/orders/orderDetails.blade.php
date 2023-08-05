@@ -163,20 +163,19 @@
                                             <div class="form-group">
                                                 <label for="username">{{__('lang.customerName')}}</label>
 
-                                                <input type="text" class="form-control" placeholder="Username" value="{{$order->delegateTrashed->appUserTrashed->name ??''}}" name="username" id="username" disabled />
-{{--                                                <input type="text" class="form-control" placeholder="Username" value="{{$order->userTrashed->name}}" name="username" id="username" disabled />--}}
+                                                <input type="text" class="form-control" placeholder="Username" value="{{$order->userTrashed->name}}" name="username" id="username" disabled />
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="name">{{__('lang.city')}}</label>
-{{--                                                <input type="text" class="form-control" placeholder="Name" value="{{$order->userTrashed->citiesTrashed->name_ar}}" name="name" id="name" disabled />--}}
+                                                <input type="text" class="form-control" placeholder="Name" value="{{$order->userTrashed->citiesTrashed->name_ar}}" name="name" id="name" disabled />
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="email">{{__('lang.region')}}</label>
-{{--                                                <input type="email" class="form-control" placeholder="Email" value="{{$order->userTrashed->region_name}}" name="email" id="email" disabled />--}}
+                                                <input type="email" class="form-control" placeholder="Email" value="{{$order->userTrashed->region_name}}" name="email" id="email" disabled />
                                             </div>
                                         </div>
 
@@ -198,101 +197,15 @@
                                                 <span class="align-middle">{{__('lang.delegateInformation')}}</span>
                                             </h4>
                                         </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="form-group">
-                                                <label for="birth">Birth date</label>
-                                                <input id="birth" type="text" class="form-control birthdate-picker" name="dob" placeholder="YYYY-MM-DD" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="form-group">
-                                                <label for="mobile">Mobile</label>
-                                                <input id="mobile" type="text" class="form-control" value="&#43;6595895857" name="phone" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="form-group">
-                                                <label for="website">Website</label>
-                                                <input id="website" type="text" class="form-control" placeholder="Website here..." value="https://rowboat.com/insititious/Angelo" name="website" />
-                                            </div>
-                                        </div>
 
                                         <div class="col-lg-4 col-md-6">
                                             <div class="form-group">
-                                                <label class="d-block mb-1">Gender</label>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="male" name="gender" class="custom-control-input" />
-                                                    <label class="custom-control-label" for="male">Male</label>
-                                                </div>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="female" name="gender" class="custom-control-input" checked />
-                                                    <label class="custom-control-label" for="female">Female</label>
-                                                </div>
+                                                <label for="mobile">{{__('lang.delegateName')}}</label>
+                                                <input type="text" class="form-control" placeholder="Username" value="{{$order->delegateTrashed->appUserTrashed->name ??''}}" name="username" id="username" disabled />
+
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="form-group">
-                                                <label class="d-block mb-1">Contact Options</label>
-                                                <div class="custom-control custom-checkbox custom-control-inline">
-                                                    <input type="checkbox" class="custom-control-input" id="email-cb" checked />
-                                                    <label class="custom-control-label" for="email-cb">Email</label>
-                                                </div>
-                                                <div class="custom-control custom-checkbox custom-control-inline">
-                                                    <input type="checkbox" class="custom-control-input" id="message" checked />
-                                                    <label class="custom-control-label" for="message">Message</label>
-                                                </div>
-                                                <div class="custom-control custom-checkbox custom-control-inline">
-                                                    <input type="checkbox" class="custom-control-input" id="phone" />
-                                                    <label class="custom-control-label" for="phone">Phone</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <h4 class="mb-1 mt-2">
-                                                <i data-feather="map-pin" class="font-medium-4 mr-25"></i>
-                                                <span class="align-middle">Address</span>
-                                            </h4>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="form-group">
-                                                <label for="address-1">Address Line 1</label>
-                                                <input id="address-1" type="text" class="form-control" value="A-65, Belvedere Streets" name="address" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="form-group">
-                                                <label for="address-2">Address Line 2</label>
-                                                <input id="address-2" type="text" class="form-control" placeholder="T-78, Groove Street" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="form-group">
-                                                <label for="postcode">Postcode</label>
-                                                <input id="postcode" type="text" class="form-control" placeholder="597626" name="zip" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="form-group">
-                                                <label for="city">City</label>
-                                                <input id="city" type="text" class="form-control" value="New York" name="city" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="form-group">
-                                                <label for="state">State</label>
-                                                <input id="state" type="text" class="form-control" name="state" placeholder="Manhattan" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="form-group">
-                                                <label for="country">Country</label>
-                                                <input id="country" type="text" class="form-control" name="country" placeholder="United States" />
-                                            </div>
-                                        </div>
-                                        <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                                            <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1">Save Changes</button>
-                                            <button type="reset" class="btn btn-outline-secondary">Reset</button>
-                                        </div>
+
                                     </div>
                                 </form>
                                 <!-- users edit Info form ends -->
