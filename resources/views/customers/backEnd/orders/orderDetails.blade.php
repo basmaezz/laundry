@@ -227,6 +227,7 @@
                                                 <th>{{__('lang.serviceName')}}</th>
                                                 <th>{{__('lang.price')}}</th>
                                                 <th>{{__('lang.quantity')}}</th>
+                                                <th>{{__('lang.audioNote')}}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -235,22 +236,30 @@
 
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->productTrashed->name_ar}}" name="phone" />
+                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->productTrashed->name_ar}}" disabled />
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->productService->services}}" name="phone" />
+                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->productService->services}}" disabled />
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->price}}" name="phone" />
+                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->price}}" disabled />
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->quantity}}" name="phone" />
+                                                        <input id="mobile" type="text" class="form-control" value="{{$orderDetail->quantity}}" disabled />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <audio controls>
+                                                            <source src="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" type="audio/mpeg">
+                                                        </audio>
+                                                        <a class="btn btn-info" href="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" download style="margin-top: -32px;">Download</a>
                                                     </div>
                                                 </td>
 
