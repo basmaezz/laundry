@@ -37,7 +37,7 @@ class OrderController extends Controller
         };
 
         if(request()->ajax()) {
-            $data = OrderTable::with(['histories','subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed'])->get();
+            $data = OrderTable::with(['payments', 'histories','subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed'])->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){

@@ -136,6 +136,36 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>سجل المدفوعات</strong>
+                            </div>
+                            <div class="card-block">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>رقم المعاملة</th>
+                                            <th>الحالة</th>
+                                            <th>تاريخ الانشاء</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($order->payments as $payment)
+                                        <tr>
+                                            <td>{{$payment->transaction_id}}</td>
+                                            <td>{{$history->status}}</td>
+                                            <td>{{$history->created_at->toDateString()}}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

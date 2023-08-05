@@ -6,6 +6,7 @@ use App\Models\AppUser;
 use App\Models\CouponShopCart;
 use App\Models\OrderDetails;
 use App\Models\OrderTable;
+use App\Models\Payment;
 use App\Models\ProductService;
 use App\Models\RateLaundry;
 use App\Models\SiteSetting;
@@ -168,6 +169,18 @@ class OrderController extends Controller
             $order->audio_note = uploadFile($request->file("audio_note"), 'audio_note');
         }
         $order->save();
+
+        //Start Store Payment information
+        foreach ($request->get('payments') as $payment){
+            Payment::create([
+                'user_id'           => $app_user_id,
+                'order_id'          => $order->id,
+                'transaction_id'    => $payment['id'] ?? null,
+                'status'            => $payment['status'] ?? 'Unknown',
+                'payload'           => $payment['payload'] ?? null
+            ]);
+        }
+        //End Store Payment information
 
         $orders = OrderTable::where('id', $order->id)->with(['orderDetails' => function ($q) {
             return $q->select('id', 'order_table_id', 'product_id', 'category_item_id', 'price', 'quantity');

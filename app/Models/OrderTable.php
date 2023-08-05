@@ -96,6 +96,10 @@ class OrderTable extends Model
         return $this->hasMany(RateLaundry::class,'order_id','id');
     }
 
+    public function payments(){
+        return $this->hasMany(Payment::class,'order_id','id');
+    }
+
     public function address(){
         return $this->hasOne(Address::class,'id','address_id')->withDefault();
     }
