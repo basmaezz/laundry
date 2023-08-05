@@ -437,4 +437,4 @@ Route::get('getDeliverys', function () {
 
 //Route::view('landing','index');
 
-Route::view('dataTable', 'customers.backEnd.dataTable');
+Route::view('formView', 'customers.backEnd.orders.orderDetails');

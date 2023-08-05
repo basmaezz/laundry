@@ -33,6 +33,17 @@ return[
     "finished"=>"Finished",
     "details"=>"Details",
     "finishedDate"=>"Finished Date",
-    "cancelledDate"=>"cancelled Date"
+    "cancelledDate"=>"cancelled Date",
+    "customerDetails"=>"Customer Details",
+    "delegateDetails"=>"Delegate Details",
+    "orderDetails"=>"Order Details",
+    "city"=>"City",
+    "region"=>"Region",
+    "customerInformation"=>"customer Information",
+    "delegateInformation"=>"Delegate Information",
+    "orderInformation"=>"Order Information",
+    "pieceName"=>"piece Name",
+    "serviceName"=>"service Name",
+    "quantity"=>"quantity",
 
 ];

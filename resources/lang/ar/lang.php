@@ -33,5 +33,14 @@ return[
     "finish"=>"انهاء",
     "details"=>"التفاصيل",
     "finishedDate"=>"تاريخ الانتهاء  ",
-    "cancelledDate"=>"تاريخ الالغاء "
+    "cancelledDate"=>"تاريخ الالغاء ",
+    "customerDetails"=>"بيانات العميل",
+    "delegateDetails"=>"بيانات المندوب",
+    "orderDetails"=>"بيانات الطلب",
+    "city"=>"المدينه",
+    "region"=>"الحى",
+    "customerInformation"=>"بيانات العميل",
+    "pieceName"=>"اسم القطعه",
+    "serviceName"=>"اسم الخدمه",
+    "quantity"=>"الكميه",
 ];
