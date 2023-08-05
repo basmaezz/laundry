@@ -52,6 +52,18 @@
     @endif
 
 </head>
+<style>
+    .btn.btn-info.waves-effect.waves-float.waves-light {
+        float: right;
+        padding: 7px;
+        margin-right: 50px;
+    }
+    audio {
+        width: 142px;
+        margin-bottom: 32px;
+    }
+</style>
+
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
 
 @include('customers.layouts.nav')
