@@ -153,9 +153,9 @@ class OrderController extends Controller
                     'category_item_id' => $item['category_id'],
                     'product_service_id' => $item['product_service_id'],
                     'quantity' => $item['quantity'],
-                    'price' => $product->price * $item['quantity'],
+                    'price' => ($product->price+$product->commission) * $item['quantity'],
                 ];
-                $total += $product->price * $item['quantity'];
+                $total += ($product->price+$product->commission) * $item['quantity'];
                 $item_quantity += $item['quantity'];
                 OrderDetails::create($item_data);
             }
@@ -608,7 +608,7 @@ class OrderController extends Controller
             'coupon_code' => $order->coupon,
             'audio_note' => $order->audio_note ? asset('assets/uploads/audio_note/' . $order->audio_note) : null,
             'total_price_after_coupon' => $order->total_price - ($order->total_price * $order->discount_value),
-            'total_price' => $order->total_price - $order->discount + $order->delivery_fees + $order->vat,
+            'total_price' => $order->total_price - $order->discount + $order->delivery_fees + $order->vat +$order->commission,
             'histories' => $status_histories,
             'status_list' => [
                 '1'  => ($order->status_id > 1) ? 3 : (($order->status_id == 1) ? 2 : 1),

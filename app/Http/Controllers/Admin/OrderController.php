@@ -56,18 +56,14 @@ class OrderController extends Controller
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('regionName', function ($row) {
                     return $row->userTrashed->region_name;
-                })->addColumn('year', function ($row) {
-                    return $row->created_at->year;
-                })->addColumn('month', function ($row) {
-                    return $row->created_at->month;
-                })->addColumn('day', function ($row) {
-                    return $row->created_at->day;
+                })->addColumn('createdAt', function ($row) {
+                    return $row->created_at->format('d-m-Y');
                 })
                 ->addColumn('action', function ($row) {
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder customOrder" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','deliveryType','finished','city','regionName','year','month','day'])
+                ->rawColumns(['action','category','user','deliveryType','finished','city','regionName','createdAt'])
                 ->make(true);
         }
         return  view('dashboard.Orders.index');

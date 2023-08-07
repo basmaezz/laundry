@@ -40,7 +40,7 @@ class OrdersController extends Controller
                 ->addColumn('user', function ($row) {
                     return $row->userTrashed->name;
                 })->addColumn('date', function ($row) {
-                    return $row->created_at->format('d-m-Y');;
+                    return $row->created_at->format('d-m-Y');
             })->addColumn('action', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
                 })
