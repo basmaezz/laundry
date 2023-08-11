@@ -23,12 +23,28 @@
                                 <div class="card-block">
                                     <div class="form-group">
                                         <label for="company">التصنيف </label>
-                                        <select class="form-control" name="category_id">
+                                     <select class="form-control" name="category_id">
                                             @foreach($categories as $category)
                                                 <option value="{{$category->id}}" >{{$category->name_ar}}</option>
                                             @endforeach
-
                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md- form-control-label">غسيل مستعجل </label>
+                                        <div class="form-control">
+
+                                                <label class="form-control check-ability-label">
+                                                    <input type="radio"  class="checkbox-ability" name="urgentWash" value="1" onchange="makeUrgent()">نعم
+                                                    <br>
+                                                </label>
+                                            <label class="form-control check-ability-label">
+                                                    <input type="radio"  class="checkbox-ability" name="urgentWash" value="0">لا
+                                                    <br>
+                                                </label>
+                                        </div>
+                                        @if ($errors->has('abilities'))
+                                            <span class="text-danger">{{ $errors->first('abilities') }}</span>
+                                        @endif
                                     </div>
                                      <div class="form-group">
                                         <label for="company" n>اسم المغسله</label>
@@ -38,6 +54,7 @@
                                          <div class="text-sm text-red-600">{{ $message }}</div>
                                          @enderror
                                     </div>
+
                                     <div class="form-group">
                                         <label for="company">اسم المغسله بالانجليزيه</label>
                                         <input type="text" name="name_en"class="form-control" id="name_en" value="{{ Request::old('name_en') }}"placeholder="اسم المغسله" >

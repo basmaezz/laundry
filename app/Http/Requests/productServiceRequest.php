@@ -24,21 +24,19 @@ class productServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'services'=>'required',
-            'price'=>'required|numeric',
-            'commission'=>'required'
+            'services' => 'required',
+            'price' => 'required|numeric',
+            'priceUrgent' => 'numeric',
+            'commission' => 'required'
         ];
     }
 
     public function  messages()
     {
-        return[
-            'regex'=>'هذا الحقل يقبل حروف فقط',
-            'required'=>'هذا الحقل مطلوب',
-            'numeric'=>'هذا الحقل يقبل أرقام فقط'
+        return [
+            'regex' => 'هذا الحقل يقبل حروف فقط',
+            'required' => 'هذا الحقل مطلوب',
+            'numeric' => 'هذا الحقل يقبل أرقام فقط'
         ];
     }
-
-
-
 }

@@ -10,9 +10,9 @@ class ProductService extends Model
     protected $guarded = [];
 
 
-    public function subcategory()
+    public function subCategory()
     {
-        return $this->belongsTo(Subcategory::class, 'subcategory_id');
+        return $this->belongsTo(Subcategory::class, 'subCategory_id');
     }
 
     public function product()

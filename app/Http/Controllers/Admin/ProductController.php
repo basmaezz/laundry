@@ -97,6 +97,7 @@ class ProductController extends Controller
     {
 
         $service=ProductService::create($request->all()+[
+            'subcategory_id'=>$request->subcategory_id,
             'product_id'=>$request->product_id,
 
         ]);
@@ -108,7 +109,8 @@ class ProductController extends Controller
     }
 
     public function productServices($id){
-        $product=Product::with('productService')->find($id);
+        $product=Product::with(['productService','subcategoryTrashed'])->find($id);
+
         return view('dashboard.products.productServices',compact('product'));
     }
 
@@ -117,7 +119,8 @@ class ProductController extends Controller
         return redirect()->back();
     }
     public function editService($id){
-        $service=productService::find($id);
+        $service=productService::with('subCategory')->find($id);
+
         return view('dashboard.products.editService',compact('service'));
     }
     public function updateService(productServiceRequest $request,$id){

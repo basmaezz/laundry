@@ -39,12 +39,13 @@ class OrdersController extends Controller
                 ->addIndexColumn()
                 ->addColumn('user', function ($row) {
                     return $row->userTrashed->name;
-                })->addColumn('date', function ($row) {
+            })->addColumn('profit', function ($row) {
+                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+            })->addColumn('date', function ($row) {
                     return $row->created_at->format('d-m-Y');
             })->addColumn('action', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
-                })
-                ->rawColumns(['user','date' ,'action'])
+           })->rawColumns(['user','date' ,'action'])
                 ->make(true);
         }
 

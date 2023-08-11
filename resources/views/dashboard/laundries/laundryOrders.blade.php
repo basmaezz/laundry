@@ -5,7 +5,8 @@
             <nav aria-label="breadcrumb" class="navBreadCrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">المغاسل   </li>
+                    <li class="breadcrumb-item active" aria-current="page">   <a href="#">المغاسل</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{$laundry->name_ar}}   </li>
                 </ol>
             </nav>
             <div class="col-lg-12">
@@ -24,7 +25,7 @@
                                 <th>اسم المندوب</th>
                                 <th>حاله الطلب</th>
                                 <th> المبلغ الاجمالى</th>
-                                <th>المبلغ المستحق </th>
+                                <th>ربح المغسله  </th>
                                 <th>التاريخ</th>
                                 <th>الاجراءات </th>
                             </tr>

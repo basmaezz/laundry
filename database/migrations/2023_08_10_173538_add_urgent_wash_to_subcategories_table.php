@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('subcategories', function (Blueprint $table) {
-            $table->float('price')->after('name_en');
+            $table->tinyInteger('urgentWash')->after('parent_id')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('subcategories', function (Blueprint $table) {
-            $table->dropColumn('price');
+            Schema::dropIfExists('urgentWash');
         });
     }
 };

@@ -23,28 +23,28 @@ class CouponRequest extends FormRequest
      */
     public function rules()
     {
-        $rules= [
-            'code_name'=>'required',
-            'discount_value'=>'required|integer',
-            'date_from'=>'required',
-            'date_to'=>'required',
-            'status'=>'required',
+        $rules = [
+            'code_name' => 'required',
+            'discount_value' => 'required|numeric',
+            'date_from' => 'required',
+            'date_to' => 'required',
+            'status' => 'required',
         ];
 
-//        if ($this->getMethod() == 'POST') {
-//            $rules += ['code_name'=>'required|unique:coupon_shop_carts',];
-//        }elseif ($this->getMethod() == 'PATCH'){
-//            $rules += ['code_name'=>'required|unique:coupon_shop_carts',];
-//        }
+        //        if ($this->getMethod() == 'POST') {
+        //            $rules += ['code_name'=>'required|unique:coupon_shop_carts',];
+        //        }elseif ($this->getMethod() == 'PATCH'){
+        //            $rules += ['code_name'=>'required|unique:coupon_shop_carts',];
+        //        }
         return $rules;
     }
 
     public function messages()
     {
         return [
-            'unique'=>'اسم الكود موجود مسبقا',
-            'required'=>'هذا الحقل مطلوب',
-            'integer'=>'أرقام فقط'
+            'unique' => 'اسم الكود موجود مسبقا',
+            'required' => 'هذا الحقل مطلوب',
+            'integer' => 'أرقام فقط'
         ];
     }
 }

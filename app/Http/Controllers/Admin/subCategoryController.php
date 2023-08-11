@@ -70,7 +70,7 @@ class subCategoryController extends Controller
     public function create()
     {
         $cities = City::pluck('id', 'name_ar');
-        $categories = Category::where('name_ar', 'مغاسل الملابس')->get();
+        $categories = Category::where('name_ar','مغاسل الملابس')->get();
         return view('dashboard.laundries.create', compact(['cities', 'categories']));
     }
 
@@ -112,8 +112,8 @@ class subCategoryController extends Controller
     public function show($id)
     {
         $subCategory = Subcategory::withTrashed()->with(['userTrashed','parentTrashed'])->find($id);
-
-        return view('dashboard.laundries.View', compact('subCategory'));
+        $cities = City::all();
+        return view('dashboard.laundries.View', compact(['subCategory','cities']));
     }
 
     /**
@@ -155,6 +155,7 @@ class subCategoryController extends Controller
             'range' => $request->range,
             'lat' => $request->lat,
             'lng' => $request->lng,
+            'urgentWash' => $request->urgentWash,
             'approximate_duration' => $request->approximate_duration,
             'around_clock' => $request->around_clock,
             'clock_end' => $request->clock_end,
@@ -419,6 +420,7 @@ class subCategoryController extends Controller
     public function getOrders(Request $request)
     {
         $id=$request->id;
+        $laundry=Subcategory::find($id);
         if(request()->ajax()) {
             $data =  OrderTable::where('laundry_id', $id)->with(['userTrashed', 'delegateTrashed.appUserTrashed'])->get();
             return   Datatables::of($data)
@@ -439,6 +441,6 @@ class subCategoryController extends Controller
                 ->rawColumns(['action','created_at','userTrashed','delegateTrashed','percentage'])
                 ->make(true);
         }
-        return view('dashboard.laundries.laundryOrders',compact('id'));
+        return view('dashboard.laundries.laundryOrders',compact(['id','laundry']));
     }
 }

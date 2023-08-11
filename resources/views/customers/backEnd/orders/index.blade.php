@@ -16,6 +16,7 @@
                                 <th>{{__('lang.orderNumber')}}</th>
                                 <th>{{__('lang.customerName')}}</th>
                                 <th>{{__('lang.totalPrice')}} </th>
+                                <th>{{__('lang.profit')}} </th>
                                 <th>{{__('lang.status')}} </th>
                                 <th>{{__('lang.discount')}} </th>
                                 <th>{{__('lang.date')}} </th>
