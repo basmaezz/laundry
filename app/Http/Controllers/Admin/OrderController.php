@@ -100,7 +100,7 @@ class OrderController extends Controller
     {
         $order=OrderTable::with(['subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed','delegateTrashed.appUserTrashed'])->where('id',$id)->first();
         $orderDetails=orderDetails::with(['productTrashed','productService'])->where('order_table_id',$id)->get();
-        dd($orderDetails);
+
         return  view('dashboard.Orders.view',compact(['order','orderDetails']));
     }
 

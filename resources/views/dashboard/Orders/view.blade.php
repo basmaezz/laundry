@@ -92,6 +92,10 @@
                                             <th>السعر</th>
                                             <th>العموله</th>
                                             <th>الكميه</th>
+                                            <th>قيمه التوصيل</th>
+                                            <th>القيمه الاجماليه</th>
+                                            <th>نسبه الربح للمغسله</th>
+                                            <th>نسبه الربح </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -102,8 +106,12 @@
                                             <td>{{$orderDetail->price}}</td>
                                             <td>{{$orderDetail->productService->commission}}</td>
                                             <td>{{$orderDetail->quantity}}</td>
+                                        @endforeach
+                                            <td>{{$order->subCategoriesTrashed->price}}</td>
+                                            <td>{{$order->subCategoriesTrashed->price}}</td>
+                                            <td>{{$order->subCategoriesTrashed->price}}</td>
+                                            <td>{{$order->subCategoriesTrashed->price}}</td>
                                         </tr>
-                                    @endforeach
                                     </tbody>
                                 </table>
 
