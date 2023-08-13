@@ -24,8 +24,11 @@ class CategoryController extends Controller
 {
     public function getShowSubCategories($id)
     {
-
-        $subCategories = Subcategory::where('category_id', $id)->get();
+        if($id==1){
+            $subCategories = Subcategory::where('category_id', '1')->get();
+         }elseif ($id==4){
+            $subCategories = Subcategory::where('urgentWash', '1')->get();
+        }
         $name = 'name_' . App::getLocale();
         $data = [];
 
@@ -43,6 +46,7 @@ class CategoryController extends Controller
                 'name' => $subcategory->$name,
                 'address' => $subcategory->address,
                 'delivery_fees' => $subcategory->price,
+                'urgentWash'=>$subcategory->urgentWash,
                 'rate' => $subcategory->rate_avg,
                 'is_favorite' => (!empty($user))? Favorite::has($subcategory, $user) : false,
                 'image' => $subcategory->image,
@@ -50,7 +54,7 @@ class CategoryController extends Controller
                 'lat' => $subcategory->lat,
                 'lng' => $subcategory->lng,
                 'approximate_duration'=> $subcategory->approximate_duration,
-                //'distance' => round($distance, 2),
+                'distance' => round($distance, 2),
                 'distance' => round($distance, 2),
                 'range'=>$subcategory->range,
                 'distance_class' =>  getDistanceClass($distance,$range),
@@ -163,15 +167,26 @@ class CategoryController extends Controller
         }
     }
 
-    public function getSubCategoriesProducts($id)
+    public function getSubCategoriesProducts($id,$urgent)
     {
         $name = 'name_' . App::getLocale();
-        $subCategoriesServices = CategoryItem::query()->with(['subcategories', 'products' => function ($q) {
-            return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
-                ->with(['productService' => function ($q) {
-                    return $q->select('id', 'product_id', 'services', 'price');
-                }]);
-        }])->where('subcategory_id', $id)->get();
+        if($urgent=='0'){
+            $subCategoriesServices = CategoryItem::query()->with(['subcategories', 'products' => function ($q) {
+                return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
+                    ->with(['productService' => function ($q) {
+                        return $q->select('id', 'product_id', 'services', 'price');
+                    }]);
+            }])->where('subcategory_id', $id)->get();
+        }elseif ($urgent==1){
+            $subCategoriesServices = CategoryItem::query()->with(['subcategories', 'products' => function ($q) {
+                return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
+                    ->with(['productService' => function ($q) {
+                        return $q->select('id', 'product_id', 'services', 'price');
+                    }]);
+            }])->where('subcategory_id', $id)->get();
+        }
+
+
 
         $subcategory = Subcategory::findorfail($id);
         $data = [];

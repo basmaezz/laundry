@@ -82,9 +82,10 @@
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
                                     </div>
+
                                     <div class="form-group">
                                         <label for="country">الموقع(Google Map) </label>
-                                        <input type="text" name="location"class="form-control"value="{{ Request::old('location') }}" id="location" >
+                                        <input type="text" name="location"class="form-control"value="{{ Request::old('location') }}" id="location" placeholder="الموقع(Google Map)" >
                                         @error('location')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
