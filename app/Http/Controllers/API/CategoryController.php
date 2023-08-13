@@ -24,9 +24,9 @@ class CategoryController extends Controller
 {
     public function getShowSubCategories($id)
     {
-        if($id==1){
+        if ($id == 1) {
             $subCategories = Subcategory::where('category_id', '1')->get();
-         }elseif ($id==4){
+        } elseif ($id == 4) {
             $subCategories = Subcategory::where('urgentWash', '1')->get();
         }
         $name = 'name_' . App::getLocale();
@@ -36,9 +36,9 @@ class CategoryController extends Controller
         //$user = AppUser::where('id',27)->first();
 
         foreach ($subCategories as $subcategory) {
-            $distance = (!empty($user))? distance($user->lat,$user->lng, $subcategory->lat, $subcategory->lng) : 0;
-            $range=$subcategory->range;
-            $data [] = [
+            $distance = (!empty($user)) ? distance($user->lat, $user->lng, $subcategory->lat, $subcategory->lng) : 0;
+            $range = $subcategory->range;
+            $data[] = [
                 'id' => $subcategory->id,
                 //'user' => $user,
                 //'user2' => auth()->user(),
@@ -46,19 +46,19 @@ class CategoryController extends Controller
                 'name' => $subcategory->$name,
                 'address' => $subcategory->address,
                 'delivery_fees' => $subcategory->price,
-                'urgentWash'=>$subcategory->urgentWash,
+                'urgentWash' => $subcategory->urgentWash,
                 'rate' => $subcategory->rate_avg,
-                'is_favorite' => (!empty($user))? Favorite::has($subcategory, $user) : false,
+                'is_favorite' => (!empty($user)) ? Favorite::has($subcategory, $user) : false,
                 'image' => $subcategory->image,
                 'location' => $subcategory->location,
                 'lat' => $subcategory->lat,
                 'lng' => $subcategory->lng,
-                'approximate_duration'=> $subcategory->approximate_duration,
+                'approximate_duration' => $subcategory->approximate_duration,
                 'distance' => round($distance, 2),
                 'distance' => round($distance, 2),
-                'range'=>$subcategory->range,
-                'distance_class' =>  getDistanceClass($distance,$range),
-                'distance_class_id' =>  getDistanceClassId($distance,$range),
+                'range' => $subcategory->range,
+                'distance_class' =>  getDistanceClass($distance, $range),
+                'distance_class_id' =>  getDistanceClassId($distance, $range),
                 'review' => $subcategory->rates
             ];
         }
@@ -66,7 +66,8 @@ class CategoryController extends Controller
         return apiResponse("api.success", $data);
     }
 
-    public function rate(Request $request){
+    public function rate(Request $request)
+    {
 
         $user = auth('app_users_api')->user();
         $validator = Validator::make($request->all(), [
@@ -75,20 +76,20 @@ class CategoryController extends Controller
             'order_id' => 'required',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors()->toArray(), 422);
         }
 
-        $order= OrderTable::where([
+        $order = OrderTable::where([
             'user_id' => $user->id,
             'id' => $request->get('order_id'),
         ]);
-        if($order->count() == 0){
+        if ($order->count() == 0) {
             return response()->json(['The order not related to you'], 422);
         }
 
         $order = $order->first();
-        if($order->status_id != OrderController::Completed){
+        if ($order->status_id != OrderController::Completed) {
             return response()->json(['The order show be finished'], 422);
         }
 
@@ -98,7 +99,7 @@ class CategoryController extends Controller
             'user_id' => $user->id,
         ])->count();
 
-        if($exist!=0){
+        if ($exist != 0) {
             return response()->json(['You already Rate this laundry'], 422);
         }
         $data = RateLaundry::create([
@@ -119,7 +120,7 @@ class CategoryController extends Controller
         $name = 'name_' . App::getLocale();
         $data = [];
         foreach ($categories as $category) {
-            $data [] = [
+            $data[] = [
                 'id' => $category->id,
                 'name' => $category->$name,
                 'image' => $category->image,
@@ -138,25 +139,25 @@ class CategoryController extends Controller
             $user = auth('app_users_api')->user();
             foreach ($result as $subcategory) {
 
-                $distance = (!empty($user))? getDistanceFirst1($user, $subcategory->lat, $subcategory->lng) : 0;
-                $status=getStatus($subcategory);
-                $range=$subcategory->range;
-                $data [] = [
+                $distance = (!empty($user)) ? getDistanceFirst1($user, $subcategory->lat, $subcategory->lng) : 0;
+                $status = getStatus($subcategory);
+                $range = $subcategory->range;
+                $data[] = [
                     'id' => $subcategory->id,
                     'name' => $subcategory->$name1,
                     'address' => $subcategory->address,
                     'rate' => $subcategory->rate_avg,
-                    'is_favorite' => (!empty($user))? Favorite::has($subcategory, $user) : false,
+                    'is_favorite' => (!empty($user)) ? Favorite::has($subcategory, $user) : false,
                     'image' => $subcategory->image,
                     'lat' => $subcategory->lat,
                     'lng' => $subcategory->lng,
                     'distance' => round($distance, 2),
-                    'around_clock'=>$subcategory->around_clock,
-                    'from'=>$subcategory->clock_at,
-                    'to'=>$subcategory->clock_end,
-                    'status'=>$status,
-                    'distance_class' =>  getDistanceClass($distance,$range),
-                    'distance_class_id' =>  getDistanceClassId($distance,$range),
+                    'around_clock' => $subcategory->around_clock,
+                    'from' => $subcategory->clock_at,
+                    'to' => $subcategory->clock_end,
+                    'status' => $status,
+                    'distance_class' =>  getDistanceClass($distance, $range),
+                    'distance_class_id' =>  getDistanceClassId($distance, $range),
                     'review' => $subcategory->rates
                 ];
             }
@@ -167,23 +168,24 @@ class CategoryController extends Controller
         }
     }
 
-    public function getSubCategoriesProducts($id,$urgent)
+    public function getSubCategoriesProducts($id, $urgent)
     {
         $name = 'name_' . App::getLocale();
-        if($urgent=='0'){
+        if ($urgent == '0') {
             $subCategoriesServices = CategoryItem::query()->with(['subcategories', 'products' => function ($q) {
                 return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
                     ->with(['productService' => function ($q) {
-                        return $q->select('id', 'product_id', 'services', 'price');
+
+                        return $q->select('id', 'product_id', 'services', 'price' + 'commission');
                     }]);
             }])->where('subcategory_id', $id)->get();
-        }elseif ($urgent==1){
+        } elseif ($urgent == 1) {
             $subCategoriesServices = CategoryItem::query()->with(['subcategories', 'products' => function ($q) {
                 return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
                     ->with(['productService' => function ($q) {
-                        return $q->select('id', 'product_id', 'services', 'price');
+                        return $q->select('id', 'product_id', 'services', 'priceUrgent' + 'commission');
                     }]);
-            }])->where('subcategory_id', $id)->get();
+            }])->where('urgentWash', '1')->get();
         }
 
 
@@ -198,15 +200,15 @@ class CategoryController extends Controller
                 $data1 = [
                     'subcate_id' => $subcategory->id,
                     'name' => $subcategory->$name,
-                    'is_favorite' => (!empty($user))? Favorite::has($subcategory, $user) : false,
-                     'lat' => $subcategory->lat,
+                    'is_favorite' => (!empty($user)) ? Favorite::has($subcategory, $user) : false,
+                    'lat' => $subcategory->lat,
                     'lng' => $subcategory->lng,
-                    'from'=>$subcategory->clock_at,
-                    'to'=>$subcategory->clock_end,
-                    'status'=>getStatus($subcategory)
+                    'from' => $subcategory->clock_at,
+                    'to' => $subcategory->clock_end,
+                    'status' => getStatus($subcategory)
                 ];
                 foreach ($subCategoriesServices as $subcategoryproduct) {
-                    $data [] = [
+                    $data[] = [
                         'id' => $subcategoryproduct->id,
                         'category_type' => $subcategoryproduct->category_type,
                         'product' => $subcategoryproduct->products,
@@ -219,8 +221,5 @@ class CategoryController extends Controller
         } else {
             return apiResponse1("api.errors", $data1, $data);
         }
-
     }
-
-
 }
