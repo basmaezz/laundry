@@ -465,6 +465,6 @@ Route::get('getDeliverys', function () {
 
 Route::view('formView', 'customers.backEnd.orders.orderDetails');
 
-Route::get('lastest',function (){
-    return DB::table('order_tables')->orderBy('id', 'id')->first();
+Route::get('lastest', function () {
+    return DB::table('order_tables')->orderBy('id', 'desc')->first();
 });
