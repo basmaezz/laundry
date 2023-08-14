@@ -64,22 +64,21 @@ class OrderController extends Controller
                 'vat' => 0,
             ];
 
-//            if ($distance <= 10) {
-//                $data['delivery_fees'] = 10;
-//                $message = trans('api.Values_After_Calc_Vat_And_Fees');
-//            } elseif ($distance > 10 || $distance <= 20) {
-//                $data['delivery_fees'] = 20;
-//                $message = trans('api.Values_After_Calc_Vat_And_Fees');
-//            } else {
-//                $message = 'out of distance';
-//            }
+            //            if ($distance <= 10) {
+            //                $data['delivery_fees'] = 10;
+            //                $message = trans('api.Values_After_Calc_Vat_And_Fees');
+            //            } elseif ($distance > 10 || $distance <= 20) {
+            //                $data['delivery_fees'] = 20;
+            //                $message = trans('api.Values_After_Calc_Vat_And_Fees');
+            //            } else {
+            //                $message = 'out of distance';
+            //            }
 
-            if($distance!=''){
-                $data['delivery_fees']=$laundry->price;
+            if ($distance != '') {
+                $data['delivery_fees'] = $laundry->price;
                 $message = trans('api.Values_After_Calc_Vat_And_Fees');
             }
             return apiResponse($message, $data);
-
         }
         return apiResponse(trans('api.error_validation'), $items = null, 500, 500);
     }
@@ -113,6 +112,7 @@ class OrderController extends Controller
             }
         }
         $laundry = Subcategory::where('id', $request->get('laundry_id'))->first();
+
         $distance = getDistanceFirst1(auth('app_users_api')->user(), $laundry->lat, $laundry->lng);
         if ($distance <= 10) {
             $delivery_fees = 10;
@@ -126,6 +126,7 @@ class OrderController extends Controller
             'laundry_id'     => $request->get('laundry_id'),
             'category_item_id' => $request->get('category_item_id'),
             'payment_method' => $request->get('payment_method', 'Cash'),
+            'urgent'         => $request->get('urgent'),
             'address_id'     => $request->get('address_id'),
             'count_products' => count($request->get('items')),
             'note'           => $request->get('note'),
@@ -137,6 +138,7 @@ class OrderController extends Controller
             'discount'       => 0,
             'vat'            => 0,
             'coupon'         => $request->get('coupon') ?? null,
+            'opened'         => $opened
         ];
 
         $order = OrderTable::create($order_data);
@@ -153,9 +155,9 @@ class OrderController extends Controller
                     'category_item_id' => $item['category_id'],
                     'product_service_id' => $item['product_service_id'],
                     'quantity' => $item['quantity'],
-                    'price' => ($product->price+$product->commission) * $item['quantity'],
+                    'price' => ($product->price + $product->commission) * $item['quantity'],
                 ];
-                $total += ($product->price+$product->commission) * $item['quantity'];
+                $total += ($product->price + $product->commission) * $item['quantity'];
                 $item_quantity += $item['quantity'];
                 OrderDetails::create($item_data);
             }
@@ -171,7 +173,7 @@ class OrderController extends Controller
         $order->save();
 
         //Start Store Payment information
-        foreach ($request->get('payments') as $payment){
+        foreach ($request->get('payments') as $payment) {
             Payment::create([
                 'user_id'           => $app_user_id,
                 'order_id'          => $order->id,
@@ -299,7 +301,7 @@ class OrderController extends Controller
 
         $order = OrderTable::whereIn('status_id', [1, 2, 3, 4, 5, 6, 7, 8, 9])
             ->where('id', $request->get('order_id'))
-            ->with(['userTrashed','subCategoriesTrashed'])
+            ->with(['userTrashed', 'subCategoriesTrashed'])
             ->first();
 
         if ($order->user_id != $app_user_id && $order->delivery_id != $app_user_id) {
@@ -446,7 +448,7 @@ class OrderController extends Controller
                         'available' => '1'
                     ])->get();
                 }
-               //dd($users);
+                //dd($users);
                 foreach ($delegates as $user) {
                     NotificationController::sendNotification(
                         'New Delivery Request',
@@ -608,7 +610,7 @@ class OrderController extends Controller
             'coupon_code' => $order->coupon,
             'audio_note' => $order->audio_note ? asset('assets/uploads/audio_note/' . $order->audio_note) : null,
             'total_price_after_coupon' => $order->total_price - ($order->total_price * $order->discount_value),
-            'total_price' => $order->total_price - $order->discount + $order->delivery_fees + $order->vat +$order->commission,
+            'total_price' => $order->total_price - $order->discount + $order->delivery_fees + $order->vat + $order->commission,
             'histories' => $status_histories,
             'status_list' => [
                 '1'  => ($order->status_id > 1) ? 3 : (($order->status_id == 1) ? 2 : 1),

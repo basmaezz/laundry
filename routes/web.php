@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CouponsController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\faqsController;
 use App\Http\Controllers\Customer\ItemsController;
 use App\Http\Controllers\Customer\ProductsController;
 use App\Http\Controllers\Customer\OrdersController;
@@ -194,6 +195,14 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('cityEdit/{id}', [CityController::class, 'edit'])->name('city.edit');
     Route::post('cityUpdate/{id}', [CityController::class, 'update'])->name('city.update');
     Route::get('cityDelete', [CityController::class, 'destroy'])->name('city.destroy');
+
+    Route::get('faqs', [faqsController::class, 'index'])->name('faqs.index');
+    Route::get('faqCreate', [faqsController::class, 'create'])->name('faq.create');
+    Route::post('faqStore', [faqsController::class, 'store'])->name('faq.store');
+    Route::get('faqEdit/{id}', [faqsController::class, 'edit'])->name('faq.edit');
+    Route::post('faqUpdate/{id}', [faqsController::class, 'update'])->name('faq.update');
+    Route::get('faqDelete/{id}', [faqsController::class, 'destroy'])->name('faq.destroy');
+
 
     Route::get('Notification', [NotificationController::class, 'create'])->name('notification.create');
     Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('notification.send');
@@ -455,3 +464,4 @@ Route::get('getDeliverys', function () {
 //Route::view('landing','index');
 
 Route::view('formView', 'customers.backEnd.orders.orderDetails');
+

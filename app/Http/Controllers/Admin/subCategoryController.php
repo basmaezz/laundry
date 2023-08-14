@@ -46,6 +46,12 @@ class subCategoryController extends Controller
                     return $row->parentTrashed->name_ar??'';
                 })->addColumn('around_clock', function ($row) {
                     return $row->around_clock==1 ?'طوال اليوم' :abs($hours=((int)$row->clock_end)-((int)$row->clock_at)).'ساعه' ;
+                })->addColumn('opened', function ($row) {
+                    if($row->around_clock==1)
+                    {
+                        return 'مفتوح';
+                    }
+                    return $row->getIsOpenAttribute() ?'مفتوح':'مغلق' ;
                 })
                 ->addColumn('action', function ($row) {
                     $main='<a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >الفروع</a>';

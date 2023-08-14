@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Enums\SubCategoryStatus;
 use App\Traits\SelfReferenceTrait;
@@ -61,5 +62,13 @@ class Subcategory extends Model
     }
     public function userTrashed(){
         return $this->hasMany(User::class,'subCategory_id')->withTrashed();
+    }
+
+    public function getIsOpenAttribute()
+    {
+        return Carbon::now()->between(
+            Carbon::parse($this->clock_at),
+            Carbon::parse($this->clock_end)
+        );
     }
 }

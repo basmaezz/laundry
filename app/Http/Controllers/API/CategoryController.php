@@ -183,6 +183,7 @@ class CategoryController extends Controller
             $subCategoriesServices = CategoryItem::query()->with(['subcategories', 'products' => function ($q) {
                 return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
                     ->with(['productService' => function ($q) {
+
                         return $q->select('id', 'product_id', 'services', 'priceUrgent');
                     }]);
             }])->where('subcategory_id', $id)->get();
@@ -205,7 +206,8 @@ class CategoryController extends Controller
                     'lng' => $subcategory->lng,
                     'from' => $subcategory->clock_at,
                     'to' => $subcategory->clock_end,
-                    'status' => getStatus($subcategory)
+                    'status' => getStatus($subcategory),
+                    'opened'=>$subcategory->around_clock==1 ?'مفتوح': ($subcategory->getIsOpenAttribute() ?'مفتوح':'مغلق'),
                 ];
                 foreach ($subCategoriesServices as $subcategoryproduct) {
                     $data[] = [
