@@ -62,7 +62,7 @@
                                     <div class="form-group">
                                         <label for="company">المدينه</label>
                                         <select class="form-control" name="city_id">
-                                            <option >أختر المدينه</option>
+
                                             @foreach($cities as $city)
                                                 <option value="{{$city->id}}" {{$subCategory->city_id==$city->id ?'selected':''}}>{{$city->name_ar}}</option>
                                             @endforeach
@@ -110,7 +110,7 @@
                                     <div class="form-group">
                                         <label for="country">سعر التوصيل  </label>
                                         <div class="input-group">
-                                            <input type="text"name="price" class="form-control" value="{{$subCategory->price}}" >
+                                            <input type="text" name="price" class="form-control" value="{{$subCategory->price ??Request::old('price') }}" >
                                             <span class="input-group-addon"> ريال</i>
                                                 </span>
                                         </div>
@@ -210,7 +210,7 @@
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الجوال </label>
-                                        <input type="text" id="phone" name="phone" class="form-control"  value="{{$subCategory->userTrashed[0]->phone ??''}}">
+                                        <input type="text" id="phone" name="phone" class="form-control"  value="{{$subCategory->userTrashed[0]->phone ??''}}"maxlength="10">
                                     </div>
                                 </div>
                             </div>
