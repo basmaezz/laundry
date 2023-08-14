@@ -130,7 +130,8 @@ class subCategoryController extends Controller
      */
     public function edit($id)
     {
-        $subCategory = Subcategory::with(['parentTrashed', 'userTrashed'])->find($id);
+        $subCategory = Subcategory::with(['parentTrashed', 'userTrashed'])->find($id)->first();
+        dd($subCategory);
         $cities = City::all();
         return view('dashboard.laundries.edit', compact(['subCategory', 'cities']));
     }
@@ -142,8 +143,9 @@ class subCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(subCategoryRequest $request, $id)
     {
+
         $subcategory = Subcategory::find($id);
         if ($request->file('image') != '') {
             $filename = request('image')->getClientOriginalName();
