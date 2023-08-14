@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Address;
+use App\Models\Payment;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,7 @@ class WalletController extends ApiController
      */
     public function increase(Request $request)
     {
+        $app_user_id = auth('app_users_api')->user()->id;
         $validator = Validator::make($request->all(), [
             'amount'      => 'required|numeric|between:0,99999.99',
         ]);
@@ -37,6 +39,14 @@ class WalletController extends ApiController
         $user= auth('app_users_api')->user();
         $user->wallet += floatval($request->get("amount"));
         $user->save();
+        foreach ($request->get('payments') as $payment) {
+            Payment::create([
+                'user_id'           => $app_user_id,
+                'transaction_id'    => $payment['id'] ?? null,
+                'status'            => $payment['status'] ?? 'Unknown',
+                'payload'           => $payment['payload'] ?? null
+            ]);
+        }
         Transaction::create([
             'app_user_id'   => auth('app_users_api')->user()->id,
             'type'          => 'wallet',

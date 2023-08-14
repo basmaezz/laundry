@@ -138,7 +138,6 @@ class OrderController extends Controller
             'discount'       => 0,
             'vat'            => 0,
             'coupon'         => $request->get('coupon') ?? null,
-            'opened'         => $opened
         ];
 
         $order = OrderTable::create($order_data);

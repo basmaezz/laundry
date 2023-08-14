@@ -8,7 +8,7 @@
                 <li class="breadcrumb-item active" aria-current="page">اضافه سؤال  </li>
             </ol>
         </nav>
-        <div class="col-md-6">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-header">
                     <strong>اضافه كوبون</strong>
@@ -36,7 +36,8 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="hf-email"> الاجابه</label>
                             <div class="col-md-9">
-                                <input type="text"  name="answer_ar" class="form-control" placeholder="الاجابه  " >
+                                <textarea name="answer_ar" rows="4" cols="50">الاجابه</textarea>
+
                                 @if ($errors->has('answer_ar'))
                                     <span class="text-danger">{{ $errors->first('answer_ar') }}</span>
                                 @endif
@@ -45,7 +46,8 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="hf-email">الاجابه بالانجليزيه </label>
                             <div class="col-md-9">
-                                <input type="text"  name="answer_en" class="form-control" placeholder="الاجابه بالانجليزيه  " >
+                                <textarea   name="answer_ar" rows="4" cols="50"></textarea>
+
                                 @if ($errors->has('answer_en'))
                                     <span class="text-danger">{{ $errors->first('answer_en') }}</span>
                                 @endif
