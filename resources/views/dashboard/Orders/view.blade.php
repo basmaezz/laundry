@@ -46,6 +46,10 @@
                                         <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->total_price??''}}" disabled>
                                     </div>
                                     <div class="form-group">
+                                        <label for="company">ربح التطبيق    </label>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{($order->total_price *$order->subCategoriesTrashed->percentage)/100}}" disabled>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="company">ربح المغسله   </label>
                                         <input type="text" name="profit"class="form-control view" id="name_ar" value="{{($order->total_price-($order->total_price *$order->subCategoriesTrashed->percentage)/100)}}" disabled>
                                     </div>
@@ -56,6 +60,19 @@
                                     <div class="form-group">
                                         <label for="company">خصم   </label>
                                         <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->discount}}" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company">قيمه التوصيل   </label>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->discount}}" disabled>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="company"> نسبه الربح للمغسله  </label>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->note}}" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company"> نسبه الربح  </label>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->note}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company"> ملاحظات  </label>
@@ -92,10 +109,7 @@
                                             <th>السعر</th>
                                             <th>العموله</th>
                                             <th>الكميه</th>
-                                            <th>قيمه التوصيل</th>
-                                            <th>القيمه الاجماليه</th>
-                                            <th>نسبه الربح للمغسله</th>
-                                            <th>نسبه الربح </th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -107,10 +121,7 @@
                                             <td>{{$orderDetail->productService->commission}}</td>
                                             <td>{{$orderDetail->quantity}}</td>
                                         @endforeach
-                                            <td>{{$order->subCategoriesTrashed->price}}</td>
-                                            <td>{{$order->subCategoriesTrashed->price}}</td>
-                                            <td>{{$order->subCategoriesTrashed->price}}</td>
-                                            <td>{{$order->subCategoriesTrashed->price}}</td>
+
                                         </tr>
                                     </tbody>
                                 </table>

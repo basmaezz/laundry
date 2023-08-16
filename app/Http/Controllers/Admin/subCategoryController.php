@@ -439,7 +439,7 @@ class subCategoryController extends Controller
                 })->addColumn('delegateTrashed', function ($row) {
                     return $row->delegateTrashed->appUserTrashed->name??'';
                 })->addColumn('percentage', function ($row) {
-                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100 ;
+                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100 ;
                 })->addColumn('created_at', function ($row) {
                     return $row->created_at->format('Y-m-d') ;
                 })
