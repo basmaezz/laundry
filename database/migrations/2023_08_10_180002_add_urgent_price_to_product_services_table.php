@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('subcategories', function (Blueprint $table) {
-            $table->float('price')->after('name_en');
+        Schema::table('product_services', function (Blueprint $table) {
+            $table->float('priceUrgent')->after('price')->nullable();
         });
     }
 
@@ -25,8 +25,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('subcategories', function (Blueprint $table) {
-            $table->dropColumn('price');
+        Schema::table('product_services', function (Blueprint $table) {
+            Schema::dropIfExists('urgentPrice');
+
         });
     }
 };

@@ -20,6 +20,7 @@
                         <div class="form-group row">
                             <div class="form-group">
                             <label  for="hf-email">اسم القطعه</label>
+                                <input type="hidden"  name="subcategory_id" class="form-control view" value="{{$product->subcategory_id}}"  >
                                 <input type="hidden"  name="product_id" class="form-control view" value="{{$product->id}}"  >
                                 <input type="text"  name="category_type" class="form-control view" value="{{$product->name_ar}}" disabled >
 
@@ -35,7 +36,7 @@
                                 <div class="form-group">
                                     <label for="company">السعر  </label><br>
                                     <div class="input-group">
-                                        <input type="text"name="price" class="form-control view" placeholder="السعر " value="{{Request::old('range')}}" >
+                                        <input type="text"name="price" class="form-control view" placeholder="السعر " value="{{Request::old('price')}}" >
                                         <span class="input-group-addon"> ريال</i>
                                                 </span>
                                     </div>
@@ -44,6 +45,21 @@
                                         <span class="text-danger">{{ $errors->first('price') }}</span>
                                     @endif
                                 </div>
+                            @if($product->subcategoryTrashed->urgentWash !=null || $product->subcategoryTrashed->urgentWash !=0)
+                            <div class="form-group">
+                                    <label for="company">سعر المستعجل  </label><br>
+                                    <div class="input-group">
+                                        <input type="text"name="priceUrgent" class="form-control view" placeholder="السعر " value="{{Request::old('priceUrgent')}}" >
+                                        <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                    </div>
+
+                                    @if ($errors->has('priceUrgent'))
+                                        <span class="text-danger">{{ $errors->first('priceUrgent') }}</span>
+                                    @endif
+                                </div>
+                            @endif
+
                             <div class="form-group">
                                     <label for="company">العموله  </label><br>
                                     <div class="input-group">

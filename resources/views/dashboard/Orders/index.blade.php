@@ -23,12 +23,11 @@
                                 <th>اسم العميل </th>
                                 <th> نوع التوصيل </th>
                                 <th> المده المستغرقه  </th>
+                                <th>  القيمه الاجماليه  </th>
                                 <th>المدينه </th>
                                 <th>الحى </th>
-                                <th>السنه </th>
-                                <th>الشهر </th>
-                                <th>اليوم </th>
-                                <th>التفاصيل</th>
+                                <th>تاريخ الطلب </th>
+                                 <th>التفاصيل</th>
                             </tr>
                             </thead>
 
@@ -65,20 +64,17 @@
                     data:'finished',
                     name:'finished'
                 },{
+                    data:'total_price',
+                    name:'total_price'
+                },{
                     data:'city',
                     name:'city'
                 },{
                     data:'regionName',
                     name:'regionName'
                 },{
-                    data:'year',
-                    name:'year'
-                },{
-                    data:'month',
-                    name:'month'
-                },{
-                    data:'day',
-                    name:'day'
+                    data:'createdAt',
+                    name:'createdAt'
                 },{
                     data: 'action',
                     name: 'action',

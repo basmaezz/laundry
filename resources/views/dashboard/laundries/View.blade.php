@@ -46,7 +46,20 @@
                                         <label for="company">اسم المغسله بالانجليزيه</label>
                                         <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$subCategory->name_en}}"disabled>
                                     </div>
-                                    <div class="form-group">
+                                        <div class="form-group">
+                                        <label for="company">الغسيل السريع</label>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$subCategory->urgentWash ==1 ? 'نعم' :'لا'}}"disabled>
+                                    </div>
+                                        <div class="form-group">
+                                            <label for="company">المدينه</label>
+                                            <select class="form-control" name="city_id">
+                                                @foreach($cities as $city)
+                                                    <option value="{{$city->id}}" {{$subCategory->city_id==$city->id ?'selected':''}} disabled>{{$city->name_ar}}</option>
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                         <label for="company">العنوان</label>
                                         <input type="text" name="address"class="form-control view" id="name_ar" value="{{$subCategory->address}}"disabled>
                                     </div>

@@ -10,14 +10,23 @@ class ProductService extends Model
     protected $guarded = [];
 
 
-    public function subcategory()
+    public function subCategory()
     {
-        return $this->belongsTo(Subcategory::class, 'subcategory_id');
+        return $this->belongsTo(Subcategory::class, 'subCategory_id');
     }
 
     public function product()
     {
         return $this->belongsTo(Product::class, 'parent_id');
+    }
+
+    function getPrice()
+    {
+        return $this->price + $this->commission;
+    }
+    function getUrgentPrice()
+    {
+       return $this->urgentPrice + $this->commission;
     }
 
 }

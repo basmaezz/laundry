@@ -46,5 +46,6 @@ return[
     "quantity"=>"الكميه",
     "delegateName"=>"اسم المندوب ",
     "audioNote"=>"الملاحظات الصوتيه",
-    "notFound"=>" لا يوجد "
+    "notFound"=>" لا يوجد ",
+    "profit"=>" الربح ",
 ];

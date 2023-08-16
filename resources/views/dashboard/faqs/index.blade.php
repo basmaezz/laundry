@@ -4,22 +4,10 @@
         <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item active" aria-current="page">البنوك  </li>
+                <li class="breadcrumb-item active" aria-current="page">الأسئله الشائعه  </li>
             </ol>
         </nav>
-
-    <div>
-            <div class="validationMsg" style="width: 600px">
-                @if($errors->any())
-                    <div class="alert alert-danger" >
-                        <h6>{{$errors->first()}}</h6>
-                    </div>
-                @elseif(session()->has('message'))
-                    <div class="alert alert-success"  >
-                        {{ session()->get('message') }}
-                    </div>
-                @endif
-            </div>
+        <div>
 
             <div class="animated fadeIn">
                 <div class="row">
@@ -27,27 +15,29 @@
                         <div class="card">
 
                             <div class="card-header">
-                                <i class="fa fa-align-justify"></i> البنوك
-                                <a href="{{route('bank.create')}}" class="btn btn-primary" style="float: left">اضافه بنك</a>
+                                <i class="fa fa-align-justify"></i> الاسئله
+                                <a href="{{route('faq.create')}}" class="btn btn-primary btns" style="float: left;">اضافه سؤال</a>
                             </div>
                             <div class="card-block">
                                 <table id="example1" class="table table-bordered table-striped col-7">
                                     <thead>
                                     <tr>
-                                        <th>اسم البنك</th>
-                                        <th>اسم البنك بالانجليزيه </th>
+                                        <th>السؤال </th>
+                                        <th>السؤال باللغه الانجليزيه </th>
+
                                         <th></th>
                                     </tr>
                                     </thead>
-                                    @if($banks->count()>0)
+                                    @if($faqs->count()>0)
                                         <tbody>
-                                        @foreach($banks as $bank)
+                                        @foreach($faqs as $faq)
                                             <tr>
-                                                <td>{{$bank->name_ar}} </td>
-                                                <td>{{$bank->name_en}} </td>
+                                                <td>{{$faq->question_ar}} </td>
+                                                <td>{{$faq->question_en}} </td>
+
                                                 <td>
-                                                    <a href="{{route('bank.edit',$bank->id)}}" class="btn btn-primary">تعديل</a>
-                                                    <a href="{{route('bank.destroy',$bank->id)}}" class="btn btn-danger">حذف</a>
+                                                    <a href="{{route('faq.edit',$faq->id)}}" class="btn btn-primary btns ">تعديل</a>
+                                                    <a href="{{route('faq.destroy',$faq->id)}}" class="btn btn-danger btns ">حذف</a>
                                                 </td>
                                             </tr>
 

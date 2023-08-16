@@ -25,6 +25,7 @@ class subCategoryRequest extends FormRequest
     {
         return [
             'category_id' => 'integer',
+            'urgentWash'=>'integer',
             'name_ar' => 'required',
             'name_en' => 'required',
             'city_id' => 'required',

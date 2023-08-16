@@ -41,7 +41,7 @@
                                             <th>بدايه من </th>
                                             <th>نهايه الكوبون </th>
                                             <th> status </th>
-                                          <th>الاجراءات</th>
+                                          <th></th>
                                         </tr>
                                         </thead>
                                         @if($coupons->count()>0)

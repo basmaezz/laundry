@@ -23,7 +23,7 @@
                                         <thead>
                                         <tr>
                                             <th>اسم القسم</th>
-                                            <th>الاجراءات</th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         @if($categoryItems->count() >0)

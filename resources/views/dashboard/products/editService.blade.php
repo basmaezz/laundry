@@ -39,6 +39,23 @@
                                     <span class="text-danger">{{ $errors->first('price') }}</span>
                                 @endif
                             </div>
+                            @if($service->subCategory)
+                                @if($service->subCategory->urgentWash !=null ||$service->subCategory->urgentWash !=0)
+                                    <div class="form-group">
+                                        <label for="company">سعر المستعجل  </label><br>
+                                        <div class="input-group">
+                                            <input type="text"name="priceUrgent" class="form-control view" placeholder="السعر " value="{{$service->priceUrgent ??''}}" >
+                                            <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                        </div>
+
+                                        @if ($errors->has('priceUrgent'))
+                                            <span class="text-danger">{{ $errors->first('priceUrgent') }}</span>
+                                        @endif
+                                    </div>
+                                @endif
+                            @endif
+
                         </div>
                         <div class="card-footer">
                            <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> حفظ</button>

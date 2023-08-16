@@ -16,23 +16,12 @@
     <link href="{{ asset('assets/newLayout/dest/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-</head>
-<style>
-    .custom{
-        width: 90px;
-        height: 32px;
-    }
-    .customOrder{
-        width: 35px;
-        height: 20px;
-    }
-    .customRole{
-        width: 100px;
-    }
-    .form-control{
-        color: black;
-    }
-</style>
+    <style>
+        .btns{
+            max-width: 100px !important;
+        }
+    </style>
+
 <body class="navbar-fixed sidebar-nav fixed-nav">
 <header class="navbar">
     <div>
@@ -218,6 +207,10 @@ padding-left: 74px;">
                     <a class="nav-link" href="{{route('cities.index')}}"><i class="icon-people"></i> البلاد </a>
                 </li>
             @endcan
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('faqs.index')}}"><i class="icon-people"></i> الاسئله الشائعه </a>
+            </li>
 
         </ul>
     </nav>

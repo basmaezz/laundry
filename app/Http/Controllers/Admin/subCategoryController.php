@@ -46,6 +46,12 @@ class subCategoryController extends Controller
                     return $row->parentTrashed->name_ar??'';
                 })->addColumn('around_clock', function ($row) {
                     return $row->around_clock==1 ?'طوال اليوم' :abs($hours=((int)$row->clock_end)-((int)$row->clock_at)).'ساعه' ;
+                })->addColumn('opened', function ($row) {
+                    if($row->around_clock==1)
+                    {
+                        return 'مفتوح';
+                    }
+                    return $row->getIsOpenAttribute() ?'مفتوح':'مغلق' ;
                 })
                 ->addColumn('action', function ($row) {
                     $main='<a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >الفروع</a>';
@@ -70,7 +76,7 @@ class subCategoryController extends Controller
     public function create()
     {
         $cities = City::pluck('id', 'name_ar');
-        $categories = Category::where('name_ar', 'مغاسل الملابس')->get();
+        $categories = Category::where('name_ar','مغاسل الملابس')->get();
         return view('dashboard.laundries.create', compact(['cities', 'categories']));
     }
 
@@ -112,8 +118,8 @@ class subCategoryController extends Controller
     public function show($id)
     {
         $subCategory = Subcategory::withTrashed()->with(['userTrashed','parentTrashed'])->find($id);
-
-        return view('dashboard.laundries.View', compact('subCategory'));
+        $cities = City::all();
+        return view('dashboard.laundries.View', compact(['subCategory','cities']));
     }
 
     /**
@@ -124,7 +130,8 @@ class subCategoryController extends Controller
      */
     public function edit($id)
     {
-        $subCategory = Subcategory::with(['parentTrashed', 'userTrashed'])->find($id);
+        $subCategory = Subcategory::with(['parentTrashed', 'userTrashed'])->find($id)->first();
+
         $cities = City::all();
         return view('dashboard.laundries.edit', compact(['subCategory', 'cities']));
     }
@@ -138,6 +145,7 @@ class subCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $subcategory = Subcategory::find($id);
         if ($request->file('image') != '') {
             $filename = request('image')->getClientOriginalName();
@@ -155,6 +163,7 @@ class subCategoryController extends Controller
             'range' => $request->range,
             'lat' => $request->lat,
             'lng' => $request->lng,
+            'urgentWash' => $request->urgentWash,
             'approximate_duration' => $request->approximate_duration,
             'around_clock' => $request->around_clock,
             'clock_end' => $request->clock_end,
@@ -162,7 +171,7 @@ class subCategoryController extends Controller
         ]);
         $subcategory->save();
 
-        $user = User::where('subCategory_id', $id)->update([
+     User::where('subCategory_id', $id)->update([
             'name' => $request->name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -173,6 +182,7 @@ class subCategoryController extends Controller
                 'password' => Hash::make($request->password)
             ]);
         }
+
         return  redirect()->route('laundries.index')->with('success', 'تم التعديل');
     }
 
@@ -419,6 +429,7 @@ class subCategoryController extends Controller
     public function getOrders(Request $request)
     {
         $id=$request->id;
+        $laundry=Subcategory::find($id);
         if(request()->ajax()) {
             $data =  OrderTable::where('laundry_id', $id)->with(['userTrashed', 'delegateTrashed.appUserTrashed'])->get();
             return   Datatables::of($data)
@@ -428,7 +439,7 @@ class subCategoryController extends Controller
                 })->addColumn('delegateTrashed', function ($row) {
                     return $row->delegateTrashed->appUserTrashed->name??'';
                 })->addColumn('percentage', function ($row) {
-                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100 ;
+                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100 ;
                 })->addColumn('created_at', function ($row) {
                     return $row->created_at->format('Y-m-d') ;
                 })
@@ -439,6 +450,6 @@ class subCategoryController extends Controller
                 ->rawColumns(['action','created_at','userTrashed','delegateTrashed','percentage'])
                 ->make(true);
         }
-        return view('dashboard.laundries.laundryOrders',compact('id'));
+        return view('dashboard.laundries.laundryOrders',compact(['id','laundry']));
     }
 }

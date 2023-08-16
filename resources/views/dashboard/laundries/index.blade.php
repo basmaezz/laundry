@@ -24,7 +24,8 @@
                                 <th>المدينه </th>
                                 <th>الحى</th>
                                 <th>ساعات العمل</th>
-                                <th>الاجراءات </th>
+                                <th></th>
+                                <th> </th>
                             </tr>
                             </thead>
 
@@ -62,6 +63,9 @@
                 },{
                     data:'around_clock',
                     name:'around_clock'
+                },{
+                    data:'opened',
+                    name:'opened'
                 },
                     {
                         data: 'action',

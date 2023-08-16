@@ -26,7 +26,7 @@
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i> الاعدادات
                                 @if(isset($siteSetting) )
-                                <a href="{{route('settings.edit')}}" class="btn btn-primary" style="float: left">تعديل الاعدادات </a>
+                                <a href="{{route('settings.edit')}}" class="btn btn-primary" style="float: left; width: 100px; height:100px">تعديل الاعدادات </a>
                             </div>
                             <div class="card-block">
                                 <table class="table table-striped">

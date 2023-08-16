@@ -37,6 +37,9 @@
                                         <tr>
                                             <th>اسم الخدمه</th>
                                             <th> السعر</th>
+                                            @if($product->subcategoryTrashed->urgentWash !=null)
+                                            <th> سعر المستعجل</th>
+                                            @endif
                                             <th> العموله</th>
                                           <th>الاجراءات</th>
                                         </tr>
@@ -47,6 +50,9 @@
                                             <tr>
                                                     <td>{{$service->services}}</td>
                                                     <td>{{$service->price}}</td>
+                                                @if($product->subcategoryTrashed->urgentWash !=null)
+                                                    <td>{{$service->priceUrgent?? '0'}}</td>
+                                                @endif
                                                     <td>{{$service->commission}}</td>
                                                     <td>
                                                         <a href="{{route('product.editService',$service->id)}}" class="btn btn-primary custom">تعديل</a>

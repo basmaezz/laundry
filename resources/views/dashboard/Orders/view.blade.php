@@ -42,8 +42,16 @@
                                         <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->count_products}}" disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="company">المبلغ المطلوب  </label>
+                                        <label for="company">المبلغ الاجمالى   </label>
                                         <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->total_price??''}}" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company">ربح التطبيق    </label>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{($order->total_price *$order->subCategoriesTrashed->percentage)/100}}" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company">ربح المغسله   </label>
+                                        <input type="text" name="profit"class="form-control view" id="name_ar" value="{{($order->total_price-($order->total_price *$order->subCategoriesTrashed->percentage)/100)}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">كوبون   </label>
@@ -52,6 +60,19 @@
                                     <div class="form-group">
                                         <label for="company">خصم   </label>
                                         <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->discount}}" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company">قيمه التوصيل   </label>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->discount}}" disabled>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="company"> نسبه الربح للمغسله  </label>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->note}}" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company"> نسبه الربح  </label>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->note}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company"> ملاحظات  </label>
@@ -71,36 +92,43 @@
                                 </div>
                             </div>
                         </div>
-                        @foreach($orderDetails as $orderDetail)
-                        <div class="col-sm-5">
-                            <div class="card">
-                                <div class="card-header">
-                                    <strong>عرض تفاصيل القطع  </strong>
 
-                                </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>عرض تفاصيل القطع </strong>
+                            </div>
+                            <div class="card-block">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>اسم القطعه</th>
+                                            <th>اسم الخدمه</th>
+                                            <th>السعر</th>
+                                            <th>العموله</th>
+                                            <th>الكميه</th>
 
-                                <div class="card-block">
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($orderDetails as $orderDetail)
+                                        <tr>
+                                            <td>{{$orderDetail->productTrashed->name_ar}}</td>
+                                            <td>{{$orderDetail->productService->services}}</td>
+                                            <td>{{$orderDetail->price}}</td>
+                                            <td>{{$orderDetail->productService->commission}}</td>
+                                            <td>{{$orderDetail->quantity}}</td>
+                                        @endforeach
 
-                                    <div class="form-group">
-                                        <label for="company">اسم القطعه</label>
-                                        <input type="text" name="name_ar" class="form-control view" id="name_ar" value="{{$orderDetail->productTrashed->name_ar}}" disabled>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="company">اسم الخدمه</label>
-                                        <input type="text" name="name_ar" class="form-control view" id="name_ar" value="{{$orderDetail->productService->services}}" disabled>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="company">السعر </label>
-                                        <input type="text" name="name_ar" class="form-control view" id="name_ar" value="{{$orderDetail->price}}" disabled>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="company">الكميه  </label>
-                                        <input type="text" name="name_en" class="form-control view" id="name_ar" value="{{$orderDetail->quantity}}" disabled>
-                                    </div>
-                                </div>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
                             </div>
                         </div>
-                        @endforeach
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">

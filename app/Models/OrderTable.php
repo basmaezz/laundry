@@ -44,6 +44,7 @@ class OrderTable extends Model
         'count_products',
         'status',
         'status_id',
+        'urgent',
         'discount_value',
         'note',
         'delivery_fees',

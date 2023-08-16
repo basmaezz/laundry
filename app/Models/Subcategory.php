@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Enums\SubCategoryStatus;
 use App\Traits\SelfReferenceTrait;
@@ -15,7 +16,7 @@ class Subcategory extends Model
 
     protected  $table   = 'subcategories';
     protected  $guarded = [];
-    protected $fillable=['category_id','name_en','name_ar','parent_id','address','city_id','location','range','price','percentage','status','around_clock','clock_at','clock_end','image','rate','approximate_duration','lat','lng'];
+    protected $fillable=['category_id','name_en','name_ar','parent_id','address','city_id','location','range','price','urgentWash','percentage','status','around_clock','clock_at','clock_end','image','rate','approximate_duration','lat','lng'];
 //    protected $casts = ['status' => SubCategoryStatus::class  ];
     protected $attributes=[
         'status'=>'1',
@@ -61,5 +62,13 @@ class Subcategory extends Model
     }
     public function userTrashed(){
         return $this->hasMany(User::class,'subCategory_id')->withTrashed();
+    }
+
+    public function getIsOpenAttribute()
+    {
+        return Carbon::now()->between(
+            Carbon::parse($this->clock_at),
+            Carbon::parse($this->clock_end)
+        );
     }
 }
