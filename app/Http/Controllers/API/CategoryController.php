@@ -176,8 +176,8 @@ class CategoryController extends Controller
                 return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
                     ->with(['productService' => function ($q) {
                        $q=ProductService::pluck('id', 'product_id', 'services', 'price','commission');
-                       return $q ; 
-//                         $q->select('id', 'product_id', 'services', 'price','commission');
+                       return $q->price + $q->commission ;
+
                     }]);
             }])->where('subcategory_id', $id)->get();
         } elseif ($urgent == 1) {
@@ -185,8 +185,8 @@ class CategoryController extends Controller
                 return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
                     ->with(['productService' => function ($q) {
                         $q=ProductService::pluck('id', 'product_id', 'services', 'priceUrgent','commission');
-                        return $q;
-//                        $q->select('id', 'product_id', 'services', 'priceUrgent','commission');
+                        return $q->priceUrgent + $q->commission ;
+
                     }]);
             }])->where('subcategory_id', $id)->get();
         }
