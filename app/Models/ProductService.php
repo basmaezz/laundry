@@ -20,4 +20,13 @@ class ProductService extends Model
         return $this->belongsTo(Product::class, 'parent_id');
     }
 
+    function getPrice()
+    {
+        return $this->price + $this->commission;
+    }
+    function getUrgentPrice()
+    {
+       return $this->urgentPrice + $this->commission;
+    }
+
 }
