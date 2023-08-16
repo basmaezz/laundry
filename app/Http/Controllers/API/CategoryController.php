@@ -175,17 +175,14 @@ class CategoryController extends Controller
             $subCategoriesServices = CategoryItem::query()->with(['subcategories', 'products' => function ($q) {
                 return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
                     ->with(['productService' => function ($q) {
-                         $q->select('id', 'product_id', 'services', 'price');
-                         dd($q);
+                         $q->select('id', 'product_id', 'services', sum('price','+','commission'));
                     }]);
             }])->where('subcategory_id', $id)->get();
         } elseif ($urgent == 1) {
             $subCategoriesServices = CategoryItem::query()->with(['subcategories', 'products' => function ($q) {
                 return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
                     ->with(['productService' => function ($q) {
-
-                        $q->select('id', 'product_id', 'services', 'priceUrgent');
-                        dd($q);
+                        $q->select('id', 'product_id', 'services', sum('priceUrgent','+','commission'));
                     }]);
             }])->where('subcategory_id', $id)->get();
         }
