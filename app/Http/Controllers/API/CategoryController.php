@@ -177,7 +177,7 @@ class CategoryController extends Controller
                     ->with(['productService' => function ($q) {
                          $normalPrice=$q->select('price');
                          $commission=$q->select('commission');
-                         $price=$normalPrice+$commission;
+                         $price=$normalPrice->sum()+$commission->sum();
                         return $q->select('id', 'product_id', 'services', $price);
                     }]);
             }])->where('subcategory_id', $id)->get();
@@ -187,7 +187,7 @@ class CategoryController extends Controller
                     ->with(['productService' => function ($q) {
                         $priceUrgent=$q->select('priceUrgent');
                         $commission=$q->select('commission');
-                        $price=$priceUrgent+$commission;
+                        $price=$priceUrgent->sum() + $commission->sum();
                         return $q->select('id', 'product_id', 'services', $price);
                     }]);
             }])->where('subcategory_id', $id)->get();
