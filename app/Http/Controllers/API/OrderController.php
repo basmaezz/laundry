@@ -419,7 +419,17 @@ class OrderController extends Controller
                 $order->delivery_id = null;
             }
             $order->save();
-
+            //Start Store Payment information
+            foreach ($request->get('payments') as $payment){
+                Payment::create([
+                    'user_id'           => $app_user_id,
+                    'order_id'          => $order->id,
+                    'transaction_id'    => $payment['id'] ?? null,
+                    'status'            => $payment['status'] ?? 'Unknown',
+                    'payload'           => $payment['payload'] ?? null
+                ]);
+            }
+            //End Store Payment information
             $name = 'name_' . App::getLocale();
             NotificationController::sendNotification(
                 getStatusName($status_id),
