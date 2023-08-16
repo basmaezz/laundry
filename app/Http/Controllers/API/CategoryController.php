@@ -185,7 +185,7 @@ class CategoryController extends Controller
                 return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
                     ->with(['productService' => function ($q) {
                         $q=ProductService::pluck('id', 'product_id', 'services', 'priceUrgent','commission');
-                        return $q->priceUrgent + $q->commission ;
+                        return $q->id ;
 
                     }]);
             }])->where('subcategory_id', $id)->get();
