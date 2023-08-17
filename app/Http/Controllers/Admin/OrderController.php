@@ -46,7 +46,7 @@ class OrderController extends Controller
                     return $row->userTrashed->name;
                 })->addColumn('deliveryType',function ($row){
                     return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
-                })->addColumn('statusOrder',function ($row){
+                })->addColumn('orderStatus',function ($row){
                     if($row->status_id==1){
                         return 'انتظار قبول المندوب';
                     }elseif ($row->status_id==2){
@@ -84,7 +84,7 @@ class OrderController extends Controller
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder customOrder" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','deliveryType','finished','city','regionName','createdAt'])
+                ->rawColumns(['action','category','user','deliveryType','orderStatus','finished','city','regionName','createdAt'])
                 ->make(true);
         }
         return  view('dashboard.Orders.index');
