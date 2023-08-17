@@ -21,7 +21,6 @@
                                 <th>رقم الطلب  </th>
                                 <th>اسم المغسله </th>
                                 <th>اسم العميل </th>
-                                <th> نوع التوصيل </th>
                                 <th> حاله الطلب   </th>
                                 <th> المده المستغرقه  </th>
                                 <th>  القيمه الاجماليه  </th>
@@ -29,6 +28,7 @@
                                 <th>   ربح التطبيق  </th>
                                 <th>    العموله  </th>
                                 <th>    قيمه التوصيل  </th>
+                                <th> نوع التوصيل </th>
                                 <th>المدينه </th>
                                 <th>الحى </th>
                                 <th>تاريخ الطلب </th>
@@ -69,11 +69,11 @@
                     data:'orderStatus',
                     name:'orderStatus'
                 },{
-                    data:'deliveryType',
-                    name:'deliveryType'
+                    data:'finished',
+                    name:'finished'
                 },{
-                    data:'deliveryType',
-                    name:'deliveryType'
+                    data:'total_price',
+                    name:'total_price'
                 },{
                     data:'deliveryType',
                     name:'deliveryType'

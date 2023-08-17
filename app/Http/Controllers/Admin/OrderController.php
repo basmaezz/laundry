@@ -73,6 +73,10 @@ class OrderController extends Controller
                     }else{
                         return  '<time class="timeago" datetime="'.$row->created_at->toISOString().'">'. $row->created_at->toDateString() .'</time>';
                     }
+                })->addColumn('laundryProfit', function ($row) {
+                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('appProfit', function ($row) {
+                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('regionName', function ($row) {
