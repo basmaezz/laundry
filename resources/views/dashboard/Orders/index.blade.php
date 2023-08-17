@@ -63,9 +63,6 @@
                     data: 'user',
                     name: 'user'
                 },{
-                    data:'deliveryType',
-                    name:'deliveryType'
-                },{
                     data:'orderStatus',
                     name:'orderStatus'
                 },{
@@ -75,8 +72,11 @@
                     data:'total_price',
                     name:'total_price'
                 },{
-                    data:'deliveryType',
-                    name:'deliveryType'
+                    data:'laundryProfit',
+                    name:'laundryProfit'
+                },{
+                    data:'appProfit',
+                    name:'appProfit'
                 },{
                     data:'deliveryType',
                     name:'deliveryType'
