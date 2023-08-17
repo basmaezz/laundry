@@ -46,6 +46,27 @@ class OrderController extends Controller
                     return $row->userTrashed->name;
                 })->addColumn('deliveryType',function ($row){
                     return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
+                })->addColumn('statusOrder',function ($row){
+                    if($row->status_id==1){
+                        return 'انتظار قبول المندوب';
+                    }elseif ($row->status_id==2){
+                        return 'المندوب فى الطريق للعميل';
+                    }elseif ($row->status_id==3){
+                        return 'المندوب فى الطريق للمغسله';
+                    }elseif ($row->status_id==4){
+                        return 'فى المغسله';
+                    }elseif ($row->status_id==5){
+                        return 'الأنتهاء من الغسيل';
+                    }elseif ($row->status_id==6){
+                        return 'انتظار موافقه المندوب';
+                    }elseif ($row->status_id==7){
+                        return 'فى الطريق للعميل';
+                    }elseif ($row->status_id==8){
+                        return 'الطلب منتهى';
+                    }elseif ($row->status_id==10){
+                        return 'الطلب ملغى';
+                    }
+                    return '';
                 })->addColumn('finished',function ($row){
                     if($row->is_finished){
                         return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
