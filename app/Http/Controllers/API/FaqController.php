@@ -11,7 +11,6 @@ class FaqController extends Controller
 {
     public function getFaqs(){
         $faqs = Faq::query()->limit(50)->get();
-        dd($faqs);
         return apiResponse('api.success', ['data' => $faqs]);
     }
 
