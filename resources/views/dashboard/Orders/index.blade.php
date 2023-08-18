@@ -78,15 +78,15 @@
                     data:'appProfit',
                     name:'appProfit'
                 },{
+                    data:'commission',
+                    name:'commission'
+                },{
+                    data:'delivery',
+                    name:'delivery'
+                },{
                     data:'deliveryType',
                     name:'deliveryType'
-                },{
-                    data:'finished',
-                    name:'finished'
-                },{
-                    data:'total_price',
-                    name:'total_price'
-                },{
+                },  {
                     data:'city',
                     name:'city'
                 },{

@@ -77,6 +77,10 @@ class OrderController extends Controller
                     return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('appProfit', function ($row) {
                     return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('commission', function ($row) {
+                    return '';
+                })->addColumn('delivery', function ($row) {
+                    return '';
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('regionName', function ($row) {
@@ -88,7 +92,7 @@ class OrderController extends Controller
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder customOrder" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','deliveryType','orderStatus','laundryProfit','appProfit','finished','city','regionName','createdAt'])
+                ->rawColumns(['action','category','user','deliveryType','orderStatus','laundryProfit','appProfit','delivery','commission','finished','city','regionName','createdAt'])
                 ->make(true);
         }
         return  view('dashboard.Orders.index');
