@@ -21,6 +21,7 @@
                                 <th>رقم الطلب  </th>
                                 <th>اسم المغسله </th>
                                 <th>اسم العميل </th>
+                                <th> نوع الطلب </th>
                                 <th> نوع التوصيل </th>
                                 <th> المده المستغرقه  </th>
                                 <th> تاريخ وصول المغسله  </th>
@@ -57,6 +58,9 @@
                 },{
                     data:'delegate',
                     name:'delegate'
+                },{
+                    data: 'orderType',
+                    name: 'orderType'
                 },{
                     data:'duration',
                     name:'duration'

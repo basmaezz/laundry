@@ -153,9 +153,9 @@ class OrderController extends Controller
                     'category_item_id' => $item['category_id'],
                     'product_service_id' => $item['product_service_id'],
                     'quantity' => $item['quantity'],
-                    'price' => $request->get('urgent')=='1'?($product->priceUrgent + $product->commission) * $item['quantity']:($product->price + $product->commission) * $item['quantity'],
+                    'price' => $request->get('urgent')=='1'?$laundry->price+(($product->priceUrgent + $product->commission) * $item['quantity']):$laundry->price+(($product->price + $product->commission) * $item['quantity']),
                 ];
-                $total += $request->get('urgent')=='1'?($product->priceUrgent + $product->commission) * $item['quantity']:($product->price + $product->commission) * $item['quantity'];
+                $total += $request->get('urgent')=='1'?$laundry->price+(($product->priceUrgent + $product->commission) * $item['quantity']):$laundry->price+(($product->price + $product->commission) * $item['quantity']);
                 $item_quantity += $item['quantity'];
                 OrderDetails::create($item_data);
             }
