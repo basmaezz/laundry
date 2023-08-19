@@ -17,14 +17,20 @@
                     <div class="card-block">
                         <table class="table table-striped" id="table_id">
                             <thead>
-                            <tr>
+
                                 <th>رقم الطلب  </th>
                                 <th>اسم المغسله </th>
                                 <th>اسم العميل </th>
-                                <th> نوع الطلب </th>
-                                <th> نوع التوصيل </th>
+                                <th> نوع الطلب   </th>
                                 <th> المده المستغرقه  </th>
-                                <th> تاريخ وصول المغسله  </th>
+                                <th>  القيمه الاجماليه  </th>
+                                <th>   ربح المغسله  </th>
+                                <th>   ربح التطبيق  </th>
+                                <th>    العموله  </th>
+                                <th>    قيمه التوصيل  </th>
+                                <th>المدينه </th>
+                                <th>الحى </th>
+                                <th>تاريخ الطلب </th>
                                 <th>التفاصيل</th>
                             </tr>
                             </thead>
@@ -56,14 +62,34 @@
                     data: 'user',
                     name: 'user'
                 },{
-                    data:'delegate',
-                    name:'delegate'
-                },{
                     data: 'orderType',
                     name: 'orderType'
                 },{
                     data:'duration',
                     name:'duration'
+                },{
+                    data:'laundryProfit',
+                    name:'laundryProfit'
+                },{
+                    data:'appProfit',
+                    name:'appProfit'
+                },{
+                    data:'commission',
+                    name:'commission'
+                },{
+                    data:'delivery',
+                    name:'delivery'
+                },{
+                    data:'total_price',
+                    name:'total_price'
+                },{
+                },{
+                    data:'city',
+                    name:'city'
+                },{
+                },{
+                    data:'regionName',
+                    name:'regionName'
                 },{
                     data:'created_at',
                     name:'created_at'
