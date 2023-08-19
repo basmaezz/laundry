@@ -217,7 +217,7 @@ class OrderController extends Controller
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder " >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','orderType','delegate','laundryProfit','appProfit','commission','delivery','duration','city','regionName','created_at'])
+                ->rawColumns(['action','category','user','orderType','laundryProfit','appProfit','commission','delivery','duration','city','regionName','created_at'])
                 ->make(true);
         }
 
