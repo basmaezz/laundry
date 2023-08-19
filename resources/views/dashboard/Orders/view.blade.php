@@ -122,7 +122,7 @@
                                             <td>{{$orderDetail->productTrashed->name_ar}}</td>
                                             <td>{{$orderDetail->productService->services}}</td>
                                             <td>{{$orderDetail->price}}</td>
-                                            <td>{{$orderDetail->productService->commission}}</td>
+                                            <td>{{$orderDetail->quantity*$orderDetail->productService->commission}}</td>
                                             <td>{{$orderDetail->quantity}}</td>
                                         @endforeach
 

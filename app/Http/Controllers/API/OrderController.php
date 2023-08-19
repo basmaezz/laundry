@@ -96,7 +96,6 @@ class OrderController extends Controller
             return apiResponseCouponError('api.You reached the maximum number or request', 400, 400);
         }
 
-
         $discount_value = 0;
         if ($request->has('coupon') && !empty($request->get('coupon'))) {
             $coupon = CouponShopCart::where('code_name', $request->get('coupon'))->where(function ($query) {
@@ -154,9 +153,9 @@ class OrderController extends Controller
                     'category_item_id' => $item['category_id'],
                     'product_service_id' => $item['product_service_id'],
                     'quantity' => $item['quantity'],
-                    'price' => ($product->price + $product->commission) * $item['quantity'],
+                    'price' => $request->get('urgent')=='1'?($product->priceUrgent + $product->commission) * $item['quantity']:($product->price + $product->commission) * $item['quantity'],
                 ];
-                $total += ($product->price + $product->commission) * $item['quantity'];
+                $total += $request->get('urgent')=='1'?($product->priceUrgent + $product->commission) * $item['quantity']:($product->price + $product->commission) * $item['quantity'];
                 $item_quantity += $item['quantity'];
                 OrderDetails::create($item_data);
             }
