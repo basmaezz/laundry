@@ -66,7 +66,9 @@ class OrderController extends Controller
                     }elseif ($row->status_id==10){
                         return 'الطلب ملغى';
                     }
-                    return '';
+                        return '';
+                })->addColumn('orderType',function ($row){
+                    return $row->urgent=='1'?'مستعجل':'عادى';
                 })->addColumn('finished',function ($row){
                     if($row->is_finished){
                         return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
@@ -80,7 +82,7 @@ class OrderController extends Controller
                 })->addColumn('commission', function ($row) {
                     return '';
                 })->addColumn('delivery', function ($row) {
-                    return '';
+                    return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('regionName', function ($row) {
@@ -92,7 +94,7 @@ class OrderController extends Controller
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder customOrder" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','deliveryType','orderStatus','laundryProfit','appProfit','delivery','commission','finished','city','regionName','createdAt'])
+                ->rawColumns(['action','category','user','deliveryType','orderType','orderStatus','laundryProfit','appProfit','delivery','commission','finished','city','regionName','createdAt'])
                 ->make(true);
         }
         return  view('dashboard.Orders.index');

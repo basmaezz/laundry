@@ -22,6 +22,7 @@
                                 <th>اسم المغسله </th>
                                 <th>اسم العميل </th>
                                 <th> حاله الطلب   </th>
+                                <th> نوع الطلب   </th>
                                 <th> المده المستغرقه  </th>
                                 <th>  القيمه الاجماليه  </th>
                                 <th>   ربح المغسله  </th>
@@ -65,6 +66,9 @@
                 },{
                     data:'orderStatus',
                     name:'orderStatus'
+                },{
+                    data:'orderType',
+                    name:'orderType'
                 },{
                     data:'finished',
                     name:'finished'
