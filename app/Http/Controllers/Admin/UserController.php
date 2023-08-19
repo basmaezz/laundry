@@ -15,6 +15,7 @@ use App\Models\Nationality;
 use App\Models\Order;
 use App\Models\OrderAdditional;
 use App\Models\OrderTable;
+use App\Models\Payment;
 use App\Models\ProviderExtra;
 use App\Models\Role;
 use App\Models\User;
@@ -294,6 +295,17 @@ class UserController extends Controller
 
         $appUser->wallet += floatval($request->get("amount"));
         $appUser->save();
+        //Start Store Payment information
+        foreach ($request->get('payments') as $payment){
+            Payment::create([
+                'user_id'           => $id,
+                'order_id'          => null,
+                'transaction_id'    => $payment['id'] ?? null,
+                'status'            => $payment['status'] ?? 'Unknown',
+                'payload'           => $payment['payload'] ?? null
+            ]);
+        }
+        //End Store Payment information
         return redirect()->route('customers.index')->with('success', 'تم الاضافه للمحفظه !');;
     }
     public function customerOrders($id){
