@@ -21,9 +21,18 @@
                                 <th>رقم الطلب  </th>
                                 <th>اسم المغسله </th>
                                 <th>اسم العميل </th>
-                                <th>  اسم المندوب </th>
+                                <th>اسم المندوب </th>
+                                <th> نوع الطلب   </th>
+                                <th>تاريخ الطلب </th>
                                 <th> المده المستغرقه  </th>
-                                <th> تاريخ وصول المغسله  </th>
+                                <th>  القيمه الاجماليه  </th>
+                                <th>   ربح المغسله  </th>
+                                <th>   ربح التطبيق  </th>
+                                <th>    العموله  </th>
+                                <th>    قيمه التوصيل  </th>
+                                <th> نوع التوصيل </th>
+                                <th>المدينه </th>
+                                <th>الحى </th>
                                 <th>التفاصيل</th>
                             </tr>
                             </thead>
@@ -58,11 +67,38 @@
                     data:'delegate',
                     name:'delegate'
                 },{
+                    data:'orderType',
+                    name:'orderType'
+                },{
+                   data:'created_at',
+                   name:'created_at'
+                },{
                     data:'duration',
                     name:'duration'
                 },{
-                    data:'created_at',
-                    name:'created_at'
+                    data:'total_price',
+                    name:'total_price'
+                },{
+                    data:'laundryProfit',
+                    name:'laundryProfit'
+                },{
+                    data:'appProfit',
+                    name:'appProfit'
+                },{
+                    data:'commission',
+                    name:'commission'
+                },{
+                    data:'delivery',
+                    name:'delivery'
+                },{
+                    data:'deliveryType',
+                    name:'deliveryType'
+                },{
+                    data:'city',
+                    name:'city'
+                },{
+                    data:'regionName',
+                    name:'regionName'
                 },{
                     data: 'action',
                     name: 'action',

@@ -1,7 +1,7 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main" style="margin-top: 25px">
-    <div>
+        <div>
             <nav aria-label="breadcrumb" class="navBreadCrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
@@ -18,20 +18,20 @@
                         <table class="table table-striped" id="table_id">
                             <thead>
 
-                                <th>رقم الطلب  </th>
-                                <th>اسم المغسله </th>
-                                <th>اسم العميل </th>
-                                <th> نوع الطلب   </th>
-                                <th> المده المستغرقه  </th>
-                                <th>  القيمه الاجماليه  </th>
-                                <th>   ربح المغسله  </th>
-                                <th>   ربح التطبيق  </th>
-                                <th>    العموله  </th>
-                                <th>    قيمه التوصيل  </th>
-                                <th>المدينه </th>
-                                <th>الحى </th>
-                                <th>تاريخ الطلب </th>
-                                <th>التفاصيل</th>
+                            <th>رقم الطلب  </th>
+                            <th>اسم المغسله </th>
+                            <th>اسم العميل </th>
+                            <th> نوع الطلب   </th>
+                            <th> المده المستغرقه  </th>
+                            <th>  القيمه الاجماليه  </th>
+                            <th>   ربح المغسله  </th>
+                            <th>   ربح التطبيق  </th>
+                            <th>    العموله  </th>
+                            <th>    قيمه التوصيل  </th>
+                            <th>المدينه </th>
+                            <th>الحى </th>
+                            <th>تاريخ الطلب </th>
+                            <th>التفاصيل</th>
                             </tr>
                             </thead>
 
@@ -62,11 +62,14 @@
                     data: 'user',
                     name: 'user'
                 },{
-                    data: 'orderType',
-                    name: 'orderType'
+                    data:'orderType',
+                    name:'orderType'
                 },{
                     data:'duration',
                     name:'duration'
+                },{
+                    data:'total_price',
+                    name:'total_price'
                 },{
                     data:'laundryProfit',
                     name:'laundryProfit'
@@ -80,13 +83,8 @@
                     data:'delivery',
                     name:'delivery'
                 },{
-                    data:'total_price',
-                    name:'total_price'
-                },{
-                },{
                     data:'city',
                     name:'city'
-                },{
                 },{
                     data:'regionName',
                     name:'regionName'

@@ -190,7 +190,6 @@ class OrderController extends Controller
                     return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->addColumn('orderType',function ($row){
                     return $row->urgent=='1'?'مستعجل':'عادى';
-
                 })->addColumn('duration',function ($row){
                     $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
                     $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
@@ -246,12 +245,12 @@ class OrderController extends Controller
                         return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('laundryProfit', function ($row) {
-            return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
-        })->addColumn('appProfit', function ($row) {
-            return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
-        })->addColumn('commission', function ($row) {
-            return '';
-        })->addColumn('delivery', function ($row) {
+                      return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    })->addColumn('appProfit', function ($row) {
+                        return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    })->addColumn('commission', function ($row) {
+                        return '';
+                    })->addColumn('delivery', function ($row) {
             return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
@@ -280,6 +279,8 @@ class OrderController extends Controller
                     return $row->userTrashed->name ;
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
+                })->addColumn('orderType',function ($row){
+                    return $row->urgent=='1'?'مستعجل':'عادى';
                 })->addColumn('duration',function ($row){
                     $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WayToLaundry)->first();
                     $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::DeliveredToLaundry)->first();
@@ -288,13 +289,25 @@ class OrderController extends Controller
                     }else{
                         return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
+                })->addColumn('laundryProfit', function ($row) {
+                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('appProfit', function ($row) {
+                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('commission', function ($row) {
+                    return '';
+                })->addColumn('delivery', function ($row) {
+                    return $row->subCategoriesTrashed->price;
+                })->addColumn('city', function ($row) {
+                    return $row->userTrashed->citiesTrashed->name_ar;
+                })->addColumn('regionName', function ($row) {
+                    return $row->userTrashed->region_name;
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('action', function ($row) {
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder " >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','duration','created_at'])
+                ->rawColumns(['action','category','user','delegate','orderType','duration','laundryProfit','appProfit','commission','delivery','city','regionName','created_at'])
                 ->make(true);
         }
         return  view('dashboard.Orders.WayToLaundry');
@@ -321,11 +334,23 @@ class OrderController extends Controller
                     }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
-                })->addColumn('action', function ($row) {
+                    })->addColumn('laundryProfit', function ($row) {
+                        return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    })->addColumn('appProfit', function ($row) {
+                        return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    })->addColumn('commission', function ($row) {
+                        return '';
+                    })->addColumn('delivery', function ($row) {
+                        return $row->subCategoriesTrashed->price;
+                    })->addColumn('city', function ($row) {
+                        return $row->userTrashed->citiesTrashed->name_ar;
+                    })->addColumn('regionName', function ($row) {
+                        return $row->userTrashed->region_name;
+                    })->addColumn('action', function ($row) {
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','duration','created_at'])
+                ->rawColumns(['action','category','user','delegate','duration','created_at','laundryProfit','appProfit','commission','delivery','city','regionName'])
                 ->make(true);
         }
 
@@ -353,11 +378,23 @@ class OrderController extends Controller
                     }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
+                })->addColumn('laundryProfit', function ($row) {
+                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('appProfit', function ($row) {
+                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('commission', function ($row) {
+                    return '';
+                })->addColumn('delivery', function ($row) {
+                    return $row->subCategoriesTrashed->price;
+                })->addColumn('city', function ($row) {
+                    return $row->userTrashed->citiesTrashed->name_ar;
+                })->addColumn('regionName', function ($row) {
+                    return $row->userTrashed->region_name;
                 })->addColumn('action', function ($row) {
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','duration','created_at'])
+                ->rawColumns(['action','category','user','delegate','duration','created_at','laundryProfit','appProfit','commission','delivery','city','regionName'])
                 ->make(true);
         }
         return  view('dashboard.Orders.ordersPickUp');
@@ -384,17 +421,28 @@ class OrderController extends Controller
                     }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
+                })->addColumn('laundryProfit', function ($row) {
+                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('appProfit', function ($row) {
+                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('commission', function ($row) {
+                    return '';
+                })->addColumn('delivery', function ($row) {
+                    return $row->subCategoriesTrashed->price;
+                })->addColumn('city', function ($row) {
+                    return $row->userTrashed->citiesTrashed->name_ar;
+                })->addColumn('regionName', function ($row) {
+                    return $row->userTrashed->region_name;
                 })->addColumn('action', function ($row) {
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['category','user','deliveryType','duration','created_at','action'])
+                ->rawColumns(['category','user','deliveryType','duration','created_at','action','laundryProfit','appProfit','commission','delivery','city','regionName'])
                 ->make(true);
         }
         return  view('dashboard.Orders.WaitingForDeliveryToReceiveOrder');
     }
     public function  DeliveryOnTheWayToYou(){
-
 
         if(request()->ajax()) {
             $data = OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->get();
@@ -414,11 +462,26 @@ class OrderController extends Controller
                     }
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
+                })->addColumn('laundryProfit', function ($row) {
+                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('appProfit', function ($row) {
+                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('commission', function ($row) {
+                    return '';
+                })->addColumn('delivery', function ($row) {
+                    return $row->subCategoriesTrashed->price;
+                })->addColumn('city', function ($row) {
+                    return $row->userTrashed->citiesTrashed->name_ar;
+                })->addColumn('regionName', function ($row) {
+                    return $row->userTrashed->region_name;
+                })->addColumn('action', function ($row) {
+                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >التفاصيل</a> ';
+                    return $btns;
                 })->addColumn('action', function ($row) {
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','duration','created_at'])
+                ->rawColumns(['action','category','user','duration','created_at','laundryProfit','appProfit','commission','delivery','city','regionName'])
                 ->make(true);
         }
         return  view('dashboard.Orders.DeliveryOnTheWayToYou');

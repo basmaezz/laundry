@@ -1,7 +1,7 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main" style="margin-top: 25px">
-    <div>
+        <div>
             <nav aria-label="breadcrumb" class="navBreadCrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
@@ -88,10 +88,8 @@
                     data:'total_price',
                     name:'total_price'
                 },{
-                },{
                     data:'city',
                     name:'city'
-                },{
                 },{
                     data:'regionName',
                     name:'regionName'
