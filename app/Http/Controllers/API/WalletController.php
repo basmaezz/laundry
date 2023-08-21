@@ -42,7 +42,6 @@ class WalletController extends ApiController
         foreach ($request->get('payments') as $payment) {
             Payment::create([
                 'user_id'           => $app_user_id,
-                'order_id'          =>$payment['order_id'] ?? null,
                 'transaction_id'    => $payment['id'] ?? null,
                 'status'            => $payment['status'] ?? 'Unknown',
                 'payload'           => $payment['payload'] ?? null
