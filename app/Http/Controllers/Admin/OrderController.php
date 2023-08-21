@@ -279,8 +279,6 @@ class OrderController extends Controller
                     return $row->userTrashed->name ;
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
-                })->addColumn('deliveryType',function ($row){
-                    return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
                 })->
                 addColumn('orderType',function ($row){
                     return $row->urgent=='1'?'مستعجل':'عادى';
@@ -312,7 +310,7 @@ class OrderController extends Controller
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder " >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','orderType','duration','laundryProfit','appProfit','commission','delivery','deliveryType','city','regionName','created_at'])
+                ->rawColumns(['action','category','user','delegate','orderType','duration','laundryProfit','appProfit','commission','delivery','city','regionName','created_at'])
                 ->make(true);
         }
         return  view('dashboard.Orders.WayToLaundry');
@@ -329,8 +327,6 @@ class OrderController extends Controller
                     return $row->userTrashed->name ;
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
-                })->addColumn('deliveryType',function ($row){
-                    return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
                 })->addColumn('duration',function ($row){
                     $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::DeliveredToLaundry)->first();
                     $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::ClothesReadyForDelivery)->first();
@@ -359,7 +355,7 @@ class OrderController extends Controller
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','duration','created_at','orderType','deliveryType','laundryProfit','appProfit','commission','delivery','city','regionName'])
+                ->rawColumns(['action','category','user','delegate','duration','created_at','orderType','laundryProfit','appProfit','commission','delivery','city','regionName'])
                 ->make(true);
         }
 
@@ -385,9 +381,7 @@ class OrderController extends Controller
                     }else{
                         return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
-                       })->addColumn('deliveryType',function ($row){
-            return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
-                })->
+                       })->
 
                 addColumn('orderType',function ($row){
                     return $row->urgent=='1'?'مستعجل':'عادى';
@@ -409,7 +403,7 @@ class OrderController extends Controller
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','duration','created_at','laundryProfit','deliveryType','appProfit','orderType','commission','delivery','city','regionName'])
+                ->rawColumns(['action','category','user','delegate','duration','created_at','laundryProfit','appProfit','orderType','commission','delivery','city','regionName'])
                 ->make(true);
         }
         return  view('dashboard.Orders.ordersPickUp');

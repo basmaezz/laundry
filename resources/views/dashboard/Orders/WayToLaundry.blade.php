@@ -30,7 +30,6 @@
                                 <th>   ربح التطبيق  </th>
                                 <th>    العموله  </th>
                                 <th>    قيمه التوصيل  </th>
-                                <th> نوع التوصيل </th>
                                 <th>المدينه </th>
                                 <th>الحى </th>
                                 <th>التفاصيل</th>
@@ -90,9 +89,6 @@
                 },{
                     data:'delivery',
                     name:'delivery'
-                },{
-                    data:'deliveryType',
-                    name:'deliveryType'
                 },{
                     data:'city',
                     name:'city'

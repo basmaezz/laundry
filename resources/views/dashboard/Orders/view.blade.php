@@ -66,17 +66,10 @@
                                         <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->discount}}" disabled>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="company"> نسبه الربح للمغسله  </label>
-                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->note}}" disabled>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="company"> نسبه الربح  </label>
-                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->note}}" disabled>
-                                    </div>
+
                                     <div class="form-group">
                                         <label for="company"> العموله الاجماليه  </label>
-                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->note}}" disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company"> ملاحظات  </label>
