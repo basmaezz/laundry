@@ -17,7 +17,9 @@ class Transaction extends Model
         'current_amount',
         'direction'
     ];
-
+    protected $casts = [
+        'amount' => 'decimal',
+    ];
     public function user(){
         return $this->belongsTo(AppUser::class,'app_user_id', 'id');
     }
