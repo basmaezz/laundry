@@ -45,6 +45,7 @@ class UserController extends Controller
         ]);
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials) && Auth::user()->subCategory_id =='' ) {
+            Auth::user()->logins()->create($request->except(['_token','email','password']));
             return redirect()->route('dashboard');
         }
         return redirect()->back()->with('error', 'Something went wrong.');
@@ -55,17 +56,19 @@ class UserController extends Controller
             abort(403);
         };
         if(request()->ajax()) {
-            $data = User::whereNull('subCategory_id')->get();
+            $data = User::whereNull('subCategory_id')->where('id','<>',Auth::user()->id)->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('role', function ($row) {
                     return $row->hasRoleName($row);
+                })->addColumn('lastLogin', function ($row) {
+                    return $row->logins()->latest()->first()->created_at->diffForHumans();
                 })
                 ->addColumn('action', function ($row) {
                     return '<a href="' . Route('user.edit', $row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
              <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
-                ->rawColumns(['action', 'role'])
+                ->rawColumns(['action', 'role','lastLogin'])
                 ->make(true);
         }
         return view('dashboard.users.index');

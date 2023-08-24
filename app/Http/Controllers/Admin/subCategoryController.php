@@ -34,7 +34,7 @@ class subCategoryController extends Controller
             abort(403);
         };
         if(request()->ajax()) {
-            $data = Subcategory::with(['city', 'parentTrashed'])->get();
+            $data = Subcategory::with(['city', 'parentTrashed'])->toBase()->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($row) {
@@ -78,7 +78,7 @@ class subCategoryController extends Controller
     public function create()
     {
         $cities = City::pluck('id', 'name_ar');
-        $categories = Category::where('name_ar','مغاسل الملابس')->get();
+        $categories = Category::where('name_ar','مغاسل الملابس')->toBase()->get();
         return view('dashboard.laundries.create', compact(['cities', 'categories']));
     }
 
@@ -431,9 +431,9 @@ class subCategoryController extends Controller
     public function getOrders(Request $request)
     {
         $id=$request->id;
-        $laundry=Subcategory::find($id);
+        $laundry=Subcategory::toBase()->find($id);
         if(request()->ajax()) {
-            $data =  OrderTable::where('laundry_id', $id)->with(['userTrashed', 'delegateTrashed.appUserTrashed'])->get();
+            $data =  OrderTable::where('laundry_id', $id)->with(['userTrashed', 'delegateTrashed.appUserTrashed'])->toBase()->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('userTrashed', function ($row) {

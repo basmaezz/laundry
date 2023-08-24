@@ -24,6 +24,7 @@
                             <th>البريد الألكترونى</th>
                             <th>الجوال</th>
                             <th>الصلاحيه</th>
+                            <th>أخر تسجيل دخول</th>
                             <th>الأجراءات</th>
                         </tr>
                         </thead>
@@ -62,6 +63,9 @@
                     }, {
                         data: 'role',
                         name: 'role'
+                    },{
+                        data: 'lastLogin',
+                        name: 'lastLogin'
                     }, {
                         data: 'action',
                         name: 'action',

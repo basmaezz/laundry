@@ -74,5 +74,9 @@ class AppUser extends Authenticatable implements JWTSubject
 //        return $this->attributes['mobile'] =substr($value, -9);
 //    }
 
+    public function logins()
+    {
+        return $this->hasMany(Login::class);
+    }
 
 }

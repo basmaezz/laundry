@@ -179,38 +179,47 @@ padding-left: 74px;">
                     </ul>
                 </li>
             @endcan
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('notification.create')}}"><i class="icon-people"></i> الاشعارات </a>
-            </li>
             @can('Coupons.index')
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('coupons.index')}}"><i class="icon-people"></i> الكوبونات </a>
                 </li>
             @endcan
-            @can('settings.index')
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('settings.index')}}"><i class="icon-people"></i> الاعدادات </a>
-                </li>
-            @endcan
-            @can('banks.index')
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('banks.index')}}"><i class="icon-people"></i> البنوك </a>
-                </li>
-            @endcan
-            @can('cars.index')
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('cars.index')}}"><i class="icon-people"></i> السيارات </a>
-                </li>
-            @endcan
-            @can('cities.index')
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('cities.index')}}"><i class="icon-people"></i> البلاد </a>
-                </li>
-            @endcan
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('faqs.index')}}"><i class="icon-people"></i> الاسئله الشائعه </a>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> الاعدادات العامه</a>
+                <ul class="nav-dropdown-items">
+                    @can('settings.index')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('settings.index')}}"><i class="icon-people"></i> الاعدادات </a>
+                        </li>
+                    @endcan
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('notification.create')}}"><i class="icon-people"></i> الاشعارات </a>
+                    </li>
+                    @can('banks.index')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('banks.index')}}"><i class="icon-people"></i> البنوك </a>
+                        </li>
+                    @endcan
+                    @can('cars.index')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('cars.index')}}"><i class="icon-people"></i> السيارات </a>
+                        </li>
+                    @endcan
+                    @can('cities.index')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('cities.index')}}"><i class="icon-people"></i> البلاد </a>
+                        </li>
+                    @endcan
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('faqs.index')}}"><i class="icon-people"></i> الاسئله الشائعه </a>
+                    </li>
+                </ul>
             </li>
+
+
+
 
         </ul>
     </nav>
