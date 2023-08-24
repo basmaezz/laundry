@@ -433,7 +433,8 @@ class subCategoryController extends Controller
         $id=$request->id;
         $laundry=Subcategory::toBase()->find($id);
         if(request()->ajax()) {
-            $data =  OrderTable::where('laundry_id', $id)->with(['userTrashed', 'delegateTrashed.appUserTrashed'])->toBase()->get();
+            $data =  OrderTable::where('laundry_id', $id)->with(['userTrashed', 'delegateTrashed.appUserTrashed'])->get();
+
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('userTrashed', function ($row) {
