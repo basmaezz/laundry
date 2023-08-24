@@ -56,13 +56,16 @@ class UserController extends Controller
             abort(403);
         };
         if(request()->ajax()) {
-            $data = User::whereNull('subCategory_id')->where('id','<>',Auth::user()->id)->get();
+            $data = User::whereNull('subCategory_id')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('role', function ($row) {
                     return $row->hasRoleName($row);
                 })->addColumn('lastLogin', function ($row) {
-                    return $row->logins()->latest()->first()->created_at->diffForHumans();
+                    if($row->logins()->latest()->first()->created_at !=null){
+                        return $row->logins()->latest()->first()->created_at->diffForHumans();
+                    }
+                    return  '';
                 })
                 ->addColumn('action', function ($row) {
                     return '<a href="' . Route('user.edit', $row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
