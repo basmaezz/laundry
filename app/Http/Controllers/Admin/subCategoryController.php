@@ -34,7 +34,7 @@ class subCategoryController extends Controller
             abort(403);
         };
         if(request()->ajax()) {
-            $data = Subcategory::with(['city', 'parentTrashed'])->toBase()->get();
+            $data = Subcategory::with(['city', 'parentTrashed'])->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($row) {
