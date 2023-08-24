@@ -61,17 +61,12 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn('role', function ($row) {
                     return $row->hasRoleName($row);
-                })->addColumn('lastLogin', function ($row) {
-                    if($row->logins()->latest()->first()->created_at !=null){
-                        return $row->logins()->latest()->first()->created_at->diffForHumans();
-                    }
-                    return  '';
                 })
                 ->addColumn('action', function ($row) {
                     return '<a href="' . Route('user.edit', $row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
              <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
-                ->rawColumns(['action', 'role','lastLogin'])
+                ->rawColumns(['action', 'role'])
                 ->make(true);
         }
         return view('dashboard.users.index');
