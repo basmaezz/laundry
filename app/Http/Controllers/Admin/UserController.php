@@ -56,7 +56,7 @@ class UserController extends Controller
             abort(403);
         };
         if(request()->ajax()) {
-            $data = User::whereNull('subCategory_id')->get();
+            $data = User::whereNull('subCategory_id')->where('id','<>',Auth::user()->id)->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('role', function ($row) {
