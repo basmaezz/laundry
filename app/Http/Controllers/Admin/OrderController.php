@@ -37,7 +37,19 @@ class OrderController extends Controller
         };
 
         if(request()->ajax()) {
-            $data = OrderTable::with(['payments', 'histories','subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed'])->get();
+            $data = OrderTable::with(['payments', 'histories','subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed'])
+                ->with('orderDetails')
+                ->with(['orderDetails.productService:id,commission'])
+                ->get()
+                ->map(function($item ) {
+                    $commissionTotal = 0;
+                    $item->orderDetails->map(function ($detail) use (&$commissionTotal) {
+                        $commissionTotal += $detail->quantity * $detail->productService->commission;
+                    });
+                    $item->commission = $commissionTotal;
+                    return  $item;
+                });
+
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -66,7 +78,7 @@ class OrderController extends Controller
                     }elseif ($row->status_id==10){
                         return 'الطلب ملغى';
                     }
-                        return '';
+                    return '';
                 })->addColumn('orderType',function ($row){
                     return $row->urgent=='1'?'مستعجل':'عادى';
                 })->addColumn('finished',function ($row){
@@ -80,7 +92,7 @@ class OrderController extends Controller
                 })->addColumn('appProfit', function ($row) {
                     return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('commission', function ($row) {
-                    return '';
+                    return $row->commission;
                 })->addColumn('delivery', function ($row) {
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
@@ -99,6 +111,7 @@ class OrderController extends Controller
         }
         return  view('dashboard.Orders.index');
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -133,10 +146,15 @@ class OrderController extends Controller
         $orderDetails=orderDetails::with(['productTrashed','productService'])->where('order_table_id',$id)->get();
         $totalCommission = OrderDetails::where('order_table_id', $id)
             ->with(['productService:id,commission'])
-            ->selectRaw('SUM(order_details.quantity * product_services.commission) as total')
-            ->get();
+            ->get()
+            ->map(function($item ) {
+                $item->total = $item->quantity * $item->productService->commission;
+                return  $item;
+            });
 
-        return  view('dashboard.Orders.view',compact(['order','orderDetails','totalCommission']));
+        $commissionTotal = $totalCommission->sum('total');
+
+        return  view('dashboard.Orders.view',compact(['order','orderDetails','commissionTotal']));
     }
 
     /**
@@ -202,14 +220,14 @@ class OrderController extends Controller
                     }else{
                         return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
-             })->addColumn('laundryProfit', function ($row) {
-                        return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
-                    })->addColumn('appProfit', function ($row) {
-                        return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
-                    })->addColumn('commission', function ($row) {
-                        return '';
-                    })->addColumn('delivery', function ($row) {
-                        return $row->subCategoriesTrashed->price;
+                })->addColumn('laundryProfit', function ($row) {
+                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('appProfit', function ($row) {
+                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('commission', function ($row) {
+                    return '';
+                })->addColumn('delivery', function ($row) {
+                    return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('regionName', function ($row) {
@@ -249,13 +267,13 @@ class OrderController extends Controller
                         return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('laundryProfit', function ($row) {
-                      return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
-                    })->addColumn('appProfit', function ($row) {
-                        return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
-                    })->addColumn('commission', function ($row) {
-                        return '';
-                    })->addColumn('delivery', function ($row) {
-            return $row->subCategoriesTrashed->price;
+                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('appProfit', function ($row) {
+                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('commission', function ($row) {
+                    return '';
+                })->addColumn('delivery', function ($row) {
+                    return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('regionName', function ($row) {
@@ -341,21 +359,21 @@ class OrderController extends Controller
                     }
                 })->addColumn('orderType',function ($row){
                     return $row->urgent=='1'?'مستعجل':'عادى';
-                    })->addColumn('created_at',function ($row){
+                })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
-                    })->addColumn('laundryProfit', function ($row) {
-                        return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
-                    })->addColumn('appProfit', function ($row) {
-                        return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
-                    })->addColumn('commission', function ($row) {
-                        return '';
-                    })->addColumn('delivery', function ($row) {
-                        return $row->subCategoriesTrashed->price;
-                    })->addColumn('city', function ($row) {
-                        return $row->userTrashed->citiesTrashed->name_ar;
-                    })->addColumn('regionName', function ($row) {
-                        return $row->userTrashed->region_name;
-                    })->addColumn('action', function ($row) {
+                })->addColumn('laundryProfit', function ($row) {
+                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('appProfit', function ($row) {
+                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('commission', function ($row) {
+                    return '';
+                })->addColumn('delivery', function ($row) {
+                    return $row->subCategoriesTrashed->price;
+                })->addColumn('city', function ($row) {
+                    return $row->userTrashed->citiesTrashed->name_ar;
+                })->addColumn('regionName', function ($row) {
+                    return $row->userTrashed->region_name;
+                })->addColumn('action', function ($row) {
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >التفاصيل</a> ';
                     return $btns;
                 })
@@ -385,7 +403,7 @@ class OrderController extends Controller
                     }else{
                         return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
-                       })->
+                })->
 
                 addColumn('orderType',function ($row){
                     return $row->urgent=='1'?'مستعجل':'عادى';
