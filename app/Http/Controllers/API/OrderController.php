@@ -147,15 +147,16 @@ class OrderController extends Controller
         foreach ($request->get('items') as $key => $item) {
             $product = ProductService::where('product_id', $item['product_id'])->first();
             if ($product) {
+                $price = $request->get('urgent')=='1'? $product->priceUrgent : $product->price;
                 $item_data = [
                     'order_table_id' => $order->id,
                     'product_id' => $item['product_id'],
                     'category_item_id' => $item['category_id'],
                     'product_service_id' => $item['product_service_id'],
                     'quantity' => $item['quantity'],
-                    'price' => $request->get('urgent')=='1'?($product->priceUrgent + $product->commission) * $item['quantity']:($product->price + $product->commission) * $item['quantity'],
+                    'price' => ($price + $product->commission) * $item['quantity'],
                 ];
-                $total += $request->get('urgent')=='1'?($product->priceUrgent + $product->commission) * $item['quantity']:($product->price + $product->commission) * $item['quantity'];
+                $total += ($price + $product->commission) * $item['quantity'];
                 $item_quantity += $item['quantity'];
                 OrderDetails::create($item_data);
             }
@@ -618,7 +619,7 @@ class OrderController extends Controller
             'coupon_code' => $order->coupon,
             'audio_note' => $order->audio_note ? asset('assets/uploads/audio_note/' . $order->audio_note) : null,
             'total_price_after_coupon' => $order->total_price - ($order->total_price * $order->discount_value),
-            'total_price' => $order->total_price - $order->discount + $order->delivery_fees + $order->vat + $order->commission,
+            'total_price' => $order->total_price - $order->discount + $order->delivery_fees + $order->vat,// + $order->commission,//Removed due to already calculated at placing order
             'histories' => $status_histories,
             'status_list' => [
                 '1'  => ($order->status_id > 1) ? 3 : (($order->status_id == 1) ? 2 : 1),
