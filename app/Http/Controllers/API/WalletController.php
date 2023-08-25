@@ -37,7 +37,7 @@ class WalletController extends ApiController
             return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(), 500, 500);
         }
         $user = auth('app_users_api')->user();
-        $user->wallet += number_format($request->amount);
+        $user->wallet += $request->amount;//number_format($request->amount);
         $user->save();
 
         foreach ($request->get('payments') as $payment) {
