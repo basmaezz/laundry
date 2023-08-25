@@ -92,7 +92,7 @@ class OrderController extends Controller
                 })->addColumn('appProfit', function ($row) {
                     return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('commission', function ($row) {
-                    return $row->commission;
+                    return $row->total_commission;
                 })->addColumn('delivery', function ($row) {
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {

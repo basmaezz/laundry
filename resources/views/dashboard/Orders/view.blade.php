@@ -69,7 +69,7 @@
 
                                     <div class="form-group">
                                         <label for="company"> العموله الاجماليه  </label>
-                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$commissionTotal}}" disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->total_commission}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company"> ملاحظات  </label>
