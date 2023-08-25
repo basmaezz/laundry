@@ -55,7 +55,10 @@ class OrderTable extends Model
         'delivery_type',
         'audio_note',
         'vat',
-        'address_id'
+        'address_id',
+        'commission',
+        'total_commission',
+        'sum_price'
     ];
     protected $appends = ['is_finnish'];
 

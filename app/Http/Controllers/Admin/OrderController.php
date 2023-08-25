@@ -146,15 +146,15 @@ class OrderController extends Controller
         $orderDetails=orderDetails::with(['productTrashed','productService'])->where('order_table_id',$id)->get();
         $totalCommission = OrderDetails::where('order_table_id', $id)
             ->with(['productService:id,commission'])
-            ->get()
-            ->map(function($item ) {
-                $item->total = $item->quantity * $item->productService->commission;
-                return  $item;
-            });
+            ->get();
+//            ->map(function($item ) {
+//                $item->total = $item->quantity * $item->productService->commission;
+//                return  $item;
+//            });
+//
+//        $commissionTotal = $totalCommission->sum('total');
 
-        $commissionTotal = $totalCommission->sum('total');
-
-        return  view('dashboard.Orders.view',compact(['order','orderDetails','commissionTotal']));
+        return  view('dashboard.Orders.view',compact(['order','orderDetails']));//,'commissionTotal'
     }
 
     /**

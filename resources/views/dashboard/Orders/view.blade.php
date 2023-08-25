@@ -106,6 +106,7 @@
                                             <th>السعر</th>
                                             <th>العموله</th>
                                             <th>الكميه</th>
+                                            <th>الاجمالي</th>
 
                                         </tr>
                                     </thead>
@@ -115,11 +116,11 @@
                                             <td>{{$orderDetail->productTrashed->name_ar}}</td>
                                             <td>{{$orderDetail->productService->services}}</td>
                                             <td>{{$orderDetail->price}}</td>
-                                            <td>{{$orderDetail->quantity*$orderDetail->productService->commission}}</td>
+                                            <td>{{$orderDetail->total_commission}}</td>
                                             <td>{{$orderDetail->quantity}}</td>
-                                        @endforeach
-
+                                            <td>{{$orderDetail->full_price}}</td>
                                         </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
 

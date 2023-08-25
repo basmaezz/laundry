@@ -136,13 +136,16 @@ class OrderController extends Controller
             'delivery_fees'  => $delivery_fees,
             'discount'       => 0,
             'vat'            => 0,
+            'commission'     => 0,
+            'total_commission' => 0,
+            'sum_price'      => 0,
             'coupon'         => $request->get('coupon') ?? null,
         ];
 
         $order = OrderTable::create($order_data);
 
         $item_data = null;
-        $total = 0;
+        $sum_price = $total_commission = $commission = $total = 0;
         $item_quantity = 0;
         foreach ($request->get('items') as $key => $item) {
             $product = ProductService::where('product_id', $item['product_id'])->first();
@@ -154,14 +157,24 @@ class OrderController extends Controller
                     'category_item_id' => $item['category_id'],
                     'product_service_id' => $item['product_service_id'],
                     'quantity' => $item['quantity'],
-                    'price' => ($price + $product->commission) * $item['quantity'],
+                    'total_price' => $price * $item['quantity'],
+                    'commission' => $product->commission,
+                    'total_commission' => $product->commission * $item['quantity'],
+                    'full_price' => ($price + $product->commission) * $item['quantity'],
+                    'price' => $price,
                 ];
+                $commission += $product->commission;
+                $sum_price += $price * $item['quantity'];
+                $total_commission += $product->commission * $item['quantity'];
                 $total += ($price + $product->commission) * $item['quantity'];
                 $item_quantity += $item['quantity'];
                 OrderDetails::create($item_data);
             }
         }
 
+        $order->sum_price     = $sum_price;
+        $order->commission    = $commission;
+        $order->total_commission = $total_commission;
         $order->total_price    = $total+$laundry->price;
         $order->count_products = $item_quantity;
         $order->discount       = floatval($total * $discount_value);
@@ -539,23 +552,21 @@ class OrderController extends Controller
                 'product_image' => $detail->productTrashed->image,
                 'category_name' => $detail->categoryItem->$name ?? '',
                 'count' => $detail->quantity,
-                'price' => $detail->price,
+                'price' => $detail->full_price,
             ];
         }
+
         $distance = getDistanceFirst1($app_user, $order->subCategoriesTrashed->lat, $order->subCategoriesTrashed->lng);
         $range = $order->subCategoriesTrashed->range;
-        $qrcode = "
-                    Order #: {$order->id}
+        $qrcode = " Order #: {$order->id}
                     Laundry Name: {$order->subCategoriesTrashed->$name}
-                    Customer Name: {$order->userTrashed->name}
-";
+                    Customer Name: {$order->userTrashed->name} ";
 
         if (!file_exists(public_path('qrcodes/' . $order->id . '.svg'))) {
             QrCode::encoding('UTF-8')->errorCorrection('H')->size(100)->generate($qrcode, public_path('qrcodes/' . $order->id . '.svg'));
         }
 
         return [
-
             'laundry' => [
                 'laundry_name' => $order->subCategoriesTrashed->$name,
                 "laundry_id" => $order->subCategoriesTrashed->id,
@@ -579,7 +590,6 @@ class OrderController extends Controller
                 'lat' => $order->address->lat ?? '',
                 'lng' => $order->address->lng ?? '',
                 //                'image'=>'i.jpg',
-
                 'image_url' => $order->address->image ? asset('assets/uploads/users_image/' . $order->address->image) : null,
             ],
             'user' => [
@@ -611,15 +621,14 @@ class OrderController extends Controller
             'quantity' => intval($order->count_products),
             'note' => $order->note ?? '',
             'coupon_value' => floatval($order->discount_value) ?? 0,
-            //'total_price' => floatval($order->total_price),
             'delivery_fees' => floatval($order->delivery_fees),
             'discount' => floatval($order->discount),
             'vat' => floatval($order->vat),
-            'sub_total' => floatval($order->total_price),
+            'sub_total' => floatval($order->total_price) + floatval($order->total_commission),
             'coupon_code' => $order->coupon,
             'audio_note' => $order->audio_note ? asset('assets/uploads/audio_note/' . $order->audio_note) : null,
-            'total_price_after_coupon' => $order->total_price - ($order->total_price * $order->discount_value),
-            'total_price' => $order->total_price - $order->discount + $order->delivery_fees + $order->vat,// + $order->commission,//Removed due to already calculated at placing order
+            'total_price_after_coupon' => floatval($order->total_price) - floatval($order->discount),
+            'total_price' => floatval($order->total_price), // - $order->discount + $order->delivery_fees + $order->vat,// + $order->commission,//Removed due to already calculated at placing order
             'histories' => $status_histories,
             'status_list' => [
                 '1'  => ($order->status_id > 1) ? 3 : (($order->status_id == 1) ? 2 : 1),

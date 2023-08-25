@@ -8,7 +8,7 @@ class OrderDetails extends Model
 {
     protected $table   = 'order_details';
     protected $guarded = [];
-     protected $fillable=['order_table_id','product_id','category_item_id','product_service_id','price','quantity'];
+    protected $fillable=['order_table_id', 'product_id', 'category_item_id', 'product_service_id', 'price', 'quantity', 'total_price', 'commission', 'total_commission', 'full_price'];
     use SoftDeletes;
 
     public function orderTables()
