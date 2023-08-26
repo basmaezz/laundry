@@ -37,7 +37,7 @@ class WalletController extends ApiController
             return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(), 500, 500);
         }
         $user = auth('app_users_api')->user();
-        $user->wallet += $request->amount;//number_format($request->amount);
+        $user->wallet += floatval($request->amount);//number_format($request->amount);
         $user->save();
 
         foreach ($request->get('payments') as $payment) {
@@ -51,8 +51,8 @@ class WalletController extends ApiController
         Transaction::create([
             'app_user_id'   => auth('app_users_api')->user()->id,
             'type'          => 'wallet',
-            'amount'        => number_format($request->amount),
-            'current_amount' => $user->wallet,
+            'amount'        => floatval($request->amount),
+            'current_amount' => floatval($user->wallet),
             'direction'     => 'in'
         ]);
         return apiResponse(trans('api.add_successfully'), $user, 200, 201);
@@ -85,7 +85,7 @@ class WalletController extends ApiController
             'app_user_id'   => auth('app_users_api')->user()->id,
             'type'          => 'wallet',
             'amount'        => floatval($request->get("amount")),
-            'current_amount' => $user->wallet,
+            'current_amount' => floatval($user->wallet),
             'direction'     => 'out'
         ]);
 
