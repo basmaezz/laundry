@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId("app_user_id");
             $table->enum('type', ['point', 'wallet'])->default('wallet');
-            $table->decimal('amount');
-            $table->decimal('current_amount');
+            $table->integer('amount');
+            $table->integer('current_amount');
             $table->enum('direction', ['in', 'out'])->default('in');
             $table->timestamps();
             $table->softDeletes();

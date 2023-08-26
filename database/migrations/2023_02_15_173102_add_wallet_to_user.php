@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('app_users', function (Blueprint $table) {
-            $table->decimal("wallet")->default(0)->after("name");
+            $table->integer("wallet")->default(0)->after("name");
             $table->unsignedInteger("point")->default(0)->after("wallet");
         });
     }
