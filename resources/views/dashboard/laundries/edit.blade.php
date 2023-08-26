@@ -217,8 +217,10 @@
                         </div>
                         <div>
                             <div class="card-footer col-sm-12">
-                               <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> تعديل</button>
-                                <button type="reset" onclick="ResetForm()" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i>  <a href="{{URL::previous()}}" class="btn btn-sm btn-danger">الغاء</a></button>
+                               <button type="submit" class="btn btn-sm btn-info custom"style="max-height: 30px !important; max-width: 70px !important;"><i class="fa fa-dot-circle-o" ></i> تعديل</button>
+                                <button type="reset" onclick="ResetForm()" class="btn btn-sm btn-danger"style="max-height: 30px !important; max-width: 50px !important;"> الغاء </button>
+
+{{--                                <a href="{{URL::previous()}}" class="btn btn-sm btn-danger">الغاء</a>--}}
                             </div>
                         </div>
                     </form>

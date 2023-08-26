@@ -91,7 +91,7 @@ class CategoryItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryItemRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $categoryItem=CategoryItem::find($id);
         $request->validate([

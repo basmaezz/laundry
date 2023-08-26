@@ -12,7 +12,8 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i>
-                        <a href="{{route('laundries.create')}}" class="btn btn-primary custom" style="float: left" >اضافه مغسله</a>                    </div>
+                        <a href="{{route('laundries.create')}}" class="btn btn-primary custom" style="float: left; max-height: 35px; max-width:100px" >اضافه مغسله</a>
+                    </div>
                     <div class="card-block">
                         <table class="table table-striped" id="table_id">
                             <thead>

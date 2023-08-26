@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
 class subCategoryController extends Controller
@@ -46,6 +47,8 @@ class subCategoryController extends Controller
                     return $row->parentTrashed->name_ar??'';
                 })->addColumn('around_clock', function ($row) {
                     return $row->around_clock==1 ?'طوال اليوم' :abs($hours=((int)$row->clock_end)-((int)$row->clock_at)).'ساعه' ;
+                })->addColumn('address', function ($row) {
+                    return Str::limit($row->address, 20);
                 })->addColumn('opened', function ($row) {
                     if($row->around_clock==1)
                     {
@@ -54,15 +57,15 @@ class subCategoryController extends Controller
                     return $row->getIsOpenAttribute() ?'مفتوح':'مغلق' ;
                 })
                 ->addColumn('action', function ($row) {
-                    $main='<a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >الفروع</a>';
-                    $branch=' <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >الأقسام</a>
+                    $main='<a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm" style="max-height: 20px !important; max-width: 30px !important;" >الفروع</a>';
+                    $branch=' <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" style="max-height: 20px !important; max-width: 30px !important;" >الأقسام</a>
                             <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
-                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >تفاصيل</a>
-                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" >الطلبات</a>
+                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" style="max-height: 20px !important; max-width: 35px !important;">تفاصيل</a>
+                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm customOrder"style="max-height: 20px !important; max-width: 40px !important;" >الطلبات</a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                     return $row->parent_id==Null ? $main .$branch : $branch;
                 })
-                ->rawColumns(['action', 'city','parentTrashed','around_clock','image'])
+                ->rawColumns(['action', 'city','parentTrashed','around_clock','image','address'])
                 ->make(true);
         }
         return view('dashboard.laundries.index');
@@ -375,11 +378,11 @@ class subCategoryController extends Controller
                 })
                 ->addColumn('action', function ($row) {
 
-                    $btns=' <a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm customOrder custom" style="max-width: 100px" >الفروع</a>
-                    <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm customOrder custom" >الأقسام</a>
-                            <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-success btn-sm customOrder custom" >تعديل</a>
-                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm customOrder custom" >تفاصيل</a>
-                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm customOrder custom" >الطلبات</a>
+                    $btns=' <a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm customOrder"style="max-height: 20px !important; max-width: 30px !important;" style="max-width: 100px" >الفروع</a>
+                    <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm customOrder"style="max-height: 20px !important; max-width: 30px !important;" >الأقسام</a>
+                            <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-success btn-sm customOrder"style="max-height: 20px !important; max-width: 30px !important;" >تعديل</a>
+                            <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm customOrder"style="max-height: 20px !important; max-width: 30px !important;" >تفاصيل</a>
+                            <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm customOrder"style="max-height: 20px !important; max-width: 30px !important;" >الطلبات</a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                     return $btns;
                 })
@@ -405,7 +408,7 @@ class subCategoryController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $btns='
-                    <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" >التفاصيل</a>
+                    <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm" style="max-height: 20px !important; max-width: 40px !important;" >التفاصيل</a>
                     <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>
                     ';
 

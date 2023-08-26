@@ -132,7 +132,6 @@ class ProductController extends Controller
     }
     public function updateService(productServiceRequest $request, $id)
     {
-        dd($request->all());
         productService::where('id', $id)->update($request->except(['_token', 'service_id']));
         return redirect()->route('product.productServices', $request->product_id)->with('success', 'تم التعديل');
     }
