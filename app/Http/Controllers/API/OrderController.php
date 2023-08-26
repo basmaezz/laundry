@@ -148,7 +148,7 @@ class OrderController extends Controller
         $sum_price = $total_commission = $commission = $total = 0;
         $item_quantity = 0;
         foreach ($request->get('items') as $key => $item) {
-            $product = ProductService::where('product_id', $item['product_id'])->first();
+            $product = ProductService::where('id', $item['product_service_id'])->first();
             if ($product) {
                 $price = $request->get('urgent')=='1'? $product->priceUrgent : $product->price;
                 $item_data = [
