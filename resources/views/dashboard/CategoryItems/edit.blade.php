@@ -27,8 +27,8 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                           <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> حفظ</button>
-                            <a href="{{URL::previous()}}" class="btn btn-sm btn-danger custom ">الغاء</a>
+                           <button type="submit" class="btn btn-sm btn-info "style="max-height: 30px !important; max-width: 40px"> حفظ</button>
+                            <a href="{{URL::previous()}}" class="btn btn-sm btn-danger  "style="max-height: 30px !important; max-width: 40px">الغاء</a>
                         </div>
 
                     </form>

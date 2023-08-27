@@ -17,7 +17,7 @@
                             <div class="card">
                                 <div class="card-header">
 {{--                                    <i class="fa fa-align-justify"></i> {{$categoryItems[0]->category_type}}--}}
-                                    <a href="{{route('product.create',$id)}}" class="btn btn-primary custom" style="float: left">اضافه قطعه</a>
+                                    <a href="{{route('product.create',$id)}}" class="btn btn-primary custom" style="float: left; max-height: 35px; max-width:100px">اضافه قطعه</a>
                                 </div>
                                 <div class="card-block">
                                     <table id="products" class="table table-bordered table-striped">
@@ -38,13 +38,13 @@
                                             <td>{{$product->desc_ar}}</td>
                                             <td>
                                                 @if($product->productService->count()>0)
-                                                    <a href="{{route('product.productServices',$product->id)}}" class="btn btn-primary custom"> خدمات</a>
-                                                    <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary custom" hidden> اضافه خدمه</a>
+                                                    <a href="{{route('product.productServices',$product->id)}}" class="btn btn-primary "style=" max-height: 35px; max-width:100px"> خدمات</a>
+                                                    <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary "style=" max-height: 35px; max-width:100px" hidden> اضافه خدمه</a>
                                                 @else
-                                                    <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary custom" > اضافه خدمه</a>
+                                                    <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary "style=" max-height: 35px; max-width:100px" > اضافه خدمه</a>
                                                 @endif
-                                                <a href="{{route('product.view',$product->id)}}" class="btn btn-info custom"> التفاصيل</a>
-                                                <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary custom">تعديل</a>
+                                                <a href="{{route('product.view',$product->id)}}" class="btn btn-info "style=" max-height: 35px; max-width:100px"> التفاصيل</a>
+                                                <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary "style=" max-height: 35px; max-width:100px">تعديل</a>
                                                     <form class="delete" action="{{route('product.destroy',$product->id)}}" method="get" >
                                                         @csrf
                                                         @method('DELETE')

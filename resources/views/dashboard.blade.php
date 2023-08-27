@@ -6,6 +6,17 @@
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="col-sm-4 col-lg-12">
+{{--                        <div class="col-sm-6 col-lg-3">--}}
+{{--                            <div class="card card-inverse card-primary" >--}}
+{{--                                <div class="card-block p-b-0">--}}
+{{--                                    <h4 class="m-b-0">{{\App\Models\Delegate::count()}}</h4>--}}
+{{--                                    <p> المناديب</p>--}}
+{{--                                </div>--}}
+{{--                                <div class="chart-wrapper p-x-1" style="height:70px;">--}}
+{{--                                    <canvas id="card-chart1" class="chart" height="70"></canvas>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         <div class="col-sm-6 col-lg-3">
                             <div class="card card-inverse card-primary" >
                                 <div class="card-block p-b-0">
@@ -86,38 +97,38 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-6">
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-                        <canvas id="myChart"></canvas>
-                    </div>
+{{--                <div class="row">--}}
+{{--                    <div class="col-lg-6">--}}
+{{--                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>--}}
+{{--                        <canvas id="myChart"></canvas>--}}
+{{--                    </div>--}}
 
-                    <script>
-                        const ctx = document.getElementById('myChart');
-                        new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: @json($citiesWithOrderCount->pluck('name_ar')->toArray()),
-                                datasets: [{
-                                    label: 'عدد الطلبات في كل مدينة ',
-                                    data: @json($citiesWithOrderCount->pluck('orders_count')->toArray()),
-                                    borderWidth: 3,
-                                    backgroundColor: [
-                                        "#0000FF",
+{{--                    <script>--}}
+{{--                        const ctx = document.getElementById('myChart');--}}
+{{--                        new Chart(ctx, {--}}
+{{--                            type: 'bar',--}}
+{{--                            data: {--}}
+{{--                                labels: @json($citiesWithOrderCount->pluck('name_ar')->toArray()),--}}
+{{--                                datasets: [{--}}
+{{--                                    label: 'عدد الطلبات في كل مدينة ',--}}
+{{--                                    data: @json($citiesWithOrderCount->pluck('orders_count')->toArray()),--}}
+{{--                                    borderWidth: 3,--}}
+{{--                                    backgroundColor: [--}}
+{{--                                        "#0000FF",--}}
 
-                                    ]//
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
-                            }
-                        });
-                    </script>
-                </div>
+{{--                                    ]//--}}
+{{--                                }]--}}
+{{--                            },--}}
+{{--                            options: {--}}
+{{--                                scales: {--}}
+{{--                                    y: {--}}
+{{--                                        beginAtZero: true--}}
+{{--                                    }--}}
+{{--                                }--}}
+{{--                            }--}}
+{{--                        });--}}
+{{--                    </script>--}}
+{{--                </div>--}}
             </div>
 
         </div>

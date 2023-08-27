@@ -412,19 +412,28 @@ Route::get('updateCategory', function () {
 });
 
 Route::get('updateOrders', function () {
-    DB::table('order_tables')->where('id', 109)->update([
+    DB::table('order_tables')->where('id', 68)->update([
         'status_id' => '4',
     ]);
-    DB::table('order_tables')->where('id', 110)->update([
+    DB::table('order_tables')->where('id', 69)->update([
         'status_id' => '4',
     ]);
-    DB::table('order_tables')->where('id', 111)->update([
+    DB::table('order_tables')->where('id', 70)->update([
         'status_id' => '4',
     ]);
-    DB::table('order_tables')->where('id', 112)->update([
+    DB::table('order_tables')->where('id', 115)->update([
         'status_id' => '4',
     ]);
-    DB::table('order_tables')->where('id', 113)->update([
+    DB::table('order_tables')->where('id', 116)->update([
+        'status_id' => '4',
+    ]);
+    DB::table('order_tables')->where('id', 117)->update([
+        'status_id' => '4',
+    ]);   DB::table('order_tables')->where('id', 118)->update([
+        'status_id' => '4',
+    ]);   DB::table('order_tables')->where('id', 119)->update([
+        'status_id' => '4',
+    ]);   DB::table('order_tables')->where('id', 120)->update([
         'status_id' => '4',
     ]);
 });

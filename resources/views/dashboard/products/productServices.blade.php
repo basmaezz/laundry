@@ -8,18 +8,6 @@
                 <li class="breadcrumb-item active" aria-current="page">الخدمات    </li>
             </ol>
         </nav>
-        <div class="validationMsg" style="width: 600px">
-            @if($errors->any())
-                <div class="alert alert-danger" >
-                    <h6>{{$errors->first()}}</h6>
-                </div>
-            @elseif(session()->has('message'))
-                <div class="alert alert-success"  >
-                    {{ session()->get('message') }}
-                </div>
-            @endif
-        </div>
-
     <div>
 
                 <div class="animated fadeIn">
@@ -29,7 +17,7 @@
 
                                 <div class="card-header">
                                     <i class="fa fa-align-justify"></i>
-                                    <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary custom" style="float: left">اضافه خدمه</a>
+                                    <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary custom" style="float: left; max-height: 35px; max-width:100px">اضافه خدمه</a>
                                 </div>
                                 <div class="card-block">
                                     <table class="table table-striped">
@@ -55,8 +43,8 @@
                                                 @endif
                                                     <td>{{$service->commission}}</td>
                                                     <td>
-                                                        <a href="{{route('product.editService',$service->id)}}" class="btn btn-primary custom">تعديل</a>
-                                                        <a href="{{route('product.deleteProductService',$service->id)}}" class="btn btn-danger custom">حذف</a>
+                                                        <a href="{{route('product.editService',$service->id)}}" class="btn btn-primary "style=" max-height: 35px; max-width:50px">تعديل</a>
+                                                        <a href="{{route('product.deleteProductService',$service->id)}}" class="btn btn-danger "style=" max-height: 35px; max-width:50px">حذف</a>
                                                     </td>
                                             </tr>
                                         @endforeach

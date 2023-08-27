@@ -56,10 +56,22 @@
                                 @endif
                             @endif
 
+                            <div class="form-group">
+                                <label for="company">العموله  </label>
+                                <div class="input-group">
+                                    <input type="text"name="commission" class="form-control" placeholder="السعر " value="{{$service->commission}}" >
+                                    <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                </div>
+                                @if ($errors->has('price'))
+                                    <span class="text-danger">{{ $errors->first('price') }}</span>
+                                @endif
+                            </div>
+
                         </div>
                         <div class="card-footer">
-                           <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> حفظ</button>
-                            <a href="{{URL::previous()}}" class="btn btn-sm btn-danger custom ">الغاء</a>
+                           <button type="submit" class="btn btn-sm btn-info"style="max-height: 30px !important; max-width: 40px"> حفظ</button>
+                            <a href="{{URL::previous()}}" class="btn btn-sm btn-danger"style="max-height: 30px !important; max-width: 40px">الغاء</a>
                         </div>
 
                     </form>
