@@ -433,7 +433,10 @@ function getDistanceHaving($result, $latitude, $longitude,$distance = null){
     return $results;
 }
 
-function distance($lat1, $lon1, $lat2, $lon2, $unit='K') {
+function distance($lat1 = null, $lon1= null, $lat2= null, $lon2= null, $unit='K') {
+    if(empty($lat1) || empty($lat2) || empty($lon1) || empty($lon2)){
+        return 0;
+    }
     if (($lat1 == $lat2) && ($lon1 == $lon2)) {
         return 0;
     }
