@@ -42,6 +42,7 @@
             $('#productTable').DataTable({
                 processing: true,
                 serverSide: true,
+                ordering: false,
                 ajax: "{{ route('Customer.Orders.inProgress',$id) }}",
                 data:{id:id},
 

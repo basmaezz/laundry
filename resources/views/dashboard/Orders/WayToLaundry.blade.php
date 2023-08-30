@@ -52,6 +52,7 @@
             var table = $('#table_id').DataTable({
                 processing: true,
                 serverSide: true,
+                ordering: false,
                 ajax: "{{ Route('Order.WayToLaundry') }}",
                 columns: [{
                     data: 'id',

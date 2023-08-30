@@ -43,6 +43,7 @@
             $('#productTable').DataTable({
                 processing: true,
                 serverSide: true,
+                ordering: false,
                 ajax: "{{ route('Customer.Orders.index',$id) }}",
                 data:{id:id},
                 columns: [{

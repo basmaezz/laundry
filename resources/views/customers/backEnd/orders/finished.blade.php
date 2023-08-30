@@ -41,6 +41,7 @@
             $('#productTable').DataTable({
                 processing: true,
                 serverSide: true,
+                ordering: false,
                 ajax: "{{ route('Customer.Orders.finishedOrder',$id) }}",
                 data:{id:id},
 
