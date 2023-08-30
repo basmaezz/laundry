@@ -48,4 +48,9 @@ return[
     "audioNote"=>"الملاحظات الصوتيه",
     "notFound"=>" لا يوجد ",
     "profit"=>" الربح ",
+    "monthlyCount"=>"عدد طلبات الشهر الحالى ",
+    "TotalOrders"=>"اجمالى الطلبات",
+    "OrderInProgress"=>"الطلبات الحاليه",
+    "CancelledOrders"=>"الطلبات الملغيه ",
+    "CompletedOrders"=>"الطلبات المكتمله"
 ];

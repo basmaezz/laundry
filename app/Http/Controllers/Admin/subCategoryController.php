@@ -133,7 +133,7 @@ class subCategoryController extends Controller
      */
     public function edit($id)
     {
-        $subCategory = Subcategory::with(['parentTrashed', 'userTrashed'])->find($id)->first();
+        $subCategory = Subcategory::with(['parentTrashed', 'userTrashed'])->find($id);
 
         $cities = City::all();
         return view('dashboard.laundries.edit', compact(['subCategory', 'cities']));

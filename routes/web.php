@@ -477,3 +477,16 @@ Route::view('formView', 'customers.backEnd.orders.orderDetails');
 Route::get('lastest', function () {
     return DB::table('order_tables')->orderBy('id', 'desc')->first();
 });
+Route::get('updateServicesID', function () {
+
+    DB::table('product_services')->where('id', 131)->update([
+        'subCategory_id' => '28',
+    ]);
+    DB::table('product_services')->where('id', 132)->update([
+        'subCategory_id' => '28',
+    ]);
+    DB::table('product_services')->where('id', 133)->update([
+        'subCategory_id' => '28',
+    ]);
+
+});

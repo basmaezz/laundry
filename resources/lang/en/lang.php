@@ -49,5 +49,10 @@ return[
     "audioNote"=>"Audio Note",
     "notFound"=>"Not Found",
     "profit"=>"Profit",
+    "monthlyCount"=>"Monthly Count Number ",
+    "TotalOrders"=>"Total Orders",
+    "OrderInProgress"=>"Orders In Progress",
+    "CancelledOrders"=>"Cancelled Orders",
+    "CompletedOrders"=>"Completed Orders"
 
 ];
