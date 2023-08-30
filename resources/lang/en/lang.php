@@ -30,7 +30,7 @@ return[
     "note"=>"note",
     "date"=>"Date",
     "completed"=>"Completed",
-    "finished"=>"Finished",
+    "finish"=>"Finished",
     "details"=>"Details",
     "finishedDate"=>"Finished Date",
     "cancelledDate"=>"cancelled Date",
@@ -53,6 +53,7 @@ return[
     "TotalOrders"=>"Total Orders",
     "OrderInProgress"=>"Orders In Progress",
     "CancelledOrders"=>"Cancelled Orders",
-    "CompletedOrders"=>"Completed Orders"
+    "CompletedOrders"=>"Completed Orders",
+    "monthlyProfit"=>"monthly Profit"
 
 ];

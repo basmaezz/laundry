@@ -52,5 +52,6 @@ return[
     "TotalOrders"=>"اجمالى الطلبات",
     "OrderInProgress"=>"الطلبات الحاليه",
     "CancelledOrders"=>"الطلبات الملغيه ",
-    "CompletedOrders"=>"الطلبات المكتمله"
+    "CompletedOrders"=>"الطلبات المكتمله",
+    "monthlyProfit"=>" اجمالى ربح المغسله الشهرى"
 ];

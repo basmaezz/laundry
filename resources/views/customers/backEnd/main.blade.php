@@ -27,6 +27,25 @@
                     </div>
                 </div>
 
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="card card-congratulations">
+                        <div class="card-body text-center">
+
+                            <div class="avatar avatar-xl bg-primary shadow">
+                                <div class="avatar-content">
+                                    <i data-feather="award" class="font-large-1"></i>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <h1 class="mb-1 text-white">  {{__('lang.monthlyProfit')}}    </h1>
+                                <p class="card-text m-auto w-75">
+                                    <strong>{{\App\Models\OrderTable::where('laundry_id',Auth::user()->subCategory_id)->count()}}</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="row match-height">
 
@@ -42,7 +61,6 @@
                                 <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::select('*')->where('laundry_id',Auth::user()->subCategory_id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->count()}}</h2>
                                  <p class="card-text"> {{__('lang.monthlyCount')}}</p>
                             </div>
-{{--                            <div id="gained-chart"></div>--}}
                         </div>
                     </div>
 
