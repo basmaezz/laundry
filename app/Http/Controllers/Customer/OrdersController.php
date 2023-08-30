@@ -33,7 +33,7 @@ class OrdersController extends Controller
     {
 
         if (request()->ajax()) {
-            $data = OrderTable::orders($id)->with('userTrashed')->get();
+            $data = OrderTable::orders($id)->with('userTrashed')->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -57,7 +57,7 @@ class OrdersController extends Controller
     {
 
         if (request()->ajax()) {
-            $data = OrderTable::orders($id)->where('status_id', self::DeliveredToLaundry)->get();
+            $data = OrderTable::orders($id)->where('status_id', self::DeliveredToLaundry)->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -98,7 +98,7 @@ class OrdersController extends Controller
     {
 
         if (request()->ajax()) {
-            $data = OrderTable::orders($id)->where('status_id', self::Cancel)->get();
+            $data = OrderTable::orders($id)->where('status_id', self::Cancel)->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -118,7 +118,7 @@ class OrdersController extends Controller
     {
 
         if (request()->ajax()) {
-            $data = OrderTable::orders($id)->where('status_id', self::Completed)->get();
+            $data = OrderTable::orders($id)->where('status_id', self::Completed)->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()

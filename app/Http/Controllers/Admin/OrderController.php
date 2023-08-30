@@ -40,6 +40,7 @@ class OrderController extends Controller
             $data = OrderTable::with(['payments', 'histories','subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed'])
                 ->with('orderDetails')
                 ->with(['orderDetails.productService:id,commission'])
+                ->orderBy('id', 'DESC')
                 ->get()
                 ->map(function($item ) {
                     $commissionTotal = 0;
@@ -147,13 +148,6 @@ class OrderController extends Controller
         $totalCommission = OrderDetails::where('order_table_id', $id)
             ->with(['productService:id,commission'])
             ->get();
-//            ->map(function($item ) {
-//                $item->total = $item->quantity * $item->productService->commission;
-//                return  $item;
-//            });
-//
-//        $commissionTotal = $totalCommission->sum('total');
-
         return  view('dashboard.Orders.view',compact(['order','orderDetails']));//,'commissionTotal'
     }
 
@@ -201,7 +195,7 @@ class OrderController extends Controller
     public function  pendingDeliveryAcceptance()
     {
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::WaitingForDelivery)->get();
+            $data = OrderTable::where("status_id",self::WaitingForDelivery)->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -247,7 +241,7 @@ class OrderController extends Controller
     public function  DeliveryOnWay(){
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::AcceptedByDelivery)->with('delegateTrashed.appUserTrashed')->get();
+            $data = OrderTable::where("status_id",self::AcceptedByDelivery)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -292,7 +286,7 @@ class OrderController extends Controller
     public function  WayToLaundry(){
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::WayToLaundry)->get();
+            $data = OrderTable::where("status_id",self::WayToLaundry)->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -340,7 +334,7 @@ class OrderController extends Controller
     public function  DeliveredToLaundry(){
 
         if(request()->ajax()) {
-            $data = OrderTable::with(['histories','delegateTrashed.appUserTrashed'])->where("status_id",self::DeliveredToLaundry)->get();
+            $data = OrderTable::with(['histories','delegateTrashed.appUserTrashed'])->where("status_id",self::DeliveredToLaundry)->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -386,7 +380,10 @@ class OrderController extends Controller
     public function  readyPickUp(){
 
         if(request()->ajax()) {
-            $data = OrderTable::with(['subCategoriesTrashed','userTrashed','address','delegateTrashed.appUserTrashed'])->where("status_id",self::ClothesReadyForDelivery)->get();
+            $data = OrderTable::with(['subCategoriesTrashed','userTrashed','address','delegateTrashed.appUserTrashed'])
+                ->where("status_id",self::ClothesReadyForDelivery)
+                ->orderBy('id', 'DESC')
+                ->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -433,7 +430,7 @@ class OrderController extends Controller
     public function  WaitingForDeliveryToReceiveOrder(){
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::WaitingForDeliveryToReceiveOrder)->get();
+            $data = OrderTable::where("status_id",self::WaitingForDeliveryToReceiveOrder)->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -478,7 +475,7 @@ class OrderController extends Controller
     public function  DeliveryOnTheWayToYou(){
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->get();
+            $data = OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -524,7 +521,7 @@ class OrderController extends Controller
     public function  completed(){
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::Completed)->with('delegateTrashed.appUserTrashed')->get();
+            $data = OrderTable::where("status_id",self::Completed)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -560,7 +557,7 @@ class OrderController extends Controller
     public function  canceled(){
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::Cancel)->with('delegateTrashed.appUserTrashed')->get();
+            $data = OrderTable::where("status_id",self::Cancel)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
