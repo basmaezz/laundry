@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header border-bottom">
-                        <h4 class="card-title">{{__('lang.products')}}</h4>
+                        <h4 class="card-title">{{__('lang.incomingOrders')}}</h4>
                     </div>
                     <div class="card-datatable">
                         <table class="dt-multi table" id="productTable">
@@ -15,8 +15,7 @@
                             <tr>
                                 <th>{{__('lang.orderNumber')}}</th>
                                 <th>{{__('lang.customerName')}}</th>
-                                <th>{{__('lang.status')}} </th>
-                                <th>{{__('lang.date')}} </th>
+                                <th>{{__('lang.cancelledDate')}} </th>
                                 <th>{{__('lang.details')}}</th>
                             </tr>
                             </thead>
@@ -41,8 +40,10 @@
                 processing: true,
                 serverSide: true,
                 ordering: false,
-                ajax: "{{ route('Customer.Orders.index',$id) }}",
+                ajax: "{{ route('Customer.Orders.incomingOrder',$id) }}",
                 data:{id:id},
+
+
                 columns: [{
                     data: 'id',
                     name: 'id'
@@ -50,14 +51,11 @@
                     data: 'user',
                     name: 'user'
                 },{
-                    data: 'status',
-                    name: 'status'
-                },{
                     data: 'date',
                     name: 'date'
                 },{
-                    data: 'action',
-                    name: 'action',
+                    data: 'details',
+                    name: 'details',
                     orderable: false,
                     searchable: false
                 },]

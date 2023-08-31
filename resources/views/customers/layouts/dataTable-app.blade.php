@@ -51,7 +51,9 @@
 
 </head>
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
-
+@php
+    $laundry=\App\Models\Subcategory::where('id',Auth::user()->subCategory_id)->first()
+@endphp
 @include('customers.layouts.nav')
 
 <!-- BEGIN: Content-->

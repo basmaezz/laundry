@@ -240,6 +240,7 @@ Route::middleware(['auth', 'laundryAdmin'])->group(function () {
     Route::get('ordersInProgress/{id}', [OrdersController::class, 'inProgress'])->name('Customer.Orders.inProgress');
     Route::get('ordersCompleted/{id}', [OrdersController::class, 'completed'])->name('Customer.Orders.completed');
     Route::get('changeStatus', [OrdersController::class, 'changeStatus']);
+    Route::get('incomingOrder/{id}', [OrdersController::class, 'incomingOrder'])->name('Customer.Orders.incomingOrder');
     Route::get('canceledOrder/{id}', [OrdersController::class, 'canceledOrder'])->name('Customer.Orders.canceledOrder');
     Route::get('finishedOrder/{id}', [OrdersController::class, 'finishedOrder'])->name('Customer.Orders.finishedOrder');
     Route::get('orderDetails/{id}', [OrdersController::class, 'orderDetails'])->name('Customer.Orders.orderDetails');
@@ -371,6 +372,9 @@ Route::get('getCars', function () {
 //});
 Route::post('logoutLaundryAdmin', [AdminController::class, 'destroyLaundryAdmin'])
     ->name('logoutLaundryAdmin');
+
+Route::get('customerProfile', [AdminController::class, 'profile'])
+    ->name('profile');
 
 Route::get('getOnLineUsers', function () {
     $users = AppUser::where([

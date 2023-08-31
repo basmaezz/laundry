@@ -166,6 +166,7 @@ class subCategoryController extends Controller
             'range' => $request->range,
             'lat' => $request->lat,
             'lng' => $request->lng,
+            'location' => $request->location,
             'urgentWash' => $request->urgentWash,
             'approximate_duration' => $request->approximate_duration,
             'around_clock' => $request->around_clock,

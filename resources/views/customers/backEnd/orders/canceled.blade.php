@@ -15,8 +15,6 @@
                             <tr>
                                 <th>{{__('lang.orderNumber')}}</th>
                                 <th>{{__('lang.customerName')}}</th>
-                                <th>{{__('lang.totalPrice')}} </th>
-                                <th>{{__('lang.discount')}} </th>
                                 <th>{{__('lang.cancelledDate')}} </th>
                                 <th>{{__('lang.details')}}</th>
                             </tr>
@@ -52,12 +50,6 @@
                 },{
                     data: 'user',
                     name: 'user'
-                },{
-                    data: 'total_price',
-                    name: 'total_price'
-                },{
-                    data: 'discount',
-                    name: 'discount'
                 },{
                     data: 'date',
                     name: 'date'

@@ -88,9 +88,6 @@
                     data:'delivery',
                     name:'delivery'
                 },{
-                    data:'deliveryType',
-                    name:'deliveryType'
-                },{
                     data:'city',
                     name:'city'
                 },{

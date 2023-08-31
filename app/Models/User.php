@@ -77,6 +77,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class,'role_user');
     }
 
+    public function subCategory()
+    {
+       return $this->belongsTo(subCategory::class);
+    }
+
     public function hasAbility($ability)
     {
         foreach ($this->roles as $role){

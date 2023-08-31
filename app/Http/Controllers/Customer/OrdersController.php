@@ -39,8 +39,6 @@ class OrdersController extends Controller
                 ->addIndexColumn()
                 ->addColumn('user', function ($row) {
                     return $row->userTrashed->name;
-            })->addColumn('profit', function ($row) {
-                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
             })->addColumn('date', function ($row) {
                     return $row->created_at->format('d-m-Y');
             })->addColumn('action', function ($row) {
@@ -48,10 +46,28 @@ class OrdersController extends Controller
            })->rawColumns(['user','date' ,'action'])
                 ->make(true);
         }
-
         return  view('customers.backEnd.orders.index', compact('id'));
     }
 
+    public function incomingOrder($id)
+    {
+        if (request()->ajax()) {
+            $data = OrderTable::orders($id)->where('status_id', self::WaitingForDelivery)->orderBy('id', 'DESC')->get();
+
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('user', function ($row) {
+                    return $row->userTrashed->name;
+                })->addColumn('date', function ($row) {
+                    return $row->updated_at->format('d-m-Y');;
+                })->addColumn('details', function ($row) {
+                    return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
+                })
+                ->rawColumns(['user', 'date','details'])
+                ->make(true);
+        }
+        return  view('customers.backEnd.orders.incoming', compact('id'));
+    }
 
     public function inProgress($id)
     {
@@ -76,6 +92,7 @@ class OrdersController extends Controller
 
         return view('customers.backEnd.orders.inProgress', compact('id'));
     }
+
     public function completed($id)
     {
         $order = OrderTable::with('userTrashed')->where('id', $id)->first();
@@ -96,7 +113,6 @@ class OrdersController extends Controller
     }
     public function canceledOrder($id)
     {
-
         if (request()->ajax()) {
             $data = OrderTable::orders($id)->where('status_id', self::Cancel)->orderBy('id', 'DESC')->get();
 
