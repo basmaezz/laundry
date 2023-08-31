@@ -113,13 +113,13 @@ class OrderController extends Controller
         $laundry = Subcategory::where('id', $request->get('laundry_id'))->first();
 
         $distance = getDistanceFirst1(auth('app_users_api')->user(), $laundry->lat, $laundry->lng);
-        if ($distance <= 10) {
-            $delivery_fees = 10;
-        } elseif ($distance > 10 || $distance <= 20) {
-            $delivery_fees = 20;
-        } else {
-            $delivery_fees = 30;
-        }
+//        if ($distance <= 10) {
+//            $delivery_fees = 10;
+//        } elseif ($distance > 10 || $distance <= 20) {
+//            $delivery_fees = 20;
+//        } else {
+//            $delivery_fees = 30;
+//        }
         $order_data = [
             'user_id'        => $app_user_id,
             'laundry_id'     => $request->get('laundry_id'),
@@ -133,7 +133,7 @@ class OrderController extends Controller
             'status_id'      => self::WaitingForDelivery,
             'total_price'    => 0,
             'discount_value' => $discount_value,
-            'delivery_fees'  => $delivery_fees,
+            'delivery_fees'  => $laundry->price,
             'discount'       => 0,
             'vat'            => 0,
             'commission'     => 0,
