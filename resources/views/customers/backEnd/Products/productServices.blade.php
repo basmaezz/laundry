@@ -16,6 +16,7 @@
                             <tr>
                                 <th>{{__('lang.service')}}</th>
                                 <th>{{__('lang.price')}} </th>
+                                <th>{{__('lang.urgentPrice')}} </th>
                             </tr>
                             </thead>
                         </table>
@@ -46,7 +47,10 @@
                 },{
                     data: 'price',
                     name: 'price'
-                },]
+                },{
+                    data:'priceUrgent',
+                    name:'priceUrgent'
+                }]
             });
         })
     </script>

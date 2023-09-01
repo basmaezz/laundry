@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header border-bottom">
-                        <h4 class="card-title">Multilingual</h4>
+{{--                        <h4 class="card-title">Multilingual</h4>--}}
                     </div>
                     <div class="card-datatable">
                         <table class="dt-multi table" id="productTable">
@@ -45,8 +45,8 @@
                     data: 'id',
                     name: 'id'
                 },{
-                    data: 'category_type',
-                    name: 'category_type'
+                    data: 'name',
+                    name: 'name'
                 },{
                     data: 'action',
                     name: 'action',

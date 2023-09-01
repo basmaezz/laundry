@@ -18,31 +18,24 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-//    public function index($id)
-//    {
-//        $products=Product::where('subcategory_id',$id)->get();
-//        return view('customers.backEnd.Products.index',compact('products'));
-//    }
+
 
     public function index($id)
     {
-//        $subCategory=CategoryItem::find($id);
-//        $products=Product::where('category_item_id',$id)->with(['productService','productImages'])->get();
-//        return view('customers.backEnd.Products.index',compact('products'));
-
         if(request()->ajax()) {
-            $subCategory=CategoryItem::find($id);
             $data=Product::where('category_item_id',$id)->with(['productService','productImages'])->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('name', function ($row) {
+                    return $row['name_'.app()->getLocale()];
+                })
                 ->addColumn('action', function ($row) {
                     return '<a href="' . Route('Customer.Products.viewProductServices', $row->id) . '" class="edit btn btn-success btn-sm">'.trans('lang.services').'</a>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
-
         return view('customers.backEnd.Products.index',compact('id'));
     }
 
@@ -155,9 +148,7 @@ class ProductsController extends Controller
     }
 
     public function productServices($id){
-//        $product=Product::with('productTrashed')->find($id);
         if(request()->ajax()) {
-//            $data=Product::where('id',$id)->with('productTrashed')->get();
             $data=ProductService::where('product_id',$id)->get();
             return   Datatables::of($data) ->make(true);
         }

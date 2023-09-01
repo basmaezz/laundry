@@ -69,4 +69,5 @@ return[
     "delivery"=>"رسوم التوصيل",
     "approximate_duration"=>"مده الغسيل التقريبيه",
     "around_clock"=>"طوال اليوم",
+    "urgentPrice"=>"سعر المستعجل"
 ];
