@@ -73,7 +73,7 @@
                                     </div>
                                 </div>
                                 <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::where('laundry_id',Auth::user()->subCategory_id)->where('status_id',3)->count()}}</h2>
-                                <p class="card-text"><a href="{{route('Customer.Orders.inProgress',Auth::user()->subCategory_id)}}">{{__('lang.incomingOrders')}}</a> </p>
+                                <p class="card-text"><a href="{{route('Customer.Orders.incomingOrder',Auth::user()->subCategory_id)}}">{{__('lang.incomingOrders')}}</a> </p>
                             </div>
                         </div>
                     </div>
