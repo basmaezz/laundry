@@ -54,7 +54,7 @@ class OrdersController extends Controller
                     return $row->status;
             })->addColumn('action', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
-           })->rawColumns(['user','date','statusTxt','action'])
+           })->rawColumns(['user','date','status','action'])
                 ->make(true);
         }
         return  view('customers.backEnd.orders.index', compact('id'));
