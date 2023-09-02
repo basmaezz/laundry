@@ -41,9 +41,20 @@ class OrdersController extends Controller
                     return $row->userTrashed->name;
             })->addColumn('date', function ($row) {
                     return $row->created_at->format('d-m-Y');
+            })->addColumn('statusTxt', function ($row) {
+                if($row->status_id==3){
+                    return  ''.trans('lang.wayToLaundry').'';
+                } elseif ($row->status_id==5){
+                    return  ''.trans('lang.completedOrder').'';
+                }elseif ($row->status_id==8){
+                    return ''.trans('lang.finishedOrder').'';
+                }elseif ($row->status_id==10){
+                    return ''.trans('lang.cancelledOrder').'';
+                }
+                    return $row->status;
             })->addColumn('action', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
-           })->rawColumns(['user','date' ,'action'])
+           })->rawColumns(['user','date','statusTxt','action'])
                 ->make(true);
         }
         return  view('customers.backEnd.orders.index', compact('id'));
