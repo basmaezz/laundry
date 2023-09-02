@@ -46,6 +46,7 @@ return[
     "serviceName"=>"اسم الخدمه",
     "quantity"=>"الكميه",
     "delegateName"=>"اسم المندوب ",
+    "note"=>"الملاحظات ",
     "audioNote"=>"الملاحظات الصوتيه",
     "notFound"=>" لا يوجد ",
     "profit"=>" الربح ",

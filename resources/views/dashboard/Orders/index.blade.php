@@ -83,8 +83,8 @@
                     data:'appProfit',
                     name:'appProfit'
                 },{
-                    data:'commission',
-                    name:'commission'
+                    data:'total_commission',
+                    name:'total_commission'
                 },{
                     data:'delivery',
                     name:'delivery'

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\AppUser;
+use App\Models\OrderTable;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,11 +24,18 @@ class AdminController extends Controller
             'password' => 'required',
         ]);
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials) && Auth::user()->subCategory_id != '') {
-
-            return view('customers.backEnd.main');
+        if (Auth::attempt($credentials) && Auth::user()->subCategory_id != '')
+        {
+            return redirect()->route('customer.index');
         }
         return redirect()->back()->withSuccess('Login details are not valid');
+    }
+    public function main()
+    {
+        $appUsers = AppUser::count();
+        $monthlyOrders=OrderTable::select('*')->where('laundry_id',Auth::user()->subCategory_id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->count();
+        $monthlyProfit=OrderTable::select('*')->where('laundry_id',Auth::user()->subCategory_id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('sum_price');
+        return view('customers.backEnd.main',compact(['monthlyOrders','monthlyProfit']));
     }
 
     public function dashboard()
@@ -45,12 +53,7 @@ class AdminController extends Controller
         return Redirect()->route('customer.login');
     }
 
-    public function main()
-    {
-        $appUsers = AppUser::count();
-        //        dd($appUsers);
-        return view('customers.backEnd.main');
-    }
+
     public function destroyLaundryAdmin(Request $request)
     {
         Auth::guard('web')->logout();

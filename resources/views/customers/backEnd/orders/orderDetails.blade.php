@@ -108,6 +108,7 @@
                                                 <th>{{__('lang.pieceName')}}</th>
                                                 <th>{{__('lang.serviceName')}}</th>
                                                 <th>{{__('lang.quantity')}}</th>
+                                                <th>{{__('lang.note')}}</th>
                                                 <th>{{__('lang.audioNote')}}</th>
                                             </tr>
                                             </thead>
@@ -133,6 +134,18 @@
                                                 </td>
 
 
+                                            </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="custom-control custom-checkbox">
+                                                            @if($order->note!= Null)
+                                                                <input id="mobile" type="text" class="form-control" value="{{$orderDetail->note}}" disabled />
+
+                                                        </div>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
                                             </tr>
                                                 <tr>
                                                     <td>

@@ -39,7 +39,7 @@
                             <div class="text-center">
                                 <h1 class="mb-1 text-white">  {{__('lang.monthlyProfit')}}    </h1>
                                 <p class="card-text m-auto w-75">
-                                    <strong>{{\App\Models\OrderTable::where('laundry_id',Auth::user()->subCategory_id)->count()}}</strong>
+                                    <strong>{{$monthlyProfit}}</strong>
                                 </p>
                             </div>
                         </div>
@@ -58,12 +58,25 @@
                                         <i data-feather="users" class="font-medium-5"></i>
                                     </div>
                                 </div>
-                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::select('*')->where('laundry_id',Auth::user()->subCategory_id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->count()}}</h2>
+                                <h2 class="font-weight-bolder mt-1">{{$monthlyOrders}}</h2>
                                  <p class="card-text"> {{__('lang.monthlyCount')}}</p>
                             </div>
                         </div>
                     </div>
 
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-warning p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="package" class="font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::where('laundry_id',Auth::user()->subCategory_id)->where('status_id',3)->count()}}</h2>
+                                <p class="card-text"><a href="{{route('Customer.Orders.inProgress',Auth::user()->subCategory_id)}}">{{__('lang.incomingOrders')}}</a> </p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="card">
                             <div class="card-header flex-column align-items-start pb-0">

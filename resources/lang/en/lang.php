@@ -47,6 +47,7 @@ return[
     "serviceName"=>"service Name",
     "quantity"=>"quantity",
     "delegateName"=>"Delegate Name",
+    "note"=>"Note",
     "audioNote"=>"Audio Note",
     "notFound"=>"Not Found",
     "profit"=>"Profit",
