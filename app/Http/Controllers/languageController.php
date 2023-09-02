@@ -20,6 +20,6 @@ class languageController extends Controller
 //            return view('customers.backEnd.main');
 //
 //        }
-                return view('customers.backEnd.main');
+        return redirect()->route('customer.index');
     }
 }

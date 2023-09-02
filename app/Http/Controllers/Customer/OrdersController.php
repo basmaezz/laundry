@@ -41,7 +41,7 @@ class OrdersController extends Controller
                     return $row->userTrashed->name;
             })->addColumn('date', function ($row) {
                     return $row->created_at->format('d-m-Y');
-            })->addColumn('statusTxt', function ($row) {
+            })->addColumn('status', function ($row) {
                 if($row->status_id==3){
                     return  ''.trans('lang.wayToLaundry').'';
                 } elseif ($row->status_id==5){

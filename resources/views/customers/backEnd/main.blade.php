@@ -39,7 +39,7 @@
                             <div class="text-center">
                                 <h1 class="mb-1 text-white">  {{__('lang.monthlyProfit')}}    </h1>
                                 <p class="card-text m-auto w-75">
-                                    <strong>{{$monthlyProfit}}</strong>
+{{--                                    <strong>{{$monthlyProfit}}</strong>--}}
                                 </p>
                             </div>
                         </div>
