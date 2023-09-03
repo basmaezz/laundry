@@ -16,6 +16,7 @@
                                 <th>{{__('lang.orderNumber')}}</th>
                                 <th>{{__('lang.customerName')}}</th>
                                 <th>{{__('lang.date')}} </th>
+                                <th>{{__('lang.orderType')}} </th>
                                 <th>{{__('lang.completed')}}</th>
                                 <th>{{__('lang.details')}}</th>
                             </tr>
@@ -51,6 +52,9 @@
                 },{
                     data: 'user',
                     name: 'user'
+                },{
+                    data: 'orderType',
+                    name: 'orderType'
                 },{
                     data: 'date',
                     name: 'date'

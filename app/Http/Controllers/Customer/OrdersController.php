@@ -42,7 +42,7 @@ class OrdersController extends Controller
             })->addColumn('date', function ($row) {
                     return $row->created_at->format('d-m-Y');
             })->addColumn('orderType', function ($row) {
-                    return $row->urgent=='0'?  trans('lang.normal') :  trans('lang.urgent') ;
+                    return $row->urgent=='0'? '<button type="button"  class="btn btn-success btn-sm">' . trans('lang.normal') . '</button>' : '<button  class="edit btn btn-danger btn-sm">' . trans('lang.urgent') . '</button>' ;
             })->addColumn('status', function ($row) {
                 if($row->status_id==3){
                     return  ''.trans('lang.wayToLaundry').'';
@@ -73,6 +73,8 @@ class OrdersController extends Controller
                     return $row->userTrashed->name;
                 })->addColumn('date', function ($row) {
                     return $row->updated_at->format('d-m-Y');;
+                })->addColumn('orderType', function ($row) {
+                    return $row->urgent=='0'? '<button type="button"  class="btn btn-success btn-sm">' . trans('lang.normal') . '</button>' : '<button  class="edit btn btn-danger btn-sm">' . trans('lang.urgent') . '</button>' ;
                 })->addColumn('status', function ($row) {
                     if($row->status_id==3){
                         return  ''.trans('lang.wayToLaundry').'';
@@ -87,7 +89,7 @@ class OrdersController extends Controller
                 })->addColumn('details', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
                 })
-                ->rawColumns(['user', 'date','details'])
+                ->rawColumns(['user', 'date','orderType','details'])
                 ->make(true);
         }
         return  view('customers.backEnd.orders.incoming', compact('id'));
@@ -105,12 +107,14 @@ class OrdersController extends Controller
                     return $row->userTrashed->name;
                 })->addColumn('date', function ($row) {
                     return $row->created_at->format('d-m-Y');;
+                })->addColumn('orderType', function ($row) {
+                    return $row->urgent=='0'? '<button type="button"  class="btn btn-success btn-sm">' . trans('lang.normal') . '</button>' : '<button  class="edit btn btn-danger btn-sm">' . trans('lang.urgent') . '</button>' ;
                 })->addColumn('finished', function ($row) {
                     return '<a href="' . Route('Customer.Orders.completed', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.finish') . '</a>';
                 })->addColumn('details', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
                 })
-                ->rawColumns(['user','date','finished', 'details'])
+                ->rawColumns(['user','date','finished','orderType', 'details'])
                 ->make(true);
         }
 
@@ -166,10 +170,12 @@ class OrdersController extends Controller
                     return $row->userTrashed->name;
                 })->addColumn('date', function ($row) {
                     return $row->updated_at->format('d-m-Y');;
+                })->addColumn('orderType', function ($row) {
+                    return $row->urgent=='0'? '<button type="button"  class="btn btn-success btn-sm">' . trans('lang.normal') . '</button>' : '<button  class="edit btn btn-danger btn-sm">' . trans('lang.urgent') . '</button>' ;
                 })->addColumn('details', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
                 })
-                ->rawColumns(['user','date' ,'details'])
+                ->rawColumns(['user','date' ,'orderType','details'])
                 ->make(true);
         }
         return  view('customers.backEnd.orders.finished', compact('id'));
