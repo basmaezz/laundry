@@ -435,7 +435,7 @@ class subCategoryController extends Controller
         $id=$request->id;
         $laundry=Subcategory::toBase()->find($id);
         if(request()->ajax()) {
-            $data =  OrderTable::where('laundry_id', $id)->with(['userTrashed', 'delegateTrashed.appUserTrashed'])->get();
+            $data =  OrderTable::where('laundry_id', $id)->with(['userTrashed', 'delegateTrashed.appUserTrashed'])->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -453,7 +453,7 @@ class subCategoryController extends Controller
                     return $row->created_at->format('Y-m-d') ;
                 })
                 ->addColumn('action', function ($row) {
-                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm customOrder customOrder" >تفاصيل</a>';
+                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm customOrder"style="max-height:20px;max-width:37px" >تفاصيل</a>';
                     return $btns;
                 })
                 ->rawColumns(['action','created_at','userTrashed','delegateTrashed','laundryProfit','appProfit'])

@@ -1,7 +1,7 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main" style="margin-top: 25px">
-    <div>
+        <div>
             <nav aria-label="breadcrumb" class="navBreadCrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
@@ -45,6 +45,7 @@
             var table = $('#table_id').DataTable({
                 processing: true,
                 serverSide: true,
+                ordering: false,
                 ajax: "{{ Route('customers.index') }}",
                 columns: [{
                     data: 'id',
@@ -53,29 +54,26 @@
                     data: 'name',
                     name: 'name'
                 },{
-                        data: 'email',
-                        name: 'email'
-                    }, {
-                        data: 'mobile',
-                        name: 'mobile'
-                    },{
+                    data: 'email',
+                    name: 'email'
+                }, {
+                    data: 'mobile',
+                    name: 'mobile'
+                },{
                     data:'city',
                     name:'city'
-                }, {
-                        data: 'region_name',
-                        name: 'region_name'
-                    },{
+                },{
                     data:'gender',
                     name:'gender'
-                   },{
+                },{
                     data:'wallet',
                     name:'wallet'
                 },{
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
                 ]
             });
         });

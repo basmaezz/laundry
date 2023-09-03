@@ -230,14 +230,9 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-
-//        if(Gate::denies('admins.index')){
-//            abort(403);
-//        };
         if (is_numeric($request->id)) {
             User::where('id', $request->id)->delete();
         }
-
         return  redirect()->back()->with('error', 'تم الحذف');
     }
 
@@ -246,17 +241,16 @@ class UserController extends Controller
         if(Gate::denies('customers.index')){
             abort(403);
         };
-
         if(request()->ajax()) {
-            $data=AppUser::where('user_type',"customer")->with('citiesTrashed')->get();
+            $data=AppUser::where('user_type',"customer")->with('citiesTrashed')->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('city', function ($row) {
                     return  $row->citiesTrashed->name_ar??'';
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . Route('customer.Orders',$row->id) . '"  class="edit btn btn-info btn-sm  custom" >عرض الطلبات</a>
-                            <a href="' . Route('customer.wallet',$row->id) . '"  class="edit btn btn-info btn-sm custom" >اضافه للمحفظه </a>
+                    return '<a href="' . Route('customer.Orders',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 78px;height: 20px;" >عرض الطلبات</a>
+                            <a href="' . Route('customer.wallet',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 78px;height: 20px;" >اضافه للمحفظه </a>
              <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
                 ->rawColumns(['action', 'city'])
@@ -298,7 +292,7 @@ class UserController extends Controller
         $appUser->save();
 
         //Start Store Payment information
-        foreach ($request->get('payments') as $payment){
+        foreach ($request->get('payments')??[] as $payment){
             Payment::create([
                 'user_id'           => $id,
                 'order_id'          => null,
