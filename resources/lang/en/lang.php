@@ -76,5 +76,7 @@ return[
     "approximate_duration"=>"Approximate Duration",
     "around_clock"=>"Around Clock",
     "urgentPrice"=>"Urgent Price",
-    "urgentCurrentOrders"=>"urgent Current Orders"
+    "orderType"=>"order Type",
+    "urgent"=>"Urgent",
+    "normal"=>"Normal"
 ];

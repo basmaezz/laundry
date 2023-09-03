@@ -75,5 +75,7 @@ return[
     "approximate_duration"=>"مده الغسيل التقريبيه",
     "around_clock"=>"طوال اليوم",
     "urgentPrice"=>"سعر المستعجل",
-    "urgentCurrentOrders"=>"الطلبات الحاليه المستعجله"
+    "orderType"=>"نوع الطلب",
+    "urgent"=>"مستعجل",
+    "normal"=>"عادى"
 ];

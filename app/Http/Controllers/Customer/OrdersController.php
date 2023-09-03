@@ -41,6 +41,8 @@ class OrdersController extends Controller
                     return $row->userTrashed->name;
             })->addColumn('date', function ($row) {
                     return $row->created_at->format('d-m-Y');
+            })->addColumn('orderType', function ($row) {
+                    return $row->urgent=='0'?  trans('lang.normal') :  trans('lang.urgent') ;
             })->addColumn('status', function ($row) {
                 if($row->status_id==3){
                     return  ''.trans('lang.wayToLaundry').'';
@@ -54,7 +56,7 @@ class OrdersController extends Controller
                     return $row->status;
             })->addColumn('action', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
-           })->rawColumns(['user','date','status','action'])
+           })->rawColumns(['user','date','status','orderType','action'])
                 ->make(true);
         }
         return  view('customers.backEnd.orders.index', compact('id'));
