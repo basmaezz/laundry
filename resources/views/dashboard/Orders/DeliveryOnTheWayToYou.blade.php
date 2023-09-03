@@ -30,7 +30,6 @@
                                 <th>    العموله  </th>
                                 <th>    قيمه التوصيل  </th>
                                 <th>المدينه </th>
-                                <th>الحى </th>
                                 <th>التفاصيل</th>
                             </tr>
                             </thead>
@@ -86,9 +85,6 @@
                 },{
                     data:'delivery',
                     name:'delivery'
-                },{
-                    data:'city',
-                    name:'city'
                 },{
                     data:'regionName',
                     name:'regionName'

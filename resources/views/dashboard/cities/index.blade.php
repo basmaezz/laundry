@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i>
-                        <a href="{{route('city.create')}}" class="btn btn-primary custom" style="float: left; width: 100px; height: 35px " >اضافه بلد</a>
+                        <a href="{{route('city.create')}}" class="btn btn-primary custom" style="float: left; width: 100px; height: 35px " >اضافه مدينه</a>
                     </div>
                     <div class="card-block">
                         <table class="table table-striped" id="cityTable">

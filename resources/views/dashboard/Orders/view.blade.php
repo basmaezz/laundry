@@ -47,11 +47,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company">ربح التطبيق    </label>
-                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{($order->total_price *$order->subCategoriesTrashed->percentage)/100}}" disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{($order->sum_price *$order->subCategoriesTrashed->percentage)/100}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">ربح المغسله   </label>
-                                        <input type="text" name="profit"class="form-control view" id="name_ar" value="{{($order->total_price-($order->total_price *$order->subCategoriesTrashed->percentage)/100)}}" disabled>
+                                        <input type="text" name="profit"class="form-control view" id="name_ar" value="{{($order->sum_price-($order->sum_price *$order->subCategoriesTrashed->percentage)/100)}}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="company">كوبون   </label>

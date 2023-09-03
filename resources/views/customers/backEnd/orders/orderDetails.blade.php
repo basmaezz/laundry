@@ -53,6 +53,13 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="email">{{__('lang.address')}}</label>
+                                                    <input type="email" class="form-control" placeholder="Email" value="{{$order->userTrashed->address}}" name="email" id="email" disabled />
+                                                </div>
+                                            </div>
+
 
                                         </div>
                                     </form>

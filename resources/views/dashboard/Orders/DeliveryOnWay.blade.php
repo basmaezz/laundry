@@ -31,7 +31,6 @@
                                 <th>    العموله  </th>
                                 <th>    قيمه التوصيل  </th>
                                 <th>المدينه </th>
-                                <th>الحى </th>
                                 <th>تاريخ الطلب </th>
                                 <th>التفاصيل</th>
                             </tr>
@@ -85,9 +84,6 @@
                 },{
                     data:'delivery',
                     name:'delivery'
-                },{
-                    data:'total_price',
-                    name:'total_price'
                 },{
                     data:'city',
                     name:'city'

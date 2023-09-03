@@ -24,7 +24,6 @@
                                 <th>  اسم المندوب  </th>
                                 <th>   نوع التوصيل   </th>
                                 <th>المدينه </th>
-                                <th>الحى </th>
                                 <th>السنه </th>
                                 <th>الشهر </th>
                                 <th>اليوم </th>
@@ -68,9 +67,6 @@
                 },{
                     data:'city',
                     name:'city'
-                },{
-                    data:'regionName',
-                    name:'regionName'
                 },{
                     data:'year',
                     name:'year'

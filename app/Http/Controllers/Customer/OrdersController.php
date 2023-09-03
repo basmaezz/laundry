@@ -63,7 +63,7 @@ class OrdersController extends Controller
     public function incomingOrder($id)
     {
         if (request()->ajax()) {
-            $data = OrderTable::orders($id)->where('status_id', self::WaitingForDelivery)->orderBy('id', 'DESC')->get();
+            $data = OrderTable::orders($id)->where('status_id', self::WayToLaundry)->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -71,6 +71,17 @@ class OrdersController extends Controller
                     return $row->userTrashed->name;
                 })->addColumn('date', function ($row) {
                     return $row->updated_at->format('d-m-Y');;
+                })->addColumn('status', function ($row) {
+                    if($row->status_id==3){
+                        return  ''.trans('lang.wayToLaundry').'';
+                    } elseif ($row->status_id==5){
+                        return  ''.trans('lang.completedOrder').'';
+                    }elseif ($row->status_id==8){
+                        return ''.trans('lang.finishedOrder').'';
+                    }elseif ($row->status_id==10){
+                        return ''.trans('lang.cancelledOrder').'';
+                    }
+                    return $row->status;
                 })->addColumn('details', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
                 })

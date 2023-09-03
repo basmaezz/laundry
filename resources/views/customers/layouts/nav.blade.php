@@ -78,7 +78,15 @@
                         <a class="d-flex align-items-center" href="{{route('Customer.Orders.incomingOrder',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i>{{__('lang.incomingOrders')}}
                             <span class="badge badge-light-warning badge-pill ml-auto mr-1">
                                 {{ App\Models\OrderTable::orders(Auth::user()->subCategory_id)->where('status_id', '3')->count()}}</span>
-                        </a></li>     <li class="" >
+                        </a>
+                    </li>
+                    <li class="" >
+                        <a class="d-flex align-items-center" href="{{route('Customer.Orders.incomingOrder',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i>{{__('lang.urgentCurrentOrders')}}
+                            <span class="badge badge-light-warning badge-pill ml-auto mr-1">
+                                {{ App\Models\OrderTable::orders(Auth::user()->subCategory_id)->where('status_id', '3')->count()}}</span>
+                        </a>
+                    </li>
+                    <li class="" >
                         <a class="d-flex align-items-center" href="{{route('Customer.Orders.inProgress',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i>{{__('lang.ordersInProgress')}}
                             <span class="badge badge-light-warning badge-pill ml-auto mr-1">
                                 {{ App\Models\OrderTable::orders(Auth::user()->subCategory_id)->where('status_id', '4')->count()}}</span>

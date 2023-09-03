@@ -208,7 +208,7 @@ padding-left: 74px;">
                     @endcan
                     @can('cities.index')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('cities.index')}}"><i class="icon-people"></i> البلاد </a>
+                            <a class="nav-link" href="{{route('cities.index')}}"><i class="icon-people"></i> المدن </a>
                         </li>
                     @endcan
 

@@ -75,5 +75,6 @@ return[
     "delivery"=>"Delivery Fees",
     "approximate_duration"=>"Approximate Duration",
     "around_clock"=>"Around Clock",
-    "urgentPrice"=>"Urgent Price"
+    "urgentPrice"=>"Urgent Price",
+    "urgentCurrentOrders"=>"urgent Current Orders"
 ];

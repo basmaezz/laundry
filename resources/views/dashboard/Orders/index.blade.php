@@ -31,7 +31,6 @@
                                 <th>    قيمه التوصيل  </th>
                                 <th> نوع التوصيل </th>
                                 <th>المدينه </th>
-                                <th>الحى </th>
                                 <th>تاريخ الطلب </th>
                                  <th>التفاصيل</th>
                             </tr>
@@ -94,9 +93,6 @@
                 },  {
                     data:'city',
                     name:'city'
-                },{
-                    data:'regionName',
-                    name:'regionName'
                 },{
                     data:'createdAt',
                     name:'createdAt'
