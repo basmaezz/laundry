@@ -32,10 +32,10 @@
                                             <tr>
                                                 <td>{{$order->id}}</td>
                                                 <td>{{$order->subCategoriesTrashed->name_ar}} </td>
-                                                <td>{{$order->status}}</td>
+                                                <td>{{$order->status==8?'الطلب منتهى':$order->status}}</td>
                                                 <td>{{$order->created_at->format('Y-m-d')}}</td>
                                                 <td>
-                                                    <a href="{{route('Order.show',$order->id)}}" class="btn btn-info">التفاصيل</a>
+                                                    <a href="{{route('Order.show',$order->id)}}" class="btn btn-info"style="max-height: 20px !important; max-width: 40px !important;" >التفاصيل</a>
                                                 </td>
                                             </tr>
                                     @endforeach

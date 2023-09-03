@@ -310,7 +310,7 @@ class UserController extends Controller
         };
         $orders=OrderTable::where('user_id',$id)->with(['subCategoriesTrashed'=>function($query){
             return $query->withTrashed();
-        }])->get();
+        }])->orderBy('id', 'DESC')->get();
         return view('dashboard.users.customerOrder',compact('orders'));
     }
 
