@@ -443,8 +443,12 @@ class subCategoryController extends Controller
                     return $row->userTrashed->name;
                 })->addColumn('delegateTrashed', function ($row) {
                     return $row->delegateTrashed->appUserTrashed->name??'';
-                })->addColumn('percentage', function ($row) {
-                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100 ;
+                })->addColumn('laundryProfit', function ($row) {
+                    return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('appProfit', function ($row) {
+                    return ($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('status', function ($row) {
+                    return $row->status_id==8 ?'الطلب منتهى':$row->status ;
                 })->addColumn('created_at', function ($row) {
                     return $row->created_at->format('Y-m-d') ;
                 })
@@ -452,7 +456,7 @@ class subCategoryController extends Controller
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-info btn-sm customOrder customOrder" >تفاصيل</a>';
                     return $btns;
                 })
-                ->rawColumns(['action','created_at','userTrashed','delegateTrashed','percentage'])
+                ->rawColumns(['action','created_at','userTrashed','delegateTrashed','laundryProfit','appProfit'])
                 ->make(true);
         }
         return view('dashboard.laundries.laundryOrders',compact(['id','laundry']));

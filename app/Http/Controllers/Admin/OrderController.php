@@ -213,11 +213,11 @@ class OrderController extends Controller
                         return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('laundryProfit', function ($row) {
-                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('appProfit', function ($row) {
-                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return ($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('commission', function ($row) {
-                    return '';
+                    return $row->total_commission;
                 })->addColumn('delivery', function ($row) {
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
@@ -257,11 +257,11 @@ class OrderController extends Controller
                         return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('laundryProfit', function ($row) {
-                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('appProfit', function ($row) {
-                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return ($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('commission', function ($row) {
-                    return '';
+                    return $row->total_commission;
                 })->addColumn('delivery', function ($row) {
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
@@ -303,11 +303,11 @@ class OrderController extends Controller
                         return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('laundryProfit', function ($row) {
-                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('appProfit', function ($row) {
-                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return ($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('commission', function ($row) {
-                    return '';
+                    return $row->total_commission;
                 })->addColumn('delivery', function ($row) {
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
@@ -348,11 +348,11 @@ class OrderController extends Controller
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('laundryProfit', function ($row) {
-                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('appProfit', function ($row) {
-                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return ($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('commission', function ($row) {
-                    return '';
+                    return $row->total_commission;
                 })->addColumn('delivery', function ($row) {
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
@@ -397,11 +397,11 @@ class OrderController extends Controller
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('laundryProfit', function ($row) {
-                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('appProfit', function ($row) {
-                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return ($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('commission', function ($row) {
-                    return '';
+                    return $row->total_commission;
                 })->addColumn('delivery', function ($row) {
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
@@ -440,11 +440,11 @@ class OrderController extends Controller
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('laundryProfit', function ($row) {
-                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('appProfit', function ($row) {
-                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return ($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('commission', function ($row) {
-                    return '';
+                    return $row->total_commission;
                 })->addColumn('delivery', function ($row) {
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
@@ -481,11 +481,11 @@ class OrderController extends Controller
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('laundryProfit', function ($row) {
-                    return $row->total_price-($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('appProfit', function ($row) {
-                    return ($row->total_price *$row->subCategoriesTrashed->percentage)/100;
+                    return ($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('commission', function ($row) {
-                    return '';
+                    return $row->total_commission;
                 })->addColumn('delivery', function ($row) {
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {

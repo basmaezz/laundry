@@ -417,7 +417,6 @@ class OrderController extends Controller
         }
 
         $app_user_id = auth('app_users_api')->user()->id;
-
         $order = OrderTable::with('userTrashed')->where('user_id', $app_user_id)
             ->where('status_id', self::ClothesReadyForDelivery)
             ->where('id', $request->get('order_id'))

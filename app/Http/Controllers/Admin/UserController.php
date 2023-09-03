@@ -296,6 +296,7 @@ class UserController extends Controller
 
         $appUser->wallet += floatval($request->get("amount"));
         $appUser->save();
+
         //Start Store Payment information
         foreach ($request->get('payments') as $payment){
             Payment::create([

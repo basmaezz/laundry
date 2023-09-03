@@ -60,7 +60,7 @@ return[
     "wayToLaundry"=>"الملابس فى الطريق للمغسله",
     "cancelledOrder"=>"طلب ملغى",
     "profile"=>"الملف الشخصى",
-    "laundryDetails"=>"laundryDetails",
+    "laundryDetails"=>"تفاصيل المغسله",
     "monthlyProfit"=>" اجمالى ربح المغسله الشهرى",
     "firstname"=>"الاسم الأول",
     "lastname"=>"الاسم الأخير",

@@ -26,6 +26,7 @@
                                 <th>حاله الطلب</th>
                                 <th> المبلغ الاجمالى</th>
                                 <th>ربح المغسله  </th>
+                                <th>ربح التطبيق  </th>
                                 <th>التاريخ</th>
                                 <th>الاجراءات </th>
                             </tr>
@@ -66,7 +67,10 @@
                     data:'total_price',
                     name:'total_price'
                 },{
-                    data:'percentage',
+                    data:'laundryProfit',
+                    name:'total_price'
+                },{
+                    data:'appProfit',
                     name:'percentage'
                 },{
                     data:'created_at',

@@ -110,7 +110,7 @@ class OrdersController extends Controller
                 })->addColumn('orderType', function ($row) {
                     return $row->urgent=='0'? '<button type="button"  class="btn btn-success btn-sm">' . trans('lang.normal') . '</button>' : '<button  class="edit btn btn-danger btn-sm">' . trans('lang.urgent') . '</button>' ;
                 })->addColumn('finished', function ($row) {
-                    return '<a href="' . Route('Customer.Orders.completed', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.finish') . '</a>';
+                    return '<a href="' . Route('Customer.Orders.completed', $row->id) . '" class="edit btn btn-primary btn-sm">' . trans('lang.finish') . '</a>';
                 })->addColumn('details', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
                 })
