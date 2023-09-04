@@ -78,5 +78,6 @@ return[
     "urgentPrice"=>"Urgent Price",
     "orderType"=>"order Type",
     "urgent"=>"Urgent",
-    "normal"=>"Normal"
+    "normal"=>"Normal",
+    "sr"=>"SR"
 ];

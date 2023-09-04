@@ -330,7 +330,7 @@ class UserController extends Controller
                 })->addColumn('nationality', function ($row) {
                     return $row->nationality->name_ar ?? '';
                 })->addColumn('request_employment', function ($row) {
-                    return  $row->request_employment==0 ?'موظف':'عامل حر';
+                    return  $row->request_employment==0 ?'<button type="button" class="btn btn-outline-primary">موظف</button>':'<button type="button" class="btn btn-outline-secondary">عامل حر</button>';
                 })->addColumn('status', function ($row) {
                     if($row->appUserTrashed->status=='active'){
                         return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-success btn-sm custom " >'.$row->appUserTrashed->status.'</a>';
@@ -716,17 +716,16 @@ class UserController extends Controller
                 })->addColumn('nationality', function ($row) {
                     return $row->nationality->name_ar ?? '';
                 })->addColumn('request_employment', function ($row) {
-                    return  $row->request_employment==0 ?'موظف':'عامل حر';
+                    return  $row->request_employment==0 ?'<button type="button" class="btn btn-outline-primary">موظف</button>':'<button type="button" class="btn btn-outline-dark">عامل حر</button>';
                 })->addColumn('status', function ($row) {
-                    return  $row->appUserTrashed->status ??'';
+                    return  $row->appUserTrashed->status =='active'?'<button type="button" class="btn btn-outline-info"disabled>active</button>':'<button type="button" class="btn btn-outline-danger"disabled>Disactive</button>';
                 })->addColumn('created_at', function ($row) {
                     return  $row->created_at->format('Y-M-D') ??'';
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . Route('delegate.show', $row->id) . '"  class="edit btn btn-info btn-sm custom" >تفاصيل</a>
-                            <a href="' . Route('delegate.acceptRegister', $row->id) . '"  class="edit btn btn-success btn-sm custom" >قبول</a>
-                            <a href="' . Route('delegate.addRejectReason', $row->id) . '"  class="edit btn btn-danger btn-sm custom" >رفض</a>
-             ';
+                    return '<a href="' . Route('delegate.show', $row->id) . '"  class="edit btn btn-info btn-sm " style="width: 48px;height: 20px;" >تفاصيل</a>
+                            <a href="' . Route('delegate.acceptRegister', $row->id) . '"  class="edit btn btn-success btn-sm " style="width: 28px;height: 20px;" >قبول</a>
+                            <a href="' . Route('delegate.addRejectReason', $row->id) . '"  class="edit btn btn-danger btn-sm " style="width: 38px;height: 20px;" >رفض</a>';
                 })
                 ->rawColumns(['name','city','nationality','request_employment','status','created_at','action'])
                 ->make(true);
@@ -755,7 +754,7 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-        $delegate=Delegate::find($id);
+        $delegate=Delegate::with('appUserTrashed')->find($id);
         return view('dashboard.users.rejectReason',compact('delegate'));
     }
 

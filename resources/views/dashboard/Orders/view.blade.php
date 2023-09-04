@@ -82,7 +82,8 @@
                                         <audio controls>
                                             <source src="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" type="audio/mpeg">
                                         </audio>
-                                        <a class="btn btn-info" href="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" download style="margin-top: -32px;">Download</a>
+                                    <a class="btn btn-info" href="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" download style="margin-top: -32px;max-height:40px;max-width:100px">Download</a>
+
                                     </div>
                                     @endif
 

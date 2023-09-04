@@ -77,5 +77,6 @@ return[
     "urgentPrice"=>"سعر المستعجل",
     "orderType"=>"نوع الطلب",
     "urgent"=>"مستعجل",
-    "normal"=>"عادى"
+    "normal"=>"عادى",
+    "sr"=>"ريال  "
 ];

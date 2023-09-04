@@ -21,7 +21,7 @@
                                             <label class="col-md-3 form-control-label" for="text-input">اسم المندوب </label>
                                             <div class="col-md-9">
 {{--                                                <input type="hidden"  name="id" class="form-control" value="{{$delegate->id}}"required>--}}
-                                                <input type="text" id="text-input" name="name" class="form-control" value="{{$delegate->appUser->name ??''}} "required>
+                                                <input type="text" id="text-input" name="name" class="form-control" value="{{$delegate->appUserTrashed->name ??''}} "disabled>
                                             </div>
                                         </div>
 

@@ -81,7 +81,7 @@ class OrderController extends Controller
                     }
                     return '';
                 })->addColumn('orderType',function ($row){
-                    return $row->urgent=='1'?'مستعجل':'عادى';
+                    return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
                 })->addColumn('finished',function ($row){
                     if($row->is_finished){
                         return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
@@ -203,7 +203,8 @@ class OrderController extends Controller
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->addColumn('orderType',function ($row){
-                    return $row->urgent=='1'?'مستعجل':'عادى';
+                    return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
+
                 })->addColumn('duration',function ($row){
                     $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
                     $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
@@ -247,7 +248,8 @@ class OrderController extends Controller
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->addColumn('orderType',function ($row){
-                    return $row->urgent=='1'?'مستعجل':'عادى';
+                    return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
+
                 })->addColumn('duration',function ($row){
                     $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
                     $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WayToLaundry)->first();
@@ -291,7 +293,8 @@ class OrderController extends Controller
                     return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->
                 addColumn('orderType',function ($row){
-                    return $row->urgent=='1'?'مستعجل':'عادى';
+                    return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
+
                 })->addColumn('deliveryType',function ($row){
                     return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
                 })->addColumn('duration',function ($row){
@@ -344,7 +347,8 @@ class OrderController extends Controller
                         return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('orderType',function ($row){
-                    return $row->urgent=='1'?'مستعجل':'عادى';
+                    return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
+
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('laundryProfit', function ($row) {
@@ -393,7 +397,8 @@ class OrderController extends Controller
                 })->
 
                 addColumn('orderType',function ($row){
-                    return $row->urgent=='1'?'مستعجل':'عادى';
+                    return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
+
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('laundryProfit', function ($row) {
@@ -436,7 +441,8 @@ class OrderController extends Controller
                         return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('orderType',function ($row){
-                    return $row->urgent=='1'?'مستعجل':'عادى';
+                    return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
+
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('laundryProfit', function ($row) {
@@ -477,7 +483,8 @@ class OrderController extends Controller
                         return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
                     }
                 })->addColumn('orderType',function ($row){
-                    return $row->urgent=='1'?'مستعجل':'عادى';
+                    return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
+
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('laundryProfit', function ($row) {
