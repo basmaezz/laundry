@@ -34,7 +34,7 @@ class AdminController extends Controller
     {
         $appUsers = AppUser::count();
         $monthlyOrders=OrderTable::select('*')->where('laundry_id',Auth::user()->subCategory_id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->count();
-        $monthlyProfit=OrderTable::select('*')->where('laundry_id',Auth::user()->subCategory_id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('sum_price');
+        $monthlyProfit=OrderTable::select('*')->where('laundry_id',Auth::user()->subCategory_id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('laundry_profit');
         return view('customers.backEnd.main',compact(['monthlyOrders','monthlyProfit']));
     }
 

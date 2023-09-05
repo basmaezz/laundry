@@ -14,10 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('order_tables', function (Blueprint $table) {
-            $table->string('commission')->default('0');
-            $table->string('total_commission')->default('0');
-            $table->string('sum_price')->default('0');
-
+            $table->string('laundry_profit')->default('0');
+            $table->string('app_profit')->default('0');
         });
     }
 
@@ -29,7 +27,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('order_tables', function (Blueprint $table) {
-            $table->dropColumn([ 'commission', 'total_commission', 'sum_price','laundry_profit','app_profit']);
+            $table->dropColumn([ 'laundry_profit','app_profit']);
+
         });
     }
 };

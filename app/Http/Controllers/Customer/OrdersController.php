@@ -42,7 +42,7 @@ class OrdersController extends Controller
             })->addColumn('date', function ($row) {
                     return $row->created_at->format('d-m-Y');
             })->addColumn('orderType', function ($row) {
-                    return $row->urgent=='0'? '<button type="button"  class="btn btn-success btn-sm">' . trans('lang.normal') . '</button>' : '<button  class="edit btn btn-danger btn-sm">' . trans('lang.urgent') . '</button>' ;
+                    return $row->urgent=='0'? '<button type="button"  class="btn btn-outline-success" disabled>' . trans('lang.normal') . '</button>' : '<button  class="btn btn-outline-danger" disabled>' . trans('lang.urgent') . '</button>' ;
             })->addColumn('status', function ($row) {
                 if($row->status_id==3){
                     return  ''.trans('lang.wayToLaundry').'';
@@ -74,7 +74,7 @@ class OrdersController extends Controller
                 })->addColumn('date', function ($row) {
                     return $row->updated_at->format('d-m-Y');;
                 })->addColumn('orderType', function ($row) {
-                    return $row->urgent=='0'? '<button type="button"  class="btn btn-success btn-sm">' . trans('lang.normal') . '</button>' : '<button  class="edit btn btn-danger btn-sm">' . trans('lang.urgent') . '</button>' ;
+                    return $row->urgent=='0'? '<button type="button"  class="btn btn-outline-success" disabled>'.trans('lang.normal').'</button>' : '<button  class="btn btn-outline-danger" disabled>' . trans('lang.urgent') . '</button>' ;
                 })->addColumn('status', function ($row) {
                     if($row->status_id==3){
                         return  ''.trans('lang.wayToLaundry').'';
@@ -108,7 +108,8 @@ class OrdersController extends Controller
                 })->addColumn('date', function ($row) {
                     return $row->created_at->format('d-m-Y');;
                 })->addColumn('orderType', function ($row) {
-                    return $row->urgent=='0'? '<button type="button"  class="btn btn-success btn-sm">' . trans('lang.normal') . '</button>' : '<button  class="edit btn btn-danger btn-sm">' . trans('lang.urgent') . '</button>' ;
+                    return $row->urgent=='0'? '<button type="button"  class="btn btn-outline-success" disabled>' . trans('lang.normal') . '</button>' : '<button  class="btn btn-outline-danger" disabled>' . trans('lang.urgent') . '</button>' ;
+
                 })->addColumn('finished', function ($row) {
                     return '<a href="' . Route('Customer.Orders.completed', $row->id) . '" class="edit btn btn-primary btn-sm">' . trans('lang.finish') . '</a>';
                 })->addColumn('details', function ($row) {
@@ -171,7 +172,8 @@ class OrdersController extends Controller
                 })->addColumn('date', function ($row) {
                     return $row->updated_at->format('d-m-Y');;
                 })->addColumn('orderType', function ($row) {
-                    return $row->urgent=='0'? '<button type="button"  class="btn btn-success btn-sm">' . trans('lang.normal') . '</button>' : '<button  class="edit btn btn-danger btn-sm">' . trans('lang.urgent') . '</button>' ;
+                    return $row->urgent=='0'? '<button type="button"  class="btn btn-outline-success" disabled>' . trans('lang.normal') . '</button>' : '<button  class="btn btn-outline-danger" disabled>' . trans('lang.urgent') . '</button>' ;
+
                 })->addColumn('details', function ($row) {
                     return '<a href="' . Route('Customer.Orders.orderDetails', $row->id) . '" class="edit btn btn-success btn-sm">' . trans('lang.details') . '</a>';
                 })

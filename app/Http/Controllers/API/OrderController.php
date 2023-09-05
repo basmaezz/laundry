@@ -139,13 +139,15 @@ class OrderController extends Controller
             'commission'     => 0,
             'total_commission' => 0,
             'sum_price'      => 0,
+            'laundry_profit'   =>0,
+            'app_profit'       =>0,
             'coupon'         => $request->get('coupon') ?? null,
         ];
 
         $order = OrderTable::create($order_data);
 
         $item_data = null;
-        $sum_price = $total_commission = $commission = $total = 0;
+        $sum_price = $total_commission = $commission = $total =$laundry_profit=$app_profit=0;
         $item_quantity = 0;
         foreach ($request->get('items') as $key => $item) {
             $product = ProductService::where('id', $item['product_service_id'])->first();
@@ -166,6 +168,8 @@ class OrderController extends Controller
                 $commission += $product->commission;
                 $sum_price += $price * $item['quantity'];
                 $total_commission += $product->commission * $item['quantity'];
+                $laundry_profit= $sum_price-($sum_price *$laundry->percentage)/100;
+                $app_profit=($sum_price *$laundry->percentage)/100;
                 $total += ($price + $product->commission) * $item['quantity'];
                 $item_quantity += $item['quantity'];
                 OrderDetails::create($item_data);
@@ -177,6 +181,8 @@ class OrderController extends Controller
         $order->total_commission = $total_commission;
         $order->total_price    = $total+$laundry->price;
         $order->count_products = $item_quantity;
+        $order->laundry_profit=$sum_price-($sum_price *$laundry->percentage)/100;
+        $order->app_profit=($sum_price *$laundry->percentage)/100;
         $order->discount       = floatval($total * $discount_value);
         $order->vat            = floatval($total * config('setting.vat'));
         if ($request->hasFile('audio_note')) {
