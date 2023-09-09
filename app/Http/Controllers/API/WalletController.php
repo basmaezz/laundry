@@ -75,11 +75,13 @@ class WalletController extends ApiController
         }
 
         $user = auth('app_users_api')->user();
-
-        if ($user->wallet < $request->get("amount")) {
+        $wallet = (int) (str_ireplace(',', '', $user->wallet));
+        if ($wallet < $request->get("amount")) {
             return apiResponse(trans('api.wallet_amount_not_enough'), null, 500, 500);
         }
-        $user->wallet -= floatval($request->get("amount"));
+
+        $wallet -= floatval($request->get("amount"));
+        $user->wallet=$wallet;
         $user->save();
         Transaction::create([
             'app_user_id'   => auth('app_users_api')->user()->id,
