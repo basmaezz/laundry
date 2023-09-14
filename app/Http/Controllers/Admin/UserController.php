@@ -504,7 +504,6 @@ class UserController extends Controller
     }
     public function deleteDelegate(Request $request)
     {
-
         if (is_numeric($request->id)) {
             $delegate=Delegate::find($request->id);
             AppUser::where('id',$delegate->app_user_id)->delete();

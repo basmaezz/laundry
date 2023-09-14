@@ -113,6 +113,8 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('deleteBranch/{id}', [subCategoryController::class, 'deleteBranch'])->name('laundries.deleteBranch');
     Route::get('viewTrashedLaundries', [subCategoryController::class, 'viewTrashedLaundries'])->name('laundries.viewTrashedLaundries');
     Route::get('restoreDeleted', [subCategoryController::class, 'restoreDeleted'])->name('laundries.restoreDeleted');
+    Route::get('subCategories/export',[subCategoryController::class, 'export'])->name('laundries.export');
+
     Route::get('CategoriesIndex', [CategoriesController::class, 'index'])->name('Categories.index');
     Route::get('CategoryEdit/{id}', [CategoriesController::class, 'edit'])->name('category.edit');
     Route::post('CategoryUpdate/{id}', [CategoriesController::class, 'update'])->name('category.update');
@@ -206,6 +208,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
 
     Route::get('Notification', [NotificationController::class, 'create'])->name('notification.create');
     Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('notification.send');
+    Route::post('storeNotification', [NotificationController::class, 'store'])->name('notification.store');
 });
 #############################
 Route::get('Lang/{lang}', [languageController::class, 'index']);
@@ -493,4 +496,7 @@ Route::get('updateServicesID', function () {
         'subCategory_id' => '28',
     ]);
 
+});
+Route::get('getNotifications',function(){
+    return DB::table('notifications')->latest('created_at')->first();
 });

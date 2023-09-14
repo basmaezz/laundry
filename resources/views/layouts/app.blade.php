@@ -193,9 +193,6 @@ padding-left: 74px;">
                             <a class="nav-link" href="{{route('settings.index')}}"><i class="icon-people"></i> الاعدادات </a>
                         </li>
                     @endcan
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('notification.create')}}"><i class="icon-people"></i> الاشعارات </a>
-                    </li>
                     @can('banks.index')
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('banks.index')}}"><i class="icon-people"></i> البنوك </a>
@@ -214,6 +211,17 @@ padding-left: 74px;">
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('faqs.index')}}"><i class="icon-people"></i> الاسئله الشائعه </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> الاشعارات</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('notification.create')}}"><i class="icon-people"></i> اشعارات للمناديب  </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('faqs.index')}}"><i class="icon-people"></i> اشعارات للعملاء   </a>
                     </li>
                 </ul>
             </li>

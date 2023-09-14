@@ -12,6 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i>
+                        <a href="{{route('laundries.export')}}" class="btn btn-info" style="float: left; max-height: 35px; max-width:100px" >Export </a>
                         <a href="{{route('laundries.create')}}" class="btn btn-primary custom" style="float: left; max-height: 35px; max-width:100px" >اضافه مغسله</a>
                     </div>
                     <div class="card-block">

@@ -14,37 +14,39 @@
                     <strong>ارسال اشعار  </strong>
                 </div>
                 <div class="card-block">
-                    <form method="post" action="{{route('notification.send')}}" >
+                    <form method="post" action="{{route('notification.store')}}" >
                         @csrf
+
+
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="hf-email">العنوان </label>
-                            <input type="text" class="form-control" name="title">
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="hf-email">المدينه </label>
+                            <label class="col-md-3 form-control-label" for="text-input">عنوان الاشعار  </label>
                             <div class="col-md-9">
-                                <select class="form-control" name="cities" id="cities" >
-                                    @foreach($cities as $city)
-                                    <option value="{{$city->id}}">{{$city->name_ar}}</option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('status'))
-                                    <span class="text-danger">{{ $errors->first('status') }}</span>
-                                @endif
+                               <input type="text" name="title_ar" class="form-control" >
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="hf-email">المستخدمين </label>
-                            <input type="checkbox"   name="gender[]" value="m">رجال
-                            <input type="checkbox"   name="gender[]" value="f">نساء
+                            <label class="col-md-3 form-control-label" for="text-input">عنوان الاشعار بالانجليزيه  </label>
+                            <div class="col-md-9">
+                                <input type="text" name="title_en" class="form-control" >
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">نص الاشعار  </label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" name="content_ar" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">نص الاشعار باللغه الانجليزيه  </label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" name="content_en" required></textarea>
+                            </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="hf-email">الاشعار </label>
-                            <textarea class="form-control" name="body"></textarea>
-                        </div>
+
                         <div class="card-footer">
-                           <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> ارسال</button>
+                           <button type="submit" class="btn btn-sm btn-info" style="max-height:30px !important;max-width:80px !important;"><i class="fa fa-dot-circle-o"></i> ارسال</button>
                             <a href="{{route('coupons.index')}}" class="btn btn-sm btn-danger">الغاء </a>
                         </div>
 

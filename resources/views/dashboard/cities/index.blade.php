@@ -64,8 +64,9 @@
                     type:"get",
                     url: "{{ route('city.destroy') }}",
                     dataType: 'json',
+                    data: { id: id},
                     success: function(res){
-                        var oTable = $('#datatable-crud').dataTable();
+                        var oTable = $('#cityTable').dataTable();
                         oTable.fnDraw(false);
                     }
                 });

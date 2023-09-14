@@ -107,10 +107,8 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request)
     {
-//        CarType::find($id)->delete();
-//        return  redirect()->back()->with('error', 'تم الحذف');
         if (is_numeric($request->id)) {
             CarType::where('id', $request->id)->delete();
         }

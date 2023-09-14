@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\subCategoriesExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategoriesRequest;
 use App\Http\Requests\subCategoryRequest;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class subCategoryController extends Controller
@@ -460,5 +462,11 @@ class subCategoryController extends Controller
                 ->make(true);
         }
         return view('dashboard.laundries.laundryOrders',compact(['id','laundry']));
+    }
+
+    public function export()
+    {
+       return Excel::download(new subCategoriesExport, 'laundries.xlsx');
+       return redirect()->back();
     }
 }

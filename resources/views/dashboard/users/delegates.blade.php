@@ -86,7 +86,7 @@
                 window.location.reload();
                 $.ajax({
                     type:"get",
-                    url: "{{ route('user.delete') }}",
+                    url: "{{ route('delete.delegate') }}",
                     data: { id: id},
                     dataType: 'json',
                     success: function(res){
