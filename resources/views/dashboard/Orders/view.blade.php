@@ -63,7 +63,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="company">قيمه التوصيل   </label>
-                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->discount}}" disabled>
+                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$order->subCategoriesTrashed->price}}" disabled>
                                     </div>
 
 

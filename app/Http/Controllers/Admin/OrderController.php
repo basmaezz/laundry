@@ -89,9 +89,9 @@ class OrderController extends Controller
                         return  '<time class="timeago" datetime="'.$row->created_at->toISOString().'">'. $row->created_at->toDateString() .'</time>';
                     }
                 })->addColumn('laundryProfit', function ($row) {
-                          return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
+                    return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('appProfit', function ($row) {
-                      return ($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
+                    return ($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
                 })->addColumn('commission', function ($row) {
                     return $row->total_commission;
                 })->addColumn('delivery', function ($row) {
@@ -268,13 +268,15 @@ class OrderController extends Controller
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
+                })->addColumn('regionName', function ($row) {
+                    return $row->userTrashed->region_name;
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('action', function ($row) {
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder "style="max-height:20px;max-width:37px" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','duration','orderType','city','laundryProfit','appProfit','commission','delivery','created_at'])
+                ->rawColumns(['action','category','user','delegate','duration','orderType','city','regionName','laundryProfit','appProfit','commission','delivery','created_at'])
                 ->make(true);
         }
         return  view('dashboard.Orders.DeliveryOnWay');

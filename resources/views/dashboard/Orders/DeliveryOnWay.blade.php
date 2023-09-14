@@ -30,7 +30,8 @@
                                 <th>   ربح التطبيق  </th>
                                 <th>    العموله  </th>
                                 <th>    قيمه التوصيل  </th>
-                                <th>المدينه </th>
+                                <th>  المدينه </th>
+                                <th>الحى </th>
                                 <th>تاريخ الطلب </th>
                                 <th>التفاصيل</th>
                             </tr>
@@ -72,6 +73,9 @@
                 },{
                     data:'duration',
                     name:'duration'
+                },{
+                    data:'total_price',
+                    name:'total_price'
                 },{
                     data:'laundryProfit',
                     name:'laundryProfit'

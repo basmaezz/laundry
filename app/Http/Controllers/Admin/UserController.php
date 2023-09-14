@@ -319,7 +319,7 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-       if(request()->ajax()) {
+        if(request()->ajax()) {
             $data=Delegate::with(['appUserTrashed','appUserTrashed.citiesTrashed','nationality'])->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -330,14 +330,17 @@ class UserController extends Controller
                 })->addColumn('nationality', function ($row) {
                     return $row->nationality->name_ar ?? '';
                 })->addColumn('request_employment', function ($row) {
-                    return  $row->request_employment==0 ?'<button type="button" class="btn btn-outline-primary">موظف</button>':'<button type="button" class="btn btn-outline-secondary">عامل حر</button>';
+                    return  $row->request_employment==0 ?'<button type="button" class="btn btn-outline-primary" disabled>موظف</button>':'<button type="button" class="btn btn-outline-warning"disabled>عامل حر</button>';
                 })->addColumn('status', function ($row) {
-                    if($row->appUserTrashed->status=='active'){
-                        return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-success btn-sm custom " >'.$row->appUserTrashed->status.'</a>';
+                    if($row->appUserTrashed !=null  ){
+                        if($row->appUserTrashed->status=='active'){
+                            return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-success btn-sm "style="width: 48px;height: 20px;"  >'.$row->appUserTrashed->status.'</a>';
 
+                        }else{
+                            return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-danger btn-sm "style="width: 80px;height: 20px;"  >'.$row->appUserTrashed->status.'</a>';
+                        }
                     }else{
-                        return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-danger btn-sm custom" >'.$row->appUserTrashed->status.'</a>';
-
+                        return '';
                     }
                 })->addColumn('created_at', function ($row) {
                     return  $row->created_at->format('Y-M-D') ??'';
