@@ -61,4 +61,5 @@ return [
     'status_update'          => 'تم تطوير الحالة',
     'success_send_to_laundry'=> 'جاري إرسال الطلب الي المغسلة ":laundry"',
     'order_update'=> 'طلبك من مغسلة ":laundry" تغيرت حالته الى :status',
+    'wallet_amount_not_vaid'=>'القيمه غير صحيحه'
 ];

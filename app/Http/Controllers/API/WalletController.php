@@ -38,11 +38,13 @@ class WalletController extends ApiController
         }
         $user = auth('app_users_api')->user();
         $wallet = (int) (str_ireplace(',', '', $user->wallet));
-
-        $wallet += floatval($request->get("amount"));
-        $user->wallet=$wallet;
-        $user->save();
-
+        if ( $request->get("amount")<0) {
+            return apiResponse(trans('api.wallet_amount_not_valid'), null, 500, 500);
+        }
+            $wallet += floatval($request->get("amount"));
+            $user->wallet=$wallet;
+            $user->save();
+        
         foreach ($request->get('payments')??[] as $payment){
             Payment::create([
                 'user_id'           => $app_user_id,
@@ -79,7 +81,7 @@ class WalletController extends ApiController
 
         $user = auth('app_users_api')->user();
         $wallet = (int) (str_ireplace(',', '', $user->wallet));
-        if ($wallet < $request->get("amount")) {
+        if ($wallet < $request->get("amount") ||  $request->get("amount") < 0) {
             return apiResponse(trans('api.wallet_amount_not_enough'), null, 500, 500);
         }
 
