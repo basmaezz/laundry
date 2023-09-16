@@ -10,5 +10,6 @@ class CarType extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'car_types';
     protected $fillable = ['name_ar', 'name_en'];
 }

@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i>
-
+                        <a href="{{route('customers.export')}}" class="btn btn-info" style="float: left; max-height: 35px; max-width:100px" >Export </a>
                     </div>
                     <div class="card-block">
                         <table class="table table-striped" id="table_id">

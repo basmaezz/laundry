@@ -12,7 +12,8 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i>
-                        <a href="{{route('user.create')}}" class="btn btn-primary custom" style="float: left; width: 100px; height: 35px " >اضافه أدمن</a>
+                        <a href="{{route('delegates.export')}}" class="btn btn-info custom" style="float: left; width: 100px; height: 35px " >Export </a>
+                        <a href="{{route('delegate.create')}}" class="btn btn-primary custom" style="float: left; width: 100px; height: 35px " >اضافه مندوب</a>
                     </div>
                     <div class="card-block">
                         <table class="table table-striped" id="table_id">

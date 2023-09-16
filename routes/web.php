@@ -66,6 +66,8 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::post('updatePassword', [UserController::class, 'updatePassword'])->name('user.updatePassword');
     Route::patch('updateProfile', [UserController::class, 'updateProfile'])->name('user.updateProfile');
     Route::get('customers', [UserController::class, 'customers'])->name('customers.index');
+    Route::get('customersExport', [UserController::class, 'customerExport'])->name('customers.export');
+    Route::get('delegatesExport', [UserController::class, 'delegatesExport'])->name('delegates.export');
     Route::get('customerOrder/{id}', [UserController::class, 'customerOrders'])->name('customer.Orders');
     Route::get('delegates', [UserController::class, 'delegates'])->name('delegates.index');
     Route::get('createDelegate', [UserController::class, 'CreateDelegate'])->name('delegate.create');
@@ -149,6 +151,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('changeStatus/{id}', [CouponsController::class, 'changeStatus'])->name('coupon.changeStatus');
 
     Route::get('getOrders', [OrderController::class, 'index'])->name('Order.index');
+    Route::get('exportOrders', [OrderController::class, 'export'])->name('Orders.export');
     Route::get('viewOrder/{id}', [OrderController::class, 'show'])->name('Order.show');
     Route::get('pendingDeliveryAcceptance', [OrderController::class, 'pendingDeliveryAcceptance'])->name('Order.pendingDeliveryAcceptance');
     Route::get('DeliveryOnWay', [OrderController::class, 'DeliveryOnWay'])->name('Order.DeliveryOnWay');

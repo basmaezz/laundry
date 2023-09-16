@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\customersExport;
+use App\Exports\delegatesExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\updateUserRequest;
 use App\Http\Requests\UserRequest;
@@ -13,10 +15,8 @@ use App\Models\Delegate;
 use App\Models\educationLevel;
 use App\Models\Nationality;
 use App\Models\Order;
-use App\Models\OrderAdditional;
 use App\Models\OrderTable;
 use App\Models\Payment;
-use App\Models\ProviderExtra;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Year;
@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 use PhpParser\Node\Expr\FuncCall;
 use Ramsey\Uuid\Uuid;
 use Yajra\DataTables\DataTables;
@@ -258,7 +259,6 @@ class UserController extends Controller
         }
         return view('dashboard.users.customers');
 
-
     }
     public function customerDelete(Request $request)
     {
@@ -277,6 +277,11 @@ class UserController extends Controller
         };
         $appUser=AppUser::find($id);
         return view('dashboard.users.addWallet',compact(('appUser')));
+    }
+    public function customerExport()
+    {
+        return Excel::download(new customersExport, 'customers.xlsx');
+        return redirect()->back();
     }
     public function increaseWallet(Request $request,$id)
     {
@@ -521,7 +526,8 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-        $delegate=Delegate::with(['appUserTrashed','nationality','car','year','bank'])->find($id);
+        $delegate=Delegate::with(['appUserTrashed','nationality','carType','year','bank'])->find($id);
+        dd($delegate);
 
         $nationalities=Nationality::get();
         $banks=Bank::all();
@@ -639,6 +645,12 @@ class UserController extends Controller
         AppUser::where('id',$delegate->app_user_id)->withTrashed()->restore();
         $delegate->restore();
         return redirect()->route('delegates.index')->with('success', 'تم استعاده الحذف');;
+    }
+
+    public function delegatesExport()
+    {
+        return Excel::download(new delegatesExport, 'delegates.xlsx');
+        return redirect()->back();
     }
 
     public function profile()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ordersExport;
 use App\Http\Controllers\Controller;
 use App\Models\Delegate;
 use App\Models\OrderDetails;
@@ -10,6 +11,7 @@ use App\Models\OrderTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class OrderController extends Controller
@@ -111,7 +113,11 @@ class OrderController extends Controller
         return  view('dashboard.Orders.index');
     }
 
-
+    public function export()
+    {
+        return Excel::download(new ordersExport, 'orders.xlsx');
+        return redirect()->back();
+    }
     /**
      * Show the form for creating a new resource.
      *
