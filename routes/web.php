@@ -210,8 +210,11 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
 
 
     Route::get('Notification', [NotificationController::class, 'create'])->name('notification.create');
+    Route::get('customerNotification', [NotificationController::class, 'customerNotification'])->name('notification.customerNotification');
     Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('notification.send');
     Route::post('storeNotification', [NotificationController::class, 'store'])->name('notification.store');
+    Route::post('storeCustomerNotification', [NotificationController::class, 'storeCustomerNotification'])->name('notification.storeCustomerNotification');
+
 });
 #############################
 Route::get('Lang/{lang}', [languageController::class, 'index']);

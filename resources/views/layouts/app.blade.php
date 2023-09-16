@@ -221,7 +221,7 @@ padding-left: 74px;">
                         <a class="nav-link" href="{{route('notification.create')}}"><i class="icon-people"></i> اشعارات للمناديب  </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('faqs.index')}}"><i class="icon-people"></i> اشعارات للعملاء   </a>
+                        <a class="nav-link" href="{{route('notification.customerNotification')}}"><i class="icon-people"></i> اشعارات للعملاء   </a>
                     </li>
                 </ul>
             </li>
