@@ -78,7 +78,7 @@ class OrderController extends Controller
                 $message = trans('api.Values_After_Calc_Vat_And_Fees');
             }
 //            return apiResponse($message, $data);
-            return apiResponse( $data);
+            return apiResponse2( $data);
         }
         return apiResponse(trans('api.error_validation'), $items = null, 500, 500);
     }

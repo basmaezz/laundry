@@ -634,6 +634,13 @@ function apiResponse1(string $message_key, $data=null,$items=null,int $code=200,
     $return["items"] = $items;
     return response()->json($return,$http_code);
 }
+function apiResponse2( $items=null,int $code=200,int $http_code=200)
+{
+    $return = [];
+    $return["code"]= $code;
+    $return["items"] = $items;
+    return response()->json($return,$http_code);
+}
 function apiResponseOrders1(string $message_key, $orders=null,int $code=200,int $http_code=200)
 {
     $return = [];

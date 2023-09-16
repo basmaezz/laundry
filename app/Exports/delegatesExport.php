@@ -24,7 +24,7 @@ class delegatesExport implements FromCollection, WithHeadings, WithMapping
         return [
             $delegate->id,
             $delegate->appUserTrashed->name ??'',
-            $delegate->appUserTrashed->citiesTrashed->name_ar,
+            $delegate->appUserTrashed?->citiesTrashed?->name_ar,
             $delegate->nationality->name_ar ?? '',
             $delegate->request_employment==0 ?'موظف':'عامل حر',
             $delegate->id_number,
@@ -35,7 +35,7 @@ class delegatesExport implements FromCollection, WithHeadings, WithMapping
             $delegate->car?->name_ar,
             $delegate->year->name,
             $delegate->license_end_date,
-            $delegate->appUserTrashed->status=='deactivated'?'غير مفعل':'مفعل',
+            $delegate->appUserTrashed?->status=='deactivated'?'غير مفعل':'مفعل',
             $delegate->created_at->format('Y-m-d'),
         ];
     }
