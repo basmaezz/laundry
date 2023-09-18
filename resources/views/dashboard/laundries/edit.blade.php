@@ -22,22 +22,16 @@
                                 </div>
 
                                 <div class="card-block">
-                                    <div class="form-group">
-                                        <label for="company" n>اسم المغسله الرئيسيه</label>
-                                        <input type="text" name="parent_id"class="form-control" id="name_ar" value="{{$subCategory->parentTrashed->name_ar??''}}" disabled>
-                                        <input type="hidden" name="parent_id"class="form-control"value="{{$subCategory->id}}">
-                                    </div>
-
 
                                     <div class="form-group">
-                                        <label for="company" n>اسم الفرع</label>
+                                        <label for="company" n>اسم المغسله</label>
                                         <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$subCategory->name_ar}}">
                                         @error('name_ar')
                                         <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="company">اسم الفرع بالانجليزيه</label>
+                                        <label for="company">اسم المغسله بالانجليزيه</label>
                                         <input type="text" name="name_en"class="form-control" id="name_en" value="{{$subCategory->name_en}}">
                                         @error('name_en')
                                         <div class="text-sm text-red-600 text-danger">{{ $message }}</div>

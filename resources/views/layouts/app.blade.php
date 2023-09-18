@@ -218,6 +218,9 @@ padding-left: 74px;">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> الاشعارات</a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
+                        <a class="nav-link" href="{{route('notification.index')}}"><i class="icon-people"></i> الاشعارات   </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{route('notification.create')}}"><i class="icon-people"></i> اشعارات للمناديب  </a>
                     </li>
                     <li class="nav-item">

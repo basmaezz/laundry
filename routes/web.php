@@ -116,6 +116,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('viewTrashedLaundries', [subCategoryController::class, 'viewTrashedLaundries'])->name('laundries.viewTrashedLaundries');
     Route::get('restoreDeleted', [subCategoryController::class, 'restoreDeleted'])->name('laundries.restoreDeleted');
     Route::get('subCategories/export',[subCategoryController::class, 'export'])->name('laundries.export');
+    Route::get('copyLaundry/{id}',[subCategoryController::class, 'copyLaundry'])->name('laundries.copyLaundry');
 
     Route::get('CategoriesIndex', [CategoriesController::class, 'index'])->name('Categories.index');
     Route::get('CategoryEdit/{id}', [CategoriesController::class, 'edit'])->name('category.edit');
@@ -209,6 +210,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('faqDelete/{id}', [faqsController::class, 'destroy'])->name('faq.destroy');
 
 
+    Route::get('Notifications', [NotificationController::class, 'index'])->name('notification.index');
     Route::get('Notification', [NotificationController::class, 'create'])->name('notification.create');
     Route::get('customerNotification', [NotificationController::class, 'customerNotification'])->name('notification.customerNotification');
     Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('notification.send');

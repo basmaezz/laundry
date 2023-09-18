@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Notifications extends Model
@@ -19,6 +20,14 @@ class Notifications extends Model
         'title_en',
         'send'
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+    ];
+//    public function setCreatedAtAttribute( $value ) {
+//        $this->attributes['created_at'] = (new Carbon($value))->format('Y-m-d');
+//    }
 
     public function order(){
         return $this->belongsTo(OrderTable::class,'order_id','id')->withDefault();

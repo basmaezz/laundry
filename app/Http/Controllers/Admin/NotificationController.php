@@ -7,7 +7,8 @@ use App\Models\AppUser;
 use App\Models\City;
 use App\Models\Notifications;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class NotificationController extends Controller
 {
@@ -15,7 +16,17 @@ class NotificationController extends Controller
 
     public function index()
     {
+        if(request()->ajax()) {
+            $data=Notifications::all()->unique('title_ar')->whereIn('type',['customer','delivery'])->toArray();
+            return   Datatables::of($data)
+              ->addColumn('action', function ($row) {
+                    return '<a href="' . Route('laundries.view', $row['id']) . '"  class="edit btn btn-info btn-sm" style="max-height: 20px !important; max-width: 70px !important;" >اعاده ارسال</a>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
+        return view('dashboard.notifications.index');
     }
     public function create()
     {
@@ -92,6 +103,9 @@ class NotificationController extends Controller
             );
         }
         return redirect()->back();
+    }
+    public function resendNotification($id)
+    {
 
     }
 }

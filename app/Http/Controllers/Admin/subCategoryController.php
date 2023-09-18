@@ -8,8 +8,11 @@ use App\Http\Requests\SubCategoriesRequest;
 use App\Http\Requests\subCategoryRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Category;
+use App\Models\CategoryItem;
 use App\Models\City;
 use App\Models\OrderTable;
+use App\Models\Product;
+use App\Models\ProductService;
 use App\Models\Subcategory;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -60,12 +63,13 @@ class subCategoryController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $main='<a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm" style="max-height: 20px !important; max-width: 30px !important;" >الفروع</a>';
-                    $branch=' <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" style="max-height: 20px !important; max-width: 30px !important;" >الأقسام</a>
+                    $branch=' <a href="' . Route('laundries.copyLaundry', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" style="max-height: 20px !important; max-width: 30px !important;" >نسخ</a>
+                              <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" style="max-height: 20px !important; max-width: 30px !important;" >الأقسام</a>
                             <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
                             <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" style="max-height: 20px !important; max-width: 35px !important;">تفاصيل</a>
                             <a href="' . Route('laundries.orders', $row->id) . '"  class="edit btn btn-success btn-sm customOrder"style="max-height: 20px !important; max-width: 40px !important;" >الطلبات</a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
-                    return $row->parent_id==Null ? $main .$branch : $branch;
+                    return  $branch;
                 })
                 ->rawColumns(['action', 'city','parentTrashed','around_clock','image','address'])
                 ->make(true);
@@ -98,9 +102,7 @@ class subCategoryController extends Controller
                'around_clock' => $request->around_clock,
                 'clock_end' =>$request->clock_end,
                 'clock_at' => $request->clock_at,
-
         ]);
-
         $user=User::create([
             'name' => $request->name,
             'last_name' => $request->last_name,
@@ -110,8 +112,73 @@ class subCategoryController extends Controller
             'subCategory_id' => $subcategory->id
         ]);
         $user->save();
-
         return  redirect()->route('laundries.index');
+    }
+
+    public function copyLaundry($id)
+    {
+        $Subcategory = Subcategory::find($id);
+        $latest=Subcategory::latest()->first();
+        $categoryItems=CategoryItem::where('subcategory_id',$id)->get();
+
+       $copyLaundry= Subcategory::create([
+            'category_id'=>$Subcategory->category_id,
+            'urgentWash'=>$Subcategory->urgentWash,
+            'name_ar'=>$Subcategory->name_ar.' '.'copy'.' '.$latest->id,
+            'name_en'=>$Subcategory->name_en.' '.'copy'.' '.$latest->id,
+            'city_id'=>$Subcategory->city_id,
+            'location'=>$Subcategory->location,
+            'lat'=>$Subcategory->lat,
+            'lng'=>$Subcategory->lng,
+            'address'=>$Subcategory->address,
+            'price'=>$Subcategory->price,
+            'range'=>$Subcategory->range,
+            'percentage'=>$Subcategory->percentage,
+            'approximate_duration'=>$Subcategory->approximate_duration,
+        ]);
+        if($categoryItems->count() > 0){
+
+            foreach ($categoryItems as $categoryItem){
+                $newCategoryItem = CategoryItem::create([
+                    'subcategory_id'=>$copyLaundry->id,
+                     'category_type'=>$categoryItem->category_type ,'' ,'copy',
+                ]);
+                $subCategory=CategoryItem::find($categoryItem->id);
+                $products=Product::where('category_item_id',$categoryItem->id)->with(['productService','productImages'])->get();
+                if($products->count()>0){
+                    foreach ($products as $product){
+                       $copyProduct= Product::create([
+                            'user_id' => Auth::user()->id,
+                            'category_item_id'=>$newCategoryItem->id ,
+                            'subcategory_id'=>$copyLaundry->id ,
+                            'name_ar'=> $product->name_ar,
+                            'name_en'=>$product->name_en,
+                            'desc_ar'=>$product->desc_ar,
+                            'desc_en'=>$product->desc_en,
+                            'image'=>$product->image,
+                         ]);
+                        $productServices=ProductService::where('product_id',$product->id)->get();
+                        if($productServices->count()>0){
+                            foreach ($productServices as $productService){
+                                ProductService::create([
+                                    'subcategory_id' => $copyLaundry->id,
+                                    'product_id' => $copyProduct->id,
+                                    'services'=>$productService->services,
+                                    'price'=>$productService->price,
+                                    'priceUrgent'=>$productService->priceUrgent,
+                                    'commission'=>$productService->commission,
+                                ]);
+
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -211,7 +278,6 @@ class subCategoryController extends Controller
     {
 
         $subCategories = Subcategory::all();
-
         return view('dashboard.laundries.createAdminLaundry', compact('subCategories'));
     }
 
@@ -252,6 +318,8 @@ class subCategoryController extends Controller
         $subcategory->save();
         return response()->json(['success' => 'Status change successfully.']);
     }
+
+
 
     public function branches(Request $request)
     {

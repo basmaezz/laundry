@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -45,6 +46,14 @@ class Product extends Model
 
     public function getImageAttribute($image)
     {
-        return  isset($image) ? assetsUpload().'/laundries/products/'. $image : '';
+        if(isset($image)){
+            if( Str::contains($image,assetsUpload())){
+               return $image;
+            }else{
+                return   assetsUpload().'/laundries/products/'. $image ;
+            }
+        }
+//        return   assetsUpload().'/laundries/products/'. $image ;
+
     }
 }
