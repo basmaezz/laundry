@@ -52,7 +52,7 @@
                                             <span class="text-danger">{{ $errors->first('desc_en') }}</span>
                                         @endif
                                     </div>
-                   
+
                                     @if($product->subcategoryTrashed->urgentWash ==1)
                                     <div class="form-group">
                                         <label class="col-md- form-control-label">غسيل مستعجل </label>

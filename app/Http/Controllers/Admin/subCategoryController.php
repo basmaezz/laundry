@@ -239,6 +239,7 @@ class subCategoryController extends Controller
             'location' => $request->location,
             'urgentWash' => $request->urgentWash,
             'approximate_duration' => $request->approximate_duration,
+            'approximate_duration_urgent' => $request->approximate_duration_urgent,
             'around_clock' => $request->around_clock,
             'clock_end' => $request->clock_end,
             'clock_at' => $request->clock_at,
