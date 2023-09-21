@@ -34,11 +34,11 @@
                                         <div class="form-control">
 
                                                 <label class="form-control check-ability-label">
-                                                    <input type="radio"  class="checkbox-ability" name="urgentWash" value="1" onchange="makeUrgent()">نعم
+                                                    <input type="radio"  class="checkbox-ability" name="urgentWash" value="1" onchange="showMakeUrgent()">نعم
                                                     <br>
                                                 </label>
                                             <label class="form-control check-ability-label">
-                                                    <input type="radio"  class="checkbox-ability" name="urgentWash" value="0">لا
+                                                    <input type="radio"  class="checkbox-ability" name="urgentWash" value="0" onchange="hideMakeUrgent()">لا
                                                     <br>
                                                 </label>
                                         </div>
@@ -153,6 +153,17 @@
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                    <div class="form-group " id="approximate_duration_urgent_input" style="display: none">
+                                        <label for="approximate_duration">  المده التقريبيه للغسيل السريع </label>
+                                        <div class="input-group">
+                                            <input type="number"name="approximate_duration_urgent" class="form-control" placeholder="24" value="{{Request::old('range')}}" >
+                                            <span class="input-group-addon"> ساعه</i>
+                                                </span>
+                                        </div>
+                                        @error('approximate_duration')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
 
                                     <div class="form-group" >
                                         <div>
@@ -255,6 +266,15 @@
     function hideDurations(){
         let durations= document.getElementById('durations');
         (durations.style.display ==="block") ?durations.style.display ="none" :'';
+    }
+
+    function showMakeUrgent(){
+        let approximateDurationUrgent= document.getElementById('approximate_duration_urgent_input');
+        (approximateDurationUrgent.style.display ==="none") ?approximateDurationUrgent.style.display ="block" :'';
+    }
+    function hideMakeUrgent(){
+        let approximateDurationUrgent= document.getElementById('approximate_duration_urgent_input');
+        (approximateDurationUrgent.style.display ==="block") ?approximateDurationUrgent.style.display ="none" :'';
     }
 
 </script>

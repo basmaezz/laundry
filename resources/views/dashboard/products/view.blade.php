@@ -37,31 +37,35 @@
                     </div>
                 </div>
             </div>
-        @foreach($product->productService as $service)
-            <div class="col-sm-6">
+        <div class="col-sm-6">
+
+
                 <div class="card">
                     <div class="card-header">
-                        <strong>  عرض تفاصيل {{$service->services}}</strong>
+                        <strong>عرض تفاصيل الخدمات </strong>
                     </div>
                     <div class="card-block">
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="company">اسم الخدمه </label>
-                                <input type="text" name="services"class="form-control" id="services" value="{{$service->services}} "disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="company">السعر  </label>
-                                <input type="text" name="price"class="form-control" id="price" value="{{$service->price}} "disabled>
-                            </div>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>اسم الخدمه</th>
+                                <th>السعر</th>
 
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($product->productService as $service)
+                                <tr>
+                                    <td>{{$service->services}}</td>
+                                    <td>{{$service->price}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
 
-                        </div>
                     </div>
                 </div>
             </div>
-            @endforeach
-
-        </form>
 
     </main>
 

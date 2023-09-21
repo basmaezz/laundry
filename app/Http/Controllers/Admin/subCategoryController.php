@@ -98,11 +98,11 @@ class subCategoryController extends Controller
     public function store(subCategoryRequest $request)
     {
         $subcategory=Subcategory::create($request->validated()+[
-            'image'=>uploadFile($request->file('image'), 'laundries/logo/'),
-               'around_clock' => $request->around_clock,
+                'image'=>uploadFile($request->file('image'), 'laundries/logo/'),
+                'around_clock' => $request->around_clock,
                 'clock_end' =>$request->clock_end,
                 'clock_at' => $request->clock_at,
-        ]);
+            ]);
         $user=User::create([
             'name' => $request->name,
             'last_name' => $request->last_name,
@@ -121,7 +121,7 @@ class subCategoryController extends Controller
         $latest=Subcategory::latest()->first();
         $categoryItems=CategoryItem::where('subcategory_id',$id)->get();
 
-       $copyLaundry= Subcategory::create([
+        $copyLaundry= Subcategory::create([
             'category_id'=>$Subcategory->category_id,
             'urgentWash'=>$Subcategory->urgentWash,
             'name_ar'=>$Subcategory->name_ar.' '.'copy'.' '.$latest->id,
@@ -141,13 +141,13 @@ class subCategoryController extends Controller
             foreach ($categoryItems as $categoryItem){
                 $newCategoryItem = CategoryItem::create([
                     'subcategory_id'=>$copyLaundry->id,
-                     'category_type'=>$categoryItem->category_type ,'' ,'copy',
+                    'category_type'=>$categoryItem->category_type ,'' ,'copy',
                 ]);
                 $subCategory=CategoryItem::find($categoryItem->id);
                 $products=Product::where('category_item_id',$categoryItem->id)->with(['productService','productImages'])->get();
                 if($products->count()>0){
                     foreach ($products as $product){
-                       $copyProduct= Product::create([
+                        $copyProduct= Product::create([
                             'user_id' => Auth::user()->id,
                             'category_item_id'=>$newCategoryItem->id ,
                             'subcategory_id'=>$copyLaundry->id ,
@@ -156,7 +156,7 @@ class subCategoryController extends Controller
                             'desc_ar'=>$product->desc_ar,
                             'desc_en'=>$product->desc_en,
                             'image'=>$product->image,
-                         ]);
+                        ]);
                         $productServices=ProductService::where('product_id',$product->id)->get();
                         if($productServices->count()>0){
                             foreach ($productServices as $productService){
@@ -217,7 +217,6 @@ class subCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $subcategory = Subcategory::find($id);
         if ($request->file('image') != '') {
             $filename = request('image')->getClientOriginalName();
@@ -243,18 +242,29 @@ class subCategoryController extends Controller
             'clock_at' => $request->clock_at,
         ]);
         $subcategory->save();
+        if($subcategory->userTrashed->isEmpty()){
+            User::Create([
+                'subCategory_id' => $subcategory->id,
+                'name' => $request->name,
+                'last_name' => $request->last_name,
+                'password' => Hash::make($request->password),
+                'email' => $request->email,
+                'phone' => $request->phone,
+            ]);
+        }
+        User::where('subCategory_id', $id)->update([
 
-     User::where('subCategory_id', $id)->update([
             'name' => $request->name,
             'last_name' => $request->last_name,
+            'password' => Hash::make($request->password),
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
-        if ($request->password != '') {
-            User::where('subCategory_id', $id)->update([
-                'password' => Hash::make($request->password)
-            ]);
-        }
+        // if ($request->password != '') {
+        //     User::where('subCategory_id', $id)->update([
+        //         'password' => Hash::make($request->password)
+        //     ]);
+        // }
 
         return  redirect()->route('laundries.index')->with('success', 'تم التعديل');
     }
@@ -323,7 +333,7 @@ class subCategoryController extends Controller
 
     public function branches(Request $request)
     {
-     $id=$request->id;
+        $id=$request->id;
         if(request()->ajax()) {
             $data = Subcategory::with('city')->where('parent_id',$id )->get();
 
@@ -412,8 +422,8 @@ class subCategoryController extends Controller
         }
 
         $subcategory = Subcategory::create($request->all() + [
-            'parent_id' => $request->parent_id
-        ]);
+                'parent_id' => $request->parent_id
+            ]);
 
         User::create([
             'name' => $request->name,
@@ -534,7 +544,7 @@ class subCategoryController extends Controller
 
     public function export()
     {
-       return Excel::download(new subCategoriesExport, 'laundries.xlsx');
-       return redirect()->back();
+        return Excel::download(new subCategoriesExport, 'laundries.xlsx');
+        return redirect()->back();
     }
 }

@@ -135,6 +135,19 @@
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
+                                    @if($subCategory->urgentWash ==1 )
+                                    <div class="form-group">
+                                            <label for="approximate_duration">  المده التقريبيه للغسيل المستعجل </label>
+                                            <div class="input-group">
+                                                <input type="text"name="approximate_duration_urgent" class="form-control"  value="{{$subCategory->approximate_duration_urgent}}"  >
+                                                <span class="input-group-addon"> ساعه</i>
+                                                </span>
+                                            </div>
+                                            @error('approximate_duration_urgent')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    @endif
 
                                     <div class="form-group" >
                                         <div>

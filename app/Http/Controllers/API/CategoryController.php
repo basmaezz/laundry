@@ -55,6 +55,7 @@ class CategoryController extends Controller
                 'lat' => $subcategory->lat,
                 'lng' => $subcategory->lng,
                 'approximate_duration' => $subcategory->approximate_duration,
+                'approximate_duration_urgent' => $subcategory->approximate_duration_urgent,
                 //'distance' => round($distance, 2),
                 'distance' => round($distance, 2),
                 'range' => $subcategory->range,

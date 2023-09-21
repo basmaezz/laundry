@@ -143,56 +143,66 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('editService/{id}', [ProductController::class, 'editService'])->name('product.editService');
     Route::post('updateService/{id}', [ProductController::class, 'updateService'])->name('product.updateService');
 
-    Route::get('coupons', [CouponsController::class, 'index'])->name('coupons.index');
-    Route::get('couponsCreate', [CouponsController::class, 'create'])->name('coupon.create');
-    Route::post('couponsStore', [CouponsController::class, 'store'])->name('coupon.store');
-    Route::get('couponEdit/{id}', [CouponsController::class, 'edit'])->name('coupon.edit');
-    Route::patch('couponUpdate/{id}', [CouponsController::class, 'update'])->name('coupon.update');
-    Route::get('couponDelete/{id}', [CouponsController::class, 'destroy'])->name('coupon.destroy');
-    Route::get('changeStatus/{id}', [CouponsController::class, 'changeStatus'])->name('coupon.changeStatus');
+    Route::controller(CouponsController::class)->group(function () {
+            Route::get('coupons','index')->name('coupons.index');
+    Route::get('couponsCreate',  'create')->name('coupon.create');
+    Route::post('couponsStore',  'store')->name('coupon.store');
+    Route::get('couponEdit/{id}',  'edit')->name('coupon.edit');
+    Route::patch('couponUpdate/{id}',  'update')->name('coupon.update');
+    Route::get('couponDelete/{id}',  'destroy')->name('coupon.destroy');
+    Route::get('changeStatus/{id}',  'changeStatus')->name('coupon.changeStatus');
+    });
 
-    Route::get('getOrders', [OrderController::class, 'index'])->name('Order.index');
-    Route::get('exportOrders', [OrderController::class, 'export'])->name('Orders.export');
-    Route::get('viewOrder/{id}', [OrderController::class, 'show'])->name('Order.show');
-    Route::get('pendingDeliveryAcceptance', [OrderController::class, 'pendingDeliveryAcceptance'])->name('Order.pendingDeliveryAcceptance');
-    Route::get('DeliveryOnWay', [OrderController::class, 'DeliveryOnWay'])->name('Order.DeliveryOnWay');
-    Route::get('readyPickUp', [OrderController::class, 'readyPickUp'])->name('Order.readyPickUp');
-    Route::get('WayToLaundry', [OrderController::class, 'WayToLaundry'])->name('Order.WayToLaundry');
-    Route::get('DeliveredToLaundry', [OrderController::class, 'DeliveredToLaundry'])->name('Order.DeliveredToLaundry');
-    Route::get('DeliveryOnTheWayToYou', [OrderController::class, 'DeliveryOnTheWayToYou'])->name('Order.DeliveryOnTheWayToYou');
-    Route::get('WaitingForDeliveryToReceiveOrder', [OrderController::class, 'WaitingForDeliveryToReceiveOrder'])->name('Order.WaitingForDeliveryToReceiveOrder');
-    Route::get('completed', [OrderController::class, 'completed'])->name('Order.completed');
-    Route::get('changeStatus/', [OrderController::class, 'changeStatus']);
-    Route::get('delegateOrders/{id}', [OrderController::class, 'delegateOrders'])->name('Order.delegateOrders');
+    Route::controller(OrderController::class)->group(function (){
+    Route::get('getOrders', 'index')->name('Order.index');
+    Route::get('exportOrders',  'export')->name('Orders.export');
+    Route::get('viewOrder/{id}',  'show')->name('Order.show');
+    Route::get('pendingDeliveryAcceptance',  'pendingDeliveryAcceptance')->name('Order.pendingDeliveryAcceptance');
+    Route::get('DeliveryOnWay',  'DeliveryOnWay')->name('Order.DeliveryOnWay');
+    Route::get('readyPickUp',  'readyPickUp')->name('Order.readyPickUp');
+    Route::get('WayToLaundry',  'WayToLaundry')->name('Order.WayToLaundry');
+    Route::get('DeliveredToLaundry',  'DeliveredToLaundry')->name('Order.DeliveredToLaundry');
+    Route::get('DeliveryOnTheWayToYou',  'DeliveryOnTheWayToYou')->name('Order.DeliveryOnTheWayToYou');
+    Route::get('WaitingForDeliveryToReceiveOrder',  'WaitingForDeliveryToReceiveOrder')->name('Order.WaitingForDeliveryToReceiveOrder');
+    Route::get('completed',  'completed')->name('Order.completed');
+    Route::get('changeStatus/',  'changeStatus');
+    Route::get('delegateOrders/{id}',  'delegateOrders')->name('Order.delegateOrders');
+ });
+    Route::controller(RoleController::class)->group(function () {
+    Route::get('Roles', 'index')->name('roles.index');
+    Route::get('RolesCreate', 'create')->name('roles.create');
+    Route::post('RolesStore', 'store')->name('roles.store');
+    Route::get('RolesEdit/{id}', 'edit')->name('roles.edit');
+    Route::post('RolesUpdate/{id}', 'update')->name('roles.update');
+    Route::get('RolesDelete/{id}', 'destroy')->name('roles.destroy');
+    });
 
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('settings', 'index')->name('settings.index');
+        Route::get('addSettings', 'create')->name('settings.create');
+        Route::post('storeSettings', 'store')->name('settings.store');
+        Route::get('editSettings', 'edit')->name('settings.edit');
+        Route::post('updateSettings', 'update')->name('settings.update');
+    });
 
-    Route::get('Roles', [RoleController::class, 'index'])->name('roles.index');
-    Route::get('RolesCreate', [RoleController::class, 'create'])->name('roles.create');
-    Route::post('RolesStore', [RoleController::class, 'store'])->name('roles.store');
-    Route::get('RolesEdit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
-    Route::post('RolesUpdate/{id}', [RoleController::class, 'update'])->name('roles.update');
-    Route::get('RolesDelete/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
+    Route::controller(BankController::class)->group(function () {
+        Route::get('banks',  'index')->name('banks.index');
+        Route::get('bankCreate',  'create')->name('bank.create');
+        Route::post('bankStore',  'store')->name('bank.store');
+        Route::get('bankEdit/{id}',  'edit')->name('bank.edit');
+        Route::post('bankUpdate/{id}',  'update')->name('bank.update');
+        Route::get('bankDelete/{id}',  'destroy')->name('bank.destroy');
+    });
 
-    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
-    Route::get('addSettings', [SettingController::class, 'create'])->name('settings.create');
-    Route::post('storeSettings', [SettingController::class, 'store'])->name('settings.store');
-    Route::get('editSettings', [SettingController::class, 'edit'])->name('settings.edit');
-    Route::post('updateSettings', [SettingController::class, 'update'])->name('settings.update');
+    Route::controller(CarController::class)->group(function () {
+        Route::get('cars',  'index')->name('cars.index');
+        Route::get('carCreate',  'create')->name('car.create');
+        Route::post('carStore',  'store')->name('car.store');
+        Route::get('carEdit/{id}',  'edit')->name('car.edit');
+        Route::post('carUpdate/{id}',  'update')->name('car.update');
+        Route::get('carDelete',  'destroy')->name('car.destroy');
+    });
 
-    Route::get('banks', [BankController::class, 'index'])->name('banks.index');
-    Route::get('bankCreate', [BankController::class, 'create'])->name('bank.create');
-    Route::post('bankStore', [BankController::class, 'store'])->name('bank.store');
-    Route::get('bankEdit/{id}', [BankController::class, 'edit'])->name('bank.edit');
-    Route::post('bankUpdate/{id}', [BankController::class, 'update'])->name('bank.update');
-    Route::get('bankDelete/{id}', [BankController::class, 'destroy'])->name('bank.destroy');
-
-
-    Route::get('cars', [CarController::class, 'index'])->name('cars.index');
-    Route::get('carCreate', [CarController::class, 'create'])->name('car.create');
-    Route::post('carStore', [CarController::class, 'store'])->name('car.store');
-    Route::get('carEdit/{id}', [CarController::class, 'edit'])->name('car.edit');
-    Route::post('carUpdate/{id}', [CarController::class, 'update'])->name('car.update');
-    Route::get('carDelete', [CarController::class, 'destroy'])->name('car.destroy');
 
 
     Route::get('cities', [CityController::class, 'index'])->name('cities.index');
@@ -508,3 +518,5 @@ Route::get('updateServicesID', function () {
 Route::get('getNotifications',function(){
     return DB::table('notifications')->latest('created_at')->first();
 });
+
+Route::view('dark','customers.layouts.dark');

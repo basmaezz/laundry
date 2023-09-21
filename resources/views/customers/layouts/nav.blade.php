@@ -23,7 +23,7 @@
             </li>
             </li>
             <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder">{{Auth::user()->name}}</span><span class="user-status">Admin</span></div><span class="avatar"><img class="round" src="{{$laundry->image}}" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+{{--                    <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder">{{Auth::user()->name}}</span><span class="user-status">Admin</span></div><span class="avatar"><img class="round" src="{{$laundry->image}}" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>--}}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="{{route('profile')}}">
                         <i class="mr-50" data-feather="user"></i> Profile</a>
@@ -44,7 +44,7 @@
             <li class="nav-item mr-auto"><a class="navbar-brand" href="../../../html/ltr/vertical-menu-template/index.html"><span class="brand-logo">
                            </span>
 
-                    <h2 class="brand-text">{{$laundry['name_'.app()->getLocale()]}}</h2>
+{{--                    <h2 class="brand-text">{{$laundry['name_'.app()->getLocale()]}}</h2>--}}
                 </a></li>
             <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
         </ul>
