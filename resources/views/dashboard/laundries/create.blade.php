@@ -42,8 +42,8 @@
                                                     <br>
                                                 </label>
                                         </div>
-                                        @if ($errors->has('abilities'))
-                                            <span class="text-danger">{{ $errors->first('abilities') }}</span>
+                                        @if ($errors->has('urgentWash'))
+                                            <span class="text-danger">{{ $errors->first('urgentWash') }}</span>
                                         @endif
                                     </div>
                                      <div class="form-group">

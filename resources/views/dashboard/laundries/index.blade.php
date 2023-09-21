@@ -21,11 +21,11 @@
                             <tr>
                                 <th>  الصورة </th>
                                 <th>اسم المغسله </th>
-                                <th>الفرع الرئيسى </th>
                                 <th>المدينه </th>
                                 <th>الحى</th>
                                 <th>ساعات العمل</th>
-                                <th></th>
+                                <th> غسيل مستعجل</th>
+                                <th>الحاله</th>
                                 <th> </th>
                             </tr>
                             </thead>
@@ -53,9 +53,6 @@
                     data: 'name_ar',
                     name: 'name_ar'
                 },{
-                    data: 'parentTrashed',
-                    name: 'parentTrashed'
-                },{
                     data:'city',
                     name:'city'
                 },{
@@ -64,6 +61,9 @@
                 },{
                     data:'around_clock',
                     name:'around_clock'
+                },{
+                    data:'urgentWash',
+                    name:'urgentWash'
                 },{
                     data:'opened',
                     name:'opened'

@@ -52,6 +52,8 @@ class subCategoryController extends Controller
                     return $row->parentTrashed->name_ar??'';
                 })->addColumn('around_clock', function ($row) {
                     return $row->around_clock==1 ?'طوال اليوم' :abs($hours=((int)$row->clock_end)-((int)$row->clock_at)).'ساعه' ;
+                })->addColumn('urgentWash', function ($row) {
+                    return $row->urgentWash ==1 ?'نعم':'لا';
                 })->addColumn('address', function ($row) {
                     return Str::limit($row->address, 20);
                 })->addColumn('opened', function ($row) {
@@ -71,7 +73,7 @@ class subCategoryController extends Controller
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                     return  $branch;
                 })
-                ->rawColumns(['action', 'city','parentTrashed','around_clock','image','address'])
+                ->rawColumns(['action', 'city','parentTrashed','around_clock','image','address','urgentWash'])
                 ->make(true);
         }
         return view('dashboard.laundries.index');
@@ -242,6 +244,14 @@ class subCategoryController extends Controller
             'clock_at' => $request->clock_at,
         ]);
         $subcategory->save();
+        $request->validate([
+            'name'=>'required',
+            'last_name'=>'required',
+            'email'=>'required',
+            'phone'=>'required',
+        ],[
+            'required'=>'هذا الحقل مطلوب',
+        ]);
         if($subcategory->userTrashed->isEmpty()){
             User::Create([
                 'subCategory_id' => $subcategory->id,

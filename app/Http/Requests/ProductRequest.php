@@ -42,6 +42,7 @@ class ProductRequest extends FormRequest
 //                        $fail($request->name_en.' هذا الاسم موجود بالفعل.');
 //                    }
 //                }],
+            'urgentWash '=>'integer',
             'name_ar'=>'required',
             'name_en'=>'required',
             'desc_ar'=>'required',

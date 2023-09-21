@@ -20,7 +20,8 @@ class ProductController extends Controller
         if (Gate::denies('products.index')) {
             abort(403);
         };
-        $categoryItem = CategoryItem::find($id);
+        $categoryItem = CategoryItem::with('subcategories')->find($id);
+
         return view('dashboard.products.create', compact('categoryItem'));
     }
 
@@ -56,7 +57,7 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product = Product::with(['productService', 'productImages'])->find($id);
+        $product = Product::with(['productService', 'productImages','subcategoryTrashed'])->find($id);
         return  view('dashboard.products.edit', compact('product'));
     }
 
@@ -69,6 +70,8 @@ class ProductController extends Controller
                 'name_en'          => 'required|',
                 'desc_ar'          => 'required',
                 'desc_en'          => 'required',
+                'urgentWash'          => 'required',
+
             ],
             [
                 'name_ar.regex' => 'حروف فقط',
@@ -88,6 +91,7 @@ class ProductController extends Controller
                 'name_en' => $request->name_en,
                 'desc_ar' => $request->desc_ar,
                 'desc_en' => $request->desc_en,
+                'urgentWash' => $request->urgentWash,
             ]);
         }
         return redirect()->route('CategoryItems.show', $request->category_item_id);

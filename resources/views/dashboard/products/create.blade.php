@@ -45,6 +45,25 @@
                         <span class="text-danger">{{ $errors->first('desc_en') }}</span>
                     @endif
                 </div>
+                @if($categoryItem->subcategories->urgentWash ==1)
+                <div class="form-group">
+                    <label class="col-md- form-control-label">غسيل مستعجل </label>
+                    <div class="form-control">
+
+                        <label class="form-control check-ability-label">
+                            <input type="radio"  class="checkbox-ability" name="urgentWash" value="1" >نعم
+                            <br>
+                        </label>
+                        <label class="form-control check-ability-label">
+                            <input type="radio"  class="checkbox-ability" name="urgentWash" value="0" >لا
+                            <br>
+                        </label>
+                    </div>
+                    @if ($errors->has('urgentWash'))
+                        <span class="text-danger">{{ $errors->first('urgentWash') }}</span>
+                    @endif
+                </div>
+                @endif
                 <div class="form-group">
                     <label for="company">الصوره  </label>
                     <input type="file" name="subProductImage"class="form-control view" id="image" >

@@ -201,11 +201,16 @@
                                     <div class="form-group ">
                                         <label >الأسم الأول</label>
                                         <input type="text" id="text-input" name="name" class="form-control" value="{{$subCategory->userTrashed[0]->name ??''}}">
-
+                                        @error('name')
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الأسم الأخير</label>
                                         <input type="text" id="text-input" name="last_name" class="form-control"value="{{$subCategory->userTrashed[0]->last_name ??''}}">
+                                       @error('last_name')
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">كلمه المرور </label>
@@ -214,10 +219,16 @@
                                     <div class="form-group ">
                                         <label  for="email-input">البريد الألكترونى </label>
                                         <input type="email" id="email-input" name="email" class="form-control" value="{{$subCategory->userTrashed[0]->email ??''}}">
+                                        @error('email')
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group ">
                                         <label  for="text-input">الجوال </label>
                                         <input type="text" id="phone" name="phone" class="form-control"  value="{{$subCategory->userTrashed[0]->phone ??''}}"maxlength="10">
+                                       @error('phone')
+                                        <div class="text-sm text-red-600 text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
