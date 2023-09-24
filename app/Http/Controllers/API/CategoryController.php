@@ -22,11 +22,11 @@ use Maize\Markable\Models\Favorite;
 
 class CategoryController extends Controller
 {
-    public function getShowSubCategories($id)
+    public function getShowSubCategories($type)
     {
-        if ($id == 1) {
+        if ($type == 1) {
             $subCategories = Subcategory::where('category_id', '1')->get();
-        } elseif ($id == 4) {
+        } elseif ($type == 4) {
             $subCategories = Subcategory::where('urgentWash', '1')->get();
         }
         $name = 'name_' . App::getLocale();

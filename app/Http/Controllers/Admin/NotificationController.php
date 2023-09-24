@@ -64,12 +64,13 @@ class NotificationController extends Controller
 
     public function storeCustomerNotification(Request $request)
     {
-        $customers = AppUser::where([
-            'user_type' => 'customer',
-            'city_id'=>$request->city_id,
-            'gender'=>$request->gender
-        ])->get();
-
+       foreach ($request->city_id as $city){
+           $customers = AppUser::where([
+               'user_type' => 'customer',
+               'city_id'=>$city,
+               'gender'=>$request->gender
+           ])->get();
+       };
         foreach ($customers as $user) {
             Notifications::create([
                 'title_ar'=>$request->title_ar,

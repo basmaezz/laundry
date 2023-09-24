@@ -20,7 +20,8 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">المدينه  </label>
                             <div class="col-md-9">
-                                <select class="form-control" name="city_id">
+
+                                    <select id="choices-multiple-remove-button" name="city_id[]"  multiple>
 
                                     @foreach($cities as $city)
                                         <option value="{{$city->id}}">{{$city->name_ar}}</option>
@@ -43,6 +44,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">عنوان الاشعار بالعربيه /عنوان الاشعار بالانجليزيه  </label>
                             <div class="col-md-9">
@@ -68,3 +70,6 @@
     </main>
 @endsection
 
+@push('scripts')
+
+@endpush

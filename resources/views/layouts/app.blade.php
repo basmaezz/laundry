@@ -16,10 +16,16 @@
     <link href="{{ asset('assets/newLayout/dest/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
     <style>
         .btns{
             max-width: 100px !important;
         }
+      body{
+          background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);
+          background: linear-gradient(to right, #0083B0, #00B4DB);
+          color: #514B64;min-height: 100vh}
     </style>
 
 <body class="navbar-fixed sidebar-nav fixed-nav">
@@ -262,12 +268,24 @@ padding-left: 74px;">
     });
 </script>
 <script>
+
     var allEditors = document.querySelectorAll('#editor');
     for (var i = 0; i < allEditors.length; ++i) {
         ClassicEditor.create(allEditors[i]);
     }
     $(document).ready(function() {
         $('.js-example-basic-multiple').select2();
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+            removeItemButton: true,
+            maxItemCount:5,
+            searchResultLimit:5,
+            renderChoiceLimit:5
+        });
     });
 </script>
 
