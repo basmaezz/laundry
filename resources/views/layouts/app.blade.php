@@ -124,7 +124,7 @@ padding-left: 74px;">
                         @endcan
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('laundries.index')}}"><i class="icon-people"></i>  كل المغاسل </a>
+                            <a class="nav-link" href="{{route('laundries.index')}}"><i class="icon-people"></i>   المغاسل </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('laundries.mainLaundries')}}"><i class="icon-people"></i>  المغاسل الرئيسيه</a>

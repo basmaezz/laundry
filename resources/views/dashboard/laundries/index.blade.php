@@ -19,6 +19,7 @@
                         <table class="table table-striped" id="table_id">
                             <thead>
                             <tr>
+                                <th>  الرقم </th>
                                 <th>  الصورة </th>
                                 <th>اسم المغسله </th>
                                 <th>المدينه </th>
@@ -47,6 +48,9 @@
                 serverSide: true,
                 ajax: "{{ Route('laundries.index') }}",
                 columns: [{
+                    data: 'id',
+                    name: 'id'
+                },{
                     data: 'image',
                     name: 'image'
                 },{

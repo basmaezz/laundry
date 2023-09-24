@@ -44,7 +44,7 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('auth.login');
 });
-Route::post('adminLogin', [UserController::class, 'adminLogin'])->name('adminLogin');
+Route::post('adminLogin',  [UserController::class,'adminLogin'])->name('adminLogin');
 Route::get('/dashboard', [AdminDashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -56,92 +56,103 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::middleware(['auth', 'IsAdmin'])->group(function () {
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
-    Route::get('getUsers', [UserController::class, 'getUsers'])->name('users.getUsers');
-    Route::get('TrashedUsers', [UserController::class, 'adminTrashed'])->name('users.adminTrashed');
-    Route::get('forceDelete', [UserController::class, 'forceDelete'])->name('users.forceDelete');
-    Route::get('restoreDeletedAdmins/{id}', [UserController::class, 'restoreDeletedAdmins'])->name('users.restoreDeletedAdmins');
-    Route::get('profile', [UserController::class, 'profile'])->name('users.profile');
-    Route::get('editPassword', [UserController::class, 'editPassword'])->name('users.editPassword');
-    Route::post('updatePassword', [UserController::class, 'updatePassword'])->name('user.updatePassword');
-    Route::patch('updateProfile', [UserController::class, 'updateProfile'])->name('user.updateProfile');
-    Route::get('customers', [UserController::class, 'customers'])->name('customers.index');
-    Route::get('customersExport', [UserController::class, 'customerExport'])->name('customers.export');
-    Route::get('delegatesExport', [UserController::class, 'delegatesExport'])->name('delegates.export');
-    Route::get('customerOrder/{id}', [UserController::class, 'customerOrders'])->name('customer.Orders');
-    Route::get('delegates', [UserController::class, 'delegates'])->name('delegates.index');
-    Route::get('createDelegate', [UserController::class, 'CreateDelegate'])->name('delegate.create');
-    Route::post('storeDelegate', [UserController::class, 'storeDelegate'])->name('delegate.store');
-    Route::get('showDelegate/{id}', [UserController::class, 'showDelegate'])->name('delegate.show');
-    Route::get('restoreDeletedDelegates/{id}', [UserController::class, 'restoreDeletedDelegates'])->name('delegate.restoreDeletedDelegates');
-    Route::get('editDelegate/{id}', [UserController::class, 'editDelegate'])->name('delegate.edit');
-    Route::post('updateDelegate/{id}', [UserController::class, 'updateDelegate'])->name('delegate.update');
-    Route::get('changeDelegateStatus/{id}', [UserController::class, 'changeDelegateStatus'])->name('delegate.changeDelegateStatus');
-    Route::get('acceptRegister/{id}', [UserController::class, 'acceptRegister'])->name('delegate.acceptRegister');
-    Route::get('deleteDelegate', [UserController::class, 'deleteDelegate'])->name('delete.delegate');
-    Route::get('trashedDelegates', [UserController::class, 'trashedDelegates'])->name('delegate.trashedDelegates');
-    Route::get('registrationRequests', [UserController::class, 'getRegistrationRequests'])->name('delegate.registrationRequests');
-    Route::get('addRejectReason/{id}', [UserController::class, 'addRejectReason'])->name('delegate.addRejectReason');
-    Route::post('storeRejectReason/{id}', [UserController::class, 'storeRejectReason'])->name('delegate.storeRejectReason');
-    Route::get('rejectionRequests', [UserController::class, 'rejectionRequests'])->name('delegate.rejectionRequests');
-    Route::get('customerDelete', [UserController::class, 'customerDelete'])->name('customer.delete');
-    Route::get('customerWallet/{id}', [UserController::class, 'customerWallet'])->name('customer.wallet');
-    Route::post('increaseWallet/{id}', [UserController::class, 'increaseWallet'])->name('customer.wallet.increase');
-    Route::get('userView/{id}', [UserController::class, 'show'])->name('user.view');
-    Route::get('userCreate', [UserController::class, 'create'])->name('user.create');
-    Route::post('userStore', [UserController::class, 'store'])->name('user.store');
-    Route::get('userEdit/{id}', [UserController::class, 'edit'])->name('user.edit');
-    Route::post('userUpdate/{id}', [UserController::class, 'update'])->name('user.update');
-    Route::get('userDelete', [UserController::class, 'destroy'])->name('user.delete');
-    Route::post('searchLaundry', [UserController::class, 'destroy'])->name('searchLaundry');
+    Route::controller(UserController::class)->group(function () {
+        Route::get('users',  'index')->name('users.index');
+        Route::get('getUsers',  'getUsers')->name('users.getUsers');
+        Route::get('TrashedUsers',  'adminTrashed')->name('users.adminTrashed');
+        Route::get('forceDelete', 'forceDelete')->name('users.forceDelete');
+        Route::get('restoreDeletedAdmins/{id}', 'restoreDeletedAdmins')->name('users.restoreDeletedAdmins');
+        Route::get('profile',  'profile')->name('users.profile');
+        Route::get('editPassword',  'editPassword')->name('users.editPassword');
+        Route::post('updatePassword',  'updatePassword')->name('user.updatePassword');
+        Route::patch('updateProfile',  'updateProfile')->name('user.updateProfile');
+        Route::get('customers', 'customers')->name('customers.index');
+        Route::get('customersExport', 'customerExport')->name('customers.export');
+        Route::get('delegatesExport',  'delegatesExport')->name('delegates.export');
+        Route::get('customerOrder/{id}', 'customerOrders')->name('customer.Orders');
+        Route::get('delegates',  'delegates')->name('delegates.index');
+        Route::get('createDelegate', 'CreateDelegate')->name('delegate.create');
+        Route::post('storeDelegate', 'storeDelegate')->name('delegate.store');
+        Route::get('showDelegate/{id}',  'showDelegate')->name('delegate.show');
+        Route::get('restoreDeletedDelegates/{id}', 'restoreDeletedDelegates')->name('delegate.restoreDeletedDelegates');
+        Route::get('editDelegate/{id}',  'editDelegate')->name('delegate.edit');
+        Route::post('updateDelegate/{id}', 'updateDelegate')->name('delegate.update');
+        Route::get('changeDelegateStatus/{id}', 'changeDelegateStatus')->name('delegate.changeDelegateStatus');
+        Route::get('acceptRegister/{id}', 'acceptRegister')->name('delegate.acceptRegister');
+        Route::get('deleteDelegate', 'deleteDelegate')->name('delete.delegate');
+        Route::get('trashedDelegates', 'trashedDelegates')->name('delegate.trashedDelegates');
+        Route::get('registrationRequests',  'getRegistrationRequests')->name('delegate.registrationRequests');
+        Route::get('addRejectReason/{id}', 'addRejectReason')->name('delegate.addRejectReason');
+        Route::post('storeRejectReason/{id}',  'storeRejectReason')->name('delegate.storeRejectReason');
+        Route::get('rejectionRequests',  'rejectionRequests')->name('delegate.rejectionRequests');
+        Route::get('customerDelete', 'customerDelete')->name('customer.delete');
+        Route::get('customerWallet/{id}', 'customerWallet')->name('customer.wallet');
+        Route::post('increaseWallet/{id}',  'increaseWallet')->name('customer.wallet.increase');
+        Route::get('userView/{id}',  'show')->name('user.view');
+        Route::get('userCreate',  'create')->name('user.create');
+        Route::post('userStore',  'store')->name('user.store');
+        Route::get('userEdit/{id}',  'edit')->name('user.edit');
+        Route::post('userUpdate/{id}',  'update')->name('user.update');
+        Route::get('userDelete',  'destroy')->name('user.delete');
+        Route::post('searchLaundry',  'destroy')->name('searchLaundry');
+    });
 
-    Route::get('laundries', [subCategoryController::class, 'index'])->name('laundries.index');
-    Route::get('laundryCreate', [subCategoryController::class, 'create'])->name('laundries.create');
-    Route::post('laundryStore', [subCategoryController::class, 'store'])->name('laundries.store');
-    Route::get('laundryEdit/{id}', [subCategoryController::class, 'edit'])->name('laundries.edit');
-    Route::post('laundryUpdate/{id}', [subCategoryController::class, 'update'])->name('laundries.update');
-    Route::get('laundryDestroy', [subCategoryController::class, 'destroy'])->name('laundries.destroy');
-    Route::get('adminLaundries', [subCategoryController::class, 'adminLaundries'])->name('laundries.admins');
-    Route::get('createAdminLaundries', [subCategoryController::class, 'createAdmin'])->name('laundries.createAdmin');
-    Route::post('storeLaundryAdmin', [subCategoryController::class, 'storeLaundryAdmin'])->name('laundries.storeAdmin');
-    Route::get('laundryView/{id}', [subCategoryController::class, 'show'])->name('laundries.view');
-    Route::get('laundryOrders/{id}', [subCategoryController::class, 'getOrders'])->name('laundries.orders');
-    Route::get('laundryUpdateStats', [subCategoryController::class, 'updateStats']);
-    Route::get('branches/{id}', [subCategoryController::class, 'branches'])->name('laundries.branches');
-    Route::get('createBranch/{id}', [subCategoryController::class, 'createBranch'])->name('laundries.branches.create');
-    Route::post('storeBranch', [subCategoryController::class, 'storeBranch'])->name('laundries.storeBranch');
-    Route::get('editBranch/{id}', [subCategoryController::class, 'editBranch'])->name('laundries.editBranch');
-    Route::get('mainLaundries', [subCategoryController::class, 'mainLaundries'])->name('laundries.mainLaundries');
-    Route::get('deleteBranch/{id}', [subCategoryController::class, 'deleteBranch'])->name('laundries.deleteBranch');
-    Route::get('viewTrashedLaundries', [subCategoryController::class, 'viewTrashedLaundries'])->name('laundries.viewTrashedLaundries');
-    Route::get('restoreDeleted', [subCategoryController::class, 'restoreDeleted'])->name('laundries.restoreDeleted');
-    Route::get('subCategories/export',[subCategoryController::class, 'export'])->name('laundries.export');
-    Route::get('copyLaundry/{id}',[subCategoryController::class, 'copyLaundry'])->name('laundries.copyLaundry');
 
-    Route::get('CategoriesIndex', [CategoriesController::class, 'index'])->name('Categories.index');
-    Route::get('CategoryEdit/{id}', [CategoriesController::class, 'edit'])->name('category.edit');
-    Route::post('CategoryUpdate/{id}', [CategoriesController::class, 'update'])->name('category.update');
-    Route::get('CategoryDelete/{id}', [CategoriesController::class, 'destroy'])->name('category.destroy');
-    Route::get('CategoryItemsIndex/{id}', [CategoryItemController::class, 'index'])->name('CategoryItems.index');
-    Route::get('CategoryItems/{id}', [CategoryItemController::class, 'create'])->name('CategoryItems.create');
-    Route::get('CategoryItemsEdit/{id}', [CategoryItemController::class, 'edit'])->name('CategoryItems.edit');
-    Route::post('CategoryItemsUpdate/{id}', [CategoryItemController::class, 'update'])->name('CategoryItems.update');
-    Route::post('CategoryItemsStore', [CategoryItemController::class, 'store'])->name('CategoryItems.store');
-    Route::get('CategoryItemsDestroy/{id}', [CategoryItemController::class, 'destroy'])->name('CategoryItems.destroy');
-    Route::get('CategoryItemsShow/{id}', [CategoryItemController::class, 'show'])->name('CategoryItems.show');
+     Route::controller(subCategoryController::class)->group(function () {
 
-    Route::get('productCreate/{id}', [ProductController::class, 'create'])->name('product.create');
-    Route::post('productStore', [ProductController::class, 'store'])->name('product.store');
-    Route::get('productDelete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
-    Route::get('productView/{id}', [ProductController::class, 'view'])->name('product.view');
-    Route::get('productEdit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-    Route::post('productUpdate', [ProductController::class, 'update'])->name('product.update');
-    Route::get('productAddService/{id}', [ProductController::class, 'addService'])->name('product.addService');
-    Route::post('createProductService', [ProductController::class, 'createProductService'])->name('product.createProductService');
-    Route::get('productServices/{id}', [ProductController::class, 'productServices'])->name('product.productServices');
-    Route::get('deleteProductService/{id}', [ProductController::class, 'deleteProductService'])->name('product.deleteProductService');
-    Route::get('editService/{id}', [ProductController::class, 'editService'])->name('product.editService');
-    Route::post('updateService/{id}', [ProductController::class, 'updateService'])->name('product.updateService');
+         Route::get('laundries', 'index')->name('laundries.index');
+         Route::get('laundryCreate',  'create')->name('laundries.create');
+         Route::post('laundryStore',  'store')->name('laundries.store');
+         Route::get('laundryEdit/{id}','edit')->name('laundries.edit');
+         Route::post('laundryUpdate/{id}', 'update')->name('laundries.update');
+         Route::get('laundryDestroy',  'destroy')->name('laundries.destroy');
+         Route::get('adminLaundries',  'adminLaundries')->name('laundries.admins');
+         Route::get('createAdminLaundries',  'createAdmin')->name('laundries.createAdmin');
+         Route::post('storeLaundryAdmin',  'storeLaundryAdmin')->name('laundries.storeAdmin');
+         Route::get('laundryView/{id}',  'show')->name('laundries.view');
+         Route::get('laundryOrders/{id}',  'getOrders')->name('laundries.orders');
+         Route::get('laundryUpdateStats', 'updateStats');
+         Route::get('branches/{id}',  'branches')->name('laundries.branches');
+         Route::get('createBranch/{id}', 'createBranch')->name('laundries.branches.create');
+         Route::post('storeBranch', 'storeBranch')->name('laundries.storeBranch');
+         Route::get('editBranch/{id}',  'editBranch')->name('laundries.editBranch');
+         Route::get('mainLaundries', 'mainLaundries')->name('laundries.mainLaundries');
+         Route::get('deleteBranch/{id}',  'deleteBranch')->name('laundries.deleteBranch');
+         Route::get('viewTrashedLaundries',  'viewTrashedLaundries')->name('laundries.viewTrashedLaundries');
+         Route::get('restoreDeleted',  'restoreDeleted')->name('laundries.restoreDeleted');
+         Route::get('subCategories/export', 'export')->name('laundries.export');
+         Route::get('copyLaundry/{id}', 'copyLaundry')->name('laundries.copyLaundry');
+     });
+
+ Route::controller(CategoriesController::class)->group(function () {
+     Route::get('CategoriesIndex',  'index')->name('Categories.index');
+     Route::get('CategoryEdit/{id}',  'edit')->name('category.edit');
+     Route::post('CategoryUpdate/{id}',  'update')->name('category.update');
+     Route::get('CategoryDelete/{id}' , 'destroy')->name('category.destroy');
+     Route::get('CategoryItemsIndex/{id}',  'index')->name('CategoryItems.index');
+     Route::get('CategoryItems/{id}',  'create')->name('CategoryItems.create');
+     Route::get('CategoryItemsEdit/{id}',  'edit')->name('CategoryItems.edit');
+     Route::post('CategoryItemsUpdate/{id}', 'update')->name('CategoryItems.update');
+     Route::post('CategoryItemsStore',  'store')->name('CategoryItems.store');
+     Route::get('CategoryItemsDestroy/{id}',  'destroy')->name('CategoryItems.destroy');
+     Route::get('CategoryItemsShow/{id}',  'show')->name('CategoryItems.show');
+ });
+
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('productCreate/{id}',  'create')->name('product.create');
+        Route::post('productStore',  'store')->name('product.store');
+        Route::get('productDelete/{id}',  'destroy')->name('product.destroy');
+        Route::get('productView/{id}',  'view')->name('product.view');
+        Route::get('productEdit/{id}',  'edit')->name('product.edit');
+        Route::post('productUpdate',  'update')->name('product.update');
+        Route::get('productAddService/{id}',  'addService')->name('product.addService');
+        Route::post('createProductService',  'createProductService')->name('product.createProductService');
+        Route::get('productServices/{id}', 'productServices')->name('product.productServices');
+        Route::get('deleteProductService/{id}',  'deleteProductService')->name('product.deleteProductService');
+        Route::get('editService/{id}',  'editService')->name('product.editService');
+        Route::post('updateService/{id}',  'updateService')->name('product.updateService');
+    });
+
 
     Route::controller(CouponsController::class)->group(function () {
             Route::get('coupons','index')->name('coupons.index');
@@ -204,29 +215,31 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     });
 
 
+    Route::controller(CityController::class)->group(function () {
+        Route::get('cities', 'index')->name('cities.index');
+        Route::get('cityCreate', 'create')->name('city.create');
+        Route::post('cityStore', 'store')->name('city.store');
+        Route::get('cityEdit/{id}', 'edit')->name('city.edit');
+        Route::post('cityUpdate/{id}', 'update')->name('city.update');
+        Route::get('cityDelete', 'destroy')->name('city.destroy');
+    });
 
-    Route::get('cities', [CityController::class, 'index'])->name('cities.index');
-    Route::get('cityCreate', [CityController::class, 'create'])->name('city.create');
-    Route::post('cityStore', [CityController::class, 'store'])->name('city.store');
-    Route::get('cityEdit/{id}', [CityController::class, 'edit'])->name('city.edit');
-    Route::post('cityUpdate/{id}', [CityController::class, 'update'])->name('city.update');
-    Route::get('cityDelete', [CityController::class, 'destroy'])->name('city.destroy');
-
-    Route::get('faqs', [faqsController::class, 'index'])->name('faqs.index');
-    Route::get('faqCreate', [faqsController::class, 'create'])->name('faq.create');
-    Route::post('faqStore', [faqsController::class, 'store'])->name('faq.store');
-    Route::get('faqEdit/{id}', [faqsController::class, 'edit'])->name('faq.edit');
-    Route::post('faqUpdate/{id}', [faqsController::class, 'update'])->name('faq.update');
-    Route::get('faqDelete/{id}', [faqsController::class, 'destroy'])->name('faq.destroy');
-
-
-    Route::get('Notifications', [NotificationController::class, 'index'])->name('notification.index');
-    Route::get('Notification', [NotificationController::class, 'create'])->name('notification.create');
-    Route::get('customerNotification', [NotificationController::class, 'customerNotification'])->name('notification.customerNotification');
-    Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('notification.send');
-    Route::post('storeNotification', [NotificationController::class, 'store'])->name('notification.store');
-    Route::post('storeCustomerNotification', [NotificationController::class, 'storeCustomerNotification'])->name('notification.storeCustomerNotification');
-
+    Route::controller(faqsController::class)->group(function () {
+        Route::get('faqs', 'index')->name('faqs.index');
+        Route::get('faqCreate', 'create')->name('faq.create');
+        Route::post('faqStore', 'store')->name('faq.store');
+        Route::get('faqEdit/{id}', 'edit')->name('faq.edit');
+        Route::post('faqUpdate/{id}', 'update')->name('faq.update');
+        Route::get('faqDelete/{id}', 'destroy')->name('faq.destroy');
+    });
+    Route::controller(NotificationController::class)->group(function () {
+        Route::get('Notifications',  'index')->name('notification.index');
+        Route::get('Notification',  'create')->name('notification.create');
+        Route::get('customerNotification',  'customerNotification')->name('notification.customerNotification');
+        Route::post('sendNotification',  'sendNotification')->name('notification.send');
+        Route::post('storeNotification',  'store')->name('notification.store');
+        Route::post('storeCustomerNotification',  'storeCustomerNotification')->name('notification.storeCustomerNotification');
+    });
 });
 #############################
 Route::get('Lang/{lang}', [languageController::class, 'index']);
@@ -238,36 +251,44 @@ Route::get('signOut', [AdminController::class, 'signOut'])->name('customer.logou
 Route::middleware(['auth', 'laundryAdmin'])->group(function () {
 
     Route::get('main', [AdminController::class, 'main'])->name('customer.index');
-    Route::get('Items/{id}', [ItemsController::class, 'index'])->name('Customer.Items.index');
-    Route::get('createItems/{id}', [ItemsController::class, 'create'])->name('Customer.Items.create');
-    Route::post('storeItem/{id}', [ItemsController::class, 'store'])->name('Customer.Items.store');
-    Route::get('editItem/{id}', [ItemsController::class, 'edit'])->name('Customer.Items.edit');
-    Route::post('updateItem/{id}', [ItemsController::class, 'update'])->name('updateItem');
-    Route::get('deleteItem/{id}', [ItemsController::class, 'destroy'])->name('Customer.Items.delete');
 
-    Route::get('Products/{id}', [ProductsController::class, 'index'])->name('Customer.Products.index');
-    Route::get('createProduct/{id}', [ProductsController::class, 'create'])->name('Customer.Products.create');
-    Route::get('editProduct/{id}', [ProductsController::class, 'edit'])->name('Customer.Products.edit');
-    Route::post('updateProduct/{id}', [ProductsController::class, 'update'])->name('Customer.Products.update');
-    Route::post('createProduct', [ProductsController::class, 'store'])->name('Customer.Products.store');
-    Route::get('deleteProduct/{id}', [ProductsController::class, 'destroy'])->name('Customer.Products.destroy');
-    Route::get('viewProductService/{id}', [ProductsController::class, 'productServices'])->name('Customer.Products.viewProductServices');
-    Route::get('addProductService/{id}', [ProductsController::class, 'addService'])->name('Customer.Products.addProductService');
-    Route::post('createService', [ProductsController::class, 'createService'])->name('Customer.Products.createService');
-    Route::get('viewAllServices/{id}', [ProductsController::class, 'viewAllServices'])->name('Customer.Products.viewAllServices');
-    Route::get('deleteService/{id}', [ProductsController::class, 'deleteService'])->name('Customer.Products.deleteService');
+    Route::controller(ItemsController::class)->group(function () {
+        Route::get('Items/{id}',  'index')->name('Customer.Items.index');
+        Route::get('createItems/{id}',  'create')->name('Customer.Items.create');
+        Route::post('storeItem/{id}',  'store')->name('Customer.Items.store');
+        Route::get('editItem/{id}',  'edit')->name('Customer.Items.edit');
+        Route::post('updateItem/{id}',  'update')->name('updateItem');
+        Route::get('deleteItem/{id}',  'destroy')->name('Customer.Items.delete');
+    });
 
-    Route::get('orders/{id}', [OrdersController::class, 'index'])->name('Customer.Orders.index');
-    Route::get('ordersInProgress/{id}', [OrdersController::class, 'inProgress'])->name('Customer.Orders.inProgress');
-    Route::get('ordersCompleted/{id}', [OrdersController::class, 'completed'])->name('Customer.Orders.completed');
-    Route::get('changeStatus', [OrdersController::class, 'changeStatus']);
-    Route::get('incomingOrder/{id}', [OrdersController::class, 'incomingOrder'])->name('Customer.Orders.incomingOrder');
-    Route::get('canceledOrder/{id}', [OrdersController::class, 'canceledOrder'])->name('Customer.Orders.canceledOrder');
-    Route::get('finishedOrder/{id}', [OrdersController::class, 'finishedOrder'])->name('Customer.Orders.finishedOrder');
-    Route::get('orderDetails/{id}', [OrdersController::class, 'orderDetails'])->name('Customer.Orders.orderDetails');
+    Route::controller(ProductsController::class)->group(function () {
+        Route::get('Products/{id}',  'index')->name('Customer.Products.index');
+        Route::get('createProduct/{id}',  'create')->name('Customer.Products.create');
+        Route::get('editProduct/{id}',  'edit')->name('Customer.Products.edit');
+        Route::post('updateProduct/{id}',  'update')->name('Customer.Products.update');
+        Route::post('createProduct',  'store')->name('Customer.Products.store');
+        Route::get('deleteProduct/{id}',  'destroy')->name('Customer.Products.destroy');
+        Route::get('viewProductService/{id}',  'productServices')->name('Customer.Products.viewProductServices');
+        Route::get('addProductService/{id}',  'addService')->name('Customer.Products.addProductService');
+        Route::post('createService',  'createService')->name('Customer.Products.createService');
+        Route::get('viewAllServices/{id}',  'viewAllServices')->name('Customer.Products.viewAllServices');
+        Route::get('deleteService/{id}',  'deleteService')->name('Customer.Products.deleteService');
+    });
+
+    Route::controller(OrdersController::class)->group(function () {
+        Route::get('orders/{id}',  'index')->name('Customer.Orders.index');
+        Route::get('ordersInProgress/{id}', 'inProgress')->name('Customer.Orders.inProgress');
+        Route::get('ordersCompleted/{id}', 'completed')->name('Customer.Orders.completed');
+        Route::get('changeStatus', 'changeStatus');
+        Route::get('incomingOrder/{id}', 'incomingOrder')->name('Customer.Orders.incomingOrder');
+        Route::get('canceledOrder/{id}', 'canceledOrder')->name('Customer.Orders.canceledOrder');
+        Route::get('finishedOrder/{id}', 'finishedOrder')->name('Customer.Orders.finishedOrder');
+        Route::get('orderDetails/{id}', 'orderDetails')->name('Customer.Orders.orderDetails');
+    });
+
 });
 
-
+//test Routes
 Route::view('datatable', 'dashboard.datatable');
 Route::view('datatableAr', 'dashboard.datatableAr');
 
@@ -520,3 +541,4 @@ Route::get('getNotifications',function(){
 });
 
 Route::view('dark','customers.layouts.dark');
+Route::view('darkEn','customers.layouts.darkEn');
