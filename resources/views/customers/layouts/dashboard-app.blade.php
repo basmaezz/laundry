@@ -53,13 +53,16 @@
         <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css-rtl/custom-rtl.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/assets/css/style-rtl.css')}}">
 @endif
-    <!-- END: Custom CSS-->
+    <style>
+        *{
+            color:white !important;
+        }
+        .form-control{
+            color: white !important;   font-size: x-large;   font-style: bold;
+        }
+    </style>
 
 </head>
-<!-- END: Head-->
-
-<!-- BEGIN: Body-->
-
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
 
 @include('customers.layouts.nav')

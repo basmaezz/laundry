@@ -191,8 +191,6 @@ class CategoryController extends Controller
             }])->where('subcategory_id', $id)->get();
         }
 
-
-
         $subcategory = Subcategory::findorfail($id);
         $data = [];
         $data1 = [];

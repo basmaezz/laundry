@@ -80,6 +80,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="mobile">{{__('lang.laundryName')}}</label>
+
                                                     <input type="text" class="form-control" placeholder="Username" value="{{$laundry['name_'.app()->getLocale()]}}" name="username" id="username" disabled />
                                                 </div>
                                             </div>

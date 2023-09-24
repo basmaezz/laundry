@@ -79,5 +79,6 @@ return[
     "orderType"=>"order Type",
     "urgent"=>"Urgent",
     "normal"=>"Normal",
-    "sr"=>"SR"
+    "sr"=>"SR",
+    "company"=>"Washing Strings Trading"
 ];
