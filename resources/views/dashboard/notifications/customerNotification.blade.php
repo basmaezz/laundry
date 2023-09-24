@@ -27,7 +27,6 @@
                                     @foreach($cities as $city)
                                         <option value="{{$city->id}}">{{$city->name_ar}}</option>
                                     @endforeach
-
                                     @error('city_id')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror

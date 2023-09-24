@@ -124,7 +124,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
          Route::get('copyLaundry/{id}', 'copyLaundry')->name('laundries.copyLaundry');
      });
 
- Route::controller(CategoriesController::class)->group(function () {
+ Route::controller(CategoryItemController::class)->group(function () {
      Route::get('CategoriesIndex',  'index')->name('Categories.index');
      Route::get('CategoryEdit/{id}',  'edit')->name('category.edit');
      Route::post('CategoryUpdate/{id}',  'update')->name('category.update');

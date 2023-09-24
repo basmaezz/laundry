@@ -68,7 +68,7 @@ class NotificationController extends Controller
            $customers = AppUser::where([
                'user_type' => 'customer',
                'city_id'=>$city,
-               'gender'=>$request->gender
+               'gender'=>$request->gender?$request->gender:'',
            ])->get();
        };
         foreach ($customers as $user) {
