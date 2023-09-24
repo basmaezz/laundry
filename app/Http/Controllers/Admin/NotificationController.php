@@ -86,7 +86,7 @@ class NotificationController extends Controller
                 $user,
             );
         }
-        return redirect()->back();
+        return redirect()->route('notification.index');
 
     }
     public function sendNotification(Request $request)

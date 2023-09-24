@@ -18,30 +18,35 @@
                         @csrf
 
                         <div class="form-group row">
+                            <input type="checkbox" id="inline-checkbox1" name="allCities" value="1" > كل المدن
                             <label class="col-md-3 form-control-label" for="text-input">المدينه  </label>
                             <div class="col-md-9">
 
-                                    <select id="choices-multiple-remove-button" name="city_id[]"  multiple>
+                                <select id="choices-multiple-remove-button" name="city_id[]"  multiple>
 
                                     @foreach($cities as $city)
                                         <option value="{{$city->id}}">{{$city->name_ar}}</option>
                                     @endforeach
+
                                     @error('city_id')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">النوع  </label>
                             <div class="col-md-9">
-                                <select class="form-control" name="gender">
-                                        <option value="m">ذكر</option>
-                                        <option value="f">أنثى</option>
-                                    @error('gender')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </select>
+                                <input type="radio" id="html" name="fav_language" value="all">
+                                <label for="html">الكل</label>
+                                <input type="radio" id="html" name="fav_language" value="m">
+                                <label for="html">ذكر</label>
+                                <input type="radio" id="html" name="fav_language" value="f">
+                                <label for="html">أنثى</label>
+                                @error('gender')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
