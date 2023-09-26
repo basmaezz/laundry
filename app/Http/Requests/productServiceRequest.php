@@ -25,6 +25,8 @@ class productServiceRequest extends FormRequest
     {
         return [
             'services' => 'required',
+            'services_en' => 'required',
+            'services_franco' => 'required',
             'price' => 'required|numeric',
             'priceUrgent' => 'numeric',
             'commission' => 'required'

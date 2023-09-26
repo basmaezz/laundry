@@ -25,6 +25,7 @@
                                         <tr>
                                             <th> الصوره</th>
                                             <th>اسم القطعه</th>
+                                            <th>اسم القطعه(معرب)</th>
                                             @if($subCategory->subcategories->urgentWash==1)
                                             <th>غسيل مستعجل </th>
                                             @endif
@@ -38,6 +39,7 @@
                                         <tr>
                                             <td><img src="{{$product->image}}" style="width: 50px;height: 50px"></td>
                                             <td>{{$product->name_ar}}</td>
+                                            <td>{{$product->name_franco}}</td>
                                             @if($subCategory->subcategories->urgentWash==1)
                                             <td>{{$product->urgentWash=='0'?'لا':'نعم'}}</td>
                                             @endif

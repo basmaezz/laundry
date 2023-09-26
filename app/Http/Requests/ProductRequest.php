@@ -45,6 +45,7 @@ class ProductRequest extends FormRequest
             'urgentWash '=>'integer',
             'name_ar'=>'required',
             'name_en'=>'required',
+            'name_franco'=>'required',
             'desc_ar'=>'required',
             'desc_en'=>'required',
             'subProductImage'=>'required'

@@ -354,8 +354,8 @@ class UserController extends Controller
 
                     return '
                     <a href="' . Route('delegate.edit',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
-                            <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm customOrder " >الطلبات  </a>
-                            <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm customOrder" >التفاصيل  </a>
+                            <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm" style="width: 32px;height: 20px;" >الطلبات  </a>
+                            <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm "style="width: 32px;height: 20px;" >التفاصيل  </a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
                 ->rawColumns(['name', 'city','nationality','request_employment','status','created_at','action'])
@@ -507,7 +507,7 @@ class UserController extends Controller
         if(Gate::denies('delegates.index')){
             abort(403);
         };
-        $delegate=Delegate::withTrashed()->with(['appUserTrashed','car','year'])->find($id);
+        $delegate=Delegate::withTrashed()->with(['appUserTrashed','carType','year'])->find($id);
         return view('dashboard.users.viewDelegate',compact('delegate'));
     }
     public function deleteDelegate(Request $request)
@@ -527,7 +527,7 @@ class UserController extends Controller
             abort(403);
         };
         $delegate=Delegate::with(['appUserTrashed','nationality','carType','year','bank'])->find($id);
-        dd($delegate);
+
 
         $nationalities=Nationality::get();
         $banks=Bank::all();

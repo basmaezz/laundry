@@ -94,7 +94,7 @@ class Delegate extends Model
     }
 
 
-    public function car(){
+    public function CarType(){
         return $this->belongsTo(CarType::class,'car_type');
     }
     public function year(){

@@ -29,6 +29,20 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label for="company">اسم الخدمه بالانجليزيه </label>
+                                <input type="text" name="services_en"class="form-control" id="services" value="{{$service->services_en}} ">
+                                @if ($errors->has('services_en'))
+                                    <span class="text-danger">{{ $errors->first('services_en') }}</span>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="company">اسم الخدمه انجليزى(معرب) </label>
+                                <input type="text" name="services_franco"class="form-control" id="services" value="{{$service->services_franco}} ">
+                                @if ($errors->has('services_franco'))
+                                    <span class="text-danger">{{ $errors->first('services_franco') }}</span>
+                                @endif
+                            </div>
+                            <div class="form-group">
                                 <label for="company">السعر  </label>
                                 <div class="input-group">
                                     <input type="text"name="price" class="form-control" placeholder="السعر " value="{{$service->price}}" >

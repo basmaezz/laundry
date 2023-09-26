@@ -108,6 +108,10 @@
 
                                                         <td>
                                                             <div class="custom-control custom-checkbox">
+                                                        <img src="{{$orderDetail->image}}" style="width: 50px;height: 50px">
+                                                            </div>
+                                                        </td>         <td>
+                                                            <div class="custom-control custom-checkbox">
                                                                 <input id="mobile" type="text" class="form-control" value="{{$orderDetail->productTrashed->name_ar}}" disabled />
                                                             </div>
                                                         </td>

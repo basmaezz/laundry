@@ -26,6 +26,16 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="hf-email">اسم القسم(معرب)</label>
+                            <div class="col-md-9">
+
+                                <input type="text"  name="category_type_franco" class="form-control" value="{{$categoryItem->category_type_franco}}">
+                                @if ($errors->has('category_type_franco'))
+                                    <span class="text-danger">{{ $errors->first('category_type_franco') }}</span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="card-footer">
                            <button type="submit" class="btn btn-sm btn-info "style="max-height: 30px !important; max-width: 40px"> حفظ</button>
                             <a href="{{URL::previous()}}" class="btn btn-sm btn-danger  "style="max-height: 30px !important; max-width: 40px">الغاء</a>

@@ -24,6 +24,7 @@
                                         <thead>
                                         <tr>
                                             <th>اسم الخدمه</th>
+                                            <th>اسم الخدمه(معرب)</th>
                                             <th> السعر</th>
                                             @if($product->subcategoryTrashed->urgentWash !=null)
                                             <th> سعر المستعجل</th>
@@ -37,6 +38,7 @@
                                         @foreach($product->productService as $service)
                                             <tr>
                                                     <td>{{$service->services}}</td>
+                                                    <td>{{$service->services_franco}}</td>
                                                     <td>{{$service->price}}</td>
                                                 @if($product->subcategoryTrashed->urgentWash !=null)
                                                     <td>{{$service->priceUrgent?? '0'}}</td>

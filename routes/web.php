@@ -124,11 +124,13 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
          Route::get('copyLaundry/{id}', 'copyLaundry')->name('laundries.copyLaundry');
      });
 
- Route::controller(CategoryItemController::class)->group(function () {
+ Route::controller(CategoriesController::class)->group(function () {
      Route::get('CategoriesIndex',  'index')->name('Categories.index');
      Route::get('CategoryEdit/{id}',  'edit')->name('category.edit');
      Route::post('CategoryUpdate/{id}',  'update')->name('category.update');
      Route::get('CategoryDelete/{id}' , 'destroy')->name('category.destroy');
+ });
+ Route::controller(CategoryItemController::class)->group(function () {
      Route::get('CategoryItemsIndex/{id}',  'index')->name('CategoryItems.index');
      Route::get('CategoryItems/{id}',  'create')->name('CategoryItems.create');
      Route::get('CategoryItemsEdit/{id}',  'edit')->name('CategoryItems.edit');

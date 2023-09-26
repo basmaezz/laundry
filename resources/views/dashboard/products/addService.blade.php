@@ -32,6 +32,20 @@
                                     <span class="text-danger">{{ $errors->first('services') }}</span>
                                 @endif
                             </div>
+                            <div class="form-group">
+                                <label for="company">اسم الخدمه بالانجليزيه </label>
+                                <input type="text" name="services_en"class="form-control view" id="services_en" placeholder="اسم الخدمه بالانجليزيه" value="{{Request::old('services_en')}}">
+                                @if ($errors->has('services_en'))
+                                    <span class="text-danger">{{ $errors->first('services_en') }}</span>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="company">اسم الخدمه انجليزى (معرب) </label>
+                                <input type="text" name="services_franco"class="form-control view" id="services" placeholder="اسم الخدمه انجليزى (معرب)" value="{{Request::old('services_franco')}}">
+                                @if ($errors->has('services_franco'))
+                                    <span class="text-danger">{{ $errors->first('services_franco') }}</span>
+                                @endif
+                            </div>
 
                                 <div class="form-group">
                                     <label for="company">السعر  </label><br>

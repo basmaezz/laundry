@@ -32,6 +32,13 @@
                     @endif
                 </div>
                 <div class="form-group">
+                    <label for="company" > اسم القطعه بالانجليزيه (معرب)</label>
+                    <input type="text" name="name_franco"class="form-control view" id="name_franco" placeholder="اسم القطعه بالانجليزيه" value="{{ Request::old('name_franco') }}">
+                    @if ($errors->has('name_franco'))
+                        <span class="text-danger">{{ $errors->first('name_franco') }}</span>
+                    @endif
+                </div>
+                <div class="form-group">
                     <label for="company" >الوصف  </label>
                     <input type="text" name="desc_ar"class="form-control view" id="name_ar" placeholder="الوصف " value="{{ Request::old('desc_ar') }}">
                     @if ($errors->has('desc_ar'))

@@ -18,6 +18,7 @@
                                         <tr>
                                             <th>{{__('lang.number')}}</th>
                                             <th>{{__('lang.productName')}}</th>
+                                            <th>{{__('lang.productName')}}</th>
                                             <th>{{__('lang.actions')}}</th>
                                         </tr>
                                         </thead>
@@ -51,6 +52,9 @@
                 },{
                     data: 'name',
                     name: 'name'
+                },{
+                    data: 'name_franco',
+                    name: 'name_franco'
                 },{
                     data: 'action',
                     name: 'action',

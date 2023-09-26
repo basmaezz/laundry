@@ -23,6 +23,7 @@
                                         <thead>
                                         <tr>
                                             <th>اسم القسم</th>
+                                            <th>اسم القسم (معرب)</th>
                                             <th></th>
                                         </tr>
                                         </thead>
@@ -31,6 +32,7 @@
                                         @foreach($categoryItems as $categoryItem)
                                             <tr>
                                                 <td>{{$categoryItem->category_type}} </td>
+                                                <td>{{$categoryItem->category_type_franco}} </td>
                                                 <td>
                                                     <a href="{{route('product.create',$categoryItem->id)}}" class="btn btn-primary  custom"style="max-height: 35px; max-width:100px">اضافه قطعه</a>
 

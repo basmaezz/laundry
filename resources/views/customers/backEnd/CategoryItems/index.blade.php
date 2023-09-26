@@ -1,30 +1,3 @@
-{{--@extends('customers.layouts.dataTable-app')--}}
-{{--@section('content')--}}
-{{--<input type="hidden" id="category_id" name="category_id" value="{{$id}}">--}}
-{{--<section id="multilingual-datatable">--}}
-{{--    <div class="row">--}}
-{{--        <div class="col-12">--}}
-{{--            <div class="card">--}}
-{{--                <div class="card-header border-bottom">--}}
-{{--                    <h4 class="card-title"></h4>--}}
-{{--                </div>--}}
-{{--                <div class="card-datatable">--}}
-{{--                    <table class="dt-multilingual table">--}}
-{{--                        <thead>--}}
-{{--                        <tr>--}}
-{{--                            <th>{{__('lang.number')}}</th>--}}
-{{--                            <th>{{__('lang.productName')}}</th>--}}
-{{--                            <th>{{__('lang.actions')}}</th>--}}
-{{--                        </tr>--}}
-{{--                        </thead>--}}
-{{--                    </table>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</section>--}}
-
-{{--@endsection--}}
 @extends('customers.layouts.dashboard-app')
 @section('content')
 <div class="app-content content ">
@@ -44,6 +17,7 @@
                                     <thead>
                                     <tr>
                                         <th>{{__('lang.number')}}</th>
+                                        <th>{{__('lang.productName')}}</th>
                                         <th>{{__('lang.productName')}}</th>
                                         <th>{{__('lang.actions')}}</th>
                                     </tr>
@@ -80,6 +54,9 @@
                 },{
                     data: 'category_type',
                     name: 'category_type'
+                },{
+                    data: 'category_type_franco',
+                    name: 'category_type_franco'
                 },{
                     data: 'action',
                     name: 'action',
