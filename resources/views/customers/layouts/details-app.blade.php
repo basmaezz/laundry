@@ -73,16 +73,6 @@
 <script src="{{asset('assets/customers/app-assets/js/scripts/pages/app-ecommerce-checkout.js')}}"></script>
 <!-- END: Page JS-->
 
-<script>
-    $(window).on('load', function() {
-        if (feather) {
-            feather.replace({
-                width: 14,
-                height: 14
-            });
-        }
-    })
-</script>
 </body>
 <!-- END: Body-->
 
