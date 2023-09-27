@@ -544,3 +544,5 @@ Route::get('getNotifications',function(){
 
 Route::view('dark','customers.layouts.dark');
 Route::view('darkEn','customers.layouts.darkEn');
+Route::view('pricing','customers.backEnd.pricing');
+

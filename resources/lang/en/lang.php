@@ -80,5 +80,6 @@ return[
     "urgent"=>"Urgent",
     "normal"=>"Normal",
     "sr"=>"SR",
-    "company"=>"Washing Strings Trading"
+    "company"=>"Washing Strings Trading",
+    "image"=>"Image"
 ];

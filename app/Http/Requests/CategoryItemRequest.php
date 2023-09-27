@@ -37,6 +37,8 @@ class CategoryItemRequest extends FormRequest
 //                    }
 //                }
             ],
+            'category_type_en'=>'string',
+            'category_type_franco'=>'string',
         ];
     }
 

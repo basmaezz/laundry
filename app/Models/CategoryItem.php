@@ -10,7 +10,7 @@ class CategoryItem extends Model
     protected $guarded = ['id'];
 //    protected $connection = 'mysql';
     protected $table = 'category_item';
-    protected $fillable=['subcategory_id','category_type','category_type_franco'];
+    protected $fillable=['subcategory_id','category_type','category_type_en','category_type_franco'];
 
     public function products()
     {

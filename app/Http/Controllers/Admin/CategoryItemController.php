@@ -29,7 +29,6 @@ class CategoryItemController extends Controller
         };
         $subCategory=Subcategory::find($id);
         $categoryItems=CategoryItem::where('subcategory_id',$id)->get();
-
         return view('dashboard.CategoryItems.index',compact(['categoryItems','subCategory']));
     }
 
@@ -67,6 +66,7 @@ class CategoryItemController extends Controller
         $subCategory=CategoryItem::find($id);
 
         $products=Product::where('category_item_id',$id)->with(['productService','productImages'])->get();
+
         return  view('dashboard.CategoryItems.products',compact(['products','id','subCategory']));
     }
 

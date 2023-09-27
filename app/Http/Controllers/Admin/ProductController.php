@@ -68,6 +68,7 @@ class ProductController extends Controller
             [
                 'name_ar'          => 'required|',
                 'name_en'          => 'required|',
+                'name_franco'          => 'required|',
                 'desc_ar'          => 'required',
                 'desc_en'          => 'required',
                 'urgentWash'          => 'required',
@@ -89,6 +90,7 @@ class ProductController extends Controller
             $product->update([
                 'name_ar' => $request->name_ar,
                 'name_en' => $request->name_en,
+                'name_franco' => $request->name_franco,
                 'desc_ar' => $request->desc_ar,
                 'desc_en' => $request->desc_en,
                 'urgentWash' => $request->urgentWash,

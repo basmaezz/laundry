@@ -23,6 +23,7 @@
                                         <thead>
                                         <tr>
                                             <th>اسم القسم</th>
+                                            <th>اسم القسم انجليزى</th>
                                             <th>اسم القسم (معرب)</th>
                                             <th></th>
                                         </tr>
@@ -32,13 +33,14 @@
                                         @foreach($categoryItems as $categoryItem)
                                             <tr>
                                                 <td>{{$categoryItem->category_type}} </td>
+                                                <td>{{$categoryItem->category_type_en}} </td>
                                                 <td>{{$categoryItem->category_type_franco}} </td>
                                                 <td>
                                                     <a href="{{route('product.create',$categoryItem->id)}}" class="btn btn-primary  custom"style="max-height: 35px; max-width:100px">اضافه قطعه</a>
 
                                                     <a href="{{route('CategoryItems.show',$categoryItem->id)}}" class="btn btn-info custom"style="max-height: 35px; max-width:100px">عرض  القطع </a>
 
-                                                    <a href="{{route('CategoryItems.edit',$categoryItem->id)}}"class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                                    <a href="{{route('CategoryItems.edit',$categoryItem->id)}}"class="edit btn btn-primary btn-sm" style="max-height: 30px !important;max-width: 30px !important;"><i class="fa fa-edit"></i></a>
                                                     <a href="{{route('CategoryItems.destroy',$categoryItem->id)}}" class="edit btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>

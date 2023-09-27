@@ -1,179 +1,187 @@
-@extends('customers.layouts.dashboard-app')
+@extends('customers.layouts.details-app')
 @section('content')
-    <div class="app-content content ">
+
+    <div class="app-content content ecommerce-application">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="content-body">
-                <section class="app-user-edit">
-                    <div class="card">
-                        <div class="card-body">
-                            <ul class="nav nav-pills" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center active" id=customer-tab" data-toggle="tab" href="#customer" aria-controls="customer" role="tab" aria-selected="true">
-                                        <i data-feather="user"></i><span class="d-none d-sm-block">{{__(('lang.customerDetails'))}}</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center" id="information-tab" data-toggle="tab" href="#information" aria-controls="information" role="tab" aria-selected="false">
-                                        <i data-feather="info"></i><span class="d-none d-sm-block">{{__(('lang.delegateDetails'))}}</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center" id="social-tab" data-toggle="tab" href="#social" aria-controls="social" role="tab" aria-selected="false">
-                                        <i data-feather="share-2"></i><span class="d-none d-sm-block">{{__(('lang.orderDetails'))}}</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="customer" aria-labelledby="customer-tab" role="tabpanel">
-                                    <form class="form-validate">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <h4 class="mb-1">
-                                                    <i data-feather="user" class="font-medium-4 mr-25"></i>
-                                                    <span class="align-middle">{{__('lang.delegateInformation')}}</span>
-                                                </h4>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="username">{{__('lang.customerName')}}</label>
+                <div class="bs-stepper checkout-tab-steps">
+                    <!-- Wizard starts -->
+                    <div class="bs-stepper-header">
 
-                                                    <input type="text" class="form-control" placeholder="Username" value="{{$order->userTrashed->name}}" name="username" id="username" disabled />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="name">{{__('lang.city')}}</label>
-                                                    <input type="text" class="form-control" placeholder="Name" value="{{$order->userTrashed->citiesTrashed->name_ar}}" name="name" id="name" disabled />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="email">{{__('lang.region')}}</label>
-                                                    <input type="email" class="form-control" placeholder="Email" value="{{$order->userTrashed->region_name}}" name="email" id="email" disabled />
-                                                </div>
-                                            </div>
+                        <div class="line">
+                            <i data-feather="chevron-right" class="font-medium-2"></i>
+                        </div>
+                        <div class="step" data-target="#step-address">
+                            <button type="button" class="step-trigger">
+                                <span class="bs-stepper-box">
+                                    <i data-feather="home" class="font-medium-3"></i>
+                                </span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">{{__(('lang.customerDetails'))}}</span>
+                                    <span class="bs-stepper-subtitle">{{__(('lang.customerDetails'))}}</span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="line">
+                            <i data-feather="chevron-right" class="font-medium-2"></i>
+                        </div>
+                        <div class="step" data-target="#step-payment">
+                            <button type="button" class="step-trigger">
+                                <span class="bs-stepper-box">
+                                    <i data-feather="credit-card" class="font-medium-3"></i>
+                                </span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">{{__(('lang.delegateDetails'))}}</span>
+                                    <span class="bs-stepper-subtitle">{{__(('lang.delegateDetails'))}}</span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="step" data-target="#step-cart">
+                            <button type="button" class="step-trigger">
+                                <span class="bs-stepper-box">
+                                    <i data-feather="shopping-cart" class="font-medium-3"></i>
+                                </span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">{{__(('lang.orderDetails'))}}</span>
+                                    <span class="bs-stepper-subtitle">{{__(('lang.orderDetails'))}}</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Wizard ends -->
 
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="email">{{__('lang.address')}}</label>
-                                                    <input type="email" class="form-control" placeholder="Email" value="{{$order->userTrashed->address}}" name="email" id="email" disabled />
-                                                </div>
-                                            </div>
+                    <div class="bs-stepper-content">
+                        <!-- Checkout Place order starts -->
+                        <div id="step-cart" class="content" style="margin-top: 40px">
+                            <div class="row pricing-card">
+                                <div class="col-12 col-sm-offset-2 col-sm-10 col-md-12 col-lg-offset-2 col-lg-10 mx-auto">
+                                    <div class="row">
+                                        <!-- basic plan -->
+                                        @foreach($orderDetails as $orderDetail)
+                                            <div class="col-12 col-md-4">
+                                                <div class="card basic-pricing text-center">
+                                                    <div class="card-body">
+                                                        <img src="{{$orderDetail->productTrashed->image}}" style="width:150px !important ;height:150px !important" />
+                                                        <h3>{{$orderDetail->productTrashed->name_ar}}</h3>
+                                                        <h3>{{$orderDetail->productTrashed->name_franco}}</h3>
 
+                                                        <div class="annual-plan">
 
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="tab-pane" id="information" aria-labelledby="information-tab" role="tabpanel">
-                                    <!-- users edit Info form start -->
-                                    <form class="form-validate">
-                                        <div class="row mt-1">
-                                            <div class="col-12">
-                                                <h4 class="mb-1">
-                                                    <i data-feather="user" class="font-medium-4 mr-25"></i>
-                                                    <span class="align-middle">{{__('lang.delegateInformation')}}</span>
-                                                </h4>
-                                            </div>
+                                                            <small class="annual-pricing d-none text-muted"></small>
+                                                        </div>
+                                                        <ul class="list-group list-group-circle text-left">
+                                                            <li class="list-group-item">{{$orderDetail->productService->services}}</li>
+                                                         <li class="list-group-item">{{$orderDetail->productService->services_franco}}</li>
+                                                            <li class="list-group-item">{{$orderDetail->quantity}}</li>
 
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="mobile">{{__('lang.delegateName')}}</label>
-                                                    <input type="text" class="form-control" placeholder="Username" value="{{$order->delegateTrashed->appUserTrashed->name ??''}}" name="username" id="username" disabled />
+                                                        </ul>
 
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                        </div>
-                                    </form>
-                                </div>
-
-                                <div class="tab-pane" id="social" aria-labelledby="social-tab" role="tabpanel">
-                                    <div class="col-12">
-                                        <div class="table-responsive border rounded mt-1">
-                                            <h6 class="py-1 mx-1 mb-0 font-medium-2">
-                                                <i data-feather="lock" class="font-medium-3 mr-25"></i>
-                                                <span class="align-middle">{{__('lang.orderInformation')}}</span>
-                                            </h6>
-                                            <table class="table table-striped table-borderless">
-                                                <thead class="thead-light">
-                                                <tr>
-                                                    <th>{{__('lang.pieceName')}}</th>
-                                                    <th>{{__('lang.serviceName')}}</th>
-                                                    <th>{{__('lang.quantity')}}</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($orderDetails as $orderDetail)
-                                                    <tr>
-
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                        <img src="{{$orderDetail->image}}" style="width: 50px;height: 50px">
-                                                            </div>
-                                                        </td>         <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input id="mobile" type="text" class="form-control" value="{{$orderDetail->productTrashed->name_ar}}" disabled />
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input id="mobile" type="text" class="form-control" value="{{$orderDetail->productService->services}}" disabled />
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input id="mobile" type="text" class="form-control" value="{{$orderDetail->quantity}}" disabled />
-                                                            </div>
-                                                        </td>
+                                    @endforeach
+                                    <!--/ basic plan -->
 
 
-                                                    </tr>
-
-                                                @endforeach
-                                                </tbody>
-                                            </table>
-
-
-
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="table-responsive border rounded mt-1">
-
-                                                <div class="col-12">
-                                                    <h4 class="mb-1">
-                                                        <i data-feather="user" class="font-medium-4 mr-25"></i>
-                                                        <span class="align-middle">{{__('lang.note')}}</span>
-                                                    </h4>
-                                                </div>
-
-                                                <div class="custom-control custom-checkbox">
-                                                    @if($order->audio_note!= Null)
-                                                        <audio controls>
-                                                            <source src="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" type="audio/mpeg">
-                                                        </audio>
-                                                    @endif
-
-                                                </div>
-                                                </br>
-                                                <div class="custom-control custom-checkbox">
-                                                    @if($order->note!= Null)
-                                                        <input id="mobile" type="text" class="form-control" value="{{$order->note}}" disabled />
-                                                    @endif
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                        <!-- Social Tab ends -->
                                     </div>
+                                    @if($order->audio_note!= Null)
+                                        <div class="col-12 ">
+                                            <div class="card basic-pricing text-center">
+                                                <div class="card-body">
+                                                    <audio controls>
+                                                        <source src="{{asset('assets/uploads/audio_note/' . $order->audio_note)}}" type="audio/mpeg">
+                                                    </audio>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
-                </section>
-                <!-- users edit ends -->
+                        </div>
+                        <!-- Checkout Customer Address Starts -->
+                        <div id="step-address" class="content">
+                            <form id="checkout-address" class="list-view product-checkout">
+                                <!-- Checkout Customer Address Left starts -->
+                                <div class="card">
+                                    <div class="card-header flex-column align-items-start">
+                                        <h4 class="card-title">{{__(('lang.customerDetails'))}}</h4>
+
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group mb-2">
+                                                    <label for="checkout-name">{{__('lang.customerName')}}:</label>
+                                                    <input type="text" id="checkout-name" class="form-control" name="fname" value="{{$order->userTrashed->name}}" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group mb-2">
+                                                    <label for="checkout-number">{{__('lang.city')}}:</label>
+                                                    <input type="text" id="checkout-number" class="form-control" name="mnumber" value="{{$order->userTrashed->citiesTrashed->name_ar}}" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group mb-2">
+                                                    <label for="checkout-apt-number">{{__('lang.region')}}</label>
+                                                    <input type="text" id="checkout-apt-number" class="form-control" name="apt-number" value="{{$order->userTrashed->region_name}}" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group mb-2">
+                                                    <label for="checkout-landmark">{{__('lang.address')}}:</label>
+                                                    <input type="text" id="checkout-landmark" class="form-control" name="landmark"  value="{{$order->userTrashed->address}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <!-- Checkout Customer Address Ends -->
+                        <!-- Checkout Payment Starts -->
+                        <div id="step-payment" class="content">
+                            <form id="checkout-payment" class="list-view product-checkout">
+                                <div class="payment-type">
+                                    <div class="card">
+                                        <div class="card-header flex-column align-items-start">
+                                            <h4 class="card-title">{{__('lang.delegateInformation')}}</h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group mb-2">
+                                                    <label for="checkout-name">{{__('lang.customerName')}}:</label>
+                                                    <input type="text" id="checkout-name" class="form-control" name="fname" value="{{$order->userTrashed->name}}" />
+                                                </div>
+                                            </div>
+                                            <hr class="my-2" />
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <!-- Checkout Payment Ends -->
+                        <!-- </div> -->
+                    </div>
+                </div>
 
             </div>
         </div>
     </div>
-
 @endsection

@@ -28,6 +28,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="hf-email">اسم القسم بالانجليزيه</label>
+                            <div class="col-md-9">
+                                <input type="text"  name="category_type_en" class="form-control" placeholder="اسم القسم بالانجليزيه " >
+                                @if ($errors->has('category_type_en'))
+                                    <span class="text-danger">{{ $errors->first('category_type_en') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="hf-email">اسم القسم(معرب)</label>
                             <div class="col-md-9">
 

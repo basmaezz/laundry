@@ -69,7 +69,7 @@
                     <i data-feather="grid"></i><span class="menu-title text-truncate" >{{ __('lang.products and services') }}</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="{{ (request()->is('Customer.Items.index',Auth::user()->subCategory_id)) ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{route('Customer.Items.index',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">{{__('lang.products')}}</span>(Montagat)</a>
+                    <li class="{{ (request()->is('Customer.Items.index',Auth::user()->subCategory_id)) ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{route('Customer.Items.index',Auth::user()->subCategory_id)}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">{{__('lang.products')}}</span></a>
                     </li>
 
                 </ul>

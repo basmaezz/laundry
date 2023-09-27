@@ -26,6 +26,10 @@
                             <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$product->name_en}}"disabled>
                         </div>
                         <div class="form-group">
+                            <label for="company" >اسم القطعه معرب</label>
+                            <input type="text" name="name_en"class="form-control" id="name_ar" value="{{$product->name_franco}}"disabled>
+                        </div>
+                        <div class="form-group">
                             <label for="company" >الوصف  </label>
                             <input type="text" name="desc_ar"class="form-control" id="name_ar" value="{{$product->desc_ar}}"disabled>
                         </div>
