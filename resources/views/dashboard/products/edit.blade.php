@@ -38,13 +38,7 @@
                                             <span class="text-danger">{{ $errors->first('name_en') }}</span>
                                         @endif
                                     </div>
-                                    <div class="form-group">
-                                        <label for="company" >اسم القطعه بالانجليزيه</label>
-                                        <input type="text" name="name_en"class="form-control view" id="name_ar" placeholder="اسم القطعه بالانجليزيه" value="{{ $product->name_en }}">
-                                        @if ($errors->has('name_en'))
-                                            <span class="text-danger">{{ $errors->first('name_en') }}</span>
-                                        @endif
-                                    </div>
+
                                     <div class="form-group">
                                         <label for="company" > اسم القطعه بالانجليزيه (معرب)</label>
                                         <input type="text" name="name_franco"class="form-control view" id="name_franco" placeholder="اسم القطعه بالانجليزيه" value="{{ $product->name_franco }}">

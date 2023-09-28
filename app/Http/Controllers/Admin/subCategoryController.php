@@ -267,15 +267,15 @@ class subCategoryController extends Controller
 
             'name' => $request->name,
             'last_name' => $request->last_name,
-            'password' => Hash::make($request->password),
+
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
-        // if ($request->password != '') {
-        //     User::where('subCategory_id', $id)->update([
-        //         'password' => Hash::make($request->password)
-        //     ]);
-        // }
+         if ($request->password != '') {
+             User::where('subCategory_id', $id)->update([
+                 'password' => Hash::make($request->password)
+             ]);
+         }
 
         return  redirect()->route('laundries.index')->with('success', 'تم التعديل');
     }
