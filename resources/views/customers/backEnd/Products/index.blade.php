@@ -17,9 +17,8 @@
                                         <thead>
                                         <tr>
                                             <th>{{__('lang.number')}}</th>
-                                            <th>{{__('lang.number')}}</th>
                                             <th>{{__('lang.productName')}}</th>
-                                            <th>{{__('lang.productName')}}</th>
+                                            <th>{{__('lang.productName')}}(moarab)</th>
                                             <th>{{__('lang.actions')}}</th>
                                         </tr>
                                         </thead>

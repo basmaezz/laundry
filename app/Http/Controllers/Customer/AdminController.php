@@ -19,6 +19,7 @@ class AdminController extends Controller
 
     public function customerLogin(Request $request)
     {
+
         $request->validate([
             'email' => 'required',
             'password' => 'required',

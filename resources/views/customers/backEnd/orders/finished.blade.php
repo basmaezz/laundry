@@ -1,36 +1,3 @@
-{{--@extends('customers.layouts.dataTable-app')--}}
-{{--@section('content')--}}
-
-{{--    <input type="hidden" id="category_id" name="category_id" value="{{$id}}">--}}
-{{--    <section id="multilingual-datatable">--}}
-{{--        <div class="row">--}}
-{{--            <div class="col-12">--}}
-{{--                <div class="card">--}}
-{{--                    <div class="card-header border-bottom">--}}
-{{--                        <h4 class="card-title">{{__('lang.products')}}</h4>--}}
-{{--                    </div>--}}
-{{--                    <div class="card-datatable">--}}
-{{--                        <table class="dt-multi table" id="productTable">--}}
-{{--                            <thead>--}}
-{{--                            <tr>--}}
-
-{{--                            </tr>--}}
-{{--                            </thead>--}}
-{{--                        </table>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
-
-{{--    </div>--}}
-{{--    </div>--}}
-{{--    </div>--}}
-
-{{--@endsection--}}
-
-
-
 @extends('customers.layouts.dashboard-app')
 @section('content')
     <div class="app-content content ">

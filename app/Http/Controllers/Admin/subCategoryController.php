@@ -206,6 +206,7 @@ class subCategoryController extends Controller
     {
         $subCategory = Subcategory::with(['parentTrashed', 'userTrashed'])->find($id);
 
+
         $cities = City::all();
         return view('dashboard.laundries.edit', compact(['subCategory', 'cities']));
     }
@@ -219,6 +220,7 @@ class subCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $subcategory = Subcategory::find($id);
         if ($request->file('image') != '') {
             $filename = request('image')->getClientOriginalName();
@@ -267,15 +269,17 @@ class subCategoryController extends Controller
 
             'name' => $request->name,
             'last_name' => $request->last_name,
-
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
          if ($request->password != '') {
+
              User::where('subCategory_id', $id)->update([
                  'password' => Hash::make($request->password)
              ]);
+
          }
+
 
         return  redirect()->route('laundries.index')->with('success', 'تم التعديل');
     }

@@ -17,7 +17,8 @@
                                         <thead>
                                         <tr>
                                             <th>{{__('lang.service')}}</th>
-                                            <th>{{__('lang.service')}}</th>
+                                            <th>{{__('lang.service')}}(EN)</th>
+                                            <th>{{__('lang.service')}}(Moarab)</th>
                                             <th>{{__('lang.price')}} </th>
                                             <th>{{__('lang.urgentPrice')}} </th>
                                         </tr>
@@ -49,6 +50,9 @@
                 columns: [{
                     data: 'services',
                     name: 'services'
+                },{
+                    data: 'services_en',
+                    name: 'services_en'
                 },{
                     data: 'services_franco',
                     name: 'services_franco'
