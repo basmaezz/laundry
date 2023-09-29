@@ -32,7 +32,7 @@ class delegatesExport implements FromCollection, WithHeadings, WithMapping
             $delegate->bank->name_ar,
             $delegate->iban_number,
             $delegate->car_plate_letter.' | '. $delegate->car_plate_number,
-            $delegate->car?->name_ar,
+            $delegate->carType?->name_ar,
             $delegate->year->name,
             $delegate->license_end_date,
             $delegate->appUserTrashed?->status=='deactivated'?'غير مفعل':'مفعل',
