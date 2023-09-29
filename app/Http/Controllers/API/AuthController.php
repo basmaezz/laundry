@@ -28,7 +28,6 @@ class AuthController extends ApiController
             'name'          => 'required|min:3|max:50',
             'mobile'        => 'required',
             'gender'        => 'required',
-            'email'         => 'email|max:255',
             'city_id'       => 'required',
             'region_name'   => 'required',
             'address'       => 'required',
