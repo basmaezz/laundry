@@ -28,8 +28,6 @@ class CategoryController extends Controller
             $subCategories = Subcategory::where('category_id', '1')->get();
         } elseif ($type == 4) {
             $subCategories = Subcategory::where('urgentWash', '1')->get();
-        }else{
-            $subCategories = '';
         }
         $name = 'name_' . App::getLocale();
         $data = [];
@@ -38,6 +36,7 @@ class CategoryController extends Controller
         //$user = AppUser::where('id',27)->first();
         $lng = \request('lng') ?? $user->lng??'';
         $lat = \request('lat') ?? $user->lat??'';
+        if($subCategories !=null)
         foreach ($subCategories as $subcategory) {
             $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
             $range = $subcategory->range;
@@ -186,6 +185,7 @@ class CategoryController extends Controller
         } elseif ($urgent == 1) {
             $subCategoriesServices = CategoryItem::query()->with(['subcategories', 'products' => function ($q) {
                 return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
+                    ->where('urgentWash',1)
                     ->with(['productService' => function ($q) {
 
                         return $q->select('id', 'product_id', 'services')->selectRaw('priceUrgent + commission as price');

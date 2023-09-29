@@ -13,7 +13,7 @@ return [
     'Delivery on the way to you'        => 'المندوب قادم اليك',
     'on the way to laundry'             => 'الملابس في الطريق للمغسلة',
     'Delivered to laundry'              => 'ملابسك في المغسلة وجاري غسيلها',
-    'clothes are ready for delivery'    => 'ملابسك جاهزة للاستلام، نرجو اختيار طريقة الاستلام',
+    'clothes are ready for delivery'    => 'ملابسك جاهزة للاستلام، <br>نرجو اختيار طريقة الاستلام',
     'Waiting for delivery to receive order' => 'في انتظار المندوب لاستلام الملابس',
     'your clothes in the way'           => 'ملابسك في الطريق',
     'completed'                         => 'شكرا لتعاملك معنا وملبوس العافية',
