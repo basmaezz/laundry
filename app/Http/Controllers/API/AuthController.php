@@ -28,7 +28,7 @@ class AuthController extends ApiController
             'name'          => 'required|min:3|max:50',
             'mobile'        => 'required',
             'gender'        => 'required',
-            'email'         => 'required',
+            'email'         => 'email|max:255',
             'city_id'       => 'required',
             'region_name'   => 'required',
             'address'       => 'required',
@@ -52,7 +52,7 @@ class AuthController extends ApiController
             $user->uuid         = Uuid::uuid1()->toString();
             $user->name         = $request->input("name");
             $user->mobile       = $number;
-            $user->email        = $request->input("email");
+            $user->email        = $request->input("email")??'';
             $user->password     = Hash::make($request->input('password'));
             $user->gender       = $request->input("gender");
             $user->city_id      = $request->input("city_id");

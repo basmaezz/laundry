@@ -28,6 +28,8 @@ class CategoryController extends Controller
             $subCategories = Subcategory::where('category_id', '1')->get();
         } elseif ($type == 4) {
             $subCategories = Subcategory::where('urgentWash', '1')->get();
+        }else{
+            $subCategories = '';
         }
         $name = 'name_' . App::getLocale();
         $data = [];

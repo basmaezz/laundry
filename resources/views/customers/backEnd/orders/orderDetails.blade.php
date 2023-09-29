@@ -22,6 +22,23 @@
                         <div class="line">
                             <i data-feather="chevron-right" class="font-medium-2"></i>
                         </div>
+
+                        <div class="line">
+                            <i data-feather="chevron-right" class="font-medium-2"></i>
+                        </div>
+
+                        <div class="step" data-target="#step-cart">
+                            <button type="button" class="step-trigger">
+                                <span class="bs-stepper-box">
+                                    <i data-feather="shopping-cart" class="font-medium-3"></i>
+                                </span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">{{__(('lang.orderDetails'))}}</span>
+                                    <span class="bs-stepper-subtitle">{{__(('lang.orderDetails'))}}</span>
+                                </span>
+                            </button>
+                        </div>
+
                         <div class="step" data-target="#step-address">
                             <button type="button" class="step-trigger">
                                 <span class="bs-stepper-box">
@@ -33,9 +50,6 @@
                                 </span>
                             </button>
                         </div>
-                        <div class="line">
-                            <i data-feather="chevron-right" class="font-medium-2"></i>
-                        </div>
                         <div class="step" data-target="#step-payment">
                             <button type="button" class="step-trigger">
                                 <span class="bs-stepper-box">
@@ -44,17 +58,6 @@
                                 <span class="bs-stepper-label">
                                     <span class="bs-stepper-title">{{__(('lang.delegateDetails'))}}</span>
                                     <span class="bs-stepper-subtitle">{{__(('lang.delegateDetails'))}}</span>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="step" data-target="#step-cart">
-                            <button type="button" class="step-trigger">
-                                <span class="bs-stepper-box">
-                                    <i data-feather="shopping-cart" class="font-medium-3"></i>
-                                </span>
-                                <span class="bs-stepper-label">
-                                    <span class="bs-stepper-title">{{__(('lang.orderDetails'))}}</span>
-                                    <span class="bs-stepper-subtitle">{{__(('lang.orderDetails'))}}</span>
                                 </span>
                             </button>
                         </div>
@@ -73,7 +76,11 @@
                                                 <div class="card basic-pricing text-center">
                                                     <div class="card-body">
                                                         <img src="{{$orderDetail->productTrashed->image}}" style="width:150px !important ;height:150px !important" />
-                                                        <h3>{{$orderDetail->productTrashed->name_ar}}</h3>
+                                                        @if(app()->getLocale()=='ar')
+                                                            <h3>{{$orderDetail->productTrashed->name_ar}}</h3>
+                                                        @elseif(app()->getLocale()=='en')
+                                                            <h3>{{$orderDetail->productTrashed->name_en}}</h3>
+                                                        @endif
                                                         <h3>{{$orderDetail->productTrashed->name_franco}}</h3>
 
                                                         <div class="annual-plan">
@@ -81,8 +88,12 @@
                                                             <small class="annual-pricing d-none text-muted"></small>
                                                         </div>
                                                         <ul class="list-group list-group-circle text-left">
-                                                            <li class="list-group-item">{{$orderDetail->productService->services}}</li>
-                                                         <li class="list-group-item">{{$orderDetail->productService->services_franco}}</li>
+                                                            @if(app()->getLocale()=='ar')
+                                                                <li class="list-group-item">{{$orderDetail->productService->services}}</li>
+                                                            @elseif(app()->getLocale()=='en')
+                                                                <li class="list-group-item">{{$orderDetail->productService->services_en}}</li>
+                                                            @endif
+                                                            <li class="list-group-item">{{$orderDetail->productService->services_franco}}</li>
                                                             <li class="list-group-item">{{$orderDetail->quantity}}</li>
 
                                                         </ul>
@@ -176,8 +187,7 @@
 
                             </form>
                         </div>
-                        <!-- Checkout Payment Ends -->
-                        <!-- </div> -->
+
                     </div>
                 </div>
 
