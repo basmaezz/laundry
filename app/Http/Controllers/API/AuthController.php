@@ -143,7 +143,7 @@ class AuthController extends ApiController
     {
         $validator = Validator::make($request->all(),[
             'personal.name' => 'required',
-            'personal.email' => 'required|email',
+            'personal.email' => 'email',
             //'personal.password' => 'required',
             'personal.image' => 'nullable|file',
             'personal.mobile' => 'required',
@@ -365,7 +365,7 @@ class AuthController extends ApiController
             'name'          => 'required|min:3|max:50',
             'mobile'        => 'required|unique:app_users,mobile,'.$user->id,
             'gender'        => 'required',
-            'email'         => 'required|email|unique:app_users,email,'.$user->id,
+            'email'         => 'email|unique:app_users,email,'.$user->id,
             'city_id'       => 'required',
             'region_name'   => 'required',
             'address'       => 'required',
@@ -402,7 +402,7 @@ class AuthController extends ApiController
 
        $validator          = Validator::make($request->all(), [
             'personal.name'         => 'required',
-            'personal.email'        => 'required|email|unique:app_users,email,'.$user->id,
+            'personal.email'        => 'email|unique:app_users,email,'.$user->id,
             'personal.image'        => 'nullable|file',
             'personal.mobile'       => 'required|unique:app_users,mobile,'.$user->id,
             'personal.city_id'      => 'required',
