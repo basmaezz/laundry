@@ -4,17 +4,17 @@
         <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item"><a href="{{route('customers.index')}}">العملاء</a></li>
+                <li class="breadcrumb-item"><a href="{{route('delegates.index')}}">المناديب</a></li>
                 <li class="breadcrumb-item active" aria-current="page">الطلبات   </li>
             </ol>
         </nav>
-    <div>
+        <div>
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="col-lg-9">
                         <div class="card">
                             <div class="card-header">
-                                <i class="fa fa-align-justify"> عرض طلبات العميل</i>
+                                <i class="fa fa-align-justify"> عرض طلبات المندوب</i>
                             </div>
                             <div class="card-block">
                                 <table id="users" class="table table-bordered table-striped">
@@ -32,10 +32,15 @@
                                         <tr>
                                             <td>{{$order->id}}</td>
                                             <td>{{$order->subCategoriesTrashed->name_ar}} </td>
-                                            <td>{{$order->status}}</td>
+                                            @if($order->status_id==4)
+                                                <td>تم التسليم للمغسله</td>
+                                            @elseif($order->status_id==8)
+                                                <td>تم التسليم للعميل</td>
+                                            @endif
                                             <td>{{$order->created_at->format('Y-m-d')}}</td>
                                             <td>
-                                                <a href="{{route('Order.show',$order->id)}}" class="btn btn-info customOrder">التفاصيل</a>
+                                                <a href="{{route('Order.show',$order->id)}}" class="btn btn-info " style="max-height: 35px ;max-width: 70px">التفاصيل</a>
+
                                             </td>
                                         </tr>
                                     @endforeach

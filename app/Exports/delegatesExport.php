@@ -10,12 +10,12 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 class delegatesExport implements FromCollection, WithHeadings, WithMapping
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
 
-        return Delegate::with(['appUserTrashed','bank','car','appUserTrashed.citiesTrashed','nationality','year'])->get();
+        return Delegate::with(['appUserTrashed','bank','carType','appUserTrashed.citiesTrashed','nationality','year'])->get();
         return  redirect()->back();
 //        dd ($delegates->carType->name_en);
     }

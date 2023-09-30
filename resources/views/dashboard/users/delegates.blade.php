@@ -26,6 +26,7 @@
                                 <th>نوع التعاقد</th>
                                 <th>رقم الهويه الوطنيه/الاقامه </th>
                                 <th> الحاله</th>
+                                <th> عدد الطلبات الشهريه</th>
                                 <th>تاريخ الالتحاق </th>
                                 <th>الاجراءات</th>
                             </tr>
@@ -65,6 +66,9 @@
                     }, {
                         data: 'id_number',
                         name: 'id_number'
+                    },{
+                       data:'status',
+                        name:'status'
                     },{
                        data:'status',
                         name:'status'
