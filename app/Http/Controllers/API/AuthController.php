@@ -41,11 +41,11 @@ class AuthController extends ApiController
             if ($checkPhone){
                 return  apiResponse('mobile_exists',null,400,400);
             }
-
-            $checkEmail  = is_unique('email',$request->email,'customer');
-            if ($checkEmail){
-                return  apiResponse('email_exists',null,400,400);
-            }
+//
+//            $checkEmail  = is_unique('email',$request->email,'customer');
+//            if ($checkEmail){
+//                return  apiResponse('email_exists',null,400,400);
+//            }
 
             $user = new AppUser();
             $user->uuid         = Uuid::uuid1()->toString();
