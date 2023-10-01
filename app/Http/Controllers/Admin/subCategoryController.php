@@ -160,6 +160,7 @@ class subCategoryController extends Controller
                             'name_franco'=>$product->name_franco,
                             'desc_ar'=>$product->desc_ar,
                             'desc_en'=>$product->desc_en,
+                            'urgentWash'=>$product->urgentWash,
                             'image'=>$product->image,
                         ]);
                         $productServices=ProductService::where('product_id',$product->id)->get();

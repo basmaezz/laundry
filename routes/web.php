@@ -546,3 +546,64 @@ Route::view('dark','customers.layouts.dark');
 Route::view('darkEn','customers.layouts.darkEn');
 Route::view('pricing','customers.backEnd.pricing');
 
+Route::get('copyNames',function(){
+    // dd($items);
+    $piece=DB::table('product_services')->where('id',2652)->first();
+    $items=DB::table('product_services')->where('services','كوي')->update([
+        'services_en' => $piece->services_en,
+        'services_franco' => $piece->services_franco,
+    ]);
+    // dd($items);
+    // foreach($items as $item){
+    //     $item->update([
+    //         'name_franco' => $piece->name_franco,
+    //     'urgentWash' => $piece->urgentWash,
+    //     ]);
+    // }
+    //     return $item;
+    // DB::table('products')->where('id',1142)->update([
+    //     'name_franco' => $item->name_franco,
+    //     'urgentWash' => $item->urgentWash,
+    // ]);
+    // DB::table('products')->where('id',1266)->update([
+    //     'name_franco' => $item->name_franco,
+    //     'urgentWash' => $item->urgentWash,
+    // ]);
+    // DB::table('products')->where('id',1328)->update([
+    //     'name_franco' => $item->name_franco,
+    //     'urgentWash' => $item->urgentWash,
+    // ]);
+    // DB::table('products')->where('id',1390)->update([
+    //     'name_franco' => $item->name_franco,
+    //     'urgentWash' => $item->urgentWash,
+    // ]);
+    // DB::table('products')->where('id',1452)->update([
+    //     'name_franco' => $item->name_franco,
+    //     'urgentWash' => $item->urgentWash,
+    // ]);
+    // DB::table('products')->where('id',1514)->update([
+    //     'name_franco' => $item->name_franco,
+    //     'urgentWash' => $item->urgentWash,
+    // ]);
+    // DB::table('products')->where('id',1576)->update([
+    //     'name_franco' => $item->name_franco,
+    //     'urgentWash' => $item->urgentWash,
+    // ]);
+    // DB::table('products')->where('id',1638)->update([
+    //     'name_franco' => $item->name_franco,
+    //     'urgentWash' => $item->urgentWash,
+    // ]);
+    // DB::table('products')->where('id',1762)->update([
+    //     'name_franco' => $item->name_franco,
+    //     'urgentWash' => $item->urgentWash,
+    // ]);
+
+    // DB::table('category_item')->where('id',156)->update([
+    //     'category_type_en' => $item->category_type_en,
+    //     'category_type_franco' => $item->category_type_franco,
+    // ]);
+
+
+
+});
+
