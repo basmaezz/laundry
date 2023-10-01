@@ -63,23 +63,25 @@ class ProductController extends Controller
 
     public function update(Request $request)
     {
-        $this->validate(
-            $request,
-            [
-                'name_ar'          => 'required|',
-                'name_en'          => 'required|',
-                'name_franco'          => 'required|',
-                'desc_ar'          => 'required',
-                'desc_en'          => 'required',
-                'urgentWash'          => 'required',
 
-            ],
-            [
-                'name_ar.regex' => 'حروف فقط',
-                'required' => 'هذا الحقل الزامى'
-            ]
-        );
-        $product = Product::find($request->product_id);
+//
+//        $this->validate(
+//            $request,
+//            [
+//                'name_ar'          => 'required|',
+//                'name_en'          => 'required|',
+//                'name_franco'          => 'required|',
+//                'desc_ar'          => 'required',
+//                'desc_en'          => 'required',
+//                'urgentWash'          => 'required',
+//
+//            ],
+//            [
+//                'name_ar.regex' => 'حروف فقط',
+//                'required' => 'هذا الحقل الزامى'
+//            ]
+//        );
+        $product = Product::find($request->id);
         if (!empty($request->file('subProductImage'))) {
             $filename = request('subProductImage')->getClientOriginalName();
             request()->file('subProductImage')->move(public_path() . '/assets/uploads/laundries/products', $filename);
@@ -93,9 +95,10 @@ class ProductController extends Controller
                 'name_franco' => $request->name_franco,
                 'desc_ar' => $request->desc_ar,
                 'desc_en' => $request->desc_en,
-                'urgentWash' => $request->urgentWash,
+                'urgentWash' => $request->urgentWash??'0',
             ]);
         }
+//        Product::where('id', $request->id)->update($request->except(['_token', '$request->id']));
         return redirect()->route('CategoryItems.show', $request->category_item_id);
     }
     public function addService($id)

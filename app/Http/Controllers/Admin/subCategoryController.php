@@ -144,6 +144,8 @@ class subCategoryController extends Controller
                 $newCategoryItem = CategoryItem::create([
                     'subcategory_id'=>$copyLaundry->id,
                     'category_type'=>$categoryItem->category_type ,'' ,'copy',
+                    'category_type_en'=>$categoryItem->category_type_en ,'' ,'copy',
+                    'category_type_franco'=>$categoryItem->category_type_franco ,'' ,'copy',
                 ]);
                 $subCategory=CategoryItem::find($categoryItem->id);
                 $products=Product::where('category_item_id',$categoryItem->id)->with(['productService','productImages'])->get();
@@ -155,6 +157,7 @@ class subCategoryController extends Controller
                             'subcategory_id'=>$copyLaundry->id ,
                             'name_ar'=> $product->name_ar,
                             'name_en'=>$product->name_en,
+                            'name_franco'=>$product->name_franco,
                             'desc_ar'=>$product->desc_ar,
                             'desc_en'=>$product->desc_en,
                             'image'=>$product->image,
@@ -166,6 +169,8 @@ class subCategoryController extends Controller
                                     'subcategory_id' => $copyLaundry->id,
                                     'product_id' => $copyProduct->id,
                                     'services'=>$productService->services,
+                                    'services_en'=>$productService->services_en,
+                                    'services_franco'=>$productService->services_franco,
                                     'price'=>$productService->price,
                                     'priceUrgent'=>$productService->priceUrgent,
                                     'commission'=>$productService->commission,

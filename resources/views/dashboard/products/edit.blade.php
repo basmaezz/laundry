@@ -24,7 +24,7 @@
 
                                     <div class="form-group">
                                         <label for="company">اسم القطعه</label>
-                                        <input type="hidden" name="product_id"class="form-control view" id="name" value="{{$product->id}}">
+                                        <input type="hidden" name="id"class="form-control view" id="name" value="{{$product->id}}">
                                         <input type="hidden" name="category_item_id"class="form-control view" id="name" value="{{$product->category_item_id}}">
                                         <input type="text" name="name_ar"class="form-control view" id="name_ar" value="{{$product->name_ar}}">
                                         @if ($errors->has('name_ar'))
@@ -46,6 +46,7 @@
                                             <span class="text-danger">{{ $errors->first('name_franco') }}</span>
                                         @endif
                                     </div>
+
                                     <div class="form-group">
                                         <label for="company" >الوصف  </label>
                                         <input type="text" name="desc_ar"class="form-control view" id="name_ar" value="{{$product->desc_ar}}">
@@ -60,8 +61,7 @@
                                             <span class="text-danger">{{ $errors->first('desc_en') }}</span>
                                         @endif
                                     </div>
-
-                                    @if($product->subcategoryTrashed->urgentWash ==1)
+                                    @if($product->subcategoryTrashed->urgentWash !=0)
                                     <div class="form-group">
                                         <label class="col-md- form-control-label">غسيل مستعجل </label>
                                         <div class="form-control">
@@ -75,10 +75,7 @@
                                                 <br>
                                             </label>
                                         </div>
-                                        @if ($errors->has('urgentWash'))
-                                            <span class="text-danger">{{ $errors->first('urgentWash') }}</span>
-                                        @endif
-                                    </div>
+                                          </div>
                                     @endif
                                     <img src="{{$product->image}}" style="width: 100px;height: 100px">
                                     <div class="form-group">

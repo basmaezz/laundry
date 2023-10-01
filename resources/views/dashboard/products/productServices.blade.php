@@ -4,6 +4,7 @@
       <nav aria-label="breadcrumb" class="navBreadCrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('laundries.index')}}">المغاسل</a></li>
                 <li class="breadcrumb-item active"><a href="{{route('CategoryItems.show',$product->category_item_id)}}">القطع</a></li>
                 <li class="breadcrumb-item active" aria-current="page">الخدمات    </li>
             </ol>
