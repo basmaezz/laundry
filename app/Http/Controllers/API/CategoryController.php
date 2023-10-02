@@ -39,34 +39,55 @@ class CategoryController extends Controller
         $lng = \request('lng') ?? $user->lng??'';
         $lat = \request('lat') ?? $user->lat??'';
         if($subCategories !=null)
-        foreach ($subCategories as $subcategory) {
-            $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
-            $range = $subcategory->range;
-            $data[] = [
-                'id' => $subcategory->id,
-                //'user' => $user,
-                //'user2' => auth()->user(),
-                //'distanceObject' => $distanceObject,
-                'name' => $subcategory->$name,
-                'address' => $subcategory->address,
-                'delivery_fees' => $subcategory->price,
-                'urgent' => $subcategory->urgentWash,
-                'rate' => $subcategory->rate_avg,
-                'is_favorite' => (!empty($user)) ? Favorite::has($subcategory, $user) : false,
-                'image' => $subcategory->image,
-                'location' => $subcategory->location,
-                'lat' => $subcategory->lat,
-                'lng' => $subcategory->lng,
-                'approximate_duration' => $subcategory->approximate_duration,
-                'approximate_duration_urgent' => $subcategory->approximate_duration_urgent,
-                //'distance' => round($distance, 2),
-                'distance' => round($distance, 2),
-                'range' => $subcategory->range,
-                'distance_class' =>  getDistanceClass($distance, $range),
-                'distance_class_id' =>  getDistanceClassId($distance, $range),
-                'review' => $subcategory->rates
-            ];
-        }
+            if($type==1){
+                foreach ($subCategories as $subcategory) {
+                    $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
+                    $range = $subcategory->range;
+                    $data[] = [
+                        'id' => $subcategory->id,
+                        'name' => $subcategory->$name,
+                        'address' => $subcategory->address,
+                        'delivery_fees' => $subcategory->price,
+                        'urgent' => $subcategory->urgentWash,
+                        'rate' => $subcategory->rate_avg,
+                        'is_favorite' => (!empty($user)) ? Favorite::has($subcategory, $user) : false,
+                        'image' => $subcategory->image,
+                        'location' => $subcategory->location,
+                        'lat' => $subcategory->lat,
+                        'lng' => $subcategory->lng,
+                        'approximate_duration' => $subcategory->approximate_duration,
+                        'distance' => round($distance, 2),
+                        'range' => $subcategory->range,
+                        'distance_class' =>  getDistanceClass($distance, $range),
+                        'distance_class_id' =>  getDistanceClassId($distance, $range),
+                        'review' => $subcategory->rates
+                    ];
+                }
+            }elseif ($type==4){
+                foreach ($subCategories as $subcategory) {
+                    $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
+                    $range = $subcategory->range;
+                    $data[] = [
+                        'id' => $subcategory->id,
+                        'name' => $subcategory->$name,
+                        'address' => $subcategory->address,
+                        'delivery_fees' => $subcategory->price,
+                        'urgent' => $subcategory->urgentWash,
+                        'rate' => $subcategory->rate_avg,
+                        'is_favorite' => (!empty($user)) ? Favorite::has($subcategory, $user) : false,
+                        'image' => $subcategory->image,
+                        'location' => $subcategory->location,
+                        'lat' => $subcategory->lat,
+                        'lng' => $subcategory->lng,
+                        'approximate_duration' => $subcategory->approximate_duration_urgent,
+                        'distance' => round($distance, 2),
+                        'range' => $subcategory->range,
+                        'distance_class' =>  getDistanceClass($distance, $range),
+                        'distance_class_id' =>  getDistanceClassId($distance, $range),
+                        'review' => $subcategory->rates
+                    ];
+                }
+            }
 
         return apiResponse("api.success", $data);
     }
