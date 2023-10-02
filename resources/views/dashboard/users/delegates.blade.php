@@ -11,9 +11,9 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i>
-                        <a href="{{route('delegates.export')}}" class="btn btn-info custom" style="float: left; width: 100px; height: 35px " >Export </a>
-                        <a href="{{route('delegate.create')}}" class="btn btn-primary custom" style="float: left; width: 100px; height: 35px " >اضافه مندوب</a>
+                        <a href="{{route('delegates.export')}}" class="btn btn-info " style="float: left; width: 100px; height: 35px " >Export </a>
+                        <a href="{{route('delegate.create')}}" class="btn btn-primary " style="float: left; width: 100px; height: 35px " >اضافه مندوب</a>
+                        <a href="{{route('delegate.clearWallet')}}" class="btn btn-danger " style="float: left; width: 130px; height: 35px ;margin-left: 5px; !important; " >تصفير جميع المحافظ </a>
                     </div>
                     <div class="card-block">
                         <table class="table table-striped" id="table_id">
@@ -27,6 +27,7 @@
                                 <th>رقم الهويه الوطنيه/الاقامه </th>
                                 <th> الحاله</th>
                                 <th> عدد الطلبات الشهريه</th>
+                                <th> المحفظه  </th>
                                 <th>تاريخ الالتحاق </th>
                                 <th>الاجراءات</th>
                             </tr>
@@ -72,6 +73,9 @@
                     },{
                        data:'monthlyOrders',
                         name:'monthlyOrders'
+                    },{
+                       data:'wallet',
+                        name:'wallet'
                     },{
                       data:'created_at',
                         name:'created_at'

@@ -9,17 +9,6 @@
             </ol>
         </nav>
     <div>
-            <div class="validationMsg" style="width: 600px">
-                @if($errors->any())
-                    <div class="alert alert-danger" >
-                        <h6>{{$errors->first()}}</h6>
-                    </div>
-                @elseif(session()->has('message'))
-                    <div class="alert alert-success"  >
-                        {{ session()->get('message') }}
-                    </div>
-                @endif
-            </div>
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="row">
@@ -31,7 +20,7 @@
                                 </div>
                                 <div class="card-block">
 
-                                    <form action="{{url('increaseWallet/'.$appUser->id)}}" method="post" enctype="multipart/form-data" class="form-horizontal ">
+                                    <form action="{{url('increaseWallet/'.$appUser->uuid)}}" method="post"  class="form-horizontal ">
                                         @csrf
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="text-input">اسم العميل</label>
@@ -46,15 +35,17 @@
                                             <label class="col-md-3 form-control-label" for="text-input">المبلغ</label>
                                             <div class="col-md-9">
                                                 <input type="text" id="amount" name="amount" class="form-control" placeholder="100 ريال" required>
-                                                @if ($errors->has('amount'))
+
+                                            @if ($errors->has('amount'))
                                                     <span class="text-danger">{{ $errors->first('amount') }}</span>
                                                 @endif
                                             </div>
                                         </div>
 
+
                                         <div class="card-footer">
-                                           <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> اضافه</button>
-                                            <a href="{{URL::previous()}}" class="btn btn-sm btn-danger custom ">الغاء</a>
+                                           <button type="submit" class="btn btn-sm btn-info" style=" max-width: 62px !important;; max-height: 30px !important;"><i class="fa fa-dot-circle-o"></i> اضافه</button>
+                                            <a href="{{URL::previous()}}" class="btn btn-sm btn-danger  ">الغاء</a>
                                         </div>
                                     </form>
                                 </div>

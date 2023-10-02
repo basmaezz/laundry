@@ -170,7 +170,7 @@
                                         <div class="col-md-9">
                                             <select  name="car_type" class="form-control">
                                                 @foreach($carTypes as $carType)
-                                                    <option value="{{$carType->id}}"{{$delegate->car_type==$carType->id?'selected':''}}>{{$carType->name_ar}}</option>
+                                                    <option value="{{$carType->id}}"{{$delegate->car_type_id==$carType->id?'selected':''}}>{{$carType->name_ar}}</option>
                                                 @endforeach
                                             </select>
                                             @if ($errors->has('car_type'))

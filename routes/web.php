@@ -87,6 +87,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
         Route::get('rejectionRequests',  'rejectionRequests')->name('delegate.rejectionRequests');
         Route::get('customerDelete', 'customerDelete')->name('customer.delete');
         Route::get('customerWallet/{id}', 'customerWallet')->name('customer.wallet');
+        Route::get('clearWallet', 'clearWallet')->name('delegate.clearWallet');
         Route::post('increaseWallet/{id}',  'increaseWallet')->name('customer.wallet.increase');
         Route::get('userView/{id}',  'show')->name('user.view');
         Route::get('userCreate',  'create')->name('user.create');
@@ -121,7 +122,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
          Route::get('viewTrashedLaundries',  'viewTrashedLaundries')->name('laundries.viewTrashedLaundries');
          Route::get('restoreDeleted',  'restoreDeleted')->name('laundries.restoreDeleted');
          Route::get('subCategories/export', 'export')->name('laundries.export');
-         Route::get('copyLaundry/{id}', 'copyLaundry')->name('laundries.copyLaundry');
+         Route::get('copyLaundry', 'copyLaundry')->name('laundries.copyLaundry');
      });
 
  Route::controller(CategoriesController::class)->group(function () {

@@ -251,7 +251,7 @@ class UserController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     return '<a href="' . Route('customer.Orders',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 78px;height: 20px;" >عرض الطلبات</a>
-                            <a href="' . Route('customer.wallet',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 78px;height: 20px;" >اضافه للمحفظه </a>
+                            <a href="' . Route('customer.wallet',$row->uuid) . '"  class="edit btn btn-primary btn-sm" style="width: 78px;height: 20px;" >اضافه للمحفظه </a>
              <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
                 ->rawColumns(['action', 'city'])
@@ -270,22 +270,28 @@ class UserController extends Controller
         }
         return  redirect()->back()->with('error', 'تم الحذف');
     }
-    public function customerWallet($id)
-    {
-        if(Gate::denies('customers.index')){
-            abort(403);
-        };
-        $appUser=AppUser::find($id);
-        return view('dashboard.users.addWallet',compact(('appUser')));
-    }
     public function customerExport()
     {
         return Excel::download(new customersExport, 'customers.xlsx');
         return redirect()->back();
     }
-    public function increaseWallet(Request $request,$id)
+
+    public function customerWallet($uuid)
     {
-        $appUser= AppUser::find($id);
+//        dd($uuid);
+        if(Gate::denies('customers.index')){
+            abort(403);
+        };
+        $appUser=AppUser::where('uuid',$uuid)->first();
+
+        return view('dashboard.users.addWallet',compact(('appUser')));
+    }
+
+
+    public function increaseWallet(Request $request,$uuid)
+    {
+
+        $appUser=AppUser::where('uuid',$uuid)->first();
         $messages = [
             'amount.required'=>'this Field Required'
         ];
@@ -296,18 +302,19 @@ class UserController extends Controller
         $appUser->wallet += floatval($request->get("amount"));
         $appUser->save();
 
-        //Start Store Payment information
-        foreach ($request->get('payments')??[] as $payment){
-            Payment::create([
-                'user_id'           => $id,
-                'order_id'          => null,
-                'transaction_id'    => $payment['id'] ?? null,
-                'status'            => $payment['status'] ?? 'Unknown',
-                'payload'           => $payment['payload'] ?? null
-            ]);
+        if($appUser->user_type=='customer'){
+            return redirect()->route('customers.index')->with('success', 'تم الاضافه للمحفظه !');;
         }
-        //End Store Payment information
-        return redirect()->route('customers.index')->with('success', 'تم الاضافه للمحفظه !');;
+        return redirect()->route('delegates.index')->with('success', 'تم الاضافه للمحفظه !');;
+    }
+
+    public function clearWallet()
+    {
+        $appUsers=AppUser::where('user_type','delivery')->update([
+            'wallet'=>0
+        ]);
+        return redirect()->back();
+
     }
     public function customerOrders($id){
         if(Gate::denies('customers.index')){
@@ -349,6 +356,8 @@ class UserController extends Controller
                     }
                 })->addColumn('monthlyOrders', function ($row) {
                     return  OrderTable::select('*')->where('delivery_id',$row->id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->count();
+                })->addColumn('wallet', function ($row) {
+                    return  $row->appUserTrashed->wallet;
                 })->addColumn('created_at', function ($row) {
                     return  $row->created_at->format('Y-M-D') ??'';
                 })
@@ -357,10 +366,11 @@ class UserController extends Controller
                     return '
                     <a href="' . Route('delegate.edit',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
                             <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm" style="width: 32px;height: 20px;" >الطلبات  </a>
+                             <a href="' . Route('customer.wallet',$row->appUserTrashed->uuid) . '"  class="edit btn btn-primary btn-sm" style="width: 78px;height: 20px;" >اضافه للمحفظه </a>
                             <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm "style="width: 32px;height: 20px;" >التفاصيل  </a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
-                ->rawColumns(['name', 'city','nationality','request_employment','status','created_at','monthlyOrders','action'])
+                ->rawColumns(['name', 'city','nationality','request_employment','status','created_at','monthlyOrders','wallet','action'])
                 ->make(true);
         }
         return view('dashboard.users.delegates');
@@ -588,19 +598,20 @@ class UserController extends Controller
         'bank_id'=>$request->bank_id,
         'id_number'=>$request->id_number,
         'iban_number'=>$request->iban_number,
-        'car_type'=>$request->car_type,
+        'car_type_id'=>$request->car_type,
         'car_plate_letter'=>$request->car_plate_letter1.$request->car_plate_letter2.$request->car_plate_letter3 ,
         'car_plate_number'=>$request->car_plate_number,
         'car_manufacture_year_id'=>$request->car_manufacture_year_id,
         'identity_expiration_date'=>$request->identity_expiration_date,
         'license_end_date'=>$request->license_end_date,
-        'id_image'=>$fileNameImageId,
-        'medic_check'=>$fileNameMedicCheck,
-        'car_picture_front'=>$fileNameCarFront,
-        'car_picture_behind'=>$fileNameCarBehind,
-        'car_registration'=>$fileNameCarRegistration,
-        'glasses_avatar'=>$fileNameGlassesAvatar,
+
       ]);
+//        'id_image'=>$fileNameImageId,
+//        'medic_check'=>$fileNameMedicCheck,
+//        'car_picture_front'=>$fileNameCarFront,
+//        'car_picture_behind'=>$fileNameCarBehind,
+//        'car_registration'=>$fileNameCarRegistration,
+//        'glasses_avatar'=>$fileNameGlassesAvatar,
       $delegate->appUserTrashed->update($request->all());
       $delegate->save();
 
