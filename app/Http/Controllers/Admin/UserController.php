@@ -347,6 +347,8 @@ class UserController extends Controller
                     }else{
                         return '';
                     }
+                })->addColumn('monthlyOrders', function ($row) {
+                    return  OrderTable::select('*')->where('delivery_id',$row->id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->count();
                 })->addColumn('created_at', function ($row) {
                     return  $row->created_at->format('Y-M-D') ??'';
                 })
@@ -358,7 +360,7 @@ class UserController extends Controller
                             <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm "style="width: 32px;height: 20px;" >التفاصيل  </a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
-                ->rawColumns(['name', 'city','nationality','request_employment','status','created_at','action'])
+                ->rawColumns(['name', 'city','nationality','request_employment','status','created_at','monthlyOrders','action'])
                 ->make(true);
         }
         return view('dashboard.users.delegates');

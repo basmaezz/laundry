@@ -70,8 +70,8 @@
                        data:'status',
                         name:'status'
                     },{
-                       data:'status',
-                        name:'status'
+                       data:'monthlyOrders',
+                        name:'monthlyOrders'
                     },{
                       data:'created_at',
                         name:'created_at'
