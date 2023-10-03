@@ -581,10 +581,9 @@ class OrderController extends Controller
 
     public function delegateOrders($id)
     {
-
         if(request()->ajax()) {
             $delegate=Delegate::withTrashed()->find($id);
-            $data=OrderTable::where('delivery_id',$delegate->app_user_id)->get();
+            $data=OrderTable::where('delivery_id',$delegate->app_user_id)->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addColumn('subCategory', function ($row) {
                     return $row->subCategoriesTrashed->name_ar ;
@@ -597,7 +596,7 @@ class OrderController extends Controller
                 })->addColumn('createdAt', function ($row) {
                     return $row->created_at->format('Y-m-d') ;
                 })->addColumn('action', function ($row) {
-                    return '<a href="' . Route('Order.show',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" >التفاصيل</a>
+                    return '<a href="' . Route('Order.show',$row->id) . '" class="edit btn btn-success btn-sm customOrder"style="max-height:20px;max-width:37px" >التفاصيل</a>
                    ';
                 })
                 ->rawColumns(['subCategory','status','createdAt','action'])
