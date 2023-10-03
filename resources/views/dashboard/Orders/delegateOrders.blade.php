@@ -1,71 +1,72 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main" style="margin-top: 25px">
-        <nav aria-label="breadcrumb" class="navBreadCrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item"><a href="{{route('delegates.index')}}">المناديب</a></li>
-                <li class="breadcrumb-item active" aria-current="page">الطلبات   </li>
-            </ol>
-        </nav>
-        <div>
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="card">
-                            <div class="card-header">
-                                <i class="fa fa-align-justify"> عرض طلبات المندوب</i>
-                            </div>
-                            <div class="card-block">
-                                <table id="users" class="table table-bordered table-striped">
-                                    <thead >
-                                    <tr >
-                                        <th>رقم الطلب  </th>
-                                        <th>اسم المغسله</th>
-                                        <th>حاله الطلب</th>
-                                        <th>التاريخ</th>
-                                        <th>Actions </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($orders as $order)
-                                        <tr>
-                                            <td>{{$order->id}}</td>
-                                            <td>{{$order->subCategoriesTrashed->name_ar}} </td>
-                                            @if($order->status_id==4)
-                                                <td>تم التسليم للمغسله</td>
-                                            @elseif($order->status_id==8)
-                                                <td>تم التسليم للعميل</td>
-                                            @endif
-                                            <td>{{$order->created_at->format('Y-m-d')}}</td>
-                                            <td>
-                                                <a href="{{route('Order.show',$order->id)}}" class="btn btn-info " style="max-height: 35px ;max-width: 70px">التفاصيل</a>
+        <div >
+            <nav aria-label="breadcrumb" class="navBreadCrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> الطلبات  </li>
+                </ol>
+            </nav>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="btn btn-primary custom" > عدد الطلبات الكليه : {{ \App\Models\OrderTable::select('*')->where('delivery_id',$id)->count()}}</a>
+                    </div>
+                    <div class="card-block">
+                        <table class="table table-striped" id="delegateOrdersTable">
+                            <input type="hidden" value="{{$id}}" id="delegate_id">
+                            <thead>
+                            <tr>
+                                <th>رقم الطلب  </th>
+                                <th>اسم المغسله</th>
+                                <th>حاله الطلب</th>
+                                <th>التاريخ</th>
+                                <th>Actions </th>
+                            </tr>
+                            </thead>
 
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        </table>
+
                     </div>
                 </div>
             </div>
         </div>
-        </div>
     </main>
-
 @endsection
-@push('scripts')
-    <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
-    <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
-    <script>
-        $("#users").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#users_wrapper .col-md-6:eq(0)');
-        $("#table_id").on('draw.dt', function(){ jQuery("time.timeago").timeago(); });
+@push('javascripts')
+    <script type="text/javascript">
+        $(window).on('load', function() {
+              var id= document.getElementById('delegate_id').value;
+
+            $('#delegateOrdersTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ Route('Order.delegateOrders',$id) }}",
+                data: { id: id},
+                columns: [{
+                    data: 'id',
+                    name: 'id'
+                },{
+                    data: 'subCategory',
+                    name: 'subCategory'
+                },{
+                    data: 'status',
+                    name:'status'
+                },{
+                    data: 'createdAt',
+                    name: 'createdAt'
+                }, {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+
+                ]
+            });
+        });
+
     </script>
 
 @endpush

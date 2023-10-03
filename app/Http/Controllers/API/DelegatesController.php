@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\AppUser;
+use App\Models\Delegate;
 use App\Models\DeliveryHistory;
 use App\Models\DeliveryRejection;
 use App\Models\OrderTable;
@@ -179,7 +180,6 @@ class DelegatesController extends Controller
 
                     $order['direction'] = $history->direction;
                     $data[] = $order;
-
                 }
 
         }
@@ -265,5 +265,12 @@ class DelegatesController extends Controller
 
         }
         return response()->json(['count'=> $count]);
+    }
+
+    public function getDelegateWallet($id)
+    {
+        $delegate=Delegate::with(['appUserTrashed'])->find($id);
+        $delegateWallet=$delegate->appUserTrashed->wallet;
+        return apiDelegateWalletResponse('api.success', $delegateWallet);
     }
 }

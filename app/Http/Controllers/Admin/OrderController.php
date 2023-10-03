@@ -581,10 +581,29 @@ class OrderController extends Controller
 
     public function delegateOrders($id)
     {
-        $delegate=Delegate::withTrashed()->find($id);
 
-        $orders=OrderTable::where('delivery_id',$delegate->app_user_id)->get();
-        return  view('dashboard.Orders.delegateOrders',compact('orders'));
+        if(request()->ajax()) {
+            $delegate=Delegate::withTrashed()->find($id);
+            $data=OrderTable::where('delivery_id',$delegate->app_user_id)->get();
+            return   Datatables::of($data)
+                ->addColumn('subCategory', function ($row) {
+                    return $row->subCategoriesTrashed->name_ar ;
+                })->addColumn('status', function ($row) {
+                    if($row->status_id==4){
+                        return 'تم التسليم للمغسله';
+                    }elseif ($row->status_id==8){
+                        return 'تم التسليم للعميل';
+                    }
+                })->addColumn('createdAt', function ($row) {
+                    return $row->created_at->format('Y-m-d') ;
+                })->addColumn('action', function ($row) {
+                    return '<a href="' . Route('Order.show',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" >التفاصيل</a>
+                   ';
+                })
+                ->rawColumns(['subCategory','status','createdAt','action'])
+                ->make(true);
+        }
+        return  view('dashboard.Orders.delegateOrders',compact('id'));
     }
 
 }
