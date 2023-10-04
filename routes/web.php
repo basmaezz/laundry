@@ -41,6 +41,8 @@ Route::get('/', function () {
     return view('index');
     //    return view('auth.login');
 });
+Route::view('privacy', 'privacy');
+
 Route::get('/admin', function () {
     return view('auth.login');
 });
@@ -122,7 +124,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
          Route::get('viewTrashedLaundries',  'viewTrashedLaundries')->name('laundries.viewTrashedLaundries');
          Route::get('restoreDeleted',  'restoreDeleted')->name('laundries.restoreDeleted');
          Route::get('subCategories/export', 'export')->name('laundries.export');
-         Route::get('copyLaundry', 'copyLaundry')->name('laundries.copyLaundry');
+         Route::get('copyLaundry/{id}', 'copyLaundry')->name('laundries.copyLaundry');
      });
 
  Route::controller(CategoriesController::class)->group(function () {

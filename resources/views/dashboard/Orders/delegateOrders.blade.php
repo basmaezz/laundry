@@ -42,6 +42,7 @@
             $('#delegateOrdersTable').DataTable({
                 processing: true,
                 serverSide: true,
+                ordering: false,
                 ajax: "{{ Route('Order.delegateOrders',$id) }}",
                 data: { id: id},
                 columns: [{

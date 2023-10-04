@@ -156,6 +156,8 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::get('delegate-order-details/{order_id}', [DelegatesController::class, 'delegate_order_details']);
     Route::any('delegate-order-status', [DelegatesController::class, 'delegate_order_status']);
     Route::any('edit-product-service', [DelegatesController::class, 'edit_product_service']);
+    Route::any('getDelegateWallet/{id}', [DelegatesController::class, 'getDelegateWallet']);
+
 
 
     Route::post('delegate-order-accept/{order_id}', [DelegatesController::class, 'accept_order']);

@@ -105,7 +105,7 @@ class UsersController extends Controller
         $app_user = auth('app_users_api')->user();
 
         App\Models\DeleteReason::create([
-            'app_user_id' => $app_user->id,
+            'user_id' => $app_user->id,
             'reason_id' => $request->get("reason_id"),
             'other' => $request->get("other"),
             'attributes' => $app_user->toJson(JSON_PRETTY_PRINT)

@@ -16,8 +16,6 @@ class CarController extends Controller
      */
     public function index()
     {
-//        $cars=CarType::all();
-//        return view('dashboard.cars.index',compact('cars'));
         if(request()->ajax()) {
             $data = CarType::get();
             return   Datatables::of($data)
