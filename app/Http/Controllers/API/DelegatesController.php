@@ -269,7 +269,7 @@ class DelegatesController extends Controller
 
     public function getDelegateWallet($id)
     {
-        $delegate=Delegate::with(['appUserTrashed'])->find($id);
+        $delegate=Delegate::with(['appUserTrashed'])->where('app_user_id',$id)->first();
         $delegateWallet=$delegate->appUserTrashed->wallet;
         return apiDelegateWalletResponse('api.success', $delegateWallet);
     }
