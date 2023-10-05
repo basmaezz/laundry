@@ -31,7 +31,6 @@
                                         <div class="col-md-9">
 {{--                                            <input type="text"  name="mobile" class="form-control" value="{{$delegate->appUSer->mobile}}">--}}
                                             <div class="input-group">
-{{--                                                <input type="text"name="mobile" class="form-control" value="{{mb_substr($delegate->appUserTrashed->mobile, 3, 9)}}" style="direction: ltr"maxlength="9">--}}
                                                 <input type="text"name="mobile" class="form-control" value="{{$delegate->appUserTrashed->mobile}}" style="direction: ltr"maxlength="9">
                                                 <span class="input-group-addon">00966</i>
                                                 </span>
