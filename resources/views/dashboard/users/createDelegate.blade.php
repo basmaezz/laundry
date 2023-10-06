@@ -86,10 +86,10 @@
                                                 @endif
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الملف الشخصى </label>
-                                            <div class="col-md-9">
-                                                <input type="file" id="file-input" name="avatar" class="form-control" value="{{Request::old('avatar')}}">
+                                            <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الملف الشخصى </label>                                            <div class="col-md-9">
+                                                <input type="file" id="file-input" name="avatar" class="form-control" >
                                                 @if ($errors->has('avatar'))
                                                     <span class="text-danger">{{ $errors->first('avatar') }}</span>
                                                 @endif
@@ -262,8 +262,21 @@
                                                 @endif
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره  لرخصه القياده ساريه  </label>
+                                            <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره ساريه لرخصه القياده   </label>
+
+                                            <div class="col-md-9">
+                                                <input type="file" id="file-input" name="driving_license" class="form-control">
+                                                @if ($errors->has('driving_license'))
+                                                    <span class="text-danger">{{ $errors->first('driving_license') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره استمارة السيارة</label>
                                             <div class="col-md-9">
                                                 <input type="file" id="file-input" name="car_registration" class="form-control">
                                                 @if ($errors->has('car_registration'))
@@ -271,15 +284,7 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره استمارة السيارة</label>
-                                            <div class="col-md-9">
-                                                <input type="file" id="file-input" name="glasses_avatar" class="form-control">
-                                                @if ($errors->has('glasses_avatar'))
-                                                    <span class="text-danger">{{ $errors->first('glasses_avatar') }}</span>
-                                                @endif
-                                            </div>
-                                        </div>
+
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الهويه / الاقامه  </label>
                                             <div class="col-md-9">
@@ -300,8 +305,8 @@
                                         </div>
 
                                         <div class="card-footer">
-                                           <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> حفظ</button>
-                                           <a href="{{URL::previous()}}" class="btn btn-sm btn-danger custom ">الغاء</a>
+                                            <button type="submit" class="btn btn-sm btn-info custom"style="max-height: 28px !important; max-width: 55px !important;"><i class="fa fa-dot-circle-o"></i> حفظ</button>
+                                            <a href="{{URL::previous()}}" class="btn btn-sm btn-danger"style="max-height: 28px !important; max-width: 40px !important;">الغاء </a>
                                         </div>
                                     </form>
                                 </div>

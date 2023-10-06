@@ -57,7 +57,7 @@ class UserController extends Controller
             abort(403);
         };
         if(request()->ajax()) {
-            $data = User::whereNull('subCategory_id')->where('id','<>',Auth::user()->id)->get();
+            $data = User::whereNull('subCategory_id')->where('id','<>',Auth::user()->id)->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('role', function ($row) {
@@ -278,7 +278,6 @@ class UserController extends Controller
 
     public function customerWallet($uuid)
     {
-//        dd($uuid);
         if(Gate::denies('customers.index')){
             abort(403);
         };
@@ -332,7 +331,7 @@ class UserController extends Controller
             abort(403);
         };
         if(request()->ajax()) {
-            $data=Delegate::with(['appUserTrashed','appUserTrashed.citiesTrashed','nationality'])->get();
+            $data=Delegate::with(['appUserTrashed','appUserTrashed.citiesTrashed','nationality'])->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('name', function ($row) {
@@ -341,6 +340,8 @@ class UserController extends Controller
                     return  $row->appUserTrashed->citiesTrashed->name_ar ??'';
                 })->addColumn('nationality', function ($row) {
                     return $row->nationality->name_ar ?? '';
+                })->addColumn('mobile', function ($row) {
+                    return $row->appUserTrashed->mobile ?? '';
                 })->addColumn('request_employment', function ($row) {
                     return  $row->request_employment==0 ?'<button type="button" class="btn btn-outline-primary" disabled>موظف</button>':'<button type="button" class="btn btn-outline-warning"disabled>عامل حر</button>';
                 })->addColumn('status', function ($row) {
@@ -370,7 +371,7 @@ class UserController extends Controller
                             <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm "style="width: 32px;height: 20px;" >التفاصيل  </a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })
-                ->rawColumns(['name', 'city','nationality','request_employment','status','created_at','monthlyOrders','wallet','action'])
+                ->rawColumns(['name', 'city','nationality','mobile','request_employment','status','created_at','monthlyOrders','wallet','action'])
                 ->make(true);
         }
         return view('dashboard.users.delegates');
@@ -390,6 +391,7 @@ class UserController extends Controller
     }
     public function storeDelegate(Request $request)
     {
+
         $request->validate([
                         'first_name'=>'required',
                         'second_name'=>'required',
@@ -417,7 +419,7 @@ class UserController extends Controller
                         'car_picture_front'=>'required|mimes:jpeg,bmp,png|max:500',
                         'car_picture_behind'=>'required|mimes:jpeg,bmp,png|max:500',
                         'car_registration'=>'required|mimes:jpeg,bmp,png|max:500',
-                        'glasses_avatar'=>'required|mimes:jpeg,bmp,png|max:500',
+                        'driving_license'=>'required|mimes:jpeg,bmp,png|max:500',
                       ],[
                           'mobile.unique'=>'الرقم موجود مسبقا',
                          'id_number.required'=>'رقم الهويه موجود مسبقا',
@@ -431,19 +433,12 @@ class UserController extends Controller
                         'mimes'=>'الصيغ المدعومه فقط jpeg,bmp,png  '
         ]);
         $user=new AppUser();
-        if(!empty($request->file('avatar'))) {
-            $filename = request('avatar')->getClientOriginalName();
-            request()->file('avatar')->move(public_path() . '/images/avatar/', $filename);
-            $user['avatar']= $filename;
-        }
+
         if(!empty($request->file('id_image'))){
             $fileNameImageId = request('id_image')->getClientOriginalName();
             request()->file('id_image')->move(public_path().'/assets/uploads/nid_image/',$fileNameImageId);
         }
-        if(!empty($request->file('medicCheck'))){
-            $fileNameMedicCheck = request('medicCheck')->getClientOriginalName();
-            request()->file('medicCheck')->move(public_path().'/images/',$fileNameMedicCheck);
-        }
+
         if(!empty($request->file('car_picture_front'))){
             $fileNameCarFront = request('car_picture_front')->getClientOriginalName();
             request()->file('car_picture_front')->move(public_path().'/assets/uploads/car_front/',$fileNameCarFront);
@@ -452,14 +447,7 @@ class UserController extends Controller
             $fileNameCarBehind = request('car_picture_behind')->getClientOriginalName();
             request()->file('car_picture_behind')->move(public_path() . '/assets/uploads/car_back/' , $fileNameCarBehind);
         }
-        if(!empty($request->file('car_registration'))){
-            $fileNameCarRegistration = request('car_registration')->getClientOriginalName();
-            request()->file('car_registration')->move(public_path() . '/assets/uploads/car_registration/' , $fileNameCarRegistration);
-        }
-        if($request->file('glasses_avatar')){
-            $fileNameGlassesAvatar = request('glasses_avatar')->getClientOriginalName();
-            request()->file('glasses_avatar')->move(public_path().'/images/' ,$fileNameGlassesAvatar);
-        }
+
         if(!empty($request->nationality_name)){
            $nationality= Nationality::create([
                 'name_en'=>$request->nationality_name,
@@ -475,7 +463,7 @@ class UserController extends Controller
             'mobile'=>'966'.$request->mobile,
             'city_id'=>$request->city_id,
             'region_name'=>$request->region_name,
-            'avatar'=>$filename,
+            'avatar'=>uploadFile($request->file("avatar"), 'users_avatar'),
             'user_type'=>'delivery',
             'status'=>'active',
         ]);
@@ -487,18 +475,18 @@ class UserController extends Controller
        $delegate['bank_id']=$request->bank_id;
        $delegate['id_number']=$request->id_number;
        $delegate['iban_number']=$request->iban_number;
-       $delegate['car_type']=$request->car_type;
+       $delegate['car_type_id']=$request->car_type;
        $delegate['car_plate_letter']=$request->car_plate_letter1.$request->car_plate_letter2.$request->car_plate_letter3 ;
        $delegate['car_plate_number']=$request->car_plate_number;
        $delegate['car_manufacture_year_id']=$request->car_manufacture_year_id;
        $delegate['identity_expiration_date']=$request->identity_expiration_date;
        $delegate['license_end_date']=$request->license_end_date;
        $delegate['id_image']=$fileNameImageId;
-       $delegate['medic_check']=$fileNameMedicCheck;
+       $delegate['medic_check']=uploadFile($request->file('medicCheck'), 'medic_check');
        $delegate['car_picture_front']=$fileNameCarFront;
        $delegate['car_picture_behind']=$fileNameCarBehind;
-       $delegate['car_registration']=$fileNameCarRegistration;
-       $delegate['glasses_avatar']=$fileNameGlassesAvatar;
+       $delegate['car_registration']=uploadFile($request->file('car_registration'),'car_registration');
+       $delegate['driving_license']=uploadFile($request->file('driving_license'),'driving_license');
 
        if(!empty($request->nationality_id)){
            $delegate['nationality_id']=$request->nationality_id;
@@ -545,15 +533,15 @@ class UserController extends Controller
         $banks=Bank::all();
         $carTypes=CarType::all();
         $years=Year::all();
-        return view('dashboard.users.editDelegate',compact(['delegate','nationalities','banks','carTypes','years']));
+        $cities=City::all();
+        return view('dashboard.users.editDelegate',compact(['delegate','nationalities','banks','carTypes','years','cities']));
     }
     public function updateDelegate(Request $request,$id)
     {
+
       $delegate=Delegate::find($id);
         if(!empty($request->file('avatar'))) {
-            $filename = request('avatar')->getClientOriginalName();
-            request()->file('avatar')->move(public_path() . '/images/', $filename);
-            $delegate->appUserTrashed->Avatar=$filename;
+            $delegate->appUserTrashed->avatar = uploadFile($request->file("avatar"), 'users_avatar');
         }
         if(!empty($request->file('idImage'))){
             $fileNameImageId = request('idImage')->getClientOriginalName();
@@ -581,10 +569,8 @@ class UserController extends Controller
             request()->file('carRegistration')->move(public_path() . '/assets/uploads/car_registration/' , $fileNameCarRegistration);
             $delegate['car_registration']=$fileNameCarRegistration;
         }
-        if($request->file('glasses_avatar')){
-            $fileNameGlassesAvatar = request('glasses_avatar')->getClientOriginalName();
-            request()->file('glasses_avatar')->move(public_path().'/images/' ,$fileNameGlassesAvatar);
-            $delegate['glasses_avatar']=$fileNameGlassesAvatar;
+        if(!empty($request->file('driving_license'))){
+            uploadFile($request->file("driving_license"), 'driving_license');
         }
         if(!empty($request->nationality_name)){
             $nationality= Nationality::create([
@@ -606,13 +592,14 @@ class UserController extends Controller
         'license_end_date'=>$request->license_end_date,
 
       ]);
-//        'id_image'=>$fileNameImageId,
-//        'medic_check'=>$fileNameMedicCheck,
-//        'car_picture_front'=>$fileNameCarFront,
-//        'car_picture_behind'=>$fileNameCarBehind,
-//        'car_registration'=>$fileNameCarRegistration,
-//        'glasses_avatar'=>$fileNameGlassesAvatar,
-      $delegate->appUserTrashed->update($request->all());
+      $delegate->appUserTrashed->update([
+          'uuid'=>Uuid::uuid1()->toString(),
+          'name'=>$request->name,
+          'email'=>$request->email,
+          'mobile'=>'966'.$request->mobile,
+          'city_id'=>$request->city_id,
+          'region_name'=>$request->region_name,
+          ]);
       $delegate->save();
 
       return redirect()->route('delegates.index');

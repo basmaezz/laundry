@@ -29,20 +29,28 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
                                         <div class="col-md-9">
-{{--                                            <input type="text"  name="mobile" class="form-control" value="{{$delegate->appUSer->mobile}}">--}}
                                             <div class="input-group">
-                                                <input type="text"name="mobile" class="form-control" value="{{$delegate->appUserTrashed->mobile}}" style="direction: ltr"maxlength="9">
+                                                <input type="text"name="mobile" class="form-control" value="{{mb_substr($delegate->appUserTrashed->mobile, 3, 9)}}" style="direction: ltr"maxlength="9">
                                                 <span class="input-group-addon">00966</i>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input">المدينة </label>
-                                        <div class="col-md-9">
-                                            <input type="text"  name="city" class="form-control" value="{{$delegate->appUserTrashed->citiesTrashed->name_ar}}">
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">المدينه  </label>
+                                            <div class="col-md-9">
+                                                <select  name="city_id" class="form-control">
+                                                    @foreach($cities as $city)
+                                                        <option value="{{$city->id}}"{{$delegate->appUserTrashed->city_id==$city->id ?'selected':''}}>{{$city->name_ar}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('city_id'))
+                                                    <span class="text-danger">{{ $errors->first('city_id') }}</span>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
+
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="text-input">الحى </label>
                                         <div class="col-md-9">
@@ -267,8 +275,7 @@
                                                     <img src="{{$delegate->driving_license}}" style="width:200px;height:200px;padding:15px;border-radius:20px;">
                                                 </a>
                                             @endif
-                                                <input type="file" id="file-input" name="carRegistration" class="form-control">
-
+                                                <input type="file" id="file-input" name="driving_license" class="form-control">
                                         </div>
 
                                     </div>
@@ -311,8 +318,8 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                       <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> حفظ</button>
-                        <a href="{{URL::previous()}}" class="btn btn-sm btn-danger custom ">الغاء</a>
+                        <button type="submit" class="btn btn-sm btn-info custom"style="max-height: 28px !important; max-width: 55px !important;"><i class="fa fa-dot-circle-o"></i> حفظ</button>
+                        <a href="{{URL::previous()}}" class="btn btn-sm btn-danger"style="max-height: 28px !important; max-width: 40px !important;">الغاء </a>
                     </div>
                     </form>
                 </div>

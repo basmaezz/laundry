@@ -37,8 +37,8 @@
 
 
                         <div class="card-footer">
-                           <button type="submit" class="btn btn-sm btn-info custom"><i class="fa fa-dot-circle-o"></i> حفظ</button>
-                            <a href="{{route('cars.index')}}" class="btn btn-sm btn-danger">الغاء </a>
+                           <button type="submit" class="btn btn-sm btn-info custom"style="max-height: 28px !important; max-width: 55px !important;"><i class="fa fa-dot-circle-o"></i> حفظ</button>
+                            <a href="{{route('cars.index')}}" class="btn btn-sm btn-danger"style="max-height: 28px !important; max-width: 40px !important;">الغاء </a>
                         </div>
 
                     </form>
