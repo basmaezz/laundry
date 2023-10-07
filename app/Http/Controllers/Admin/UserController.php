@@ -356,7 +356,7 @@ class UserController extends Controller
                         return '';
                     }
                 })->addColumn('monthlyOrders', function ($row) {
-                    return  OrderTable::select('*')->where('delivery_id',$row->id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->count();
+                    return  OrderTable::select('*')->where('delivery_id',$row->app_user_id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->count();
                 })->addColumn('wallet', function ($row) {
                     return  $row->appUserTrashed->wallet;
                 })->addColumn('created_at', function ($row) {
@@ -367,7 +367,7 @@ class UserController extends Controller
                     return '
                     <a href="' . Route('delegate.edit',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
                             <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm" style="width: 32px;height: 20px;" >الطلبات  </a>
-                             <a href="' . Route('customer.wallet',$row->appUserTrashed->uuid) . '"  class="edit btn btn-primary btn-sm" style="width: 78px;height: 20px;" >اضافه للمحفظه </a>
+                           <a href="' . Route('customer.wallet',$row->appUserTrashed->uuid) . '"  class="edit btn btn-primary btn-sm" style="width: 78px;height: 20px;" >اضافه للمحفظه </a>
                             <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm "style="width: 32px;height: 20px;" >التفاصيل  </a>
                             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
                 })

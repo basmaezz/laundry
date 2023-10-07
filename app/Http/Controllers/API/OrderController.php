@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\AppUser;
 use App\Models\CouponShopCart;
+use App\Models\Delegate;
 use App\Models\OrderDetails;
 use App\Models\OrderTable;
 use App\Models\Payment;
@@ -206,8 +207,9 @@ class OrderController extends Controller
             return $q->select('id', 'order_table_id', 'product_id', 'category_item_id', 'price', 'quantity');
         }])->select('id', 'user_id', 'laundry_id')->first();
         $name = 'name_' . App::getLocale();
-        $body = __('api.success_send_to_laundry', ['laundry' => $order->subCategoriesTrashed->$name]);
-        NotificationController::sendNotification(__('api.success_to_shopping_cart'), $body, auth('app_users_api')->user(), $order->id);
+//        $body = __('api.success_send_to_laundry', ['laundry' => $order->subCategoriesTrashed->$name]);
+//        NotificationController::sendNotification(__('api.received_successfully'), $body, auth('app_users_api')->user(), $order->id);
+        NotificationController::sendNotification(__('api.received_successfully'), 'جهّز ملابسك في كيس، مندوبنا جايك! 💨🏎️', auth('app_users_api')->user(), $order->id);
         $customer = auth('app_users_api')->user();
 
         $settings = SiteSetting::first();
@@ -236,7 +238,7 @@ class OrderController extends Controller
                 $order->id
             );
         }
-        return apiResponseOrders1('api.success_to_shopping_cart', $orders);
+        return apiResponseOrders1('api.received_successfully', $orders);
     }
 
     /**
@@ -391,6 +393,16 @@ class OrderController extends Controller
                 $order->userTrashed->point++;
                 $order->userTrashed->save();
 
+
+                $user->wallet+=floatval($order->subCategoriesTrashed->price);
+                $user->save();
+
+                if($order->delivery_id!=0){
+                    $delegate=Delegate::where('id',$order->delivery_id)->first();
+                    $appUser=AppUser::where('id',$delegate->id)->first();
+                    $appUser->save();
+                }
+
                 Transaction::create([
                     'app_user_id'   => auth('app_users_api')->user()->id,
                     'type'          => 'point',
@@ -475,6 +487,7 @@ class OrderController extends Controller
                         'available' => '1'
                     ])->get();
                 }
+                
                 //dd($users);
                 foreach ($delegates as $user) {
                     NotificationController::sendNotification(

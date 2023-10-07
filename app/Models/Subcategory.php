@@ -67,9 +67,10 @@ class Subcategory extends Model
 
     public function getIsOpenAttribute()
     {
-        return Carbon::now()->between(
-            Carbon::parse($this->clock_at),
-            Carbon::parse($this->clock_end)
+        return Carbon::now('Asia/Riyadh')->between(
+            Carbon::parse($this->clock_end),
+            Carbon::parse($this->clock_at)
+
         );
     }
 }

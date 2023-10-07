@@ -132,8 +132,8 @@ class OrdersController extends Controller
         $order->save();
         //$app_user_id = auth()->user()->id;
         NotificationController::sendNotification(
-            'ملابسك جاهزه للاستلام , نرجو اختيار طريقه الاستلام',
-            'طلب رقم #' . $order->id,
+            'ملابسك جاهزة للاستلام ✅ ',
+            'نرجو اختيار طريقة الاستلام المناسبة لك طلب رقم #' . $order->id,
             $order->userTrashed,
             $order->id
         );

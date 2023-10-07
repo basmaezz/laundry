@@ -40,7 +40,7 @@ class subCategoryController extends Controller
             abort(403);
         };
         if(request()->ajax()) {
-            $data = Subcategory::with(['city', 'parentTrashed'])->get();
+            $data = Subcategory::with(['city', 'parentTrashed'])->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($row) {
@@ -64,8 +64,9 @@ class subCategoryController extends Controller
                     return $row->getIsOpenAttribute() ?'مفتوح':'مغلق' ;
                 })
                 ->addColumn('action', function ($row) {
-                    $main='<a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm" style="max-height: 20px !important; max-width: 30px !important;" >الفروع</a>';
-                    $branch=' <a href="' . Route('laundries.copyLaundry', $row->id) . '"  class="edit btn btn-success btn-sm customOrder" style="max-height: 20px !important; max-width: 30px !important;" >نسخ</a>
+                    $main='<a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm" style="max-height: 20px !important; max-width: 28px !important;" >الفروع</a>';
+                    $branch='
+                                 <button type="button" id="copyLaundry" data-id="' . $row->id . '" class="edit btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModalCenter"style="max-height: 20px !important; max-width: 30px !important;">  نسخ </button>
                               <a href="' . Route('CategoryItems.index', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" style="max-height: 20px !important; max-width: 30px !important;" >الأقسام</a>
                             <a href="' . Route('laundries.edit', $row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
                             <a href="' . Route('laundries.view', $row->id) . '"  class="edit btn btn-info btn-sm customOrder" style="max-height: 20px !important; max-width: 35px !important;">تفاصيل</a>
