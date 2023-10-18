@@ -116,12 +116,6 @@
                                             <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div>
                                         </div>
                                     </div>
-                                    {{--                                <div class="form-group">--}}
-                                    {{--                                    <div class="custom-control custom-checkbox">--}}
-                                    {{--                                        <input class="custom-control-input" id="remember-me" type="checkbox" tabindex="3" />--}}
-                                    {{--                                        <label class="custom-control-label" for="remember-me"> Remember Me</label>--}}
-                                    {{--                                    </div>--}}
-                                    {{--                                </div>--}}
                                     <button class="btn btn-primary btn-block" tabindex="4">Sign in</button>
                                 </form>
 
