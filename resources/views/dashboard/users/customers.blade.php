@@ -1,50 +1,54 @@
-@extends('../layouts.app')
+@extends('layouts.dataTable-app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
-        <div>
-            <nav aria-label="breadcrumb" class="navBreadCrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">العملاء    </li>
-                </ol>
-            </nav>
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fa fa-align-justify"></i>
-                        <a href="{{route('customers.export')}}" class="btn btn-info" style="float: left; max-height: 35px; max-width:100px" >Export </a>
-                    </div>
-                    <div class="card-block">
-                        <table class="table table-striped" id="table_id">
-                            <thead>
-                            <tr>
-                                <th>الرقم </th>
-                                <th>الاسم </th>
-                                <th>البريد الألكترونى</th>
-                                <th>الجوال</th>
-                                <th>المدينه</th>
-                                <th>gender </th>
-                                <th>المحفظه </th>
-                                <th>الاجراءات </th>
-                            </tr>
-                            </thead>
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
 
-                        </table>
+            <section id="multilingual-datatable">
 
+                <a href="{{route('customers.export')}}" class="btn btn-primary " style=" width: 85px; height: 35px ; margin-right: 1377px; " >Export</a>
+
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="card invoice-list-wrapper">
+                            <div class="card-datatable table-responsive">
+                                <table class="productTable table" id="customersTable">
+                                    <thead>
+                                    <tr>
+                                        <th>الرقم </th>
+                                        <th>الاسم </th>
+                                        <th>البريد الألكترونى</th>
+                                        <th>الجوال</th>
+                                        <th>المدينه</th>
+                                        <th>النوع </th>
+                                        <th>عدد الطلبات</th>
+                                        <th>المحفظه </th>
+                                        <th> </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </main>
+            </section>
+            <!--/ Multilingual -->
 
+        </div>
+    </div>
 @endsection
-@push('javascripts')
+
+@push('scripts')
     <script type="text/javascript">
-        $(function() {
-            var table = $('#table_id').DataTable({
+        $(document).ready(function(){
+            $('#customersTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ordering: false,
+                ordering:false,
                 ajax: "{{ Route('customers.index') }}",
                 columns: [{
                     data: 'id',
@@ -65,6 +69,9 @@
                     data:'gender',
                     name:'gender'
                 },{
+                    data:'orderNum',
+                    name:'orderNum'
+                },{
                     data:'wallet',
                     name:'wallet'
                 },{
@@ -77,7 +84,7 @@
             });
         });
         $('body').on('click', '#deleteBtn', function () {
-            if (confirm("هل تريد اتمام الحذف  ؟") == true) {
+            if (confirm("هل تريد اتمام الحذف ؟") == true) {
                 var id = $(this).data('id');
                 window.location.reload();
                 $.ajax({
@@ -86,11 +93,12 @@
                     data: { id: id},
                     dataType: 'json',
                     success: function(res){
-                        var oTable = $('#datatable-crud').dataTable();
+                        var oTable = $('#customersTable').dataTable();
                         oTable.fnDraw(false);
                     }
                 });
             }
         });
     </script>
+
 @endpush

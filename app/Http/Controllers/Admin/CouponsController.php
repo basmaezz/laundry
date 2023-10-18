@@ -7,6 +7,7 @@ use App\Http\Requests\CouponRequest;
 use App\Models\CouponShopCart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 
 class CouponsController extends Controller
 {
@@ -17,11 +18,38 @@ class CouponsController extends Controller
      */
     public function index()
     {
+
         if(Gate::denies('Coupons.index')){
             abort(403);
         };
-         $coupons=CouponShopCart::all();
-         return  view('dashboard.Coupons.index',compact('coupons'));
+
+        if(request()->ajax()) {
+            $data = CouponShopCart::get();
+            return   Datatables::of($data)
+                ->addColumn('status',function ($row){
+                  return $row->status=='0'?'<span class="badge badge-pill badge-light-danger mr-1">Deactive</span>':'<span class="badge badge-pill badge-light-primary mr-1">Active</span>';
+                }) ->addColumn('action', function ($row) {
+                    return '
+                      <div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="' . Route('coupon.edit', $row->id) . '">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>Edit</span>
+                                    </a>
+                                    <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>Delete</span>
+                                    </a>
+                                </div>
+                            </div>';
+                })
+                ->rawColumns(['status','action'])
+                ->make(true);
+        }
+         return  view('dashboard.Coupons.index');
     }
 
     /**
@@ -90,9 +118,11 @@ class CouponsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        CouponShopCart::find($id)->delete();
+        if (is_numeric($request->id)) {
+            CouponShopCart::where('id', $request->id)->delete();
+        }
         return  redirect()->back()->with('error', 'تم الحذف');
     }
 

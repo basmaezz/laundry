@@ -1,52 +1,51 @@
-@extends('../layouts.app')
+@extends('layouts.dataTable-app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
-    <div>
-            <nav aria-label="breadcrumb" class="navBreadCrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">   <a href="#">المغاسل</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{$laundry->name_ar}}   </li>
-                </ol>
-            </nav>
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fa fa-align-justify"></i>
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
 
-                    </div>
-                    <div class="card-block">
-                        <table class="table table-striped" id="table_id">
-                            <thead>
-                            <input type="hidden" value="{{$id}}" id="laundry_id">
-                            <tr>
-                                <th>رقم الطلب  </th>
-                                <th>اسم العميل</th>
-                                <th>اسم المندوب</th>
-                                <th>حاله الطلب</th>
-                                <th> المبلغ الاجمالى</th>
-                                <th>ربح المغسله  </th>
-                                <th>ربح التطبيق  </th>
-                                <th>التاريخ</th>
-                                <th>الاجراءات </th>
-                            </tr>
-                            </thead>
+        <div class="content-body">
 
-                        </table>
+            <section id="multilingual-datatable">
+                <a href="{{route('laundries.export')}}" class="btn btn-info"  >Export </a>
+                 <div class="row">
 
+                    <div class="col-12">
+                        <div class="card invoice-list-wrapper">
+                            <div class="card-datatable table-responsive">
+                                <table class="productTable table" id="laundryTable">
+                                    <thead>
+                                    <input type="hidden" value="{{$id}}" id="laundry_id">
+                                    <tr>
+                                        <th>رقم الطلب  </th>
+                                        <th>اسم العميل</th>
+                                        <th>اسم المندوب</th>
+                                        <th>حاله الطلب</th>
+                                        <th> المبلغ الاجمالى</th>
+                                        <th>ربح المغسله  </th>
+                                        <th>ربح التطبيق  </th>
+                                        <th>التاريخ</th>
+                                        <th> </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </main>
+            </section>
+            <!--/ Multilingual -->
 
+        </div>
+    </div>
 @endsection
-@push('javascripts')
+
+@push('scripts')
     <script type="text/javascript">
-        $(function() {
+        $(document).ready(function(){
             var id= document.getElementById('laundry_id').value;
 
-            var table = $('#table_id').DataTable({
+            $('#laundryTable').DataTable({
                 processing: true,
                 serverSide: true,
                 ordering: false,
@@ -77,15 +76,16 @@
                     data:'created_at',
                     name:'created_at'
                 },{
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
 
                 ]
             });
         });
+
     </script>
 
 @endpush

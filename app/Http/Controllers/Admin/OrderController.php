@@ -88,7 +88,11 @@ class OrderController extends Controller
                     if($row->is_finished){
                         return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
                     }else{
-                        return  '<time class="timeago" datetime="'.$row->created_at->toISOString().'">'. $row->created_at->toDateString() .'</time>';
+                        if($row->created_at){
+                            return  '<time class="timeago" datetime="'.$row->created_at->toISOString().'">'. $row->created_at->toDateString() .'</time>';
+                        }else{
+                            return '' ;
+                        }
                     }
                 })->addColumn('laundryProfit', function ($row) {
                     return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
@@ -101,11 +105,23 @@ class OrderController extends Controller
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('createdAt', function ($row) {
-                    return $row->created_at->format('d-m-Y');
+
+                    return $row->created_at ? $row->created_at->format('d-m-Y'):'';
                 })
                 ->addColumn('action', function ($row) {
-                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder customOrder"style="max-height:20px;max-width:37px" >التفاصيل</a> ';
-                    return $btns;
+                   return '<div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>
+
+                                </div>
+                            </div>';
+
                 })
                 ->rawColumns(['action','category','user','deliveryType','orderType','orderStatus','laundryProfit','appProfit','delivery','commission','finished','city','createdAt'])
                 ->make(true);
@@ -232,7 +248,18 @@ class OrderController extends Controller
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('action', function ($row) {
-                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder "style="max-height:20px;max-width:37px" >التفاصيل</a> ';
+                    $btns='<div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>
+
+                                </div>
+                            </div> ';
                     return $btns;
                 })
                 ->rawColumns(['action','category','user','orderType','laundryProfit','appProfit','commission','delivery','duration','city','created_at'])
@@ -262,7 +289,10 @@ class OrderController extends Controller
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
-                        return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
+                        if($row->created_at){
+                            return '<time class="timeago" datetime="'.$current->created_at->toISOString().'"> ' . $current->created_at->toDateString() .' </time>';
+                        }
+                        return '';
                     }
                 })->addColumn('laundryProfit', function ($row) {
                     return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
@@ -277,9 +307,20 @@ class OrderController extends Controller
                 })->addColumn('regionName', function ($row) {
                     return $row->userTrashed->region_name;
                 })->addColumn('created_at',function ($row){
-                    return $row->created_at->format('d/m/Y') ;
+                    return $row->created_at !=null ?$row->created_at->format('d/m/Y'):'' ;
                 })->addColumn('action', function ($row) {
-                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder "style="max-height:20px;max-width:37px" >التفاصيل</a> ';
+                    $btns='<div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>
+
+                                </div>
+                            </div>';
                     return $btns;
                 })
                 ->rawColumns(['action','category','user','delegate','duration','orderType','city','regionName','laundryProfit','appProfit','commission','delivery','created_at'])
@@ -326,7 +367,20 @@ class OrderController extends Controller
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('action', function ($row) {
-                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder"style="max-height:20px;max-width:37px" >التفاصيل</a> ';
+                    $btns='
+                     <div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>
+
+                                </div>
+                            </div>
+                     ';
                     return $btns;
                 })
                 ->rawColumns(['action','category','user','delegate','orderType','duration','laundryProfit','appProfit','commission','delivery','city','created_at'])
@@ -370,7 +424,18 @@ class OrderController extends Controller
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('action', function ($row) {
-                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder"style="max-height:20px;max-width:37px" >التفاصيل</a> ';
+                    $btns='<div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>
+
+                                </div>
+                            </div> ';
                     return $btns;
                 })
                 ->rawColumns(['action','category','user','delegate','duration','created_at','orderType','laundryProfit','appProfit','commission','delivery','city'])
@@ -420,7 +485,18 @@ class OrderController extends Controller
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('action', function ($row) {
-                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder"style="max-height:20px;max-width:37px" >التفاصيل</a> ';
+                    $btns='<div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>
+
+                                </div>
+                            </div> ';
                     return $btns;
                 })
                 ->rawColumns(['action','category','user','delegate','duration','created_at','laundryProfit','appProfit','orderType','commission','delivery','city'])
@@ -464,7 +540,18 @@ class OrderController extends Controller
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('action', function ($row) {
-                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder"style="max-height:20px;max-width:37px" >التفاصيل</a> ';
+                    $btns='<div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>
+
+                                </div>
+                            </div> ';
                     return $btns;
                 })
                 ->rawColumns(['category','user','deliveryType','duration','created_at','action','laundryProfit','orderType','appProfit','commission','delivery','city'])
@@ -506,7 +593,18 @@ class OrderController extends Controller
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('action', function ($row) {
-                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder"style="max-height:20px;max-width:37px" >التفاصيل</a> ';
+                    $btns='<div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>
+
+                                </div>
+                            </div> ';
                     return $btns;
                 })
                 ->rawColumns(['action','category','user','duration','created_at','laundryProfit','appProfit','commission','orderType','delivery','city'])
@@ -537,7 +635,18 @@ class OrderController extends Controller
                 })->addColumn('day', function ($row) {
                     return $row->created_at->day;
                 })->addColumn('action', function ($row) {
-                    $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder"style="max-height:20px;max-width:37px" >التفاصيل</a> ';
+                    $btns='<div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>
+
+                                </div>
+                            </div> ';
                     return $btns;
                 })
                 ->rawColumns(['action','category','user','delegate','deliveryType','city','year','month','day'])
@@ -597,10 +706,20 @@ class OrderController extends Controller
                         return 'تم التسليم للعميل';
                     }
                 })->addColumn('createdAt', function ($row) {
-                    return $row->created_at->format('Y-m-d') ;
+                    return $row->created_at ? $row->created_at->format('d-m-Y'):'';
                 })->addColumn('action', function ($row) {
-                    return '<a href="' . Route('Order.show',$row->id) . '" class="edit btn btn-success btn-sm customOrder"style="max-height:20px;max-width:37px" >التفاصيل</a>
-                   ';
+                    return '<div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>
+
+                                </div>
+                            </div>';
                 })
                 ->rawColumns(['subCategory','status','createdAt','action'])
                 ->make(true);

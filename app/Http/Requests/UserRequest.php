@@ -29,12 +29,12 @@ class UserRequest extends FormRequest
         return [
             'name'=>['required', 'min:3','max:20'],
             'last_name'=>['required', 'min:3','max:20'],
+            'phone'=>'required|unique:users|numeric|digits:10',
             'email' => 'required|unique:users|required|regex:/(.+)@(.+)\.(.+)/i',
             'password'=>['required','min:6'],
             'level_id'=>'required',
             'joinDate'=>'nullable',
-            'birthdate'=> ['required','before:15 years ago'],
-            'phone'=>'required|unique:users|numeric|digits:10',
+            'birthdate'=> ['required'],
             'profileImage'=>['image','required','mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ];
     }

@@ -49,17 +49,17 @@
                                             <td>{{$product->desc_ar}}</td>
                                             <td>
                                                 @if($product->productService->count()>0)
-                                                    <a href="{{route('product.productServices',$product->id)}}" class="btn btn-primary "style=" max-height: 35px; max-width:55px"> خدمات</a>
-                                                    <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary "style=" max-height: 35px; max-width:55px" hidden> اضافه خدمه</a>
+                                                    <a href="{{route('product.productServices',$product->id)}}" class="btn btn-primary "> خدمات</a>
+                                                    <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary " hidden> اضافه خدمه</a>
                                                 @else
-                                                    <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary "style=" max-height: 35px; max-width:80px" > اضافه خدمه</a>
+                                                    <a href="{{route('product.addService',$product->id)}}" class="btn btn-primary " > اضافه خدمه</a>
                                                 @endif
-                                                <a href="{{route('product.view',$product->id)}}" class="btn btn-info "style=" max-height: 35px; max-width:70px"> التفاصيل</a>
-                                                <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary "style=" max-height: 35px; max-width:55px">تعديل</a>
+                                                <a href="{{route('product.view',$product->id)}}" class="btn btn-info "> التفاصيل</a>
+                                                <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary ">تعديل</a>
                                                 <form class="delete" action="{{route('product.destroy',$product->id)}}" method="get" >
                                                     @csrf
                                                     @method('DELETE')
-                                                    <input type="submit" value="حذف" class="edit btn btn-danger btn-sm" style="display: inline;max-height: 30px; max-width:55px">
+                                                    <input type="submit" value="حذف" class="edit btn btn-danger btn-sm" >
                                                 </form>
 
                                             </td>

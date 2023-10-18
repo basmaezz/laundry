@@ -1,54 +1,53 @@
 @extends('../layouts.app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
-      <nav aria-label="breadcrumb" class="navBreadCrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('Categories.index')}}">التصنيفات</a></li>
-                <li class="breadcrumb-item active" aria-current="page">تعديل التصنيف</li>
-            </ol>
-        </nav>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <strong> تعديل تصنيف</strong>
-                </div>
-                <div class="card-block">
-                    <form method="post" action="{{route('category.update',$category->id)}}"enctype="multipart/form-data" >
-                        @csrf
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="hf-email">اسم التصنيف</label>
-                            <div class="col-md-9">
-                                <input type="text"  name="name_ar" class="form-control" value="{{$category->name_ar}}" >
-                                @if ($errors->has('category_type'))
-                                    <span class="text-danger">{{ $errors->first('category_type') }}</span>
-                                @endif
-                            </div>
+    <div class="content-body">
+        <section class="bs-validation">
+            <div class="row">
+                <!-- Bootstrap Validation -->
+                <div class="col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">تعديل التصنيف </h4>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="hf-email"> اسم التصنيف بالانحليزى   </label>
-                            <div class="col-md-9">
-                                <input type="text"  name="name_en" class="form-control" value="{{$category->name_en}}" >
-                                @if ($errors->has('category_type'))
-                                    <span class="text-danger">{{ $errors->first('category_type') }}</span>
-                                @endif
-                            </div>
-                        </div>
+                        <div class="card-body">
+                            <form method="post" action="{{route('category.update',$category->id)}}"enctype="multipart/form-data" >
+                                @csrf
+                                <div class="form-group">
+                                    <label class="form-label" for="basic-addon-name">اسم التصنيف</label>
+                                        <input type="text"  name="name_ar" class="form-control" value="{{$category->name_ar}}" >
+                                        @if ($errors->has('category_type'))
+                                            <span class="text-danger">{{ $errors->first('category_type') }}</span>
+                                        @endif
 
-                        <img src="{{$category->image}}" style="width: 100px;height: 100px;margin-right: 140px">
-                        <div class="form-group">
-                            <label for="company">الصوره  </label>
-                            <input type="file" id="file-input" name="image" class="form-control">
-                        </div>
-                        <div class="card-footer">
-                           <button type="submit" class="btn btn-sm btn-info"style="max-height: 30px !important;max-width: 55px !important;"><i class="fa fa-dot-circle-o"></i> تعديل</button>
-                            <a href="{{URL::previous()}}" class="btn btn-sm btn-danger"style="max-height: 30px !important;max-width: 40px !important;">الغاء</a>
-                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="basic-addon-name"> اسم التصنيف بالانحليزى   </label>
+                                        <input type="text"  name="name_en" class="form-control" value="{{$category->name_en}}" >
+                                        @if ($errors->has('category_type'))
+                                            <span class="text-danger">{{ $errors->first('category_type') }}</span>
+                                        @endif
 
-                    </form>
+                                </div>
+                                <img src="{{$category->image}}" style="width: 100px;height: 100px;margin-right: 140px">
+
+
+                                <div class="form-group">
+                                    <label for="customFile1">ًالصوره </label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile1" name="image" required />
+                                        <label class="custom-file-label" for="image">Choose profile pic</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </main>
+                <!-- /Bootstrap Validation -->
 @endsection
-

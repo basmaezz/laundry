@@ -1,44 +1,47 @@
-@extends('../layouts.app')
+@extends('layouts.dataTable-app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
-    <div>
-            <nav aria-label="breadcrumb" class="navBreadCrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">الأدمن   </li>
-                </ol>
-            </nav>
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fa fa-align-justify"></i>
-                    </div>
-                    <div class="card-block">
-                        <table class="table table-striped" id="table_id">
-                            <thead>
-                            <tr>
-                                <th>اسم المغسله </th>
-                                <th>المدينه </th>
-                                <th>الحى</th>
-                                <th>الاجراءات </th>
-                            </tr>
-                            </thead>
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
 
-                        </table>
+            <section id="multilingual-datatable">
 
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="card invoice-list-wrapper">
+                            <div class="card-datatable table-responsive">
+                                <table class="productTable table" id="laundryTable">
+                                    <thead>
+                                    <tr>
+                                        <th>اسم المغسله </th>
+                                        <th>المدينه </th>
+                                        <th>الحى</th>
+                                        <th> </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </main>
+            </section>
+            <!--/ Multilingual -->
 
+        </div>
+    </div>
 @endsection
-@push('javascripts')
+
+@push('scripts')
     <script type="text/javascript">
-        $(function() {
-            var table = $('#table_id').DataTable({
+        $(document).ready(function(){
+            $('#laundryTable').DataTable({
                 processing: true,
                 serverSide: true,
+                ordering:false,
                 ajax: "{{ Route('laundries.viewTrashedLaundries') }}",
                 columns: [{
                     data: 'name_ar',
@@ -50,11 +53,11 @@
                     data:'address',
                     name:'address'
                 },{
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
 
                 ]
             });
@@ -70,13 +73,12 @@
                     data: { id: id},
                     dataType: 'json',
                     success: function(res){
-                        var oTable = $('#datatable-crud').dataTable();
+                        var oTable = $('#laundryTable').dataTable();
                         oTable.fnDraw(false);
                     }
                 });
             }
         });
-
     </script>
 
 @endpush

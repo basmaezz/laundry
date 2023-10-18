@@ -1,4 +1,4 @@
-@extends('../layouts.app')
+@extends('layouts.dataTable-app')
 @section('content')
     <main class="main" style="margin-top: 25px">
         <div >
@@ -34,7 +34,7 @@
         </div>
     </main>
 @endsection
-@push('javascripts')
+@push('scripts')
     <script type="text/javascript">
         $(window).on('load', function() {
               var id= document.getElementById('delegate_id').value;

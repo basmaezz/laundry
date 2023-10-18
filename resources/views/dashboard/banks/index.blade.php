@@ -1,87 +1,52 @@
 @extends('../layouts.app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
-        <nav aria-label="breadcrumb" class="navBreadCrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item active" aria-current="page">البنوك  </li>
-            </ol>
-        </nav>
+<div class="row" id="basic-table">
+    <div class="col-7">
+        <div class="card">
+            <div class="card-header">
 
-    <div>
-            <div class="validationMsg" style="width: 600px">
-                @if($errors->any())
-                    <div class="alert alert-danger" >
-                        <h6>{{$errors->first()}}</h6>
-                    </div>
-                @elseif(session()->has('message'))
-                    <div class="alert alert-success"  >
-                        {{ session()->get('message') }}
-                    </div>
-                @endif
+                <a href="{{route('bank.create')}}" class="btn btn-primary" style="float: right; margin-right: 700px;">اضافه بنك</a>
             </div>
 
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="card">
-
-                            <div class="card-header">
-                                <i class="fa fa-align-justify"></i> البنوك
-                                <a href="{{route('bank.create')}}" class="btn btn-primary" style="float: left">اضافه بنك</a>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>اسم البنك</th>
+                        <th>اسم البنك بالانجليزيه </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                       @foreach($banks as $bank)
+                    <tr>
+                        <td> {{$bank->name_ar}} </td>
+                        <td> {{$bank->name_en}} </td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{route('bank.edit',$bank->id)}}">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>Edit</span>
+                                    </a>
+                                    <a class="dropdown-item" href="{{route('bank.destroy',$bank->id)}}">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>Delete</span>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="card-block">
-                                <table id="example1" class="table table-bordered table-striped col-7">
-                                    <thead>
-                                    <tr>
-                                        <th>اسم البنك</th>
-                                        <th>اسم البنك بالانجليزيه </th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    @if($banks->count()>0)
-                                        <tbody>
-                                        @foreach($banks as $bank)
-                                            <tr>
-                                                <td>{{$bank->name_ar}} </td>
-                                                <td>{{$bank->name_en}} </td>
-                                                <td>
-                                                    <a href="{{route('bank.edit',$bank->id)}}" class="btn btn-primary">تعديل</a>
-                                                    <a href="{{route('bank.destroy',$bank->id)}}" class="btn btn-danger">حذف</a>
-                                                </td>
-                                            </tr>
-
-                                        @endforeach
-                                        </tbody>
-                                    @else
-                                        <tbody>
-
-                                        <tr>
-                                            <td> لا يوجد بيانات</td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
-
-                                            <td></td>
-
-                                            <td>           </td>
-                                        </tr>
-
-                                        </tbody>
-                                    @endif
-                                </table>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                        </td>
+                    </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-
         </div>
-
-        </div>
-    </main>
-
-
+    </div>
+</div>
+<!-- Basic Tables end -->
 
 @endsection

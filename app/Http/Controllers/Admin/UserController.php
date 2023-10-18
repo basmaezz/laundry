@@ -64,8 +64,9 @@ class UserController extends Controller
                     return $row->hasRoleName($row);
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . Route('user.edit', $row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
-             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                    return '
+                            <a href="' . Route('user.edit', $row->id) . '"  class="edit btn btn-primary "  >تعديل</a>
+            <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger "  data-toggle="modal" >حذف</a>';
                 })
                 ->rawColumns(['action', 'role'])
                 ->make(true);
@@ -87,8 +88,8 @@ class UserController extends Controller
                     return $row->hasRoleName($row);
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . Route('users.restoreDeletedAdmins', $row->id) . '"  class="edit btn btn-success btn-sm" style="width: 18px;height: 20px;" ><i class="fa-solid fa-rotate-right"></i></a>
-             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                    return '<a href="' . Route('users.restoreDeletedAdmins', $row->id) . '"  class="edit btn btn-success btn-sm" >استعاده الحذف</a>
+             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal" >حذف</a>';
                 })
                 ->rawColumns(['action', 'role'])
                 ->make(true);
@@ -246,15 +247,34 @@ class UserController extends Controller
             $data=AppUser::where('user_type',"customer")->with('citiesTrashed')->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('city', function ($row) {
+                ->addColumn('orderNum', function ($row) {
+                    return  OrderTable::where('user_id',$row->id)->count();
+                })->addColumn('city', function ($row) {
                     return  $row->citiesTrashed->name_ar??'';
                 })
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . Route('customer.Orders',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 78px;height: 20px;" >عرض الطلبات</a>
-                            <a href="' . Route('customer.wallet',$row->uuid) . '"  class="edit btn btn-primary btn-sm" style="width: 78px;height: 20px;" >اضافه للمحفظه </a>
-             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+
+                    return '   <div class="dropdown" style="margin-left: 15px;">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="' . Route('customer.Orders',$row->id) . '">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>Orders</span>
+                                    </a>
+                                      <a class="dropdown-item" href="' . Route('customer.wallet',$row->uuid) . '">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>Add To Wallet </span>
+                                    </a>
+                                    <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>Delete</span>
+                                    </a>
+                                </div>
+                            </div>';
                 })
-                ->rawColumns(['action', 'city'])
+                ->rawColumns(['action','orderNum', 'city'])
                 ->make(true);
         }
         return view('dashboard.users.customers');
@@ -315,14 +335,40 @@ class UserController extends Controller
         return redirect()->back();
 
     }
-    public function customerOrders($id){
-        if(Gate::denies('customers.index')){
-            abort(403);
-        };
-        $orders=OrderTable::where('user_id',$id)->with(['subCategoriesTrashed'=>function($query){
-            return $query->withTrashed();
-        }])->orderBy('id', 'DESC')->get();
-        return view('dashboard.users.customerOrder',compact('orders'));
+//    public function customerOrders($id){
+//        if(Gate::denies('customers.index')){
+//            abort(403);
+//        };
+//        $orders=OrderTable::where('user_id',$id)->with(['subCategoriesTrashed'=>function($query){
+//            return $query->withTrashed();
+//        }])->orderBy('id', 'DESC')->get();
+//        return view('dashboard.users.customerOrder',compact('orders'));
+//    }
+
+
+    public function customerOrders($id)
+    {
+        $orders=OrderTable::where('user_id',$id)->first();
+        $id=$orders->user_id;
+        if(request()->ajax()) {
+            $data=OrderTable::where('user_id',$id)->with(['subCategoriesTrashed'=>function($query){
+                return $query->withTrashed();
+            }])->orderBy('id', 'DESC')->get();
+            return   Datatables::of($data)
+                ->addColumn('subCategory', function ($row) {
+                    return $row->subCategoriesTrashed->name_ar ;
+                })->addColumn('status', function ($row) {
+                    return $row->status_id=='8'?'الطلب منتهى': $row->status;
+                })->addColumn('createdAt', function ($row) {
+                    return $row->created_at ?$row->created_at->format('Y-m-d') :'';
+                })->addColumn('action', function ($row) {
+                    return '<a href="' . Route('Order.show',$row->id) . '" class="edit btn btn-success btn-sm customOrder" >التفاصيل</a>
+                   ';
+                })
+                ->rawColumns(['subCategory','status','createdAt','action'])
+                ->make(true);
+        }
+        return  view('dashboard.users.customerOrder',compact('id'));
     }
 
     public function delegates(Request $request)
@@ -347,10 +393,10 @@ class UserController extends Controller
                 })->addColumn('status', function ($row) {
                     if($row->appUserTrashed !=null  ){
                         if($row->appUserTrashed->status=='active'){
-                            return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-success btn-sm "style="width: 48px;height: 20px;"  >'.$row->appUserTrashed->status.'</a>';
+                            return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-success ">'.$row->appUserTrashed->status.'</a>';
 
                         }else{
-                            return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-danger btn-sm "style="width: 80px;height: 20px;"  >'.$row->appUserTrashed->status.'</a>';
+                            return'<a href="' . Route('delegate.changeDelegateStatus',$row->id) . '"  class="edit btn btn-danger ">'.$row->appUserTrashed->status.'</a>';
                         }
                     }else{
                         return '';
@@ -365,11 +411,35 @@ class UserController extends Controller
                 ->addColumn('action', function ($row) {
 
                     return '
-                    <a href="' . Route('delegate.edit',$row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
-                            <a href="' . Route('Order.delegateOrders',$row->id) . '"  class="edit btn btn-success btn-sm" style="width: 32px;height: 20px;" >الطلبات  </a>
-                           <a href="' . Route('customer.wallet',$row->appUserTrashed->uuid) . '"  class="edit btn btn-primary btn-sm" style="width: 78px;height: 20px;" >اضافه للمحفظه </a>
-                            <a href="' . Route('delegate.show',$row->id) . '"  class="edit btn btn-info btn-sm "style="width: 32px;height: 20px;" >التفاصيل  </a>
-                            <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+
+                       <div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="' . Route('delegate.edit', $row->id) . '">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>Edit</span>
+                                    </a>
+                                       <a class="dropdown-item" href="' . Route('Order.delegateOrders', $row->id) . '">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>orders</span>
+                                    </a>
+                                      <a class="dropdown-item" href="' . Route('delegate.show', $row->id) . '">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>Details</span>
+                                    </a>
+                                       <a class="dropdown-item" href="' . Route('customer.wallet',$row->appUserTrashed->uuid) . '">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>Add to Wallet</span>
+                                    </a>
+                                    <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>Delete</span>
+                                    </a>
+                                </div>
+                            </div> ';
+
                 })
                 ->rawColumns(['name', 'city','nationality','mobile','request_employment','status','created_at','monthlyOrders','wallet','action'])
                 ->make(true);
@@ -527,7 +597,6 @@ class UserController extends Controller
             abort(403);
         };
         $delegate=Delegate::with(['appUserTrashed','nationality','carType','year','bank'])->find($id);
-
 
         $nationalities=Nationality::get();
         $banks=Bank::all();

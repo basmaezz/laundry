@@ -1,4 +1,4 @@
-@extends('../layouts.app')
+@extends('layouts.dataTable-app')
 @section('content')
     <main class="main" style="margin-top: 25px">
     <div>
@@ -42,7 +42,7 @@
         </div>
     </main>
 @endsection
-@push('javascripts')
+@push('scripts')
     <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
     <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
     <script type="text/javascript">

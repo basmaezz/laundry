@@ -17,7 +17,7 @@
 {{--                                        <th>المدينه</th>--}}
 {{--                                        <th>الجنسيه</th>--}}
 {{--                                        <th> سبب الرفض</th>--}}
-{{--                                        <th>الاجراءات</th>--}}
+{{--                                        <th></th>--}}
 {{--                                    </tr>--}}
 {{--                                    </thead>--}}
 {{--                                    <tbody>--}}
@@ -82,7 +82,7 @@
                                 <th>المدينه</th>
                                 <th>الجنسيه</th>
                                 <th> سبب الرفض</th>
-                                <th>الاجراءات</th>
+                                <th></th>
                             </tr>
                             </thead>
 
@@ -95,7 +95,7 @@
     </main>
 
 @endsection
-@push('javascripts')
+@push('scripts')
     <script type="text/javascript">
         $(function() {
             var table = $('#table_id').DataTable({

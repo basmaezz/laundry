@@ -23,7 +23,7 @@
                                 <th>نوع التعاقد</th>
                                 <th> الحاله</th>
                                 <th>تاريخ الالتحاق </th>
-                                <th>الاجراءات</th>
+                                <th></th>
                             </tr>
                             </thead>
 
@@ -36,7 +36,7 @@
     </main>
 
 @endsection
-@push('javascripts')
+@push('scripts')
     <script type="text/javascript">
         $(function() {
             var table = $('#table_id').DataTable({

@@ -1,163 +1,158 @@
 @extends('layouts.app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
+    <div class="content-wrapper">
 
-        <div class="container-fluid" >
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-sm-4 col-lg-12">
-{{--                        <div class="col-sm-6 col-lg-3">--}}
-{{--                            <div class="card card-inverse card-primary" >--}}
-{{--                                <div class="card-block p-b-0">--}}
-{{--                                    <h4 class="m-b-0">{{\App\Models\Delegate::count()}}</h4>--}}
-{{--                                    <p> المناديب</p>--}}
-{{--                                </div>--}}
-{{--                                <div class="chart-wrapper p-x-1" style="height:70px;">--}}
-{{--                                    <canvas id="card-chart1" class="chart" height="70"></canvas>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card card-inverse card-primary" >
-                                <div class="card-block p-b-0">
-                                    <h4 class="m-b-0">{{\App\Models\Delegate::count()}}</h4>
-                                    <p> المناديب</p>
+        <div class="content-body">
+            <!-- Dashboard Analytics Start -->
+            <section id="dashboard-analytics">
+                <div class="row match-height">
+                    <!-- Greetings Card starts -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="card card-congratulations">
+                            <div class="card-body text-center">
+                                <img src="{{asset('assets/customers/app-assets/images/elements/decore-left.png')}}" class="congratulations-img-left" alt="card-img-left" />
+                                <img src="{{asset('assets/customers/app-assets/images/elements/decore-right.png')}}" class="congratulations-img-right" alt="card-img-right" />
+                                <div class="avatar avatar-xl bg-primary shadow">
+                                    <div class="avatar-content">
+                                        <i data-feather="award" class="font-large-1"></i>
+                                    </div>
                                 </div>
-                                <div class="chart-wrapper p-x-1" style="height:70px;">
-                                    <canvas id="card-chart1" class="chart" height="70"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card card-inverse card-warning" >
-                                <div class="card-block p-b-0">
-                                    <h4 class="m-b-0">{{\App\Models\User::count()}}</h4>
-                                    <p> عدد المدراء</p>
-                                </div>
-                                <div class="chart-wrapper p-x-1" style="height:70px;">
-                                    <canvas id="card-chart1" class="chart" height="70"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card card-inverse card-danger" >
-                                <div class="card-block p-b-0">
-                                    <h4 class="m-b-0">{{\App\Models\OrderTable::count()}}</h4>
-                                    <p> الطلبات</p>
-                                </div>
-                                <div class="chart-wrapper p-x-1" style="height:70px;">
-                                    <canvas id="card-chart1" class="chart" height="70"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card card-inverse card-primary" >
-                                <div class="card-block p-b-0">
-                                    <h4 class="m-b-0">{{\App\Models\Delegate::where('registered',2)->count()}}</h4>
-                                    <p> طلبات تسجيل المناديب</p>
-                                </div>
-                                <div class="chart-wrapper p-x-1" style="height:70px;">
-                                    <canvas id="card-chart1" class="chart" height="70"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card card-inverse card-primary" >
-                                <div class="card-block p-b-0">
-                                    <h4 class="m-b-0">{{\App\Models\Subcategory::WhereNull('parent_id')->count()}}</h4>
-                                    <p> المغاسل الرئيسيه  </p>
-                                </div>
-                                <div class="chart-wrapper p-x-1" style="height:70px;">
-                                    <canvas id="card-chart1" class="chart" height="70"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card card-inverse card-primary" >
-                                <div class="card-block p-b-0">
-                                    <h4 class="m-b-0">{{\App\Models\Subcategory::WhereNotNull('parent_id')->count()}}</h4>
-                                    <p> المغاسل الفرعيه  </p>
-                                </div>
-                                <div class="chart-wrapper p-x-1" style="height:70px;">
-                                    <canvas id="card-chart1" class="chart" height="70"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card card-inverse card-primary" >
-                                <div class="card-block p-b-0">
-                                    <h4 class="m-b-0">{{\App\Models\OrderTable::select('*')->whereMonth('created_at', \Carbon\Carbon::now()->month)->count()}}</h4>
-                                    <p>اجمالى الطلبات لشهر {{\Carbon\Carbon::now()->monthName}}  </p>
-                                </div>
-                                <div class="chart-wrapper p-x-1" style="height:70px;">
-                                    <canvas id="card-chart1" class="chart" height="70"></canvas>
-                                </div>
-                            </div>
-                        </div><br>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card card-inverse card-info" >
-                                <div class="card-block p-b-0">
-                                    <h4 class="m-b-0">{{\App\Models\OrderTable::select('*')->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('laundry_profit')}}</h4>
-                                    <p>اجمالى ربح المغاسل لشهر {{\Carbon\Carbon::now()->monthName}}  </p>
-                                </div>
-                                <div class="chart-wrapper p-x-1" style="height:70px;">
-                                    <canvas id="card-chart1" class="chart" height="70"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card card-inverse card-info" >
-                                <div class="card-block p-b-0">
-                                    <h4 class="m-b-0">{{\App\Models\OrderTable::select('*')->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('app_profit')}}</h4>
-                                    <p>اجمالى ربح التطبيق لشهر {{\Carbon\Carbon::now()->monthName}}  </p>
-                                </div>
-                                <div class="chart-wrapper p-x-1" style="height:70px;">
-                                    <canvas id="card-chart1" class="chart" height="70"></canvas>
+                                <div class="text-center">
+                                    <h1 class="mb-1 text-white">Laundry App</h1>
+                                    <p class="card-text m-auto w-75">
+
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Greetings Card ends -->
+
+                    <!-- Subscribers Chart Card starts -->
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-primary p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="users" class="font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\Delegate::count()}}</h2>
+                                <p class="card-text">المناديب</p>
+                            </div>
+                            <div id="gained-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-primary p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="users" class="font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\Delegate::where('registered',2)->count()}}</h2>
+                                <p class="card-text"> طلبات تسجيل المناديب</p>
+                            </div>
+                            <div id="gained-chart"></div>
+                        </div>
+                    </div>
+                    <!-- Subscribers Chart Card ends -->
+
+
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-warning p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="package" class="font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\User::count()}}</h2>
+                                <p class="card-text">عدد المدراء</p>
+                            </div>
+                            <div id="order-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-warning p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="package" class="font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::count()}}</h2>
+                                <p class="card-text">الطلبات </p>
+                            </div>
+                            <div id="order-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-warning p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="package" class="font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\Subcategory::WhereNull('parent_id')->count()}}</h2>
+                                <p class="card-text">المغاسل </p>
+                            </div>
+                            <div id="order-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-warning p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="package" class="font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::select('*')->whereMonth('created_at', \Carbon\Carbon::now()->month)->count()}}</h2>
+                                <p class="card-text">اجمالى الطلبات الشهريه </p>
+                            </div>
+                            <div id="order-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-warning p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="package" class="font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::select('*')->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('laundry_profit')}}</h2>
+                                <p class="card-text">اجمالى ربح المغاسل لشهر {{\Carbon\Carbon::now()->monthName}} </p>
+                            </div>
+                            <div id="order-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-warning p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="package" class="font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::select('*')->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('app_profit')}}</h2>
+                                <p class="card-text">اجمالى ربح التطبيق لشهر {{\Carbon\Carbon::now()->monthName}} </p>
+                            </div>
+                            <div id="order-chart"></div>
+                        </div>
+                    </div>
+                    <!-- Orders Chart Card ends -->
                 </div>
 
-                
 
-{{--                <div class="row">--}}
-{{--                    <div class="col-lg-6">--}}
-{{--                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>--}}
-{{--                        <canvas id="myChart"></canvas>--}}
-{{--                    </div>--}}
-
-{{--                    <script>--}}
-{{--                        const ctx = document.getElementById('myChart');--}}
-{{--                        new Chart(ctx, {--}}
-{{--                            type: 'bar',--}}
-{{--                            data: {--}}
-{{--                                labels: @json($citiesWithOrderCount->pluck('name_ar')->toArray()),--}}
-{{--                                datasets: [{--}}
-{{--                                    label: 'عدد الطلبات في كل مدينة ',--}}
-{{--                                    data: @json($citiesWithOrderCount->pluck('orders_count')->toArray()),--}}
-{{--                                    borderWidth: 3,--}}
-{{--                                    backgroundColor: [--}}
-{{--                                        "#0000FF",--}}
-
-{{--                                    ]//--}}
-{{--                                }]--}}
-{{--                            },--}}
-{{--                            options: {--}}
-{{--                                scales: {--}}
-{{--                                    y: {--}}
-{{--                                        beginAtZero: true--}}
-{{--                                    }--}}
-{{--                                }--}}
-{{--                            }--}}
-{{--                        });--}}
-{{--                    </script>--}}
-{{--                </div>--}}
-            </div>
+            </section>
+            <!-- Dashboard Analytics end -->
 
         </div>
-        </div>
-        </div>
+    </div>
 
-    </main>
+
 @endsection

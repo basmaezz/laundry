@@ -33,12 +33,8 @@
                                                 <td>{{$category->name_ar}} </td>
                                                 <td>
 
-                                                    <a href="{{route('category.edit',$category->id)}}" class="btn btn-primary " style="max-height: 30px !important;max-width: 50px !important;" >تعديل</a>
-{{--                                                    <form class="delete" action="{{route('category.destroy',$category->id)}}" method="get">--}}
-{{--                                                        @csrf--}}
-{{--                                                        @method('DELETE')--}}
-{{--                                                        <input type="submit" value="حذف" class="edit btn btn-danger btn-sm">--}}
-{{--                                                    </form>--}}
+                                                    <a href="{{route('category.edit',$category->id)}}" class="btn btn-primary "  >تعديل</a>
+
                                                 </td>
                                             </tr>
 

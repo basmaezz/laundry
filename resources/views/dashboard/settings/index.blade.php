@@ -8,25 +8,13 @@
             </ol>
         </nav>
     <div>
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="validationMsg" style="width: 600px">
-                        @if($errors->any())
-                            <div class="alert alert-danger" >
-                                <h6>{{$errors->first()}}</h6>
-                            </div>
-                        @elseif(session()->has('message'))
-                            <div class="alert alert-success"  >
-                                {{ session()->get('message') }}
-                            </div>
-                        @endif
-                    </div>
+
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i> الاعدادات
                                 @if(isset($siteSetting) )
-                                <a href="{{route('settings.edit')}}" class="btn btn-primary" style="float: left; width: 100px; height:100px">تعديل الاعدادات </a>
+                                <a href="{{route('settings.edit')}}" class="btn btn-primary" >تعديل الاعدادات </a>
                             </div>
                             <div class="card-block">
                                 <table class="table table-striped">

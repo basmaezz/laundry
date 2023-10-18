@@ -1,174 +1,222 @@
-@extends('../layouts.app')
+@extends('layouts.app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
-      <nav aria-label="breadcrumb" class="navBreadCrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('laundries.index')}}">المغاسل</a></li>
-                <li class="breadcrumb-item active" aria-current="page">بيانات المغسله  </li>
-            </ol>
-        </nav>
-    <div>
-            <div class="animated fadeIn">
-                <div class="row">
-                    <form method="post" action="{{url('laundryStore')}}" enctype="multipart/form-data">
-                        @csrf
-                        @if(isset($subCategory->parent_id))
-                        <div class="card-body box-profile">
-                            <img class="profile-user-img img-fluid img-circle"
-                                 src="{{$subCategory->parentTrashed->image}}"
-                                 alt="{{$subCategory->parentTrashed->name_ar}}">
-                        </div>
-                        @else
-                            <div class="card-body box-profile">
-                                <img class="profile-user-img img-fluid img-circle"
-                                     src="{{$subCategory->image ??''}}"
-                                     alt="{{$subCategory->name_ar ??''}}">
+    <div class="content-body">
+        <section class="bs-validation">
+            <nav aria-label="breadcrumb" class="navBreadCrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
+                    <li class="breadcrumb-item active"><a href="{{route('laundries.index')}}">المغاسل</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">اضافه مغسله  </li>
+                </ol>
+            </nav>
+            <div class="row">
+                <!-- Bootstrap Validation -->
+                <div class="col-md-6 col-12">
+                    <div class="card">
+
+                            <div class="card-header">
+                                <h4 class="card-title">اضافه مغسله جديد</h4>
                             </div>
-                        @endif
-                        <div class="col-sm-5">
-                            <div class="card">
-                                <div class="card-header">
-                                    <strong> عرض تفاصيل المغسله </strong>
+                            <div class="card-body">
+
+
+                                <div class="form-group">
+                                    <label for="company" n>اسم المغسله</label>
+                                    <input type="text" name="name_ar"class="form-control" id="name_ar" value="{{$subCategory->name_ar}}"disabled>
+                                                </div>
+                                <div class="form-group">
+                                    <label for="company">اسم المغسله بالانجليزيه</label>
+                                    <input type="text" name="name_en"class="form-control" id="name_en" value="{{$subCategory->name_en}}"disabled>
+
                                 </div>
-                                <div class="card-block">
-                                    @if(isset($subCategory->parent->name_ar))
-                                        <div class="form-group">
-                                            <label for="company" n>الفرع الرئيسى </label>
-                                            <input type="text" name="name_ar"class="form-control view" id="name_ar" value="{{$subCategory->parent->name_ar}}" disabled>
-                                        </div>
-                                    @endif
+                                <div class="form-group">
+                                    <label class="form-label" for="basic-addon-name"> مميزه  </label>
+                                    <div class="custom-control custom-checkbox">
+                                        <label class="form-control check-ability-label">
+                                            <input type="radio"  class="checkbox-ability" name="vip" value="1"{{$subCategory->vip ==1 ? 'checked' :''}} >نعم
+                                            <br>
+                                        </label>
+                                        <label class="form-control check-ability-label">
+                                            <input type="radio"  class="checkbox-ability" name="vip" value="0" {{$subCategory->vip == 0 ? 'checked' :''}}>لا
+                                            <br>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <div class="form-group">
-                                        <label for="company" n>اسم المغسله</label>
-                                        <input type="text" name="name_ar"class="form-control view" id="name_ar" value="{{$subCategory->name_ar}}"disabled>
+                                        <label class="form-label" for="basic-addon-name"> غسيل مستعجل </label>
+                                        <div class="custom-control custom-checkbox">
+                                            <label class="form-control check-ability-label">
+                                                <input type="radio"  class="checkbox-ability" name="urgentWash" onchange="showMakeUrgent()" value="1"{{$subCategory->urgentWash ==1 ? 'checked' :''}} >نعم
+                                                <br>
+                                            </label>
+                                            <label class="form-control check-ability-label">
+                                                <input type="radio"  class="checkbox-ability" name="urgentWash" onchange="hideMakeUrgent()" value="0"{{$subCategory->urgentWash == 0 ? 'checked' :''}} >لا
+                                                <br>
+                                            </label>
+                                        </div>
                                     </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="company">المدينه</label>
+                                    <select class="form-control" name="city_id">
+
+                                        @foreach($cities as $city)
+                                            <option value="{{$city->id}}" {{$subCategory->city_id==$city->id ?'selected':''}} disabled>{{$city->name_ar}}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="company">الحى</label>
+                                    <input type="text" name="address"class="form-control" id="name_ar" value="{{$subCategory->address}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">الموقع(Google Map) </label>
+                                    <input type="text" name="location"class="form-control" id="location" value="{{$subCategory->location}}">
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="company">latitude </label>
+                                    <input type="text" name="lat"class="form-control" id="lat"value="{{$subCategory->lat}}" placeholder="latitude "disabled >
+                                    @error('lat')
+                                    <div class="text-sm text-red-600">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="company">longitude</label>
+                                    <input type="text" name="lng"class="form-control" id="address"value="{{$subCategory->lng}}" placeholder="longitude " disabled>
+                                    @error('address')
+                                    <div class="text-sm text-red-600">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="approximate_duration"> نطاق التشغيل </label>
+                                    <div class="input-group">
+                                        <input type="text"name="range" class="form-control" value="{{$subCategory->range??''}}" max="50" min="5" disabled >
+                                        <span class="input-group-addon"> كيلومتر</i>
+                                                </span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">سعر التوصيل  </label>
+                                    <div class="input-group">
+                                        <input type="text" name="price" class="form-control" value="{{$subCategory->price ??Request::old('price') }}"disabled >
+                                        <span class="input-group-addon"> ريال</i>
+                                                </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="country">النسبه  </label>
+                                    <div class="input-group">
+                                        <input type="text"name="percentage" class="form-control" value="{{$subCategory->percentage}}"disabled >
+                                        <span class="input-group-addon"> %</i>
+                                                </span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="approximate_duration">  المده التقريبيه للغسيل </label>
+                                    <div class="input-group">
+                                        <input type="text"name="approximate_duration" class="form-control"  value="{{$subCategory->approximate_duration}}" disabled >
+                                        <span class="input-group-addon"> ساعه</i>
+                                                </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group " id="approximate_duration_urgent_input" >
+                                    <label for="approximate_duration">  المده التقريبيه للغسيل السريع </label>
+                                    <div class="input-group">
+                                        <input type="number"name="approximate_duration_urgent" class="form-control" placeholder="24" value="{{$subCategory->approximate_duration_urgent}}" disabled >
+                                        <span class="input-group-addon"> ساعه</i>
+                                                </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group" >
+                                    <div>
+                                        <label for="country">فتره التشغيل  </label> <br>
+                                        <input type="radio"  name="around_clock" value="1" onchange="hideDurations()"{{$subCategory->around_clock ==1 ? 'checked' :''}} >
+                                        <label for="age1">طوال اليوم</label><br>
+                                        <input type="radio" name="around_clock" value="0"  id="specificDuration" {{$subCategory->around_clock ==0 ? 'checked' :''}}>
+                                        <label for="age2"> فتره محدده </label><br>
+                                    </div>
+                                </div>
+                                @if($subCategory->around_clock =='0')
+                                    <div class="form-group" id="durations" >
+                                        <label for="country">بدايه الفتره </label>
+                                        <input type="time" name="clock_at" value="{{$subCategory->clock_at}}" />
+
+                                        <label for="country">نهايه الفتره </label>
+                                        <input type="time" name="clock_end" value="{{$subCategory->clock_end}}" />
+                                    </div>
+                                @elseif($subCategory->around_clock =='1')
+                                    <div class="form-group" id="durations" >
+                                        <label for="country">بدايه الفتره </label>
+                                        <input type="time" name="clock_at" value="22:00" />
+
+                                        <label for="country">نهايه الفتره </label>
+                                        <input type="time" name="clock_end"value="22:00" />
+                                    </div>
+                                @endif
+                                @if($subCategory->parent_id =='')
                                     <div class="form-group">
-                                        <label for="company">اسم المغسله بالانجليزيه</label>
-                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$subCategory->name_en}}"disabled>
-                                    </div>
-                                        <div class="form-group">
-                                        <label for="company">الغسيل السريع</label>
-                                        <input type="text" name="name_en"class="form-control view" id="name_ar" value="{{$subCategory->urgentWash ==1 ? 'نعم' :'لا'}}"disabled>
-                                    </div>
-                                        <div class="form-group">
-                                            <label for="company">المدينه</label>
-                                            <select class="form-control" name="city_id">
-                                                @foreach($cities as $city)
-                                                    <option value="{{$city->id}}" {{$subCategory->city_id==$city->id ?'selected':''}} disabled>{{$city->name_ar}}</option>
-                                                @endforeach
-
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                        <label for="company">العنوان</label>
-                                        <input type="text" name="address"class="form-control view" id="name_ar" value="{{$subCategory->address}}"disabled>
-                                    </div>
-                                        <div class="form-group">
-                                        <label for="company">الموقع الجعرافى</label>
-                                        <input type="text" name="address"class="form-control view" id="name_ar" value="{{$subCategory->location}}"disabled>
-                                    </div>
-                                        <div class="form-group">
-                                        <label for="company">latitude</label>
-                                        <input type="text" name="lat"class="form-control view" id="name_ar" value="{{$subCategory->lat}}"disabled>
-                                    </div>
-                                        <div class="form-group">
-                                        <label for="company">longitude</label>
-                                        <input type="text" name="lng"class="form-control view" id="name_ar" value="{{$subCategory->lng}}"disabled>
+                                        <img src="{{$subCategory->image}}" style="width: 100px; height: 100px">
                                     </div>
 
-                                        <div class="form-group">
-                                            <label for="company">نطاق التشغيل</label>
-                                            <div class="input-group">
-                                                <input type="text"name="price" class="form-control view" value="{{$subCategory->range}}" disabled >
-                                                <span class="input-group-addon"> كيلومتر</i>
-                                                </span>
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label for="country">سعر التوصيل  </label>
-                                            <div class="input-group">
-                                                <input type="text"name="price" class="form-control view" value="{{$subCategory->price}}" disabled >
-                                                <span class="input-group-addon"> ريال</i>
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="approximate_duration">  المده التقريبيه للغسيل </label>
-                                            <div class="input-group">
-                                                <input type="text"name="approximate_duration" class="form-control view"  value="{{$subCategory->approximate_duration}}" disabled >
-                                                <span class="input-group-addon"> ساعه</i>
-                                                </span>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group">
-                                        <label for="company">تاريخ الاضافه</label>
-                                        <input type="text" name="address"class="form-control view" id="name_ar" value="{{$subCategory->created_at->format('y-m-d')}}"disabled>
+                                    <div class="form-group">
+                                        <label for="country">صوره الشعار</label>
+                                        <input type="file" name="image"class="form-control" id="image" placeholder="Country name">
                                     </div>
-                                        <div class="form-group">
-                                        <label for="company">مواعيد الدوام</label>
-                                            @if($subCategory->around_clock ==1)
-                                        <input type="text" name="address"class="form-control view" id="name_ar" value="طوال اليوم"disabled>
-                                            @else
-                                        <input type="text" name="address"class="form-control view" id="name_ar" value="{{abs($hours=((int)$subCategory->clock_end)-((int)$subCategory->clock_at))}}"disabled>
+                                @endif
 
-                                            @endif
-                                    </div>
-                                </div>
                             </div>
-                        </div>
-                        @foreach($subCategory->userTrashed as $admin )
-                        <div class="col-md-6">
-                            <div class="card">
-
-                                <div class="card-header">
-                                    <strong> عرض تفاصيل الأدمن </strong>
-                                </div>
-                                <div class="card-block">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="disabled-input">الصلاحيه </label>
-                                            <div class="col-md-9">
-                                                <input type="text" id="disabled-input" name="disabled-input" class="form-control view" placeholder="مدير المغسله" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="text-input">الأسم الأول</label>
-                                            <div class="col-md-9">
-                                                <input type="text" id="text-input" name="name" class="form-control view" value="{{$admin->name}}"disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="text-input">الأسم الأخير</label>
-                                            <div class="col-md-9">
-                                                <input type="text" id="text-input" name="last_name" class="form-control view" value="{{$admin->last_name}}"disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="email-input">البريد الألكترونى </label>
-                                            <div class="col-md-9">
-                                                <input type="email" id="email-input" name="email" class="form-control view" value="{{$admin->email}}"disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
-                                            <div class="col-md-9">
-                                                <input type="text" id="phone" name="phone" class="form-control view"value="{{$admin->phone}}"disabled>
-                                            </div>
-                                        </div>
-                                </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <strong>اضافه أدمن </strong>
                             </div>
+
+                            <div class="form-group ">
+                                <label >الأسم الأول</label>
+                                <input type="text" id="text-input" name="name" class="form-control" value="{{$subCategory->userTrashed[0]->name ??''}}"disabled>
+
+                            </div>
+                            <div class="form-group ">
+                                <label  for="text-input">الأسم الأخير</label>
+                                <input type="text" id="text-input" name="last_name" class="form-control"value="{{$subCategory->userTrashed[0]->last_name ??''}}"disabled>
+
+                            </div>
+
+                            <div class="form-group ">
+                                <label  for="email-input">البريد الألكترونى </label>
+                                <input type="email" id="email-input" name="email" class="form-control" value="{{$subCategory->userTrashed[0]->email ??''}}"disabled>
+
+                            </div>
+                            <div class="form-group ">
+                                <label  for="text-input">الجوال </label>
+                                <input type="text" id="phone" name="phone" class="form-control"  value="{{$subCategory->userTrashed[0]->phone ??''}}"maxlength="10"disabled>
+
+                            </div>
+
+                            </form>
                         </div>
-                        @endforeach
-                        <div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
+            <!-- /Bootstrap Validation -->
 @endsection
+@push('scripts')
 
+@endpush

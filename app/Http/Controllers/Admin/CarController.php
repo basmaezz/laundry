@@ -20,8 +20,22 @@ class CarController extends Controller
             $data = CarType::get();
             return   Datatables::of($data)
                 ->addColumn('action', function ($row) {
-                    return '<a href="' . Route('car.edit', $row->id) . '"  class="edit btn btn-primary btn-sm" style="width: 18px;height: 20px;" ><i class="fa fa-edit"></i></a>
-             <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal"style="width: 18px;height: 20px;" ><i class="fa fa-trash"></i></a>';
+                    return '
+                              <div class="dropdown">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="' . Route('car.edit', $row->id) . '">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>Edit</span>
+                                    </a>
+                                    <a class="dropdown-item" id="deleteBtn" data-id="' . $row->id . '"  data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>Delete</span>
+                                    </a>
+                                </div>
+                            </div>  ';
                 })
                 ->rawColumns(['action'])
                 ->make(true);

@@ -11,7 +11,7 @@
 
                             <div class="card-header">
                                 <i class="fa fa-align-justify"></i> الصلاحيات
-                                <a href="{{route('roles.create')}}" class="btn btn-primary custom" style="float: left; max-height:35px !important; max-width:55px !important;">اضافه </a>
+                                <a href="{{route('roles.create')}}" class="btn btn-primary" >اضافه </a>
 
                             </div>
                             <div class="card-block">
@@ -31,9 +31,9 @@
                                             <td>{{$role->role}}</td>
                                             <td>{{$role->users_count}}</td>
                                             <td>
-                                                <a href="{{route('roles.edit',$role->id)}}" class="btn btn-info "style="float: left; max-height:35px !important; max-width:55px !important;">تعديل</a>
+                                                <a href="{{route('roles.edit',$role->id)}}" class="btn btn-info ">تعديل</a>
                                                 @if($role->id!=1)
-                                                <a href="{{route('roles.destroy',$role->id)}}" class="btn btn-danger"style="float: left; max-height:35px !important; max-width:55px !important;">حذف</a>
+                                                <a href="{{route('roles.destroy',$role->id)}}" class="btn btn-danger">حذف</a>
                                                 @endif
                                             </td>
                                         </tr>

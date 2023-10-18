@@ -31,7 +31,7 @@
                                             <th> سعر المستعجل</th>
                                             @endif
                                             <th> العموله</th>
-                                          <th>الاجراءات</th>
+                                          <th></th>
                                         </tr>
                                         </thead>
                                         @if($product->productService->count() >0)
@@ -46,8 +46,8 @@
                                                 @endif
                                                     <td>{{$service->commission}}</td>
                                                     <td>
-                                                        <a href="{{route('product.editService',$service->id)}}" class="btn btn-primary "style=" max-height: 35px; max-width:50px">تعديل</a>
-                                                        <a href="{{route('product.deleteProductService',$service->id)}}" class="btn btn-danger "style=" max-height: 35px; max-width:50px">حذف</a>
+                                                        <a href="{{route('product.editService',$service->id)}}" class="btn btn-primary ">تعديل</a>
+                                                        <a href="{{route('product.deleteProductService',$service->id)}}" class="btn btn-danger ">حذف</a>
                                                     </td>
                                             </tr>
                                         @endforeach

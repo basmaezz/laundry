@@ -57,13 +57,13 @@ class ProductController extends Controller
 
     public function edit($id)
     {
+
         $product = Product::with(['productService', 'productImages','subcategoryTrashed'])->find($id);
         return  view('dashboard.products.edit', compact('product'));
     }
 
     public function update(Request $request)
     {
-
 //
 //        $this->validate(
 //            $request,

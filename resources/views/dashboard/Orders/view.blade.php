@@ -1,7 +1,6 @@
 @extends('../layouts.app')
 @section('content')
     <main class="main" style="margin-top: 25px">
-
     <div>
             <div class="animated fadeIn">
                 <div class="row">

@@ -1,44 +1,56 @@
-@extends('../layouts.app')
+@extends('layouts.dataTable-app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
-        <div >
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
             <nav aria-label="breadcrumb" class="navBreadCrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
                     <li class="breadcrumb-item active" aria-current="page">السيارات   </li>
                 </ol>
             </nav>
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fa fa-align-justify"></i>
-                        <a href="{{route('car.create')}}" class="btn btn-primary custom" style="float: left; width: 100px; height: 35px " >اضافه سياره</a>
-                    </div>
-                    <div class="card-block">
-                        <table class="table table-striped" id="carsTable">
-                            <thead>
-                            <tr>
-                                <th>الأسم</th>
-                                <th>الأسم بالانجليزيه</th>
-                                <th> </th>
-                            </tr>
-                            </thead>
 
-                        </table>
+        </div>
+        <div class="content-body">
 
+            <section id="multilingual-datatable">
+
+                <div class="row">
+                    <div class="col-10">
+                        <div class="card invoice-list-wrapper">
+                            <a href="{{route('car.create')}}" class="btn btn-primary" style="width: 130px" >اضافه سياره</a>
+
+                            <div class="card-datatable table-responsive">
+                                <table class="productTable table" id="carsTable">
+                                    <thead>
+                                    <tr>
+                                        <th>الأسم</th>
+                                        <th>الأسم بالانجليزيه</th>
+                                        <th> </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
+            <!--/ Multilingual -->
+
         </div>
-    </main>
+    </div>
 @endsection
-@push('javascripts')
+
+@push('scripts')
     <script type="text/javascript">
-        $(window).on('load', function() {
+        $(document).ready(function(){
             $('#carsTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ Route('cars.index') }}",
+                ordering:false,
+                ajax: "{{ route('cars.index') }}",
+
                 columns: [{
                     data: 'name_ar',
                     name: 'name_ar'
@@ -74,4 +86,3 @@
     </script>
 
 @endpush
-

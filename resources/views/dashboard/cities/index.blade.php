@@ -1,44 +1,56 @@
-@extends('../layouts.app')
+@extends('layouts.dataTable-app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
-        <div >
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
             <nav aria-label="breadcrumb" class="navBreadCrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">البلاد   </li>
+                    <li class="breadcrumb-item active" aria-current="page">المدن   </li>
                 </ol>
             </nav>
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fa fa-align-justify"></i>
-                        <a href="{{route('city.create')}}" class="btn btn-primary custom" style="float: left; width: 100px; height: 35px " >اضافه مدينه</a>
-                    </div>
-                    <div class="card-block">
-                        <table class="table table-striped" id="cityTable">
-                            <thead>
-                            <tr>
-                                <th>الأسم</th>
-                                <th>الأسم بالانجليزيه</th>
-                                <th> </th>
-                            </tr>
-                            </thead>
 
-                        </table>
+        </div>
+        <div class="content-body">
 
+            <section id="multilingual-datatable">
+
+                <div class="row">
+                    <div class="col-10">
+                        <div class="card invoice-list-wrapper">
+                            <a href="{{route('city.create')}}" class="btn btn-primary custom" style="width: 130px" >اضافه مدينه</a>
+
+                            <div class="card-datatable table-responsive">
+                                <table class="productTable table" id="citiesTable">
+                                    <thead>
+                                    <tr>
+                                        <th>الأسم</th>
+                                        <th>الأسم بالانجليزيه</th>
+                                        <th> </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
+            <!--/ Multilingual -->
+
         </div>
-    </main>
+    </div>
 @endsection
-@push('javascripts')
+
+@push('scripts')
     <script type="text/javascript">
-        $(window).on('load', function() {
-            $('#cityTable').DataTable({
+        $(document).ready(function(){
+            $('#citiesTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ Route('cities.index') }}",
+                ordering:false,
+                ajax: "{{ route('cities.index') }}",
+
                 columns: [{
                     data: 'name_ar',
                     name: 'name_ar'
@@ -50,7 +62,7 @@
                     name: 'action',
                     orderable: false,
                     searchable: false
-                    },
+                },
 
                 ]
             });
@@ -58,7 +70,6 @@
         $('body').on('click', '#deleteBtn', function () {
             if (confirm("هل تريد اتمام الحذف ؟") == true) {
                 var id = $(this).data('id');
-
                 window.location.reload();
                 $.ajax({
                     type:"get",
@@ -66,7 +77,7 @@
                     dataType: 'json',
                     data: { id: id},
                     success: function(res){
-                        var oTable = $('#cityTable').dataTable();
+                        var oTable = $('#citiesTable').dataTable();
                         oTable.fnDraw(false);
                     }
                 });
@@ -75,4 +86,3 @@
     </script>
 
 @endpush
-

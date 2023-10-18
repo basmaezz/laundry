@@ -1,59 +1,66 @@
-@extends('../layouts.app')
+@extends('layouts.dataTable-app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
-    <div >
-        <nav aria-label="breadcrumb" class="navBreadCrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item active" aria-current="page">الأدمن   </li>
-            </ol>
-        </nav>
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-align-justify"></i>
-                    <a href="{{route('user.create')}}" class="btn btn-primary custom" style="float: left; width: 100px; height: 35px " >اضافه أدمن</a>
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+
+
+        </div>
+        <div class="content-body">
+
+            <section id="multilingual-datatable">
+
+                <a href="{{route('user.create')}}" class="btn btn-primary " style=" width: 100px; height: 35px ; margin-right: 1377px; " >اضافه أدمن</a>
+
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="card invoice-list-wrapper">
+                            <div class="card-datatable table-responsive">
+                                <table class="productTable table" id="adminTable">
+                                    <thead>
+                                    <tr>
+                                        <th>الرقم</th>
+                                        <th>الأسم</th>
+                                        <th>الأسم الأخير</th>
+                                        <th>البريد الألكترونى</th>
+                                        <th>الجوال</th>
+                                        <th>الصلاحيه</th>
+                                        <th>الأجراءات</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-block">
-                    <table class="table table-striped" id="table_id">
-                        <thead>
-                        <tr>
-                            <th>الرقم</th>
-                            <th>الأسم</th>
-                            <th>الأسم الأخير</th>
-                            <th>البريد الألكترونى</th>
-                            <th>الجوال</th>
-                            <th>الصلاحيه</th>
+            </section>
+            <!--/ Multilingual -->
 
-                            <th>الأجراءات</th>
-                        </tr>
-                        </thead>
-
-                    </table>
-
-                </div>
-            </div>
         </div>
     </div>
-    </main>
 @endsection
-@push('javascripts')
+
+@push('scripts')
     <script type="text/javascript">
-        $(function() {
-            var table = $('#table_id').DataTable({
+        $(document).ready(function(){
+            $('#adminTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ Route('users.index') }}",
+                ordering:false,
+                ajax: "{{ route('users.index') }}",
+
                 columns: [{
                     data: 'id',
                     name: 'id'
                 },{
-                        data: 'name',
-                        name: 'name'
-                    },{
-                        data: 'last_name',
-                        name: 'last_name'
-                    },
+                    data: 'name',
+                    name: 'name'
+                },{
+                    data: 'last_name',
+                    name: 'last_name'
+                },
                     {
                         data: 'email',
                         name: 'email'

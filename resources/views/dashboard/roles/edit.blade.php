@@ -1,34 +1,33 @@
 @extends('../layouts.app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
-    <div>
-            <div class="animated fadeIn">
-                <div class="row">
+    <div class="content-body">
+        <section class="bs-validation">
+            <div class="row">
+                <!-- Bootstrap Validation -->
+                <div class="col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">اضافه صلاحيه جديد</h4>
+                        </div>
+                        <div class="card-body">
 
-                    <form method="post" action="{{route('roles.update',$role->id)}}">
-                        @csrf
-                        <div class="col-sm-6">
-
-                            <div class="card">
-                                <div class="card-header">
-                                    <strong> تعديل صلاحيه</strong>
+                            <form method="post" action="{{route('roles.update',$role->id)}}">
+                                @csrf
+                                <div class="form-group">
+                                    <label class="form-label" for="basic-addon-name">اسم الصلاحيه </label>
+                                    <input type="hidden"  name="id" class="form-control" value="{{$role->id}}" >
+                                    <input type="text"  name="role" class="form-control" value="{{$role->role}}" >
+                                    @if ($errors->has('role'))
+                                        <span class="text-danger">{{ $errors->first('role') }}</span>
+                                    @endif
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">رجاء ادخل اسم الصلاحيه </div>
                                 </div>
-                                <div class="card-block">
-
+                                <div class="form-group">
                                     <div class="form-group">
-                                        <label class="col-md-3 form-control-label" for="hf-email">اسم الصلاحيه</label>
+                                        <label class="form-label" for="basic-addon-name"> الصلاحيات </label>
+                                        <div class="custom-control custom-checkbox">
 
-                                        <input type="hidden"  name="id" class="form-control" value="{{$role->id}}" >
-                                        <input type="text"  name="role" class="form-control" value="{{$role->role}}" >
-                                        @if ($errors->has('role'))
-                                            <span class="text-danger">{{ $errors->first('role') }}</span>
-                                        @endif
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="company" >الصلاحيات</label>
-                                        <div class="form-check">
                                             @foreach(config('abilities') as $ability =>$label)
                                                 <label class="form-control check-ability-label">
                                                     <input type="checkbox" id="inline-checkbox1" name="abilities[]" value="{{$ability}}"@if(in_array($ability,($role->abilities ??[]))) checked @endif>{{$label}}
@@ -36,23 +35,16 @@
                                                 </label>
                                             @endforeach
                                         </div>
-                                        @if ($errors->has('abilities'))
-                                            <span class="text-danger">{{ $errors->first('abilities') }}</span>
-                                        @endif
                                     </div>
-
                                 </div>
-                            </div>
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-sm btn-info "style=" max-height:30px !important; max-width:55px !important;"><i class="fa fa-dot-circle-o"></i> حفظ</button>
-                                <a href="{{URL::previous()}}" class="btn btn-sm btn-danger  "style=" max-height:30px !important; max-width:40px !important;">الغاء</a>
-                            </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </main>
-
+                <!-- /Bootstrap Validation -->
 @endsection
-

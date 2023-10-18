@@ -28,7 +28,7 @@
 {{--                                        <th>رقم الهويه الوطنيه/الاقامه </th>--}}
 {{--                                        <th> الحاله</th>--}}
 {{--                                        <th>تاريخ الالتحاق </th>--}}
-{{--                                        <th>الاجراءات</th>--}}
+{{--                                        <th></th>--}}
 {{--                                    </tr>--}}
 {{--                                    </thead>--}}
 {{--                                    <tbody>--}}
@@ -71,7 +71,7 @@
 {{--    </main>--}}
 
 {{--@endsection--}}
-{{--@push('javascripts')--}}
+{{--@push('scripts')--}}
 {{--    <script type="text/javascript">--}}
 {{--        $(function() {--}}
 {{--            var table = $('#table_id').DataTable({--}}
@@ -256,7 +256,7 @@
                                 <th>رقم الهويه الوطنيه/الاقامه </th>
                                 <th> الحاله</th>
                                 <th>تاريخ الالتحاق </th>
-                                <th>الاجراءات</th>
+                                <th></th>
                             </tr>
                             </thead>
 
@@ -269,7 +269,7 @@
     </main>
 
 @endsection
-@push('javascripts')
+@push('scripts')
     <script type="text/javascript">
         $(function() {
             var table = $('#table_id').DataTable({

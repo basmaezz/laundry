@@ -16,7 +16,7 @@
 
                                 <div class="card-header">
                                     <i class="fa fa-align-justify"></i> الأقسام
-                                    <a href="{{route('CategoryItems.create',$subCategory->id)}}" class="btn btn-primary custom" style="float: left; max-height: 35px; max-width:100px">اضافه قسم</a>
+                                    <a href="{{route('CategoryItems.create',$subCategory->id)}}" class="btn btn-primary " style="float: left; max-height: 35px; max-width:100px">اضافه قسم</a>
                                 </div>
                                 <div class="card-block">
                                     <table class="table table-striped">
@@ -36,12 +36,12 @@
                                                 <td>{{$categoryItem->category_type_en}} </td>
                                                 <td>{{$categoryItem->category_type_franco}} </td>
                                                 <td>
-                                                    <a href="{{route('product.create',$categoryItem->id)}}" class="btn btn-primary  custom"style="max-height: 35px; max-width:100px">اضافه قطعه</a>
+                                                    <a href="{{route('product.create',$categoryItem->id)}}" class="btn btn-primary  ">اضافه قطعه</a>
 
-                                                    <a href="{{route('CategoryItems.show',$categoryItem->id)}}" class="btn btn-info custom"style="max-height: 35px; max-width:100px">عرض  القطع </a>
+                                                    <a href="{{route('CategoryItems.show',$categoryItem->id)}}" class="btn btn-info ">عرض  القطع </a>
 
-                                                    <a href="{{route('CategoryItems.edit',$categoryItem->id)}}"class="edit btn btn-primary btn-sm" style="max-height: 30px !important;max-width: 30px !important;"><i class="fa fa-edit"></i></a>
-                                                    <a href="{{route('CategoryItems.destroy',$categoryItem->id)}}" class="edit btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    <a href="{{route('CategoryItems.edit',$categoryItem->id)}}"class="edit btn btn-primary " >تعديل</a>
+                                                    <a href="{{route('CategoryItems.destroy',$categoryItem->id)}}" class="edit btn btn-danger ">حذف</a>
                                                 </td>
                                             </tr>
 

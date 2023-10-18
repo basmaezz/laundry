@@ -1,43 +1,46 @@
 @extends('../layouts.app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
-        <nav aria-label="breadcrumb" class="navBreadCrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item active"><a href="#">الاشعارات</a></li>
-                <li class="breadcrumb-item active" aria-current="page">ارسال اشعار   </li>
-            </ol>
-        </nav>
-        <div class="col-md-9">
-            <div class="card">
-                <div class="card-header">
-                    <strong>ارسال اشعار للمناديب </strong>
-                </div>
-                <div class="card-block">
-                    <form method="post" action="{{route('notification.store')}}" >
-                        @csrf
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">عنوان الاشعار بالعربيه /عنوان الاشعار بالانجليزيه  </label>
-                            <div class="col-md-9">
-                               <input type="text" name="title_ar" class="form-control" >
-                            </div>
+    <div class="content-body">
+        <section class="bs-validation">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">ارسال اشعار للمناديب</h4>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">نص الاشعار بالعربيه/ نص الاشعار باللغه الانجليزيه </label>
-                            <div class="col-md-9">
-                                <textarea class="form-control" name="content_ar" required></textarea>
-                            </div>
-                        </div>
+                        <div class="card-body">
+                            <form method="post" action="{{route('notification.store')}}" >
+                                @csrf
 
-                        <div class="card-footer">
-                           <button type="submit" class="btn btn-sm btn-info" style="max-height:30px !important;max-width:80px !important;"><i class="fa fa-dot-circle-o"></i> ارسال</button>
-                            <a href="{{route('coupons.index')}}" class="btn btn-sm btn-danger">الغاء </a>
-                        </div>
 
-                    </form>
+                                <div class="row">
+                                    <div class="form-group col-md-10">
+                                        <label class="form-label" for="username">عنوان الاشعار / عنوان الاشعار بالانجليزيه</label>
+                                        <input type="text" name="title_ar" class="form-control" >
+                                        @if ($errors->has('title_ar'))
+                                            <span class="text-danger">{{ $errors->first('title_ar') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-10">
+                                        <label class="form-label" for="username">نص الاشعار / نص الاشعار بالانجليزيه</label>
+                                        <input type="text" name="content_ar" class="form-control " >
+                                        @if ($errors->has('content_ar'))
+                                            <span class="text-danger">{{ $errors->first('content_ar') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">ارسال</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </main>
-@endsection
+                <!-- /Bootstrap Validation -->
+                @endsection
 

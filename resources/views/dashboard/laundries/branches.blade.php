@@ -38,7 +38,7 @@
     </main>
 
 @endsection
-@push('javascripts')
+@push('scripts')
     <script type="text/javascript">
         $(function() {
             var id= document.getElementById('laundry_id').value;

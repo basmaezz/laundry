@@ -1,79 +1,132 @@
 @extends('../layouts.app')
 @section('content')
-    <main class="main" style="margin-top: 25px">
-        <nav aria-label="breadcrumb" class="navBreadCrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                <li class="breadcrumb-item active"><a href="#">الاشعارات</a></li>
-                <li class="breadcrumb-item active" aria-current="page">ارسال اشعار   </li>
-            </ol>
-        </nav>
-        <div class="col-md-9">
-            <div class="card">
-                <div class="card-header">
-                    <strong>ارسال اشعار للعملاء  </strong>
+    <div class="content-body">
+        <section class="bs-validation">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">ارسال اشعار للعملاء</h4>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="{{route('notification.storeCustomerNotification')}}" >
+                                @csrf
+
+                                <div class="row">
+                                    <label class="form-label" for="username">الفئه</label>
+                                    <div class="demo-inline-spacing">
+
+                                            <input type="radio" id="all" name="selectCategory" value="all" onchange="hideAll()" checked>
+                                                <label for="html">كل العملاء</label><br>
+                                            <input type="radio" id="specificCustomers" name="selectCategory" value="customers" onchange="selectCustomers()">
+                                                <label for="html">فئه محدده</label><br>
+                                        <input type="radio" id="selectCustomer" name="selectCategory" value="customer" onchange="viewCustomerSearch()">
+                                                <label for="html">عميل محدد</label><br>
+                                    </div>
+                                </div>
+                              <br>
+                                <div class="row">
+                                    <div class="form-group col-md-10">
+                                        <label class="form-label" for="username">عنوان الاشعار / عنوان الاشعار بالانجليزيه</label>
+                                        <input type="text" name="title_ar" class="form-control" >
+                                        @if ($errors->has('name_ar'))
+                                            <span class="text-danger">{{ $errors->first('name_ar') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="specificCustomers" style="display: none" id="specificCustomersInputs">
+                                    <div class="row" >
+                                        <div class="form-group col-md-10" >
+                                            <label>المدينه</label>
+                                            <div class="form-group">
+                                                <select class="select2 form-control" multiple="multiple" id="default-select-multi" name="cities[]">
+                                                    @foreach($cities as $city)
+                                                        <option value="{{$city->id}}">{{$city->name_ar}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="form-label" for="username">الجنس</label>
+                                        <div class="demo-inline-spacing">
+
+                                            <input type="radio" id="all" name="gender" value="all" >
+                                            <label for="html"> الكل</label><br>
+                                            <input type="radio" id="specificCustomers" name="gender" value="m" >
+                                            <label for="html"> ذكر</label><br>
+                                            <input type="radio" id="selectCustomer" name="gender" value="f" >
+                                            <label for="html"> أنثى</label><br>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div style="display: none" id="selectCustomerInput" >
+                                    <div class="row" >
+                                        <div class="col-md-10 mb-1">
+                                            <label>العملاء</label>
+                                            <select class="select2 form-control form-control-lg" name="app_user_id">
+                                                <option value="0">اختر عميل</option>
+                                                @foreach($customers as $customer)
+                                                    <option value="{{$customer->id}}">{{$customer->mobile}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="row">
+                                    <div class="form-group col-md-10">
+                                        <label class="form-label" for="username">نص الاشعار / نص الاشعار بالانجليزيه</label>
+                                        <input type="text" name="content_ar" class="form-control " >
+                                        @if ($errors->has('content_ar'))
+                                            <span class="text-danger">{{ $errors->first('content_ar') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">ارسال</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-block">
-                    <form method="post" action="{{route('notification.storeCustomerNotification')}}" >
-                        @csrf
-
-                        <div class="form-group row">
-                            <input type="checkbox" id="inline-checkbox1" name="allCities" value="1" > كل المدن
-                            <label class="col-md-3 form-control-label" for="text-input">المدينه  </label>
-                            <div class="col-md-9">
-
-                                <select id="choices-multiple-remove-button" name="city_id[]"  multiple>
-
-                                    @foreach($cities as $city)
-                                        <option value="{{$city->id}}">{{$city->name_ar}}</option>
-                                    @endforeach
-                                    @error('city_id')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">النوع  </label>
-                            <div class="col-md-9">
-                                <input type="radio" id="html" name="fav_language" value="all">
-                                <label for="html">الكل</label>
-                                <input type="radio" id="html" name="fav_language" value="m">
-                                <label for="html">ذكر</label>
-                                <input type="radio" id="html" name="fav_language" value="f">
-                                <label for="html">أنثى</label>
-                                @error('gender')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">عنوان الاشعار بالعربيه /عنوان الاشعار بالانجليزيه  </label>
-                            <div class="col-md-9">
-                                <input type="text" name="title_ar" class="form-control" >
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">نص الاشعار بالعربيه/ نص الاشعار باللغه الانجليزيه </label>
-                            <div class="col-md-9">
-                                <textarea class="form-control" name="content_ar" required></textarea>
-                            </div>
-                        </div>
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-sm btn-info" style="max-height:30px !important;max-width:80px !important;"><i class="fa fa-dot-circle-o"></i> ارسال</button>
-                            <a href="{{route('coupons.index')}}" class="btn btn-sm btn-danger">الغاء </a>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-    </main>
+                <!-- /Bootstrap Validation -->
 @endsection
-
 @push('scripts')
+    <script type="text/javascript">
+        function hideAll()
+        {
+            let specificCustomersInputs= document.getElementById('specificCustomersInputs');
+            (specificCustomersInputs.style.display ==="block") ?specificCustomersInputs.style.display ="none" :'';
+            let selectCustomerInput= document.getElementById('selectCustomerInput');
+            (selectCustomerInput.style.display ==="block") ?selectCustomerInput.style.display ="none" :'';
+        }
 
-@endpush
+        function selectCustomers()
+        {
+            let specificCustomersInputs= document.getElementById('specificCustomersInputs');
+            let selectCustomer= document.getElementById('selectCustomer');
+            (specificCustomersInputs.style.display ==="none") ?specificCustomersInputs.style.display ="block" :'';
+            (selectCustomer.style.display ==="block") ?selectCustomer.style.display ="none" :'';
+        }
+
+        function viewCustomerSearch()
+        {
+            let specificCustomersInputs= document.getElementById('specificCustomersInputs');
+            (specificCustomersInputs.style.display ==="block") ?specificCustomersInputs.style.display ="none" :'';
+            let selectCustomerInput= document.getElementById('selectCustomerInput');
+            (selectCustomerInput.style.display ==="none") ?selectCustomerInput.style.display ="block" :'';
+
+        }
+
+    </script>
+
+
+    @endpush

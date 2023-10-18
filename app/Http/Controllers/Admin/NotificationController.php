@@ -16,11 +16,25 @@ class NotificationController extends Controller
 
     public function index()
     {
+        $data=Notifications::all()->unique('title_ar')->whereIn('type',['customer','delivery'])->toArray();
         if(request()->ajax()) {
             $data=Notifications::all()->unique('title_ar')->whereIn('type',['customer','delivery'])->toArray();
+
             return   Datatables::of($data)
+
               ->addColumn('action', function ($row) {
-                    return '<a href="' . Route('laundries.view', $row['id']) . '"  class="edit btn btn-info btn-sm" style="max-height: 20px !important; max-width: 70px !important;" >اعاده ارسال</a>';
+                    return ' <div class="dropdown" style="margin-right: -58px;">
+                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu" style="margin-right: -58px;">
+                                    <a class="dropdown-item" href="' . Route('notification.viewCustomerNotification', $row['id']) . '">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>
+
+                                </div>
+                            </div>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -59,34 +73,89 @@ class NotificationController extends Controller
     public function customerNotification()
     {
         $cities=City::all();
-        return view('dashboard.notifications.customerNotification',compact('cities'));
+        $customers=AppUser::where('user_type',"customer")->get();
+        return view('dashboard.notifications.customerNotification',compact('cities','customers'));
     }
 
     public function storeCustomerNotification(Request $request)
     {
-       foreach ($request->city_id as $city){
-           $customers = AppUser::where([
-               'user_type' => 'customer',
-               'city_id'=>$city,
-               'gender'=>$request->gender?$request->gender:'',
-           ])->get();
-       };
-        foreach ($customers as $user) {
-            Notifications::create([
-                'title_ar'=>$request->title_ar,
-                'content_ar'=>$request->content_ar,
-                'app_user_id'=>$user->id,
-                'type'=>$user->user_type
-            ]);
+
+        $result=[];
+        switch ($request->selectCategory){
+            case('all');
+                $customers = AppUser::where('user_type', 'customer')->get();
+
+                foreach ($customers as $customer){
+                    Notifications::create([
+                        'title_ar'=>$request->title_ar,
+                        'content_ar'=>$request->content_ar,
+                        'app_user_id'=>$customer->id,
+                        'type'=>$customer->user_type
+                    ]);
+                    \App\Http\Controllers\API\NotificationController::sendNotification(
+                        $request->title_ar,
+                        $request->content_ar,
+                        $customer,
+                    );
+                }
+            break;
+            case('customers');
+                if($request->gender!='all'){
+                    foreach($request->cities as $city){
+                        $customers = AppUser::where('user_type', 'customer')->where('city_id',$city)->where('gender',$request->gender)->get();
+                        array_push($result, $customers);
+                    }
+                }else{
+                    foreach($request->cities as $city){
+                        $customers = AppUser::where('user_type', 'customer')->where('city_id',$city)->get();
+                        array_push($result, $customers);
+                    }
+                }
+
+
+                foreach ($result as $customers) {
+                    foreach ($customers as $customer){
+                        Notifications::create([
+                            'title_ar'=>$request->title_ar,
+                            'content_ar'=>$request->content_ar,
+                            'app_user_id'=>$customer->id,
+                            'type'=>$customer->user_type
+                        ]);
+                        \App\Http\Controllers\API\NotificationController::sendNotification(
+                            $request->title_ar,
+                            $request->content_ar,
+                            $customer,
+                        );
+                    }
+                }
+            break;
+            case('customer');
+                $customer = AppUser::where('id',$request->app_user_id)->first();
+                Notifications::create([
+                    'title_ar'=>$request->title_ar,
+                    'content_ar'=>$request->content_ar,
+                    'app_user_id'=>$customer->id,
+                    'type'=>$customer->user_type
+                ]);
+                \App\Http\Controllers\API\NotificationController::sendNotification(
+                    $request->title_ar,
+                    $request->content_ar,
+                    $customer,
+                );
+            break;
         }
-        foreach ($customers as $user) {
-            \App\Http\Controllers\API\NotificationController::sendNotification(
-                $request->title_ar,
-                $request->content_ar,
-                $user,
-            );
-        }
+
+
+
+
         return redirect()->route('notification.index');
+
+    }
+    public function viewCustomerNotification($id)
+    {
+      $notification=Notifications::find($id);
+      $count=Notifications::select('*')->where('title_ar',$notification->title_ar)->whereIn('type',['customer','delivery'])->count();
+        return view('dashboard.notifications.viewCustomerNotification',compact('notification', 'count'));
 
     }
     public function sendNotification(Request $request)
