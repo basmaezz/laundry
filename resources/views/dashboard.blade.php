@@ -110,7 +110,7 @@
                                         <i data-feather="package" class="font-medium-5"></i>
                                     </div>
                                 </div>
-                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::select('*')->whereMonth('created_at', \Carbon\Carbon::now()->month)->count()}}</h2>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::select('*')->Where('status_id','!=',10)->whereMonth('created_at', \Carbon\Carbon::now()->month)->count()}}</h2>
                                 <p class="card-text">اجمالى الطلبات الشهريه </p>
                             </div>
                             <div id="order-chart"></div>
@@ -124,7 +124,7 @@
                                         <i data-feather="package" class="font-medium-5"></i>
                                     </div>
                                 </div>
-                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::select('*')->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('laundry_profit')}}</h2>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::select('*')->Where('status_id','!=',10)->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('laundry_profit')}}</h2>
                                 <p class="card-text">اجمالى ربح المغاسل لشهر {{\Carbon\Carbon::now()->monthName}} </p>
                             </div>
                             <div id="order-chart"></div>
@@ -138,21 +138,14 @@
                                         <i data-feather="package" class="font-medium-5"></i>
                                     </div>
                                 </div>
-                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::select('*')->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('app_profit')}}</h2>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::select('*')->Where('status_id','!=',10)->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('app_profit')}}</h2>
                                 <p class="card-text">اجمالى ربح التطبيق لشهر {{\Carbon\Carbon::now()->monthName}} </p>
                             </div>
                             <div id="order-chart"></div>
                         </div>
                     </div>
-                    <!-- Orders Chart Card ends -->
                 </div>
-
-
             </section>
-            <!-- Dashboard Analytics end -->
-
         </div>
     </div>
-
-
 @endsection

@@ -40,7 +40,7 @@ class subCategoryController extends Controller
             abort(403);
         };
         if(request()->ajax()) {
-            $data = Subcategory::with(['city', 'parentTrashed'])->orderBy('id', 'DESC')->orderBy('id', 'DESC')->get();
+            $data = Subcategory::with(['city', 'parentTrashed'])->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($row) {
@@ -74,8 +74,8 @@ class subCategoryController extends Controller
                 ->addColumn('action', function ($row) {
                     $main='<a href="' . Route('laundries.branches', $row->id) . '"  class="edit btn btn-info btn-sm" style="max-height: 20px !important; max-width: 28px !important;" >الفروع</a>';
                     $branch='  <div class="dropdown" style="margin-right: -58px;">
-                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                    <i data-feather="more-vertical"></i>
+                                <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
                                 </button>
                                 <div class="dropdown-menu" style="margin-right: -58px;">
                                     <a class="dropdown-item" href="' . Route('laundries.edit', $row->id) . '">
@@ -320,10 +320,7 @@ class subCategoryController extends Controller
              User::where('subCategory_id', $id)->update([
                  'password' => Hash::make($request->password)
              ]);
-
          }
-
-
         return  redirect()->route('laundries.index')->with('success', 'تم التعديل');
     }
 
@@ -335,7 +332,6 @@ class subCategoryController extends Controller
      */
     public function destroy(Request $request)
     {
-
         if (is_numeric($request->id)) {
             Subcategory::find($request->id)->delete();
             Subcategory::where('parent_id', $request->id)->delete();

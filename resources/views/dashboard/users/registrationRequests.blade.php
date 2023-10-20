@@ -1,13 +1,32 @@
 @extends('../layouts.app')
 @section('content')
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">لوحه التحكم</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="{{route('delegates.index')}}">المناديب</a>
+                            </li>
+                            <li class="breadcrumb-item active">طلبات التسجيل
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+            <div class="form-group breadcrumb-right">
+
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
     <main class="main" style="margin-top: 25px">
     <div>
-            <nav aria-label="breadcrumb" class="navBreadCrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">طلبات التسجيل    </li>
-                </ol>
-            </nav>
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">

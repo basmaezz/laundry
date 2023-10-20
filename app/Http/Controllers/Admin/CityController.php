@@ -28,17 +28,17 @@ class CityController extends Controller
                     return '
 
                       <div class="dropdown">
-                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                    <i data-feather="more-vertical"></i>
+                                   <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
                                 </button>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu"">
                                     <a class="dropdown-item" href="' . Route('city.edit', $row->id) . '">
                                         <i data-feather="edit-2" class="mr-50"></i>
-                                        <span>Edit</span>
+                                        <span>تعديل</span>
                                     </a>
                                     <a class="dropdown-item" id="deleteBtn" data-id="' . $row->id . '"  data-toggle="modal">
                                         <i data-feather="trash" class="mr-50"></i>
-                                        <span>Delete</span>
+                                        <span>حذف</span>
                                     </a>
                                 </div>
                             </div>';

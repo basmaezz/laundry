@@ -15,6 +15,7 @@
                                 <table class="productTable table" id="notificationsTable">
                                     <thead>
                                     <tr>
+                                        <th>الرقم  </th>
                                         <th>عنوان الاشعار </th>
                                         <th>نص الاشعار </th>
                                         <th>الفئه </th>
@@ -43,6 +44,9 @@
                 ordering:false,
                 ajax: "{{ Route('notification.index') }}",
                 columns: [{
+                    data: 'id',
+                    name: 'id'
+                },{
                     data: 'title_ar',
                     name: 'title_ar'
                 },{

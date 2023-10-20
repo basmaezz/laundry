@@ -16,19 +16,18 @@ class NotificationController extends Controller
 
     public function index()
     {
-        $data=Notifications::all()->unique('title_ar')->whereIn('type',['customer','delivery'])->toArray();
+
         if(request()->ajax()) {
             $data=Notifications::all()->unique('title_ar')->whereIn('type',['customer','delivery'])->toArray();
-
+            $data=array_reverse($data);
             return   Datatables::of($data)
-
               ->addColumn('action', function ($row) {
                     return ' <div class="dropdown" style="margin-right: -58px;">
-                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                    <i data-feather="more-vertical"></i>
+                               <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
                                 </button>
                                 <div class="dropdown-menu" style="margin-right: -58px;">
-                                    <a class="dropdown-item" href="' . Route('notification.viewCustomerNotification', $row['id']) . '">
+                                    <a class="dropdown-item" href="' . Route('notification.customerNotification', $row['id']) . '">
                                         <i data-feather="edit-2" class="mr-50"></i>
                                         <span>التفاصيل</span>
                                     </a>

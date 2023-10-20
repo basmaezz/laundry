@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Validator;
+use Yajra\DataTables\DataTables;
 
 class CategoryItemController extends Controller
 {
@@ -64,10 +65,45 @@ class CategoryItemController extends Controller
     public function show($id)
     {
         $subCategory=CategoryItem::find($id);
-
         $products=Product::where('category_item_id',$id)->with(['productService','productImages'])->get();
 
-        return  view('dashboard.CategoryItems.products',compact(['products','id','subCategory']));
+
+        if(request()->ajax()) {
+            $subCategory=CategoryItem::find($id);
+            $data=Product::where('category_item_id',$id)->with(['productService','productImages'])->get();
+            return   Datatables::of($data)
+                ->addColumn('image', function ($row) {
+                    $image=$row->image ;
+                    return '<img style="width:40px; height:40px" src="'. $image .'" />';
+                })->addColumn('action', function ($row) {
+                    return '
+                              <div class="dropdown">
+                               <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="' . Route('product.view', $row->id) . '">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>تعديل</span>
+                                    </a>
+                                     <a class="dropdown-item" href="' . Route('product.edit', $row->id) . '">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>تعديل</span>
+                                    </a>
+                                    <a class="dropdown-item" id="deleteBtn" data-id="' . $row->id . '"  data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>حذف</span>
+                                    </a>
+                                </div>
+                            </div>  ';
+                })
+                ->rawColumns(['image','action'])
+                ->make(true);
+        }
+//        return view('dashboard.cars.index');
+
+
+        return  view('dashboard.CategoryItems.products',compact(['id','subCategory']));
     }
 
     /**
@@ -110,9 +146,13 @@ class CategoryItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        CategoryItem::find($id)->delete();
+        dd($request->id);
+        if (is_numeric($request->id)) {
+            CategoryItem::find($request->id)->delete();
+            CategoryItem::where('id', $request->id)->delete();
+        }
         return  redirect()->back()->with('error', 'تم الحذف');
     }
 

@@ -1,60 +1,30 @@
-
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره استمارة السيارة</label>--}}
-{{--                                        <div class="col-md-9">--}}
-{{--                                            @if(pathinfo($delegate['car_registration'], PATHINFO_EXTENSION)=='pdf'||pathinfo($delegate['id_image'], PATHINFO_EXTENSION)=='docx')--}}
-{{--                                                <a href="{{$delegate->car_registration}}" download>--}}
-{{--                                                    Download--}}
-{{--                                                </a>--}}
-{{--                                            @else--}}
-{{--                                                <a href="{{$delegate->car_registration}}" download>--}}
-{{--                                                    <img src="{{$delegate->car_registration}}" style="width:200px;height:200px;padding:15px;border-radius:20px;" >--}}
-{{--                                                </a>--}}
-{{--                                            @endif--}}
-{{--                                                <input type="file" id="file-input" name="car_registration" class="form-control">--}}
-
-{{--                                        </div>--}}
-
-{{--                                    </div>--}}
-{{--                                   <div class="form-group row">--}}
-{{--                                        <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الفحص الطبى </label>--}}
-{{--                                       <div class="col-md-9">--}}
-
-{{--                                               <input type="file" id="medic_check" name="medicCheck" class="form-control">--}}
-
-{{--                                       </div>--}}
-
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="card-footer">--}}
-{{--                        <button type="submit" class="btn btn-sm btn-info custom"style="max-height: 28px !important; max-width: 55px !important;"><i class="fa fa-dot-circle-o"></i> حفظ</button>--}}
-{{--                        <a href="{{URL::previous()}}" class="btn btn-sm btn-danger"style="max-height: 28px !important; max-width: 40px !important;">الغاء </a>--}}
-{{--                    </div>--}}
-{{--                    </form>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-{{--        </div>--}}
-{{--    </main>--}}
-
-{{--@endsection--}}
-{{--<script>--}}
-{{--    function displayInput(){--}}
-{{--        console.log('test');--}}
-{{--        let nationality= document.getElementById('nationality');--}}
-{{--        (nationality.style.display ==="none") ?nationality.style.display ="block" :'';--}}
-{{--    }--}}
-{{--    function hideInput(){--}}
-{{--        let nationality= document.getElementById('nationality');--}}
-{{--        (nationality.style.display ==="block") ?nationality.style.display ="none" :'';--}}
-{{--    }--}}
-{{--</script>--}}
 @extends('layouts.app')
 @section('content')
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">لوحه التحكم</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="{{route('delegates.index')}}">المناديب</a>
+                            </li>
+                            <li class="breadcrumb-item active">تعديل بيانات المندوب
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+            <div class="form-group breadcrumb-right">
+
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
     <div class="content-body">
         <section class="bs-validation">
             <div class="row">

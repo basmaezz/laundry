@@ -1,5 +1,24 @@
 @extends('../layouts.app')
 @section('content')
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">لوحه التحكم</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="{{route('banks.index')}}">البنوك</a>
+                            </li>
+                            <li class="breadcrumb-item active">البنوك
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="row" id="basic-table">
     <div class="col-7">
         <div class="card">
@@ -30,7 +49,7 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="{{route('bank.edit',$bank->id)}}">
                                         <i data-feather="edit-2" class="mr-50"></i>
-                                        <span>Edit</span>
+                                        <span>تعديل</span>
                                     </a>
                                     <a class="dropdown-item" href="{{route('bank.destroy',$bank->id)}}">
                                         <i data-feather="trash" class="mr-50"></i>

@@ -1,74 +1,33 @@
-{{--@extends('../layouts.app')--}}
-{{--@section('content')--}}
-{{--    <main class="main" style="margin-top: 25px">--}}
-{{--            <div class="animated fadeIn">--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col-lg-9">--}}
-{{--                        <div class="card">--}}
-{{--                            <div class="card-header">--}}
-{{--                                <i class="fa fa-align-justify"></i>--}}
-
-{{--                            </div>--}}
-{{--                            <div class="card-block">--}}
-{{--                                <table id="users" class="table table-bordered table-striped">--}}
-{{--                                    <thead >--}}
-{{--                                    <tr >--}}
-{{--                                        <th>الاسم</th>--}}
-{{--                                        <th>المدينه</th>--}}
-{{--                                        <th>الجنسيه</th>--}}
-{{--                                        <th> سبب الرفض</th>--}}
-{{--                                        <th></th>--}}
-{{--                                    </tr>--}}
-{{--                                    </thead>--}}
-{{--                                    <tbody>--}}
-
-{{--                                    @foreach($delegates as $delegate)--}}
-
-{{--                                        <tr>--}}
-{{--                                            <td>{{$delegate->appUser->name ??''}}</td>--}}
-{{--                                            <td>{{$delegate->appUser->cities->name_ar ??''}}</td>--}}
-{{--                                            <td>{{$delegate->nationality->name_ar ?? ''}}</td>--}}
-{{--                                            <td>{{$delegate->reject_reason}}</td>--}}
-
-{{--                                            <td>--}}
-{{--                                                <a href="{{route('delegate.show',$delegate->id)}}" class="btn btn-info">تفاصيل</a>--}}
-{{--                                                <a href="{{route('delegate.acceptRegister',$delegate->id)}}" class="btn btn-info">قبول</a>--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
-
-{{--                                    @endforeach--}}
-{{--                                    </tbody>--}}
-{{--                                </table>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        </div>--}}
-{{--    </main>--}}
-
-{{--@endsection--}}
-{{--@push('scripts')--}}
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>--}}
-{{--    <script>--}}
-{{--        $("#users").DataTable({--}}
-{{--            "responsive": true, "lengthChange": false, "autoWidth": false,--}}
-{{--            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]--}}
-{{--        }).buttons().container().appendTo('#users_wrapper .col-md-6:eq(0)');--}}
-{{--    </script>--}}
-{{--@endpush--}}
 
 @extends('../layouts.app')
 @section('content')
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">لوحه التحكم</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="{{route('delegates.index')}}">المناديب</a>
+                            </li>
+                            <li class="breadcrumb-item active">طلبات التسجيل المرفوضه
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+            <div class="form-group breadcrumb-right">
+
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
     <main class="main" style="margin-top: 25px">
     <div>
-            <nav aria-label="breadcrumb" class="navBreadCrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">طلبات التسجيل المرفوضه    </li>
-                </ol>
-            </nav>
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">

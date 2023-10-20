@@ -165,7 +165,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::post('couponsStore',  'store')->name('coupon.store');
     Route::get('couponEdit/{id}',  'edit')->name('coupon.edit');
     Route::patch('couponUpdate/{id}',  'update')->name('coupon.update');
-    Route::get('couponDelete/{id}',  'destroy')->name('coupon.destroy');
+    Route::get('couponDelete',  'destroy')->name('coupon.destroy');
     Route::get('changeStatus/{id}',  'changeStatus')->name('coupon.changeStatus');
     });
 

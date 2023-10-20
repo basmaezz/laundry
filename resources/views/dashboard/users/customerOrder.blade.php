@@ -1,53 +1,32 @@
-{{--                                    @foreach($orders as $order)--}}
-{{--                                            <tr>--}}
-{{--                                                <td>{{$order->id}}</td>--}}
-{{--                                                <td>{{$order->subCategoriesTrashed->name_ar}} </td>--}}
-{{--                                                <td>{{$order->status_id=='8'?'الطلب منتهى': $order->status}}</td>--}}
-{{--                                                <td>{{$order->created_at->format('Y-m-d')}}</td>--}}
-{{--                                                <td>--}}
-{{--                                                    <a href="{{route('Order.show',$order->id)}}" class="btn btn-info"style="max-height: 40px !important; max-width: 70px !important;" >التفاصيل</a>                                                </td>--}}
-{{--                                            </tr>--}}
-{{--                                    @endforeach--}}
-{{--                                    </tbody>--}}
-{{--                                </table>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        </div>--}}
-{{--    </main>--}}
-
-{{--@endsection--}}
-{{--@push('scripts')--}}
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>--}}
-{{--    <script>--}}
-{{--        $("#users").DataTable({--}}
-{{--            "responsive": true, "lengthChange": false, "autoWidth": false,--}}
-{{--            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]--}}
-{{--        }).buttons().container().appendTo('#users_wrapper .col-md-6:eq(0)');--}}
-{{--    </script>--}}
-
-{{--@endpush--}}
-
 @extends('layouts.dataTable-app')
 @section('content')
-    <div class="content-overlay"></div>
-    <div class="header-navbar-shadow"></div>
-    <div class="content-wrapper">
-        <div class="content-header row">
-
-
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">لوحه التحكم</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="{{route('customers.index')}}">العملاء</a>
+                            </li>
+                            <li class="breadcrumb-item active">طلبات العميل
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
         </div>
+
+    </div>
+    <div class="content-body">
+
+    <div class="content-wrapper">
         <div class="content-body">
-
             <section id="multilingual-datatable">
-
                 <input type="hidden" value="{{$id}}" id="customer_id">
-
                 <div class="row">
-
                     <div class="col-12">
                         <div class="card invoice-list-wrapper">
                             <div class="card-datatable table-responsive">
@@ -58,7 +37,7 @@
                                         <th>اسم المغسله</th>
                                         <th>حاله الطلب</th>
                                         <th>التاريخ</th>
-                                        <th>Actions </th>
+                                        <th> </th>
                                     </tr>
                                     </thead>
                                 </table>
