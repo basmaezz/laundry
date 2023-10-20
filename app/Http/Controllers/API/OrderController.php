@@ -487,7 +487,7 @@ class OrderController extends Controller
                         'available' => '1'
                     ])->get();
                 }
-                
+
                 //dd($users);
                 foreach ($delegates as $user) {
                     NotificationController::sendNotification(
@@ -569,6 +569,7 @@ class OrderController extends Controller
                 'product_name' => $detail->productTrashed->$name,
                 'product_image' => $detail->productTrashed->image,
                 'category_name' => $detail->categoryItem->$name ?? '',
+                'urgent'=>$detail->urgent=='1'?'urgent':'normal',
                 'count' => $detail->quantity,
                 'price' => $detail->full_price,
             ];

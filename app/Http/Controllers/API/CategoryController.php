@@ -154,6 +154,7 @@ class CategoryController extends Controller
                 'id' => $category->id,
                 'name' => $category->$name,
                 'image' => $category->image,
+                'open' =>$category->getIsOpenAttribute() ?'opened':'closed',
             ];
         }
         return apiResponse("api.success", $data);

@@ -57,7 +57,9 @@ class OrderController extends Controller
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
-                })->addColumn('user',function ($row){
+                })->addColumn('user_id',function ($row){
+                    return $row->userTrashed->id;
+                })-> addColumn('user',function ($row){
                     return $row->userTrashed->name;
                 })->addColumn('deliveryType',function ($row){
                     return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
@@ -123,7 +125,7 @@ class OrderController extends Controller
                             </div>';
 
                 })
-                ->rawColumns(['action','category','user','deliveryType','orderType','orderStatus','laundryProfit','appProfit','delivery','commission','finished','city','createdAt'])
+                ->rawColumns(['action','user_id','category','user','deliveryType','orderType','orderStatus','laundryProfit','appProfit','delivery','commission','finished','city','createdAt'])
                 ->make(true);
         }
         return  view('dashboard.Orders.index');

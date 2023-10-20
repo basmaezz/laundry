@@ -20,6 +20,7 @@
                             <tr>
                                 <th>رقم الطلب  </th>
                                 <th>اسم المغسله </th>
+                                <th>رقم العميل </th>
                                 <th>اسم العميل </th>
                                 <th> حاله الطلب   </th>
                                 <th> نوع الطلب   </th>
@@ -60,6 +61,9 @@
                 },{
                     data: 'category',
                     name: 'category'
+                },{
+                    data: 'user_id',
+                    name: 'user_id'
                 },{
                     data: 'user',
                     name: 'user'
