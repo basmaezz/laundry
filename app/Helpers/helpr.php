@@ -719,6 +719,58 @@ function getUserObject($user)
     ];
 }
 
+function getNotificationObj($status_id){
+    switch ($status_id){
+        case \App\Http\Controllers\API\OrderController::WaitingForDelivery:
+            $title = "استلمتا طلبك بنجاح !";
+            $description = "جّهز ملابسك في كيس، مندوبنا جايك ! 💨 🏎️";
+            break;
+        case \App\Http\Controllers\API\OrderController::AcceptedByDelivery:
+            $title = "المندوب في الطريق !";
+            $description = "10 : دقايق والمندوب عندك ان شاء الله، خلك حول جّوالك 📱";
+            break;
+        /*case \App\Http\Controllers\API\OrderController::DeliveryOnWay:
+            $title = "";
+            $description = "";
+            break;*/
+        case \App\Http\Controllers\API\OrderController::WayToLaundry:
+            $title = "ملابسك بنحطها بعيونا";
+            $description = "ملابسك في الطريق للمغسلة مع مندوبنا";
+            break;
+        case \App\Http\Controllers\API\OrderController::DeliveredToLaundry:
+            $title = "ملابسك في المغسلة";
+            $description = "ملابسك وصلت المغسلة وبس تجهز بنعطيك خبر 💦";
+            break;
+        case \App\Http\Controllers\API\OrderController::ClothesReadyForDelivery:
+            $title = "ملابسك جاهزة للاستلام ✅";
+            $description = ": نرجو اختيار طريقة الاستلام المناسبة لك";
+            break;
+        case \App\Http\Controllers\API\OrderController::WaitingForDeliveryToReceiveOrder:
+            $title = "تم استلام طلب التوصيل بنجاح";
+            $description = "ارتاح و مندوبنا بيجيبلك الملابس في اسرع وقت .";
+            break;
+        case \App\Http\Controllers\API\OrderController::AcceptedByDeliveryToYou:
+            $title = "دقايق و ملابسك عندك !";
+            $description = "مندوبنا بيستلم الملابس ويجيبها حاًال 💨 🏎️";
+            break;
+        /*case \App\Http\Controllers\API\OrderController::DeliveryOnTheWayToYou:
+            $name = trans('api.Delivery on the way to you');
+            break;*/
+        case \App\Http\Controllers\API\OrderController::Completed:
+            $title = "ملبوس العافية ❤️";
+            $description = "شكرا لتعاملك مع لاندري وملبوس العافية ";
+            break;
+        case \App\Http\Controllers\API\OrderController::Cancel:
+            $title = "طلبك اتلغى";
+            $description = "طلبك اتلغى و شكرا لتعاملك مع لاندر";
+            break;
+        default:
+            $title = 'Empty ['.$status_id.']';
+            $description = 'Empty ['.$status_id.']';
+            break;
+    }
+    return ['title'=>$title, 'description' => $description];
+}
 function getStatusName($status_id){
     switch ($status_id){
         case \App\Http\Controllers\API\OrderController::WaitingForDelivery:

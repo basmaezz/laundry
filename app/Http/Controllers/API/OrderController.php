@@ -337,10 +337,11 @@ class OrderController extends Controller
             $order->status    = getStatusName($request->get('status_id'));
             $order->save();
 
-            $name = 'name_' . App::getLocale();
+            //$name = 'name_' . App::getLocale();
+            $notification_obj = getNotificationObj($request->get('status_id'));
             NotificationController::sendNotification(
-                getStatusName($request->get('status_id')),
-                __('api.order_update', ['laundry' => $order->subCategoriesTrashed->$name, 'status' => getStatusName($request->get('status_id'))]),
+                $notification_obj['title'],
+                $notification_obj['description'],
                 $order->userTrashed,
                 $order->id
             );
