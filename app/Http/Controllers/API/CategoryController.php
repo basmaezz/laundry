@@ -62,7 +62,8 @@ class CategoryController extends Controller
                         'range' => $subcategory->range,
                         'distance_class' =>  getDistanceClass($distance, $range),
                         'distance_class_id' =>  getDistanceClassId($distance, $range),
-                        'review' => $subcategory->rates
+                        'review' => $subcategory->rates,
+                        'open' =>$subcategory->getIsOpenAttribute() ?'opened':'closed',
                     ];
                 }
             }elseif ($type==4){
@@ -88,7 +89,8 @@ class CategoryController extends Controller
                         'range' => $subcategory->range,
                         'distance_class' =>  getDistanceClass($distance, $range),
                         'distance_class_id' =>  getDistanceClassId($distance, $range),
-                        'review' => $subcategory->rates
+                        'review' => $subcategory->rates,
+                        'open' =>$subcategory->getIsOpenAttribute() ?'opened':'closed',
                     ];
                 }
             }
@@ -154,7 +156,7 @@ class CategoryController extends Controller
                 'id' => $category->id,
                 'name' => $category->$name,
                 'image' => $category->image,
-                'open' =>$category->getIsOpenAttribute() ?'opened':'closed',
+
             ];
         }
         return apiResponse("api.success", $data);
