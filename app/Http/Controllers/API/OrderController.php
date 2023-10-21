@@ -207,8 +207,6 @@ class OrderController extends Controller
             return $q->select('id', 'order_table_id', 'product_id', 'category_item_id', 'price', 'quantity');
         }])->select('id', 'user_id', 'laundry_id')->first();
         $name = 'name_' . App::getLocale();
-//        $body = __('api.success_send_to_laundry', ['laundry' => $order->subCategoriesTrashed->$name]);
-//        NotificationController::sendNotification(__('api.received_successfully'), $body, auth('app_users_api')->user(), $order->id);
         NotificationController::sendNotification(__('api.received_successfully'), 'جهّز ملابسك في كيس، مندوبنا جايك! 💨🏎️', auth('app_users_api')->user(), $order->id);
         $customer = auth('app_users_api')->user();
 

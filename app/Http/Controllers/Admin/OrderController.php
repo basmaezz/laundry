@@ -120,6 +120,10 @@ class OrderController extends Controller
                                         <i data-feather="edit-2" class="mr-50"></i>
                                         <span>التفاصيل</span>
                                     </a>
+                            <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>
 
                                 </div>
                             </div>';
@@ -317,19 +321,23 @@ class OrderController extends Controller
                 })->addColumn('created_at',function ($row){
                     return $row->created_at !=null ?$row->created_at->format('d/m/Y'):'' ;
                 })->addColumn('action', function ($row) {
-                    $btns='<div class="dropdown">
-                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                    <i data-feather="more-vertical"></i>
+                    return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
                                         <i data-feather="edit-2" class="mr-50"></i>
                                         <span>التفاصيل</span>
                                     </a>
+                            <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>
 
                                 </div>
                             </div>';
-                    return $btns;
+
                 })
                 ->rawColumns(['action','category','user','user_id','delegate_id','delegate','duration','orderType','city','regionName','laundryProfit','appProfit','commission','delivery','created_at'])
                 ->make(true);
@@ -753,6 +761,19 @@ class OrderController extends Controller
                 ->make(true);
         }
         return  view('dashboard.Orders.delegateOrders',compact(['id','delivery_id']));
+    }
+
+    public function cancelOrder(Request $request)
+    {
+        if (is_numeric($request->id)) {
+            $order=OrderTable::find($request->id)->update([
+                'status_id' => '10',
+                'status' =>'الطلب ملغى',
+            ]);
+        }
+
+        return redirect()->back();
+
     }
 
 }

@@ -15,7 +15,7 @@
 
                     </div>
                     <div class="card-block">
-                        <table class="table table-striped" id="table_id">
+                        <table class="table table-striped" id="orderTable">
                             <thead>
                             <tr>
 
@@ -52,7 +52,7 @@
     <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
     <script type="text/javascript">
         $(function() {
-            var table = $('#table_id').DataTable({
+            var table = $('#orderTable').DataTable({
                 processing: true,
                 serverSide: true,
                 ordering: false,
@@ -114,7 +114,24 @@
 
                 ]
             });
-            $("#table_id").on('draw.dt', function(){ jQuery("time.timeago").timeago(); });
+            $("#orderTable").on('draw.dt', function(){ jQuery("time.timeago").timeago(); });
+
+        });
+        $('body').on('click', '#deleteBtn', function () {
+            if (confirm("هل تريد اتمام الالغاء ؟") == true) {
+                var id = $(this).data('id');
+                window.location.reload();
+                $.ajax({
+                    type:"get",
+                    url: "{{ route('Order.cancelOrder') }}",
+                    data: { id: id},
+                    dataType: 'json',
+                    success: function(res){
+                        var oTable = $('#orderTable').dataTable();
+                        oTable.fnDraw(false);
+                    }
+                });
+            }
         });
     </script>
 @endpush

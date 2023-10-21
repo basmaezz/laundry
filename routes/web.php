@@ -183,6 +183,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('completed',  'completed')->name('Order.completed');
     Route::get('changeStatus/',  'changeStatus');
     Route::get('delegateOrders/{id}',  'delegateOrders')->name('Order.delegateOrders');
+    Route::get('cancelOrder',  'cancelOrder')->name('Order.cancelOrder');
  });
     Route::controller(RoleController::class)->group(function () {
     Route::get('Roles', 'index')->name('roles.index');
