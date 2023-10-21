@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <button type="submit" class="btn btn-primary">Save</button>
+                                   <button type="submit" class="btn btn-primary">حفظ</button>
                                     </div>
                                 </div>
                             </form>

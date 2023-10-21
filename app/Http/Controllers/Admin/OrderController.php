@@ -222,6 +222,8 @@ class OrderController extends Controller
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
+                })->addColumn('user_id',function ($row){
+                    return $row->userTrashed->id ;
                 })->addColumn('user',function ($row){
                     return $row->userTrashed->name ;
                 })->addColumn('delegate',function ($row){
@@ -264,7 +266,7 @@ class OrderController extends Controller
                             </div> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','orderType','laundryProfit','appProfit','commission','delivery','duration','city','created_at'])
+                ->rawColumns(['action','category','user_id','user','orderType','laundryProfit','appProfit','commission','delivery','duration','city','created_at'])
                 ->make(true);
         }
 
@@ -278,8 +280,12 @@ class OrderController extends Controller
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
+                })->addColumn('user_id',function ($row){
+                    return $row->userTrashed->id ;
                 })->addColumn('user',function ($row){
                     return $row->userTrashed->name ;
+                })->addColumn('delegate_id',function ($row){
+                    return $row->delegateTrashed->appUserTrashed->id ??'';
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->addColumn('orderType',function ($row){
@@ -325,7 +331,7 @@ class OrderController extends Controller
                             </div>';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','duration','orderType','city','regionName','laundryProfit','appProfit','commission','delivery','created_at'])
+                ->rawColumns(['action','category','user','user_id','delegate_id','delegate','duration','orderType','city','regionName','laundryProfit','appProfit','commission','delivery','created_at'])
                 ->make(true);
         }
         return  view('dashboard.Orders.DeliveryOnWay');
@@ -342,6 +348,10 @@ class OrderController extends Controller
                     return $row->userTrashed->name ;
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
+                })->addColumn('user_id',function ($row){
+                    return $row->userTrashed->id ;
+                })->addColumn('delegate_id',function ($row){
+                    return $row->delegateTrashed->appUserTrashed->id ??'';
                 })->
                 addColumn('orderType',function ($row){
                     return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
@@ -385,7 +395,7 @@ class OrderController extends Controller
                      ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','orderType','duration','laundryProfit','appProfit','commission','delivery','city','created_at'])
+                ->rawColumns(['action','category','user_id','delegate_id','user','delegate','orderType','duration','laundryProfit','appProfit','commission','delivery','city','created_at'])
                 ->make(true);
         }
         return  view('dashboard.Orders.WayToLaundry');
@@ -402,6 +412,10 @@ class OrderController extends Controller
                     return $row->userTrashed->name ;
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
+                })->addColumn('user_id',function ($row){
+                    return $row->userTrashed->id ;
+                })->addColumn('delegate_id',function ($row){
+                    return $row->delegateTrashed->appUserTrashed->id ??'';
                 })->addColumn('duration',function ($row){
                     $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::DeliveredToLaundry)->first();
                     $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::ClothesReadyForDelivery)->first();
@@ -440,7 +454,7 @@ class OrderController extends Controller
                             </div> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','duration','created_at','orderType','laundryProfit','appProfit','commission','delivery','city'])
+                ->rawColumns(['action','category','user_id','delegate_id','user','delegate','duration','created_at','orderType','laundryProfit','appProfit','commission','delivery','city'])
                 ->make(true);
         }
 
@@ -461,6 +475,10 @@ class OrderController extends Controller
                     return $row->userTrashed->name ;
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
+                })->addColumn('user_id',function ($row){
+                    return $row->userTrashed->id ;
+                })->addColumn('delegate_id',function ($row){
+                    return $row->delegateTrashed->appUserTrashed->id ??'';
                 })->addColumn('duration',function ($row){
                     $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::ClothesReadyForDelivery)->first();
                     $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDeliveryToYou)->first();
@@ -501,7 +519,7 @@ class OrderController extends Controller
                             </div> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','duration','created_at','laundryProfit','appProfit','orderType','commission','delivery','city'])
+                ->rawColumns(['action','category','user','user_id','delegate_id','delegate','duration','created_at','laundryProfit','appProfit','orderType','commission','delivery','city'])
                 ->make(true);
         }
         return  view('dashboard.Orders.ordersPickUp');
@@ -514,6 +532,8 @@ class OrderController extends Controller
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
+                })->addColumn('user_id',function ($row){
+                    return $row->userTrashed->id;
                 })->addColumn('user',function ($row){
                     return $row->userTrashed->name;
                 })->addColumn('deliveryType',function ($row){
@@ -556,7 +576,7 @@ class OrderController extends Controller
                             </div> ';
                     return $btns;
                 })
-                ->rawColumns(['category','user','deliveryType','duration','created_at','action','laundryProfit','orderType','appProfit','commission','delivery','city'])
+                ->rawColumns(['category','user_id','user','deliveryType','duration','created_at','action','laundryProfit','orderType','appProfit','commission','delivery','city'])
                 ->make(true);
         }
         return  view('dashboard.Orders.WaitingForDeliveryToReceiveOrder');
@@ -569,6 +589,8 @@ class OrderController extends Controller
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
                     return $row->subCategoriesTrashed->name_ar;
+                })->addColumn('user_id',function ($row){
+                    return $row->userTrashed->id ;
                 })->addColumn('user',function ($row){
                     return $row->userTrashed->name ;
                 })->addColumn('duration',function ($row){
@@ -609,7 +631,7 @@ class OrderController extends Controller
                             </div> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','duration','created_at','laundryProfit','appProfit','commission','orderType','delivery','city'])
+                ->rawColumns(['action','category','user_id','user','duration','created_at','laundryProfit','appProfit','commission','orderType','delivery','city'])
                 ->make(true);
         }
         return  view('dashboard.Orders.DeliveryOnTheWayToYou');
@@ -626,6 +648,10 @@ class OrderController extends Controller
                     return $row->userTrashed->name ;
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
+                })->addColumn('user_id',function ($row){
+                    return $row->userTrashed->id ;
+                })->addColumn('delegate_id',function ($row){
+                    return $row->delegateTrashed->appUserTrashed->id ??'';
                 })->addColumn('deliveryType',function ($row){
                     return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
                 })->addColumn('city', function ($row) {
@@ -651,7 +677,7 @@ class OrderController extends Controller
                             </div> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','deliveryType','city','year','month','day'])
+                ->rawColumns(['action','category','user','user_id','delegate_id','delegate','deliveryType','city','year','month','day'])
                 ->make(true);
         }
 
@@ -682,7 +708,7 @@ class OrderController extends Controller
                     $btns='<a href="' . Route('Order.show', $row->id) . '"  class="edit btn btn-success btn-sm customOrder"style="max-height:20px;max-width:37px" >التفاصيل</a> ';
                     return $btns;
                 })
-                ->rawColumns(['action','category','user','delegate','duration','created_at','updated_at'])
+                ->rawColumns(['action','category','user_id','user','delegate','duration','created_at','updated_at'])
                 ->make(true);
         }
 

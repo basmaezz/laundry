@@ -62,8 +62,8 @@ class CategoryController extends Controller
                         'range' => $subcategory->range,
                         'distance_class' =>  getDistanceClass($distance, $range),
                         'distance_class_id' =>  getDistanceClassId($distance, $range),
-                        'review' => $subcategory->rates,
                         'open' =>$subcategory->getIsOpenAttribute() ?'opened':'closed',
+                        'review' => $subcategory->rates,
                     ];
                 }
             }elseif ($type==4){
@@ -89,8 +89,8 @@ class CategoryController extends Controller
                         'range' => $subcategory->range,
                         'distance_class' =>  getDistanceClass($distance, $range),
                         'distance_class_id' =>  getDistanceClassId($distance, $range),
-                        'review' => $subcategory->rates,
                         'open' =>$subcategory->getIsOpenAttribute() ?'opened':'closed',
+                        'review' => $subcategory->rates,
                     ];
                 }
             }

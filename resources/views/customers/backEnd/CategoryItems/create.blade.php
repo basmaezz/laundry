@@ -42,7 +42,7 @@
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                               <button type="submit" class="btn btn-primary">حفظ</button>
                                 </div>
                             </form>
                         </div>

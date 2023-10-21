@@ -18,23 +18,15 @@
                 </div>
             </div>
         </div>
-        <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-            <div class="form-group breadcrumb-right">
-
-            </div>
-        </div>
     </div>
 
 
         <div class="content-body">
-
+            <a href="{{route('coupon.create')}}" class="btn btn-primary" style="margin-right: 1126px;" >اضافه كوبون</a>
             <section id="multilingual-datatable">
-
                 <div class="row">
                     <div class="col-10">
                         <div class="card invoice-list-wrapper">
-                            <a href="{{route('coupon.create')}}" class="btn btn-primary" style="width: 130px" >اضافه كوبون</a>
-
                             <div class="card-datatable table-responsive">
                                 <table class="productTable table" id="couponTable">
                                     <thead>

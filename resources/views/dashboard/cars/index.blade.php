@@ -21,13 +21,16 @@
     </div>
 
         <div class="content-body">
+            <div class="add-btn">
+                <a href="{{route('car.create')}}" class="btn btn-primary" style="margin-right: 1126px;"  >اضافه سياره</a>
+
+            </div>
 
             <section id="multilingual-datatable">
 
                 <div class="row">
                     <div class="col-10">
                         <div class="card invoice-list-wrapper">
-                            <a href="{{route('car.create')}}" class="btn btn-primary" style="width: 130px" >اضافه سياره</a>
 
                             <div class="card-datatable table-responsive">
                                 <table class="productTable table" id="carsTable">

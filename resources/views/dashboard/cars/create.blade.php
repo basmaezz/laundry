@@ -32,20 +32,20 @@
                             <form method="post" action="{{route('car.store')}}" >
                                 @csrf
 
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label class="form-label" for="username">اسم السياره</label>
-                                        <input type="text"  name="name_ar" class="form-control"value="{{Request::old('name_ar')}}" placeholder="اسم السياره "  required>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="hf-email">اسم السياره</label>
+                                    <div class="col-md-9">
+                                        <input type="text"  name="name_ar" class="form-control"value="{{Request::old('name_ar')}}" placeholder="اسم السياره " >
                                         @if ($errors->has('name_ar'))
                                             <span class="text-danger">{{ $errors->first('name_ar') }}</span>
                                         @endif
                                     </div>
-
                                 </div>
-                                <div class="row">
-                                    <div class="form-group form-password-toggle col-md-6">
-                                        <label class="form-label" for="password">اسم السياره بالانجليزيه</label>
-                                        <input type="text"  name="name_en" class="form-control"value="{{Request::old('name_en')}}" placeholder="اسم السياره بالانحليويه" required >
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="hf-email"> اسم السياره بالانجليزيه</label>
+                                    <div class="col-md-9">
+                                        <input type="text"  name="name_en" class="form-control"value="{{Request::old('name_en')}}" placeholder="اسم السياره بالانحليويه" >
                                         @if ($errors->has('name_en'))
                                             <span class="text-danger">{{ $errors->first('name_en') }}</span>
                                         @endif
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <button type="submit" class="btn btn-primary">Save</button>
+                                   <button type="submit" class="btn btn-primary">حفظ</button>
                                     </div>
                                 </div>
                             </form>

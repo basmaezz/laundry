@@ -20,7 +20,9 @@
                             <tr>
                                 <th>رقم الطلب  </th>
                                 <th>اسم المغسله </th>
+                                <th>رقم العميل </th>
                                 <th>اسم العميل </th>
+                                <th>رقم المندوب </th>
                                 <th>اسم المندوب </th>
                                 <th> نوع الطلب   </th>
                                 <th> تاريخ وصول المغسله  </th>
@@ -60,9 +62,15 @@
                     data: 'category',
                     name: 'category'
                 },{
+                    data: 'user_id',
+                    name: 'user_id'
+                },{
                     data: 'user',
                     name: 'user'
                 },{
+                    data:'delegate_id',
+                    name:'delegate_id'
+                }{
                     data:'delegate',
                     name:'delegate'
                 },{
