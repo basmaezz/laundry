@@ -205,8 +205,8 @@ class OrderController extends Controller
                     return $row->created_at->format('d/m/Y') ;
                 })->addColumn('action', function ($row) {
                     $btns='<div class="dropdown">
-                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                    <i data-feather="more-vertical"></i>
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
