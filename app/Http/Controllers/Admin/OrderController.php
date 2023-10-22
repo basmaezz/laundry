@@ -140,26 +140,7 @@ class OrderController extends Controller
         return Excel::download(new ordersExport, 'orders.xlsx');
         return redirect()->back();
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -177,39 +158,6 @@ class OrderController extends Controller
         return  view('dashboard.Orders.view',compact(['order','orderDetails']));//,'commissionTotal'
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
     public function changeStatus(Request $request)
     {
         $order=OrderTable::find($request->id);
@@ -264,6 +212,10 @@ class OrderController extends Controller
                                     <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
                                         <i data-feather="edit-2" class="mr-50"></i>
                                         <span>التفاصيل</span>
+                                    </a>
+                                    <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
                                     </a>
 
                                 </div>
@@ -389,13 +341,17 @@ class OrderController extends Controller
                 })->addColumn('action', function ($row) {
                     $btns='
                      <div class="dropdown">
-                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                    <i data-feather="more-vertical"></i>
+                            <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
                                         <i data-feather="edit-2" class="mr-50"></i>
                                         <span>التفاصيل</span>
+                                    </a>
+                                            <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
                                     </a>
 
                                 </div>
@@ -449,13 +405,17 @@ class OrderController extends Controller
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('action', function ($row) {
                     $btns='<div class="dropdown">
-                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                    <i data-feather="more-vertical"></i>
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
                                         <i data-feather="edit-2" class="mr-50"></i>
                                         <span>التفاصيل</span>
+                                    </a>
+                                     <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
                                     </a>
 
                                 </div>
@@ -513,9 +473,9 @@ class OrderController extends Controller
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('action', function ($row) {
-                    $btns='<div class="dropdown">
-                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                    <i data-feather="more-vertical"></i>
+                    return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
@@ -523,9 +483,13 @@ class OrderController extends Controller
                                         <span>التفاصيل</span>
                                     </a>
 
+                                   <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>
+
                                 </div>
-                            </div> ';
-                    return $btns;
+                            </div>';
                 })
                 ->rawColumns(['action','category','user','user_id','delegate_id','delegate','duration','created_at','laundryProfit','appProfit','orderType','commission','delivery','city'])
                 ->make(true);
@@ -571,14 +535,19 @@ class OrderController extends Controller
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('action', function ($row) {
                     $btns='<div class="dropdown">
-                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                    <i data-feather="more-vertical"></i>
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
                                         <i data-feather="edit-2" class="mr-50"></i>
                                         <span>التفاصيل</span>
                                     </a>
+                                    <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>
+
 
                                 </div>
                             </div> ';
@@ -626,13 +595,17 @@ class OrderController extends Controller
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('action', function ($row) {
                     $btns='<div class="dropdown">
-                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                    <i data-feather="more-vertical"></i>
+                           <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
                                         <i data-feather="edit-2" class="mr-50"></i>
                                         <span>التفاصيل</span>
+                                    </a>
+                                    <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
                                     </a>
 
                                 </div>
@@ -672,8 +645,8 @@ class OrderController extends Controller
                     return $row->created_at->day;
                 })->addColumn('action', function ($row) {
                     $btns='<div class="dropdown">
-                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                    <i data-feather="more-vertical"></i>
+                                <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
@@ -745,8 +718,8 @@ class OrderController extends Controller
                     return $row->created_at ? $row->created_at->format('d-m-Y'):'';
                 })->addColumn('action', function ($row) {
                     return '<div class="dropdown">
-                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                    <i data-feather="more-vertical"></i>
+                                      <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">

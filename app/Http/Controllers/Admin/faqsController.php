@@ -37,6 +37,7 @@ class faqsController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'question_ar'=>'required',
             'question_en'=>'required',

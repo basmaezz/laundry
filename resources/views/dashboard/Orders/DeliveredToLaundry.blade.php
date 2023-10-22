@@ -1,5 +1,24 @@
 @extends('layouts.dataTable-app')
 @section('content')
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">لوحه التحكم</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="{{route('Order.index')}}">الطلبات</a>
+                            </li>
+                            <li class="breadcrumb-item active">الطلبات فى المغسله
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <main class="main" style="margin-top: 25px">
     <div>
             <nav aria-label="breadcrumb" class="navBreadCrumb">
@@ -70,7 +89,7 @@
                 },{
                     data:'delegate_id',
                     name:'delegate_id'
-                }{
+                },{
                     data:'delegate',
                     name:'delegate'
                 },{

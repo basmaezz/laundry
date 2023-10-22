@@ -21,6 +21,10 @@
                                         <input type="text" name="name_ar" class="form-control view" id="name_ar" value="{{$order->userTrashed->name }}" disabled>
                                     </div>
                                     <div class="form-group">
+                                        <label for="company">عنوان العميل</label>
+                                        <input type="text" name="name_ar" class="form-control view" id="name_ar" value="{{$order->userTrashed->address }}" disabled>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="company">اسم المندوب</label>
                                         <input type="text" name="name_ar" class="form-control view" id="name_ar" value="{{$order->delegateTrashed->appUserTrashed->name ??''}}" disabled>
                                     </div>

@@ -392,13 +392,10 @@ class OrderController extends Controller
                 $order->userTrashed->point++;
                 $order->userTrashed->save();
 
-
-                $user->wallet+=floatval($order->subCategoriesTrashed->price);
-                $user->save();
-
                 if($order->delivery_id!=0){
                     $delegate=Delegate::where('id',$order->delivery_id)->first();
                     $appUser=AppUser::where('id',$delegate->id)->first();
+                    $appUser->wallet+=floatval($order->subCategoriesTrashed->price);
                     $appUser->save();
                 }
 

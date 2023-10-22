@@ -1,16 +1,29 @@
 @extends('layouts.dataTable-app')
 @section('content')
-    <div class="content-overlay"></div>
-    <div class="header-navbar-shadow"></div>
-    <div class="content-wrapper">
-        <div class="content-header row">
 
-
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">لوحه التحكم</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="{{route('laundries.index')}}">المغاسل</a>
+                            </li>
+                            <li class="breadcrumb-item active">المغاسل
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="content-body">
+    </div>
 
+        <div class="content-body">
             <section id="multilingual-datatable">
-                <a href="{{route('laundries.export')}}" class="btn btn-info"  >Export </a>
+                <a href="{{route('laundries.export')}}" class="btn btn-info" style="margin-right: 1280px;" >Export </a>
                 <a href="{{route('laundries.create')}}" class="btn btn-primary " >اضافه مغسله</a>
 
                 <div class="row">
