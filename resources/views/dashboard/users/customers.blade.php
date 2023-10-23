@@ -49,6 +49,7 @@
                                         <th>البريد الألكترونى</th>
                                         <th>الجوال</th>
                                         <th>المدينه</th>
+                                        <th>العنوان</th>
                                         <th>النوع </th>
                                         <th>عدد الطلبات</th>
                                         <th>المحفظه </th>
@@ -90,6 +91,9 @@
                 },{
                     data:'city',
                     name:'city'
+                },{
+                    data:'address',
+                    name:'address'
                 },{
                     data:'gender',
                     name:'gender'

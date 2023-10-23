@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\OrderTable;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +33,9 @@ class subCategoriesExport implements FromCollection, WithHeadings, WithMapping
 
     public function map($laundry): array
     {
+        $ordersCount=OrderTable::select('*')->where('laundry_id',$laundry->id)->count();
+        $monthlyOrdersCount=OrderTable::select('*')->where('laundry_id',$laundry->id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->count();
+        $monthlyProfit=OrderTable::select('*')->where('laundry_id',$laundry->id)->Where('status_id','!=',10)->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('laundry_profit');
         return [
             $laundry->name_ar,
             $laundry->name_en,
@@ -44,6 +48,9 @@ class subCategoriesExport implements FromCollection, WithHeadings, WithMapping
             $laundry->price,
             $laundry->approximate_duration,
             $laundry->range,
+            $ordersCount,
+            $monthlyOrdersCount,
+            $monthlyProfit,
             $laundry->created_at->format('Y-m-d'),
         ];
     }
@@ -62,6 +69,9 @@ class subCategoriesExport implements FromCollection, WithHeadings, WithMapping
             'قيمه التوصيل',
             'المده التقريبيه للغسيل',
             'نطاق التشغيل',
+            'اجمالى الطلبات',
+            'اجمالى الطلبات الشهريه',
+            'اجمالى الربح للشهر الحالى',
             'تاريخ الاضافه'
         ];
     }

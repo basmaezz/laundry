@@ -96,6 +96,62 @@
                                         <i data-feather="package" class="font-medium-5"></i>
                                     </div>
                                 </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::where('status_id',3)->count()}}</h2>
+                                <p class="card-text">{{__('lang.incomingOrders')}} </p>
+                            </div>
+                            <div id="order-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-warning p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="package" class="font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::where('status_id',4)->count()}}</h2>
+                                <p class="card-text">{{__('lang.OrderInProgress')}} </p>
+                            </div>
+                            <div id="order-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-warning p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="package" class="font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::where('status_id',8)->count()}}</h2>
+                                <p class="card-text">{{__('lang.CompletedOrders')}} </p>
+                            </div>
+                            <div id="order-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-warning p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="package" class="font-medium-5"></i>
+                                    </div>
+                                </div>
+                                <h2 class="font-weight-bolder mt-1">{{\App\Models\OrderTable::where('status_id',10)->count()}}</h2>
+                                <p class="card-text">{{__('lang.CancelledOrders')}} </p>
+                            </div>
+                            <div id="order-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start pb-0">
+                                <div class="avatar bg-light-warning p-50 m-0">
+                                    <div class="avatar-content">
+                                        <i data-feather="package" class="font-medium-5"></i>
+                                    </div>
+                                </div>
                                 <h2 class="font-weight-bolder mt-1">{{\App\Models\Subcategory::WhereNull('parent_id')->count()}}</h2>
                                 <p class="card-text">المغاسل </p>
                             </div>

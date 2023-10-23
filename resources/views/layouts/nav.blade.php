@@ -80,11 +80,11 @@
                 <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{url('/dashboard')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">الرئيسيه</span></a> </li>
             </ul>
         </li>
-        <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps"> مقدمين الخدمه</span></a>
+        <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps"> المدراء</span></a>
             <ul class="dropdown-menu">
-                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('users.index')}}" data-toggle="dropdown" data-i18n="Analytics"><i data-feather="activity"></i><span data-i18n="Analytics">الأدمن</span></a>
-                </li>
-                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('users.adminTrashed')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">الأدمن المحذوفين</span></a>
+                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('users.index')}}" data-toggle="dropdown" data-i18n="Analytics"><i data-feather="activity"></i><span data-i18n="Analytics">مدراء التطبيق </span></a> </li>
+                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('users.index')}}" data-toggle="dropdown" data-i18n="Analytics"><i data-feather="activity"></i><span data-i18n="Analytics">مدراء المغاسل </span></a> </li>
+                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('users.adminTrashed')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">المدراء المحذوفين</span></a>
                 <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('roles.index')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">الأدوار - الصلاحيات</span></a>
                 </li>
             </ul>

@@ -127,8 +127,10 @@
         });
 
         $('body').on('click', '#deleteBtn', function () {
+
             if (confirm("هل تريد اتمام الالغاء ؟") == true) {
                 var id = $(this).data('id');
+
                 window.location.reload();
                 $.ajax({
                     type:"get",
@@ -136,7 +138,7 @@
                     data: { id: id},
                     dataType: 'json',
                     success: function(res){
-                        var oTable = $('#laundryTable').dataTable();
+                        var oTable = $('#orderTable').dataTable();
                         oTable.fnDraw(false);
                     }
                 });

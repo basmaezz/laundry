@@ -111,23 +111,34 @@ class OrderController extends Controller
                     return $row->created_at ? $row->created_at->format('d-m-Y'):'';
                 })
                 ->addColumn('action', function ($row) {
-                   return '<div class="dropdown">
+                    $cancelBtn='<a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>';
+                    $moreBtn='<a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>';
+                    if($row->status_id!=10){
+                        return '<div class="dropdown">
                               <button type="button" class="edit btn btn-info" data-toggle="dropdown">
                                     المزيد
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
-                                        <i data-feather="edit-2" class="mr-50"></i>
-                                        <span>التفاصيل</span>
-                                    </a>
-                            <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
-                                        <i data-feather="trash" class="mr-50"></i>
-                                        <span>الغاء الطلب</span>
-                                    </a>
-
+                                      '.$moreBtn.'
+                                      '. $cancelBtn.'
                                 </div>
                             </div>';
-
+                    }else{
+                        return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
+                                </button>
+                                <div class="dropdown-menu">
+                            '.$moreBtn.'
+                             </div>
+                            </div>';
+                    }
                 })
                 ->rawColumns(['action','user_id','category','user','deliveryType','orderType','orderStatus','laundryProfit','appProfit','delivery','commission','finished','city','createdAt'])
                 ->make(true);
@@ -203,24 +214,36 @@ class OrderController extends Controller
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
-                })->addColumn('action', function ($row) {
-                    $btns='<div class="dropdown">
+                })
+                ->addColumn('action', function ($row) {
+                    $cancelBtn='<a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>';
+                    $moreBtn='<a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>';
+                    if($row->status_id!=10){
+                        return '<div class="dropdown">
                               <button type="button" class="edit btn btn-info" data-toggle="dropdown">
                                     المزيد
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
-                                        <i data-feather="edit-2" class="mr-50"></i>
-                                        <span>التفاصيل</span>
-                                    </a>
-                                    <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
-                                        <i data-feather="trash" class="mr-50"></i>
-                                        <span>الغاء الطلب</span>
-                                    </a>
-
+                                      '.$moreBtn.'
+                                      '. $cancelBtn.'
                                 </div>
-                            </div> ';
-                    return $btns;
+                            </div>';
+                    }else{
+                        return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
+                                </button>
+                                <div class="dropdown-menu">
+                            '.$moreBtn.'
+                             </div>
+                            </div>';
+                    }
                 })
                 ->rawColumns(['action','category','user_id','user','orderType','laundryProfit','appProfit','commission','delivery','duration','city','created_at'])
                 ->make(true);
@@ -272,24 +295,36 @@ class OrderController extends Controller
                     return $row->userTrashed->region_name;
                 })->addColumn('created_at',function ($row){
                     return $row->created_at !=null ?$row->created_at->format('d/m/Y'):'' ;
-                })->addColumn('action', function ($row) {
-                    return '<div class="dropdown">
+                })
+                ->addColumn('action', function ($row) {
+                    $cancelBtn='<a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>';
+                    $moreBtn='<a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>';
+                    if($row->status_id!=10){
+                        return '<div class="dropdown">
                               <button type="button" class="edit btn btn-info" data-toggle="dropdown">
                                     المزيد
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
-                                        <i data-feather="edit-2" class="mr-50"></i>
-                                        <span>التفاصيل</span>
-                                    </a>
-                            <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
-                                        <i data-feather="trash" class="mr-50"></i>
-                                        <span>الغاء الطلب</span>
-                                    </a>
-
+                                      '.$moreBtn.'
+                                      '. $cancelBtn.'
                                 </div>
                             </div>';
-
+                    }else{
+                        return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
+                                </button>
+                                <div class="dropdown-menu">
+                            '.$moreBtn.'
+                             </div>
+                            </div>';
+                    }
                 })
                 ->rawColumns(['action','category','user','user_id','delegate_id','delegate','duration','orderType','city','regionName','laundryProfit','appProfit','commission','delivery','created_at'])
                 ->make(true);
@@ -338,26 +373,36 @@ class OrderController extends Controller
                     return $row->userTrashed->citiesTrashed->name_ar;
                 })->addColumn('created_at',function ($row){
                     return $row->created_at->format('d/m/Y') ;
-                })->addColumn('action', function ($row) {
-                    $btns='
-                     <div class="dropdown">
-                            <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                })
+                ->addColumn('action', function ($row) {
+                    $cancelBtn='<a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>';
+                    $moreBtn='<a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>';
+                    if($row->status_id!=10){
+                        return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
                                     المزيد
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
-                                        <i data-feather="edit-2" class="mr-50"></i>
-                                        <span>التفاصيل</span>
-                                    </a>
-                                            <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
-                                        <i data-feather="trash" class="mr-50"></i>
-                                        <span>الغاء الطلب</span>
-                                    </a>
-
+                                      '.$moreBtn.'
+                                      '. $cancelBtn.'
                                 </div>
-                            </div>
-                     ';
-                    return $btns;
+                            </div>';
+                    }else{
+                        return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
+                                </button>
+                                <div class="dropdown-menu">
+                            '.$moreBtn.'
+                             </div>
+                            </div>';
+                    }
                 })
                 ->rawColumns(['action','category','user_id','delegate_id','user','delegate','orderType','duration','laundryProfit','appProfit','commission','delivery','city','created_at'])
                 ->make(true);
@@ -403,24 +448,36 @@ class OrderController extends Controller
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
-                })->addColumn('action', function ($row) {
-                    $btns='<div class="dropdown">
+                })
+                ->addColumn('action', function ($row) {
+                    $cancelBtn='<a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>';
+                    $moreBtn='<a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>';
+                    if($row->status_id!=10){
+                        return '<div class="dropdown">
                               <button type="button" class="edit btn btn-info" data-toggle="dropdown">
                                     المزيد
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
-                                        <i data-feather="edit-2" class="mr-50"></i>
-                                        <span>التفاصيل</span>
-                                    </a>
-                                     <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
-                                        <i data-feather="trash" class="mr-50"></i>
-                                        <span>الغاء الطلب</span>
-                                    </a>
-
+                                      '.$moreBtn.'
+                                      '. $cancelBtn.'
                                 </div>
-                            </div> ';
-                    return $btns;
+                            </div>';
+                    }else{
+                        return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
+                                </button>
+                                <div class="dropdown-menu">
+                            '.$moreBtn.'
+                             </div>
+                            </div>';
+                    }
                 })
                 ->rawColumns(['action','category','user_id','delegate_id','user','delegate','duration','created_at','orderType','laundryProfit','appProfit','commission','delivery','city'])
                 ->make(true);
@@ -472,24 +529,36 @@ class OrderController extends Controller
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
-                })->addColumn('action', function ($row) {
-                    return '<div class="dropdown">
+                })
+                ->addColumn('action', function ($row) {
+                    $cancelBtn='<a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>';
+                    $moreBtn='<a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>';
+                    if($row->status_id!=10){
+                        return '<div class="dropdown">
                               <button type="button" class="edit btn btn-info" data-toggle="dropdown">
                                     المزيد
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
-                                        <i data-feather="edit-2" class="mr-50"></i>
-                                        <span>التفاصيل</span>
-                                    </a>
-
-                                   <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
-                                        <i data-feather="trash" class="mr-50"></i>
-                                        <span>الغاء الطلب</span>
-                                    </a>
-
+                                      '.$moreBtn.'
+                                      '. $cancelBtn.'
                                 </div>
                             </div>';
+                    }else{
+                        return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
+                                </button>
+                                <div class="dropdown-menu">
+                            '.$moreBtn.'
+                             </div>
+                            </div>';
+                    }
                 })
                 ->rawColumns(['action','category','user','user_id','delegate_id','delegate','duration','created_at','laundryProfit','appProfit','orderType','commission','delivery','city'])
                 ->make(true);
@@ -533,25 +602,36 @@ class OrderController extends Controller
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
-                })->addColumn('action', function ($row) {
-                    $btns='<div class="dropdown">
+                })
+                ->addColumn('action', function ($row) {
+                    $cancelBtn='<a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>';
+                    $moreBtn='<a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>';
+                    if($row->status_id!=10){
+                        return '<div class="dropdown">
                               <button type="button" class="edit btn btn-info" data-toggle="dropdown">
                                     المزيد
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
-                                        <i data-feather="edit-2" class="mr-50"></i>
-                                        <span>التفاصيل</span>
-                                    </a>
-                                    <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
-                                        <i data-feather="trash" class="mr-50"></i>
-                                        <span>الغاء الطلب</span>
-                                    </a>
-
-
+                                      '.$moreBtn.'
+                                      '. $cancelBtn.'
                                 </div>
-                            </div> ';
-                    return $btns;
+                            </div>';
+                    }else{
+                        return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
+                                </button>
+                                <div class="dropdown-menu">
+                            '.$moreBtn.'
+                             </div>
+                            </div>';
+                    }
                 })
                 ->rawColumns(['category','user_id','user','deliveryType','duration','created_at','action','laundryProfit','orderType','appProfit','commission','delivery','city'])
                 ->make(true);
@@ -593,24 +673,36 @@ class OrderController extends Controller
                     return $row->subCategoriesTrashed->price;
                 })->addColumn('city', function ($row) {
                     return $row->userTrashed->citiesTrashed->name_ar;
-                })->addColumn('action', function ($row) {
-                    $btns='<div class="dropdown">
-                           <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                })
+                ->addColumn('action', function ($row) {
+                    $cancelBtn='<a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>';
+                    $moreBtn='<a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>';
+                    if($row->status_id!=10){
+                        return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
                                     المزيد
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
-                                        <i data-feather="edit-2" class="mr-50"></i>
-                                        <span>التفاصيل</span>
-                                    </a>
-                                    <a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
-                                        <i data-feather="trash" class="mr-50"></i>
-                                        <span>الغاء الطلب</span>
-                                    </a>
-
+                                      '.$moreBtn.'
+                                      '. $cancelBtn.'
                                 </div>
-                            </div> ';
-                    return $btns;
+                            </div>';
+                    }else{
+                        return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
+                                </button>
+                                <div class="dropdown-menu">
+                            '.$moreBtn.'
+                             </div>
+                            </div>';
+                    }
                 })
                 ->rawColumns(['action','category','user_id','user','duration','created_at','laundryProfit','appProfit','commission','orderType','delivery','city'])
                 ->make(true);
@@ -738,13 +830,14 @@ class OrderController extends Controller
 
     public function cancelOrder(Request $request)
     {
+
         if (is_numeric($request->id)) {
-            $order=OrderTable::find($request->id)->update([
+            OrderTable::find($request->id)->update([
                 'status_id' => '10',
                 'status' =>'الطلب ملغى',
             ]);
         }
-
+dd( OrderTable::find($request->id)->get());
         return redirect()->back();
 
     }
