@@ -783,25 +783,32 @@ function getStatusName($status_id){
             $name = trans('api.Delivery on the way to you');
             break;*/
         case \App\Http\Controllers\API\OrderController::WayToLaundry:
-            $name = trans('api.on the way to laundry');
+//            $name = trans('api.on the way to laundry');
+            $name = trans('api.way_to_laundry');
             break;
         case \App\Http\Controllers\API\OrderController::DeliveredToLaundry:
-            $name = trans('api.Delivered to laundry');
+//            $name = trans('api.Delivered to laundry');
+            $name = trans('api.Delivered_to_laundry');
             break;
         case \App\Http\Controllers\API\OrderController::ClothesReadyForDelivery:
-            $name = trans('api.clothes are ready for delivery');
+//            $name = trans('api.clothes are ready for delivery');
+            $name = trans('api.clothes_ready_delivery');
             break;
         case \App\Http\Controllers\API\OrderController::WaitingForDeliveryToReceiveOrder:
-            $name = trans('api.Waiting for delivery to receive order');
+//            $name = trans('api.Waiting for delivery to receive order');
+            $name = trans('api.Waiting_delivery_receive_order');
             break;
         case \App\Http\Controllers\API\OrderController::AcceptedByDeliveryToYou:
-            $name = trans('api.your clothes in the way');
+//            $name = trans('api.your clothes in the way');
+            $name = trans('api.your_clothes_way');
             break;
         /*case \App\Http\Controllers\API\OrderController::DeliveryOnTheWayToYou:
             $name = trans('api.Delivery on the way to you');
             break;*/
         case \App\Http\Controllers\API\OrderController::Completed:
-            $name = trans('api.completed');
+//            $name = trans('api.completed');
+            $name = trans('api.order_completed');
+
             break;
         case \App\Http\Controllers\API\OrderController::Cancel:
             $name = trans('api.cancel');

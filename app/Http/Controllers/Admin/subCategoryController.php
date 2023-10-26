@@ -63,8 +63,8 @@ class subCategoryController extends Controller
                 })->addColumn('ordersCount', function ($row) {
                     return OrderTable::select('*')->where('laundry_id',$row->id)->count();
                 })->addColumn('monthlyProfit', function ($row) {
-                    return OrderTable::select('*')->where('laundry_id',$row->id)->Where('status_id','!=',10)->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('laundry_profit');
-                })->addColumn('opened', function ($row) {
+                    $monthlyProfit = OrderTable::select('*')->where('laundry_id',$row->id)->Where('status_id','!=',10)->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('laundry_profit');
+                    return number_format((float)$monthlyProfit, 2, '.', '');                })->addColumn('opened', function ($row) {
                     if($row->around_clock==1)
                     {
                         return 'مفتوح';

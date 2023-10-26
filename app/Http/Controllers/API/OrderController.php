@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\AppUser;
 use App\Models\CouponShopCart;
 use App\Models\Delegate;
+use App\Models\DeliveryHistory;
 use App\Models\OrderDetails;
 use App\Models\OrderTable;
 use App\Models\Payment;
@@ -114,13 +115,7 @@ class OrderController extends Controller
         $laundry = Subcategory::where('id', $request->get('laundry_id'))->first();
 
         $distance = getDistanceFirst1(auth('app_users_api')->user(), $laundry->lat, $laundry->lng);
-//        if ($distance <= 10) {
-//            $delivery_fees = 10;
-//        } elseif ($distance > 10 || $distance <= 20) {
-//            $delivery_fees = 20;
-//        } else {
-//            $delivery_fees = 30;
-//        }
+
         $order_data = [
             'user_id'        => $app_user_id,
             'laundry_id'     => $request->get('laundry_id'),
@@ -130,7 +125,7 @@ class OrderController extends Controller
             'address_id'     => $request->get('address_id'),
             'count_products' => count($request->get('items')),
             'note'           => $request->get('note'),
-            'status'         => 'Waiting for delivery',
+            'status'         => 'انتظار المندوب',
             'status_id'      => self::WaitingForDelivery,
             'total_price'    => 0,
             'discount_value' => $discount_value,
@@ -322,6 +317,7 @@ class OrderController extends Controller
             ->with(['userTrashed', 'subCategoriesTrashed'])
             ->first();
 
+
         if ($order->user_id != $app_user_id && $order->delivery_id != $app_user_id) {
             return apiResponseOrders('api.incorrect_data');
         }
@@ -357,6 +353,7 @@ class OrderController extends Controller
                     );
                 }
             }
+
 
             if ($request->get('status_id') == self::WaitingForDeliveryToReceiveOrder) {
                 $order->delivery_id = null;
@@ -398,6 +395,22 @@ class OrderController extends Controller
                     $appUser->wallet+=floatval($order->subCategoriesTrashed->price);
                     $appUser->save();
                 }
+
+//                if($order->status_id = self::DeliveredToLaundry)
+//                {
+//                    DeliveryHistory::create([
+//                        'order_id'=>$order->id,
+//                        'delivery_id'=>,
+//                        'direction'=>'ToLaundry'
+//                    ]);
+//                }
+//
+//                if($order->status_id = self::Completed)
+//                {
+//                    DeliveryHistory::create([  ]);
+//
+//                }
+
 
                 Transaction::create([
                     'app_user_id'   => auth('app_users_api')->user()->id,
@@ -546,17 +559,20 @@ class OrderController extends Controller
         $name = 'name_' . App::getLocale();
         $app_user = auth('app_users_api')->user();
         $status_histories = [];
-        foreach ($order->histories as $history) {
+        if($order->histories->count()>0){
+            foreach ($order->histories as $history) {
 
-            $status_histories[] = [
-                'status_id' => $history->status_id,
-                'spend_time' => $history->spend_time,
-                'status' => $history->status,
-                'name' => getStatusName($history->status_id),
-                'date' => $history->created_at->toDateString(),
-                'time' => $history->created_at->format("h:i A"),
-            ];
+                $status_histories[] = [
+                    'status_id' => $history->status_id,
+                    'spend_time' => $history->spend_time,
+                    'status' => $history->status,
+                    'name' => getStatusName($history->status_id),
+                    'date' => $history->created_at->toDateString(),
+                    'time' => $history->created_at->format("h:i A"),
+                ];
+            }
         }
+
         $order_details = [];
         foreach ($order->orderDetails as $detail) {
             $order_details[] = [

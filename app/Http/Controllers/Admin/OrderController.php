@@ -650,6 +650,10 @@ class OrderController extends Controller
                     return $row->userTrashed->id ;
                 })->addColumn('user',function ($row){
                     return $row->userTrashed->name ;
+                })->addColumn('delegate_id',function ($row){
+                    return $row->delegateTrashed->appUserTrashed->name ??'';
+                })->addColumn('delegate',function ($row){
+                    return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->addColumn('duration',function ($row){
                     $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDeliveryToYou)->first();
                     $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::Completed)->first();
@@ -704,7 +708,7 @@ class OrderController extends Controller
                             </div>';
                     }
                 })
-                ->rawColumns(['action','category','user_id','user','duration','created_at','laundryProfit','appProfit','commission','orderType','delivery','city'])
+                ->rawColumns(['action','category','user_id','user','delegate_id','delegate','duration','created_at','laundryProfit','appProfit','commission','orderType','delivery','city'])
                 ->make(true);
         }
         return  view('dashboard.Orders.DeliveryOnTheWayToYou');

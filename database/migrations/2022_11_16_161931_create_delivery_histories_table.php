@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('delivery_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id');
-            $table->foreignId('user_id');
+            $table->foreignId('delivery_id');
             $table->enum('direction', ['ToLaundry','FromLaundry']);
             $table->timestamps();
         });

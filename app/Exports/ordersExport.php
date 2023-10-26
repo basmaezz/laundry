@@ -14,17 +14,19 @@ class ordersExport implements FromCollection, WithHeadings, WithMapping
     */
     public function collection()
     {
-        return OrderTable::with(['payments', 'histories','subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed'])
+       return OrderTable::with(['payments', 'histories','subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed'])
             ->with('orderDetails')
             ->with(['orderDetails.productService:id,commission'])
             ->orderBy('id', 'DESC')
             ->get();
+
     }
     public function map($order): array
     {
         return [
             $order->id,
             $order->subCategoriesTrashed->name_ar,
+            $order->userTrashed->id,
             $order->userTrashed->name,
             $order->urgent=='1'?'مستعجل':'عادى',
             $order->total_price,
@@ -34,7 +36,7 @@ class ordersExport implements FromCollection, WithHeadings, WithMapping
             $order->subCategoriesTrashed->price,
             $order->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب',
             $order->userTrashed->citiesTrashed->name_ar,
-            $order->created_at->format('Y-m-d'),
+            $order->created_at->format('Y-m-d')??'',
         ];
     }
 
@@ -43,6 +45,7 @@ class ordersExport implements FromCollection, WithHeadings, WithMapping
         return [
             'رقم الطلب',
             'اسم المغسله',
+            ' رقم العميل',
             ' اسم العميل',
             ' نوع الطلب',
             'القيمه الاجماليه',
