@@ -457,10 +457,11 @@ class OrderController extends Controller
                 ]);
             }
             //End Store Payment information
-            $name = 'name_' . App::getLocale();
+
+            $notification_obj = getNotificationObj($status_id);
             NotificationController::sendNotification(
-                getStatusName($status_id),
-                __('api.order_update', ['laundry' => $order->subCategoriesTrashed->$name, 'status' => getStatusName($status_id)]),
+                $notification_obj['title'],
+                $notification_obj['description'],
                 $order->userTrashed,
                 $order->id
             );

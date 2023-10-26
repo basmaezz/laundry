@@ -202,12 +202,14 @@ class DelegatesController extends Controller
             'user_id'   => $app_user_id,
             'direction' => $order->status_id == OrderController::AcceptedByDelivery? 'ToLaundry' : 'FromLaundry'
         ]);
-        $name = 'name_' . App::getLocale();
+
+        $notification_obj = getNotificationObj($order->status_id);
         NotificationController::sendNotification(
-            getStatusName($order->status_id),
-            __('api.order_update',['laundry'=>$order->subCategoriesTrashed->$name,'status'=>getStatusName($order->status_id)]),
+            $notification_obj['title'],
+            $notification_obj['description'],
             $order->userTrashed,
-            $order->id);
+            $order->id
+        );
 
         $users = AppUser::where([
             'status' => 'active',
