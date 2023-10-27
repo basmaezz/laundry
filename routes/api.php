@@ -12,6 +12,7 @@ use App\Http\Controllers\API\UsersController;
 use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\YearController;
+use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\NationalityController;
 use Illuminate\Support\Facades\Route;
 
@@ -70,6 +71,10 @@ Route::get('test-login', function () {
 //    Route::resource('address', AddressController::class);
 //});
 Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], function () {
+    // Payment gateway API
+    Route::post('request', [PaymentController::class, 'request']);
+    Route::post('paymentStatus', [PaymentController::class, 'paymentStatus']);
+
     Route::post('addToFavorite/{id}', [UsersController::class, 'addToFavorite']);
     Route::post('removeFromFavorite/{id}', [UsersController::class, 'removeFromFavorite']);
     Route::get('getMyFavorites', [UsersController::class, 'getMyFavorites']);
