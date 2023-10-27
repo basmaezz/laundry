@@ -33,6 +33,7 @@ class Delegate extends Model
         'medic_check',
         'registered',
         'user_type',
+            'deliver_carpet',
             'identity_expiration_date'
         ];
 

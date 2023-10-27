@@ -396,6 +396,8 @@ class UserController extends Controller
                     return  $row->appUserTrashed->wallet;
                 })->addColumn('created_at', function ($row) {
                     return  $row->created_at->format('Y-M-D') ??'';
+                })-> addColumn('deliverCarpet', function ($row) {
+                    return  $row->deliver_carpet==1 ?'نعم':'لا';
                 })
                 ->addColumn('action', function ($row) {
 
@@ -430,7 +432,7 @@ class UserController extends Controller
                             </div> ';
 
                 })
-                ->rawColumns(['name', 'city','nationality','mobile','request_employment','status','created_at','monthlyOrders','wallet','action'])
+                ->rawColumns(['name', 'city','nationality','mobile','request_employment','deliverCarpet','status','created_at','monthlyOrders','wallet','action'])
                 ->make(true);
         }
         return view('dashboard.users.delegates');
@@ -450,7 +452,6 @@ class UserController extends Controller
     }
     public function storeDelegate(Request $request)
     {
-
         $request->validate([
                         'first_name'=>'required',
                         'second_name'=>'required',
@@ -459,6 +460,7 @@ class UserController extends Controller
                         'city_id'=>'required',
                         'region_name'=>'required',
                         'license_end_date'=>'required',
+                        'deliver_carpet'=>'required',
                         'id_number'=>'required|integer|min:9|unique:delegates',
                         'identity_expiration_date'=>'required',
                         'nationality_id'=>'nullable',
@@ -532,6 +534,7 @@ class UserController extends Controller
        $delegate['app_user_id']=$user->id;
        $delegate['request_employment']=$request->request_employment;
        $delegate['bank_id']=$request->bank_id;
+       $delegate['deliver_carpet']=$request->deliver_carpet;
        $delegate['id_number']=$request->id_number;
        $delegate['iban_number']=$request->iban_number;
        $delegate['car_type_id']=$request->car_type;
@@ -648,13 +651,14 @@ class UserController extends Controller
         'car_manufacture_year_id'=>$request->car_manufacture_year_id,
         'identity_expiration_date'=>$request->identity_expiration_date,
         'license_end_date'=>$request->license_end_date,
+         'deliver_carpet'=>$request->deliver_carpet,
 
       ]);
       $delegate->appUserTrashed->update([
           'uuid'=>Uuid::uuid1()->toString(),
           'name'=>$request->name,
           'email'=>$request->email,
-          'mobile'=>'966'.$request->mobile,
+          'mobile'=>'966'.$request->phone,
           'city_id'=>$request->city_id,
           'region_name'=>$request->region_name,
           ]);

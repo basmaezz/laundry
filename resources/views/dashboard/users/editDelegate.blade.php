@@ -210,6 +210,21 @@
                                 <hr>
 
                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input"class="form-control"> توصيل سجاد  </label>
+                                    <div class="col-md-2">
+                                        <label class="form-control check-ability-label">
+                                            <input type="radio"  class="checkbox-ability" name="deliver_carpet" value="1" {{$delegate->deliver_carpet==1?'checked' :''}}>نعم
+                                            <br>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-control check-ability-label">
+                                            <input type="radio"  class="checkbox-ability" name="deliver_carpet" value="0" {{$delegate->deliver_carpet==0?'checked' :''}}>لا
+                                            <br>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">نوع السياره  </label>
                                     <div class="col-md-9">
                                         <select  name="car_type" class="form-control">

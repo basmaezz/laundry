@@ -36,7 +36,6 @@
                         </div>
                         <div class="card-body">
                             <form action="{{route('delegate.store')}}" method="post" enctype="multipart/form-data" >
-
                             @csrf
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">الأسم الثلاثى </label>
@@ -65,7 +64,7 @@
 
                                 <div class="input-group ">
                                     <label class="col-md-3 form-control-label" for="text-input">الجوال </label>
-                                    <input type="text"  name="phone" class="form-control" value="{{ Request::old('phone') }}"placeholder="الجوال" maxlength="10" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text"  name="mobile" class="form-control" value="{{ Request::old('mobile') }}"placeholder="الجوال" maxlength="10" aria-label="Username" aria-describedby="basic-addon1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1" disabled>00966</span>
                                     </div>
@@ -78,8 +77,7 @@
                                         <span class="input-group-text" id="basic-addon1" disabled>@</span>
                                     </div>
                                 </div>
-
-<br>
+                                <br>
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">المدينه  </label>
                                     <div class="col-md-9">
@@ -103,19 +101,7 @@
                                         @endif
                                     </div>
                                 </div>
-
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الملف الشخصى </label>                                            <div class="col-md-9">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile1" name="profileImage" required />
-                                            <label class="custom-file-label" for="customFile1">Choose profile pic</label>
-                                        </div>
-                                        @if ($errors->has('avatar'))
-                                            <span class="text-danger">{{ $errors->first('avatar') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-<hr>
+                                <hr>
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">
                                         الرقم المدنى (الهويه/الاقامه)
@@ -137,7 +123,6 @@
                                         @endif
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">الجنسيه</label>
                                     <div class="col-md-9">
@@ -152,7 +137,6 @@
                                         @endif
                                     </div>
                                 </div>
-
                                 <div class="form-group row " id="nationality" style="display: none">
                                     <label class="col-md-3 form-control-label" for="text-input"> </label>
                                     <div class="col-md-9">
@@ -162,7 +146,6 @@
                                         @endif
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input"> نوع التعاقد </label>
                                     <div class="col-md-9">
@@ -175,7 +158,6 @@
                                         @endif
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">اسم البنك </label>
                                     <div class="col-md-9">
@@ -201,6 +183,22 @@
                                 </div>
                                 <hr>
 
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input"class="form-control"> توصيل سجاد  </label>
+                                    <div class="col-md-2">
+                                        <label class="form-control check-ability-label">
+                                            <input type="radio"  class="checkbox-ability" name="deliver_carpet" value="1" >نعم
+                                            <br>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-control check-ability-label">
+                                            <input type="radio"  class="checkbox-ability" name="deliver_carpet" value="0" >لا
+                                            <br>
+                                        </label>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">نوع السياره  </label>
                                     <div class="col-md-9">
@@ -214,7 +212,6 @@
                                         @endif
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">  موديل السياره</label>
                                     <div class="col-md-9">
@@ -239,19 +236,19 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input"class="form-control"> معلومات لوحه السياره  </label>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
                                         <input type="text" id="car_plate_letter1" name="car_plate_letter1"placeholder="ق" class="form-control"maxlength="1"value="{{Request::old('car_plate_letter1')}}">
                                         @if ($errors->has('car_plate_letter1'))
                                             -<span class="text-danger">{{ $errors->first('car_plate_letter1') }}</span>
                                         @endif
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
                                         <input type="text" id="car_plate_letter2" name="car_plate_letter2"placeholder="ف" class="form-control"maxlength="1"value="{{Request::old('car_plate_letter2')}}">
                                         @if ($errors->has('car_plate_letter2'))
                                             -<span class="text-danger">{{ $errors->first('car_plate_letter2') }}</span>
                                         @endif
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
                                         <input type="text" id="car_plate_letter3" name="car_plate_letter3"placeholder="ق" class="form-control"maxlength="1"value="{{Request::old('car_plate_letter3')}}">
                                         @if ($errors->has('car_plate_letter3'))
                                             -<span class="text-danger">{{ $errors->first('car_plate_letter3') }}</span>
@@ -265,12 +262,30 @@
                                     </div>
                                 </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                           <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الملف الشخصى </label>                                            <div class="col-md-9">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile1" name="avatar" required />
+                                            <label class="custom-file-label" for="customFile1">صوره الملف الشخصى</label>
+                                        </div>
+                                        @if ($errors->has('avatar'))
+                                            <span class="text-danger">{{ $errors->first('avatar') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            <hr>
 
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره السياره من الأمام </label>                                            <div class="col-md-9">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="customFile1" name="car_picture_front" required />
-                                            <label class="custom-file-label" for="customFile1">Choose profile pic</label>
+                                            <label class="custom-file-label" for="customFile1">صوره السياره من الأمام</label>
                                         </div>
                                         @if ($errors->has('car_picture_front'))
                                             <span class="text-danger">{{ $errors->first('car_picture_front') }}</span>
@@ -282,7 +297,7 @@
                                     <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره السياره من الخلف  </label>                                            <div class="col-md-9">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="customFile1" name="car_picture_behind" required />
-                                            <label class="custom-file-label" for="customFile1">Choose profile pic</label>
+                                            <label class="custom-file-label" for="customFile1">صوره السياره من الخلف</label>
                                         </div>
                                         @if ($errors->has('car_picture_behind'))
                                             <span class="text-danger">{{ $errors->first('car_picture_behind') }}</span>
@@ -294,7 +309,7 @@
                                     <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره ساريه لرخصه القياده   </label>                                            <div class="col-md-9">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="customFile1" name="driving_license" required />
-                                            <label class="custom-file-label" for="customFile1">Choose profile pic</label>
+                                            <label class="custom-file-label" for="customFile1">صوره ساريه لرخصه القياده</label>
                                         </div>
                                         @if ($errors->has('driving_license'))
                                             <span class="text-danger">{{ $errors->first('driving_license') }}</span>
@@ -306,7 +321,7 @@
                                     <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره استمارة السيارة   </label>                                            <div class="col-md-9">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="customFile1" name="car_registration" required />
-                                            <label class="custom-file-label" for="customFile1">Choose profile pic</label>
+                                            <label class="custom-file-label" for="customFile1">صوره استمارة السيارة</label>
                                         </div>
                                         @if ($errors->has('car_registration'))
                                             <span class="text-danger">{{ $errors->first('car_registration') }}</span>
@@ -317,7 +332,7 @@
                                     <label class="col-md-3 form-control-label" for="file-input"class="form-control"> صوره الهويه / الاقامه   </label>                                            <div class="col-md-9">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="customFile1" name="id_image" required />
-                                            <label class="custom-file-label" for="customFile1">Choose profile pic</label>
+                                            <label class="custom-file-label" for="customFile1">صوره الهويه / الاقامه</label>
                                         </div>
                                         @if ($errors->has('id_image'))
                                             <span class="text-danger">{{ $errors->first('id_image') }}</span>
@@ -328,7 +343,7 @@
                                     <label class="col-md-3 form-control-label" for="file-input"class="form-control">صوره الفحص الطبى   </label>                                            <div class="col-md-9">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="customFile1" name="medicCheck" required />
-                                            <label class="custom-file-label" for="customFile1">Choose profile pic</label>
+                                            <label class="custom-file-label" for="customFile1">صوره الفحص الطبى </label>
                                         </div>
                                         @if ($errors->has('medicCheck'))
                                             <span class="text-danger">{{ $errors->first('medicCheck') }}</span>
