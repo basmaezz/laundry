@@ -23,4 +23,7 @@ class DeliveryHistory extends Model
     public function user(){
         return $this->belongsTo(AppUser::class,'user_id', 'id');
     }
+    public function getOrderAttribute(){
+
+    }
 }
