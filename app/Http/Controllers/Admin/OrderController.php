@@ -797,6 +797,7 @@ class OrderController extends Controller
     {
         $delegate=Delegate::withTrashed()->find($id);
         $delivery_id=$delegate->app_user_id;
+        $orderCount= DeliveryHistory::where('user_id',$delivery_id)->get();
         if(request()->ajax()) {
             $delegate=Delegate::withTrashed()->find($id);
             $delivery_id=$delegate->app_user_id;
@@ -829,7 +830,7 @@ class OrderController extends Controller
                 ->rawColumns(['subCategory','status','createdAt','action'])
                 ->make(true);
         }
-        return  view('dashboard.Orders.delegateOrders',compact(['id','delivery_id']));
+        return  view('dashboard.Orders.delegateOrders',compact(['id','delivery_id','orderCount']));
     }
 
     public function cancelOrder(Request $request)

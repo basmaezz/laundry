@@ -28,7 +28,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <a class="btn btn-primary custom" > عدد الطلبات الكليه : {{ \App\Models\OrderTable::select('*')->where('delivery_id',$id)->count()}}</a>
+                        <a class="btn btn-primary custom" > عدد الطلبات الكليه : {{ $orderCount}}</a>
                     </div>
                     <div class="card-block">
                         <table class="table table-striped" id="delegateOrdersTable">
