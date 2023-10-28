@@ -72,8 +72,8 @@ Route::get('test-login', function () {
 //});
 Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], function () {
     // Payment gateway API
-    Route::post('request', [PaymentController::class, 'request']);
-    Route::post('paymentStatus', [PaymentController::class, 'paymentStatus']);
+    Route::post('payment/request', [PaymentController::class, 'request']);
+    Route::post('payment/status', [PaymentController::class, 'paymentStatus']);
 
     Route::post('addToFavorite/{id}', [UsersController::class, 'addToFavorite']);
     Route::post('removeFromFavorite/{id}', [UsersController::class, 'removeFromFavorite']);
