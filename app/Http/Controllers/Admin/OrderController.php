@@ -794,6 +794,44 @@ class OrderController extends Controller
         return  view('dashboard.Orders.completed');
     }
 
+    // public function delegateOrders($id)
+    // {
+    //     $delegate=Delegate::withTrashed()->find($id);
+    //     $delivery_id=$delegate->app_user_id;
+    //     $orderCount= DeliveryHistory::where('user_id',$delivery_id)->count();
+
+    //     if(request()->ajax()) {
+    //         $delegate=Delegate::withTrashed()->find($id);
+    //         $delivery_id=$delegate->app_user_id;
+    //         // $data=OrderTable::where('delivery_id',$delegate->app_user_id)->orderBy('id', 'DESC')->get();
+    //     $data = DeliveryHistory::with(['order','order.subCategoriesTrashed','order.userTrashed'])->where('user_id',$delivery_id)->orderBy('id', 'DESC')->get();
+    //     dd($data);
+
+    //         return   Datatables::of($data)
+    //             ->addColumn('subCategory', function ($row) {
+    //                 return $row->order->subCategoriesTrashed->name_ar ;
+    //             })->addColumn('customer_id', function ($row) {
+    //                 return $row->order->userTrashed->id ;
+    //             })->addColumn('customer_name', function ($row) {
+    //                 return $row->order->userTrashed->name ;
+    //             })->addColumn('createdAt', function ($row) {
+    //                 return $row->created_at ? $row->created_at->format('d-m-Y'):'';
+    //             })->addColumn('action', function ($row) {
+    //                 return '<div class="dropdown"><button type="button" class="edit btn btn-info" data-toggle="dropdown">المزيد</button>
+    //                             <div class="dropdown-menu">
+    //                                 <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+    //                                     <i data-feather="edit-2" class="mr-50"></i>
+    //                                     <span>التفاصيل</span>
+    //                                 </a>
+    //                             </div>
+    //                         </div>';
+    //             })
+    //             ->rawColumns(['subCategory','customer_id','customer_name','createdAt','action'])
+    //             ->make(true);
+    //     }
+    //     return  view('dashboard.Orders.delegateOrders',compact(['id','delivery_id','orderCount']));
+    // }
+
     public function delegateOrders($id)
     {
         $delegate=Delegate::withTrashed()->find($id);
@@ -802,34 +840,39 @@ class OrderController extends Controller
 
         if(request()->ajax()) {
             $delegate=Delegate::withTrashed()->find($id);
-            $delivery_id=$delegate->app_user_id;
-//            $histories = DeliveryHistory::with('order')->where('user_id',$id)->get();
-            $data=OrderTable::where('delivery_id',$delegate->app_user_id)->orderBy('id', 'DESC')->get();
+            // $data=OrderTable::where('delivery_id',$delegate->app_user_id)->orderBy('id', 'DESC')->get();
+            $data = DeliveryHistory::with(['order','order.userTrashed'])->where('user_id',$delivery_id)->orderBy('id', 'DESC')->get();
+
             return   Datatables::of($data)
                 ->addColumn('subCategory', function ($row) {
-                    return $row->subCategoriesTrashed->name_ar ;
+                    $order=orderTable::with('subCategoriesTrashed')->where('id',$row->order_id)->first();
+                    return $order->subCategoriesTrashed->name_ar;
+                })->addColumn('customer_id', function ($row) {
+                    $order=orderTable::with('userTrashed')->where('id',$row->order_id)->first();
+                    return $order->userTrashed->id;
+                })->addColumn('customer_name', function ($row) {
+                    $order=orderTable::with('userTrashed')->where('id',$row->order_id)->first();
+                    return $order->userTrashed->name;
                 })->addColumn('createdAt', function ($row) {
                     return $row->created_at ? $row->created_at->format('d-m-Y'):'';
+                })   ->addColumn('delivery', function ($row) {
+                    $order=orderTable::with('subCategoriesTrashed')->where('id',$row->order_id)->first();
+                    return $order->subCategoriesTrashed->price .' '.'ريال';
                 })->addColumn('action', function ($row) {
-                    return '<div class="dropdown">
-                                      <button type="button" class="edit btn btn-info" data-toggle="dropdown">
-                                    المزيد
-                                </button>
+                    return '<div class="dropdown"><button type="button" class="edit btn btn-info" data-toggle="dropdown">المزيد</button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
                                         <i data-feather="edit-2" class="mr-50"></i>
                                         <span>التفاصيل</span>
                                     </a>
-
                                 </div>
                             </div>';
                 })
-                ->rawColumns(['subCategory','createdAt','action'])
+                ->rawColumns(['subCategory','customer_id','customer_name','createdAt','action','delivery'])
                 ->make(true);
         }
         return  view('dashboard.Orders.delegateOrders',compact(['id','delivery_id','orderCount']));
     }
-
     public function cancelOrder(Request $request)
     {
 
@@ -839,7 +882,7 @@ class OrderController extends Controller
                 'status' =>'الطلب ملغى',
             ]);
         }
-dd( OrderTable::find($request->id)->get());
+        dd( OrderTable::find($request->id)->get());
         return redirect()->back();
 
     }

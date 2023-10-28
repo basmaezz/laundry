@@ -22,70 +22,86 @@
 
     </div>
     <div class="content-body">
-    <main class="main" style="margin-top: 25px">
-        <div >
+        <main class="main" style="margin-top: 25px">
+            <div >
 
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <a class="btn btn-primary custom" > عدد الطلبات الكليه : {{ $orderCount}}</a>
-                    </div>
-                    <div class="card-block">
-                        <table class="table table-striped" id="delegateOrdersTable">
-                            <input type="hidden" value="{{$id}}" id="delegate_id">
-                            <thead>
-                            <tr>
-                                <th>رقم الطلب  </th>
-                                <th>اسم المغسله</th>
-                                <th>حاله الطلب</th>
-                                <th>التاريخ</th>
-                                <th>Actions </th>
-                            </tr>
-                            </thead>
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="btn btn-primary custom" > عدد الطلبات الكليه : {{ $orderCount}}</a>
+                        </div>
+                        <div class="card-block">
+                            <table class="table table-striped" id="delegateOrdersTable">
+                                <input type="hidden" value="{{$id}}" id="delegate_id">
+                                <thead>
+                                <tr>
+                                    <th>رقم الطلب  </th>
+                                    <th>اسم المغسله</th>
+                                    <th>رقم العميل </th>
+                                    <th>اسم العميل </th>
+                                    <th>حاله الطلب</th>
+                                    <th>سعر التوصيل </th>
+                                    <th>التاريخ</th>
+                                    <th>Actions </th>
+                                </tr>
+                                </thead>
 
-                        </table>
+                            </table>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
-@endsection
-@push('scripts')
-    <script type="text/javascript">
-        $(window).on('load', function() {
-              var id= document.getElementById('delegate_id').value;
+        </main>
+        @endsection
+        @push('scripts')
+            <script type="text/javascript">
+                $(window).on('load', function() {
+                    var id= document.getElementById('delegate_id').value;
 
-            $('#delegateOrdersTable').DataTable({
-                processing: true,
-                serverSide: true,
-                ordering: false,
-                ajax: "{{ Route('Order.delegateOrders',$id) }}",
-                data: { id: id},
-                columns: [{
-                    data: 'id',
-                    name: 'id'
-                },{
-                    data: 'subCategory',
-                    name: 'subCategory'
-                },{
-                    data: 'status',
-                    name:'status'
-                },{
-                    data: 'createdAt',
-                    name: 'createdAt'
-                }, {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
-                },
+                    $('#delegateOrdersTable').DataTable({
+                        processing: true,
+                        serverSide: true,
+                        ordering: false,
+                        ajax: "{{ Route('Order.delegateOrders',$id) }}",
+                        data: { id: id},
+                        columns: [
+                            {
+                                data: 'order_id',
+                                name: 'order_id'
+                            },{
+                                data: 'subCategory',
+                                name: 'subCategory'
+                            },{
+                                data: 'customer_id',
+                                name: 'customer_id'
+                            },{
+                                data: 'customer_name',
+                                name: 'customer_name'
 
-                ]
-            });
-        });
+                            },{
+                                data: 'direction',
+                                name: 'direction'
 
-    </script>
+                            },{
+                                data: 'delivery',
+                                name: 'delivery'
 
-@endpush
+                            },{
+                                data: 'createdAt',
+                                name: 'createdAt'
+                            },{
+                                data: 'action',
+                                name: 'action',
+                                orderable: false,
+                                searchable: false
+                            },
+
+                        ]
+                    });
+                });
+
+            </script>
+
+    @endpush
 
