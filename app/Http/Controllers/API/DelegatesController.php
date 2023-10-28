@@ -171,7 +171,9 @@ class DelegatesController extends Controller
 
         $data = [];
         foreach ($histories as $history){
-
+            if (! $history->order) {
+                continue;
+            }
                 $order = OrderController::orderObject($history->order);
                 if(//Display only completed delivery tasks
                     ($history->order->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||

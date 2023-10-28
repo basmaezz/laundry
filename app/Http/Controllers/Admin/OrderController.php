@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\ordersExport;
 use App\Http\Controllers\Controller;
 use App\Models\Delegate;
+use App\Models\DeliveryHistory;
 use App\Models\OrderDetails;
 use App\Models\OrderStatusHistory;
 use App\Models\OrderTable;
@@ -797,19 +798,16 @@ class OrderController extends Controller
     {
         $delegate=Delegate::withTrashed()->find($id);
         $delivery_id=$delegate->app_user_id;
+        $orderCount= DeliveryHistory::where('user_id',$delivery_id)->count();
+
         if(request()->ajax()) {
             $delegate=Delegate::withTrashed()->find($id);
             $delivery_id=$delegate->app_user_id;
+//            $histories = DeliveryHistory::with('order')->where('user_id',$id)->get();
             $data=OrderTable::where('delivery_id',$delegate->app_user_id)->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addColumn('subCategory', function ($row) {
                     return $row->subCategoriesTrashed->name_ar ;
-                })->addColumn('status', function ($row) {
-                    if($row->status_id==4){
-                        return 'تم التسليم للمغسله';
-                    }elseif ($row->status_id==8){
-                        return 'تم التسليم للعميل';
-                    }
                 })->addColumn('createdAt', function ($row) {
                     return $row->created_at ? $row->created_at->format('d-m-Y'):'';
                 })->addColumn('action', function ($row) {
@@ -826,10 +824,10 @@ class OrderController extends Controller
                                 </div>
                             </div>';
                 })
-                ->rawColumns(['subCategory','status','createdAt','action'])
+                ->rawColumns(['subCategory','createdAt','action'])
                 ->make(true);
         }
-        return  view('dashboard.Orders.delegateOrders',compact(['id','delivery_id']));
+        return  view('dashboard.Orders.delegateOrders',compact(['id','delivery_id','orderCount']));
     }
 
     public function cancelOrder(Request $request)

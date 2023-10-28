@@ -560,7 +560,7 @@ class OrderController extends Controller
         $name = 'name_' . App::getLocale();
         $app_user = auth('app_users_api')->user();
         $status_histories = [];
-        if($order->histories->count()>0){
+
             foreach ($order->histories as $history) {
 
                 $status_histories[] = [
@@ -572,7 +572,7 @@ class OrderController extends Controller
                     'time' => $history->created_at->format("h:i A"),
                 ];
             }
-        }
+
 
         $order_details = [];
         foreach ($order->orderDetails as $detail) {
@@ -648,6 +648,7 @@ class OrderController extends Controller
             'laundry name' => $order->subCategoriesTrashed->$name,
             'date' => $order->created_at->format("d M"),
             'status_id' => $order->status_id,
+            'urgent'=>$order->urgent ?'urgent':'normal',
             'status' => getStatusName($order->status_id),
             'time' => $order->created_at->format("h:i A"),
             'quantity' => intval($order->count_products),

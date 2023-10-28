@@ -18,22 +18,17 @@
                 </div>
             </div>
         </div>
-        <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-            <div class="form-group breadcrumb-right">
-
-            </div>
-        </div>
     </div>
+    <a href="{{route('delegates.export')}}" class="btn btn-info"  >Export </a>
+    <a href="{{route('delegate.create')}}" class="btn btn-primary" >اضافه مندوب</a>
+    <a href="{{route('delegate.clearWallet')}}" class="btn btn-danger"  >تصفير جميع المحافظ </a>
+
     <div class="content-body">
     <main class="main" style="margin-top: 25px">
         <div >
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header">
-                        <a href="{{route('delegates.export')}}" class="btn btn-info" >Export </a>
-                        <a href="{{route('delegate.create')}}" class="btn btn-primary" >اضافه مندوب</a>
-                        <a href="{{route('delegate.clearWallet')}}" class="btn btn-danger"  >تصفير جميع المحافظ </a>
-                    </div>
+
                     <div class="card-block">
                         <table class="table table-striped" id="table_id">
                             <thead>
@@ -43,6 +38,7 @@
                                 <th>المدينه</th>
                                 <th>الجنسيه</th>
                                 <th>نوع التعاقد</th>
+                                <th> توصيل سجاد</th>
                                 <th>رقم الهويه الوطنيه/الاقامه </th>
                                 <th>رقم الجوال   </th>
                                 <th> الحاله</th>
@@ -84,6 +80,9 @@
                     }, {
                         data: 'request_employment',
                         name: 'request_employment'
+                    }, {
+                        data: 'deliverCarpet',
+                        name: 'deliverCarpet'
                     }, {
                         data: 'id_number',
                         name: 'id_number'
