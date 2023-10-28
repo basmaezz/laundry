@@ -77,8 +77,9 @@ class PaymentController extends Controller
 //                'customer.surname' => $user->name,
             ]
         ]);
+        //var_dump($response->getBody()->getContents());
 
-        return apiResponse('api.success', $response->getBody());
+        return response()->json(json_decode($response->getBody()->getContents(),true));
     }
 
     public function paymentStatus(Request $request){
@@ -97,6 +98,6 @@ class PaymentController extends Controller
                 'Authorization' => 'Bearer '.config("payment.Authorization")
             ]
         ]);
-        return apiResponse('api.success', $response->getBody());
+        return response()->json(json_decode($response->getBody()->getContents(),true));
     }
 }
