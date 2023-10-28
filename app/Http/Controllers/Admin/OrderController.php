@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\ordersExport;
 use App\Http\Controllers\Controller;
 use App\Models\Delegate;
+use App\Models\DeliveryHistory;
 use App\Models\OrderDetails;
 use App\Models\OrderStatusHistory;
 use App\Models\OrderTable;
