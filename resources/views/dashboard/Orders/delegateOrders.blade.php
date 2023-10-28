@@ -21,6 +21,7 @@
         </div>
 
     </div>
+    <a href="{{route('Orders.exportDelegateOrders')}}" class="btn btn-info" style="margin-right: 1280px;" >Export </a>
     <div class="content-body">
         <main class="main" style="margin-top: 25px">
             <div >
@@ -39,7 +40,7 @@
                                     <th>اسم المغسله</th>
                                     <th>رقم العميل </th>
                                     <th>اسم العميل </th>
-                                    <th>حاله الطلب</th>
+                                    <th>اتجاه الطلب</th>
                                     <th>سعر التوصيل </th>
                                     <th>التاريخ</th>
                                     <th>Actions </th>

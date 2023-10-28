@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\delegateOrdersExport;
 use App\Exports\ordersExport;
 use App\Http\Controllers\Controller;
 use App\Models\Delegate;
@@ -794,43 +795,6 @@ class OrderController extends Controller
         return  view('dashboard.Orders.completed');
     }
 
-    // public function delegateOrders($id)
-    // {
-    //     $delegate=Delegate::withTrashed()->find($id);
-    //     $delivery_id=$delegate->app_user_id;
-    //     $orderCount= DeliveryHistory::where('user_id',$delivery_id)->count();
-
-    //     if(request()->ajax()) {
-    //         $delegate=Delegate::withTrashed()->find($id);
-    //         $delivery_id=$delegate->app_user_id;
-    //         // $data=OrderTable::where('delivery_id',$delegate->app_user_id)->orderBy('id', 'DESC')->get();
-    //     $data = DeliveryHistory::with(['order','order.subCategoriesTrashed','order.userTrashed'])->where('user_id',$delivery_id)->orderBy('id', 'DESC')->get();
-    //     dd($data);
-
-    //         return   Datatables::of($data)
-    //             ->addColumn('subCategory', function ($row) {
-    //                 return $row->order->subCategoriesTrashed->name_ar ;
-    //             })->addColumn('customer_id', function ($row) {
-    //                 return $row->order->userTrashed->id ;
-    //             })->addColumn('customer_name', function ($row) {
-    //                 return $row->order->userTrashed->name ;
-    //             })->addColumn('createdAt', function ($row) {
-    //                 return $row->created_at ? $row->created_at->format('d-m-Y'):'';
-    //             })->addColumn('action', function ($row) {
-    //                 return '<div class="dropdown"><button type="button" class="edit btn btn-info" data-toggle="dropdown">المزيد</button>
-    //                             <div class="dropdown-menu">
-    //                                 <a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
-    //                                     <i data-feather="edit-2" class="mr-50"></i>
-    //                                     <span>التفاصيل</span>
-    //                                 </a>
-    //                             </div>
-    //                         </div>';
-    //             })
-    //             ->rawColumns(['subCategory','customer_id','customer_name','createdAt','action'])
-    //             ->make(true);
-    //     }
-    //     return  view('dashboard.Orders.delegateOrders',compact(['id','delivery_id','orderCount']));
-    // }
 
     public function delegateOrders($id)
     {
@@ -885,6 +849,12 @@ class OrderController extends Controller
         dd( OrderTable::find($request->id)->get());
         return redirect()->back();
 
+    }
+
+    public function exportDelegateOrders(Request $request)
+    {
+        return Excel::download(new delegateOrdersExport($request->id), 'orders.xlsx');
+        return redirect()->back();
     }
 
 }

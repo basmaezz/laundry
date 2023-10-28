@@ -172,6 +172,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::controller(OrderController::class)->group(function (){
     Route::get('getOrders', 'index')->name('Order.index');
     Route::get('exportOrders',  'export')->name('Orders.export');
+    Route::get('exportDelegateOrders',  'exportDelegateOrders')->name('Orders.exportDelegateOrders');
     Route::get('viewOrder/{id}',  'show')->name('Order.show');
     Route::get('pendingDeliveryAcceptance',  'pendingDeliveryAcceptance')->name('Order.pendingDeliveryAcceptance');
     Route::get('DeliveryOnWay',  'DeliveryOnWay')->name('Order.DeliveryOnWay');

@@ -17,7 +17,7 @@ class delegatesExport implements FromCollection, WithHeadings, WithMapping
 
         return Delegate::with(['appUserTrashed','bank','carType','appUserTrashed.citiesTrashed','nationality','year'])->get();
         return  redirect()->back();
-//        dd ($delegates->carType->name_en);
+
     }
     public function map($delegate): array
     {
