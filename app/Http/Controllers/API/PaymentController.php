@@ -84,6 +84,7 @@ class PaymentController extends Controller
 
     public function paymentStatus(Request $request){
         //entityType = ['MADA','VISA']
+        //amount = 1
         //id = 8a82944a4cc25ebf014cc2c782423202
         //auth
         $client = new Client();
@@ -92,7 +93,10 @@ class PaymentController extends Controller
 
         $response = $client->get(config("payment.Url").'/'.$request->get("id").'/payment', [
             'query' => [
-                'entityId' => $entityId
+                'entityId'  => $entityId,
+                'amount'    => $request->get("amount"),
+                'currency'  => config("payment.Currency"),
+                'type'      => config("payment.PaymentType")
             ],
             'headers' => [
                 'Authorization' => 'Bearer '.config("payment.Authorization")
