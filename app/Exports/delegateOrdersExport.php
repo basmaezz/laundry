@@ -14,12 +14,13 @@ class delegateOrdersExport implements FromCollection, WithHeadings, WithMapping
     */
     protected $id;
 
-    function __construct($delivery_id) {
-        $this->delivery_id = $delivery_id;
+    function __construct($id) {
+        $this->id = $id;
     }
     public function collection()
     {
-        return DeliveryHistory::with(['order','order.userTrashed','order.subCategoriesTrashed'])->where('user_id',$this->delivery_id)->orderBy('id', 'DESC')->get();
+         $order=DeliveryHistory::with(['order','order.userTrashed','order.subCategoriesTrashed'])->where('user_id',$this->id)->orderBy('id', 'DESC')->get();
+         dd($order);
     }
     public function map($order): array
 

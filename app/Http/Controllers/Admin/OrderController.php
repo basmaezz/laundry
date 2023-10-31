@@ -165,10 +165,11 @@ class OrderController extends Controller
     {
         $order=OrderTable::with(['subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed','delegateTrashed.appUserTrashed'])->where('id',$id)->first();
         $orderDetails=orderDetails::with(['productTrashed','productService'])->where('order_table_id',$id)->get();
-        $totalCommission = OrderDetails::where('order_table_id', $id)
-            ->with(['productService:id,commission'])
-            ->get();
-        return  view('dashboard.Orders.view',compact(['order','orderDetails']));//,'commissionTotal'
+        $deliveryReceive=DeliveryHistory::with(['order','order.userTrashed'])->where('order_id',$id)->where('direction','FromLaundry')->first();
+  
+        $deliveryDelivered=DeliveryHistory::with(['order','order.userTrashed'])->where('order_id',$id)->where('direction','ToLaundry')->first();
+
+        return  view('dashboard.Orders.view',compact(['order','orderDetails','deliveryReceive','deliveryDelivered']));//,'commissionTotal'
     }
 
     public function changeStatus(Request $request)
@@ -804,7 +805,6 @@ class OrderController extends Controller
 
         if(request()->ajax()) {
             $delegate=Delegate::withTrashed()->find($id);
-            // $data=OrderTable::where('delivery_id',$delegate->app_user_id)->orderBy('id', 'DESC')->get();
             $data = DeliveryHistory::with(['order','order.userTrashed'])->where('user_id',$delivery_id)->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
@@ -846,14 +846,15 @@ class OrderController extends Controller
                 'status' =>'الطلب ملغى',
             ]);
         }
-        dd( OrderTable::find($request->id)->get());
+
         return redirect()->back();
 
     }
 
     public function exportDelegateOrders(Request $request)
     {
-        return Excel::download(new delegateOrdersExport($request->id), 'orders.xlsx');
+
+        return Excel::download(new delegateOrdersExport($request->id), 'delegateOrders.xlsx');
         return redirect()->back();
     }
 

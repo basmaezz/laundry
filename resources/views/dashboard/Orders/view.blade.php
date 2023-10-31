@@ -51,10 +51,17 @@
 
 
                             <div class="form-group">
-                                <label for="company">اسم المندوب</label>
+                                <label for="company">اسم مندوب التوصيل </label>
                                 <input type="text" name="name_ar" class="form-control view" id="name_ar"
                                     value="{{ $order->delegateTrashed->appUserTrashed->name ?? '' }}" disabled>
                             </div>
+
+                            <div class="form-group">
+                                <label for="company">اسم مندوب الاستلام </label>
+                                <input type="text" name="name_ar" class="form-control view" id="name_ar"
+                                    value="{{ $order->delegateTrashed->appUserTrashed->name ?? '' }}" disabled>
+                            </div>
+
                             <div class="form-group">
                                 <label for="company">المدينه </label>
                                 <input type="text" name="name_en"class="form-control view" id="name_ar"

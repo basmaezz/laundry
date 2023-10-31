@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\carpetCategoryController;
+use App\Http\Controllers\Admin\carpetLaundryController;
+use App\Http\Controllers\Admin\carpetLaundryTimeController;
 use App\Http\Controllers\Customer\AdminController;
 use App\Http\Controllers\languageController;
 use App\Http\Controllers\ProfileController;
@@ -125,6 +128,34 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
          Route::get('restoreDeleted',  'restoreDeleted')->name('laundries.restoreDeleted');
          Route::get('subCategories/export', 'export')->name('laundries.export');
          Route::get('copyLaundry/{id}', 'copyLaundry')->name('laundries.copyLaundry');
+     });
+
+     Route::controller(carpetLaundryController::class)->group(function(){
+         Route::get('carpetLaundries','index')->name('carpetLaundries.index');
+         Route::get('carpetLaundryCreate',  'create')->name('carpetLaundries.create');
+         Route::post('carpetLaundryStore',  'store')->name('carpetLaundries.store');
+         Route::get('carpetLaundryEdit/{id}',  'edit')->name('carpetLaundries.edit');
+         Route::post('carpetLaundryUpdate/{id}',  'update')->name('carpetLaundries.update');
+         Route::get('carpetLaundryDestroy',  'destroy')->name('carpetLaundries.destroy');
+     });
+
+     Route::controller(carpetCategoryController::class)->group(function(){
+         Route::get('carpetCategories/{id}','index')->name('carpetCategories.index');
+         Route::get('carpetCategoryCreate/{id}',  'create')->name('carpetCategories.create');
+         Route::post('carpetCategoryStore',  'store')->name('carpetCategories.store');
+         Route::get('carpetCategoryEdit/{id}',  'edit')->name('carpetCategories.edit');
+         Route::post('carpetCategoryUpdate/{id}',  'update')->name('carpetCategories.update');
+         Route::get('carpetCategoryDestroy',  'destroy')->name('carpetCategories.destroy');
+     });
+
+     Route::controller(carpetLaundryTimeController::class)->group(function(){
+         Route::get('carpetLaundryTimes/{id}','index')->name('carpetLaundryTimes.index');
+         Route::get('carpetLaundryTimeCreate/{id}',  'create')->name('carpetLaundryTimes.create');
+         Route::get('createDeliveredTimes/{id}',  'createDeliveredTimes')->name('createDeliveredTimes.create');
+         Route::post('carpetLaundryTimeStore',  'store')->name('carpetLaundryTimes.store');
+         Route::get('carpetLaundryTimeEdit/{id}',  'edit')->name('carpetLaundryTimes.edit');
+         Route::post('carpetLaundryTimeUpdate/{id}',  'update')->name('carpetLaundryTimes.update');
+         Route::get('carpetLaundryTimeDestroy/{id}',  'destroy')->name('carpetLaundryTimes.destroy');
      });
 
  Route::controller(CategoriesController::class)->group(function () {
