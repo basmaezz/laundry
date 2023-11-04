@@ -94,7 +94,7 @@ class PaymentController extends Controller
         $response = $client->get(config("payment.Url").'/'.$request->get("id").'/payment', [
             'query' => [
                 'entityId'  => $entityId,
-                'amount'    => $request->get("amount"),
+//                'amount'    => $request->get("amount"),
 //                'currency'  => config("payment.Currency"),
 //                'type'      => config("payment.PaymentType")
             ],
