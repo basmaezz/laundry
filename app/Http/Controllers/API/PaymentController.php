@@ -54,7 +54,7 @@ class PaymentController extends Controller
         $entityId = $request->get("entityType") == "MADA"? config("payment.EntityID.MADA") : config("payment.EntityID.VISA");
         $client = new Client();
 
-        $response = $client->post(config("payment.Url")."checkouts", [
+        $response = $client->post(config("payment.Url"), [
             'headers' => [
                 'Authorization' => 'Bearer '.config("payment.Authorization"),
                 'Content-Type'  => 'application/x-www-form-urlencoded'
@@ -94,7 +94,7 @@ class PaymentController extends Controller
         $response = $client->get(config("payment.Url").'/'.$request->get("id").'/payment', [
             'query' => [
                 'entityId'  => $entityId,
-//                'amount'    => $request->get("amount"),
+                'amount'    => $request->get("amount"),
 //                'currency'  => config("payment.Currency"),
 //                'type'      => config("payment.PaymentType")
             ],
