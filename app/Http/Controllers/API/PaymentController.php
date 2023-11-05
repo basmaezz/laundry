@@ -50,8 +50,20 @@ class PaymentController extends Controller
         //Amount = 11.00
         //auth
         $user = auth()->user();
+        switch ($request->get("entityType")){
+            case "MADA":
+                $entityId = config("payment.EntityID.MADA");
+                break;
+            case "VISA":
+                $entityId = config("payment.EntityID.VISA");
+                break;
+            case "APPLE":
+                $entityId = config("payment.EntityID.APPLE");
+                break;
+            default:
+                return response()->json(['message'=>'entityType is wrong'],500);
+        }
 
-        $entityId = $request->get("entityType") == "MADA"? config("payment.EntityID.MADA") : config("payment.EntityID.VISA");
         $client = new Client();
 
         $response = $client->post(config("payment.Url"), [
@@ -87,9 +99,23 @@ class PaymentController extends Controller
         //amount = 1
         //id = 8a82944a4cc25ebf014cc2c782423202
         //auth
+
+        switch ($request->get("entityType")){
+            case "MADA":
+                $entityId = config("payment.EntityID.MADA");
+                break;
+            case "VISA":
+                $entityId = config("payment.EntityID.VISA");
+                break;
+            case "APPLE":
+                $entityId = config("payment.EntityID.APPLE");
+                break;
+            default:
+                return response()->json(['message'=>'entityType is wrong'],500);
+        }
         $client = new Client();
 
-        $entityId = $request->get("entityType") == "MADA"? config("payment.EntityID.MADA") : config("payment.EntityID.VISA");
+        //$entityId = $request->get("entityType") == "MADA"? config("payment.EntityID.MADA") : config("payment.EntityID.VISA");
 
         $response = $client->get(config("payment.Url").'/'.$request->get("id").'/payment', [
             'query' => [
