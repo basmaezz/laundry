@@ -78,7 +78,7 @@ class OrderTable extends Model
 
     public function productServiceTrashed()
     {
-        return $this->belongsTo(ProductService::class, 'product_service_id')->withTrashed();;
+        return $this->belongsTo(ProductService::class, 'product_service_id')->withTrashed();
     }
 
     public function subCategoriesTrashed()

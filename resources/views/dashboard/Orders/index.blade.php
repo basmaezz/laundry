@@ -82,8 +82,8 @@
                     data: 'user',
                     name: 'user'
                 },{
-                    data:'orderStatus',
-                    name:'orderStatus'
+                    data:'status',
+                    name:'status'
                 },{
                     data:'orderType',
                     name:'orderType'

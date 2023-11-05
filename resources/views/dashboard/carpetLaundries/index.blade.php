@@ -19,7 +19,7 @@
 
     <div class="content-body">
         <div class="add-btn">
-            <a href="{{route('carpetLaundries.create')}}" class="btn btn-primary" style="margin-right: 1126px;"  >اضافه جديد</a>
+            <a href="{{route('carpetLaundries.create')}}" class="btn btn-primary" >اضافه جديد</a>
 
         </div>
 
