@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\delegateOrdersExport;
 use App\Exports\ordersExport;
 use App\Http\Controllers\Controller;
+use App\Models\AppUser;
 use App\Models\Delegate;
 use App\Models\DeliveryHistory;
 use App\Models\OrderDetails;
@@ -41,19 +42,8 @@ class OrderController extends Controller
         };
 
         if(request()->ajax()) {
-            $data = OrderTable::with(['payments', 'histories','subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed'])
-                ->with('orderDetails')
-                ->with(['orderDetails.productService:id,commission'])
-                ->orderBy('id', 'DESC')
-                ->get()
-                ->map(function($item ) {
-                    $commissionTotal = 0;
-                    $item->orderDetails->map(function ($detail) use (&$commissionTotal) {
-                        $commissionTotal += $detail->quantity * $detail->productService->commission;
-                    });
-                    $item->commission = $commissionTotal;
-                    return  $item;
-                });
+            $data = OrderTable::get();
+
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -65,27 +55,6 @@ class OrderController extends Controller
                     return $row->userTrashed->name;
                 })->addColumn('deliveryType',function ($row){
                     return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
-                })->addColumn('orderStatus',function ($row){
-                    if($row->status_id==1){
-                        return 'انتظار قبول المندوب';
-                    }elseif ($row->status_id==2){
-                        return 'المندوب فى الطريق للعميل';
-                    }elseif ($row->status_id==3){
-                        return 'المندوب فى الطريق للمغسله';
-                    }elseif ($row->status_id==4){
-                        return 'فى المغسله';
-                    }elseif ($row->status_id==5){
-                        return 'الأنتهاء من الغسيل';
-                    }elseif ($row->status_id==6){
-                        return 'انتظار موافقه المندوب';
-                    }elseif ($row->status_id==7){
-                        return 'فى الطريق للعميل';
-                    }elseif ($row->status_id==8){
-                        return 'الطلب منتهى';
-                    }elseif ($row->status_id==10){
-                        return 'الطلب ملغى';
-                    }
-                    return '';
                 })->addColumn('orderType',function ($row){
                     return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
                 })->addColumn('finished',function ($row){
@@ -142,7 +111,7 @@ class OrderController extends Controller
                             </div>';
                     }
                 })
-                ->rawColumns(['action','user_id','category','user','deliveryType','orderType','orderStatus','laundryProfit','appProfit','delivery','commission','finished','city','createdAt'])
+                ->rawColumns(['action','user_id','category','user','deliveryType','orderType','laundryProfit','appProfit','delivery','commission','finished','city','createdAt'])
                 ->make(true);
         }
         return  view('dashboard.Orders.index');
@@ -165,11 +134,9 @@ class OrderController extends Controller
     {
         $order=OrderTable::with(['subCategoriesTrashed','userTrashed','userTrashed.citiesTrashed','delegateTrashed.appUserTrashed'])->where('id',$id)->first();
         $orderDetails=orderDetails::with(['productTrashed','productService'])->where('order_table_id',$id)->get();
-        $deliveryReceive=DeliveryHistory::with(['order','order.userTrashed'])->where('order_id',$id)->where('direction','FromLaundry')->first();
-  
-        $deliveryDelivered=DeliveryHistory::with(['order','order.userTrashed'])->where('order_id',$id)->where('direction','ToLaundry')->first();
-
-        return  view('dashboard.Orders.view',compact(['order','orderDetails','deliveryReceive','deliveryDelivered']));//,'commissionTotal'
+        $deliveryReceive=DeliveryHistory::with('appUserTrashed')->where('order_id',$id)->where('direction','FromLaundry')->first();
+        $deliveryDelivered=DeliveryHistory::with('appUserTrashed')->where('order_id',$id)->where('direction','ToLaundry')->first();
+         return  view('dashboard.Orders.view',compact(['order','orderDetails','deliveryReceive','deliveryDelivered']));//,'commissionTotal'
     }
 
     public function changeStatus(Request $request)
@@ -853,7 +820,6 @@ class OrderController extends Controller
 
     public function exportDelegateOrders(Request $request)
     {
-
         return Excel::download(new delegateOrdersExport($request->id), 'delegateOrders.xlsx');
         return redirect()->back();
     }

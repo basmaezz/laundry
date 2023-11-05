@@ -24,42 +24,59 @@
     <a href="{{route('delegate.clearWallet')}}" class="btn btn-danger"  >تصفير جميع المحافظ </a>
 
     <div class="content-body">
-    <main class="main" style="margin-top: 25px">
-        <div >
-            <div class="col-lg-12">
-                <div class="card">
+{{--    <main class="main" style="margin-top: 25px">--}}
+{{--        <div >--}}
+{{--            <div class="col-lg-12">--}}
+{{--                <div class="card">--}}
 
-                    <div class="card-block">
-                        <table class="table table-striped" id="table_id">
-                            <thead>
-                            <tr>
-                                <th>الرقم التسلسلى</th>
-                                <th>الاسم</th>
-                                <th>المدينه</th>
-                                <th>الجنسيه</th>
-                                <th>نوع التعاقد</th>
-                                <th> توصيل سجاد</th>
-                                <th>رقم الهويه الوطنيه/الاقامه </th>
-                                <th>رقم الجوال   </th>
-                                <th> الحاله</th>
-                                <th> عدد الطلبات الشهريه</th>
-                                <th> المحفظه  </th>
-                                <th></th>
-                            </tr>
-                            </thead>
+{{--                    <div class="card-block">--}}
+{{--                        <table class="table table-striped" id="table_id">--}}
+{{--                            <thead>--}}
+{{--                            <tr>--}}
 
-                        </table>
+{{--                            </tr>--}}
+{{--                            </thead>--}}
 
+{{--                        </table>--}}
+
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </main>--}}
+
+        <section id="dashboard-analytics">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card invoice-list-wrapper">
+                        <div class="card-datatable table-responsive">
+                            <table class="productTable table" id="productTable">
+                                <thead>
+                                <tr>
+                                    <th>الرقم التسلسلى</th>
+                                    <th>الاسم</th>
+                                    <th>الجنسيه</th>
+                                    <th>نوع التعاقد</th>
+                                    <th> توصيل سجاد</th>
+                                    <th>رقم الهويه الوطنيه/الاقامه </th>
+                                    <th>رقم الجوال   </th>
+                                    <th> عدد الطلبات الشهريه</th>
+                                    <th> المحفظه  </th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+            <!--/ List DataTable -->
+        </section>
 @endsection
 @push('scripts')
     <script type="text/javascript">
         $(function() {
-            var table = $('#table_id').DataTable({
+            var table = $('#productTable').DataTable({
                 processing: true,
                 serverSide: true,
                 ordering: false,
@@ -71,10 +88,6 @@
                     data: 'name',
                     name: 'name'
                 },{
-                    data: 'city',
-                    name: 'city'
-                },
-                    {
                         data: 'nationality',
                         name: 'nationality'
                     }, {
@@ -89,9 +102,6 @@
                     },{
                         data: 'mobile',
                         name: 'mobile'
-                    },{
-                       data:'status',
-                        name:'status'
                     },{
                        data:'monthlyOrders',
                         name:'monthlyOrders'
