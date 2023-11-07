@@ -389,27 +389,45 @@ class OrderController extends Controller
                 $order->userTrashed->point++;
                 $order->userTrashed->save();
 
-                if($order->delivery_id!=0){
-                    $delegate=Delegate::where('id',$order->delivery_id)->first();
-                    $appUser=AppUser::where('id',$delegate->id)->first();
-                    $appUser->wallet+=floatval($order->subCategoriesTrashed->price);
-                    $appUser->save();
-                }
+                // if($order->delivery_id!=0){
+                //     $delegate=Delegate::where('id',$order->delivery_id)->first();
+                //     $appUser=AppUser::where('id',$delegate->id)->first();
+                //     $appUser->wallet+=floatval($order->subCategoriesTrashed->price);
+                //     $appUser->save();
+                // }
 
-//                if($order->status_id = self::DeliveredToLaundry)
-//                {
-//                    DeliveryHistory::create([
-//                        'order_id'=>$order->id,
-//                        'delivery_id'=>,
-//                        'direction'=>'ToLaundry'
-//                    ]);
-//                }
-//
-//                if($order->status_id = self::Completed)
-//                {
-//                    DeliveryHistory::create([  ]);
-//
-//                }
+                // if($order->status_id = self::DeliveredToLaundry)
+                // {
+                //  if($order->delegateTrashed->request_employment==)
+                //     DeliveryHistory::create([
+                //         'order_id'=>$order->id,
+                //         'delivery_id'=>,
+                //         'direction'=>'ToLaundry'
+                //     ]);
+                // }
+                // if($order->status_id = self::Completed)
+                // {
+                //     DeliveryHistory::create([  ]);
+
+                // }
+
+                if($order->status_id = self::DeliveredToLaundry )
+                {
+                 if($order->delegateTrashed->request_employment=='1')
+                 {
+                    $order->delegateTrashed->appUserTrashed->wallet+=floatval($order->subCategoriesTrashed->price);
+
+                 }
+
+                }
+                if($order->status_id = self::Completed)
+                {
+                    if($order->delegateTrashed->request_employment=='1')
+                    {
+                       $order->delegateTrashed->appUserTrashed->wallet+=floatval($order->subCategoriesTrashed->price);
+
+                    }
+                }
 
 
                 Transaction::create([
