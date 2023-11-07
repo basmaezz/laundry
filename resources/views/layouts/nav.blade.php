@@ -1,46 +1,11 @@
-
-{{--        <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-toggle="dropdown"><i data-feather="shopping-cart"></i><span data-i18n="Pages">طلبات الملابس</span></a>--}}
-{{--            <ul class="dropdown-menu">--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('Order.index')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">الطلبات</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('Order.pendingDeliveryAcceptance')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">انتظار قبول المندوب </span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('Order.DeliveryOnWay')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">المندوب فى الطريق للعميل</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('Order.WayToLaundry')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">المندوب فى الطريق للمغسله</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('Order.DeliveredToLaundry')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">فى المغسله</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('Order.readyPickUp')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">الأنتهاء  من الغسيل</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('Order.WaitingForDeliveryToReceiveOrder')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">انتظار موافقه المندوب</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('Order.DeliveryOnTheWayToYou')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">فى الطريق للعميل</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('Order.completed')}}" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">الطلبات المنتهيه</span></a></li>--}}
-
-{{--            </ul>--}}
-{{--        </li>--}}
-{{--        <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-toggle="dropdown"><i data-feather="shopping-cart"></i><span data-i18n="Pages">طلبات السجاد</span></a>--}}
-{{--            <ul class="dropdown-menu">--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="#" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">الطلبات</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="#" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">انتظار قبول المندوب </span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="#" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">تم قبول المندوب</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="#" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">السجاد فى الطريق للمغسله</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="#" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">فى المغسله</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="#" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">انتظار موافقه المندوب</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="#" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">فى الطريق للعميل</span></a></li>--}}
-{{--                <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="#" data-toggle="dropdown" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">الطلبات المنتهيه</span></a></li>--}}
-
-{{--            </ul>--}}
-{{--        </li>--}}
-
-
-
-{{--    </ul>--}}
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
-
 <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow">
     <div class="navbar-container d-flex content">
         <div class="bookmark-wrapper d-flex align-items-center">
             <ul class="nav navbar-nav d-xl-none">
                 <li class="nav-item"><a class="nav-link menu-toggle" href="javascript:void(0);"><i class="ficon" data-feather="menu"></i></a></li>
             </ul>
-
             <ul class="nav navbar-nav">
-
             </ul>
         </div>
         <ul class="nav navbar-nav align-items-center ml-auto">
