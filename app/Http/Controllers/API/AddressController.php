@@ -71,6 +71,19 @@ class AddressController extends ApiController
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
+
+    public function updateAddress(Request $request, $id)
+    {
+        $address=Address::find($id);
+        if ($address->app_user_id != auth('app_users_api')->user()->id) {
+            return apiResponse(trans('api.error_validation'), null, 500, 500);
+        }
+        Address::where('app_user_id', auth('app_users_api')->user()->id)
+            ->update(['default' => 1]);
+
+        return apiResponse(trans('api.successfully_updated'), $address, 200, 200);
+
+    }
     public function update(Request $request, $id)
     {
         $address=Address::find($id);

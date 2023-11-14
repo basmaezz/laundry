@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BankController;
+use App\Http\Controllers\Api\carpetLaundryController;
 use App\Http\Controllers\API\CarTypeController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\DelegatesController;
@@ -106,7 +107,10 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::get('address', [AddressController::class, 'index']);
     Route::any('address/store', [AddressController::class, 'store']);
     Route::any('address/update/{id}', [AddressController::class, 'update']);
+    Route::any('updateAddress/{id}', [AddressController::class, 'updateAddress']);
     Route::any('address/delete/{id}', [AddressController::class, 'destroy']);
+
+    Route::get('carpetLaundries',[carpetLaundryController::class,'index']);
 
     //**    HomeApp    **//
 
