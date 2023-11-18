@@ -182,11 +182,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group" id="durations" style="display: none">
-                                    <label for="country">بدايه الفتره </label>
+                                    <label for="country">بدايه فتره التشغيل </label>
                                     <input type="time" name="clock_at" value="22:00" />
 
-                                    <label for="country">نهايه الفتره </label>
+                                    <label for="country">نهايه فتره التشغيل </label>
                                     <input type="time" name="clock_end" value="22:00" />
+                                </div>
+                                <div class="form-group" id="durations">
+                                    <label for="country">بدايه فتره التسليم </label>
+                                    <input type="time" name="delivered_from" value="22:00" />
+
+                                    <label for="country">نهايه فتره التسليم </label>
+                                    <input type="time" name="delivered_to" value="22:00" />
                                 </div>
                                 <div class="form-group">
                                     <label for="country">صوره الشعار</label>
