@@ -623,6 +623,8 @@ class OrderController extends Controller
                 "laundry_image" => $order->subCategoriesTrashed->image,
                 "laundry_lat" => $order->subCategoriesTrashed->lat,
                 "laundry_lng" => $order->subCategoriesTrashed->lng,
+                "laundry_delivered_from" => $order->subCategoriesTrashed->delivered_from,
+                "laundry_delivered_to" => $order->subCategoriesTrashed->delivered_to,
                 "laundry_address" => $order->subCategoriesTrashed->address,
                 'laundry_range' => $order->subCategoriesTrashed->range,
                 'distance_class' =>  getDistanceClass($distance, $range),
