@@ -189,6 +189,13 @@
                                         <input type="time" name="clock_end"value="22:00" />
                                     </div>
                                 @endif
+                                <div class="form-group" id="durations">
+                                    <label for="country">بدايه فتره التسليم </label>
+                                    <input type="time" name="delivered_from" value="{{$subCategory->delivered_from}}" />
+
+                                    <label for="country">نهايه فتره التسليم </label>
+                                    <input type="time" name="delivered_to" value="{{$subCategory->delivered_to}}" />
+                                </div>
                                 @if($subCategory->parent_id =='')
                                     <div class="form-group">
                                         <img src="{{$subCategory->image}}" style="width: 100px; height: 100px">

@@ -20,7 +20,7 @@ class delegateOrdersExport implements FromCollection, WithHeadings, WithMapping
     public function collection()
     {
          $order=DeliveryHistory::with(['order','order.userTrashed','order.subCategoriesTrashed'])->where('user_id',$this->id)->orderBy('id', 'DESC')->get();
-         dd($order);
+
     }
     public function map($order): array
 

@@ -138,6 +138,8 @@ class subCategoryController extends Controller
                 'around_clock' => $request->around_clock,
                 'clock_end' =>$request->clock_end,
                 'clock_at' => $request->clock_at,
+                'delivered_from' => $request->delivered_from,
+                'delivered_to' => $request->delivered_to,
                 'vip'=>$request->vip
             ]);
         $user=User::create([
@@ -173,6 +175,8 @@ class subCategoryController extends Controller
             'range'=>$Subcategory->range,
             'percentage'=>$Subcategory->percentage,
             'approximate_duration'=>$Subcategory->approximate_duration,
+            'delivered_from'=>$Subcategory->delivered_from,
+            'delivered_to'=>$Subcategory->delivered_to,
         ]);
         if($categoryItems->count() > 0){
 
@@ -288,6 +292,8 @@ class subCategoryController extends Controller
             'around_clock' => $request->around_clock,
             'clock_end' => $request->clock_end,
             'clock_at' => $request->clock_at,
+            'delivered_from' => $request->delivered_from,
+            'delivered_to' => $request->delivered_to,
         ]);
         $subcategory->save();
         $request->validate([

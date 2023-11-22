@@ -16,7 +16,7 @@ class Subcategory extends Model
 
     protected  $table   = 'subcategories';
     protected  $guarded = [];
-    protected $fillable=['category_id','name_en','name_ar','vip','parent_id','address','city_id','location','range','price','urgentWash','percentage','status','around_clock','clock_at','clock_end','image','rate','approximate_duration','approximate_duration_urgent','lat','lng'];
+    protected $fillable=['category_id','name_en','name_ar','vip','parent_id','address','city_id','delivered_from','delivered_to','location','range','price','urgentWash','percentage','status','around_clock','clock_at','clock_end','image','rate','approximate_duration','approximate_duration_urgent','lat','lng'];
 //    protected $casts = ['status' => SubCategoryStatus::class  ];
     protected $dates = ['created_at'];
     protected $attributes=[

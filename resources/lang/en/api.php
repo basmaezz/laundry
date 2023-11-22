@@ -44,5 +44,7 @@ return [
     'wallet_amount_not_enough'=> 'The Wallet Donsn\'t have enough amount',
     'success_send_to_laundry'=> 'جاري إرسال الطلب الي المغسلة ":laundry"',
     'order_update'=> 'طلبك من مغسلة ":laundry" تغيرت حالته الى ":status"',
-    'wallet_amount_not_valid'=>'The Wallet Amount Not Valid'
+    'wallet_amount_not_valid'=>'The Wallet Amount Not Valid',
+    'in_area'=>'Inside the coverage',
+    'out_area'=>'out of service',
 ];
