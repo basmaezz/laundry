@@ -10,5 +10,6 @@ return [
     ],
     'Currency' => env('OPPWA_CURRENCY', 'SAR'),
     'PaymentType' => env('OPPWA_PAYMENT_TYPE', 'DB'),
-    'testMode' => env('OPPWA_TEST_MODE', 'EXTERNAL'),
+    'testMode' => env('OPPWA_TEST_MODE', true),
+    'CardStore' => env('OPPWA_CARD_STORE', true),
 ];
