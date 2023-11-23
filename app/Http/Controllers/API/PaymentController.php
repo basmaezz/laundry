@@ -5,35 +5,13 @@ namespace App\Http\Controllers\API;
 use App;
 use App\Http\Controllers\Controller;
 use App\Models\AppUser;
-use App\Models\BankAccount;
-use App\Models\Banner;
-use App\Models\Branche;
-use App\Models\Cart;
-use App\Models\CartExtra;
-use App\Models\Category;
-use App\Models\CategoryItem;
-use App\Models\Coupon;
-use App\Models\CouponShopCart;
-use App\Models\MoneyAccount;
-use App\Models\Notifications;
-use App\Models\Order;
-use App\Models\OrderAdditional;
-use App\Models\OrderDetails;
-use App\Models\OrderTable;
-use App\Models\Package;
-use App\Models\Product;
-use App\Models\ProductService;
-use App\Models\ProviderExtra;
-use App\Models\Rate;
-use App\Models\RequestDelivery;
-use App\Models\SearchHistory;
-use App\Models\Subcategory;
-use App\Models\UserAddress;
-use App\Models\UserDate;
-use App\Models\User;
+use App\Models\CheckoutRequest;
+use App\Models\PaymentCard;
 use Carbon\Carbon;
 use DateTime;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
@@ -46,10 +24,7 @@ class PaymentController extends Controller
 {
 
     public function request(Request $request){
-        //entityType = ['MADA','VISA']
-        //Amount = 11.00
-        //auth
-        $user = auth()->user();
+        $user = auth('app_users_api')->user();
         switch ($request->get("entityType")){
             case "MADA":
                 $entityId = config("payment.EntityID.MADA");
@@ -63,43 +38,79 @@ class PaymentController extends Controller
             default:
                 return response()->json(['message'=>'entityType is wrong'],500);
         }
+        $form_params = [
+            'entityId' => $entityId,
+            'amount' => $request->get("amount"),
+            'currency' => config("payment.Currency"),
+            'paymentType' => config("payment.PaymentType"),
+            'customer.email' => $user->email,
+            'billing.street1' => $user->default_address->address??'Riyadh',
+            'billing.city' => $user->default_address->city->name??'Riyadh',
+            'billing.state' => $user->default_address->city->region_name??'Riyadh',
+            'billing.country' => 'SA',
+            'billing.postcode' => '17349',//TODO :: add lookup based onn region
+            'customer.givenName' => $user->name,
+            'customer.surname' => $user->name,
+        ];
+        if(config("payment.testMode")){
+            $form_params['testMode'] = 'EXTERNAL';
+        }
+        if(config("payment.CardStore")){
+            $form_params['createRegistration'] = 'true';
+            $form_params['customParameters[3DS2_enrolled]'] = 'true';
+        }
+        //list registrationId for old cards
+        $payment_cards = PaymentCard::where(['user_id'=>$user->id])->get();
+        foreach ($payment_cards as $i=>$payment_card){
+            $form_params['registrations['.$i.'].id'] = $payment_card->registration_id;
+        }
 
+
+        $checkout_request = CheckoutRequest::create([
+            'user_id' => $user->id,
+            'status' => 'New',
+            'payload' => json_encode($form_params),
+        ]);
+        $form_params['merchantTransactionId'] = str_pad($checkout_request->id, 6, '0', STR_PAD_LEFT);
         $client = new Client();
 
-        $response = $client->post(config("payment.Url"), [
-            'headers' => [
-                'Authorization' => 'Bearer '.config("payment.Authorization"),
-                'Content-Type'  => 'application/x-www-form-urlencoded'
-            ],
-            'form_params' => [
-                'entityId' => $entityId,
-                'amount' => $request->get("amount"),
-                'currency' => config("payment.Currency"),
-                'paymentType' => config("payment.PaymentType"),
+        $headers = [
+            'Accept'        => 'application/json',
+            'Authorization' => 'Bearer '.config("payment.Authorization"),
+            'Content-Type'  => 'application/x-www-form-urlencoded'
+        ];
 
-//                'testMode' => config("payment.testMode"),
-//                'merchantTransactionId' => config("payment.PaymentType"),//todo
-//                'customer.email' => $user->email,
-//                'billing.street1' => $user->default_address->address,
-//                'billing.city' => $user->default_address->city->name,
-//                'billing.state' => $user->default_address->city->region_name,
-//                'billing.country' => 'SA',
-//                'billing.postcode' => '12345',
-//                'customer.givenName' => $user->name,
-//                'customer.surname' => $user->name,
-            ]
-        ]);
-        //var_dump($response->getBody()->getContents());
+        $options = [
+            'form_params' => $form_params
+        ];
+        $request = new \GuzzleHttp\Psr7\Request('POST', config("payment.Url"), $headers);
+        try {
+            $response = $client->sendAsync($request, $options)->wait();
+        } catch (\Exception $e) {
+            echo \GuzzleHttp\Psr7\Message::toString($e->getRequest());
+            echo \GuzzleHttp\Psr7\Message::toString($e->getResponse());
+            dd($e->getMessage());
+        }
+        $response_body = json_decode($response->getBody(), true);
+//        $response = $client->post(config("payment.Url"), [
+//            'headers' => $headers,
+//            'form_params' => $form_params
+//        ]);
+        //var_dump( (string) $response_body);
+        //$response_content = (string) $response_body->getContents();
 
-        return response()->json(json_decode($response->getBody()->getContents(),true));
+        $checkout_request->response = json_encode($response_body);
+        $checkout_request->status = 'Sent';
+        $checkout_request->save();
+
+        //dd($response, $response_body);
+
+
+        return response()->json($response_body);
     }
 
     public function paymentStatus(Request $request){
-        //entityType = ['MADA','VISA']
-        //amount = 1
-        //id = 8a82944a4cc25ebf014cc2c782423202
-        //auth
-
+        $user = auth('app_users_api')->user();
         switch ($request->get("entityType")){
             case "MADA":
                 $entityId = config("payment.EntityID.MADA");
@@ -115,19 +126,127 @@ class PaymentController extends Controller
         }
         $client = new Client();
 
-        //$entityId = $request->get("entityType") == "MADA"? config("payment.EntityID.MADA") : config("payment.EntityID.VISA");
-
         $response = $client->get(config("payment.Url").'/'.$request->get("id").'/payment', [
             'query' => [
-                'entityId'  => $entityId,
-            //    'amount'    => $request->get("amount"),
-            //    'currency'  => config("payment.Currency"),
-            //    'type'      => config("payment.PaymentType")
+                'entityId'  => $entityId
             ],
             'headers' => [
                 'Authorization' => 'Bearer '.config("payment.Authorization")
             ]
         ]);
-        return response()->json(json_decode($response->getBody()->getContents(),true));
+        $response_body = json_decode($response->getBody(), true);
+
+        if(!empty($response_body['registrationId'])) {
+            PaymentCard::updateOrCreate([
+                'user_id'           => $user->id,
+                'registration_id'   => $response_body['registrationId']
+            ],[
+                'payment_brand'     => $response_body['paymentBrand']??'',
+                'last4digits'       => $response_body['card']["last4Digits"]??'',
+                'holder'            => $response_body['card']["holder"]??'',
+                'expiry_month'      => $response_body['card']["expiryMonth"]??'',
+                'expiry_year'       => $response_body['card']["expiryYear"]??''
+            ]);
+        }
+        return response()->json($response_body);
+    }
+
+    public function getStoreCards(){
+        $user = auth('app_users_api')->user();
+        $paymentCards = PaymentCard::where('user_id',$user->id)->get();
+        return response()->json($paymentCards);
+    }
+
+    public function payByRegistration(Request $request){
+        $validator = Validator::make($request->all(), [
+            'amount'            => 'required',
+            'entityType'        => 'required',
+            'registrationId'    => 'required',
+            'cvv'               => 'required',
+        ]);
+        if (!$validator->passes()) {
+            return apiResponse(trans('api.error_validation'), $validator->errors()->toArray(), 500, 500);
+        }
+        $user = auth('app_users_api')->user();
+        $url = str_replace('{RegistrationId}', $request->get('registrationId'), config("payment.payByRegistrationUrl"));
+
+        switch ($request->get("entityType")){
+            case "MADA":
+                $entityId = config("payment.EntityID.MADA");
+                break;
+            case "VISA":
+                $entityId = config("payment.EntityID.VISA");
+                break;
+            case "APPLE":
+                $entityId = config("payment.EntityID.APPLE");
+                break;
+            default:
+                return response()->json(['message'=>'entityType is wrong'],500);
+        }
+        $form_params = [
+            'entityId'              => $entityId,
+            'amount'                => $request->get("amount"),
+            'cvv'                   => $request->get("cvv"),
+            'currency'              => config("payment.Currency"),
+            'paymentType'           => config("payment.PaymentType"),
+            'customer.email'        => $user->email,
+            'billing.street1'       => $user->default_address->address??'Riyadh',
+            'billing.city'          => $user->default_address->city->name??'Riyadh',
+            'billing.state'         => $user->default_address->city->region_name??'Riyadh',
+            'billing.country'       => 'SA',
+            'customParameters[3DS2_enrolled]' => 'true',
+            'billing.postcode'      => '17349',//TODO :: add lookup based onn region
+            'customer.givenName'    => $user->name,
+            'customer.surname'      => $user->name,
+            'customer.browser.acceptHeader'      => 'text/html',
+            'customer.browser.screenColorDepth'  => '48',
+            'customer.browser.javaEnabled'       => 'false',
+            'customer.browser.language'          => 'en',
+            'customer.browser.screenHeight'      => '1200',
+            'customer.browser.screenWidth'       => '1600',
+            'customer.browser.timezone'          => '60',
+            'customer.browser.challengeWindow'   => '4',
+            'customer.browser.userAgent'         => 'Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)',
+        ];
+        if(config("payment.testMode")){
+            $form_params['testMode'] = 'EXTERNAL';
+        }
+        $checkout_request = CheckoutRequest::create([
+            'user_id' => $user->id,
+            'status' => 'New',
+            'payload' => json_encode($form_params),
+        ]);
+        $form_params['merchantTransactionId'] = str_pad($checkout_request->id, 6, '0', STR_PAD_LEFT);
+
+        if(config("payment.testMode")){
+            $form_params['testMode'] = 'EXTERNAL';
+        }
+
+        $client = new Client();
+
+        $headers = [
+            'Accept'        => 'application/json',
+            'Authorization' => 'Bearer '.config("payment.Authorization"),
+            'Content-Type'  => 'application/x-www-form-urlencoded'
+        ];
+
+        $options = [
+            'form_params' => $form_params
+        ];
+        $request = new \GuzzleHttp\Psr7\Request('POST', $url, $headers);
+        try {
+            $response = $client->sendAsync($request, $options)->wait();
+        } catch (\Exception $e) {
+            echo \GuzzleHttp\Psr7\Message::toString($e->getRequest());
+            echo \GuzzleHttp\Psr7\Message::toString($e->getResponse());
+            dd($e->getMessage());
+        }
+        $response_body = json_decode($response->getBody(), true);
+
+        $checkout_request->response = json_encode($response_body);
+        $checkout_request->status = 'Sent';
+        $checkout_request->save();
+
+        return response()->json($response_body);
     }
 }
