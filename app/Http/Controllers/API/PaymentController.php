@@ -15,6 +15,7 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Maize\Markable\Models\Favorite;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -134,8 +135,11 @@ class PaymentController extends Controller
                 'Authorization' => 'Bearer '.config("payment.Authorization")
             ]
         ]);
-        $response_body = json_decode($response->getBody(), true);
-
+        $_body = $response->getBody();
+        $response_body = json_decode($_body, true);
+        Log::info("Start Log response_body");
+        Log::info($_body);
+        Log::info("End Log response_body");
         if(!empty($response_body['registrationId'])) {
             PaymentCard::updateOrCreate([
                 'user_id'           => $user->id,
