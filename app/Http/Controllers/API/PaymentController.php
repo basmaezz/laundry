@@ -53,7 +53,7 @@ class PaymentController extends Controller
             'customer.givenName' => $user->name,
             'customer.surname' => $user->name,
         ];
-        if(config("payment.testMode")){
+        if(config("payment.testMode") && $request->get("entityType") != "APPLE"){
             $form_params['testMode'] = 'EXTERNAL';
         }
         if(config("payment.CardStore")){
@@ -158,7 +158,7 @@ class PaymentController extends Controller
     public function getStoreCards(){
         $user = auth('app_users_api')->user();
         $paymentCards = PaymentCard::where('user_id',$user->id)->get();
-        return response()->json($paymentCards);
+        return apiResponseOrders("api.my_cards",$paymentCards->count(), $paymentCards);
     }
 
     public function payByRegistration(Request $request){
@@ -212,7 +212,7 @@ class PaymentController extends Controller
             'customer.browser.challengeWindow'   => '4',
             'customer.browser.userAgent'         => 'Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)',
         ];
-        if(config("payment.testMode")){
+        if(config("payment.testMode") && $request->get("entityType") != "APPLE"){
             $form_params['testMode'] = 'EXTERNAL';
         }
         $checkout_request = CheckoutRequest::create([
