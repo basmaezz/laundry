@@ -4,21 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App;
 use App\Http\Controllers\Controller;
-use App\Models\AppUser;
 use App\Models\CheckoutRequest;
 use App\Models\PaymentCard;
-use Carbon\Carbon;
-use DateTime;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
-use Maize\Markable\Models\Favorite;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Validator;
 
 class PaymentController extends Controller
@@ -53,7 +43,7 @@ class PaymentController extends Controller
             'customer.givenName' => $user->name,
             'customer.surname' => $user->name,
         ];
-        if(config("payment.testMode")){
+        if(config("payment.testMode") && $request->get("entityType") != "APPLE"){
             $form_params['testMode'] = 'EXTERNAL';
         }
         if(config("payment.CardStore")){
@@ -158,7 +148,7 @@ class PaymentController extends Controller
     public function getStoreCards(){
         $user = auth('app_users_api')->user();
         $paymentCards = PaymentCard::where('user_id',$user->id)->get();
-        return response()->json($paymentCards);
+        return apiResponseOrders("api.my_cards",$paymentCards->count(), $paymentCards);
     }
 
     public function payByRegistration(Request $request){
@@ -212,7 +202,7 @@ class PaymentController extends Controller
             'customer.browser.challengeWindow'   => '4',
             'customer.browser.userAgent'         => 'Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)',
         ];
-        if(config("payment.testMode")){
+        if(config("payment.testMode") && $request->get("entityType") != "APPLE"){
             $form_params['testMode'] = 'EXTERNAL';
         }
         $checkout_request = CheckoutRequest::create([
@@ -221,10 +211,6 @@ class PaymentController extends Controller
             'payload' => json_encode($form_params),
         ]);
         $form_params['merchantTransactionId'] = str_pad($checkout_request->id, 6, '0', STR_PAD_LEFT);
-
-        if(config("payment.testMode")){
-            $form_params['testMode'] = 'EXTERNAL';
-        }
 
         $client = new Client();
 
