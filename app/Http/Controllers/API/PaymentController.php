@@ -201,6 +201,7 @@ class PaymentController extends Controller
             'customer.browser.timezone'          => '60',
             'customer.browser.challengeWindow'   => '4',
             'customer.browser.userAgent'         => 'Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)',
+            'shopperResultUrl'                   => 'http://127.0.0.1:8000/paymentstatus/', 
         ];
         if(config("payment.testMode") && $request->get("entityType") != "APPLE"){
             $form_params['testMode'] = 'EXTERNAL';
