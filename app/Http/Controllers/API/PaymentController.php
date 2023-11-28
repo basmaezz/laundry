@@ -180,7 +180,7 @@ class PaymentController extends Controller
         $form_params = [
             'entityId'              => $entityId,
             'amount'                => $request->get("amount"),
-            'cvv'                   => $request->get("cvv"),
+            'card.cvv'                   => $request->get("cvv"),
             'currency'              => config("payment.Currency"),
             'paymentType'           => config("payment.PaymentType"),
             'customer.email'        => $user->email,
