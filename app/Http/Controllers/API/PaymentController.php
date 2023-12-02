@@ -130,17 +130,19 @@ class PaymentController extends Controller
         Log::info("Start Log response_body");
         Log::info($_body);
         Log::info("End Log response_body");
-        if(!empty($response_body['registrationId'])) {
-            PaymentCard::updateOrCreate([
-                'user_id'           => $user->id,
-                'registration_id'   => $response_body['registrationId']
-            ],[
-                'payment_brand'     => $response_body['paymentBrand']??'',
-                'last4digits'       => $response_body['card']["last4Digits"]??'',
-                'holder'            => $response_body['card']["holder"]??'',
-                'expiry_month'      => $response_body['card']["expiryMonth"]??'',
-                'expiry_year'       => $response_body['card']["expiryYear"]??''
-            ]);
+        if(!preg_match('/^(100\.[13]50)/', $response_body['result']['code'])){
+            if(!empty($response_body['registrationId'])) {
+                PaymentCard::updateOrCreate([
+                    'user_id'           => $user->id,
+                    'registration_id'   => $response_body['registrationId']
+                ],[
+                    'payment_brand'     => $response_body['paymentBrand']??'',
+                    'last4digits'       => $response_body['card']["last4Digits"]??'',
+                    'holder'            => $response_body['card']["holder"]??'',
+                    'expiry_month'      => $response_body['card']["expiryMonth"]??'',
+                    'expiry_year'       => $response_body['card']["expiryYear"]??''
+                ]);
+            }
         }
         return response()->json($response_body);
     }
@@ -238,5 +240,11 @@ class PaymentController extends Controller
         $checkout_request->save();
 
         return response()->json($response_body);
+    }
+
+    public function remove_registered_card($id){
+        $user = auth('app_users_api')->user();
+        $paymentCard = PaymentCard::where(['user_id'=>$user->id, 'registration_id'=>$id])->delete();
+        return apiResponseOrders("api.card_removed",0, $paymentCard);
     }
 }
