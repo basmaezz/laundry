@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\AppUser;
+use App\Models\carpetLaundry;
 use App\Models\Category;
 use App\Models\CategoryItem;
 use App\Models\CouponShopCart;
@@ -28,7 +29,11 @@ class CategoryController extends Controller
             $subCategories = Subcategory::where('category_id', '1')->get();
         } elseif ($type == 4) {
             $subCategories = Subcategory::where('urgentWash', '1')->get();
-        }elseif($type!=1 || $type !=4){
+        }elseif ($type == 3){
+
+            $subCategories = Subcategory::where('category_id','3')->get();
+        }
+        elseif($type!=1 || $type !=4 ||$type !=3){
             $subCategories='';
         }
         $name = 'name_' . App::getLocale();
@@ -66,6 +71,24 @@ class CategoryController extends Controller
                         'review' => $subcategory->rates,
                     ];
                 }
+            }elseif ($type==3){
+                foreach ($subCategories as $subcategory) {
+                    $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
+                    $range = $subcategory->range;
+                    $data[] = [
+                        'id' => $subcategory->id,
+                        'name' => $subcategory->$name,
+                        'delivery_fees' => $subcategory->price,
+                        'location' => $subcategory->location,
+                        'lat' => $subcategory->lat,
+                        'lng' => $subcategory->lng,
+                        'approximate_duration' => $subcategory->approximate_duration_urgent,
+                        'distance' => round($distance, 2),
+                        'range' => $subcategory->range,
+                        'distance_class' =>  getDistanceClass($distance, $range),
+                        'distance_class_id' =>  getDistanceClassId($distance, $range),
+                    ];
+                }
             }elseif ($type==4){
                 foreach ($subCategories as $subcategory) {
                     $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
@@ -77,7 +100,6 @@ class CategoryController extends Controller
                         'delivery_fees' => $subcategory->price,
                         'urgent' => $subcategory->urgentWash,
                         'rate' => $subcategory->rate_avg,
-                        'is_favorite' => (!empty($user)) ? Favorite::has($subcategory, $user) : false,
                         'image' => $subcategory->image,
                         'location' => $subcategory->location,
                         'lat' => $subcategory->lat,

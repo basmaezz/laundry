@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\carpetLaundry;
 use App\Models\CarType;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -19,7 +20,8 @@ class carpetLaundryController extends Controller
     {
 
         if(request()->ajax()) {
-            $data = carpetLaundry::get();
+            $data = Subcategory::where('category_id',3)->get();
+
             return   Datatables::of($data)
                 ->addColumn('action', function ($row) {
                     return '
@@ -72,7 +74,8 @@ class carpetLaundryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'area_name'=>'required',
+            'name_en'=>'required',
+            'name_ar'=>'required',
             'approximate_duration'=>'required',
             'lat'=>'required',
             'lng'=>'required',
@@ -80,7 +83,9 @@ class carpetLaundryController extends Controller
         ],[
             'required'=>'اجبارى',
         ]);
-        carpetLaundry::create($request->all());
+        Subcategory::create($request->all()+[
+            'category_id'=>3
+            ]);
         return  redirect()->route('carpetLaundries.index')->with('success', 'تمت الاضافه');
     }
 
@@ -103,7 +108,7 @@ class carpetLaundryController extends Controller
      */
     public function edit($id)
     {
-        $carpetLaundry=carpetLaundry::find($id);
+        $carpetLaundry=Subcategory::find($id);
         return view('dashboard.carpetLaundries.edit',compact('carpetLaundry'));
     }
 
@@ -117,7 +122,8 @@ class carpetLaundryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'area_name'=>'required',
+            'name_ar'=>'required',
+            'name_en'=>'required',
             'approximate_duration'=>'required',
             'lat'=>'required',
             'lng'=>'required',
@@ -125,7 +131,7 @@ class carpetLaundryController extends Controller
         ],[
             'required'=>'اجبارى',
         ]);
-        carpetLaundry::where('id',$id)->update($request->except(['_token']));
+        Subcategory::where('id',$id)->update($request->except(['_token']));
         return  redirect()->route('carpetLaundries.index')->with('success', 'تم التعديل');
     }
 

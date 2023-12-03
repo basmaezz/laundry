@@ -31,11 +31,20 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="hf-email">اسم المنطقه</label>
+                                    <label class="col-md-3 form-control-label" for="hf-email">اسم المنطقه(AR)</label>
                                     <div class="col-md-9">
-                                        <input type="text"  name="area_name" class="form-control"value="{{$carpetLaundry->area_name}}"  >
-                                        @if ($errors->has('area_name'))
-                                            <span class="text-danger">{{ $errors->first('area_name') }}</span>
+                                        <input type="text"  name="name_ar" class="form-control"value="{{$carpetLaundry->name_ar}}"  >
+                                        @if ($errors->has('name_ar'))
+                                            <span class="text-danger">{{ $errors->first('name_ar') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="hf-email">اسم المنطقه(EN)</label>
+                                    <div class="col-md-9">
+                                        <input type="text"  name="name_en" class="form-control"value="{{$carpetLaundry->name_en}}"  >
+                                        @if ($errors->has('name_en'))
+                                            <span class="text-danger">{{ $errors->first('name_en') }}</span>
                                         @endif
                                     </div>
                                 </div>
@@ -79,8 +88,8 @@
                                 <div class="form-group row ">
                                     <label  class="col-md-3 form-control-label" for="hf-email" for="company">السعر </label>
                                     <div class="col-md-9">
-                                        <input type="text" name="delivery_price" class="form-control" id="address"value="{{$carpetLaundry->delivery_price }}"  >
-                                        @error('delivery_price')
+                                        <input type="text" name="price" class="form-control" id="address"value="{{$carpetLaundry->price }}"  >
+                                        @error('price')
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
                                     </div>

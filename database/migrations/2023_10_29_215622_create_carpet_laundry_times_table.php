@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('carpet_laundry_times', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('carpet_laundry_id')->index('carpet_laundry_id');
+            $table->foreignId('subCategory_id')->index('carpet_laundry_id');
             $table->time('start_from')->nullable();
             $table->time('end_to')->nullable();
             $table->enum('service_type',['received','delivered']);

@@ -63,8 +63,8 @@
                 ajax: "{{ route('carpetLaundries.index') }}",
 
                 columns: [{
-                    data: 'area_name',
-                    name: 'area_name'
+                    data: 'name_ar',
+                    name: 'name_ar'
                 },{
                     data: 'approximate_duration',
                     name: 'approximate_duration'
@@ -72,8 +72,8 @@
                     data: 'range',
                     name: 'range'
                 },{
-                    data: 'delivery_price',
-                    name: 'delivery_price'
+                    data: 'price',
+                    name: 'price'
                 }, {
                     data: 'action',
                     name: 'action',
