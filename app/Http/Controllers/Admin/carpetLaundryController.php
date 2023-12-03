@@ -18,7 +18,6 @@ class carpetLaundryController extends Controller
      */
     public function index()
     {
-
         if(request()->ajax()) {
             $data = Subcategory::where('category_id',3)->get();
 
@@ -55,22 +54,12 @@ class carpetLaundryController extends Controller
         return view('dashboard.carpetLaundries.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('dashboard.carpetLaundries.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
