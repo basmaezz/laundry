@@ -9,10 +9,10 @@ class carpetLaundryTime extends Model
 {
     use HasFactory;
 
-    protected $fillable=['carpet_laundry_id','start_from','end_to','service_type'];
+    protected $fillable=['subCategory_id','start_from','end_to','service_type'];
 
-    public function carpetLaundry()
+    public function subCategory()
     {
-        return $this->belongsTo(carpetLaundry::class);
+        return $this->belongsTo(subCategory::class,'subCategory_id');
     }
 }

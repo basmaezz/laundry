@@ -29,12 +29,12 @@
                             <form method="post" action="{{route('carpetLaundryTimes.store')}}" >
                                 @csrf
 
-                                <input type="hidden"  name="carpet_laundry_id" class="form-control"value="{{$carpetLaundry->id}}">
+                                <input type="hidden"  name="subCategory_id" class="form-control"value="{{$carpetLaundry->id}}">
 
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="hf-email">اسم المنطقه</label>
                                     <div class="col-md-9">
-                                        <input type="text"  name="area_name" class="form-control"value="{{$carpetLaundry->area_name}}" disabled >
+                                        <input type="text"  name="area_name" class="form-control"value="{{$carpetLaundry->name_ar}}" disabled >
 
                                     </div>
                                 </div>

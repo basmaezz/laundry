@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\carpetCategory;
 use App\Models\carpetLaundry;
 use App\Models\carpetLaundryTime;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -18,37 +19,8 @@ class carpetLaundryTimeController extends Controller
      */
     public function index($id)
     {
-        $carpetLaundryReceivedTimes = carpetLaundryTime::where('carpet_laundry_id',$id)->where('service_type','received')->get();
-        $carpetLaundryDeliveredTimes = carpetLaundryTime::where('carpet_laundry_id',$id)->where('service_type','delivered')->get();
-
-//        if(request()->ajax()) {
-//
-//            return   Datatables::of($data)
-//                ->addColumn('received_at', function ($row) {
-//                   return date('h:i A', strtotime($row->received_at_start)) .'<br>' .'-' . '<br>'.  date('h:i A', strtotime($row->received_to_end));
-//                })->addColumn('delivered_to', function ($row) {
-//                   return date('h:i A', strtotime($row->)) .'<br>' .'-' . '<br>'.  date('h:i A', strtotime($row->));
-//                })->addColumn('action', function ($row) {
-//                    return '
-//                              <div class="dropdown">
-//                               <button type="button" class="edit btn btn-info" data-toggle="dropdown">
-//                                    المزيد
-//                                </button>
-//                                <div class="dropdown-menu">
-//                                    <a class="dropdown-item" href="' . Route('carpetCategories.edit', $row->id) . '">
-//                                        <i data-feather="edit-2" class="mr-50"></i>
-//                                        <span>تعديل</span>
-//                                    </a>
-//                                    <a class="dropdown-item" id="deleteBtn" data-id="' . $row->id . '"  data-toggle="modal">
-//                                        <i data-feather="trash" class="mr-50"></i>
-//                                        <span>حذف</span>
-//                                    </a>
-//                                </div>
-//                            </div>  ';
-//                })
-//                ->rawColumns(['received_at','delivered_to','action'])
-//                ->make(true);
-//        }
+        $carpetLaundryReceivedTimes = carpetLaundryTime::where('subCategory_id',$id)->where('service_type','received')->get();
+        $carpetLaundryDeliveredTimes = carpetLaundryTime::where('subCategory_id',$id)->where('service_type','delivered')->get();
         return view('dashboard.carpetLaundryTimes.index',compact(['carpetLaundryReceivedTimes','carpetLaundryDeliveredTimes','id']));
     }
 
@@ -59,12 +31,12 @@ class carpetLaundryTimeController extends Controller
      */
     public function create($id)
     {
-        $carpetLaundry=carpetLaundry::find($id);
+        $carpetLaundry=Subcategory::find($id);
         return view('dashboard.carpetLaundryTimes.create',compact('carpetLaundry'));
     }
     public function createDeliveredTimes($id)
     {
-        $carpetLaundry=carpetLaundry::find($id);
+        $carpetLaundry=Subcategory::find($id);
         return view('dashboard.carpetLaundryTimes.createDeliveredTimes',compact('carpetLaundry'));
     }
 
@@ -87,7 +59,7 @@ class carpetLaundryTimeController extends Controller
         ]);
 
         carpetLaundryTime::create($request->all());
-        return  redirect()->route('carpetLaundryTimes.index',$request->carpet_laundry_id)->with('success', 'تمت الاضافه');
+        return  redirect()->route('carpetLaundryTimes.index',$request->subCategory_id)->with('success', 'تمت الاضافه');
     }
 
     /**
@@ -109,8 +81,7 @@ class carpetLaundryTimeController extends Controller
      */
     public function edit($id)
     {
-       $carpetLaundryTime=carpetLaundryTime::with('carpetLaundry')->find($id);
-
+       $carpetLaundryTime=carpetLaundryTime::with('subCategory')->find($id);
         return view('dashboard.carpetLaundryTimes.edit',compact('carpetLaundryTime'));
 
     }
@@ -125,7 +96,7 @@ class carpetLaundryTimeController extends Controller
     public function update(Request $request, $id)
     {
         carpetLaundryTime::where('id',$id)->update($request->except(['_token']));
-        return  redirect()->route('carpetLaundryTimes.index',$request->carpet_laundry_id)->with('success', 'تم التعديل');
+        return  redirect()->route('carpetLaundryTimes.index',$request->subCategory_id)->with('success', 'تم التعديل');
     }
 
     /**

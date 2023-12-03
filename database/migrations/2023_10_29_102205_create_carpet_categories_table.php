@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('carpet_categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('carpet_laundry_id')->index('carpet_laundry_id');
+            $table->foreignId('subCategory_id')->index('subCategory_id');
             $table->string('category_en');
             $table->string('category_ar');
             $table->string('desc_ar');

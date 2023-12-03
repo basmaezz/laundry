@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\carpetCategory;
 use App\Models\carpetLaundry;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -19,7 +20,7 @@ class carpetCategoryController extends Controller
     {
 
         if(request()->ajax()) {
-            $data = carpetCategory::where('carpet_laundry_id',$id)->get();
+            $data = carpetCategory::where('subCategory_id',$id)->get();
             return   Datatables::of($data)
                 ->addColumn('action', function ($row) {
                     return '
@@ -52,7 +53,8 @@ class carpetCategoryController extends Controller
      */
     public function create($id)
     {
-        $carpetLaundry=carpetLaundry::find($id);
+
+        $carpetLaundry=Subcategory::find($id);
          return view('dashboard.carpetCategories.create',compact('carpetLaundry'));
     }
 
@@ -66,7 +68,7 @@ class carpetCategoryController extends Controller
     {
 
         $request->validate([
-            'carpet_laundry_id'=>'integer',
+            'subCategory_id'=>'integer',
             'category_en'=>'required',
             'category_ar'=>'required',
             'desc_ar'=>'required',
@@ -77,7 +79,7 @@ class carpetCategoryController extends Controller
         ]);
 
         carpetCategory::create($request->all());
-        return  redirect()->route('carpetCategories.index',$request->carpet_laundry_id)->with('success', 'تمت الاضافه');
+        return  redirect()->route('carpetCategories.index',$request->subCategory_id)->with('success', 'تمت الاضافه');
     }
 
     /**
@@ -99,7 +101,7 @@ class carpetCategoryController extends Controller
      */
     public function edit($id)
     {
-        $carpetCategory=carpetCategory::with('carpetLaundry')->find($id);
+        $carpetCategory=carpetCategory::with('subCategory')->find($id);
 
         return view('dashboard.carpetCategories.edit',compact('carpetCategory'));
 
@@ -114,8 +116,10 @@ class carpetCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $carpet=carpetCategory::where('id',$id)->first();
+
         $request->validate([
-            'carpet_laundry_id'=>'integer',
+            'subCategory_id'=>'integer',
             'category_en'=>'required',
             'category_ar'=>'required',
             'desc_ar'=>'required',
@@ -124,8 +128,9 @@ class carpetCategoryController extends Controller
         ],[
             'required'=>'اجبارى',
         ]);
-        carpetCategory::where('id',$id)->update($request->except(['_token']));
-        return  redirect()->route('carpetCategories.index',$id)->with('success', 'تم التعديل');
+        $carpet->update($request->except(['_token']));
+
+        return  redirect()->route('carpetCategories.index',$carpet->subCategory_id)->with('success', 'تم التعديل');
     }
 
     /**
