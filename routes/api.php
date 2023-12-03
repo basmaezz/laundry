@@ -77,6 +77,7 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::post('payment/status', [PaymentController::class, 'paymentStatus']);
     Route::post('payment/payByRegistration', [PaymentController::class, 'payByRegistration']);
     Route::post('payment/getStoreCards', [PaymentController::class, 'getStoreCards']);
+    Route::post('payment/remove_card/{id}', [PaymentController::class, 'remove_registered_card']);
 
     Route::post('addToFavorite/{id}', [UsersController::class, 'addToFavorite']);
     Route::post('removeFromFavorite/{id}', [UsersController::class, 'removeFromFavorite']);
