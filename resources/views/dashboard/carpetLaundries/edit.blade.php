@@ -28,8 +28,6 @@
                         <div class="card-body">
                             <form method="post" action="{{route('carpetLaundries.update',$carpetLaundry->id)}}" >
                                 @csrf
-
-
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="hf-email">اسم المنطقه(AR)</label>
                                     <div class="col-md-9">
@@ -65,7 +63,6 @@
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
                                     </div>
-
                                 </div>
                                 <div class="form-group row ">
                                     <label  class="col-md-3 form-control-label" for="hf-email" for="company">longitude</label>
