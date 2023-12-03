@@ -91,18 +91,24 @@ class CategoryController extends Controller
                         'distance_class' =>  getDistanceClass($distance, $range),
                         'distance_class_id' =>  getDistanceClassId($distance, $range),
                     ];
-                    foreach($categories as $category){
-                        $name = 'category_' . App::getLocale();
-                        $descroption='desc_' . App::getLocale();
-                        $categoryFormatted[]=[
-                            'id'=>$category->id,
-                            'categoryName'=> $category->$name,
-                            'description'=> $category->$descroption,
-                            'price'=>$category->price,
-                        ];
+                    if($categories->count()>0){
+                        foreach($categories as $category){
+                            $name = 'category_' . App::getLocale();
+                            $descroption='desc_' . App::getLocale();
+                            $categoryFormatted[]=[
+                                'id'=>$category->id,
+                                'categoryName'=> $category->$name,
+                                'description'=> $category->$descroption,
+                                'price'=>$category->price,
+                            ];
+                        }
+                    }else{
+                        $categoryFormatted='';
                     }
                 }
+
                 return apiResponse("api.success", $data,$categoryFormatted);
+
             }elseif ($type==4){
                 foreach ($subCategories as $subcategory) {
                     $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
