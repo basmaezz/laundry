@@ -38,31 +38,31 @@ use App\User;
 function Home()
 {
 
-  $colors = ['#1abc9c','#2ecc71','#3498db','#9b59b6','#7FB3D5','#e67e22','#229954','#f39c12','#F6CD61','#FE8A71','#199EC7'];
-  $home   = [
+    $colors = ['#1abc9c','#2ecc71','#3498db','#9b59b6','#7FB3D5','#e67e22','#229954','#f39c12','#F6CD61','#FE8A71','#199EC7'];
+    $home   = [
         [
-          'name'  => 'مقدمين الخدمة',
-          'count' => User::where('user_type','provider')->count(),
-          'icon'  => '<i class="icon-users"></i>',
-          'color' => $colors[array_rand($colors)]
+            'name'  => 'مقدمين الخدمة',
+            'count' => User::where('user_type','provider')->count(),
+            'icon'  => '<i class="icon-users"></i>',
+            'color' => $colors[array_rand($colors)]
         ],
         [
-          'name'  => 'الاعضاء',
-          'count' => User::where('user_type','user')->count() -1,
-          'icon'  => '<i class="icon-users"></i>',
-          'color' => $colors[array_rand($colors)]
+            'name'  => 'الاعضاء',
+            'count' => User::where('user_type','user')->count() -1,
+            'icon'  => '<i class="icon-users"></i>',
+            'color' => $colors[array_rand($colors)]
         ],
         [
-          'name'  => 'المناديب',
-          'count' => User::where('user_type','delegate')->count(),
-          'icon'  => '<i class="icon-reading"></i>',
-          'color' => $colors[array_rand($colors)]
+            'name'  => 'المناديب',
+            'count' => User::where('user_type','delegate')->count(),
+            'icon'  => '<i class="icon-reading"></i>',
+            'color' => $colors[array_rand($colors)]
         ],
         [
-          'name'  => 'المنتجات',
-          'count' => Product::where('category_type','category')->count(),
-          'icon'  => '<i class="glyphicon glyphicon-briefcase"></i>',
-          'color' => $colors[array_rand($colors)]
+            'name'  => 'المنتجات',
+            'count' => Product::where('category_type','category')->count(),
+            'icon'  => '<i class="glyphicon glyphicon-briefcase"></i>',
+            'color' => $colors[array_rand($colors)]
         ],
 //        [
 //          'name'  => 'منتجات المتجر',
@@ -71,22 +71,22 @@ function Home()
 //          'color' => $colors[array_rand($colors)]
 //        ],
         [
-          'name'  => 'الطلبات الجديدة',
-          'count' => Order::where('status','current')->count(),
-          'icon'  => '<i class="glyphicon glyphicon-list-alt"></i>',
-          'color' => $colors[array_rand($colors)]
+            'name'  => 'الطلبات الجديدة',
+            'count' => Order::where('status','current')->count(),
+            'icon'  => '<i class="glyphicon glyphicon-list-alt"></i>',
+            'color' => $colors[array_rand($colors)]
         ],
         [
-          'name'  => 'الاقسام الرئيسية',
-          'count' => Category::count(),
-          'icon'  => '<i class="glyphicon glyphicon-align-justify"></i>',
-          'color' => $colors[array_rand($colors)]
+            'name'  => 'الاقسام الرئيسية',
+            'count' => Category::count(),
+            'icon'  => '<i class="glyphicon glyphicon-align-justify"></i>',
+            'color' => $colors[array_rand($colors)]
         ],
         [
-          'name'  => 'الاقسام الفرعية',
-          'count' =>  Subcategory::count(),
-          'icon'  => '<i class="glyphicon glyphicon-align-center"></i>',
-          'color' => $colors[array_rand($colors)]
+            'name'  => 'الاقسام الفرعية',
+            'count' =>  Subcategory::count(),
+            'icon'  => '<i class="glyphicon glyphicon-align-center"></i>',
+            'color' => $colors[array_rand($colors)]
         ],
 //        [
 //          'name'  => 'طلبات التوصيل',
@@ -107,38 +107,38 @@ function Home()
 //          'color' => $colors[array_rand($colors)]
 //        ],
         [
-          'name'  => 'الرسائل الجديدة',
-          'count' =>  Contact::where('ShowOrNow',0)->count(),
-          'icon'  => '<i class="glyphicon glyphicon-envelope"></i>',
-          'color' => $colors[array_rand($colors)]
+            'name'  => 'الرسائل الجديدة',
+            'count' =>  Contact::where('ShowOrNow',0)->count(),
+            'icon'  => '<i class="glyphicon glyphicon-envelope"></i>',
+            'color' => $colors[array_rand($colors)]
         ],
         [
-          'name'  => 'الصور المتحركة',
-          'count' =>  Banner::count(),
-          'icon'  => '<i class="glyphicon glyphicon-picture"></i>',
-          'color' => $colors[array_rand($colors)]
+            'name'  => 'الصور المتحركة',
+            'count' =>  Banner::count(),
+            'icon'  => '<i class="glyphicon glyphicon-picture"></i>',
+            'color' => $colors[array_rand($colors)]
         ],
         [
-          'name'  => 'العملاء',
-          'count' =>  Client::count(),
-          'icon'  => '<i class="glyphicon glyphicon-bookmark"></i>',
-          'color' => $colors[array_rand($colors)]
+            'name'  => 'العملاء',
+            'count' =>  Client::count(),
+            'icon'  => '<i class="glyphicon glyphicon-bookmark"></i>',
+            'color' => $colors[array_rand($colors)]
         ],
         [
-          'name'  => 'الحسابات البنكية',
-          'count' =>  BankAccount::count(),
-          'icon'  => '<i class="glyphicon glyphicon-usd"></i>',
-          'color' => $colors[array_rand($colors)]
+            'name'  => 'الحسابات البنكية',
+            'count' =>  BankAccount::count(),
+            'icon'  => '<i class="glyphicon glyphicon-usd"></i>',
+            'color' => $colors[array_rand($colors)]
         ],
         [
-          'name'  => 'التحويلات البنكية الجديدة',
-          'count' =>  MoneyAccount::where('status',0)->count(),
-          'icon'  => '<i class="icon-cash3"></i>',
-          'color' => $colors[array_rand($colors)]
+            'name'  => 'التحويلات البنكية الجديدة',
+            'count' =>  MoneyAccount::where('status',0)->count(),
+            'icon'  => '<i class="icon-cash3"></i>',
+            'color' => $colors[array_rand($colors)]
         ],
-  ];
+    ];
 
-   return $blocks[]=$home;
+    return $blocks[]=$home;
 }
 
 #role name
@@ -187,9 +187,9 @@ function getDistanceClassId($distance,$range){
 #messages notification
 function Notification()
 {
-	$messages = Contact::where('showOrNow',0)->latest()->get();
+    $messages = Contact::where('showOrNow',0)->latest()->get();
 
-	return $messages;
+    return $messages;
 }
 
 #current route
@@ -199,10 +199,10 @@ function currentRoute()
 
     foreach ($routes as $value)
     {
-      if( $value->getName() === Route::currentRouteName() ){
+        if( $value->getName() === Route::currentRouteName() ){
 
             echo $value->getAction()['title'] ;
-      }
+        }
     }
 }
 
@@ -616,12 +616,13 @@ function jsValidation($request, $form)
  * @return \Illuminate\Http\JsonResponse
  */
 
-function apiResponse(string $message_key, $items=null,int $code=200,int $http_code=200)
+function apiResponse(string $message_key, $items=null,$categories=null,int $code=200,int $http_code=200)
 {
     $return = [];
     $return["code"]= $code;
     $return["message"]= __($message_key);
     $return["items"] = $items;
+    $return["categories"] = $categories?$categories :'';
     return response()->json($return,$http_code);
 }
 function apiDelegateWalletResponse(string $message_key, $balance=null,int $code=200,int $http_code=200)

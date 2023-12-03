@@ -12,6 +12,7 @@ use App\Models\OrderTable;
 use App\Models\ProductService;
 use App\Models\RateLaundry;
 use App\Models\Subcategory;
+use App\Models\carpetCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -73,6 +74,8 @@ class CategoryController extends Controller
                 }
             }elseif ($type==3){
                 foreach ($subCategories as $subcategory) {
+                    $categories=carpetCategory::where('subCategory_id',$subcategory->id)->get();
+
                     $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
                     $range = $subcategory->range;
                     $data[] = [
@@ -82,13 +85,24 @@ class CategoryController extends Controller
                         'location' => $subcategory->location,
                         'lat' => $subcategory->lat,
                         'lng' => $subcategory->lng,
-                        'approximate_duration' => $subcategory->approximate_duration_urgent,
+                        'approximate_duration' => $subcategory->approximate_duration,
                         'distance' => round($distance, 2),
                         'range' => $subcategory->range,
                         'distance_class' =>  getDistanceClass($distance, $range),
                         'distance_class_id' =>  getDistanceClassId($distance, $range),
                     ];
+                    foreach($categories as $category){
+                        $name = 'category_' . App::getLocale();
+                        $descroption='desc_' . App::getLocale();
+                        $categoryFormatted[]=[
+                            'id'=>$category->id,
+                            'categoryName'=> $category->$name,
+                            'description'=> $category->$descroption,
+                            'price'=>$category->price,
+                        ];
+                    }
                 }
+                return apiResponse("api.success", $data,$categoryFormatted);
             }elseif ($type==4){
                 foreach ($subCategories as $subcategory) {
                     $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
@@ -118,6 +132,8 @@ class CategoryController extends Controller
             }
 
         return apiResponse("api.success", $data);
+
+
     }
 
     public function rate(Request $request)
@@ -230,7 +246,7 @@ class CategoryController extends Controller
             $subCategoriesServices = CategoryItem::query()->with(['subcategories', 'products' => function ($q) {
                 return $q->select('id', 'category_item_id', 'name_' . App::getLocale(), 'desc_' . App::getLocale(), 'image')
                     ->with(['productService' => function ($q) {
-                         return $q->select('id', 'product_id', 'services')->selectRaw('price + commission as price');
+                        return $q->select('id', 'product_id', 'services')->selectRaw('price + commission as price');
 
                     }]);
             }])->where('subcategory_id', $id)->get();
