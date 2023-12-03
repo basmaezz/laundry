@@ -19,7 +19,6 @@
     <div class="content-body">
         <section class="bs-validation">
             <div class="row">
-                <!-- Bootstrap Validation -->
                 <div class="col-md-6 col-12">
                     <div class="card">
                         <div class="card-header">
@@ -28,8 +27,6 @@
                         <div class="card-body">
                             <form method="post" action="{{route('carpetLaundries.store')}}" >
                                 @csrf
-
-
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="hf-email">اسم المنطقه(En)</label>
                                     <div class="col-md-9">
@@ -94,7 +91,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary">حفظ</button>
@@ -104,5 +100,4 @@
                         </div>
                     </div>
                 </div>
-                <!-- /Bootstrap Validation -->
 @endsection
