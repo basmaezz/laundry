@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('order_tables', function (Blueprint $table) {
-            $table->integer('order_type')->default('1')->nullable(); // 1 => Normal  3=>Carpet 4=>Urgent
+        Schema::table('carpet_categories', function (Blueprint $table) {
+            $table->integer('laundry_profit')->after('price');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('order_tables', function (Blueprint $table) {
-            //
+        Schema::table('carpet_categories', function (Blueprint $table) {
+            $table->dropColumn('laundry_profit');
         });
     }
 };

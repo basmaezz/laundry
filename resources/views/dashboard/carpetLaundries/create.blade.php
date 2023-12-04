@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="hf-email">(AR)اسم المنطقه</label>
+                                    <label class="col-md-3 form-control-label" for="hf-email">اسم المنطقه(AR)</label>
                                     <div class="col-md-9">
                                         <input type="text"  name="name_ar" class="form-control"value="{{Request::old('name_ar')}}" placeholder="اسم المنطقه " >
                                         @if ($errors->has('name_ar'))
@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row ">
-                                    <label  class="col-md-3 form-control-label" for="hf-email" for="company">السعر </label>
+                                    <label  class="col-md-3 form-control-label" for="hf-email" for="company">سعر التوصيل </label>
                                     <div class="col-md-9">
                                         <input type="text" name="price" class="form-control" id="address"value="{{ Request::old('price') }}" placeholder="سعر التوصيل " >
                                         @error('price')

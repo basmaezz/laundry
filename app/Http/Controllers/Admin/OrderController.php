@@ -42,7 +42,7 @@ class OrderController extends Controller
         };
 
         if(request()->ajax()) {
-            $data = OrderTable::get();
+            $data = OrderTable::orderBy('id', 'DESC')->get();
 
 
             return   Datatables::of($data)
