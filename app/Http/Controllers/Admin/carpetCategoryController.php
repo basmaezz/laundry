@@ -74,6 +74,7 @@ class carpetCategoryController extends Controller
             'desc_ar'=>'required',
             'desc_en'=>'required',
             'price'=>'required',
+            'laundry_profit'=>'required',
         ],[
             'required'=>'اجبارى',
         ]);

@@ -31,7 +31,6 @@ class CategoryController extends Controller
         } elseif ($type == 4) {
             $subCategories = Subcategory::where('urgentWash', '1')->get();
         }elseif ($type == 3){
-
             $subCategories = Subcategory::where('category_id','3')->get();
         }
         elseif($type!=1 || $type !=4 ||$type !=3){

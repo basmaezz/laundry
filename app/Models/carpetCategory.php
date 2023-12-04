@@ -9,7 +9,7 @@ use App\Models\subCategory;
 class carpetCategory extends Model
 {
     use HasFactory;
-    protected  $fillable=['subCategory_id','category_en','category_ar','desc_ar','desc_en','price'];
+    protected  $fillable=['subCategory_id','category_en','category_ar','desc_ar','desc_en','price','laundry_profit'];
 
     public function subCategory()
     {

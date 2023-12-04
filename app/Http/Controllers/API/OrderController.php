@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\AppUser;
+use App\Models\carpetCategory;
 use App\Models\CouponShopCart;
 use App\Models\Delegate;
 use App\Models\DeliveryHistory;
@@ -89,7 +90,7 @@ class OrderController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function addOrderTable(Request $request)
+    public function addOrderTable(Request $request,$orderType)
     {
         $app_user_id = auth('app_users_api')->user()->id;
 
@@ -115,77 +116,140 @@ class OrderController extends Controller
         $laundry = Subcategory::where('id', $request->get('laundry_id'))->first();
 
         $distance = getDistanceFirst1(auth('app_users_api')->user(), $laundry->lat, $laundry->lng);
+        if($orderType =1){
+            $order_data = [
+                'user_id'        => $app_user_id,
+                'laundry_id'     => $request->get('laundry_id'),
+                'category_item_id' => $request->get('category_item_id'),
+                'payment_method' => $request->get('payment_method', 'Cash'),
+                'urgent'         => $request->get('urgent'),
+                'address_id'     => $request->get('address_id'),
+                'count_products' => count($request->get('items')),
+                'note'           => $request->get('note'),
+                'status'         => 'انتظار المندوب',
+                'status_id'      => self::WaitingForDelivery,
+                'total_price'    => 0,
+                'discount_value' => $discount_value,
+                'delivery_fees'  => $laundry->price,
+                'discount'       => 0,
+                'vat'            => 0,
+                'commission'     => 0,
+                'total_commission' => 0,
+                'sum_price'      => 0,
+                'laundry_profit'   =>0,
+                'app_profit'       =>0,
+                'coupon'         => $request->get('coupon') ?? null,
+            ];
+        }elseif ($orderType=3){
+            $order_data = [
+                'user_id'        => $app_user_id,
+                'laundry_id'     => $request->get('laundry_id'),
+                'address_id'     => $request->get('address_id'),
+                'category_item_id' => $request->get('category_item_id'),
+                'receive_time'=>$request->get('receive_time'),
+                'receive_date'=>$request->get('receive_date'),
+                'delivery_time'=>$request->get('delivery_time'),
+                'delivery_date'=>$request->get('delivery_date'),
+                'order_type'=>$request->get('order_type'),
+                'payment_method' => $request->get('payment_method', 'Cash'),
+                'count_products' => count($request->get('items')),
+                'note'           => $request->get('note'),
+                'status'         => 'انتظار المندوب',
+                'status_id'      => self::WaitingForDelivery,
+                'total_price'    => 0,
+                'delivery_fees'  => $laundry->price,
+                'discount'       => 0,
+                'vat'            => 0,
+                'commission'     => 0,
+                'total_commission' => 0,
+                'sum_price'      => 0,
+                'laundry_profit'   =>0,
+                'app_profit'       =>0,
+                'coupon'         => $request->get('coupon') ?? null,
+            ];
+        }
 
-        $order_data = [
-            'user_id'        => $app_user_id,
-            'laundry_id'     => $request->get('laundry_id'),
-            'category_item_id' => $request->get('category_item_id'),
-            'payment_method' => $request->get('payment_method', 'Cash'),
-            'urgent'         => $request->get('urgent'),
-            'address_id'     => $request->get('address_id'),
-            'count_products' => count($request->get('items')),
-            'note'           => $request->get('note'),
-            'status'         => 'انتظار المندوب',
-            'status_id'      => self::WaitingForDelivery,
-            'total_price'    => 0,
-            'discount_value' => $discount_value,
-            'delivery_fees'  => $laundry->price,
-            'discount'       => 0,
-            'vat'            => 0,
-            'commission'     => 0,
-            'total_commission' => 0,
-            'sum_price'      => 0,
-            'laundry_profit'   =>0,
-            'app_profit'       =>0,
-            'coupon'         => $request->get('coupon') ?? null,
-        ];
 
         $order = OrderTable::create($order_data);
 
-        $item_data = null;
-        $sum_price = $total_commission = $commission = $total =$laundry_profit=$app_profit=0;
-        $item_quantity = 0;
-        foreach ($request->get('items') as $key => $item) {
-            $product = ProductService::where('id', $item['product_service_id'])->first();
-            if ($product) {
-                $price = $request->get('urgent')=='1'? $product->priceUrgent : $product->price;
-                $item_data = [
-                    'order_table_id' => $order->id,
-                    'product_id' => $item['product_id'],
-                    'category_item_id' => $item['category_id'],
-                    'product_service_id' => $item['product_service_id'],
-                    'quantity' => $item['quantity'],
-                    'total_price' => $price * $item['quantity'],
-                    'commission' => $product->commission,
-                    'total_commission' => $product->commission * $item['quantity'],
-                    'full_price' => ($price + $product->commission) * $item['quantity'],
-                    'price' => $price,
-                ];
-                $commission += $product->commission;
-                $sum_price += $price * $item['quantity'];
-                $total_commission += $product->commission * $item['quantity'];
-                $laundry_profit= $sum_price-($sum_price *$laundry->percentage)/100;
-                $app_profit=($sum_price *$laundry->percentage)/100;
-                $total += ($price + $product->commission) * $item['quantity'];
-                $item_quantity += $item['quantity'];
-                OrderDetails::create($item_data);
+        if($orderType =1) {
+            $item_data = null;
+            $sum_price = $total_commission = $commission = $total = $laundry_profit = $app_profit = 0;
+            $item_quantity = 0;
+            foreach ($request->get('items') as $key => $item) {
+                $product = ProductService::where('id', $item['product_service_id'])->first();
+                if ($product) {
+                    $price = $request->get('urgent') == '1' ? $product->priceUrgent : $product->price;
+                    $item_data = [
+                        'order_table_id' => $order->id,
+                        'product_id' => $item['product_id'],
+                        'category_item_id' => $item['category_id'],
+                        'product_service_id' => $item['product_service_id'],
+                        'quantity' => $item['quantity'],
+                        'total_price' => $price * $item['quantity'],
+                        'commission' => $product->commission,
+                        'total_commission' => $product->commission * $item['quantity'],
+                        'full_price' => ($price + $product->commission) * $item['quantity'],
+                        'price' => $price,
+                    ];
+                    $commission += $product->commission;
+                    $sum_price += $price * $item['quantity'];
+                    $total_commission += $product->commission * $item['quantity'];
+                    $laundry_profit = $sum_price - ($sum_price * $laundry->percentage) / 100;
+                    $app_profit = ($sum_price * $laundry->percentage) / 100;
+                    $total += ($price + $product->commission) * $item['quantity'];
+                    $item_quantity += $item['quantity'];
+                    OrderDetails::create($item_data);
+                }
             }
-        }
 
-        $order->sum_price     = $sum_price;
-        $order->commission    = $commission;
-        $order->total_commission = $total_commission;
-        $order->total_price    = $total+$laundry->price;
-        $order->count_products = $item_quantity;
-        $order->laundry_profit=$sum_price-($sum_price *$laundry->percentage)/100;
-        $order->app_profit=($sum_price *$laundry->percentage)/100;
-        $order->discount       = floatval($total * $discount_value);
-        $order->vat            = floatval($total * config('setting.vat'));
-        if ($request->hasFile('audio_note')) {
-            $order->audio_note = uploadFile($request->file("audio_note"), 'audio_note');
-        }
-        $order->save();
+            $order->sum_price = $sum_price;
+            $order->commission = $commission;
+            $order->total_commission = $total_commission;
+            $order->total_price = $total + $laundry->price;
+            $order->count_products = $item_quantity;
+            $order->laundry_profit = $sum_price - ($sum_price * $laundry->percentage) / 100;
+            $order->app_profit = ($sum_price * $laundry->percentage) / 100;
+            $order->discount = floatval($total * $discount_value);
+            $order->vat = floatval($total * config('setting.vat'));
+            if ($request->hasFile('audio_note')) {
+                $order->audio_note = uploadFile($request->file("audio_note"), 'audio_note');
+            }
+            $order->save();
+        }elseif ($orderType=3){
+            $item_data = null;
+            $total_price =  $laundry_profit = $app_profit = 0;
+            $item_quantity = 0;
+            foreach ($request->get('items') as $key => $item) {
+                $carpetCategory = carpetCategory::where('id', $item['carpetCategory_id'])->first();
+                if ($carpetCategory) {
+                    $item_data = [
+                        'order_table_id' => $order->id,
+                        'product_id' => $item['product_id'],
+                        'category_item_id' => $item['category_id'],
+                        'product_service_id' => $item['product_service_id'],
+                        'quantity' => $item['quantity'],
+                        'total_price' => $carpetCategory->price * $item['quantity'],
+                    ];
+                    $laundry_profit = ($carpetCategory->laundry_profit)* $item['quantity'];
+                    $piece_price=$carpetCategory->price * $item['quantity'];
+                    $app_profit = $piece_price-$laundry_profit;
+                    $total += ($carpetCategory->price) * $item['quantity'];
+                    $item_quantity += $item['quantity'];
+                    OrderDetails::create($item_data);
+                }
+            }
 
+            $order->total_price = $total + $laundry->price;
+            $order->count_products = $item_quantity;
+            $order->laundry_profit = ($carpetCategory->laundry_profit)* $item['quantity'];
+            $order->vat = floatval($total * config('setting.vat'));
+            if ($request->hasFile('audio_note')) {
+                $order->audio_note = uploadFile($request->file("audio_note"), 'audio_note');
+            }
+            $order->save();
+
+        }
         //Start Store Payment information
         foreach ($request->get('payments') as $payment) {
             Payment::create([
@@ -208,29 +272,57 @@ class OrderController extends Controller
         $settings = SiteSetting::first();
         $distanceDelegate = $settings->distance_delegates ?? config('setting.distance.in_area');
 
-        $delegates = AppUser::where([
-            'status' => 'active',
-            'user_type' => 'delivery',
-            'available' => '1',
-        ])->whereRaw('( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
-           * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
-           * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate)->get();
-
-        if (count($delegates) == 0) {
+        if($orderType=1){
             $delegates = AppUser::where([
                 'status' => 'active',
                 'user_type' => 'delivery',
                 'available' => '1',
-            ])->get();
+            ])->whereRaw('( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
+           * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
+           * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate)->get();
+
+            if (count($delegates) == 0) {
+                $delegates = AppUser::where([
+                    'status' => 'active',
+                    'user_type' => 'delivery',
+                    'available' => '1',
+                ])->get();
+            }
+            foreach ($delegates as $user) {
+                NotificationController::sendNotification(
+                    'New Delivery Request',
+                    'New Delivery Request Number #' . $order->id,
+                    $user,
+                    $order->id
+                );
+            }
+        }elseif ($orderType=3){
+            $delegates = AppUser::where([
+                'status' => 'active',
+                'user_type' => 'delivery',
+                'available' => '1',
+            ])->whereRaw('( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
+           * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
+           * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate)->get();
+
+            if (count($delegates) == 0) {
+                $delegates = AppUser::where([
+                    'status' => 'active',
+                    'user_type' => 'delivery',
+                    'available' => '1',
+                    'deliver_carpet'=>'1'
+                ])->get();
+            }
+            foreach ($delegates as $user) {
+                NotificationController::sendNotification(
+                    'New Delivery Request',
+                    'New Delivery Request Number #' . $order->id,
+                    $user,
+                    $order->id
+                );
+            }
         }
-        foreach ($delegates as $user) {
-            NotificationController::sendNotification(
-                'New Delivery Request',
-                'New Delivery Request Number #' . $order->id,
-                $user,
-                $order->id
-            );
-        }
+
         return apiResponseOrders1('api.received_successfully', $orders);
     }
 
@@ -417,7 +509,7 @@ class OrderController extends Controller
                 {
                  if($order->delegateTrashed->request_employment=='1')
                  {
-        
+
                     $order->delegateTrashed->appUserTrashed->wallet+=floatval($order->subCategoriesTrashed->price);
 
                  }

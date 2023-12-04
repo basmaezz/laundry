@@ -38,6 +38,7 @@
                                     <th>الوصف(عربى)</th>
                                     <th>الوصف (انجليزى) </th>
                                     <th>سعر  </th>
+                                    <th>ربح المغسله  </th>
                                     <th>  </th>
                                 </tr>
                                 </thead>
@@ -78,6 +79,9 @@
             },{
                 data: 'price',
                 name: 'price'
+            },{
+                data: 'laundry_profit',
+                name: 'laundry_profit'
             },
                 {
                     data: 'action',
