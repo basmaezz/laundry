@@ -90,9 +90,10 @@ class OrderController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function addOrderTable(Request $request,$orderType)
+    public function addOrderTable(Request $request)
     {
         $app_user_id = auth('app_users_api')->user()->id;
+        $orderType=$request->order_type;
 
         $_totalOrders = OrderTable::where('user_id', $app_user_id)->where("status_id", '<', self::Completed)->count();
         if ($_totalOrders >= intval(config('setting.max_order', 3))) {

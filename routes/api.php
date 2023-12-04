@@ -87,7 +87,7 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::get('clearSearchHistory', [UsersController::class, 'clearSearchHistory']);
     Route::get('clearSearchHistoryById/{id}', [UsersController::class, 'clearSearchHistorybyId']);
     //Start In Order
-    Route::post('addOrder/{orderType}', [OrderController::class, 'addOrderTable']);
+    Route::post('addOrder', [OrderController::class, 'addOrderTable']);
     Route::get('Orders', [OrderController::class, 'OrdersTable']);
     Route::post('OrdersAfterCoupon', [UsersController::class, 'OrdersAfterCoupon']);
     Route::any('checkCoupon', [OrderController::class, 'checkCoupon']);
