@@ -127,7 +127,7 @@ class carpetLaundryController extends Controller
     public function destroy(Request $request)
     {
         if (is_numeric($request->id)) {
-            carpetLaundry::where('id', $request->id)->delete();
+            subCategory::where('id', $request->id)->delete();
         }
         return  redirect()->back()->with('error', 'تم الحذف');
     }
