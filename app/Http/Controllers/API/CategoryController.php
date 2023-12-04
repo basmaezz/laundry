@@ -73,39 +73,40 @@ class CategoryController extends Controller
                     ];
                 }
             }elseif ($type==3){
-                foreach ($subCategories as $subcategory) {
-                    $categories=carpetCategory::where('subCategory_id',$subcategory->id)->get();
 
-                    $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
-                    $range = $subcategory->range;
-                    $data[] = [
-                        'id' => $subcategory->id,
-                        'name' => $subcategory->$name,
-                        'delivery_fees' => $subcategory->price,
-                        'location' => $subcategory->location,
-                        'lat' => $subcategory->lat,
-                        'lng' => $subcategory->lng,
-                        'approximate_duration' => $subcategory->approximate_duration,
-                        'distance' => round($distance, 2),
-                        'range' => $subcategory->range,
-                        'distance_class' =>  getDistanceClass($distance, $range),
-                        'distance_class_id' =>  getDistanceClassId($distance, $range),
-                    ];
-                    if($categories->count()>0){
-                        foreach($categories as $category){
-                            $name = 'category_' . App::getLocale();
-                            $descroption='desc_' . App::getLocale();
-                            $categoryFormatted[]=[
-                                'id'=>$category->id,
-                                'categoryName'=> $category->$name,
-                                'description'=> $category->$descroption,
-                                'price'=>$category->price,
-                            ];
-                        }
-                    }else{
-                        $categoryFormatted='';
+                $subcategory = Subcategory::where('category_id','3')->first();
+                $categories=carpetCategory::where('subCategory_id',$subcategory->id)->get();
+
+                $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
+                $range = $subcategory->range;
+                $data[] = [
+                    'id' => $subcategory->id,
+                    'name' => $subcategory->$name,
+                    'delivery_fees' => $subcategory->price,
+                    'location' => $subcategory->location,
+                    'lat' => $subcategory->lat,
+                    'lng' => $subcategory->lng,
+                    'approximate_duration' => $subcategory->approximate_duration,
+                    'distance' => round($distance, 2),
+                    'range' => $subcategory->range,
+                    'distance_class' =>  getDistanceClass($distance, $range),
+                    'distance_class_id' =>  getDistanceClassId($distance, $range),
+                ];
+                if($categories->count()>0){
+                    foreach($categories as $category){
+                        $name = 'category_' . App::getLocale();
+                        $descroption='desc_' . App::getLocale();
+                        $categoryFormatted[]=[
+                            'id'=>$category->id,
+                            'categoryName'=> $category->$name,
+                            'description'=> $category->$descroption,
+                            'price'=>$category->price,
+                        ];
                     }
+                }else{
+                    $categoryFormatted=NULL;
                 }
+
 
                 return apiResponse("api.success", $data,$categoryFormatted);
 

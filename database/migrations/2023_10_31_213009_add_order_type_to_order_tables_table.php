@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('order_tables', function (Blueprint $table) {
-            $table->enum('order_type',['clothes','carpet']);
+            $table->integer('order_type')->default('1')->nullable();
         });
     }
 
