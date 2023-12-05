@@ -94,7 +94,6 @@ class OrderController extends Controller
     {
         $app_user_id = auth('app_users_api')->user()->id;
         $orderData = json_decode($request->getContent(), true);
-
         $orderType=$orderData['order_type'];
 
         $_totalOrders = OrderTable::where('user_id', $app_user_id)->where("status_id", '<', self::Completed)->count();
@@ -147,15 +146,16 @@ class OrderController extends Controller
                 'coupon'         => $request->get('coupon') ?? null,
             ];
         }elseif ($orderType==3){
+
             $order_data = [
                 'user_id'        => $app_user_id,
                 'laundry_id'     =>  $orderData['laundry_id'],
                 'address_id'     => $request->get('address_id'),
                 'category_item_id' => $request->get('category_item_id'),
-                'receive_time'=>$request->get('receive_time'),
-                'receive_date'=>$request->get('receive_date'),
-                'delivery_time'=>$request->get('delivery_time'),
-                'delivery_date'=>$request->get('delivery_date'),
+                'receive_time'=>$orderData['receive_time'],
+                'receive_date'=>$orderData['receive_date'],
+                'delivery_time'=>$orderData['delivery_time'],
+                'delivery_date'=>$orderData['delivery_date'],
                 'order_type'=>$orderType,
                 'payment_method' => $request->get('payment_method', 'Cash'),
                 'count_products' => count($orderData['items']),
@@ -174,7 +174,6 @@ class OrderController extends Controller
                 'coupon'         => $request->get('coupon') ?? null,
             ];
         }
-
 
         $order = OrderTable::create($order_data);
 
@@ -224,24 +223,29 @@ class OrderController extends Controller
             $order->save();
         }elseif ($orderType==3){
             $item_data = null;
-            $total_price =  $laundry_profit = $app_profit = 0;
+            $total_price =  $total=$laundry_profit = $app_profit = 0;
             $item_quantity = 0;
 
             foreach ($orderData['items'] as $key => $item) {
-                $carpetCategory = carpetCategory::where('id', $item['carpetCategory_id'])->first();
+
+                $carpetCategory = carpetCategory::where('id', $item['category_id'])->first();
+
+
                 if ($carpetCategory) {
                     $item_data = [
                         'order_table_id' => $order->id,
-                        'product_id' => $item['product_id'],
-                        'category_item_id' => $item['category_id'],
-                        'product_service_id' => $item['product_service_id'],
+                        'category_id' => $item['category_id'],
                         'quantity' => $item['quantity'],
-                        'total_price' => $carpetCategory->price * $item['quantity'],
+                        'product_id' => $order->id,
+                        'category_item_id' => $order->id,
+                        'product_service_id' => $order->id,
+                        'price' => $carpetCategory->price * $item['quantity'],
+
                     ];
-                    $laundry_profit = ($carpetCategory->laundry_profit)* $item['quantity'];
+
+                    $laundry_profit += ($carpetCategory->laundry_profit)* $item['quantity'];
                     $piece_price=$carpetCategory->price * $item['quantity'];
                     $app_profit = $piece_price-$laundry_profit;
-                    $total += ($carpetCategory->price) * $item['quantity'];
                     $item_quantity += $item['quantity'];
                     OrderDetails::create($item_data);
                 }
@@ -250,6 +254,7 @@ class OrderController extends Controller
             $order->total_price = $total + $laundry->price;
             $order->count_products = $item_quantity;
             $order->laundry_profit = ($carpetCategory->laundry_profit)* $item['quantity'];
+            $order->app_profit=$app_profit;
             $order->vat = floatval($total * config('setting.vat'));
             if ($request->hasFile('audio_note')) {
                 $order->audio_note = uploadFile($request->file("audio_note"), 'audio_note');
@@ -258,7 +263,7 @@ class OrderController extends Controller
 
         }
         //Start Store Payment information
-        foreach ($request->get('payments') as $payment) {
+        foreach ($orderData['payments'] as $payment) {
             Payment::create([
                 'user_id'           => $app_user_id,
                 'order_id'          => $order->id,
