@@ -58,7 +58,12 @@ class OrderTable extends Model
         'address_id',
         'commission',
         'total_commission',
-        'sum_price'
+        'sum_price',
+        'order_type',
+        'receive_time',
+        'receive_date',
+        'delivery_time',
+        'delivery_date'
     ];
     protected $appends = ['is_finnish'];
 

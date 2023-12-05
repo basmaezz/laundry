@@ -93,7 +93,9 @@ class OrderController extends Controller
     public function addOrderTable(Request $request)
     {
         $app_user_id = auth('app_users_api')->user()->id;
-        $orderType=$request->order_type;
+        $orderData = json_decode($request->getContent(), true);
+
+        $orderType=$orderData['order_type'];
 
         $_totalOrders = OrderTable::where('user_id', $app_user_id)->where("status_id", '<', self::Completed)->count();
         if ($_totalOrders >= intval(config('setting.max_order', 3))) {
@@ -114,10 +116,12 @@ class OrderController extends Controller
                 return apiResponseCouponError('api.Coupon_Not_Exists');
             }
         }
-        $laundry = Subcategory::where('id', $request->get('laundry_id'))->first();
+        $laundry = Subcategory::where('id', $orderData['laundry_id'])->first();
+
 
         $distance = getDistanceFirst1(auth('app_users_api')->user(), $laundry->lat, $laundry->lng);
-        if($orderType =1){
+        if($orderType ==1){
+
             $order_data = [
                 'user_id'        => $app_user_id,
                 'laundry_id'     => $request->get('laundry_id'),
@@ -125,7 +129,8 @@ class OrderController extends Controller
                 'payment_method' => $request->get('payment_method', 'Cash'),
                 'urgent'         => $request->get('urgent'),
                 'address_id'     => $request->get('address_id'),
-                'count_products' => count($request->get('items')),
+                'count_products' => count($orderData['items']),
+                'order_type'=>$orderType,
                 'note'           => $request->get('note'),
                 'status'         => 'انتظار المندوب',
                 'status_id'      => self::WaitingForDelivery,
@@ -141,19 +146,19 @@ class OrderController extends Controller
                 'app_profit'       =>0,
                 'coupon'         => $request->get('coupon') ?? null,
             ];
-        }elseif ($orderType=3){
+        }elseif ($orderType==3){
             $order_data = [
                 'user_id'        => $app_user_id,
-                'laundry_id'     => $request->get('laundry_id'),
+                'laundry_id'     =>  $orderData['laundry_id'],
                 'address_id'     => $request->get('address_id'),
                 'category_item_id' => $request->get('category_item_id'),
                 'receive_time'=>$request->get('receive_time'),
                 'receive_date'=>$request->get('receive_date'),
                 'delivery_time'=>$request->get('delivery_time'),
                 'delivery_date'=>$request->get('delivery_date'),
-                'order_type'=>$request->get('order_type'),
+                'order_type'=>$orderType,
                 'payment_method' => $request->get('payment_method', 'Cash'),
-                'count_products' => count($request->get('items')),
+                'count_products' => count($orderData['items']),
                 'note'           => $request->get('note'),
                 'status'         => 'انتظار المندوب',
                 'status_id'      => self::WaitingForDelivery,
@@ -173,7 +178,7 @@ class OrderController extends Controller
 
         $order = OrderTable::create($order_data);
 
-        if($orderType =1) {
+        if($orderType ==1) {
             $item_data = null;
             $sum_price = $total_commission = $commission = $total = $laundry_profit = $app_profit = 0;
             $item_quantity = 0;
@@ -217,11 +222,12 @@ class OrderController extends Controller
                 $order->audio_note = uploadFile($request->file("audio_note"), 'audio_note');
             }
             $order->save();
-        }elseif ($orderType=3){
+        }elseif ($orderType==3){
             $item_data = null;
             $total_price =  $laundry_profit = $app_profit = 0;
             $item_quantity = 0;
-            foreach ($request->get('items') as $key => $item) {
+
+            foreach ($orderData['items'] as $key => $item) {
                 $carpetCategory = carpetCategory::where('id', $item['carpetCategory_id'])->first();
                 if ($carpetCategory) {
                     $item_data = [
