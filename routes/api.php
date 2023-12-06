@@ -39,6 +39,7 @@ Route::group(['middleware' => ['language'], 'namespace' => 'App\Http\Controllers
     Route::get('getCategories', [CategoryController::class, 'getCategories']);
     Route::get('search/{name}', [CategoryController::class, 'search']);
     Route::get('getSubCategoriesProduct/{id}/{urgent}', [CategoryController::class, 'getSubCategoriesProducts']);
+    Route::get('getCarpetLaundryTimes/{id}', [CategoryController::class, 'getCarpetLaundryTimes']);
     Route::get('delete/reasons', [UsersController::class, 'delete_reason']);
     Route::get('getFaqs', [FaqController::class, 'getFaqs']);
 

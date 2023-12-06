@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Maize\Markable\Markable;
 use Maize\Markable\Models\Favorite;
 
-class Subcategory extends Model
+class subCategory extends Model
 {
     use Markable;
     use SoftDeletes;

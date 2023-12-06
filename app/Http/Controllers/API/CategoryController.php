@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\AppUser;
 use App\Models\carpetLaundry;
+use App\Models\carpetLaundryTime;
 use App\Models\Category;
 use App\Models\CategoryItem;
 use App\Models\CouponShopCart;
@@ -299,5 +300,23 @@ class CategoryController extends Controller
         } else {
             return apiResponse1("api.errors", $data1, $data);
         }
+    }
+
+    public function getCarpetLaundryTimes($id)
+    {
+
+        $carpetCategoryTimes=carpetLaundryTime::where('subCategory_id',$id)->get();
+
+        foreach ($carpetCategoryTimes as $carpetCategoryTime ){
+            $data []=[
+                'laundry_id'=>$carpetCategoryTime->subCategory_id,
+                'startTime'=>$carpetCategoryTime->start_from,
+                'endTime'=>$carpetCategoryTime->end_to,
+                'serviceType'=>$carpetCategoryTime->service_type,
+            ];
+        }
+
+
+        return apiResponse2( $data);
     }
 }
