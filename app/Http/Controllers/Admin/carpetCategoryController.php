@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\carpetCategory;
 use App\Models\carpetLaundry;
-use App\Models\Subcategory;
+use App\Models\subCategory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
