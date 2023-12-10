@@ -41,7 +41,10 @@
                                 <th>  القيمه الاجماليه  </th>
                                 <th>   ربح المغسله  </th>
                                 <th>   ربح التطبيق  </th>
-                                <th>    قيمه التوصيل  </th>
+                                <th>     وقت الاستلام  </th>
+                                <th>     تاريخ الاستلام  </th>
+                                <th>     وقت التسليم  </th>
+                                <th>     تاريخ التسليم  </th>
                                 <th>تاريخ الطلب </th>
                                 <th>التفاصيل</th>
                             </tr>
@@ -95,6 +98,15 @@
                 },{
                     data:'appProfit',
                     name:'appProfit'
+                },{
+                    data:'createdAt',
+                    name:'createdAt'
+                },{
+                    data:'createdAt',
+                    name:'createdAt'
+                },{
+                    data:'createdAt',
+                    name:'createdAt'
                 },{
                     data:'createdAt',
                     name:'createdAt'

@@ -145,6 +145,7 @@ class OrderController extends Controller
                 'app_profit'       =>0,
                 'coupon'         => $request->get('coupon') ?? null,
             ];
+
         }elseif ($orderType==3){
 
             $order_data = [
@@ -229,13 +230,13 @@ class OrderController extends Controller
 
             foreach ($orderData['items'] as $key => $item) {
 
-                $carpetCategory = carpetCategory::where('id', $item['category_id'])->first();
+                $carpetCategory = carpetCategory::where('id', $item['carpet_category_id'])->first();
 
                 if ($carpetCategory) {
 
                     $item_data = [
                         'order_table_id' => $order->id,
-                        'category_id' => $item['category_id'],
+                        'carpet_category_id' => $item['carpet_category_id'],
                         'quantity' => $item['quantity'],
                         'product_id' => $order->id,
                         'category_item_id' => $order->id,
@@ -520,19 +521,19 @@ class OrderController extends Controller
 
                 if($order->status_id = self::DeliveredToLaundry )
                 {
-                 if($order->delegateTrashed->request_employment=='1')
-                 {
+                    if($order->delegateTrashed->request_employment=='1')
+                    {
 
-                    $order->delegateTrashed->appUserTrashed->wallet+=floatval($order->subCategoriesTrashed->price);
+                        $order->delegateTrashed->appUserTrashed->wallet+=floatval($order->subCategoriesTrashed->price);
 
-                 }
+                    }
 
                 }
                 if($order->status_id = self::Completed)
                 {
                     if($order->delegateTrashed->request_employment=='1')
                     {
-                       $order->delegateTrashed->appUserTrashed->wallet+=floatval($order->subCategoriesTrashed->price);
+                        $order->delegateTrashed->appUserTrashed->wallet+=floatval($order->subCategoriesTrashed->price);
 
                     }
                 }
@@ -688,31 +689,42 @@ class OrderController extends Controller
         $app_user = auth('app_users_api')->user();
         $status_histories = [];
 
-            foreach ($order->histories as $history) {
+        foreach ($order->histories as $history) {
 
-                $status_histories[] = [
-                    'status_id' => $history->status_id,
-                    'spend_time' => $history->spend_time,
-                    'status' => $history->status,
-                    'name' => getStatusName($history->status_id),
-                    'date' => $history->created_at->toDateString(),
-                    'time' => $history->created_at->format("h:i A"),
-                ];
-            }
+            $status_histories[] = [
+                'status_id' => $history->status_id,
+                'spend_time' => $history->spend_time,
+                'status' => $history->status,
+                'name' => getStatusName($history->status_id),
+                'date' => $history->created_at->toDateString(),
+                'time' => $history->created_at->format("h:i A"),
+            ];
+        }
 
 
         $order_details = [];
-        foreach ($order->orderDetails as $detail) {
-            $order_details[] = [
-                'service_id' => $detail->productService->id ?? 0,
-                'service_name' => $detail->productService->services ?? '',
-                'product_name' => $detail->productTrashed->$name,
-                'product_image' => $detail->productTrashed->image,
-                'category_name' => $detail->categoryItem->$name ?? '',
-                'urgent'=>$detail->urgent=='1'?'urgent':'normal',
-                'count' => $detail->quantity,
-                'price' => $detail->full_price,
-            ];
+        if($order->order_type==3){
+            foreach ($order->orderDetails as $detail) {
+                $order_details[] = [
+                    'category_name' => $detail->carpetCategory->category_en,
+                    'count' => $detail->quantity,
+                    'price' => $detail->full_price,
+                ];
+            }
+
+        }else{
+            foreach ($order->orderDetails as $detail) {
+                $order_details[] = [
+                    'service_id' => $detail->productService->id ?? 0,
+                    'service_name' => $detail->productService->services ?? '',
+                    'product_name' => $detail->productTrashed->$name,
+                    'product_image' => $detail->productTrashed->image,
+                    'category_name' => $detail->categoryItem->$name ?? '',
+                    'urgent'=>$detail->urgent=='1'?'urgent':'normal',
+                    'count' => $detail->quantity,
+                    'price' => $detail->full_price,
+                ];
+            }
         }
 
         $distance = getDistanceFirst1($app_user, $order->subCategoriesTrashed->lat, $order->subCategoriesTrashed->lng);
@@ -769,6 +781,7 @@ class OrderController extends Controller
             ],
             'services' => $order_details,
             'order_id' => $order->id,
+            'order_type' => $order->order_type,
             'payment_method' => $order->payment_method,
             'qrcode' => asset('qrcodes/' . $order->id . '.svg'),
             'rate' => RateLaundry::select('rate')->where('order_id', $order->id)->first()['rate'] ?? null,

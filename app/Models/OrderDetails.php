@@ -32,6 +32,6 @@ class OrderDetails extends Model
 
     public function carpetCategory()
     {
-        return $this->belongsTo(carpetCategory::class,'category_id','id');
+        return $this->belongsTo(carpetCategory::class,'carpet_category_id','id');
     }
 }

@@ -130,12 +130,11 @@
 
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="eCommerce">طلبات السجاد</span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">الطلبات</span></a></li>
+                    <li><a class="d-flex align-items-center" href="{{route('Order.carpetOrders')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">الطلبات</span></a></li>
                     <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">انتظار قبول لمندوب</span></a></li>
                     <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">المندوب فى الطريق للعميل</span></a></li>
                     <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">المندوب فى الطريق للمغسله</span></a></li>
                     <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">فى المغسله</span></a></li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">الانتهاء من الغسيل</span></a></li>
                     <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">انتظار موافقه المندوب</span></a></li>
                     <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">فى الطريق للعميل </span></a></li>
                     <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">الطلبات المنتهيه</span></a></li>
