@@ -28,8 +28,9 @@ class DelegatesController extends Controller
     {
 
         $app_user_id = auth('app_users_api')->user()->id;
+        $delegate=Delegate::where('app_user_id',$app_user_id)->first();
+        $deliver_carpet=$delegate->deliver_carpet ==1 ?true :false;
 
-        $deliver_carpet=auth('app_users_api')->user()->deliver_carpet ==1 ?true :false;
         $orders = OrderTable::query();
         if($request->get('type') == 'unassigned'){
             $reject_order_ids = DeliveryRejection::where('user_id', $app_user_id)->get()->pluck('order_id');
