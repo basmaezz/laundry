@@ -31,7 +31,7 @@ class PaymentController extends Controller
         }
         $form_params = [
             'entityId' => $entityId,
-            'amount' => $request->get("amount"),
+            'amount' => floatval($request->get("amount")),
             'currency' => config("payment.Currency"),
             'paymentType' => config("payment.PaymentType"),
             'customer.email' => $user->email,
@@ -181,8 +181,8 @@ class PaymentController extends Controller
         }
         $form_params = [
             'entityId'              => $entityId,
-            'amount'                => $request->get("amount"),
-            'card.cvv'                   => $request->get("cvv"),
+            'amount'                => floatval($request->get("amount")),
+            'card.cvv'              => $request->get("cvv"),
             'currency'              => config("payment.Currency"),
             'paymentType'           => config("payment.PaymentType"),
             'customer.email'        => $user->email,
