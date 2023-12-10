@@ -232,15 +232,13 @@ class OrderController extends Controller
 
                 $carpetCategory = carpetCategory::where('id', $item['carpet_category_id'])->first();
 
+
                 if ($carpetCategory) {
 
                     $item_data = [
                         'order_table_id' => $order->id,
                         'carpet_category_id' => $item['carpet_category_id'],
                         'quantity' => $item['quantity'],
-                        'product_id' => $order->id,
-                        'category_item_id' => $order->id,
-                        'product_service_id' => $order->id,
                         'price'=>$carpetCategory->price,
                     ];
 
@@ -275,10 +273,17 @@ class OrderController extends Controller
             ]);
         }
         //End Store Payment information
+        if($order->order_type==3){
+            $orders = OrderTable::where('id', $order->id)->with(['orderDetails' => function ($q) {
+                return $q->select('id', 'order_table_id', 'carpet_category_id', 'price', 'quantity');
+            }])->select('id', 'user_id', 'laundry_id')->first();
+        }else{
+            $orders = OrderTable::where('id', $order->id)->with(['orderDetails' => function ($q) {
+                return $q->select('id', 'order_table_id', 'product_id', 'category_item_id', 'price', 'quantity');
+            }])->select('id', 'user_id', 'laundry_id')->first();
+        }
 
-        $orders = OrderTable::where('id', $order->id)->with(['orderDetails' => function ($q) {
-            return $q->select('id', 'order_table_id', 'product_id', 'category_item_id', 'price', 'quantity');
-        }])->select('id', 'user_id', 'laundry_id')->first();
+
         $name = 'name_' . App::getLocale();
         NotificationController::sendNotification(__('api.received_successfully'), 'جهّز ملابسك في كيس، مندوبنا جايك! 💨🏎️', auth('app_users_api')->user(), $order->id);
         $customer = auth('app_users_api')->user();
@@ -705,8 +710,9 @@ class OrderController extends Controller
         $order_details = [];
         if($order->order_type==3){
             foreach ($order->orderDetails as $detail) {
+                $categoryName = 'category_' . App::getLocale();
                 $order_details[] = [
-                    'category_name' => $detail->carpetCategory->category_en,
+                    'category_name' => $detail->carpetCategory->$categoryName,
                     'count' => $detail->quantity,
                     'price' => $detail->full_price,
                 ];
