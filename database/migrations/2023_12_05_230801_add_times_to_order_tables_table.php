@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('order_tables', function (Blueprint $table) {
-            $table->foreignId('receive_time')->nullable();
+            $table->foreignId('receive_time_id')->nullable();
             $table->date('receive_date')->nullable();
-            $table->foreignId('delivery_time')->nullable();
+            $table->foreignId('delivery_time_id')->nullable();
             $table->date('delivery_date')->nullable();
         });
     }

@@ -683,12 +683,13 @@ function apiResponseOrders(string $message_key,  $new_orders=null,$items=null,in
     $return["orders"] = $items;
     return response()->json($return,$http_code);
 }
-function apiResponseDelegateOrders(string $message_key,$delegate_range=null  ,$new_orders=null,$items=null,int $code=200,int $http_code=200)
+function apiResponseDelegateOrders(string $message_key,$delegate_range=null  ,$deliver_carpet=null,$new_orders=null,$items=null,int $code=200,int $http_code=200)
 {
     $return = [];
     $return["code"]= $code;
     $return["message"]= trans($message_key);
     $return["delegate_range"] = $delegate_range;
+    $return["deliver_carpet"] = $deliver_carpet;
     $return["new_orders"] = $new_orders;
     $return["orders"] = $items;
     return response()->json($return,$http_code);
