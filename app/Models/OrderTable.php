@@ -134,4 +134,14 @@ class OrderTable extends Model
             return $result;
     }
 
+    public function carpetLaundryReceiveTime()
+    {
+        return $this->belongsTo(carpetLaundryTime::class,'receive_time_id','id');
+    }
+
+    public function carpetLaundryDeliveryTime()
+    {
+        return $this->belongsTo(carpetLaundryTime::class,'delivery_time_id','id');
+    }
+
 }
