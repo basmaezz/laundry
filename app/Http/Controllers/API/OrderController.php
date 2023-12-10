@@ -658,7 +658,9 @@ class OrderController extends Controller
 
         $order = OrderTable::where('user_id', $app_user_id)
             ->where('id', $id)
+            ->with('carpetLaundryReceiveTime','carpetLaundryDeliveryTime')
             ->first();
+
 
         if (isset($order)) {
             $data = self::orderObject($order);
@@ -742,8 +744,14 @@ class OrderController extends Controller
         if (!file_exists(public_path('qrcodes/' . $order->id . '.svg'))) {
             QrCode::encoding('UTF-8')->errorCorrection('H')->size(100)->generate($qrcode, public_path('qrcodes/' . $order->id . '.svg'));
         }
+        //   dd($order->carpetLaundryReceiveTime->end_to);
+        $receieveTimeFrom=$order->carpetLaundryReceiveTime->start_from ??'' ;
+        $receieveTimeTo=$order->carpetLaundryReceiveTime->end_to ??'' ;
 
+        $deliverTimeFrom=$order->carpetLaundryDeliveryTime->start_from ??'' ;
+        $deliverTimeTo= $order->carpetLaundryDeliveryTime->end_to ??'';
         return [
+
             'laundry' => [
                 'laundry_name' => $order->subCategoriesTrashed->$name,
                 "laundry_id" => $order->subCategoriesTrashed->id,
@@ -785,13 +793,16 @@ class OrderController extends Controller
                 'address_description' => $order->userTrashed->address_description,
                 'home_image' => $order->userTrashed->home_image ? asset('assets/uploads/home_image/' . $order->userTrashed->home_image) : null,
             ],
+
+
+
             'services' => $order_details,
             'order_id' => $order->id,
             'order_type' => $order->order_type,
-            'receive_time'=>$order->carpetLaundryRecieveTime->start_from.'-'.$order->carpetLaundryRecieveTime->end_to,
-            'receive_date'=>$order->receive_date,
-            'delivery_time'=>$order->carpetLaundryDeliveryTime->start_from.'-'.$order->carpetLaundryRecieveTime->end_to,
-            'delivery_date'=>$order->delivery_date,
+            'receive_time'=>$order->order_type ==3 ? $receieveTimeFrom. '-' . $receieveTimeTo :null,
+            'receive_date'=>$order->receive_date ??null,
+            'delivery_time'=>$order->order_type ==3 ?  $deliverTimeFrom .'-' . $deliverTimeTo :null,
+            'delivery_date'=>$order->delivery_date ??null,
             'payment_method' => $order->payment_method,
             'qrcode' => asset('qrcodes/' . $order->id . '.svg'),
             'rate' => RateLaundry::select('rate')->where('order_id', $order->id)->first()['rate'] ?? null,
