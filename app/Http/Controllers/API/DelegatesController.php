@@ -28,7 +28,8 @@ class DelegatesController extends Controller
     {
 
         $app_user_id = auth('app_users_api')->user()->id;
-        $deliver_carpet=$app_user_id->deliver_carpet ==1 ?'Allowed' :'Not Allowed';
+
+        $deliver_carpet=auth('app_users_api')->user()->deliver_carpet ==1 ?true :false;
         $orders = OrderTable::query();
         if($request->get('type') == 'unassigned'){
             $reject_order_ids = DeliveryRejection::where('user_id', $app_user_id)->get()->pluck('order_id');
@@ -51,7 +52,7 @@ class DelegatesController extends Controller
         $settings=SiteSetting::first();
         $delegate_range=$settings->distance_delegates;
 
-        return apiResponseDelegateOrders('api.My_Order',$delegate_range, count($data), $data);
+        return apiResponseDelegateOrders('api.My_Order',$delegate_range, $deliver_carpet,count($data), $data);
     }
 
     public function delegate_order_details($order_id, Request $request)
@@ -126,22 +127,22 @@ class DelegatesController extends Controller
 
             $data  = [];
 
-           if (isset($request-> services)){
+            if (isset($request-> services)){
 
-               $services = json_decode($request->services ,true);
+                $services = json_decode($request->services ,true);
 
-               foreach ($services as $service){
+                foreach ($services as $service){
 
-                   $cart = Cart::where(['order_id'=> $order->id,'product_id' => $service['product_id'],
-                       'service_id' => isset($service['service_id']) ? $service['service_id'] : null,
-                   ])->update([
+                    $cart = Cart::where(['order_id'=> $order->id,'product_id' => $service['product_id'],
+                        'service_id' => isset($service['service_id']) ? $service['service_id'] : null,
+                    ])->update([
 
-                      'price' => $service['price'],
-                      'count' => $service['count'],
-                   ]);
+                        'price' => $service['price'],
+                        'count' => $service['count'],
+                    ]);
 //                   $cart->save();
-               }
-           }
+                }
+            }
 
             $carts = Cart::whereIn('order_id',[$order->id])->where('product_id',$request->product_id)->get();
 
@@ -175,15 +176,15 @@ class DelegatesController extends Controller
             if (! $history->order) {
                 continue;
             }
-                $order = OrderController::orderObject($history->order);
-                if(//Display only completed delivery tasks
-                    ($history->order->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||
-                    ($history->order->status_id = OrderController::Completed && $history->direction == 'FromLaundry')
-                ) {
+            $order = OrderController::orderObject($history->order);
+            if(//Display only completed delivery tasks
+                ($history->order->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||
+                ($history->order->status_id = OrderController::Completed && $history->direction == 'FromLaundry')
+            ) {
 
-                    $order['direction'] = $history->direction;
-                    $data[] = $order;
-                }
+                $order['direction'] = $history->direction;
+                $data[] = $order;
+            }
 
         }
         return apiResponseOrders('api.My_Order', count($data), $data);
@@ -223,7 +224,7 @@ class DelegatesController extends Controller
             if($app_user_id == $user->id){
                 continue;
             }
-        NotificationController::sendDataNotification(
+            NotificationController::sendDataNotification(
                 $user,
                 $order->id);
         }
