@@ -309,6 +309,7 @@ class CategoryController extends Controller
 
         foreach ($carpetCategoryTimes as $carpetCategoryTime ){
             $data []=[
+                'id'=>$carpetCategoryTime->id,
                 'laundry_id'=>$carpetCategoryTime->subCategory_id,
                 'startTime'=>$carpetCategoryTime->start_from,
                 'endTime'=>$carpetCategoryTime->end_to,

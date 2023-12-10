@@ -824,4 +824,89 @@ class OrderController extends Controller
         return redirect()->back();
     }
 
+    public function carpetOrders()
+    {
+
+        if(Gate::denies('carpetOrders.index')){
+            abort(403);
+        };
+
+        if(request()->ajax()) {
+            $data = OrderTable::where('order_type',3)->orderBy('id', 'DESC')->get();
+
+
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('category',function ($row){
+                    return $row->subCategoriesTrashed->name_ar;
+                })->addColumn('user_id',function ($row){
+                    return $row->userTrashed->id;
+                })-> addColumn('user',function ($row){
+                    return $row->userTrashed->name;
+                })->addColumn('deliveryType',function ($row){
+                    return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
+                })->addColumn('orderType',function ($row){
+                    return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
+                })->addColumn('finished',function ($row){
+                    if($row->is_finished){
+                        return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
+                    }else{
+                        if($row->created_at){
+                            return  '<time class="timeago" datetime="'.$row->created_at->toISOString().'">'. $row->created_at->toDateString() .'</time>';
+                        }else{
+                            return '' ;
+                        }
+                    }
+                })->addColumn('laundryProfit', function ($row) {
+                    return $row->sum_price-($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('appProfit', function ($row) {
+                    return ($row->sum_price *$row->subCategoriesTrashed->percentage)/100;
+                })->addColumn('commission', function ($row) {
+                    return $row->total_commission;
+                })->addColumn('delivery', function ($row) {
+                    return $row->subCategoriesTrashed->price;
+                })->addColumn('city', function ($row) {
+                    return $row->userTrashed->citiesTrashed->name_ar;
+                })->addColumn('createdAt', function ($row) {
+
+                    return $row->created_at ? $row->created_at->format('d-m-Y'):'';
+                })
+                ->addColumn('action', function ($row) {
+                    $cancelBtn='<a class="dropdown-item" id="deleteBtn" data-id="'.$row->id.'" data-toggle="modal">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span>الغاء الطلب</span>
+                                    </a>';
+                    $moreBtn='<a class="dropdown-item" href="'.Route('Order.show',$row->id).'">
+                                        <i data-feather="edit-2" class="mr-50"></i>
+                                        <span>التفاصيل</span>
+                                    </a>';
+                    if($row->status_id!=10){
+                        return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
+                                </button>
+                                <div class="dropdown-menu">
+                                      '.$moreBtn.'
+                                      '. $cancelBtn.'
+                                </div>
+                            </div>';
+                    }else{
+                        return '<div class="dropdown">
+                              <button type="button" class="edit btn btn-info" data-toggle="dropdown">
+                                    المزيد
+                                </button>
+                                <div class="dropdown-menu">
+                            '.$moreBtn.'
+                             </div>
+                            </div>';
+                    }
+                })
+                ->rawColumns(['action','user_id','category','user','deliveryType','orderType','laundryProfit','appProfit','delivery','commission','finished','city','createdAt'])
+                ->make(true);
+        }
+        return  view('dashboard.Orders.carpetOrders');
+
+
+    }
+
 }

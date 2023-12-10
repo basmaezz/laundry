@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\carpetCategory;
 use App\Models\carpetLaundry;
-use App\Models\subCategory;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+
 
 class carpetCategoryController extends Controller
 {
