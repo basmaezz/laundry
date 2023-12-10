@@ -173,6 +173,7 @@ class OrderController extends Controller
                 'app_profit'       =>0,
                 'coupon'         => $request->get('coupon') ?? null,
             ];
+
         }
 
         $order = OrderTable::create($order_data);
@@ -230,8 +231,8 @@ class OrderController extends Controller
 
                 $carpetCategory = carpetCategory::where('id', $item['category_id'])->first();
 
-
                 if ($carpetCategory) {
+
                     $item_data = [
                         'order_table_id' => $order->id,
                         'category_id' => $item['category_id'],
@@ -239,21 +240,21 @@ class OrderController extends Controller
                         'product_id' => $order->id,
                         'category_item_id' => $order->id,
                         'product_service_id' => $order->id,
-                        'price' => $carpetCategory->price * $item['quantity'],
-
+                        'price'=>$carpetCategory->price,
                     ];
 
                     $laundry_profit += ($carpetCategory->laundry_profit)* $item['quantity'];
                     $piece_price=$carpetCategory->price * $item['quantity'];
                     $app_profit = $piece_price-$laundry_profit;
                     $item_quantity += $item['quantity'];
-                    OrderDetails::create($item_data);
+                    $orderDetail=OrderDetails::create($item_data);
+
                 }
             }
 
             $order->total_price = $total + $laundry->price;
             $order->count_products = $item_quantity;
-            $order->laundry_profit = ($carpetCategory->laundry_profit)* $item['quantity'];
+            // $order->laundry_profit = ($carpetCategory->laundry_profit)* $item['quantity'];
             $order->app_profit=$app_profit;
             $order->vat = floatval($total * config('setting.vat'));
             if ($request->hasFile('audio_note')) {
@@ -682,6 +683,7 @@ class OrderController extends Controller
 
     public static function orderObject($order)
     {
+
         $name = 'name_' . App::getLocale();
         $app_user = auth('app_users_api')->user();
         $status_histories = [];

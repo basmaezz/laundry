@@ -8,7 +8,7 @@ class OrderDetails extends Model
 {
     protected $table   = 'order_details';
     protected $guarded = [];
-    protected $fillable=['order_table_id', 'product_id', 'category_item_id', 'product_service_id', 'price', 'quantity', 'total_price', 'commission', 'total_commission', 'full_price'];
+    protected $fillable=['order_table_id','category_id', 'product_id', 'category_item_id', 'product_service_id', 'price', 'quantity', 'total_price', 'commission', 'total_commission', 'full_price'];
     use SoftDeletes;
 
     public function orderTables()
@@ -28,5 +28,10 @@ class OrderDetails extends Model
     public function categoryItem()
     {
         return $this->belongsTo(CategoryItem::class ,'category_item_id','id' );
+    }
+
+    public function carpetCategory()
+    {
+        return $this->belongsTo(carpetCategory::class,'category_id','id');
     }
 }
