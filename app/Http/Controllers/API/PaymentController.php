@@ -95,8 +95,8 @@ class PaymentController extends Controller
         $checkout_request->save();
 
         //dd($response, $response_body);
-
-
+        $code = preg_match('/^(000.000.|000.100.1|000.[36]|000.400.[1][12]0)/', $response_body['result']['code']);
+        $response_body['code'] = $code?200:500;
         return response()->json($response_body);
     }
 
@@ -144,6 +144,8 @@ class PaymentController extends Controller
                 ]);
             }
         }
+        $code = preg_match('/^(000.000.|000.100.1|000.[36]|000.400.[1][12]0)/', $response_body['result']['code']);
+        $response_body['code'] = $code?200:500;
         return response()->json($response_body);
     }
 
@@ -180,30 +182,30 @@ class PaymentController extends Controller
                 return response()->json(['message'=>'entityType is wrong'],500);
         }
         $form_params = [
-            'entityId'              => $entityId,
-            'amount'                => floatval($request->get("amount")),
-            'card.cvv'              => $request->get("cvv"),
-            'currency'              => config("payment.Currency"),
-            'paymentType'           => config("payment.PaymentType"),
-            'customer.email'        => $user->email,
-            'billing.street1'       => $user->default_address->address??'Riyadh',
-            'billing.city'          => $user->default_address->city->name??'Riyadh',
-            'billing.state'         => $user->default_address->city->region_name??'Riyadh',
-            'billing.country'       => 'SA',
-            'customParameters[3DS2_enrolled]' => 'true',
-            'billing.postcode'      => '17349',//TODO :: add lookup based onn region
-            'customer.givenName'    => $user->name,
-            'customer.surname'      => $user->name,
-            'customer.browser.acceptHeader'      => 'text/html',
-            'customer.browser.screenColorDepth'  => '48',
-            'customer.browser.javaEnabled'       => 'false',
-            'customer.browser.language'          => 'en',
-            'customer.browser.screenHeight'      => '1200',
-            'customer.browser.screenWidth'       => '1600',
-            'customer.browser.timezone'          => '60',
-            'customer.browser.challengeWindow'   => '4',
-            'customer.browser.userAgent'         => 'Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)',
-            'shopperResultUrl'                   => 'http://127.0.0.1:8000/paymentstatus/', 
+            'entityId'                              => $entityId,
+            'amount'                                => floatval($request->get("amount")),
+            'card.cvv'                              => $request->get("cvv"),
+            'currency'                              => config("payment.Currency"),
+            'paymentType'                           => config("payment.PaymentType"),
+            'customer.email'                        => $user->email,
+            'billing.street1'                       => $user->default_address->address??'Riyadh',
+            'billing.city'                          => $user->default_address->city->name??'Riyadh',
+            'billing.state'                         => $user->default_address->city->region_name??'Riyadh',
+            'billing.country'                       => 'SA',
+            'customParameters[3DS2_enrolled]'       => 'true',
+            'billing.postcode'                      => '17349',//TODO :: add lookup based onn region
+            'customer.givenName'                    => $user->name,
+            'customer.surname'                      => $user->name,
+            'customer.browser.acceptHeader'         => 'text/html',
+            'customer.browser.screenColorDepth'     => '48',
+            'customer.browser.javaEnabled'          => 'false',
+            'customer.browser.language'             => 'en',
+            'customer.browser.screenHeight'         => '1200',
+            'customer.browser.screenWidth'          => '1600',
+            'customer.browser.timezone'             => '60',
+            'customer.browser.challengeWindow'      => '4',
+            'customer.browser.userAgent'            => 'Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)',
+            'shopperResultUrl'                      => 'com.aait.Baker-Laundry://result',
         ];
         if(config("payment.testMode") && $request->get("entityType") != "APPLE"){
             $form_params['testMode'] = 'EXTERNAL';
@@ -239,7 +241,8 @@ class PaymentController extends Controller
         $checkout_request->response = json_encode($response_body);
         $checkout_request->status = 'Sent';
         $checkout_request->save();
-
+        $code = preg_match('/^(000.000.|000.100.1|000.[36]|000.400.[1][12]0)/', $response_body['result']['code']);
+        $response_body['code'] = $code?200:500;
         return response()->json($response_body);
     }
 
