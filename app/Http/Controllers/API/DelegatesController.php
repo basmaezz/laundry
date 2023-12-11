@@ -208,13 +208,16 @@ class DelegatesController extends Controller
             'direction' => $order->status_id == OrderController::AcceptedByDelivery? 'ToLaundry' : 'FromLaundry'
         ]);
 
-        $notification_obj = getNotificationObj($order->status_id);
-        NotificationController::sendNotification(
-            $notification_obj['title'],
-            $notification_obj['description'],
-            $order->userTrashed,
-            $order->id
-        );
+        if($order->order_type==1){
+            $notification_obj = getNotificationObj($order->status_id);
+            NotificationController::sendNotification(
+                $notification_obj['title'],
+                $notification_obj['description'],
+                $order->userTrashed,
+                $order->id
+            );
+        }
+
 
         $users = AppUser::where([
             'status' => 'active',

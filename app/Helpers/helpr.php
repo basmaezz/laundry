@@ -773,6 +773,28 @@ function getNotificationObj($status_id){
     }
     return ['title'=>$title, 'description' => $description];
 }
+function getCarpetNotificationObj($status_id){
+    switch ($status_id){
+        case \App\Http\Controllers\API\OrderController::WaitingForDelivery:
+            $title = "استلمتا طلبك بنجاح !";
+            $description = "جّهز السجاد، مندوبنا جايك ! 💨 🏎️";
+            break;
+        case \App\Http\Controllers\API\OrderController::DeliveredToLaundry:
+            $title = "سجادك في المغسلة";
+            $description = "سجادك وصل المغسلة وبس يجهز بنعطيك خبر 💦";
+            break;
+        case \App\Http\Controllers\API\OrderController::Completed:
+            $title = "السجاد جاهز ❤️";
+            $description = "شكرا لتعاملك مع لاندري   ";
+            break;
+        default:
+            $title = 'Empty ['.$status_id.']';
+            $description = 'Empty ['.$status_id.']';
+            break;
+    }
+    return ['title'=>$title, 'description' => $description];
+
+}
 function getStatusName($status_id){
     switch ($status_id){
         case \App\Http\Controllers\API\OrderController::WaitingForDelivery:

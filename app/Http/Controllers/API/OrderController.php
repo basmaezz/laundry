@@ -442,14 +442,26 @@ class OrderController extends Controller
             $order->status    = getStatusName($request->get('status_id'));
             $order->save();
 
-            //$name = 'name_' . App::getLocale();
-            $notification_obj = getNotificationObj($request->get('status_id'));
-            NotificationController::sendNotification(
-                $notification_obj['title'],
-                $notification_obj['description'],
-                $order->userTrashed,
-                $order->id
-            );
+
+            if($order->order_type==1){
+                $notification_obj = getNotificationObj($request->get('status_id'));
+                NotificationController::sendNotification(
+                    $notification_obj['title'],
+                    $notification_obj['description'],
+                    $order->userTrashed,
+                    $order->id
+                );
+            }elseif($order->order_type==3 &&in_array($request->get('status_id'), [1, 4, 8])){
+
+                $notification_carpet_obj = getCarpetNotificationObj($request->get('status_id'));
+                NotificationController::sendNotification(
+                    $notification_carpet_obj['title'],
+                    $notification_carpet_obj['description'],
+                    $order->userTrashed,
+                    $order->id
+                );
+            }
+
 
             if ($request->get('status_id') == self::Cancel) {
                 $users = AppUser::where([
