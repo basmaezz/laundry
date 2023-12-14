@@ -79,4 +79,28 @@ class AppUser extends Authenticatable implements JWTSubject
         return $this->hasMany(Login::class);
     }
 
+    public function delegates()
+    {
+       return $this->hasMany(Delegate::class,'app_user_id');
+    }
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
+    public function scopeAvailable($query)
+    {
+        return $query->where('available', 1);
+    }
+
+    public function scopeType($query, $type)
+    {
+        return $query->where('user_type', $type);
+    }
+
+    public function scopeDelivery($query)
+    {
+        return $query->type('delivery');
+    }
+
 }

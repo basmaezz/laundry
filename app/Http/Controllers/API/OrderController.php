@@ -285,13 +285,21 @@ class OrderController extends Controller
 
 
         $name = 'name_' . App::getLocale();
-        NotificationController::sendNotification(__('api.received_successfully'), 'جهّز ملابسك في كيس، مندوبنا جايك! 💨🏎️', auth('app_users_api')->user(), $order->id);
+        $msg="";
+        if($order->order_type ==3){
+            $msg='جهّز سجادك، مندوبنا جايك! 💨🏎️';
+
+        }elseif($order->order_type ==1){
+            $msg='جهّز ملابسك في كيس، مندوبنا جايك! 💨🏎️';
+        }
+        NotificationController::sendNotification(__('api.received_successfully'), $msg, auth('app_users_api')->user(), $order->id);
+
         $customer = auth('app_users_api')->user();
 
         $settings = SiteSetting::first();
         $distanceDelegate = $settings->distance_delegates ?? config('setting.distance.in_area');
 
-        if($orderType=1){
+        if($orderType==1){
             $delegates = AppUser::where([
                 'status' => 'active',
                 'user_type' => 'delivery',
@@ -315,24 +323,37 @@ class OrderController extends Controller
                     $order->id
                 );
             }
-        }elseif ($orderType=3){
-            $delegates = AppUser::where([
-                'status' => 'active',
-                'user_type' => 'delivery',
-                'available' => '1',
-            ])->whereRaw('( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
-           * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
-           * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate)->get();
+        }elseif ($orderType == 3){
 
-            if (count($delegates) == 0) {
-                $delegates = AppUser::where([
-                    'status' => 'active',
-                    'user_type' => 'delivery',
-                    'available' => '1',
-                    'deliver_carpet'=>'1'
-                ])->get();
+            // $raw = '( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
+            // * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
+            // * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate;
+            $raw = "( 6371 * acos( cos( radians({$customer->lat}) ) * cos( radians( lat ) )* cos( radians( lng ) - radians({$customer->lng}) )
+            + sin( radians({$customer->lat}) ) * sin( radians( lat ) ) ) ) <= {$distanceDelegate}";
+            $carpetDelegates  = AppUser::query()
+                ->available()
+                ->delivery()
+                ->active()
+                ->whereHas('delegates', function ($query) {
+                    $query->where('deliver_carpet', 1);
+                })
+                ->whereRaw($raw)
+                ->get();
+
+
+
+            if(count($carpetDelegates) == 0) {
+                $carpetDelegates  = AppUser::query()
+                    ->available()
+                    ->delivery()
+                    ->active()
+                    ->whereHas('delegates', function ($query) {
+                        $query->where('deliver_carpet', 1);
+                    })
+                    ->get();
             }
-            foreach ($delegates as $user) {
+
+            foreach ($carpetDelegates as $user) {
                 NotificationController::sendNotification(
                     'New Delivery Request',
                     'New Delivery Request Number #' . $order->id,
@@ -436,14 +457,14 @@ class OrderController extends Controller
             return apiResponseOrders('api.order_no_allowed_canceled');
         }
 
-        if (isset($order)) {
 
+        if (isset($order)) {
             $order->status_id = $request->get('status_id');
             $order->status    = getStatusName($request->get('status_id'));
             $order->save();
 
 
-            if($order->order_type==1){
+            if($order->order_type == 1){
                 $notification_obj = getNotificationObj($request->get('status_id'));
                 NotificationController::sendNotification(
                     $notification_obj['title'],
@@ -451,7 +472,8 @@ class OrderController extends Controller
                     $order->userTrashed,
                     $order->id
                 );
-            }elseif($order->order_type==3 &&in_array($request->get('status_id'), [1, 4, 8])){
+            }elseif($order->order_type==3 && in_array($request->get('status_id'), [1, 4, 8])){
+
 
                 $notification_carpet_obj = getCarpetNotificationObj($request->get('status_id'));
                 NotificationController::sendNotification(

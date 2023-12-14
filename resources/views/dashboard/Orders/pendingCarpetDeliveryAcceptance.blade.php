@@ -66,7 +66,7 @@
                 processing: true,
                 serverSide: true,
                 ordering: false,
-                ajax: "{{ Route('Order.carpetOrders') }}",
+                ajax: "{{ Route('Order.pendingCarpetDeliveryAcceptance') }}",
                 columns: [{
                     data: 'id',
                     name: 'id'
