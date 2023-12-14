@@ -26,7 +26,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('carpet_laundries', function (Blueprint $table) {
-            //
+           $table->dropColumn('approximate_duration');
+
         });
     }
 };
