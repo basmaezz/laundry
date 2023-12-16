@@ -11,7 +11,7 @@
                             </li>
                             <li class="breadcrumb-item"><a href="{{route('Order.index')}}">الطلبات</a>
                             </li>
-                            <li class="breadcrumb-item active">جدول الطلبات
+                            <li class="breadcrumb-item active">جدول طلبات السجاد
                             </li>
                         </ol>
                     </div>
