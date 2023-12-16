@@ -218,7 +218,16 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('cancelOrder',  'cancelOrder')->name('Order.cancelOrder');
     Route::get('carpetOrders',  'carpetOrders')->name('Order.carpetOrders');
     Route::get('pendingCarpetDeliveryAcceptance',  'pendingCarpetDeliveryAcceptance')->name('Order.pendingCarpetDeliveryAcceptance');
- });
+    Route::get('carpetDeliveryOnWay',  'carpetDeliveryOnWay')->name('Order.carpetDeliveryOnWay');
+    Route::get('carpetDeliveryWayToLaundry',  'carpetDeliveryWayToLaundry')->name('Order.carpetDeliveryWayToLaundry');
+    Route::get('carpetsDeliveredToLaundry',  'carpetsDeliveredToLaundry')->name('Order.carpetsDeliveredToLaundry');
+    Route::get('WaitingForCarpetDeliveryToReceiveOrder',  'WaitingForCarpetDeliveryToReceiveOrder')->name('Order.WaitingForCarpetDeliveryToReceiveOrder');
+    Route::get('carpetDeliveryOnTheWayToYou',  'carpetDeliveryOnTheWayToYou')->name('Order.carpetDeliveryOnTheWayToYou');
+    Route::get('carpetOrdersCompleted',  'carpetOrdersCompleted')->name('Order.carpetOrdersCompleted');
+    Route::get('completeOrder/{id}',  'completeOrder')->name('Order.completeOrder');
+
+
+    });
     Route::controller(RoleController::class)->group(function () {
     Route::get('Roles', 'index')->name('roles.index');
     Route::get('RolesCreate', 'create')->name('roles.create');

@@ -117,7 +117,6 @@ class OrderController extends Controller
         }
         $laundry = Subcategory::where('id', $orderData['laundry_id'])->first();
 
-
         $distance = getDistanceFirst1(auth('app_users_api')->user(), $laundry->lat, $laundry->lng);
         if($orderType ==1){
 
@@ -147,7 +146,6 @@ class OrderController extends Controller
             ];
 
         }elseif ($orderType==3){
-
             $order_data = [
                 'user_id'        => $app_user_id,
                 'laundry_id'     =>  $orderData['laundry_id'],
@@ -174,7 +172,6 @@ class OrderController extends Controller
                 'app_profit'       =>0,
                 'coupon'         => $request->get('coupon') ?? null,
             ];
-
         }
 
         $order = OrderTable::create($order_data);
@@ -231,23 +228,18 @@ class OrderController extends Controller
             foreach ($orderData['items'] as $key => $item) {
 
                 $carpetCategory = carpetCategory::where('id', $item['carpet_category_id'])->first();
-
-
                 if ($carpetCategory) {
-
                     $item_data = [
                         'order_table_id' => $order->id,
                         'carpet_category_id' => $item['carpet_category_id'],
                         'quantity' => $item['quantity'],
                         'price'=>$carpetCategory->price,
                     ];
-
                     $laundry_profit += ($carpetCategory->laundry_profit)* $item['quantity'];
                     $piece_price=$carpetCategory->price * $item['quantity'];
                     $app_profit = $piece_price-$laundry_profit;
                     $item_quantity += $item['quantity'];
                     $orderDetail=OrderDetails::create($item_data);
-
                 }
             }
 
@@ -748,7 +740,7 @@ class OrderController extends Controller
             foreach ($order->orderDetails as $detail) {
                 $categoryName = 'category_' . App::getLocale();
                 $order_details[] = [
-                    'category_name' => $detail->carpetCategory->$categoryName,
+                    'category_name' => $detail->carpetCategoryTrashed->$categoryName,
                     'count' => $detail->quantity,
                     'price' => $detail->full_price,
                 ];
