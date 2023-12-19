@@ -1,9 +1,11 @@
-<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static   menu-collapsed" data-open="click" data-menu="vertical-menu-modern" data-col="">
 <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow">
     <div class="navbar-container d-flex content">
         <div class="bookmark-wrapper d-flex align-items-center">
             <ul class="nav navbar-nav d-xl-none">
                 <li class="nav-item"><a class="nav-link menu-toggle" href="javascript:void(0);"><i class="ficon" data-feather="menu"></i></a></li>
+            </ul>
+            <ul class="nav navbar-nav bookmark-icons">
             </ul>
             <ul class="nav navbar-nav">
             </ul>
@@ -19,7 +21,7 @@
                     <a class="dropdown-item" href="{{route('users.editPassword')}}">
                         <i class="mr-50" data-feather="mail"></i> Inbox</a><a class="dropdown-item"  href="">
 
-                    <div class="dropdown-divider"></div>
+                        <div class="dropdown-divider"></div>
                         <form method="post" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="dropdown-item"><i class="mr-50" data-feather="power"></i> خروج</button>
@@ -30,12 +32,19 @@
         </ul>
     </div>
 </nav>
+<ul class="main-search-list-defaultlist d-none">
 
-
+</ul>
+<ul class="main-search-list-defaultlist-other-list d-none">
+    <li class="auto-suggestion justify-content-between"><a class="d-flex align-items-center justify-content-between w-100 py-50">
+            <div class="d-flex justify-content-start"><span class="mr-75" data-feather="alert-circle"></span><span>No results found.</span></div>
+        </a>
+    </li>
+</ul>
 <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
-            <li class="nav-item mr-auto"><a class="navbar-brand" href="../../../html/rtl/vertical-menu-template/index.html"><span class="brand-logo">
+            <li class="nav-item mr-auto"><a class="navbar-brand" href="../../../html/rtl/vertical-collapsed-menu-template/index.html"><span class="brand-logo">
                             <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="24">
                                 <defs>
                                     <lineargradient id="linearGradient-1" x1="100%" y1="10.5120544%" x2="50%" y2="89.4879456%">
@@ -59,7 +68,7 @@
                                     </g>
                                 </g>
                             </svg></span>
-                    <h2 class="brand-text">Laundry</h2>
+                    <h2 class="brand-text">Vuexy</h2>
                 </a></li>
             <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
         </ul>
@@ -67,6 +76,16 @@
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+            <li class=" nav-item"><a class="d-flex align-items-center" href="index.html"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboards</span><span class="badge badge-light-warning badge-pill ml-auto mr-1">2</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="dashboard-analytics.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">Analytics</span></a>
+                    </li>
+                    <li><a class="d-flex align-items-center" href="dashboard-ecommerce.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="eCommerce">eCommerce</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span><i data-feather="more-horizontal"></i>
+            </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="index.html"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">لوحه التحكم</span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center" href="{{url('/dashboard')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">الرئيسيه</span></a>
@@ -101,6 +120,7 @@
                 </ul>
             </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('customers.index')}}"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="User">العملاء</span></a>
+
             <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('laundries.index')}}"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">مغاسل الملابس</span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center" href="{{route('Categories.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">التصنيفات </span></a>
@@ -131,13 +151,13 @@
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="eCommerce">طلبات السجاد</span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center" href="{{route('Order.carpetOrders')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">الطلبات</span></a></li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">انتظار قبول لمندوب</span></a></li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">المندوب فى الطريق للعميل</span></a></li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">المندوب فى الطريق للمغسله</span></a></li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">فى المغسله</span></a></li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">انتظار موافقه المندوب</span></a></li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">فى الطريق للعميل </span></a></li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">الطلبات المنتهيه</span></a></li>
+                    <li><a class="d-flex align-items-center" href="{{route('Order.pendingCarpetDeliveryAcceptance')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">انتظار قبول لمندوب</span></a></li>
+                    <li><a class="d-flex align-items-center" href="{{route('Order.carpetDeliveryOnWay')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">المندوب فى الطريق للعميل</span></a></li>
+                    <li><a class="d-flex align-items-center" href="{{route('Order.carpetDeliveryWayToLaundry')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">المندوب فى الطريق للمغسله</span></a></li>
+                    <li><a class="d-flex align-items-center" href="{{route('Order.carpetsDeliveredToLaundry')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">فى المغسله</span></a></li>
+                    <li><a class="d-flex align-items-center" href="{{route('Order.WaitingForCarpetDeliveryToReceiveOrder')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">انتظار موافقه المندوب</span></a></li>
+                    <li><a class="d-flex align-items-center" href="{{route('Order.carpetDeliveryOnTheWayToYou')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">فى الطريق للعميل </span></a></li>
+                    <li><a class="d-flex align-items-center" href="{{route('Order.carpetOrdersCompleted')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">الطلبات المنتهيه</span></a></li>
 
                 </ul>
             </li>

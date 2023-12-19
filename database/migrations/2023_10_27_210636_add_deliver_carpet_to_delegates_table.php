@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('delegates', function (Blueprint $table) {
-            $table->enum('deliver_carpet', [0, 1])->default(0)->after('id_number')->nullable();
+            $table->boolean('deliver_carpet')->default(false)->after('id_number')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('delegates', function (Blueprint $table) {
-            //
+            $table->dropColumn('deliver_carpet');
         });
     }
 };

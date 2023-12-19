@@ -117,7 +117,6 @@ class OrderController extends Controller
         }
         $laundry = Subcategory::where('id', $orderData['laundry_id'])->first();
 
-
         $distance = getDistanceFirst1(auth('app_users_api')->user(), $laundry->lat, $laundry->lng);
         if($orderType ==1){
 
@@ -147,7 +146,6 @@ class OrderController extends Controller
             ];
 
         }elseif ($orderType==3){
-
             $order_data = [
                 'user_id'        => $app_user_id,
                 'laundry_id'     =>  $orderData['laundry_id'],
@@ -174,7 +172,6 @@ class OrderController extends Controller
                 'app_profit'       =>0,
                 'coupon'         => $request->get('coupon') ?? null,
             ];
-
         }
 
         $order = OrderTable::create($order_data);
@@ -231,23 +228,18 @@ class OrderController extends Controller
             foreach ($orderData['items'] as $key => $item) {
 
                 $carpetCategory = carpetCategory::where('id', $item['carpet_category_id'])->first();
-
-
                 if ($carpetCategory) {
-
                     $item_data = [
                         'order_table_id' => $order->id,
                         'carpet_category_id' => $item['carpet_category_id'],
                         'quantity' => $item['quantity'],
                         'price'=>$carpetCategory->price,
                     ];
-
                     $laundry_profit += ($carpetCategory->laundry_profit)* $item['quantity'];
                     $piece_price=$carpetCategory->price * $item['quantity'];
                     $app_profit = $piece_price-$laundry_profit;
                     $item_quantity += $item['quantity'];
                     $orderDetail=OrderDetails::create($item_data);
-
                 }
             }
 
@@ -285,13 +277,21 @@ class OrderController extends Controller
 
 
         $name = 'name_' . App::getLocale();
-        NotificationController::sendNotification(__('api.received_successfully'), 'جهّز ملابسك في كيس، مندوبنا جايك! 💨🏎️', auth('app_users_api')->user(), $order->id);
+        $msg="";
+        if($order->order_type ==3){
+            $msg='جهّز سجادك، مندوبنا جايك! 💨🏎️';
+
+        }elseif($order->order_type ==1){
+            $msg='جهّز ملابسك في كيس، مندوبنا جايك! 💨🏎️';
+        }
+        NotificationController::sendNotification(__('api.received_successfully'), $msg, auth('app_users_api')->user(), $order->id);
+
         $customer = auth('app_users_api')->user();
 
         $settings = SiteSetting::first();
         $distanceDelegate = $settings->distance_delegates ?? config('setting.distance.in_area');
 
-        if($orderType=1){
+        if($orderType==1){
             $delegates = AppUser::where([
                 'status' => 'active',
                 'user_type' => 'delivery',
@@ -315,24 +315,37 @@ class OrderController extends Controller
                     $order->id
                 );
             }
-        }elseif ($orderType=3){
-            $delegates = AppUser::where([
-                'status' => 'active',
-                'user_type' => 'delivery',
-                'available' => '1',
-            ])->whereRaw('( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
-           * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
-           * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate)->get();
+        }elseif ($orderType == 3){
 
-            if (count($delegates) == 0) {
-                $delegates = AppUser::where([
-                    'status' => 'active',
-                    'user_type' => 'delivery',
-                    'available' => '1',
-                    'deliver_carpet'=>'1'
-                ])->get();
+            // $raw = '( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
+            // * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
+            // * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate;
+            $raw = "( 6371 * acos( cos( radians({$customer->lat}) ) * cos( radians( lat ) )* cos( radians( lng ) - radians({$customer->lng}) )
+            + sin( radians({$customer->lat}) ) * sin( radians( lat ) ) ) ) <= {$distanceDelegate}";
+            $carpetDelegates  = AppUser::query()
+                ->available()
+                ->delivery()
+                ->active()
+                ->whereHas('delegates', function ($query) {
+                    $query->where('deliver_carpet', 1);
+                })
+                ->whereRaw($raw)
+                ->get();
+
+
+
+            if(count($carpetDelegates) == 0) {
+                $carpetDelegates  = AppUser::query()
+                    ->available()
+                    ->delivery()
+                    ->active()
+                    ->whereHas('delegates', function ($query) {
+                        $query->where('deliver_carpet', 1);
+                    })
+                    ->get();
             }
-            foreach ($delegates as $user) {
+
+            foreach ($carpetDelegates as $user) {
                 NotificationController::sendNotification(
                     'New Delivery Request',
                     'New Delivery Request Number #' . $order->id,
@@ -436,20 +449,33 @@ class OrderController extends Controller
             return apiResponseOrders('api.order_no_allowed_canceled');
         }
 
-        if (isset($order)) {
 
+        if (isset($order)) {
             $order->status_id = $request->get('status_id');
             $order->status    = getStatusName($request->get('status_id'));
             $order->save();
 
-            //$name = 'name_' . App::getLocale();
-            $notification_obj = getNotificationObj($request->get('status_id'));
-            NotificationController::sendNotification(
-                $notification_obj['title'],
-                $notification_obj['description'],
-                $order->userTrashed,
-                $order->id
-            );
+
+            if($order->order_type == 1){
+                $notification_obj = getNotificationObj($request->get('status_id'));
+                NotificationController::sendNotification(
+                    $notification_obj['title'],
+                    $notification_obj['description'],
+                    $order->userTrashed,
+                    $order->id
+                );
+            }elseif($order->order_type==3 && in_array($request->get('status_id'), [1, 4, 8])){
+
+
+                $notification_carpet_obj = getCarpetNotificationObj($request->get('status_id'));
+                NotificationController::sendNotification(
+                    $notification_carpet_obj['title'],
+                    $notification_carpet_obj['description'],
+                    $order->userTrashed,
+                    $order->id
+                );
+            }
+
 
             if ($request->get('status_id') == self::Cancel) {
                 $users = AppUser::where([
@@ -658,7 +684,9 @@ class OrderController extends Controller
 
         $order = OrderTable::where('user_id', $app_user_id)
             ->where('id', $id)
+            ->with('carpetLaundryReceiveTime','carpetLaundryDeliveryTime')
             ->first();
+
 
         if (isset($order)) {
             $data = self::orderObject($order);
@@ -712,7 +740,7 @@ class OrderController extends Controller
             foreach ($order->orderDetails as $detail) {
                 $categoryName = 'category_' . App::getLocale();
                 $order_details[] = [
-                    'category_name' => $detail->carpetCategory->$categoryName,
+                    'category_name' => $detail->carpetCategoryTrashed->$categoryName,
                     'count' => $detail->quantity,
                     'price' => $detail->full_price,
                 ];
@@ -742,8 +770,14 @@ class OrderController extends Controller
         if (!file_exists(public_path('qrcodes/' . $order->id . '.svg'))) {
             QrCode::encoding('UTF-8')->errorCorrection('H')->size(100)->generate($qrcode, public_path('qrcodes/' . $order->id . '.svg'));
         }
+        //   dd($order->carpetLaundryReceiveTime->end_to);
+        $receieveTimeFrom=$order->carpetLaundryReceiveTime->start_from ??'' ;
+        $receieveTimeTo=$order->carpetLaundryReceiveTime->end_to ??'' ;
 
+        $deliverTimeFrom=$order->carpetLaundryDeliveryTime->start_from ??'' ;
+        $deliverTimeTo= $order->carpetLaundryDeliveryTime->end_to ??'';
         return [
+
             'laundry' => [
                 'laundry_name' => $order->subCategoriesTrashed->$name,
                 "laundry_id" => $order->subCategoriesTrashed->id,
@@ -785,13 +819,16 @@ class OrderController extends Controller
                 'address_description' => $order->userTrashed->address_description,
                 'home_image' => $order->userTrashed->home_image ? asset('assets/uploads/home_image/' . $order->userTrashed->home_image) : null,
             ],
+
+
+
             'services' => $order_details,
             'order_id' => $order->id,
             'order_type' => $order->order_type,
-            'receive_time'=>$order->carpetLaundryRecieveTime->start_from.'-'.$order->carpetLaundryRecieveTime->end_to,
-            'receive_date'=>$order->receive_date,
-            'delivery_time'=>$order->carpetLaundryDeliveryTime->start_from.'-'.$order->carpetLaundryRecieveTime->end_to,
-            'delivery_date'=>$order->delivery_date,
+            'receive_time'=>$order->order_type ==3 ? $receieveTimeFrom. '-' . $receieveTimeTo :null,
+            'receive_date'=>$order->receive_date ??null,
+            'delivery_time'=>$order->order_type ==3 ?  $deliverTimeFrom .'-' . $deliverTimeTo :null,
+            'delivery_date'=>$order->delivery_date ??null,
             'payment_method' => $order->payment_method,
             'qrcode' => asset('qrcodes/' . $order->id . '.svg'),
             'rate' => RateLaundry::select('rate')->where('order_id', $order->id)->first()['rate'] ?? null,

@@ -30,8 +30,8 @@ class OrderDetails extends Model
         return $this->belongsTo(CategoryItem::class ,'category_item_id','id' );
     }
 
-    public function carpetCategory()
+    public function carpetCategoryTrashed()
     {
-        return $this->belongsTo(carpetCategory::class,'carpet_category_id','id');
+        return $this->belongsTo(carpetCategory::class,'carpet_category_id','id')->withTrashed();
     }
 }

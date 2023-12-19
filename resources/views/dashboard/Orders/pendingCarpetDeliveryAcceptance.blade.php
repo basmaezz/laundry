@@ -11,7 +11,7 @@
                             </li>
                             <li class="breadcrumb-item"><a href="{{route('Order.index')}}">الطلبات</a>
                             </li>
-                            <li class="breadcrumb-item active">جدول طلبات السجاد
+                            <li class="breadcrumb-item active">جدول الطلبات
                             </li>
                         </ol>
                     </div>
@@ -66,7 +66,7 @@
                 processing: true,
                 serverSide: true,
                 ordering: false,
-                ajax: "{{ Route('Order.carpetOrders') }}",
+                ajax: "{{ Route('Order.pendingCarpetDeliveryAcceptance') }}",
                 columns: [{
                     data: 'id',
                     name: 'id'
