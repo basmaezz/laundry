@@ -729,7 +729,7 @@ function getNotificationObj($status_id){
             break;
         case \App\Http\Controllers\API\OrderController::AcceptedByDelivery:
             $title = "المندوب في الطريق !";
-            $description = "10 : دقايق والمندوب عندك ان شاء الله، خلك حول جّوالك 📱";
+            $description = " دقايق والمندوب عندك ، خلك حول جّوالك 📱";
             break;
         /*case \App\Http\Controllers\API\OrderController::DeliveryOnWay:
             $title = "";
@@ -763,8 +763,8 @@ function getNotificationObj($status_id){
             $description = "شكرا لتعاملك مع لاندري وملبوس العافية ";
             break;
         case \App\Http\Controllers\API\OrderController::Cancel:
-            $title = "طلبك اتلغى";
-            $description = "طلبك اتلغى و شكرا لتعاملك مع لاندر";
+            $title = "تم الغاء الطلب";
+            $description = "تم الغاء طلبك وشكرا لتعاملك مع لاندري";
             break;
         default:
             $title = 'Empty ['.$status_id.']';

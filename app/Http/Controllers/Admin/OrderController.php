@@ -1463,7 +1463,7 @@ class OrderController extends Controller
         $order->save();
         NotificationController::sendNotification(
             'تم الأنتهاء من غسيل السجاد ✅ ',
-            'نرجو اختيار طريقة الاستلام المناسبة لك طلب رقم #' . $order->id,
+            ' سيتم توصيل السجاد لك في وقت التوصيل المحدد طلب رقم #' . $order->id,
             $order->userTrashed,
             $order->id
         );

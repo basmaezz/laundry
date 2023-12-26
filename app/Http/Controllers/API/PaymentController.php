@@ -42,19 +42,21 @@ class PaymentController extends Controller
             'billing.postcode' => '17349',//TODO :: add lookup based onn region
             'customer.givenName' => $user->name,
             'customer.surname' => $user->name,
+            'customParameters[3DS2_enrolled]' => 'true',
         ];
-        if(config("payment.testMode") && $request->get("entityType") != "APPLE"){
-            $form_params['testMode'] = 'EXTERNAL';
-        }
+//        if(config("payment.testMode") && $request->get("entityType") != "APPLE"){
+//            $form_params['testMode'] = 'EXTERNAL';
+//        }
         if(config("payment.CardStore")){
             $form_params['createRegistration'] = 'true';
-            $form_params['customParameters[3DS2_enrolled]'] = 'true';
         }
         //list registrationId for old cards
-        $payment_cards = PaymentCard::where(['user_id'=>$user->id])->get();
-        foreach ($payment_cards as $i=>$payment_card){
-            $form_params['registrations['.$i.'].id'] = $payment_card->registration_id;
-        }
+//        if($request->get("pay_token")) {
+//            $payment_cards = PaymentCard::where(['user_id' => $user->id])->get();
+//            foreach ($payment_cards as $i => $payment_card) {
+//                $form_params['registrations[' . $i . '].id'] = $payment_card->registration_id;
+//            }
+//        }
 
 
         $checkout_request = CheckoutRequest::create([
@@ -207,9 +209,9 @@ class PaymentController extends Controller
             'customer.browser.userAgent'            => 'Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)',
             'shopperResultUrl'                      => 'com.aait.Baker-Laundry://result',
         ];
-        if(config("payment.testMode") && $request->get("entityType") != "APPLE"){
-            $form_params['testMode'] = 'EXTERNAL';
-        }
+//        if(config("payment.testMode") && $request->get("entityType") != "APPLE"){
+//            $form_params['testMode'] = 'EXTERNAL';
+//        }
         $checkout_request = CheckoutRequest::create([
             'user_id' => $user->id,
             'status' => 'New',
