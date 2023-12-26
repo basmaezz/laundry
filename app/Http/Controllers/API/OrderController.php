@@ -222,7 +222,7 @@ class OrderController extends Controller
             $order->save();
         }elseif ($orderType==3){
             $item_data = null;
-            $total_price =  $total=$laundry_profit = $app_profit = 0;
+            $total_price = $full_price= $total=$laundry_profit = $app_profit = 0;
             $item_quantity = 0;
 
             foreach ($orderData['items'] as $key => $item) {
@@ -235,11 +235,18 @@ class OrderController extends Controller
                         'quantity' => $item['quantity'],
                         'price'=>$carpetCategory->price,
                     ];
+
+                    $full_price +=$carpetCategory->price * $item['quantity'];
                     $laundry_profit += ($carpetCategory->laundry_profit)* $item['quantity'];
                     $piece_price=$carpetCategory->price * $item['quantity'];
-                    $app_profit = $piece_price-$laundry_profit;
+                    $app_profit =  $full_price - $laundry_profit ;
                     $item_quantity += $item['quantity'];
-                    $orderDetail=OrderDetails::create($item_data);
+                    $orderDetail=OrderDetails::create($item_data +[
+                            'full_price'        => $carpetCategory->price * $item['quantity'],
+                            'laundry_profit'    => $carpetCategory->laundry_profit * $item['quantity'],
+                            'app_profit'        => $carpetCategory->price * $item['quantity'] -$carpetCategory->laundry_profit * $item['quantity']
+
+                        ]);
                 }
             }
 
@@ -317,9 +324,7 @@ class OrderController extends Controller
             }
         }elseif ($orderType == 3){
 
-            // $raw = '( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
-            // * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
-            // * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate;
+
             $raw = "( 6371 * acos( cos( radians({$customer->lat}) ) * cos( radians( lat ) )* cos( radians( lng ) - radians({$customer->lng}) )
             + sin( radians({$customer->lat}) ) * sin( radians( lat ) ) ) ) <= {$distanceDelegate}";
             $carpetDelegates  = AppUser::query()
