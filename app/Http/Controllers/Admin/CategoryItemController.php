@@ -86,9 +86,9 @@ class CategoryItemController extends Controller
                                         <i data-feather="edit-2" class="mr-50"></i>
                                         <span>تعديل</span>
                                     </a>
-                                     <a class="dropdown-item" href="' . Route('product.edit', $row->id) . '">
+                                     <a class="dropdown-item" href="' . Route('product.productServices', $row->id) . '">
                                         <i data-feather="edit-2" class="mr-50"></i>
-                                        <span>تعديل</span>
+                                        <span>الخدمات</span>
                                     </a>
                                     <a class="dropdown-item" id="deleteBtn" data-id="' . $row->id . '"  data-toggle="modal">
                                         <i data-feather="trash" class="mr-50"></i>

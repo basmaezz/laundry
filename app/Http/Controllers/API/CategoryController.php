@@ -306,7 +306,7 @@ class CategoryController extends Controller
     {
 
         $carpetCategoryTimes=carpetLaundryTime::where('subCategory_id',$id)->get();
-        $data[]=[];
+
         foreach ($carpetCategoryTimes as $carpetCategoryTime ){
             $data []=[
                 'id'=>$carpetCategoryTime->id,
