@@ -16,7 +16,12 @@ class DeliveryHistory extends Model
 
     protected $appends = ['order'];
 
-    public function order(){
+//    public function order(){
+//        return $this->belongsTo(OrderTable::class);
+//    }
+
+    public function orderTables()
+    {
         return $this->belongsTo(OrderTable::class,'order_id', 'id');
     }
 

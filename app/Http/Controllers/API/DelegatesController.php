@@ -170,17 +170,17 @@ class DelegatesController extends Controller
 
     public function order_history(){
         $app_user_id = auth('app_users_api')->user()->id;
-        $histories = DeliveryHistory::with('order')->where('user_id',$app_user_id)->latest()->get();
 
+        $histories = DeliveryHistory::with('orderTables')->where('user_id',$app_user_id)->latest()->get();
         $data = [];
         foreach ($histories as $history){
-            if (! $history->order) {
+            if (! $history->orderTables) {
                 continue;
             }
-            $order = OrderController::orderObject($history->order);
+            $order = OrderController::orderObject($history->orderTables);
             if(//Display only completed delivery tasks
-                ($history->order->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||
-                ($history->order->status_id = OrderController::Completed && $history->direction == 'FromLaundry')
+                ($history->orderTables->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||
+                ($history->orderTables->status_id = OrderController::Completed && $history->direction == 'FromLaundry')
             ) {
 
                 $order['direction'] = $history->direction;
