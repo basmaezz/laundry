@@ -236,15 +236,15 @@ class OrderController extends Controller
                         'price'=>$carpetCategory->price,
                     ];
 
-                    $full_price +=$carpetCategory->price * $item['quantity'];
+                    $full_price +=$carpetCategory->price + ($item['price']*$item['quantity']);
                     $laundry_profit += ($carpetCategory->laundry_profit)* $item['quantity'];
                     $piece_price=$carpetCategory->price * $item['quantity'];
                     $app_profit =  $full_price - $laundry_profit ;
                     $item_quantity += $item['quantity'];
                     $orderDetail=OrderDetails::create($item_data +[
-                            'full_price'        => $carpetCategory->price * $item['quantity'],
-                            'laundry_profit'    => $carpetCategory->laundry_profit * $item['quantity'],
-                            'app_profit'        => $carpetCategory->price * $item['quantity'] -$carpetCategory->laundry_profit * $item['quantity']
+                            'full_price'        => $full_price,
+                            'laundry_profit'    => $laundry_profit,
+                            'app_profit'        => $full_price - $laundry_profit
 
                         ]);
                 }
@@ -324,7 +324,6 @@ class OrderController extends Controller
             }
         }elseif ($orderType == 3){
 
-
             $raw = "( 6371 * acos( cos( radians({$customer->lat}) ) * cos( radians( lat ) )* cos( radians( lng ) - radians({$customer->lng}) )
             + sin( radians({$customer->lat}) ) * sin( radians( lat ) ) ) ) <= {$distanceDelegate}";
             $carpetDelegates  = AppUser::query()
@@ -336,8 +335,6 @@ class OrderController extends Controller
                 })
                 ->whereRaw($raw)
                 ->get();
-
-
 
             if(count($carpetDelegates) == 0) {
                 $carpetDelegates  = AppUser::query()
@@ -470,8 +467,6 @@ class OrderController extends Controller
                     $order->id
                 );
             }elseif($order->order_type==3 && in_array($request->get('status_id'), [1, 4, 8])){
-
-
                 $notification_carpet_obj = getCarpetNotificationObj($request->get('status_id'));
                 NotificationController::sendNotification(
                     $notification_carpet_obj['title'],
@@ -531,50 +526,20 @@ class OrderController extends Controller
                 $order->userTrashed->point++;
                 $order->userTrashed->save();
 
-
-
-                // if($order->delivery_id!=0){
-                //     $delegate=Delegate::where('id',$order->delivery_id)->first();
-                //     $appUser=AppUser::where('id',$delegate->id)->first();
-                //     $appUser->wallet+=floatval($order->subCategoriesTrashed->price);
-                //     $appUser->save();
-                // }
-
-                // if($order->status_id = self::DeliveredToLaundry)
-                // {
-                //  if($order->delegateTrashed->request_employment==)
-                //     DeliveryHistory::create([
-                //         'order_id'=>$order->id,
-                //         'delivery_id'=>,
-                //         'direction'=>'ToLaundry'
-                //     ]);
-                // }
-                // if($order->status_id = self::Completed)
-                // {
-                //     DeliveryHistory::create([  ]);
-
-                // }
-
                 if($order->status_id = self::DeliveredToLaundry )
                 {
                     if($order->delegateTrashed->request_employment=='1')
                     {
-
                         $order->delegateTrashed->appUserTrashed->wallet+=floatval($order->subCategoriesTrashed->price);
-
                     }
-
                 }
                 if($order->status_id = self::Completed)
                 {
                     if($order->delegateTrashed->request_employment=='1')
                     {
                         $order->delegateTrashed->appUserTrashed->wallet+=floatval($order->subCategoriesTrashed->price);
-
                     }
                 }
-
-
                 Transaction::create([
                     'app_user_id'   => auth('app_users_api')->user()->id,
                     'type'          => 'point',
@@ -739,13 +704,12 @@ class OrderController extends Controller
             ];
         }
 
-
         $order_details = [];
         if($order->order_type==3){
             foreach ($order->orderDetails as $detail) {
                 $categoryName = 'category_' . App::getLocale();
                 $order_details[] = [
-                    'category_name' => $detail->carpetCategoryTrashed->$categoryName,
+                    'category_name' => $detail->carpetCategoryTrashed->$categoryName??'',
                     'count' => $detail->quantity,
                     'price' => $detail->full_price,
                 ];

@@ -872,12 +872,12 @@ class OrderController extends Controller
 
                     return $row->created_at ? $row->created_at->format('d-m-Y'):'';
                 })->addColumn('ReceiveTime', function ($row) {
-                    $start=$row->carpetLaundryReceiveTime->start_from;
-                    $end=$row->carpetLaundryReceiveTime->end_to;
+                    $start=$row->carpetLaundryReceiveTime->start_from??'';
+                    $end=$row->carpetLaundryReceiveTime->end_to??'';
                     return $start.'<br>'. $end;
                 })->addColumn('DeliveryTime', function ($row) {
-                    $start=$row->carpetLaundryDeliveryTime->start_from;
-                    $end=$row->carpetLaundryDeliveryTime->end_to;
+                    $start=$row->carpetLaundryDeliveryTime->start_from??'';
+                    $end=$row->carpetLaundryDeliveryTime->end_to??'';
                     return $start.'<br>'. $end;
                 })
                 ->addColumn('action', function ($row) {

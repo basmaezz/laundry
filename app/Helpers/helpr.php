@@ -753,7 +753,7 @@ function getNotificationObj($status_id){
             break;
         case \App\Http\Controllers\API\OrderController::AcceptedByDeliveryToYou:
             $title = "دقايق و ملابسك عندك !";
-            $description = "مندوبنا بيستلم الملابس ويجيبها حاًال 💨 🏎️";
+            $description = "مندوبنا بيستلم الملابس ويجيبها حاااالاً 💨 🏎️";
             break;
         /*case \App\Http\Controllers\API\OrderController::DeliveryOnTheWayToYou:
             $name = trans('api.Delivery on the way to you');
