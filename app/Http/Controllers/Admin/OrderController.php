@@ -12,6 +12,7 @@ use App\Models\DeliveryHistory;
 use App\Models\OrderDetails;
 use App\Models\OrderStatusHistory;
 use App\Models\OrderTable;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -1456,6 +1457,8 @@ class OrderController extends Controller
     public function completeOrder($id)
     {
         $order = OrderTable::with('userTrashed')->where('id', $id)->first();
+        $settings = SiteSetting::first();
+        $distanceDelegate = $settings->distance_delegates ?? config('setting.distance.in_area');
         $order->update([
             $order['status_id'] = self::ClothesReadyForDelivery,
             $order['status'] = 'تم الأنتهاء من غسيل السجاد'
@@ -1467,6 +1470,37 @@ class OrderController extends Controller
             $order->userTrashed,
             $order->id
         );
+        $raw = "( 6371 * acos( cos( radians({$order->userTrashed->lat}) ) * cos( radians( lat ) )* cos( radians( lng ) - radians({$order->userTrashed->lng}) )
+            + sin( radians({$order->userTrashed->lat}) ) * sin( radians( lat ) ) ) ) <= {$distanceDelegate}";
+        $carpetDelegates  = AppUser::query()
+            ->available()
+            ->delivery()
+            ->active()
+            ->whereHas('delegates', function ($query) {
+                $query->where('deliver_carpet', 1);
+            })
+            ->whereRaw($raw)
+            ->get();
+
+        if(count($carpetDelegates) == 0) {
+            $carpetDelegates  = AppUser::query()
+                ->available()
+                ->delivery()
+                ->active()
+                ->whereHas('delegates', function ($query) {
+                    $query->where('deliver_carpet', 1);
+                })
+                ->get();
+        }
+
+        foreach ($carpetDelegates as $user) {
+            NotificationController::sendNotification(
+                'New Delivery Request',
+                'New Delivery Request Number #' . $order->id,
+                $user,
+                $order->id
+            );
+        }
 
         return redirect()->back();
     }
