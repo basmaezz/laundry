@@ -96,10 +96,10 @@ class OrderController extends Controller
         $orderData = json_decode($request->getContent(), true);
         $orderType=$orderData['order_type'];
 
-        $_totalOrders = OrderTable::where('user_id', $app_user_id)->where("status_id", '<', self::Completed)->count();
-        if ($_totalOrders >= intval(config('setting.max_order', 3))) {
-            return apiResponseCouponError('api.You reached the maximum number or request', 400, 400);
-        }
+        // $_totalOrders = OrderTable::where('user_id', $app_user_id)->where("status_id", '<', self::Completed)->count();
+        // if ($_totalOrders >= intval(config('setting.max_order', 3))) {
+        //     return apiResponseCouponError('api.You reached the maximum number or request', 400, 400);
+        // }
 
         $discount_value = 0;
         if ($request->has('coupon') && !empty($request->get('coupon'))) {
@@ -224,36 +224,30 @@ class OrderController extends Controller
             $item_data = null;
             $total_price = $full_price= $total=$laundry_profit = $app_profit = 0;
             $item_quantity = 0;
-
             foreach ($orderData['items'] as $key => $item) {
 
                 $carpetCategory = carpetCategory::where('id', $item['carpet_category_id'])->first();
                 if ($carpetCategory) {
-                    $item_data = [
-                        'order_table_id' => $order->id,
-                        'carpet_category_id' => $item['carpet_category_id'],
-                        'quantity' => $item['quantity'],
-                        'price'=>$carpetCategory->price,
-                    ];
 
-                    $full_price +=$carpetCategory->price + ($item['price']*$item['quantity']);
-                    $laundry_profit += ($carpetCategory->laundry_profit)* $item['quantity'];
-                    $piece_price=$carpetCategory->price * $item['quantity'];
-                    $app_profit =  $full_price - $laundry_profit ;
                     $item_quantity += $item['quantity'];
-                    $orderDetail=OrderDetails::create($item_data +[
-                            'full_price'        => $full_price,
-                            'laundry_profit'    => $laundry_profit,
-                            'app_profit'        => $full_price - $laundry_profit
+                    $OrderDetail=new OrderDetails;
+                    $OrderDetail->order_table_id=$order->id;
+                    $OrderDetail->carpet_category_id=$item['carpet_category_id'];
+                    $OrderDetail->quantity=$item['quantity'];
+                    $OrderDetail->price=$carpetCategory->price;
+                    $OrderDetail->total_price=$carpetCategory->price*$item['quantity'];
+                    $OrderDetail->full_price=$laundry->price+($carpetCategory->price * $item['quantity']);
+                    $OrderDetail->laundry_profit=$carpetCategory->laundry_profit * $item['quantity'];
+                    $OrderDetail->app_profit=$carpetCategory->price * $item['quantity'] -$carpetCategory->laundry_profit * $item['quantity'];
 
-                        ]);
+                    $OrderDetail->save();
+
                 }
             }
-
-            $order->total_price = $total + $laundry->price;
+            $order->total_price = ($carpetCategory->price*$item_quantity) + $laundry->price;
             $order->count_products = $item_quantity;
-            // $order->laundry_profit = ($carpetCategory->laundry_profit)* $item['quantity'];
             $order->app_profit=$app_profit;
+            $order->laundry_profit=$carpetCategory->laundry_profit*$item_quantity;
             $order->vat = floatval($total * config('setting.vat'));
             if ($request->hasFile('audio_note')) {
                 $order->audio_note = uploadFile($request->file("audio_note"), 'audio_note');
