@@ -140,7 +140,7 @@ class OrderController extends Controller
         $deliveryDelivered=DeliveryHistory::with('appUserTrashed')->where('order_id',$id)->where('direction','ToLaundry')->first();
         if($order->order_type==1){
             $orderDetails=orderDetails::with(['productTrashed','productService'])->where('order_table_id',$id)->get();
-             return  view('dashboard.Orders.view',compact(['order','orderDetails','deliveryReceive','deliveryDelivered']));
+            return  view('dashboard.Orders.view',compact(['order','orderDetails','deliveryReceive','deliveryDelivered']));
         }elseif ($order->order_type==3){
             $orderDetails=orderDetails::with(['carpetCategoryTrashed'])->where('order_table_id',$id)->get();
             return  view('dashboard.Orders.carpetOrderDetails',compact(['order','orderDetails','deliveryReceive','deliveryDelivered']));
@@ -1182,12 +1182,12 @@ class OrderController extends Controller
 
                     return $row->created_at ? $row->created_at->format('d-m-Y'):'';
                 })->addColumn('ReceiveTime', function ($row) {
-                    $start=$row->carpetLaundryReceiveTime->start_from;
-                    $end=$row->carpetLaundryReceiveTime->end_to;
+                    $start=$row->carpetLaundryReceiveTime->start_from??'';
+                    $end=$row->carpetLaundryReceiveTime->end_to??'';
                     return $start.'<br>'. $end;
                 })->addColumn('DeliveryTime', function ($row) {
-                    $start=$row->carpetLaundryDeliveryTime->start_from;
-                    $end=$row->carpetLaundryDeliveryTime->end_to;
+                    $start=$row->carpetLaundryDeliveryTime->start_from??'';
+                    $end=$row->carpetLaundryDeliveryTime->end_to??'';
                     return $start.'<br>'. $end;
                 })
                 ->addColumn('action', function ($row) {
