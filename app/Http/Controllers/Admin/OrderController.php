@@ -1207,7 +1207,7 @@ class OrderController extends Controller
                                     </a>';
                     if($row->status_id!=10){
                         return '
-                                <a href="' . url('API/UpdateStatus', $row->id) . '" class="edit btn btn-success">    انهاء الطلب</a>
+                                <a href="' . Route('Order.completeOrder', $row->id) . '" class="edit btn btn-success">    انهاء الطلب</a>
 
                             <div class="dropdown">
                               <button type="button" class="edit btn btn-info" data-toggle="dropdown">
