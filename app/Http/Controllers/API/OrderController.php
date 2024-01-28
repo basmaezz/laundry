@@ -806,7 +806,7 @@ class OrderController extends Controller
             'quantity' => intval($order->count_products),
             'note' => $order->note ?? '',
             'coupon_value' => floatval($order->discount_value) ?? 0,
-            'delivery_fees' => floatval($order->delivery_fees),
+            'delivery_fees' => $order->subCategoriesTrashed->price,
             'discount' => floatval($order->discount),
             'vat' => floatval($order->vat),
             'sub_total' => floatval($order->total_price) + floatval($order->total_commission),
