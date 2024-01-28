@@ -178,15 +178,16 @@ class DelegatesController extends Controller
                 continue;
             }
             $order = OrderController::orderObject($history->orderTables);
-            if(//Display only completed delivery tasks
-                ($history->orderTables->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||
-                ($history->orderTables->status_id = OrderController::Completed && $history->direction == 'FromLaundry')
-            ) {
-
-                $order['direction'] = $history->direction;
-                $data[] = $order;
-            }
-
+//            if(//Display only completed delivery tasks
+//                ($history->orderTables->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||
+//                ($history->orderTables->status_id = OrderController::Completed && $history->direction == 'FromLaundry')
+//            ) {
+//
+//                $order['direction'] = $history->direction;
+//                $data[] = $order;
+//            }
+            $order['direction'] = $history->direction;
+            $data[] = $order;
         }
         return apiResponseOrders('api.My_Order', count($data), $data);
     }

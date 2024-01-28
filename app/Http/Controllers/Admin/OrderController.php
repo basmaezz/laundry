@@ -1207,7 +1207,7 @@ class OrderController extends Controller
                                     </a>';
                     if($row->status_id!=10){
                         return '
-                                <a href="' . Route('Order.completeOrder', $row->id) . '" class="edit btn btn-success">    انهاء الطلب</a>
+                                <a href="' . Route('Order.completeOrder', $row->id) . '" class="edit btn btn-success">   انهاء الطلب </a>
 
                             <div class="dropdown">
                               <button type="button" class="edit btn btn-info" data-toggle="dropdown">
@@ -1461,49 +1461,40 @@ class OrderController extends Controller
         return  view('dashboard.Orders.carpetOrderscompleted');
     }
 
-//    public function completeOrder($id)
-//    {
-//        $order = OrderTable::with('userTrashed')->where('id', $id)->first();
-//        $settings = SiteSetting::first();
-//        $distanceDelegate = $settings->distance_delegates ?? config('setting.distance.in_area');
-//        $order->update([
-//            $order['status_id'] = self::WaitingForDeliveryToReceiveOrder,
-//            $order['status'] = 'تم الأنتهاء من غسيل السجاد'
-//        ]);
-//        $order->save();
-//
-
-//        }
-
     public function completeOrder($id)
     {
         $order = OrderTable::with('userTrashed')->where('id', $id)->first();
         $settings = SiteSetting::first();
         $distanceDelegate = $settings->distance_delegates ?? config('setting.distance.in_area');
-
         $order->update([
-            $order['status_id'] = self::WaitingForDeliveryToReceiveOrder,
-            $order['status'] = 'تم الأنتهاء من الغسيل'
+            'status_id' => self::WaitingForDeliveryToReceiveOrder,
+            'status' => 'تم الأنتهاء من غسيل السجاد',
+            'delivery_id'=>null
         ]);
-        $order->save();
-        $delegates = AppUser::where([
-            'status' => 'active',
-            'user_type' => 'delivery',
-            'available' => '1',
-        ])->whereRaw('( 6371 * acos( cos( radians(' . $order->subCategoriesTrashed->lat . ') ) * cos( radians( lat ) )
-                   * cos( radians( lng ) - radians(' . $order->subCategoriesTrashed->lng . ') ) + sin( radians(' . $order->subCategoriesTrashed->lat . ') )
-                   * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate)->get();
-        if (count($delegates) == 0) {
-            $delegates = AppUser::where([
-                'status' => 'active',
-                'user_type' => 'delivery',
-                'available' => '1'
-            ])->get();
-        }
-        foreach ($delegates as $user) {
+
+        NotificationController::sendNotification(
+            'تم الأنتهاء من غسيل السجاد ✅ ',
+            ' سيتم توصيل السجاد لك في وقت التوصيل المحدد طلب رقم #' . $order->id,
+            $order->userTrashed,
+            $order->id
+        );
+        $raw = "( 6371 * acos( cos( radians({$order->subCategoriesTrashed->lat}) ) * cos( radians( lat ) )* cos( radians( lng ) - radians({$order->subCategoriesTrashed->lng}) )
+            + sin( radians({$order->subCategoriesTrashed->lat}) ) * sin( radians( lat ) ) ) ) <= {$distanceDelegate}";
+        $carpetDelegates  = AppUser::query()
+            ->available()
+            ->delivery()
+            ->active()
+            ->whereHas('delegates', function ($query) {
+                $query->where('deliver_carpet', 1);
+            })
+            ->whereRaw($raw)
+            ->get();
+
+
+        foreach ($carpetDelegates as $user) {
             NotificationController::sendNotification(
                 'New Delivery Request',
-                'New Delivery Request from laundry, Order Number #' . $order->id,
+                'New Delivery Request Number #' . $order->id,
                 $user,
                 $order->id
             );
@@ -1513,6 +1504,5 @@ class OrderController extends Controller
     }
 
 
-
-
 }
+
