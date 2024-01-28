@@ -45,15 +45,15 @@ class DelegatesController extends Controller
                 OrderController::AcceptedByDeliveryToYou,
             ])->where('delivery_id', $app_user_id);
         }
-        $orders = $orders->latest()->get();
+        $orders = $orders->latest()->paginate(10);
         $data = [];
         foreach ($orders as $order){
             $data[] = OrderController::orderObject($order);
         }
         $settings=SiteSetting::first();
         $delegate_range=$settings->distance_delegates;
-
-        return apiResponseDelegateOrders('api.My_Order',$delegate_range, $deliver_carpet,count($data), $data);
+        $currentPage = $orders->currentPage();
+        return apiResponseDelegateOrders('api.My_Order',$currentPage ,$delegate_range, $deliver_carpet,count($data), $data);
     }
 
     public function delegate_order_details($order_id, Request $request)
@@ -171,7 +171,7 @@ class DelegatesController extends Controller
     public function order_history(){
         $app_user_id = auth('app_users_api')->user()->id;
 
-        $histories = DeliveryHistory::with('orderTables')->where('user_id',$app_user_id)->latest()->get();
+        $histories = DeliveryHistory::with('orderTables')->where('user_id',$app_user_id)->latest()->paginate(10);
         $data = [];
         foreach ($histories as $history){
             if (! $history->orderTables) {
@@ -189,7 +189,8 @@ class DelegatesController extends Controller
             $order['direction'] = $history->direction;
             $data[] = $order;
         }
-        return apiResponseOrders('api.My_Order', count($data), $data);
+        $currentPage = $histories->currentPage();
+        return apiResponseOrders('api.My_Order',$currentPage ,count($data), $data);
     }
 
     public function accept_order(Request $request,$order_id){
