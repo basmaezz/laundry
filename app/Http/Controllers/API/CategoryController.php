@@ -74,7 +74,7 @@ class CategoryController extends Controller
                 }
             }elseif ($type==3){
 
-                $subcategory = Subcategory::where('category_id','3')->first();
+                $subcategory = $subCategories->first();
                 $categories=carpetCategory::where('subCategory_id',$subcategory->id)->get();
 
                 $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
