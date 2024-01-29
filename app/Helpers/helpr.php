@@ -674,14 +674,14 @@ function apiResponseCouponError(string $message_key, int $code=400,int $http_cod
     $return["message"]= __($message_key);
     return response()->json($return,$http_code);
 }
-function apiResponseOrders(string $message_key, $new_orders=null,$items=null,int $code=200,int $http_code=200)
+function apiResponseOrders(string $message_key,  $new_orders=null,$items=null,int $code=200,int $http_code=200)
 {
     $return = [];
     $return["code"]= $code;
     $return["message"]= trans($message_key);
     $return["new_orders"] = $new_orders;
     $return["orders"] = $items;
-    // $return["currentPage"] = $currentPage;
+
 
     return response()->json($return,$http_code);
 }
@@ -694,7 +694,6 @@ function apiResponseDelegateOrders(string $message_key,$delegate_range=null  ,$d
     $return["deliver_carpet"] = $deliver_carpet;
     $return["new_orders"] = $new_orders;
     $return["orders"] = $items;
-    // $return["currentPage"] = $currentPage;
     return response()->json($return,$http_code);
 }
 function getUserObject($user)

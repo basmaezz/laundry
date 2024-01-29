@@ -52,7 +52,7 @@ class DelegatesController extends Controller
         }
         $settings=SiteSetting::first();
         $delegate_range=$settings->distance_delegates;
-        // $currentPage = $orders->currentPage();
+//        $currentPage = $orders->currentPage();
         return apiResponseDelegateOrders('api.My_Order',$delegate_range, $deliver_carpet,count($data), $data);
     }
 
@@ -189,8 +189,8 @@ class DelegatesController extends Controller
             $order['direction'] = $history->direction;
             $data[] = $order;
         }
-        $currentPage = $histories->currentPage();
-        return apiResponseOrders('api.My_Order',$currentPage ,count($data), $data);
+//        $currentPage = $histories->currentPage();
+        return apiResponseOrders('api.My_Order',count($data), $data);
     }
 
     public function accept_order(Request $request,$order_id){
