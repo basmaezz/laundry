@@ -681,6 +681,8 @@ function apiResponseOrders(string $message_key,  $new_orders=null,$items=null,in
     $return["message"]= trans($message_key);
     $return["new_orders"] = $new_orders;
     $return["orders"] = $items;
+
+
     return response()->json($return,$http_code);
 }
 function apiResponseDelegateOrders(string $message_key,$delegate_range=null  ,$deliver_carpet=null,$new_orders=null,$items=null,int $code=200,int $http_code=200)
@@ -729,7 +731,7 @@ function getNotificationObj($status_id){
             break;
         case \App\Http\Controllers\API\OrderController::AcceptedByDelivery:
             $title = "المندوب في الطريق !";
-            $description = "10 : دقايق والمندوب عندك ان شاء الله، خلك حول جّوالك 📱";
+            $description = " دقايق والمندوب عندك ، خلك حول جّوالك 📱";
             break;
         /*case \App\Http\Controllers\API\OrderController::DeliveryOnWay:
             $title = "";
@@ -753,7 +755,7 @@ function getNotificationObj($status_id){
             break;
         case \App\Http\Controllers\API\OrderController::AcceptedByDeliveryToYou:
             $title = "دقايق و ملابسك عندك !";
-            $description = "مندوبنا بيستلم الملابس ويجيبها حاًال 💨 🏎️";
+            $description = "مندوبنا بيستلم الملابس ويجيبها حاااالاً 💨 🏎️";
             break;
         /*case \App\Http\Controllers\API\OrderController::DeliveryOnTheWayToYou:
             $name = trans('api.Delivery on the way to you');
@@ -763,8 +765,8 @@ function getNotificationObj($status_id){
             $description = "شكرا لتعاملك مع لاندري وملبوس العافية ";
             break;
         case \App\Http\Controllers\API\OrderController::Cancel:
-            $title = "طلبك اتلغى";
-            $description = "طلبك اتلغى و شكرا لتعاملك مع لاندر";
+            $title = "تم الغاء الطلب";
+            $description = "تم الغاء طلبك وشكرا لتعاملك مع لاندري";
             break;
         default:
             $title = 'Empty ['.$status_id.']';

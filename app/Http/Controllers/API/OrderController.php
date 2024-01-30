@@ -96,10 +96,10 @@ class OrderController extends Controller
         $orderData = json_decode($request->getContent(), true);
         $orderType=$orderData['order_type'];
 
-        $_totalOrders = OrderTable::where('user_id', $app_user_id)->where("status_id", '<', self::Completed)->count();
-        if ($_totalOrders >= intval(config('setting.max_order', 3))) {
-            return apiResponseCouponError('api.You reached the maximum number or request', 400, 400);
-        }
+        // $_totalOrders = OrderTable::where('user_id', $app_user_id)->where("status_id", '<', self::Completed)->count();
+        // if ($_totalOrders >= intval(config('setting.max_order', 3))) {
+        //     return apiResponseCouponError('api.You reached the maximum number or request', 400, 400);
+        // }
 
         $discount_value = 0;
         if ($request->has('coupon') && !empty($request->get('coupon'))) {
@@ -222,31 +222,32 @@ class OrderController extends Controller
             $order->save();
         }elseif ($orderType==3){
             $item_data = null;
-            $total_price =  $total=$laundry_profit = $app_profit = 0;
+            $total_price = $full_price= $total=$laundry_profit = $app_profit = 0;
             $item_quantity = 0;
-
             foreach ($orderData['items'] as $key => $item) {
 
                 $carpetCategory = carpetCategory::where('id', $item['carpet_category_id'])->first();
                 if ($carpetCategory) {
-                    $item_data = [
-                        'order_table_id' => $order->id,
-                        'carpet_category_id' => $item['carpet_category_id'],
-                        'quantity' => $item['quantity'],
-                        'price'=>$carpetCategory->price,
-                    ];
-                    $laundry_profit += ($carpetCategory->laundry_profit)* $item['quantity'];
-                    $piece_price=$carpetCategory->price * $item['quantity'];
-                    $app_profit = $piece_price-$laundry_profit;
+
                     $item_quantity += $item['quantity'];
-                    $orderDetail=OrderDetails::create($item_data);
+                    $OrderDetail=new OrderDetails;
+                    $OrderDetail->order_table_id=$order->id;
+                    $OrderDetail->carpet_category_id=$item['carpet_category_id'];
+                    $OrderDetail->quantity=$item['quantity'];
+                    $OrderDetail->price=$carpetCategory->price;
+                    $OrderDetail->total_price=$carpetCategory->price*$item['quantity'];
+                    $OrderDetail->full_price=$laundry->price+($carpetCategory->price * $item['quantity']);
+                    $OrderDetail->laundry_profit=$carpetCategory->laundry_profit * $item['quantity'];
+                    $OrderDetail->app_profit=$carpetCategory->price * $item['quantity'] -$carpetCategory->laundry_profit * $item['quantity'];
+
+                    $OrderDetail->save();
+
                 }
             }
-
-            $order->total_price = $total + $laundry->price;
+            $order->total_price = ($carpetCategory->price*$item_quantity) + $laundry->price;
             $order->count_products = $item_quantity;
-            // $order->laundry_profit = ($carpetCategory->laundry_profit)* $item['quantity'];
             $order->app_profit=$app_profit;
+            $order->laundry_profit=$carpetCategory->laundry_profit*$item_quantity;
             $order->vat = floatval($total * config('setting.vat'));
             if ($request->hasFile('audio_note')) {
                 $order->audio_note = uploadFile($request->file("audio_note"), 'audio_note');
@@ -317,9 +318,6 @@ class OrderController extends Controller
             }
         }elseif ($orderType == 3){
 
-            // $raw = '( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
-            // * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
-            // * sin( radians( lat ) ) ) ) <= ' . $distanceDelegate;
             $raw = "( 6371 * acos( cos( radians({$customer->lat}) ) * cos( radians( lat ) )* cos( radians( lng ) - radians({$customer->lng}) )
             + sin( radians({$customer->lat}) ) * sin( radians( lat ) ) ) ) <= {$distanceDelegate}";
             $carpetDelegates  = AppUser::query()
@@ -331,8 +329,6 @@ class OrderController extends Controller
                 })
                 ->whereRaw($raw)
                 ->get();
-
-
 
             if(count($carpetDelegates) == 0) {
                 $carpetDelegates  = AppUser::query()
@@ -465,8 +461,6 @@ class OrderController extends Controller
                     $order->id
                 );
             }elseif($order->order_type==3 && in_array($request->get('status_id'), [1, 4, 8])){
-
-
                 $notification_carpet_obj = getCarpetNotificationObj($request->get('status_id'));
                 NotificationController::sendNotification(
                     $notification_carpet_obj['title'],
@@ -526,50 +520,20 @@ class OrderController extends Controller
                 $order->userTrashed->point++;
                 $order->userTrashed->save();
 
-
-
-                // if($order->delivery_id!=0){
-                //     $delegate=Delegate::where('id',$order->delivery_id)->first();
-                //     $appUser=AppUser::where('id',$delegate->id)->first();
-                //     $appUser->wallet+=floatval($order->subCategoriesTrashed->price);
-                //     $appUser->save();
-                // }
-
-                // if($order->status_id = self::DeliveredToLaundry)
-                // {
-                //  if($order->delegateTrashed->request_employment==)
-                //     DeliveryHistory::create([
-                //         'order_id'=>$order->id,
-                //         'delivery_id'=>,
-                //         'direction'=>'ToLaundry'
-                //     ]);
-                // }
-                // if($order->status_id = self::Completed)
-                // {
-                //     DeliveryHistory::create([  ]);
-
-                // }
-
                 if($order->status_id = self::DeliveredToLaundry )
                 {
                     if($order->delegateTrashed->request_employment=='1')
                     {
-
                         $order->delegateTrashed->appUserTrashed->wallet+=floatval($order->subCategoriesTrashed->price);
-
                     }
-
                 }
                 if($order->status_id = self::Completed)
                 {
                     if($order->delegateTrashed->request_employment=='1')
                     {
                         $order->delegateTrashed->appUserTrashed->wallet+=floatval($order->subCategoriesTrashed->price);
-
                     }
                 }
-
-
                 Transaction::create([
                     'app_user_id'   => auth('app_users_api')->user()->id,
                     'type'          => 'point',
@@ -734,13 +698,12 @@ class OrderController extends Controller
             ];
         }
 
-
         $order_details = [];
         if($order->order_type==3){
             foreach ($order->orderDetails as $detail) {
                 $categoryName = 'category_' . App::getLocale();
                 $order_details[] = [
-                    'category_name' => $detail->carpetCategoryTrashed->$categoryName,
+                    'category_name' => $detail->carpetCategoryTrashed->$categoryName??'',
                     'count' => $detail->quantity,
                     'price' => $detail->full_price,
                 ];
@@ -843,7 +806,7 @@ class OrderController extends Controller
             'quantity' => intval($order->count_products),
             'note' => $order->note ?? '',
             'coupon_value' => floatval($order->discount_value) ?? 0,
-            'delivery_fees' => floatval($order->delivery_fees),
+            'delivery_fees' => $order->subCategoriesTrashed->price,
             'discount' => floatval($order->discount),
             'vat' => floatval($order->vat),
             'sub_total' => floatval($order->total_price) + floatval($order->total_commission),

@@ -12,6 +12,7 @@ use App\Models\DeliveryHistory;
 use App\Models\OrderDetails;
 use App\Models\OrderStatusHistory;
 use App\Models\OrderTable;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -140,7 +141,7 @@ class OrderController extends Controller
         $deliveryDelivered=DeliveryHistory::with('appUserTrashed')->where('order_id',$id)->where('direction','ToLaundry')->first();
         if($order->order_type==1){
             $orderDetails=orderDetails::with(['productTrashed','productService'])->where('order_table_id',$id)->get();
-             return  view('dashboard.Orders.view',compact(['order','orderDetails','deliveryReceive','deliveryDelivered']));
+            return  view('dashboard.Orders.view',compact(['order','orderDetails','deliveryReceive','deliveryDelivered']));
         }elseif ($order->order_type==3){
             $orderDetails=orderDetails::with(['carpetCategoryTrashed'])->where('order_table_id',$id)->get();
             return  view('dashboard.Orders.carpetOrderDetails',compact(['order','orderDetails','deliveryReceive','deliveryDelivered']));
@@ -872,12 +873,12 @@ class OrderController extends Controller
 
                     return $row->created_at ? $row->created_at->format('d-m-Y'):'';
                 })->addColumn('ReceiveTime', function ($row) {
-                    $start=$row->carpetLaundryReceiveTime->start_from;
-                    $end=$row->carpetLaundryReceiveTime->end_to;
+                    $start=$row->carpetLaundryReceiveTime->start_from??'';
+                    $end=$row->carpetLaundryReceiveTime->end_to??'';
                     return $start.'<br>'. $end;
                 })->addColumn('DeliveryTime', function ($row) {
-                    $start=$row->carpetLaundryDeliveryTime->start_from;
-                    $end=$row->carpetLaundryDeliveryTime->end_to;
+                    $start=$row->carpetLaundryDeliveryTime->start_from??'';
+                    $end=$row->carpetLaundryDeliveryTime->end_to??'';
                     return $start.'<br>'. $end;
                 })
                 ->addColumn('action', function ($row) {
@@ -1007,7 +1008,12 @@ class OrderController extends Controller
                     return $row->userTrashed->id;
                 })-> addColumn('user',function ($row){
                     return $row->userTrashed->name;
-                })->addColumn('finished',function ($row){
+                })->
+                addColumn('status',function ($row){
+                    return 'المندوب فى الطريق للعميل';
+                })->
+
+                addColumn('finished',function ($row){
                     if($row->is_finished){
                         return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
                     }else{
@@ -1065,7 +1071,7 @@ class OrderController extends Controller
                             </div>';
                     }
                 })
-                ->rawColumns(['action','user_id','category','user','ReceiveTime','DeliveryTime','deliveryType','orderType','laundryProfit','appProfit','delivery','finished','createdAt'])
+                ->rawColumns(['action','user_id','category','user','status','ReceiveTime','DeliveryTime','deliveryType','orderType','laundryProfit','appProfit','delivery','finished','createdAt'])
                 ->make(true);
         }
 
@@ -1182,12 +1188,12 @@ class OrderController extends Controller
 
                     return $row->created_at ? $row->created_at->format('d-m-Y'):'';
                 })->addColumn('ReceiveTime', function ($row) {
-                    $start=$row->carpetLaundryReceiveTime->start_from;
-                    $end=$row->carpetLaundryReceiveTime->end_to;
+                    $start=$row->carpetLaundryReceiveTime->start_from??'';
+                    $end=$row->carpetLaundryReceiveTime->end_to??'';
                     return $start.'<br>'. $end;
                 })->addColumn('DeliveryTime', function ($row) {
-                    $start=$row->carpetLaundryDeliveryTime->start_from;
-                    $end=$row->carpetLaundryDeliveryTime->end_to;
+                    $start=$row->carpetLaundryDeliveryTime->start_from??'';
+                    $end=$row->carpetLaundryDeliveryTime->end_to??'';
                     return $start.'<br>'. $end;
                 })
                 ->addColumn('action', function ($row) {
@@ -1201,7 +1207,7 @@ class OrderController extends Controller
                                     </a>';
                     if($row->status_id!=10){
                         return '
-                                <a href="' . Route('Order.completeOrder', $row->id) . '" class="edit btn btn-success">    انهاء الطلب</a>
+                                <a href="' . Route('Order.completeOrder', $row->id) . '" class="edit btn btn-success">   انهاء الطلب </a>
 
                             <div class="dropdown">
                               <button type="button" class="edit btn btn-info" data-toggle="dropdown">
@@ -1232,7 +1238,7 @@ class OrderController extends Controller
     public function  WaitingForCarpetDeliveryToReceiveOrder()
     {
         if(request()->ajax()) {
-            $data = OrderTable::where('order_type',3)->where("status_id",self::WaitingForDeliveryToReceiveOrder)->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where('order_type',3)->where("status_id",self::ClothesReadyForDelivery)->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -1242,6 +1248,8 @@ class OrderController extends Controller
                     return $row->userTrashed->id;
                 })-> addColumn('user',function ($row){
                     return $row->userTrashed->name;
+                })->addColumn('status',function ($row){
+                    return 'فى انتظار موافقه المندوب';
                 })->addColumn('finished',function ($row){
                     if($row->is_finished){
                         return minutesToHumanReadable($row->histories->sum('spend_time') ?? 0);
@@ -1262,12 +1270,12 @@ class OrderController extends Controller
 
                     return $row->created_at ? $row->created_at->format('d-m-Y'):'';
                 })->addColumn('ReceiveTime', function ($row) {
-                    $start=$row->carpetLaundryReceiveTime->start_from;
-                    $end=$row->carpetLaundryReceiveTime->end_to;
+                    $start=$row->carpetLaundryReceiveTime->start_from??'';
+                    $end=$row->carpetLaundryReceiveTime->end_to??'';
                     return $start.'<br>'. $end;
                 })->addColumn('DeliveryTime', function ($row) {
-                    $start=$row->carpetLaundryDeliveryTime->start_from;
-                    $end=$row->carpetLaundryDeliveryTime->end_to;
+                    $start=$row->carpetLaundryDeliveryTime->start_from??'';
+                    $end=$row->carpetLaundryDeliveryTime->end_to??'';
                     return $start.'<br>'. $end;
                 })
                 ->addColumn('action', function ($row) {
@@ -1300,7 +1308,7 @@ class OrderController extends Controller
                             </div>';
                     }
                 })
-                ->rawColumns(['action','user_id','category','user','ReceiveTime','DeliveryTime','deliveryType','orderType','laundryProfit','appProfit','delivery','finished','createdAt'])
+                ->rawColumns(['action','user_id','category','user','status','ReceiveTime','DeliveryTime','deliveryType','orderType','laundryProfit','appProfit','delivery','finished','createdAt'])
                 ->make(true);
         }
         return  view('dashboard.Orders.WaitingForCarpetDeliveryToReceiveOrder');
@@ -1450,26 +1458,51 @@ class OrderController extends Controller
                 ->make(true);
         }
 
-        return  view('dashboard.Orders.carpetOrdersCompleted');
+        return  view('dashboard.Orders.carpetOrderscompleted');
     }
 
     public function completeOrder($id)
     {
         $order = OrderTable::with('userTrashed')->where('id', $id)->first();
+        $settings = SiteSetting::first();
+        $distanceDelegate = $settings->distance_delegates ?? config('setting.distance.in_area');
         $order->update([
-            $order['status_id'] = self::ClothesReadyForDelivery,
-            $order['status'] = 'تم الأنتهاء من غسيل السجاد'
+            'status_id' => self::WaitingForDeliveryToReceiveOrder,
+            'status' => 'تم الأنتهاء من غسيل السجاد',
+            'delivery_id'=>null
         ]);
-        $order->save();
+
         NotificationController::sendNotification(
             'تم الأنتهاء من غسيل السجاد ✅ ',
-            'نرجو اختيار طريقة الاستلام المناسبة لك طلب رقم #' . $order->id,
+            ' سيتم توصيل السجاد لك في وقت التوصيل المحدد طلب رقم #' . $order->id,
             $order->userTrashed,
             $order->id
         );
+        $raw = "( 6371 * acos( cos( radians({$order->subCategoriesTrashed->lat}) ) * cos( radians( lat ) )* cos( radians( lng ) - radians({$order->subCategoriesTrashed->lng}) )
+            + sin( radians({$order->subCategoriesTrashed->lat}) ) * sin( radians( lat ) ) ) ) <= {$distanceDelegate}";
+        $carpetDelegates  = AppUser::query()
+            ->available()
+            ->delivery()
+            ->active()
+            ->whereHas('delegates', function ($query) {
+                $query->where('deliver_carpet', 1);
+            })
+            ->whereRaw($raw)
+            ->get();
+
+
+        foreach ($carpetDelegates as $user) {
+            NotificationController::sendNotification(
+                'New Delivery Request',
+                'New Delivery Request Number #' . $order->id,
+                $user,
+                $order->id
+            );
+        }
 
         return redirect()->back();
     }
 
 
 }
+

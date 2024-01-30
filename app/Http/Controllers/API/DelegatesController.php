@@ -52,7 +52,7 @@ class DelegatesController extends Controller
         }
         $settings=SiteSetting::first();
         $delegate_range=$settings->distance_delegates;
-
+//        $currentPage = $orders->currentPage();
         return apiResponseDelegateOrders('api.My_Order',$delegate_range, $deliver_carpet,count($data), $data);
     }
 
@@ -170,25 +170,27 @@ class DelegatesController extends Controller
 
     public function order_history(){
         $app_user_id = auth('app_users_api')->user()->id;
-        $histories = DeliveryHistory::with('order')->where('user_id',$app_user_id)->latest()->get();
 
+        $histories = DeliveryHistory::with('orderTables')->where('user_id',$app_user_id)->latest()->get();
         $data = [];
         foreach ($histories as $history){
-            if (! $history->order) {
+            if (! $history->orderTables) {
                 continue;
             }
-            $order = OrderController::orderObject($history->order);
-            if(//Display only completed delivery tasks
-                ($history->order->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||
-                ($history->order->status_id = OrderController::Completed && $history->direction == 'FromLaundry')
-            ) {
-
-                $order['direction'] = $history->direction;
-                $data[] = $order;
-            }
-
+            $order = OrderController::orderObject($history->orderTables);
+//            if(//Display only completed delivery tasks
+//                ($history->orderTables->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||
+//                ($history->orderTables->status_id = OrderController::Completed && $history->direction == 'FromLaundry')
+//            ) {
+//
+//                $order['direction'] = $history->direction;
+//                $data[] = $order;
+//            }
+            $order['direction'] = $history->direction;
+            $data[] = $order;
         }
-        return apiResponseOrders('api.My_Order', count($data), $data);
+//        $currentPage = $histories->currentPage();
+        return apiResponseOrders('api.My_Order',count($data), $data);
     }
 
     public function accept_order(Request $request,$order_id){
