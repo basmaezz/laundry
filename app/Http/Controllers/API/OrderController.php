@@ -386,6 +386,7 @@ class OrderController extends Controller
      */
     public function OrdersTable(Request $request)
     {
+
         $app_user_id = auth('app_users_api')->user()->id;
 
         $orders = OrderTable::where('user_id', $app_user_id)
@@ -685,7 +686,7 @@ class OrderController extends Controller
         $name = 'name_' . App::getLocale();
         $app_user = auth('app_users_api')->user();
         $status_histories = [];
-
+//dd($order->histories);
         foreach ($order->histories as $history) {
 
             $status_histories[] = [

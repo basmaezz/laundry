@@ -171,26 +171,32 @@ class DelegatesController extends Controller
     public function order_history(){
         $app_user_id = auth('app_users_api')->user()->id;
 
+        // return $app_user_id;
         $histories = DeliveryHistory::with('orderTables')->where('user_id',$app_user_id)->latest()->get();
+
         $data = [];
+
+        // return $histories;
         foreach ($histories as $history){
             if (! $history->orderTables) {
                 continue;
             }
             $order = OrderController::orderObject($history->orderTables);
-//            if(//Display only completed delivery tasks
-//                ($history->orderTables->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||
-//                ($history->orderTables->status_id = OrderController::Completed && $history->direction == 'FromLaundry')
-//            ) {
-//
-//                $order['direction'] = $history->direction;
-//                $data[] = $order;
-//            }
+            // if(//Display only completed delivery tasks
+            //     ($history->orderTables->status_id > OrderController::WayToLaundry && $history->direction == 'ToLaundry') ||
+            //     ($history->orderTables->status_id = OrderController::Completed && $history->direction == 'FromLaundry')
+            // ) {
+
+            //     $order['direction'] = $history->direction;
+            //     $data[] = $order;
+            // }
+
+            // return $order;
             $order['direction'] = $history->direction;
             $data[] = $order;
         }
 //        $currentPage = $histories->currentPage();
-        return apiResponseOrders('api.My_Order',count($data), $data);
+            return apiResponseOrders('api.My_Order', count($data), $data);
     }
 
     public function accept_order(Request $request,$order_id){
