@@ -40,7 +40,7 @@ class subCategoryController extends Controller
             abort(403);
         };
         if(request()->ajax()) {
-            $data = Subcategory::with(['city', 'parentTrashed'])->orderBy('id', 'DESC')->get();
+            $data = Subcategory::with(['city', 'parentTrashed'])->where('category_id',1)->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($row) {

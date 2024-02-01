@@ -31,7 +31,7 @@ class PaymentController extends Controller
         }
         $form_params = [
             'entityId' => $entityId,
-            'amount' => floatval($request->get("amount")),
+            'amount' => number_format(floatval($request->get("amount")),2),
             'currency' => config("payment.Currency"),
             'paymentType' => config("payment.PaymentType"),
             'customer.email' => $user->email,
@@ -57,6 +57,9 @@ class PaymentController extends Controller
 //                $form_params['registrations[' . $i . '].id'] = $payment_card->registration_id;
 //            }
 //        }
+        if($request->has("registration_id")){
+            $form_params['registrations[0].id'] = $request->get("registration_id");
+        }
 
 
         $checkout_request = CheckoutRequest::create([
@@ -146,7 +149,7 @@ class PaymentController extends Controller
                 ]);
             }
         }
-        $code = preg_match('/^(000.000.|000.100.1|000.[36]|000.400.[1][12]0)/', $response_body['result']['code']);
+        $code = preg_match('/^(000.000.|000.100.1|000.[36]|000.400.[1][12]0)/', $response_body['result']['code']) || preg_match('/^(000.400.0[^3]|000.400.100)/', $response_body['result']['code']);
         $response_body['code'] = $code?200:500;
         return response()->json($response_body);
     }
@@ -185,7 +188,7 @@ class PaymentController extends Controller
         }
         $form_params = [
             'entityId'                              => $entityId,
-            'amount'                                => floatval($request->get("amount")),
+            'amount'                                => number_format(floatval($request->get("amount")),2),
             'card.cvv'                              => $request->get("cvv"),
             'currency'                              => config("payment.Currency"),
             'paymentType'                           => config("payment.PaymentType"),
@@ -243,7 +246,7 @@ class PaymentController extends Controller
         $checkout_request->response = json_encode($response_body);
         $checkout_request->status = 'Sent';
         $checkout_request->save();
-        $code = preg_match('/^(000.000.|000.100.1|000.[36]|000.400.[1][12]0)/', $response_body['result']['code']);
+        $code = preg_match('/^(000.000.|000.100.1|000.[36]|000.400.[1][12]0)/', $response_body['result']['code']) || preg_match('/^(000.400.0[^3]|000.400.100)/', $response_body['result']['code']);
         $response_body['code'] = $code?200:500;
         return response()->json($response_body);
     }
