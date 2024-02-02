@@ -162,6 +162,7 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('add-date', [UsersController::class, 'add_date']);
     Route::any('costs', [UsersController::class, 'costs']);
     Route::any('updateDelegateLocation/{id}', [UsersController::class, 'updateDelegateLocation']);
+    Route::any('updateDelegateToken/{id}', [UsersController::class, 'updateDelegateToken']);
 
 
 

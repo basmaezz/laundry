@@ -1599,11 +1599,29 @@ class UsersController extends Controller
             'lng.required'    =>'يجب ادخال Lng',
         ]);
 
-        $data=AppUser::where('id',$id)->update($request->except(['_method','_token','id']));
-        $data=AppUser::find($id);
+        $user = AppUser::where('id',$id)->get();
+        $user->lat = $request->get('lat');
+        $user->lng = $request->get('lng');
+        $user->save();
 
         Session::flash('success', 'تم التعديل');
-        return apiResponse("api.success", $data);
+        return apiResponse("api.success", $user);
+    }
+
+    public function updateDelegateToken($id,Request $request)
+    {
+        $this->validate($request, [
+            'fcm_token'  => 'required',
+        ],[
+            'fcm_token.required'    =>'يجب ادخال fcm_token ',
+        ]);
+
+        $user = AppUser::where('id',$id)->get();
+        $user->fcm_token = $request->get('fcm_token');
+        $user->save();
+
+        Session::flash('success', 'تم التعديل');
+        return apiResponse("api.success", $user);
     }
 
 }
