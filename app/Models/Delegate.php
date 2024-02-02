@@ -11,8 +11,8 @@ class Delegate extends Model
     protected $table   = 'delegates';
     use SoftDeletes;
     protected $guarded = [];
-    protected $fillable=
-        ['user_id',
+    protected $fillable=[
+        'user_id',
         'id_number',
         'id_image',
         'app_user_id',
@@ -33,9 +33,9 @@ class Delegate extends Model
         'medic_check',
         'registered',
         'user_type',
-            'deliver_carpet',
-            'identity_expiration_date'
-        ];
+        'deliver_carpet',
+        'identity_expiration_date'
+    ];
 
 //    public static function boot() {
 //        parent::boot();

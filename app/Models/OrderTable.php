@@ -88,7 +88,7 @@ class OrderTable extends Model
 
     public function subCategoriesTrashed()
     {
-        return $this->belongsTo(Subcategory::class, 'laundry_id')->withTrashed();;
+        return $this->belongsTo(Subcategory::class, 'laundry_id')->withTrashed();
     }
 
     public function histories()
@@ -142,6 +142,11 @@ class OrderTable extends Model
     public function carpetLaundryDeliveryTime()
     {
         return $this->belongsTo(carpetLaundryTime::class,'delivery_time_id','id');
+    }
+
+    public function  delivery_rejection()
+    {
+        return $this->hasMany(DeliveryRejection::class,'order_id','id');
     }
 
 }

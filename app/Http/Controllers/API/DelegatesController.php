@@ -28,15 +28,25 @@ class DelegatesController extends Controller
     {
 
         $app_user_id = auth('app_users_api')->user()->id;
-        $delegate=Delegate::where('app_user_id',$app_user_id)->first();
-        $deliver_carpet=$delegate->deliver_carpet ==1 ?true :false;
+        $delegate = Delegate::where('app_user_id',$app_user_id)->first();
+        $user = auth('app_users_api')->user();
+        $deliver_carpet = $delegate->deliver_carpet ==1 ?true :false;
+
+        $settings=SiteSetting::first();
+        $delegate_range=$settings->distance_delegates;
 
         $orders = OrderTable::query();
         if($request->get('type') == 'unassigned'){
             $reject_order_ids = DeliveryRejection::where('user_id', $app_user_id)->get()->pluck('order_id');
 
-            $orders = $orders->whereIn('status_id',[OrderController::WaitingForDelivery,OrderController::WaitingForDeliveryToReceiveOrder])->
-            whereNull('delivery_id')->whereNotIn('id',$reject_order_ids->toArray());
+            $orders = $orders->
+            whereIn('status_id',[
+                OrderController::WaitingForDelivery,
+                OrderController::WaitingForDeliveryToReceiveOrder
+            ])->
+            whereNull('delivery_id')->
+            whereNotIn('id',$reject_order_ids->toArray());
+            //TODO :: whereNotExist delivery_rejection
         }
         if($request->get('type') == 'my_assigned'){
             $orders = $orders->whereIn('status_id',[
@@ -48,10 +58,17 @@ class DelegatesController extends Controller
         $orders = $orders->latest()->get();
         $data = [];
         foreach ($orders as $order){
-            $data[] = OrderController::orderObject($order);
+//            if($order->status_id == OrderController::WaitingForDeliveryToReceiveOrder){
+//                $lat = $order->userTrashed->lat;
+//                $lng = $order->userTrashed->lng;
+//            }else{
+                $lat = $order->subCategoriesTrashed->lat;
+                $lng = $order->subCategoriesTrashed->lng;
+//            }
+            if(distance($user->lat, $user->lng, $lat, $lng) <= $delegate_range) {
+                $data[] = OrderController::orderObject($order);
+            }
         }
-        $settings=SiteSetting::first();
-        $delegate_range=$settings->distance_delegates;
 //        $currentPage = $orders->currentPage();
         return apiResponseDelegateOrders('api.My_Order',$delegate_range, $deliver_carpet,count($data), $data);
     }

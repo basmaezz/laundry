@@ -17,15 +17,26 @@ class AppUser extends Authenticatable implements JWTSubject
     protected $dates = ['deleted_at'];
     protected $withCount = ['orders'];
     protected $with = ['default_address'];
-    protected $fillable=['uuid','name',
-'password',
-'email',
- 'mobile',
-'city_id',
-'region_name',
-'avatar',
-'user_type',
-'status'];
+    protected $fillable=[
+        'uuid',
+        'name',
+        'password',
+        'email',
+        'mobile',
+        'city_id',
+        'region_name',
+        'avatar',
+        'user_type',
+        'status',
+        'fcm_token',
+        'wallet',
+        'point',
+        'image',
+        'gender',
+        'lat',
+        'lng',
+        'available'
+    ];
 
     public function getJWTIdentifier()
     {
