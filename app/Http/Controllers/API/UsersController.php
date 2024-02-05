@@ -1589,7 +1589,7 @@ class UsersController extends Controller
         return response()->json($validator->errors());
     }
 
-    public function updateDelegateLocation($id,Request $request)
+    public function updateDelegateLocation(Request $request)
     {
         $this->validate($request, [
             'lat'  => 'required',
@@ -1598,14 +1598,14 @@ class UsersController extends Controller
             'lat.required'    =>'يجب ادخال Lat ',
             'lng.required'    =>'يجب ادخال Lng',
         ]);
+        $app_user = auth('app_users_api')->user();
 
-        $user = AppUser::where('id',$id)->get();
-        $user->lat = $request->get('lat');
-        $user->lng = $request->get('lng');
-        $user->save();
+        $app_user->lat = $request->get('lat');
+        $app_user->lng = $request->get('lng');
+        $app_user->save();
 
         Session::flash('success', 'تم التعديل');
-        return apiResponse("api.success", $user);
+        return apiResponse("api.success", $app_user);
     }
 
     public function updateDelegateToken($id,Request $request)
@@ -1616,12 +1616,12 @@ class UsersController extends Controller
             'fcm_token.required'    =>'يجب ادخال fcm_token ',
         ]);
 
-        $user = AppUser::where('id',$id)->get();
-        $user->fcm_token = $request->get('fcm_token');
-        $user->save();
+        $app_user = auth('app_users_api')->user();
+        $app_user->fcm_token = $request->get('fcm_token');
+        $app_user->save();
 
         Session::flash('success', 'تم التعديل');
-        return apiResponse("api.success", $user);
+        return apiResponse("api.success", $app_user);
     }
 
 }
