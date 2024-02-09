@@ -1632,14 +1632,14 @@ class UsersController extends Controller
         if(auth('app_users_api')->check()){
             return apiResponse(__("api.Token is valid"), auth('app_users_api')->user());
         }
-        return apiResponse(__('api.Token is Expire'), null, 500, 500);
+        return apiResponse(__('api.Token is Expire'), null, 401, 401);
     }
 
     public function refreshToken(Request $request)
     {
         $token = JWTAuth::getToken();
         if(empty($token)) {
-            return apiResponse(__('api.Token is invalid'), null, 500, 500);
+            return apiResponse(__('api.Token is invalid'), null, 401, 401);
         }
 
         try {
@@ -1649,7 +1649,7 @@ class UsersController extends Controller
         } catch (TokenExpiredException $e) {
             return apiResponse(__('api.Token is Expire'), null, 401, 401);
         } catch (JWTException $e) {
-            return apiResponse(__('api.Token is invalid'), null, 500, 500);
+            return apiResponse(__('api.Token is invalid'), null, 401, 401);
 
         }
     }
