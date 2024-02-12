@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BankController;
-use App\Http\Controllers\Api\carpetLaundryController;
 use App\Http\Controllers\API\CarTypeController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\DelegatesController;
@@ -102,6 +101,8 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::get('makeNotificationRead', [UsersController::class, 'makeNotificationRead']);
     Route::post('account/delete', [UsersController::class, 'deleteAccount']);
     Route::post('laundry/rate', [CategoryController::class, 'rate']);
+    Route::get('carpetLaundries',[CategoryController::class,'getCarpetLaundries']);
+
     //Route::get('delete/reasons',[UsersController::class,'delete_reason']);
 
     Route::post('wallet/decrease', [WalletController::class, 'decrease']);
@@ -114,7 +115,6 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('updateAddress/{id}', [AddressController::class, 'updateAddress']);
     Route::any('address/delete/{id}', [AddressController::class, 'destroy']);
 
-    Route::get('carpetLaundries',[carpetLaundryController::class,'index']);
 
     //**    HomeApp    **//
 
@@ -161,8 +161,10 @@ Route::group(['middleware' => ['jwt', 'language'], 'namespace' => 'API'], functi
     Route::any('add-rate', [UsersController::class, 'add_rate']);
     Route::any('add-date', [UsersController::class, 'add_date']);
     Route::any('costs', [UsersController::class, 'costs']);
-    Route::any('updateDelegateLocation', [UsersController::class, 'updateDelegateLocation']);
-    Route::any('updateDelegateToken', [UsersController::class, 'updateDelegateToken']);
+    Route::post('updateDelegateLocation', [UsersController::class, 'updateDelegateLocation']);
+    Route::post('updateDelegateToken', [UsersController::class, 'updateDelegateToken']);
+    Route::post('token/check', [UsersController::class, 'checkToken']);
+    Route::post('token/refresh', [UsersController::class, 'refreshToken']);
 
 
 

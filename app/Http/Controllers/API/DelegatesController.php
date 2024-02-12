@@ -58,13 +58,13 @@ class DelegatesController extends Controller
         $orders = $orders->latest()->get();
         $data = [];
         foreach ($orders as $order){
-//            if($order->status_id == OrderController::WaitingForDeliveryToReceiveOrder){
-//                $lat = $order->userTrashed->lat;
-//                $lng = $order->userTrashed->lng;
-//            }else{
+            if($order->status_id == OrderController::WaitingForDelivery){
+                $lat = $order->userTrashed->lat;
+                $lng = $order->userTrashed->lng;
+            }else{
                 $lat = $order->subCategoriesTrashed->lat;
                 $lng = $order->subCategoriesTrashed->lng;
-//            }
+            }
             if(distance($user->lat, $user->lng, $lat, $lng) <= $delegate_range) {
                 $data[] = OrderController::orderObject($order);
             }

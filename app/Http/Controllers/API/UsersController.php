@@ -37,7 +37,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
+use Laravel\Sanctum\PersonalAccessToken;
 use Maize\Markable\Models\Favorite;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Validator;
 
@@ -1608,7 +1611,7 @@ class UsersController extends Controller
         return apiResponse("api.success", $app_user);
     }
 
-    public function updateDelegateToken($id,Request $request)
+    public function updateDelegateToken(Request $request)
     {
         $this->validate($request, [
             'fcm_token'  => 'required',
@@ -1622,6 +1625,33 @@ class UsersController extends Controller
 
         Session::flash('success', 'تم التعديل');
         return apiResponse("api.success", $app_user);
+    }
+
+    public function checkToken(Request $request)
+    {
+        if(auth('app_users_api')->check()){
+            return apiResponse(__("api.Token is valid"), auth('app_users_api')->user());
+        }
+        return apiResponse(__('api.Token is Expire'), null, 401, 401);
+    }
+
+    public function refreshToken(Request $request)
+    {
+        $token = JWTAuth::getToken();
+        if(empty($token)) {
+            return apiResponse(__('api.Token is invalid'), null, 401, 401);
+        }
+
+        try {
+            $token = JWTAuth::refresh($token);
+            $userData['token'] = $token;
+            return apiResponse("user_has_created_successfully",$userData);
+        } catch (TokenExpiredException $e) {
+            return apiResponse(__('api.Token is Expire'), null, 401, 401);
+        } catch (JWTException $e) {
+            return apiResponse(__('api.Token is invalid'), null, 401, 401);
+
+        }
     }
 
 }
