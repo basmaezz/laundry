@@ -49,6 +49,10 @@ class CategoryController extends Controller
                 foreach ($subCategories as $subcategory) {
                     $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
                     $range = $subcategory->range;
+                    $distanceClass = getDistanceClass($distance, $range);
+                    if($distanceClass == "OUT_AREA"){
+                        continue;
+                    }
                     $data[] = [
                         'id' => $subcategory->id,
                         'name' => $subcategory->$name,
@@ -66,7 +70,7 @@ class CategoryController extends Controller
                         'vip'=>$subcategory->vip,
                         'distance' => round($distance, 2),
                         'range' => $subcategory->range,
-                        'distance_class' =>  getDistanceClass($distance, $range),
+                        'distance_class' =>  $distanceClass,
                         'distance_class_id' =>  getDistanceClassId($distance, $range),
                         'open' =>$subcategory->getIsOpenAttribute() ?'opened':'closed',
                         'review' => $subcategory->rates,
@@ -80,6 +84,10 @@ class CategoryController extends Controller
 
                     $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
                     $range = $subcategory->range;
+                    $distanceClass = getDistanceClass($distance, $range);
+                    if($distanceClass == "OUT_AREA"){
+                        return apiResponse("api.success", [],[]);
+                    }
                     $data[] = [
                         'id' => $subcategory->id,
                         'name' => $subcategory->$name,
@@ -90,7 +98,7 @@ class CategoryController extends Controller
                         'approximate_duration' => $subcategory->approximate_duration,
                         'distance' => round($distance, 2),
                         'range' => $subcategory->range,
-                        'distance_class' =>  getDistanceClass($distance, $range),
+                        'distance_class' =>  $distanceClass,
                         'distance_class_id' =>  getDistanceClassId($distance, $range),
                     ];
                     if($categories->count()>0){
@@ -118,6 +126,10 @@ class CategoryController extends Controller
                 foreach ($subCategories as $subcategory) {
                     $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
                     $range = $subcategory->range;
+                    $distanceClass = getDistanceClass($distance, $range);
+                    if($distanceClass == "OUT_AREA"){
+                        continue;
+                    }
                     $data[] = [
                         'id' => $subcategory->id,
                         'name' => $subcategory->$name,
@@ -134,7 +146,7 @@ class CategoryController extends Controller
                         'vip'=>$subcategory->vip,
                         'distance' => round($distance, 2),
                         'range' => $subcategory->range,
-                        'distance_class' =>  getDistanceClass($distance, $range),
+                        'distance_class' =>  $distanceClass,
                         'distance_class_id' =>  getDistanceClassId($distance, $range),
                         'open' =>$subcategory->getIsOpenAttribute() ?'opened':'closed',
                         'review' => $subcategory->rates,
