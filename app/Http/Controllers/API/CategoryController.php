@@ -116,7 +116,7 @@ class CategoryController extends Controller
                     }else{
                         $categoryFormatted=NULL;
                     }
-
+                    $data = collect($data)->sortBy("distance")->toArray();
                     return apiResponse("api.success", $data,$categoryFormatted);
                 }
 
