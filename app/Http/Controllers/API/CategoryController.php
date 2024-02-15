@@ -77,7 +77,7 @@ class CategoryController extends Controller
                     ];
                 }
             }elseif ($type==3){
-                $data = [];
+                $data = $categoryFormatted = [];
                 if($subCategories->count() !=0){
                     foreach ($subCategories as $subcategory) {
                         $categories = carpetCategory::where('subCategory_id', $subcategory->id)->get();
@@ -101,22 +101,20 @@ class CategoryController extends Controller
                             'distance_class' => $distanceClass,
                             'distance_class_id' => getDistanceClassId($distance, $range),
                         ];
-                    }
-                    if(count($data)>0 && $categories->count()>0){
-                        foreach($categories as $category){
-                            $name = 'category_' . App::getLocale();
-                            $descroption='desc_' . App::getLocale();
-                            $categoryFormatted[]=[
-                                'id'=>$category->id,
-                                'categoryName'=> $category->$name,
-                                'description'=> $category->$descroption,
-                                'price'=>$category->price,
-                            ];
+
+                        if (count($data) > 0 && $categories->count() > 0) {
+                            foreach ($categories as $category) {
+                                $name = 'category_' . App::getLocale();
+                                $description = 'desc_' . App::getLocale();
+                                $categoryFormatted[] = [
+                                    'id' => $category->id,
+                                    'categoryName' => $category->$name,
+                                    'description' => $category->$description,
+                                    'price' => $category->price,
+                                ];
+                            }
                         }
-                    }else{
-                        $categoryFormatted=NULL;
                     }
-                    $data = collect($data)->sortBy("distance")->toArray();
                     return apiResponse("api.success", $data,$categoryFormatted);
                 }
 
