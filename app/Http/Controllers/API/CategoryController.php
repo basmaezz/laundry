@@ -86,7 +86,7 @@ class CategoryController extends Controller
                         $range = $subcategory->range;
                         $distanceClass = getDistanceClass($distance, $range);
                         if ($distanceClass == "OUT_AREA") {
-                            return apiResponse("api.success", [], []);
+                            continue;
                         }
                         $data[] = [
                             'id' => $subcategory->id,
