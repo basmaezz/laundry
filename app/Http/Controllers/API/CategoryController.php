@@ -42,8 +42,8 @@ class CategoryController extends Controller
 
         $user = auth('app_users_api')->user();
         //$user = AppUser::where('id',27)->first();
-        $lng = \request('lng') ?? $user->lng??'';
-        $lat = \request('lat') ?? $user->lat??'';
+        $lng = \request('lng') ?? $user->lng ?? '';
+        $lat = \request('lat') ?? $user->lat ?? '';
         if($subCategories !=null)
             if($type==1){
                 foreach ($subCategories as $subcategory) {
@@ -77,31 +77,32 @@ class CategoryController extends Controller
                     ];
                 }
             }elseif ($type==3){
-
+                $data = [];
                 if($subCategories->count() !=0){
-                    $subcategory = $subCategories->first();
-                    $categories=carpetCategory::where('subCategory_id',$subcategory->id)->get();
+                    foreach ($subCategories as $subcategory) {
+                        $categories = carpetCategory::where('subCategory_id', $subcategory->id)->get();
 
-                    $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
-                    $range = $subcategory->range;
-                    $distanceClass = getDistanceClass($distance, $range);
-                    if($distanceClass == "OUT_AREA"){
-                        return apiResponse("api.success", [],[]);
+                        $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
+                        $range = $subcategory->range;
+                        $distanceClass = getDistanceClass($distance, $range);
+                        if ($distanceClass == "OUT_AREA") {
+                            return apiResponse("api.success", [], []);
+                        }
+                        $data[] = [
+                            'id' => $subcategory->id,
+                            'name' => $subcategory->$name,
+                            'delivery_fees' => $subcategory->price,
+                            'location' => $subcategory->location,
+                            'lat' => $subcategory->lat,
+                            'lng' => $subcategory->lng,
+                            'approximate_duration' => $subcategory->approximate_duration,
+                            'distance' => round($distance, 2),
+                            'range' => $subcategory->range,
+                            'distance_class' => $distanceClass,
+                            'distance_class_id' => getDistanceClassId($distance, $range),
+                        ];
                     }
-                    $data[] = [
-                        'id' => $subcategory->id,
-                        'name' => $subcategory->$name,
-                        'delivery_fees' => $subcategory->price,
-                        'location' => $subcategory->location,
-                        'lat' => $subcategory->lat,
-                        'lng' => $subcategory->lng,
-                        'approximate_duration' => $subcategory->approximate_duration,
-                        'distance' => round($distance, 2),
-                        'range' => $subcategory->range,
-                        'distance_class' =>  $distanceClass,
-                        'distance_class_id' =>  getDistanceClassId($distance, $range),
-                    ];
-                    if($categories->count()>0){
+                    if(count($data)>0 && $categories->count()>0){
                         foreach($categories as $category){
                             $name = 'category_' . App::getLocale();
                             $descroption='desc_' . App::getLocale();
@@ -115,7 +116,6 @@ class CategoryController extends Controller
                     }else{
                         $categoryFormatted=NULL;
                     }
-
 
                     return apiResponse("api.success", $data,$categoryFormatted);
                 }
