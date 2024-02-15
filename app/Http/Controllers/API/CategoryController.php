@@ -102,7 +102,7 @@ class CategoryController extends Controller
                             'distance_class_id' => getDistanceClassId($distance, $range),
                         ];
 
-                        if (count($data) > 0 && $categories->count() > 0) {
+                        if ($categories->count() > 0) {
                             foreach ($categories as $category) {
                                 $name = 'category_' . App::getLocale();
                                 $description = 'desc_' . App::getLocale();
