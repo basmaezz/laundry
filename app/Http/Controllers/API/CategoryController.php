@@ -80,8 +80,6 @@ class CategoryController extends Controller
                 $data = $categoryFormatted = [];
                 if($subCategories->count() !=0){
                     foreach ($subCategories as $subcategory) {
-                        $categories = carpetCategory::where('subCategory_id', $subcategory->id)->get();
-
                         $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
                         $range = $subcategory->range;
                         $distanceClass = getDistanceClass($distance, $range);
@@ -102,6 +100,11 @@ class CategoryController extends Controller
                             'distance_class_id' => getDistanceClassId($distance, $range),
                         ];
 
+                    }
+                    $data = collect($data)->sortBy("distance");
+                    $subcategory = $data->first();
+                    if(!empty($subcategory)) {
+                        $categories = carpetCategory::where('subCategory_id', $subcategory->id)->get();
                         if ($categories->count() > 0) {
                             foreach ($categories as $category) {
                                 $name = 'category_' . App::getLocale();
@@ -115,7 +118,7 @@ class CategoryController extends Controller
                             }
                         }
                     }
-                    return apiResponse("api.success", $data,$categoryFormatted);
+                    return apiResponse("api.success", $data->toArray(),$categoryFormatted);
                 }
 
 
