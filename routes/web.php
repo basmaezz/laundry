@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\carpetCategoryController;
 use App\Http\Controllers\Admin\carpetLaundryController;
+use App\Http\Controllers\Admin\carLaundryController;
+use App\Http\Controllers\Admin\carServicesController;
 use App\Http\Controllers\Admin\carpetLaundryTimeController;
 use App\Http\Controllers\Customer\AdminController;
 use App\Http\Controllers\languageController;
@@ -138,15 +140,31 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
          Route::post('carpetLaundryUpdate/{id}',  'update')->name('carpetLaundries.update');
          Route::get('carpetLaundryDestroy',  'destroy')->name('carpetLaundries.destroy');
      });
+    Route::controller(carpetCategoryController::class)->group(function(){
+        Route::get('carpetCategories/{id}','index')->name('carpetCategories.index');
+        Route::get('carpetCategoryCreate/{id}',  'create')->name('carpetCategories.create');
+        Route::post('carpetCategoryStore',  'store')->name('carpetCategories.store');
+        Route::get('carpetCategoryEdit/{id}',  'edit')->name('carpetCategories.edit');
+    });
 
-     Route::controller(carpetCategoryController::class)->group(function(){
-         Route::get('carpetCategories/{id}','index')->name('carpetCategories.index');
-         Route::get('carpetCategoryCreate/{id}',  'create')->name('carpetCategories.create');
-         Route::post('carpetCategoryStore',  'store')->name('carpetCategories.store');
-         Route::get('carpetCategoryEdit/{id}',  'edit')->name('carpetCategories.edit');
-         Route::post('carpetCategoryUpdate/{id}',  'update')->name('carpetCategories.update');
-         Route::get('carpetCategoryDestroy',  'destroy')->name('carpetCategories.destroy');
+     Route::controller(carLaundryController::class)->group(function(){
+         Route::get('carLaundries','index')->name('carLaundries.index');
+         Route::get('carLaundryCreate',  'create')->name('carLaundries.create');
+         Route::post('carLaundryStore',  'store')->name('carLaundries.store');
+         Route::get('carLaundryEdit/{id}',  'edit')->name('carLaundries.edit');
+         Route::post('carLaundryUpdate/{id}',  'update')->name('carLaundries.update');
+         Route::get('carLaundryDestroy',  'destroy')->name('carLaundries.destroy');
+
      });
+     Route::controller(carServicesController::class)->group(function(){
+         Route::get('carServices/{id}','index')->name('carServices.index');
+         Route::get('carServiceCreate/{id}',  'create')->name('carServices.create');
+         Route::post('carServiceStore',  'store')->name('carServices.store');
+         Route::get('carServiceEdit/{id}',  'edit')->name('carServices.edit');
+         Route::post('carServiceUpdate/{id}',  'update')->name('carServices.update');
+         Route::get('carServiceDestroy',  'destroy')->name('carServices.destroy');
+     });
+
 
      Route::controller(carpetLaundryTimeController::class)->group(function(){
          Route::get('carpetLaundryTimes/{id}','index')->name('carpetLaundryTimes.index');
@@ -160,6 +178,8 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
 
  Route::controller(CategoriesController::class)->group(function () {
      Route::get('CategoriesIndex',  'index')->name('Categories.index');
+     Route::get('CategoryCreate',  'create')->name('category.create');
+     Route::post('CategoryStore',  'store')->name('category.store');
      Route::get('CategoryEdit/{id}',  'edit')->name('category.edit');
      Route::post('CategoryUpdate/{id}',  'update')->name('category.update');
      Route::get('CategoryDelete/{id}' , 'destroy')->name('category.destroy');

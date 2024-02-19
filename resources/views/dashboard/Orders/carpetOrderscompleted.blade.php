@@ -57,7 +57,8 @@
         </section>
         @endsection
         @push('scripts')
-            <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>
+{{--            <script src="{{asset('assets/admin/js/libs/jquery.timeago.js')}}"></script>--}}
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.3/jquery.timeago.min.js"></script>
             <script src="{{asset('assets/admin/js/libs/jquery.timeago.ar.min.js')}}"></script>
             <script type="text/javascript">
                 $(function() {

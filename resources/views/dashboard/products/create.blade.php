@@ -11,8 +11,7 @@
                             </li>
                             <li class="breadcrumb-item"><a href="{{route('CategoryItems.index',$categoryItem->subcategory_id)}}">الأقسام</a>
                             </li>
-                            <li class="breadcrumb-item active">اضافه قطعه
-                            </li>
+                            <li class="breadcrumb-item active">اضافه قطعه</li>
                         </ol>
                     </div>
                 </div>

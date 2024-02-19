@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\carpetLaundry;
 use App\Models\CarType;
+use App\Models\Category;
+use App\Models\City;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -57,6 +59,7 @@ class carpetLaundryController extends Controller
 
     public function create()
     {
+
         return view('dashboard.carpetLaundries.create');
     }
 

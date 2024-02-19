@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Validator;
 
 class CategoriesController extends Controller
 {
@@ -21,6 +22,28 @@ class CategoriesController extends Controller
     {
       $category=Category::find($id);
       return view('dashboard.Categories.edit',compact('category'));
+    }
+
+    public function create()
+    {
+        return view('dashboard.Categories.create');
+
+    }
+    public function store(Request $request)
+    {
+//        $request->validate([
+//            'name_ar'=>$request->name_ar,
+//            'name_en'=>$request->name_en,
+//        ],[
+//            'required'=>'اجبارى',
+//        ]);
+
+            $filename = request('image')->getClientOriginalName();
+            request()->file('image')->move(public_path() . '/assets/uploads/laundries/',$filename);
+        Category::create($request->all()+[
+                            'image'=>$filename
+            ]);
+        return  redirect()->route('category.index')->with('success', 'تمت الاضافه');
     }
 
     public function update(Request $request,$id)

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('app_users', function (Blueprint $table) {
             $table->string("avatar")->after("gender")->nullable();
-            $table->enum("user_type",['delivery','customer','admin','laundry'])->after("avatar")->default('customer');
+            $table->enum("user_type",['delivery','customer','admin','laundry','car'])->after("avatar")->default('customer');
         });
     }
 

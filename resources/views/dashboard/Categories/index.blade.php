@@ -20,6 +20,7 @@
         </div>
     </div>
     <main class="main" style="margin-top: 25px">
+        <a href="{{route('category.create')}}" class="btn btn-primary"   >اضافه جديد</a>
 
     <div>
 
