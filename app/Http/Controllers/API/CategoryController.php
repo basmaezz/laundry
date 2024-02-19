@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Models\AppUser;
 use App\Models\carpetLaundry;
 use App\Models\carpetLaundryTime;
-use App\Models\carService;
 use App\Models\Category;
 use App\Models\CategoryItem;
 use App\Models\CouponShopCart;
@@ -34,8 +33,6 @@ class CategoryController extends Controller
             $subCategories = Subcategory::where('urgentWash', '1')->get();
         }elseif ($type == 3){
             $subCategories = Subcategory::where('category_id','3')->get();
-        }elseif ($type == 5){
-            $subCategories = Subcategory::where('category_id','5')->get();
         }
         elseif($type!=1 || $type !=4 ||$type !=3){
             $subCategories='';
@@ -107,58 +104,24 @@ class CategoryController extends Controller
                     if($categories->count()>0){
                         foreach($categories as $category){
                             $name = 'category_' . App::getLocale();
-                            $description='desc_' . App::getLocale();
+                            $descroption='desc_' . App::getLocale();
                             $categoryFormatted[]=[
                                 'id'=>$category->id,
                                 'categoryName'=> $category->$name,
-                                'description'=> $category->$description,
+                                'description'=> $category->$descroption,
                                 'price'=>$category->price,
                             ];
                         }
                     }else{
                         $categoryFormatted=NULL;
                     }
+
+
                     return apiResponse("api.success", $data,$categoryFormatted);
                 }
-            }elseif ($type==5){
 
-                if($subCategories->count() !=0){
-                    $subcategory = $subCategories->first();
-                    $services=carService::where('subCategory_id',$subcategory->id)->get();
 
-                    $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
-                    $range = $subcategory->range;
-                    $distanceClass = getDistanceClass($distance, $range);
-                    if($distanceClass == "OUT_AREA"){
-                        return apiResponse("api.success", [],[]);
-                    }
-                    $data[] = [
-                        'id' => $subcategory->id,
-                        'name' => $subcategory->$name,
-                        'delivery_fees' => $subcategory->price,
-                        'location' => $subcategory->location,
-                        'lat' => $subcategory->lat,
-                        'lng' => $subcategory->lng,
-                        'distance' => round($distance, 2),
-                        'distance_class' =>  $distanceClass,
-                        'distance_class_id' =>  getDistanceClassId($distance, $range),
-                    ];
-                    if($services->count()>0){
-                        foreach($services as $service){
-                            $name = 'category_' . App::getLocale();
-                            $description='desc_' . App::getLocale();
-                            $serviceFormatted[]=[
-                                'id'=>$service->id,
-                                'categoryName'=> $service->$name,
-                                'description'=> $service->$description,
-                                'price'=>$service->price,
-                            ];
-                        }
-                    }else{
-                        $serviceFormatted=NULL;
-                    }
-                    return apiResponse("api.success", $data,$serviceFormatted);
-                }
+
             }elseif ($type==4){
                 foreach ($subCategories as $subcategory) {
                     $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
@@ -400,21 +363,4 @@ class CategoryController extends Controller
         }
 
     }
-
-    public function getCarLaundryService($id)
-    {
-        $carServices=carService::where('subCategory',$id)->get();
-        foreach ($carServices as $carService ){
-            $data []=[
-                'id'=>$carServices->id,
-                'laundry_id'=>$carServices->subCategory_id,
-                'laundry_id'=>$carServices->subCategory_id,
-                'laundry_id'=>$carServices->subCategory_id,
-                'price'=>$carServices->price,
-
-            ];
-        }
-        return apiResponse2( $data);
-    }
-
 }
