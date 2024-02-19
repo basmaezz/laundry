@@ -120,11 +120,10 @@
                 </ul>
             </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('customers.index')}}"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="User">العملاء</span></a>
-
+            <li><a class="d-flex align-items-center" href="{{route('Categories.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">التصنيفات </span></a></li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('laundries.index')}}"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">مغاسل الملابس</span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="{{route('Categories.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">التصنيفات </span></a>
-                    </li>
+
                     <li><a class="d-flex align-items-center" href="{{route('laundries.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Preview">مغاسل الملابس </span></a>
                     </li>
                     <li><a class="d-flex align-items-center" href="{{route('laundries.viewTrashedLaundries')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Preview">المغاسل المحذوفه  </span></a>
@@ -161,6 +160,8 @@
 
                 </ul>
             </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('carLaundries.index')}}"><i data-feather="save"></i><span class="menu-title text-truncate" data-i18n="File Manager">مغاسل السيارات  </span></a>  </li>
+
 
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Pages">الاعدادات العامه</span></a>
                 <ul class="menu-content">

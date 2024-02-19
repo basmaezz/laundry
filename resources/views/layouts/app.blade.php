@@ -32,12 +32,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css-rtl/custom-rtl.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style-rtl.css')}}">
 
-    <!-- END: Custom CSS-->
-
 </head>
 @include('layouts.nav')
-
-
 <div class="app-content content ">
     @yield('content')
 </div>
@@ -53,6 +49,7 @@
 <script src="{{asset('assets/customers/app-assets/js/core/app-menu.js')}}"></script>
 <script src="{{asset('assets/customers/app-assets/js/core/app.js')}}"></script>
 <script src="{{asset('assets/customers/app-assets/js/scripts/tables/table-datatables-advanced.js')}}"></script>
+
 
 <script>
     $(window).on('load', function() {

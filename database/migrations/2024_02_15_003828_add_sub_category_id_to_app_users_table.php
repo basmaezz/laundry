@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('app_users', function (Blueprint $table) {
-            $table->string("avatar")->after("gender")->nullable();
-            $table->enum("user_type",['delivery','customer','admin','laundry','car'])->after("avatar")->default('customer');
+            $table->foreignId('subCategory_id')->after('uuid')->nullable();
         });
     }
 
@@ -27,7 +26,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('app_users', function (Blueprint $table) {
-            $table->dropColumn(['avatar', 'user_type']);
+            $table->dropColumn('subCategory_id');
+
         });
     }
 };

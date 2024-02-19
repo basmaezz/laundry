@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategoriesRequest;
 use App\Http\Requests\subCategoryRequest;
 use App\Http\Requests\UserRequest;
+use App\Models\AppUser;
 use App\Models\Category;
 use App\Models\CategoryItem;
 use App\Models\City;
@@ -138,19 +139,16 @@ class subCategoryController extends Controller
                 'around_clock' => $request->around_clock,
                 'clock_end' =>$request->clock_end,
                 'clock_at' => $request->clock_at,
-                'delivered_from' => $request->delivered_from,
-                'delivered_to' => $request->delivered_to,
                 'vip'=>$request->vip
             ]);
-        $user=User::create([
+        AppUser::create([
             'name' => $request->name,
-            'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => $request->password,
-            'phone' => $request->phone,
+            'mobile' => $request->phone,
             'subCategory_id' => $subcategory->id
         ]);
-        $user->save();
+
         return  redirect()->route('laundries.index');
     }
 

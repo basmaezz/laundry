@@ -28,7 +28,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/customers/app-assets/css-rtl/custom-rtl.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style-rtl.css')}}">
     <!-- END: Custom CSS-->
-
+    <style>
+        .dropdown-menu.show {  margin-right: 167px !important;}
+    </style>
 </head>
 @include('layouts.nav')
 
