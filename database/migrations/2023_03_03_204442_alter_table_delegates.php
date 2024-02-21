@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('delegates', function (Blueprint $table) {
-            $table->string('car_plate_letter', 191)->after('driving_license');
-            $table->string('car_plate_number', 191)->after('car_plate_letter');
-            $table->foreignId('nationality_id')->after('user_id')->default('1');
+            $table->string('car_plate_letter', 191)->after('driving_license')->nullable();
+            $table->string('car_plate_number', 191)->after('car_plate_letter')->nullable();
+            $table->foreignId('nationality_id')->after('user_id')->default('1')->nullable();
             $table->foreignId('car_manufacture_year_id')->after('car_type')->nullable();
         });
     }
