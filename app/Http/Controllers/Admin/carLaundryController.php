@@ -9,7 +9,7 @@ use App\Models\carService;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Delegate;
-use App\Models\subCategory;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +28,7 @@ class carLaundryController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-        public function index()
+    public function index()
     {
         if(request()->ajax()) {
             $data = Subcategory::where('category_id',5)->orderBy('id','desc')->get();
@@ -87,8 +87,9 @@ class carLaundryController extends Controller
     public function store(Request $request)
     {
         $subcategory=Subcategory::create($request->all()+[
-               'price'=>0,
-               'around_clock' => $request->around_clock,
+                'price'=>0,
+                'category_id'=>5,
+                'around_clock' => $request->around_clock,
                 'clock_end' =>$request->clock_end,
                 'clock_at' => $request->clock_at,
             ]);
@@ -101,7 +102,7 @@ class carLaundryController extends Controller
             'email' => $request->email,
             'password' => $request->password,
             'mobile' => $request->phone,
-            'user_type'=>'car',
+            'user_type'=>'delivery',
             'subCategory_id' => $subcategory->id
         ]);
         Delegate::create([
@@ -176,10 +177,6 @@ class carLaundryController extends Controller
 
     public function carServices($id)
     {
-
-
-
-
     }
     public function destroyService(Request $request)
     {

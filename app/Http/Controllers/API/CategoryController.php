@@ -33,8 +33,10 @@ class CategoryController extends Controller
             $subCategories = Subcategory::where('urgentWash', '1')->get();
         }elseif ($type == 3){
             $subCategories = Subcategory::where('category_id','3')->get();
+        }elseif ($type == 5){
+            $subCategories = Subcategory::where('category_id','5')->get();
         }
-        elseif($type!=1 || $type !=4 ||$type !=3){
+        elseif($type!=1 || $type !=4 ||$type !=3||$type !=5){
             $subCategories='';
         }
         $name = 'name_' . App::getLocale();
@@ -120,8 +122,6 @@ class CategoryController extends Controller
                     return apiResponse("api.success", $data,$categoryFormatted);
                 }
 
-
-
             }elseif ($type==4){
                 foreach ($subCategories as $subcategory) {
                     $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
@@ -144,6 +144,30 @@ class CategoryController extends Controller
                         'approximate_duration' => $subcategory->approximate_duration_urgent,
                         'around_clock'=>$subcategory->around_clock,
                         'vip'=>$subcategory->vip,
+                        'distance' => round($distance, 2),
+                        'range' => $subcategory->range,
+                        'distance_class' =>  $distanceClass,
+                        'distance_class_id' =>  getDistanceClassId($distance, $range),
+                        'open' =>$subcategory->getIsOpenAttribute() ?'opened':'closed',
+                        'review' => $subcategory->rates,
+                    ];
+                }
+            }elseif ($type==5){
+                foreach ($subCategories as $subcategory) {
+                    $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
+                    $range = $subcategory->range;
+                    $distanceClass = getDistanceClass($distance, $range);
+                    if($distanceClass == "OUT_AREA"){
+                        continue;
+                    }
+                    $data[] = [
+                        'id' => $subcategory->id,
+                        'name' => $subcategory->$name,
+                        'rate' => $subcategory->rate_avg,
+                        'location' => $subcategory->location,
+                        'lat' => $subcategory->lat,
+                        'lng' => $subcategory->lng,
+                        'around_clock'=>$subcategory->around_clock,
                         'distance' => round($distance, 2),
                         'range' => $subcategory->range,
                         'distance_class' =>  $distanceClass,
@@ -217,7 +241,6 @@ class CategoryController extends Controller
                 'id' => $category->id,
                 'name' => $category->$name,
                 'image' => $category->image,
-
             ];
         }
         return apiResponse("api.success", $data);
@@ -363,4 +386,20 @@ class CategoryController extends Controller
         }
 
     }
+
+    // public function getCarLaundryService($id)
+    // {
+    //     $carServices=carService::where('subCategory',$id)->get();
+    //     foreach ($carServices as $carService ){
+    //         $data []=[
+    //             'id'=>$carServices->id,
+    //             'laundry_id'=>$carServices->subCategory_id,
+    //             'laundry_id'=>$carServices->subCategory_id,
+    //             'laundry_id'=>$carServices->subCategory_id,
+    //             'price'=>$carServices->price,
+
+    //         ];
+    //     }
+    //     return apiResponse2( $data);
+    // }
 }

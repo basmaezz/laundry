@@ -263,8 +263,8 @@ class AuthController extends ApiController
                     return  apiResponse('auth.pending_activation',null,400,400);                }
                 if ($user->status == 'blocked'){
                     return  apiResponse('auth.activation_administration',null,400,400);                }
-                if($request->get('type')=='delivery' || $request->get('type')=='car'){
-                    if ($user->user_type != 'delivery' ||$user->user_type != 'car'){
+                if($request->get('type')=='delivery' ){
+                    if ($user->user_type != 'delivery' ){
                         return  apiResponse('auth.incorrect',null,400,400);                    }
                 }
                 $user->last_activity = Carbon::now();
@@ -281,7 +281,7 @@ class AuthController extends ApiController
                 $token=JWTAuth::fromUser($user);
                 $userData = getUserObject($user);
                 $userData['token'] = $token;
-                if($request->get('type')=='delivery' || $request->get('type')=='car'){
+                if($request->get('type')=='delivery' ){
                     $userData['delegate'] = Delegate::where('app_user_id',$user->id)->first();
                 }
                 return apiResponse("api.success",$userData);
