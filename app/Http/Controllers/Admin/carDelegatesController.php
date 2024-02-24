@@ -114,6 +114,7 @@ class carDelegatesController extends Controller
         ]);
         Delegate::create([
             'app_user_id'=>$user->id,
+            'delivery_type'=>3,
             'bank_id'=>$request->bank_id,
             'iban_number'=>$request->iban_number,
             'car_wash'=>1,
