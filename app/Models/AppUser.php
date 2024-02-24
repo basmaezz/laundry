@@ -19,6 +19,7 @@ class AppUser extends Authenticatable implements JWTSubject
     protected $with = ['default_address'];
     protected $fillable=[
         'uuid',
+        'subCategory_id',
         'name',
         'password',
         'email',
@@ -75,6 +76,9 @@ class AppUser extends Authenticatable implements JWTSubject
 
     public function getUserLocation($user,$customer){
         return getDistanceFirst1($customer, $user->lat, $user->lng);
+    }
+    public function subCategory(){
+        return $this->belongsTo(subCategory::class,'subCategory_id');
     }
 
 //    public function setMobileAttribute($value){

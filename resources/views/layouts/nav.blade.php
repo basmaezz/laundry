@@ -109,8 +109,8 @@
             </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="User">المناديب</span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="{{route('delegates.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">عرض الكل </span></a>
-                    </li>
+                    <li><a class="d-flex align-items-center" href="{{route('delegates.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">عرض الكل </span></a> </li>
+                    <li><a class="d-flex align-items-center" href="{{route('carDelegates.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">مناديب السيارات  </span></a> </li>
                     <li><a class="d-flex align-items-center" href="{{route('delegate.registrationRequests')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Preview">طلبات التسجيل </span></a>
                     </li>
                     <li><a class="d-flex align-items-center" href="{{route('delegate.rejectionRequests')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Preview"> طلبات التسجيل المرفوضه </span></a>

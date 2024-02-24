@@ -20,12 +20,9 @@
         </div>
     </div>
     <a href="{{route('delegates.export')}}" class="btn btn-info"  >Export </a>
-    <a href="{{route('delegate.create')}}" class="btn btn-primary" >اضافه مندوب</a>
-    <a href="{{route('delegate.clearWallet')}}" class="btn btn-danger"  >تصفير جميع المحافظ </a>
+    <a href="{{route('carDelegates.create')}}" class="btn btn-primary" >اضافه مندوب</a>
 
     <div class="content-body">
-
-
         <section id="dashboard-analytics">
             <div class="row">
                 <div class="col-12">
@@ -35,14 +32,12 @@
                                 <thead>
                                 <tr>
                                     <th>الرقم التسلسلى</th>
-                                    <th>الاسم</th>
-                                    <th>الجنسيه</th>
-                                    <th>نوع التعاقد</th>
-                                    <th> توصيل سجاد</th>
-                                    <th>رقم الهويه الوطنيه/الاقامه </th>
-                                    <th>رقم الجوال   </th>
+                                    <th>صوره المنطقه </th>
+                                    <th>اسم المنطقه </th>
+                                    <th>اسم المندوب</th>
+                                    <th>رقم الجوال</th>
+                                    <th>النسبه </th>
                                     <th> عدد الطلبات الشهريه</th>
-                                    <th> المحفظه  </th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -61,34 +56,28 @@
                 processing: true,
                 serverSide: true,
                 ordering: false,
-                ajax: "{{ Route('delegates.index') }}",
+                ajax: "{{ Route('carDelegates.index') }}",
                 columns: [{
                     data: 'id',
                     name: 'id'
                 },{
+                    data: 'subCategoryImage',
+                    name: 'subCategoryImage'
+                },{
+                    data: 'subCategory',
+                    name: 'subCategory'
+                },{
                     data: 'name',
                     name: 'name'
                 },{
-                        data: 'nationality',
-                        name: 'nationality'
-                    }, {
-                        data: 'request_employment',
-                        name: 'request_employment'
-                    }, {
-                        data: 'deliverCarpet',
-                        name: 'deliverCarpet'
-                    }, {
-                        data: 'id_number',
-                        name: 'id_number'
-                    },{
                         data: 'mobile',
                         name: 'mobile'
                     },{
+                        data: 'percentage',
+                        name: 'percentage'
+                    },{
                        data:'monthlyOrders',
                         name:'monthlyOrders'
-                    },{
-                       data:'wallet',
-                        name:'wallet'
                     }, {
                         data: 'action',
                         name: 'action',

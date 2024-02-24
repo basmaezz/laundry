@@ -685,13 +685,14 @@ function apiResponseOrders(string $message_key, $new_orders=null,$items=null,int
 
     return response()->json($return,$http_code);
 }
-function apiResponseDelegateOrders(string $message_key,$delegate_range=null  ,$deliver_carpet=null,$new_orders=null,$items=null,int $code=200,int $http_code=200)
+function apiResponseDelegateOrders(string $message_key,$delegate_range=null  ,$deliver_carpet=null,$delivery_type,$new_orders=null,$items=null,int $code=200,int $http_code=200)
 {
     $return = [];
     $return["code"]= $code;
     $return["message"]= trans($message_key);
     $return["delegate_range"] = $delegate_range;
     $return["deliver_carpet"] = $deliver_carpet;
+    $return["delivery_type"] = $delivery_type;
     $return["new_orders"] = $new_orders;
     $return["orders"] = $items;
     // $return["currentPage"] = $currentPage;
@@ -788,6 +789,28 @@ function getCarpetNotificationObj($status_id){
             break;
         case \App\Http\Controllers\API\OrderController::Completed:
             $title = "السجاد جاهز ❤️";
+            $description = "شكرا لتعاملك مع لاندري   ";
+            break;
+        default:
+            $title = 'Empty ['.$status_id.']';
+            $description = 'Empty ['.$status_id.']';
+            break;
+    }
+    return ['title'=>$title, 'description' => $description];
+
+}
+function getCarNotificationObj($status_id){
+    switch ($status_id){
+        case \App\Http\Controllers\API\OrderController::WaitingForDelivery:
+            $title = "تم استلام طلبك بنجاح !";
+            $description = " مندوبنا جايك ! 💨 🏎️";
+            break;
+        case \App\Http\Controllers\API\OrderController::AcceptedByDelivery:
+            $title = "جارى غسيل السيارة";
+            $description = "السيارة بس يجهز بنعطيك خبر 💦";
+            break;
+        case \App\Http\Controllers\API\OrderController::Completed:
+            $title = "السيارة جاهزة ❤️";
             $description = "شكرا لتعاملك مع لاندري   ";
             break;
         default:

@@ -30,6 +30,7 @@ class carLaundryController extends Controller
 
     public function index()
     {
+
         if(request()->ajax()) {
             $data = Subcategory::where('category_id',5)->orderBy('id','desc')->get();
 
@@ -87,29 +88,10 @@ class carLaundryController extends Controller
     public function store(Request $request)
     {
         $subcategory=Subcategory::create($request->all()+[
-                'price'=>0,
                 'category_id'=>5,
-                'around_clock' => $request->around_clock,
-                'clock_end' =>$request->clock_end,
-                'clock_at' => $request->clock_at,
+                'price'=>0,
             ]);
-        $user=AppUser::create([
-            'uuid'=>Uuid::uuid1()->toString(),
-            'subCategory_id'=>$subcategory->id,
-            'avatar'=>uploadFile($request->file("avatar"), 'users_avatar'),
-            'name' => $request->name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'mobile' => $request->phone,
-            'user_type'=>'delivery',
-            'subCategory_id' => $subcategory->id
-        ]);
-        Delegate::create([
-            'app_user_id'=>$user->id,
-            'bank_id'=>$request->bank_id,
-            'iban_number'=>$request->iban_number
-        ]);
+
         return redirect()->route('carLaundries.index');
     }
 
@@ -177,6 +159,10 @@ class carLaundryController extends Controller
 
     public function carServices($id)
     {
+
+
+
+
     }
     public function destroyService(Request $request)
     {
