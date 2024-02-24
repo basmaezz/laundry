@@ -31,6 +31,7 @@ class DelegatesController extends Controller
         $delegate = Delegate::where('app_user_id',$app_user_id)->first();
         $user = auth('app_users_api')->user();
         $deliver_carpet = $delegate->deliver_carpet ==1 ?true :false;
+        $delivery_type = $delegate->deliver_type;
 
         $settings=SiteSetting::first();
         $delegate_range=$settings->distance_delegates;
@@ -70,7 +71,7 @@ class DelegatesController extends Controller
             }
         }
 //        $currentPage = $orders->currentPage();
-        return apiResponseDelegateOrders('api.My_Order',$delegate_range, $deliver_carpet,count($data), $data);
+        return apiResponseDelegateOrders('api.My_Order',$delegate_range, $deliver_carpet,$delivery_type,count($data), $data);
     }
 
     public function delegate_order_details($order_id, Request $request)

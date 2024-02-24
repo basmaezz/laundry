@@ -15,6 +15,7 @@ use App\Models\Subcategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\carDelegatesController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\subCategoryController;
 use App\Http\Controllers\Admin\CategoryItemController;
@@ -106,6 +107,16 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
     });
 
 
+          Route::controller(carDelegatesController::class)->group(function(){
+             Route::get('carDelegates', 'index')->name('carDelegates.index');
+                 Route::get('createCarDelegates', 'create')->name('carDelegates.create');
+                 Route::post('storeCarDelegates', 'store')->name('carDelegates.store');
+                 Route::get('showCarDelegates/{id}', 'show')->name('carDelegates.show');
+                 Route::get('editCarDelegates/{id}', 'edit')->name('carDelegates.edit');
+                 Route::post('updateCarDelegates/{id}', 'update')->name('carDelegates.update');
+                 Route::get('destroyCarDelegates', 'destroy')->name('carDelegates.destroy');
+                 Route::get('delegateOrders/{id}',  'delegateOrders')->name('carDelegates.delegateOrders');
+          });
      Route::controller(subCategoryController::class)->group(function () {
 
          Route::get('laundries', 'index')->name('laundries.index');

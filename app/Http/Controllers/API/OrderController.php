@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\AppUser;
 use App\Models\carpetCategory;
+use App\Models\carService;
 use App\Models\CouponShopCart;
 use App\Models\Delegate;
 use App\Models\DeliveryHistory;
@@ -36,21 +37,7 @@ class OrderController extends Controller
     //const DeliveryOnTheWayToYou         = 9;
     const Completed                     = 8;
     const Cancel                        = 10;
-    /*
- * - انتظار المندوب
-- المندوب قادم اليك (عند قبول الطلب من قبل المندوب)
-- الملابس في الطريق للمغسلة (عند استلام الملابس من المندوب)
-- ملابسك في المغسلة وجاري غسيلها (عند تسليم المندوب الملابس للمغسلة)
 
-- ملابسك جاهزة للاستلام، نرجو اختيار طريقة الاستلام ( عند انتهاء المغسلة من غسيل الملابس)
-- في انتظار المندوب (عند اختيار توصيل في طريقة الاستلام)
-- ملابسك في الطريق (عند قبول المندوب الطلب)
-- شكرا لتعاملك معنا وملبوس العافية (عند تسليم المندوب الملابس للعميل)*/
-    /**
-     * get the order fees
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function ordersFees(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -172,6 +159,29 @@ class OrderController extends Controller
                 'app_profit'       =>0,
                 'coupon'         => $request->get('coupon') ?? null,
             ];
+        }elseif ($orderType==5){
+            $order_data = [
+                'user_id'        => $app_user_id,
+                'laundry_id'     =>  $orderData['laundry_id'],
+                'address_id'     => $request->get('address_id'),
+                'car_service_id' => $request->get('car_service_id'),
+                'order_type'=>$orderType,
+                'payment_method' => $request->get('payment_method', 'Cash'),
+                'count_products' => count($orderData['items']),
+                'note'           => $request->get('note'),
+                'status'         => 'انتظار المندوب',
+                'status_id'      => self::WaitingForDelivery,
+                'total_price'    => 0,
+                'delivery_fees'  => 0,
+                'discount'       => 0,
+                'vat'            => 0,
+                'commission'     => 0,
+                'total_commission' => 0,
+                'sum_price'      => 0,
+                'laundry_profit'   =>0,
+                'app_profit'       =>0,
+                'coupon'         => $request->get('coupon') ?? null,
+            ];
         }
 
         $order = OrderTable::create($order_data);
@@ -222,7 +232,7 @@ class OrderController extends Controller
             $order->save();
         }elseif ($orderType==3){
             $item_data = null;
-            $total_price = $full_price= $total=$laundry_profit = $app_profit = 0;
+            $total= $app_profit = 0;
             $item_quantity = 0;
             foreach ($orderData['items'] as $key => $item) {
 
@@ -254,6 +264,40 @@ class OrderController extends Controller
             }
             $order->save();
 
+        }elseif ($orderType==5){
+            $item_data = null;
+            $total= $app_profit = 0;
+            $item_quantity = 0;
+            foreach ($orderData['items'] as $key => $item) {
+
+                $carService = carService::where('id', $item['car_service_id'])->first();
+                if ($carService) {
+
+                    $item_quantity += $item['quantity'];
+                    $OrderDetail=new OrderDetails;
+                    $OrderDetail->order_table_id=$order->id;
+                    $OrderDetail->car_service_id=$item['car_service_id'];
+                    $OrderDetail->quantity=$item['quantity'];
+                    $OrderDetail->price=$carService->price;
+                    $OrderDetail->total_price=$carService->price*$item['quantity'];
+                    $OrderDetail->full_price=$carService->price*$item['quantity'];
+                    $OrderDetail->laundry_profit=0;
+                    $OrderDetail->app_profit=0;
+
+                    $OrderDetail->save();
+
+                }
+            }
+            $order->total_price = $carService->price*$item_quantity;
+            $order->count_products = $item_quantity;
+            $order->app_profit=$app_profit;
+            $order->laundry_profit=($carService->price*$item_quantity);
+            $order->vat = floatval($total * config('setting.vat'));
+            if ($request->hasFile('audio_note')) {
+                $order->audio_note = uploadFile($request->file("audio_note"), 'audio_note');
+            }
+            $order->save();
+
         }
         //Start Store Payment information
         foreach ($orderData['payments'] as $payment) {
@@ -270,7 +314,12 @@ class OrderController extends Controller
             $orders = OrderTable::where('id', $order->id)->with(['orderDetails' => function ($q) {
                 return $q->select('id', 'order_table_id', 'carpet_category_id', 'price', 'quantity');
             }])->select('id', 'user_id', 'laundry_id')->first();
-        }else{
+        }elseif ($order->order_type==5){
+            $orders = OrderTable::where('id', $order->id)->with(['orderDetails' => function ($q) {
+                return $q->select('id', 'order_table_id', 'car_service_id', 'price', 'quantity');
+            }])->select('id', 'user_id', 'laundry_id')->first();
+        }
+        else{
             $orders = OrderTable::where('id', $order->id)->with(['orderDetails' => function ($q) {
                 return $q->select('id', 'order_table_id', 'product_id', 'category_item_id', 'price', 'quantity');
             }])->select('id', 'user_id', 'laundry_id')->first();
@@ -284,6 +333,8 @@ class OrderController extends Controller
 
         }elseif($order->order_type ==1){
             $msg='جهّز ملابسك في كيس، مندوبنا جايك! 💨🏎️';
+        }elseif($order->order_type ==5){
+            $msg=' مندوبنا جايك! 💨🏎️';
         }
         NotificationController::sendNotification(__('api.received_successfully'), $msg, auth('app_users_api')->user(), $order->id);
 
@@ -337,6 +388,39 @@ class OrderController extends Controller
                     ->active()
                     ->whereHas('delegates', function ($query) {
                         $query->where('deliver_carpet', 1);
+                    })
+                    ->get();
+            }
+
+            foreach ($carpetDelegates as $user) {
+                NotificationController::sendNotification(
+                    'New Delivery Request',
+                    'New Delivery Request Number #' . $order->id,
+                    $user,
+                    $order->id
+                );
+            }
+        }elseif ($orderType == 5){
+
+            $raw = "( 6371 * acos( cos( radians({$customer->lat}) ) * cos( radians( lat ) )* cos( radians( lng ) - radians({$customer->lng}) )
+            + sin( radians({$customer->lat}) ) * sin( radians( lat ) ) ) ) <= {$distanceDelegate}";
+            $carpetDelegates  = AppUser::query()
+                ->available()
+                ->delivery()
+                ->active()
+                ->whereHas('delegates', function ($query) {
+                    $query->where('car_wash', 1);
+                })
+                ->whereRaw($raw)
+                ->get();
+
+            if(count($carpetDelegates) == 0) {
+                $carpetDelegates  = AppUser::query()
+                    ->available()
+                    ->delivery()
+                    ->active()
+                    ->whereHas('delegates', function ($query) {
+                        $query->where('car_wash', 1);
                     })
                     ->get();
             }
@@ -466,6 +550,14 @@ class OrderController extends Controller
                 NotificationController::sendNotification(
                     $notification_carpet_obj['title'],
                     $notification_carpet_obj['description'],
+                    $order->userTrashed,
+                    $order->id
+                );
+            }elseif($order->order_type==3 && in_array($request->get('status_id'), [1, 2, 8])){
+                $notification_car_obj = getCarNotificationObj($request->get('status_id'));
+                NotificationController::sendNotification(
+                    $notification_car_obj['title'],
+                    $notification_car_obj['description'],
                     $order->userTrashed,
                     $order->id
                 );

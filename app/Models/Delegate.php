@@ -34,6 +34,8 @@ class Delegate extends Model
         'registered',
         'user_type',
         'deliver_carpet',
+        'car_wash',
+        'percentage',
         'identity_expiration_date'
     ];
 
