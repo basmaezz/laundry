@@ -536,8 +536,8 @@ function responseDataMessage($message , $data){
 
 
 function uploadFile($fileAttr, $path = ""){
-
     $imgName = mt_rand(1000, 9999).microtime(true).'.'.$fileAttr->getClientOriginalExtension();
+
     $fileAttr->move(public_path('assets/uploads/'.$path),$imgName);
     return $imgName;
 }
@@ -685,7 +685,7 @@ function apiResponseOrders(string $message_key, $new_orders=null,$items=null,int
 
     return response()->json($return,$http_code);
 }
-function apiResponseDelegateOrders(string $message_key,$delegate_range=null  ,$deliver_carpet=null,$delivery_type,$new_orders=null,$items=null,int $code=200,int $http_code=200)
+function apiResponseDelegateOrders(string $message_key,$delegate_range=null  ,$deliver_carpet=null,$delivery_type=null,$new_orders=null,$items=null,int $code=200,int $http_code=200)
 {
     $return = [];
     $return["code"]= $code;

@@ -11,7 +11,7 @@
 
             <section id="multilingual-datatable">
 
-                <a href="{{route('user.create')}}" class="btn btn-primary " style=" width: 100px; height: 35px ; margin-right: 1377px; " >اضافه أدمن</a>
+                <a href="{{route('user.create')}}" class="btn btn-primary "  >اضافه أدمن</a>
 
                 <div class="row">
 

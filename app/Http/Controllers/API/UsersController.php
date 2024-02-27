@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App;
+use App\Enums\userTypesEnum;
 use App\Http\Controllers\Controller;
 use App\Models\AppUser;
 use App\Models\BankAccount;
@@ -1252,7 +1253,7 @@ class UsersController extends Controller
                 return responseJsonError(trans('api.data_incorrect'));
             }
 
-            $allDelegates = User::where(['user_type' => 'delegate', 'active' => 1,'available'=>1]);
+            $allDelegates = User::where(['user_type' => userTypesEnum::Delivery, 'active' => 1,'available'=>1]);
             $delegates = getDistanceHaving($allDelegates, $order->lat, $order->lng, setting()->distance_delegates);
 
             if ($delegates->isEmpty()) {

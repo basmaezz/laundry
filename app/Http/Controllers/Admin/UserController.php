@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\userTypesEnum;
 use App\Exports\customersExport;
 use App\Exports\delegatesExport;
 use App\Http\Controllers\Controller;
@@ -139,6 +140,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+
         if(Gate::denies('admins.index')){
             abort(403);
         };
@@ -525,7 +527,7 @@ class UserController extends Controller
             'city_id'=>$request->city_id,
             'region_name'=>$request->region_name,
             'avatar'=>uploadFile($request->file("avatar"), 'users_avatar'),
-            'user_type'=>'delivery',
+            'user_type'=>userTypesEnum::Delivery,
             'status'=>'active',
         ]);
 

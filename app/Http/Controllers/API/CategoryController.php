@@ -183,6 +183,7 @@ class CategoryController extends Controller
                             $categoryFormatted[]=[
                                 'id'=>$category->id,
                                 'categoryName'=> $category->$name,
+                                'price'=>$category->price,
                                 'description'=> $category->$description,
                                 'image'=>$category->image,
                             ];

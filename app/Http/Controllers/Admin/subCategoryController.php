@@ -134,6 +134,7 @@ class subCategoryController extends Controller
      */
     public function store(subCategoryRequest $request)
     {
+
         $subcategory=Subcategory::create($request->validated()+[
                 'image'=>uploadFile($request->file('image'), 'laundries/logo/'),
                 'around_clock' => $request->around_clock,

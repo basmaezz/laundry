@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\deliverTypesEnum;
+use App\Enums\userTypesEnum;
 use App\Http\Controllers\Controller;
 use App\Models\AppUser;
 use App\Models\Bank;
 use App\Models\City;
 use App\Models\Delegate;
 use App\Models\OrderTable;
-use App\Models\subCategory;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Ramsey\Uuid\Uuid;
@@ -23,21 +25,17 @@ class carDelegatesController extends Controller
      */
     public function index()
     {
-//          $data=Delegate::where('car_wash',1)->with(['appUserTrashed','appUserTrashed.citiesTrashed'])->orderBy('id', 'DESC')->first();
-//          dd($data->appUserTrashed->name);
-//         if(Gate::denies('delegates.index')){
-//             abort(403);
-//         };
+
         if(request()->ajax()) {
             $data=Delegate::where('car_wash',1)->with(['appUserTrashed','appUserTrashed.citiesTrashed'])->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('subCategoryImage', function ($row) {
-                    $image=$row->appUserTrashed->subCategory->image =='null' ? $row->appUserTrashed->subCategory->image :$row->appUserTrashed->subCategory->image;
+                ->addColumn('SubcategoryImage', function ($row) {
+                    $image=$row->appUserTrashed->Subcategory->image =='null' ? $row->appUserTrashed->Subcategory->image :$row->appUserTrashed->Subcategory->image;
                     return '<img style="width:40px; height:40px" src="'. $image .'" />';
 
-                })->addColumn('subCategory', function ($row) {
-                    return  $row->appUserTrashed->subCategory->name_ar ??'';
+                })->addColumn('Subcategory', function ($row) {
+                    return  $row->appUserTrashed->Subcategory->name_ar ??'';
                 })->addColumn('name', function ($row) {
                     return  $row->appUserTrashed->name ??'';
                 })->addColumn('city', function ($row) {
@@ -74,7 +72,7 @@ class carDelegatesController extends Controller
                             </div> ';
 
                 })
-                ->rawColumns(['subCategoryImage','name','city','mobile','percentage','created_at','monthlyOrders','action'])
+                ->rawColumns(['SubcategoryImage','name','city','mobile','percentage','created_at','monthlyOrders','action'])
                 ->make(true);
         }
         return view('dashboard.carDelegates.index');
@@ -87,10 +85,10 @@ class carDelegatesController extends Controller
      */
     public function create()
     {
-     $cities=City::all();
-      $banks=Bank::all();
-      $subCategories=subCategory::where('category_id',5)->get();
-       return view('dashboard.carDelegates.create',compact(['subCategories','cities','banks']));
+        $cities=City::all();
+        $banks=Bank::all();
+        $subCategories=Subcategory::where('category_id',5)->get();
+        return view('dashboard.carDelegates.create',compact(['subCategories','cities','banks']));
     }
 
     /**
@@ -103,18 +101,18 @@ class carDelegatesController extends Controller
     {
         $user=AppUser::create([
             'uuid'=>Uuid::uuid1()->toString(),
-            'subCategory_id'=>$request->subCategory_id,
+            'Subcategory_id'=>$request->Subcategory_id,
 //             'avatar'=>uploadFile($request->file("avatar"), 'users_avatar'),
             'name' => $request->name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'mobile' => $request->phone,
-            'user_type'=>'delivery',
+            'user_type'=>userTypesEnum::Delivery,
             'city_id'=>$request->city_id,
         ]);
         Delegate::create([
             'app_user_id'=>$user->id,
-            'delivery_type'=>3,
+            'delivery_type'=>deliverTypesEnum::carsDelivery,
             'bank_id'=>$request->bank_id,
             'iban_number'=>$request->iban_number,
             'car_wash'=>1,
@@ -131,7 +129,7 @@ class carDelegatesController extends Controller
      */
     public function show($id)
     {
-        $carDelegate=Delegate::where('car_wash',1)->with(['appUserTrashed','appUserTrashed.subCategory','appUserTrashed.citiesTrashed','bank'])->find($id);
+        $carDelegate=Delegate::where('car_wash',1)->with(['appUserTrashed','appUserTrashed.Subcategory','appUserTrashed.citiesTrashed','bank'])->find($id);
 
         $banks=Bank::all();
         return view('dashboard.carDelegates.view',compact(['carDelegate']));
@@ -145,10 +143,10 @@ class carDelegatesController extends Controller
      */
     public function edit($id)
     {
-      $carDelegate=Delegate::where('car_wash',1)->with(['appUserTrashed','appUserTrashed.subCategory','appUserTrashed.citiesTrashed','bank'])->find($id);
-      dd($carDelegate);
-      $banks=Bank::all();
-      return view('dashboard.carDelegates.edit',compact(['subCategories','cities','banks']));
+        $carDelegate=Delegate::where('car_wash',1)->with(['appUserTrashed','appUserTrashed.Subcategory','appUserTrashed.citiesTrashed','bank'])->find($id);
+        dd($carDelegate);
+        $banks=Bank::all();
+        return view('dashboard.carDelegates.edit',compact(['subCategories','cities','banks']));
     }
 
     /**
