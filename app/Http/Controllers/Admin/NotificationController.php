@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\userTypesEnum;
 use App\Http\Controllers\Controller;
 use App\Models\AppUser;
 use App\Models\City;
@@ -48,7 +49,7 @@ class NotificationController extends Controller
     public function store(Request $request)
     {
         $delegates = AppUser::where([
-            'user_type' => 'delivery',
+            'user_type' => userTypesEnum::Delivery,
         ])->get();
 
         foreach ($delegates as $user) {
@@ -72,7 +73,7 @@ class NotificationController extends Controller
     public function customerNotification()
     {
         $cities=City::all();
-        $customers=AppUser::where('user_type',"customer")->get();
+        $customers=AppUser::where('user_type',userTypesEnum::Customer)->get();
         return view('dashboard.notifications.customerNotification',compact('cities','customers'));
     }
 
@@ -82,7 +83,7 @@ class NotificationController extends Controller
         $result=[];
         switch ($request->selectCategory){
             case('all');
-                $customers = AppUser::where('user_type', 'customer')->get();
+                $customers = AppUser::where('user_type', userTypesEnum::Customer)->get();
 
                 foreach ($customers as $customer){
                     Notifications::create([
@@ -101,12 +102,12 @@ class NotificationController extends Controller
             case('customers');
                 if($request->gender!='all'){
                     foreach($request->cities as $city){
-                        $customers = AppUser::where('user_type', 'customer')->where('city_id',$city)->where('gender',$request->gender)->get();
+                        $customers = AppUser::where('user_type', userTypesEnum::Customer)->where('city_id',$city)->where('gender',$request->gender)->get();
                         array_push($result, $customers);
                     }
                 }else{
                     foreach($request->cities as $city){
-                        $customers = AppUser::where('user_type', 'customer')->where('city_id',$city)->get();
+                        $customers = AppUser::where('user_type', userTypesEnum::Customer)->where('city_id',$city)->get();
                         array_push($result, $customers);
                     }
                 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\orderStatusEnum;
 use App\Exports\delegateOrdersExport;
 use App\Exports\ordersExport;
 use App\Http\Controllers\API\NotificationController;
@@ -21,17 +22,7 @@ use Yajra\DataTables\DataTables;
 
 class OrderController extends Controller
 {
-    const WaitingForDelivery            = 1;
-    const AcceptedByDelivery            = 2;
-    //const DeliveryOnWay                 = 3;
-    const WayToLaundry                  = 3;
-    const DeliveredToLaundry            = 4;
-    const ClothesReadyForDelivery       = 5;
-    const WaitingForDeliveryToReceiveOrder = 6;
-    const AcceptedByDeliveryToYou       = 7;
-    //const DeliveryOnTheWayToYou         = 9;
-    const Completed                     = 8;
-    const Cancel                        = 10;
+
     /**
      * Display a listing of the resource.
      *
@@ -161,7 +152,7 @@ class OrderController extends Controller
     public function  pendingDeliveryAcceptance()
     {
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::WaitingForDelivery)->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where("status_id",orderStatusEnum::WaitingForDelivery)->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -176,8 +167,8 @@ class OrderController extends Controller
                     return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
 
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDelivery)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
+                    $current = $row->histories->where('status_id',orderStatusEnum::WaitingForDelivery)->first();
+                    $next = $row->histories->where('status_id',orderStatusEnum::AcceptedByDelivery)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -235,7 +226,7 @@ class OrderController extends Controller
     public function  DeliveryOnWay(){
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::AcceptedByDelivery)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where("status_id",orderStatusEnum::AcceptedByDelivery)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -252,8 +243,8 @@ class OrderController extends Controller
                     return $row->urgent=='1'?'<button type="button" class="btn btn-outline-danger" disabled>مستعجل</button>':'<button type="button" class="btn btn-outline-primary" disabled>عادى</button>';
 
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDelivery)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WayToLaundry)->first();
+                    $current = $row->histories->where('status_id',orderStatusEnum::AcceptedByDelivery)->first();
+                    $next = $row->histories->where('status_id',orderStatusEnum::WayToLaundry)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -315,7 +306,7 @@ class OrderController extends Controller
     public function  WayToLaundry(){
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::WayToLaundry)->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where("status_id",orderStatusEnum::WayToLaundry)->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -335,8 +326,8 @@ class OrderController extends Controller
                 })->addColumn('deliveryType',function ($row){
                     return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WayToLaundry)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::DeliveredToLaundry)->first();
+                    $current = $row->histories->where('status_id',orderStatusEnum::WayToLaundry)->first();
+                    $next = $row->histories->where('status_id',orderStatusEnum::DeliveredToLaundry)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -393,7 +384,7 @@ class OrderController extends Controller
     public function  DeliveredToLaundry(){
 
         if(request()->ajax()) {
-            $data = OrderTable::with(['histories','delegateTrashed.appUserTrashed'])->where("status_id",self::DeliveredToLaundry)->orderBy('id', 'DESC')->get();
+            $data = OrderTable::with(['histories','delegateTrashed.appUserTrashed'])->where("status_id",orderStatusEnum::DeliveredToLaundry)->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -407,8 +398,8 @@ class OrderController extends Controller
                 })->addColumn('delegate_id',function ($row){
                     return $row->delegateTrashed->appUserTrashed->id ??'';
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::DeliveredToLaundry)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::ClothesReadyForDelivery)->first();
+                    $current = $row->histories->where('status_id',orderStatusEnum::DeliveredToLaundry)->first();
+                    $next = $row->histories->where('status_id',orderStatusEnum::ClothesReadyForDelivery)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -470,7 +461,7 @@ class OrderController extends Controller
 
         if(request()->ajax()) {
             $data = OrderTable::with(['subCategoriesTrashed','userTrashed','address','delegateTrashed.appUserTrashed'])
-                ->where("status_id",self::ClothesReadyForDelivery)
+                ->where("status_id",orderStatusEnum::ClothesReadyForDelivery)
                 ->orderBy('id', 'DESC')
                 ->get();
             return Datatables::of($data)
@@ -486,8 +477,8 @@ class OrderController extends Controller
                 })->addColumn('delegate_id',function ($row){
                     return $row->delegateTrashed->appUserTrashed->id ??'';
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::ClothesReadyForDelivery)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDeliveryToYou)->first();
+                    $current = $row->histories->where('status_id',orderStatusEnum::ClothesReadyForDelivery)->first();
+                    $next = $row->histories->where('status_id',orderStatusEnum::AcceptedByDeliveryToYou)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -549,7 +540,7 @@ class OrderController extends Controller
     public function  WaitingForDeliveryToReceiveOrder(){
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::WaitingForDeliveryToReceiveOrder)->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where("status_id",orderStatusEnum::WaitingForDeliveryToReceiveOrder)->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -561,8 +552,8 @@ class OrderController extends Controller
                 })->addColumn('deliveryType',function ($row){
                     return $row->delivery_type=='1' ? 'استلام بواسطه العميل':'استلام بواسطه المندوب';
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::WaitingForDeliveryToReceiveOrder)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDeliveryToYou)->first();
+                    $current = $row->histories->where('status_id',orderStatusEnum::WaitingForDeliveryToReceiveOrder)->first();
+                    $next = $row->histories->where('status_id',orderStatusEnum::AcceptedByDeliveryToYou)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -622,7 +613,7 @@ class OrderController extends Controller
     public function  DeliveryOnTheWayToYou(){
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where("status_id",orderStatusEnum::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -636,8 +627,8 @@ class OrderController extends Controller
                 })->addColumn('delegate',function ($row){
                     return $row->delegateTrashed->appUserTrashed->name ??'';
                 })->addColumn('duration',function ($row){
-                    $current = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::AcceptedByDeliveryToYou)->first();
-                    $next = $row->histories->where('status_id',\App\Http\Controllers\Admin\OrderController::Completed)->first();
+                    $current = $row->histories->where('status_id',orderStatusEnum::AcceptedByDeliveryToYou)->first();
+                    $next = $row->histories->where('status_id',orderStatusEnum::Completed)->first();
                     if($next){
                         return  minutesToHumanReadable($current->spend_time);
                     }else{
@@ -697,7 +688,7 @@ class OrderController extends Controller
     public function  completed(){
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::Completed)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where("status_id",orderStatusEnum::Completed)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -746,7 +737,7 @@ class OrderController extends Controller
     public function  canceled(){
 
         if(request()->ajax()) {
-            $data = OrderTable::where("status_id",self::Cancel)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where("status_id",orderStatusEnum::Cancel)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
             return   Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('category',function ($row){
@@ -921,7 +912,7 @@ class OrderController extends Controller
     public function  pendingCarpetDeliveryAcceptance()
     {
         if(request()->ajax()) {
-            $data = OrderTable::where('order_type',3)->where("status_id",self::WaitingForDelivery)->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where('order_type',3)->where("status_id",orderStatusEnum::WaitingForDelivery)->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -998,7 +989,7 @@ class OrderController extends Controller
     public function  carpetDeliveryOnWay()
     {
         if(request()->ajax()) {
-            $data = OrderTable::where('order_type',3)->where("status_id",self::AcceptedByDelivery)->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where('order_type',3)->where("status_id",orderStatusEnum::AcceptedByDelivery)->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -1080,7 +1071,7 @@ class OrderController extends Controller
     public function  carpetDeliveryWayToLaundry()
     {
         if(request()->ajax()) {
-            $data = OrderTable::with(['histories','delegateTrashed.appUserTrashed'])->where('order_type',3)->where("status_id",self::WayToLaundry)->orderBy('id', 'DESC')->get();
+            $data = OrderTable::with(['histories','delegateTrashed.appUserTrashed'])->where('order_type',3)->where("status_id",orderStatusEnum::WayToLaundry)->orderBy('id', 'DESC')->get();
 
 
             return   Datatables::of($data)
@@ -1158,7 +1149,7 @@ class OrderController extends Controller
     public function  carpetsDeliveredToLaundry()
     {
         if(request()->ajax()) {
-            $data = OrderTable::where('order_type',3)->where('order_type',3)->where("status_id",self::DeliveredToLaundry)->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where('order_type',3)->where('order_type',3)->where("status_id",orderStatusEnum::DeliveredToLaundry)->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -1238,7 +1229,7 @@ class OrderController extends Controller
     public function  WaitingForCarpetDeliveryToReceiveOrder()
     {
         if(request()->ajax()) {
-            $data = OrderTable::where('order_type',3)->where("status_id",self::ClothesReadyForDelivery)->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where('order_type',3)->where("status_id",orderStatusEnum::ClothesReadyForDelivery)->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -1317,7 +1308,7 @@ class OrderController extends Controller
     {
 
         if(request()->ajax()) {
-            $data = OrderTable::where('order_type',3)->where("status_id",self::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where('order_type',3)->where("status_id",orderStatusEnum::AcceptedByDeliveryToYou)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -1388,9 +1379,9 @@ class OrderController extends Controller
         return  view('dashboard.Orders.carpetDeliveryOnTheWayToYou');
     }
     public function  carpetOrdersCompleted(){
-        $data = OrderTable::where('order_type',3)->where("status_id",self::Completed)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
+        $data = OrderTable::where('order_type',3)->where("status_id",orderStatusEnum::Completed)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
         if(request()->ajax()) {
-            $data = OrderTable::where('order_type',3)->where("status_id",self::Completed)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
+            $data = OrderTable::where('order_type',3)->where("status_id",orderStatusEnum::Completed)->with('delegateTrashed.appUserTrashed')->orderBy('id', 'DESC')->get();
 
             return   Datatables::of($data)
                 ->addIndexColumn()
@@ -1467,7 +1458,7 @@ class OrderController extends Controller
         $settings = SiteSetting::first();
         $distanceDelegate = $settings->distance_delegates ?? config('setting.distance.in_area');
         $order->update([
-            'status_id' => self::WaitingForDeliveryToReceiveOrder,
+            'status_id' => orderStatusEnum::WaitingForDeliveryToReceiveOrder,
             'status' => 'تم الأنتهاء من غسيل السجاد',
             'delivery_id'=>null
         ]);

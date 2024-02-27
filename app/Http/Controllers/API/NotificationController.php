@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Enums\userTypesEnum;
 use App\Models\Notifications;
 use App\Models\OrderTable;
 use GuzzleHttp\Client;
@@ -24,7 +25,7 @@ class NotificationController extends Controller
             'body' => $body,
             'icon'=> 'ic_launcher',
             'sound' => $status_id==1? 'new_order.wav' : 'general.wav',
-            'android_channel_id' => $user->user_type == 'delivery'? 'delivery_channel' : 'user_channel',
+            'android_channel_id' => $user->user_type == userTypesEnum::Delivery? 'delivery_channel' : 'user_channel',
             'badge' => 1,
         ];
         $extra = [
@@ -33,7 +34,7 @@ class NotificationController extends Controller
             'is_admin' => $is_admin,
             'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
             'sound' => $status_id==1? 'new_order.wav' : 'general.wav',
-            'android_channel_id' => $user->user_type == 'delivery'? 'delivery_channel' : 'user_channel',
+            'android_channel_id' => $user->user_type == userTypesEnum::Delivery? 'delivery_channel' : 'user_channel',
             'priority' => 'high',
             'badge' => 1,
             'default_sound' => true,

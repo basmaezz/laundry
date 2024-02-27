@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 use App;
+use App\Enums\userTypesEnum;
 use App\Http\Controllers\ApiController;
 use App\Models\AppUser;
 use App\Models\Delegate;
@@ -211,7 +212,7 @@ class AuthController extends ApiController
             $user->lat = $request->get("lat");
             $user->lng = $request->get("lng");
             $user->avatar = uploadFile($request->file("personal")['image'], 'users_avatar');
-            $user->user_type = 'delivery';
+            $user->user_type = userTypesEnum::Delivery;
             $user->status = 'deactivated';
             $user->save();
 
@@ -264,7 +265,7 @@ class AuthController extends ApiController
                 if ($user->status == 'blocked'){
                     return  apiResponse('auth.activation_administration',null,400,400);                }
                 if($request->get('type')=='delivery' ){
-                    if ($user->user_type != 'delivery' ){
+                    if ($user->user_type != userTypesEnum::Delivery ){
                         return  apiResponse('auth.incorrect',null,400,400);                    }
                 }
                 $user->last_activity = Carbon::now();

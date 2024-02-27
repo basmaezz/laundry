@@ -83,9 +83,12 @@ class carServicesController extends Controller
 //            'required'=>'اجبارى',
 //        ]);
 
-        carService::create($request->all()+[
-            'image'=>uploadFile($request->file("image"), 'laundryServices')
-            ]);
+        $data = $request->all();
+        $data['image'] = uploadFile($request->file('image'),'laundryServices');
+
+        carService::create($data);
+
+
         return  redirect()->route('carServices.index',$request->subCategory_id)->with('success', 'تمت الاضافه');
     }
 

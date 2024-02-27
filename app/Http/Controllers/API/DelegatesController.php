@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
+use App\Enums\userTypesEnum;
 use App\Http\Controllers\Controller;
 use App\Models\AppUser;
 use App\Models\Delegate;
@@ -247,7 +248,7 @@ class DelegatesController extends Controller
 
         $users = AppUser::where([
             'status' => 'active',
-            'user_type' => 'delivery',
+            'user_type' => userTypesEnum::Delivery,
         ])->get();
 
         foreach ($users as $user) {

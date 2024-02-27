@@ -25,8 +25,9 @@
                             <h4 class="card-title">اضافه منتج جديد</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{route('carServices.store')}}" enctype="multipart/form-data">
-                                @csrf
+
+                                <form action="{{route('carServices.store')}}" method="post" enctype="multipart/form-data" >
+                                    @csrf
 
                                 <input type="hidden"  name="subCategory_id" class="form-control"value="{{$carLaundry->id}}">
 
@@ -83,22 +84,16 @@
                                         @enderror
                                     </div>
                                 </div>
-{{--                                <div class="form-group row ">--}}
-{{--                                    <label  class="col-md-3 form-control-label" for="hf-email" for="company">ربح المغسله  </label>--}}
-{{--                                    <div class="col-md-9">--}}
-{{--                                        <input type="text" name="laundry_profit" class="form-control" id="laundry_profit"value="{{ Request::old('laundry_profit') }}" placeholder="ربح المغسله  " >--}}
-{{--                                        @error('price')--}}
-{{--                                        <div class="text-sm text-red-600">{{ $message }}</div>--}}
-{{--                                        @enderror--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-                                <div class="form-group row ">
-                                    <label  class="col-md-3 form-control-label"  for="image">صوره   </label>
-                                    <div class="col-md-9">
-                                        <input type="file" name="image" class="form-control" id="image" >
 
+
+
+                                    <div class="form-group">
+                                        <label for="customFile1">ًصوره  </label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile1" name="image" required />
+                                            <label class="custom-file-label" for="customFile1">Choose profile pic</label>
+                                        </div>
                                     </div>
-                                </div>
 
                                 <div class="row">
                                     <div class="col-12">

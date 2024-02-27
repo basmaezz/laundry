@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Enums\userTypesEnum;
 use App\Models\AppUser;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -14,7 +15,7 @@ class customersExport implements FromCollection, WithHeadings, WithMapping
     */
     public function collection()
     {
-        return AppUser::where('user_type',"customer")->with('citiesTrashed')->orderBy('id', 'DESC')->get();
+        return AppUser::where('user_type',userTypesEnum::Customer)->with('citiesTrashed')->orderBy('id', 'DESC')->get();
 
 //        return redirect()->back();
     }
