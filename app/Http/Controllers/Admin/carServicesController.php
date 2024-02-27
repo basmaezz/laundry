@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\carpetLaundry;
 use App\Models\carService;
-use App\Models\subCategory;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -20,7 +20,7 @@ class carServicesController extends Controller
     {
 
         if(request()->ajax()) {
-            $data=carService::where('subCategory_id',$id)->orderBy('id','desc')->get();
+            $data=carService::where('Subcategory_id',$id)->orderBy('id','desc')->get();
 
             return   Datatables::of($data)
                 ->addColumn('action', function ($row) {
@@ -59,7 +59,8 @@ class carServicesController extends Controller
      */
     public function create($id)
     {
-        $carLaundry=subCategory::find($id);
+        $carLaundry=Subcategory::find($id);
+
         return view('dashboard.carServices.create',compact('carLaundry'));
     }
 
@@ -73,7 +74,7 @@ class carServicesController extends Controller
     {
 //        dd($request->all());
 //        $request->validate([
-//            'subCategory_id'=>'integer',
+//            'Subcategory_id'=>'integer',
 //            'category_en'=>'required',
 //            'category_ar'=>'required',
 //            'desc_ar'=>'required',
@@ -89,7 +90,7 @@ class carServicesController extends Controller
         carService::create($data);
 
 
-        return  redirect()->route('carServices.index',$request->subCategory_id)->with('success', 'تمت الاضافه');
+        return  redirect()->route('carServices.index',$request->Subcategory_id)->with('success', 'تمت الاضافه');
     }
 
     /**
