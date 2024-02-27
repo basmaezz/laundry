@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Enums\orderStatusEnum;
-use App\Enums\userTypesEnum;
 use App\Models\AppUser;
 use App\Models\carpetCategory;
 use App\Models\carService;
 use App\Models\CouponShopCart;
+use App\Models\Delegate;
+use App\Models\DeliveryHistory;
 use App\Models\OrderDetails;
 use App\Models\OrderTable;
 use App\Models\Payment;
@@ -19,12 +19,24 @@ use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class OrderController extends Controller
 {
+    const WaitingForDelivery            = 1;
+    const AcceptedByDelivery            = 2;
+    //const DeliveryOnWay                 = 3;
+    const WayToLaundry                  = 3;
+    const DeliveredToLaundry            = 4;
+    const ClothesReadyForDelivery       = 5;
+    const WaitingForDeliveryToReceiveOrder = 6;
+    const AcceptedByDeliveryToYou       = 7;
+    //const DeliveryOnTheWayToYou         = 9;
+    const Completed                     = 8;
+    const Cancel                        = 10;
 
     public function ordersFees(Request $request)
     {
@@ -41,11 +53,21 @@ class OrderController extends Controller
                 'delivery_fees' => $laundry->price,
                 'vat' => 0,
             ];
+//                        if ($distance <= 10) {
+//                            $data['delivery_fees'] = 10;
+//                            $message = trans('api.Values_After_Calc_Vat_And_Fees');
+//                        } elseif ($distance > 10 || $distance <= 20) {
+//                            $data['delivery_fees'] = 20;
+//                            $message = trans('api.Values_After_Calc_Vat_And_Fees');
+//                        } else {
+//                            $message = 'out of distance';
+//                        }
 
             if ($distance != '') {
                 $data['delivery_fees'] = $laundry->price;
                 $message = trans('api.Values_After_Calc_Vat_And_Fees');
             }
+//            return apiResponse($message, $data);
             return apiResponse2( $data);
         }
         return apiResponse(trans('api.error_validation'), $items = null, 500, 500);
@@ -60,6 +82,11 @@ class OrderController extends Controller
         $app_user_id = auth('app_users_api')->user()->id;
         $orderData = json_decode($request->getContent(), true);
         $orderType=$orderData['order_type'];
+
+        // $_totalOrders = OrderTable::where('user_id', $app_user_id)->where("status_id", '<', self::Completed)->count();
+        // if ($_totalOrders >= intval(config('setting.max_order', 3))) {
+        //     return apiResponseCouponError('api.You reached the maximum number or request', 400, 400);
+        // }
 
         $discount_value = 0;
         if ($request->has('coupon') && !empty($request->get('coupon'))) {
@@ -91,7 +118,7 @@ class OrderController extends Controller
                 'order_type'=>$orderType,
                 'note'           => $request->get('note'),
                 'status'         => 'انتظار المندوب',
-                'status_id'      => orderStatusEnum::WaitingForDelivery,
+                'status_id'      => self::WaitingForDelivery,
                 'total_price'    => 0,
                 'discount_value' => $discount_value,
                 'delivery_fees'  => $laundry->price,
@@ -120,7 +147,7 @@ class OrderController extends Controller
                 'count_products' => count($orderData['items']),
                 'note'           => $request->get('note'),
                 'status'         => 'انتظار المندوب',
-                'status_id'      => orderStatusEnum::WaitingForDelivery,
+                'status_id'      => self::WaitingForDelivery,
                 'total_price'    => 0,
                 'delivery_fees'  => $laundry->price,
                 'discount'       => 0,
@@ -143,7 +170,7 @@ class OrderController extends Controller
                 'count_products' => count($orderData['items']),
                 'note'           => $request->get('note'),
                 'status'         => 'انتظار المندوب',
-                'status_id'      => orderStatusEnum::WaitingForDelivery,
+                'status_id'      => self::WaitingForDelivery,
                 'total_price'    => 0,
                 'delivery_fees'  => 0,
                 'discount'       => 0,
@@ -319,7 +346,7 @@ class OrderController extends Controller
         if($orderType==1){
             $delegates = AppUser::where([
                 'status' => 'active',
-                'user_type' => userTypesEnum::Delivery,
+                'user_type' => 'delivery',
                 'available' => '1',
             ])->whereRaw('( 6371 * acos( cos( radians(' . $customer->lat . ') ) * cos( radians( lat ) )
            * cos( radians( lng ) - radians(' . $customer->lng . ') ) + sin( radians(' . $customer->lat . ') )
@@ -328,7 +355,7 @@ class OrderController extends Controller
             if (count($delegates) == 0) {
                 $delegates = AppUser::where([
                     'status' => 'active',
-                    'user_type' => userTypesEnum::Delivery,
+                    'user_type' => 'delivery',
                     'available' => '1',
                 ])->get();
             }
@@ -454,10 +481,16 @@ class OrderController extends Controller
         $data = [];
         if (isset($orders)) {
             foreach ($orders as $order) {
-                $data[] = orderStatusEnum::orderObject($order);
+                $data[] = self::orderObject($order);
             }
-
-            $new_order = collect($data)->where('status_id', orderStatusEnum::WaitingForDelivery)->count();
+            /* weird code !!!!!
+             * if ($order->status_id == 1 || $order->status_id == 2 || $order->status_id == 3 || $order->status_id == 4) {
+                $count = OrderTable::where('user_id', $app_user_id)->count();
+            } else {
+                $count = 0;
+                $orders->delete();
+            }*/
+            $new_order = collect($data)->where('status_id', self::WaitingForDelivery)->count();
             return apiResponseOrders('api.My_Order', $new_order, $data);
         } else {
             return apiResponseOrders('api.incorrect_data');
@@ -493,7 +526,7 @@ class OrderController extends Controller
         if ($order->user_id != $app_user_id && $order->delivery_id != $app_user_id) {
             return apiResponseOrders('api.incorrect_data');
         }
-        if ($request->get('status_id') == orderStatusEnum::Cancel && $order->status_id != orderStatusEnum::WaitingForDelivery) {
+        if ($request->get('status_id') == self::Cancel && $order->status_id != self::WaitingForDelivery) {
             return apiResponseOrders('api.order_no_allowed_canceled');
         }
 
@@ -531,10 +564,10 @@ class OrderController extends Controller
             }
 
 
-            if ($request->get('status_id') == orderStatusEnum::Cancel) {
+            if ($request->get('status_id') == self::Cancel) {
                 $users = AppUser::where([
                     'status' => 'active',
-                    'user_type' => userTypesEnum::Delivery,
+                    'user_type' => 'delivery',
                     'available' => '0'
                 ])->get();
                 foreach ($users as $user) {
@@ -546,7 +579,7 @@ class OrderController extends Controller
             }
 
 
-            if ($request->get('status_id') == orderStatusEnum::WaitingForDeliveryToReceiveOrder) {
+            if ($request->get('status_id') == self::WaitingForDeliveryToReceiveOrder) {
                 $order->delivery_id = null;
                 $order->save();
 
@@ -555,7 +588,7 @@ class OrderController extends Controller
 
                 $delegates = AppUser::where([
                     'status' => 'active',
-                    'user_type' => userTypesEnum::Delivery,
+                    'user_type' => 'delivery',
                     'available' => '1',
                 ])->whereRaw('( 6371 * acos( cos( radians(' . $order->subCategoriesTrashed->lat . ') ) * cos( radians( lat ) )
                    * cos( radians( lng ) - radians(' . $order->subCategoriesTrashed->lng . ') ) + sin( radians(' . $order->subCategoriesTrashed->lat . ') )
@@ -563,7 +596,7 @@ class OrderController extends Controller
                 if (count($delegates) == 0) {
                     $delegates = AppUser::where([
                         'status' => 'active',
-                        'user_type' => userTypesEnum::Delivery,
+                        'user_type' => 'delivery',
                         'available' => '1'
                     ])->get();
                 }
@@ -576,18 +609,18 @@ class OrderController extends Controller
                     );
                 }
             }
-            if ($request->get("status_id") == orderStatusEnum::Completed) {
+            if ($request->get("status_id") == self::Completed) {
                 $order->userTrashed->point++;
                 $order->userTrashed->save();
 
-                if($order->status_id = orderStatusEnum::DeliveredToLaundry )
+                if($order->status_id = self::DeliveredToLaundry )
                 {
                     if($order->delegateTrashed->request_employment=='1')
                     {
                         $order->delegateTrashed->appUserTrashed->wallet+=floatval($order->subCategoriesTrashed->price);
                     }
                 }
-                if($order->status_id = orderStatusEnum::Completed)
+                if($order->status_id = self::Completed)
                 {
                     if($order->delegateTrashed->request_employment=='1')
                     {
@@ -627,12 +660,12 @@ class OrderController extends Controller
 
         $app_user_id = auth('app_users_api')->user()->id;
         $order = OrderTable::with('userTrashed')->where('user_id', $app_user_id)
-            ->where('status_id', orderStatusEnum::ClothesReadyForDelivery)
+            ->where('status_id', self::ClothesReadyForDelivery)
             ->where('id', $request->get('order_id'))
             ->first();
 
         if (isset($order)) {
-            $status_id = $request->get('delivery_type') == 1 ? orderStatusEnum::Completed : orderStatusEnum::WaitingForDeliveryToReceiveOrder;
+            $status_id = $request->get('delivery_type') == 1 ? self::Completed : self::WaitingForDeliveryToReceiveOrder;
             $order->delivery_type = $request->get('delivery_type');
             $order->status_id = $status_id;
             $order->status    = getStatusName($status_id);
@@ -667,7 +700,7 @@ class OrderController extends Controller
 
                 $delegates = AppUser::where([
                     'status' => 'active',
-                    'user_type' => userTypesEnum::Delivery,
+                    'user_type' => 'delivery',
                     'available' => '1',
                 ])->whereRaw('( 6371 * acos( cos( radians(' . $order->subCategoriesTrashed->lat . ') ) * cos( radians( lat ) )
                    * cos( radians( lng ) - radians(' . $order->subCategoriesTrashed->lng . ') ) + sin( radians(' . $order->subCategoriesTrashed->lat . ') )
@@ -675,7 +708,7 @@ class OrderController extends Controller
                 if (count($delegates) == 0) {
                     $delegates = AppUser::where([
                         'status' => 'active',
-                        'user_type' => userTypesEnum::Delivery,
+                        'user_type' => 'delivery',
                         'available' => '1'
                     ])->get();
                 }
@@ -713,7 +746,7 @@ class OrderController extends Controller
 
 
         if (isset($order)) {
-            $data = orderStatusEnum::orderObject($order);
+            $data = self::orderObject($order);
             return apiResponseOrders('api.status_update',  $data);
         } else {
             return apiResponseOrders('api.incorrect_data');
@@ -728,11 +761,11 @@ class OrderController extends Controller
     public function getActiveOrder()
     {
         $order = OrderTable::where('user_id', auth('app_users_api')->user()->id)
-            ->where('status_id', '<>', orderStatusEnum::Completed)
+            ->where('status_id', '<>', self::Completed)
             ->with(['user', 'histories', 'subCategoriesTrashed', 'orderDetails', 'orderDetails.productTrashed', 'orderDetails.productService', 'orderDetails.categoryItem'])->latest()->first();
 
         if (isset($order)) {
-            $data = orderStatusEnum::orderObject($order);
+            $data = self::orderObject($order);
             return apiResponseOrders('api.My_Order', count($data), $data);
         } else {
             return apiResponseOrders('api.incorrect_data');
@@ -745,7 +778,7 @@ class OrderController extends Controller
         $name = 'name_' . App::getLocale();
         $app_user = auth('app_users_api')->user();
         $status_histories = [];
-
+//dd($order->histories);
         foreach ($order->histories as $history) {
 
             $status_histories[] = [
@@ -825,9 +858,11 @@ class OrderController extends Controller
                 "building" => $order->address->building ?? '',
                 'lat' => $order->address->lat ?? '',
                 'lng' => $order->address->lng ?? '',
+                //                'image'=>'i.jpg',
                 'image_url' => $order->address->image ? asset('assets/uploads/users_image/' . $order->address->image) : null,
             ],
             'user' => [
+                //'me' => $app_user->id,
                 "user_name" => $order->userTrashed->name,
                 "user_image" => $order->userTrashed->image ? asset('assets/uploads/users_avatar/' . $order->userTrashed->image) : null,
                 "user_id" => $order->userTrashed->id,
@@ -840,6 +875,9 @@ class OrderController extends Controller
                 'address_description' => $order->userTrashed->address_description,
                 'home_image' => $order->userTrashed->home_image ? asset('assets/uploads/home_image/' . $order->userTrashed->home_image) : null,
             ],
+
+
+
             'services' => $order_details,
             'order_id' => $order->id,
             'order_type' => $order->order_type,
