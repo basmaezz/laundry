@@ -185,7 +185,7 @@ class CategoryController extends Controller
                                 'categoryName'=> $category->$name,
                                 'price'=>$category->price,
                                 'description'=> $category->$description,
-                                'image'=>$category->image,
+                                'image'=>$category->image?asset('assets/uploads/laundryServices/'.$category->image):null,
                             ];
                         }
                     }else{
