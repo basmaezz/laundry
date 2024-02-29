@@ -48,8 +48,8 @@ class DelegatesController extends Controller
                     OrderController::WaitingForDeliveryToReceiveOrder
                 ])->
                 where('order_type',5)
-                ->whereNull('delivery_id')
-                ->whereNotIn('id',$reject_order_ids->toArray());
+                    ->whereNull('delivery_id')
+                    ->whereNotIn('id',$reject_order_ids->toArray());
                 //TODO :: whereNotExist delivery_rejection
             }else{
                 $reject_order_ids = DeliveryRejection::where('user_id', $app_user_id)->get()->pluck('order_id');
@@ -66,22 +66,27 @@ class DelegatesController extends Controller
 
         }
         if($request->get('type') == 'my_assigned'){
-            if($delivery_type==3){
-                $orders = $orders->where('order_type',5)->whereIn('status_id',[
-                    OrderController::AcceptedByDelivery,
-                    OrderController::WayToLaundry,
-                    OrderController::AcceptedByDeliveryToYou,
-                ])->where('delivery_id', $app_user_id);
-            }else{
-                $orders = $orders->whereIn('status_id',[
-                    OrderController::AcceptedByDelivery,
-                    OrderController::WayToLaundry,
-                    OrderController::AcceptedByDeliveryToYou,
-                ])->where('delivery_id', $app_user_id);
-            }
+
+            $orders=$orders->where('order_type',5)->where('delivery_id', $app_user_id);
+
+
         }
         $orders = $orders->latest()->get();
         $data = [];
+        if($delivery_type==3){
+            foreach ($orders as $order){
+                if($order->status_id == OrderController::AcceptedByDelivery){
+                    $lat = $order->userTrashed->lat;
+                    $lng = $order->userTrashed->lng;
+                }else{
+                    $lat = $order->subCategoriesTrashed->lat;
+                    $lng = $order->subCategoriesTrashed->lng;
+                }
+                if(distance($user->lat, $user->lng, $lat, $lng) <= $delegate_range) {
+                    $data[] = OrderController::orderObject($order);
+                }
+            }
+        }
         foreach ($orders as $order){
             if($order->status_id == OrderController::WaitingForDelivery){
                 $lat = $order->userTrashed->lat;
@@ -238,7 +243,7 @@ class DelegatesController extends Controller
             $data[] = $order;
         }
 //        $currentPage = $histories->currentPage();
-            return apiResponseOrders('api.My_Order', count($data), $data);
+        return apiResponseOrders('api.My_Order', count($data), $data);
     }
 
     public function accept_order(Request $request,$order_id){
