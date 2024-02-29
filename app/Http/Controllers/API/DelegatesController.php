@@ -66,11 +66,20 @@ class DelegatesController extends Controller
 
         }
         if($request->get('type') == 'my_assigned'){
-            $orders = $orders->whereIn('status_id',[
-                OrderController::AcceptedByDelivery,
-                OrderController::WayToLaundry,
-                OrderController::AcceptedByDeliveryToYou,
-            ])->where('delivery_id', $app_user_id);
+            if($delivery_type==3){
+                $orders = $orders->whereIn('status_id',[
+                    OrderController::AcceptedByDelivery,
+                    OrderController::WayToLaundry,
+                    OrderController::AcceptedByDeliveryToYou,
+                ])->where('order_type',5)->where('delivery_id', $app_user_id);
+            }else{
+                $orders = $orders->whereIn('status_id',[
+                    OrderController::AcceptedByDelivery,
+                    OrderController::WayToLaundry,
+                    OrderController::AcceptedByDeliveryToYou,
+                ])->where('delivery_id', $app_user_id);
+            }
+
         }
         $orders = $orders->latest()->get();
         $data = [];
