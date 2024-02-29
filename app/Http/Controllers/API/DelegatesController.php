@@ -39,16 +39,31 @@ class DelegatesController extends Controller
 
         $orders = OrderTable::query();
         if($request->get('type') == 'unassigned'){
-            $reject_order_ids = DeliveryRejection::where('user_id', $app_user_id)->get()->pluck('order_id');
+            if($delivery_type==3){
+                $reject_order_ids = DeliveryRejection::where('user_id', $app_user_id)->get()->pluck('order_id');
 
-            $orders = $orders->
-            whereIn('status_id',[
-                OrderController::WaitingForDelivery,
-                OrderController::WaitingForDeliveryToReceiveOrder
-            ])->
-            whereNull('delivery_id')->
-            whereNotIn('id',$reject_order_ids->toArray());
-            //TODO :: whereNotExist delivery_rejection
+                $orders = $orders->
+                whereIn('status_id',[
+                    OrderController::WaitingForDelivery,
+                    OrderController::WaitingForDeliveryToReceiveOrder
+                ])->
+                where('order_type',5)
+                ->whereNull('delivery_id')
+                ->whereNotIn('id',$reject_order_ids->toArray());
+                //TODO :: whereNotExist delivery_rejection
+            }else{
+                $reject_order_ids = DeliveryRejection::where('user_id', $app_user_id)->get()->pluck('order_id');
+
+                $orders = $orders->
+                whereIn('status_id',[
+                    OrderController::WaitingForDelivery,
+                    OrderController::WaitingForDeliveryToReceiveOrder
+                ])->
+                whereNull('delivery_id')->
+                whereNotIn('id',$reject_order_ids->toArray());
+                //TODO :: whereNotExist delivery_rejection
+            }
+
         }
         if($request->get('type') == 'my_assigned'){
             $orders = $orders->whereIn('status_id',[
