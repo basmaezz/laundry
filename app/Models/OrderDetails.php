@@ -34,4 +34,8 @@ class OrderDetails extends Model
     {
         return $this->belongsTo(carpetCategory::class,'carpet_category_id','id')->withTrashed();
     }
+    public function carService()
+    {
+        return $this->belongsTo(carService::class ,'car_service_id','id' );
+    }
 }

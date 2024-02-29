@@ -802,13 +802,23 @@ class OrderController extends Controller
                 ];
             }
 
+        }elseif ($order->order_type==5){
+            foreach ($order->orderDetails as $detail) {
+                $carService = 'name_' . App::getLocale();
+                $order_details[] = [
+                    'category_name' => $detail->carService->$carService??'',
+                    'count' => $detail->quantity,
+                    'price' => $detail->full_price,
+                ];
+            }
+
         }else{
             foreach ($order->orderDetails as $detail) {
                 $order_details[] = [
                     'service_id' => $detail->productService->id ?? 0,
                     'service_name' => $detail->productService->services ?? '',
-                    'product_name' => $detail->productTrashed->$name,
-                    'product_image' => $detail->productTrashed->image,
+                    'product_name' => $detail->productTrashed->$name??'',
+                    'product_image' => $detail->productTrashed->image??'',
                     'category_name' => $detail->categoryItem->$name ?? '',
                     'urgent'=>$detail->urgent=='1'?'urgent':'normal',
                     'count' => $detail->quantity,

@@ -2,9 +2,7 @@
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
-
-final class orderStatusEnum extends Enum
+final class orderStatusEnum
 {
     const WaitingForDelivery            = 1;
     const AcceptedByDelivery            = 2;
