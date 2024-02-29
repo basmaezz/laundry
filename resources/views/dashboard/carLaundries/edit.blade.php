@@ -74,33 +74,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-group" >
-                                    <div>
-                                        <label for="country">فتره التشغيل  </label> <br>
-                                        <input type="radio"  name="around_clock" value="1" onchange="hideDurations()"{{$carLaundry->around_clock ==1 ? 'checked' :''}} >
-                                        <label for="age1">طوال اليوم</label><br>
-                                        <input type="radio" name="around_clock" value="0"  id="specificDuration" {{$carLaundry->around_clock ==0 ? 'checked' :''}}>
-                                        <label for="age2"> فتره محدده </label><br>
-                                    </div>
-                                </div>
-                                @if($carLaundry->around_clock =='0')
-                                    <div class="form-group" id="durations" >
-                                        <label for="country">بدايه الفتره </label>
-                                        <input type="time" name="clock_at" value="{{$carLaundry->clock_at}}" />
-
-                                        <label for="country">نهايه الفتره </label>
-                                        <input type="time" name="clock_end" value="{{$carLaundry->clock_end}}" />
-                                    </div>
-                                @elseif($carLaundry->around_clock =='1')
-                                    <div class="form-group" id="durations" >
-                                        <label for="country">بدايه الفتره </label>
-                                        <input type="time" name="clock_at" value="22:00" />
-
-                                        <label for="country">نهايه الفتره </label>
-                                        <input type="time" name="clock_end"value="22:00" />
-                                    </div>
-                                @endif
-
 
                                 <div class="row">
                                     <div class="col-12">

@@ -84,9 +84,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
-
-
                                     <div class="form-group">
                                         <label for="customFile1">ًصوره  </label>
                                         <div class="custom-file">

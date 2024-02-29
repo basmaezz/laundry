@@ -31,11 +31,7 @@ class carServicesController extends Controller
                                 </button>
                                 <div class="dropdown-menu">
 
-                                    <a class="dropdown-item" href="' . Route('carServices.index', $row->id) . '">
-                                        <i data-feather="edit-2" class="mr-50"></i>
-                                        <span>الخدمات</span>
-                                    </a>
-                                     <a class="dropdown-item" href="' . Route('carLaundries.edit', $row->id) . '">
+                                     <a class="dropdown-item" href="' . Route('carServices.edit', $row->id) . '">
                                         <i data-feather="edit-2" class="mr-50"></i>
                                         <span>تعديل</span>
                                     </a>
@@ -112,7 +108,9 @@ class carServicesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $carService=carService::find($id);
+        return view('dashboard.carServices.edit',compact('carService'));
+
     }
 
     /**
