@@ -32,7 +32,7 @@ class DelegatesController extends Controller
         $delegate = Delegate::where('app_user_id',$app_user_id)->first();
         $user = auth('app_users_api')->user();
         $deliver_carpet = $delegate->deliver_carpet ==1 ?true :false;
-        $delivery_type = $delegate->deliver_type;
+        $delivery_type = $delegate->delivery_type;
 
         $settings=SiteSetting::first();
         $delegate_range=$settings->distance_delegates;
