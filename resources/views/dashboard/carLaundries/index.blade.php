@@ -19,19 +19,22 @@
     <div class="content-body">
         <div class="add-btn">
             <a href="{{route('carLaundries.create')}}" class="btn btn-primary" >اضافه جديد</a>
+            <a href="{{route('carLaundries.export')}}" class="btn btn-info" >Export </a>
         </div>
         <section id="multilingual-datatable">
             <div class="row">
-                <div class="col-10">
+                <div class="col-12">
                     <div class="card invoice-list-wrapper">
                         <div class="card-datatable table-responsive">
                             <table class="productTable table" id="carLaundryTable">
                                 <thead>
                                 <tr>
+                                    <th>رقم المغسله</th>
                                     <th>اسم المنطقه</th>
                                     <th>نطاق التشغيل </th>
-{{--                                    <th>السعر  </th>--}}
-{{--                                    <th>الطلبات  </th>--}}
+                                    <th>عدد الطلبات الاجماليه  </th>
+                                    <th>عدد الطلبات الشهريه  </th>
+                                    <th>   الربح الشهرى </th>
                                     <th>  </th>
                                 </tr>
                                 </thead>
@@ -55,12 +58,24 @@
                 ajax: "{{ route('carLaundries.index') }}",
 
                 columns: [{
+                    data: 'id',
+                    name: 'id'
+                },{
                     data: 'name_ar',
                     name: 'name_ar'
                 },{
                     data: 'range',
                     name: 'range'
-                }, {
+                },{
+                    data:'ordersCount',
+                    name:'ordersCount'
+                },{
+                  data:'monthlyOrdersCount',
+                  name:'monthlyOrdersCount'
+                 },{
+                  data:'monthlyProfit',
+                  name:'monthlyProfit'
+                 }, {
                     data: 'action',
                     name: 'action',
                     orderable: false,

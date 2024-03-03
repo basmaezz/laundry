@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\carLaundriesExport;
 use App\Http\Controllers\Controller;
 use App\Models\AppUser;
 use App\Models\Bank;
@@ -9,6 +10,7 @@ use App\Models\carService;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Delegate;
+use App\Models\OrderTable;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -35,6 +37,14 @@ class carLaundryController extends Controller
             $data = Subcategory::where('category_id',5)->orderBy('id','desc')->get();
 
             return   Datatables::of($data)
+                     ->addColumn('monthlyOrdersCount', function ($row) {
+                        return OrderTable::select('*')->where('laundry_id',$row->id)->whereMonth('created_at', \Carbon\Carbon::now()->month)->count();
+                    })->addColumn('ordersCount', function ($row) {
+                        return OrderTable::select('*')->where('laundry_id',$row->id)->count();
+                    })->addColumn('monthlyProfit', function ($row) {
+                        $monthlyProfit = OrderTable::select('*')->where('laundry_id',$row->id)->Where('status_id','!=',10)->whereMonth('created_at', \Carbon\Carbon::now()->month)->sum('laundry_profit');
+                        return number_format((float)$monthlyProfit, 2, '.', '');
+                    })
                 ->addColumn('action', function ($row) {
                     return '
                               <div class="dropdown">
@@ -58,7 +68,7 @@ class carLaundryController extends Controller
                                 </div>
                             </div>  ';
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action','monthlyOrdersCount','ordersCount','monthlyProfit'])
                 ->make(true);
         }
         return view('dashboard.carLaundries.index');
@@ -156,19 +166,17 @@ class carLaundryController extends Controller
         return  redirect()->back()->with('error', 'تم الحذف');
     }
 
-
-    public function carServices($id)
-    {
-
-
-
-
-    }
     public function destroyService(Request $request)
     {
         if (is_numeric($request->id)) {
             carService::where('id', $request->id)->delete();
         }
         return  redirect()->back()->with('error', 'تم الحذف');
+    }
+
+    public function export()
+    {
+        return Excel::download(new carLaundriesExport, 'carLaundries.xlsx');
+        return redirect()->back();
     }
 }

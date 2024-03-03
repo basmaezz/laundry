@@ -8,8 +8,8 @@
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a> </li>
-                            <li class="breadcrumb-item"><a href="{{route('carpetLaundries.index')}}">مغاسل السجاد</a> </li>
-                            <li class="breadcrumb-item active">مغاسل السجاد </li>
+                            <li class="breadcrumb-item"><a href="{{route('carLaundries.index')}}">مغاسل السيارات</a> </li>
+                            <li class="breadcrumb-item active">تعديل مغسله </li>
                         </ol>
                     </div>
                 </div>
@@ -26,12 +26,13 @@
                         </div>
                         <div class="card-body">
 
-                            <form action="{{route('carServices.store')}}" method="post" enctype="multipart/form-data" >
+                            <form action="{{route('carServices.update',$carService->id)}}" method="post" enctype="multipart/form-data" >
                                 @csrf
 
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="hf-email">اسم الخدمه (عربى)</label>
                                     <div class="col-md-9">
+                                        <input type="text"  name="subCategory_id" class="form-control"value="{{$carService->subCategory_id}}" >
                                         <input type="text"  name="name_ar" class="form-control"value="{{$carService->name_ar}}" >
                                         @if ($errors->has('name_ar'))
                                             <span class="text-danger">{{ $errors->first('name_ar') }}</span>
@@ -75,11 +76,11 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="customFile1">ًصوره  </label>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile1" name="image" required />
-                                        <label class="custom-file-label" for="customFile1">Choose profile pic</label>
+                                <div class="form-group row ">
+                                    <label  class="col-md-3 form-control-label" for="hf-email" for="company">صوره الخدمه  </label>
+                                    <img src="{{asset('assets/uploads/laundryServices/'.$carService->image)}}">
+                                    <div class="col-md-9">
+                                        <input type="file" name="image" class="form-control" id="image" >
                                     </div>
                                 </div>
 

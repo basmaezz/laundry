@@ -8,8 +8,8 @@
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسيه</a> </li>
-                            <li class="breadcrumb-item"><a href="{{route('carpetLaundries.index')}}">مغاسل السجاد</a> </li>
-                            <li class="breadcrumb-item active">مغاسل السجاد </li>
+                            <li class="breadcrumb-item"><a href="{{route('carLaundries.index')}}">مغاسل السيارات</a> </li>
+                            <li class="breadcrumb-item active">اضافه مغسله جديده  </li>
                         </ol>
                     </div>
                 </div>
@@ -29,19 +29,19 @@
                                 <form action="{{route('carServices.store')}}" method="post" enctype="multipart/form-data" >
                                     @csrf
 
-                                <input type="hidden"  name="subCategory_id" class="form-control"value="{{$carLaundry->id}}">
+                                <input type="hidden"  name="subCategory_id" class="form-control"value="{{$Subcategory->id}}">
 
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="hf-email">اسم المنطقه</label>
                                     <div class="col-md-9">
-                                        <input type="text"  name="area_name" class="form-control"value="{{$carLaundry->name_ar}}" disabled >
+                                        <input type="text"  name="area_name" class="form-control"value="{{$Subcategory->name_ar}}" disabled >
 
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="hf-email">اسم الخدمه (عربى)</label>
                                     <div class="col-md-9">
-                                        <input type="text"  name="name_ar" class="form-control"value="{{Request::old('name_ar')}}" placeholder="اسم المنتج (عربى)" >
+                                        <input type="text"  name="name_ar" class="form-control"value="{{Request::old('name_ar')}}" placeholder="اسم المنتج (عربى)"required >
                                         @if ($errors->has('name_ar'))
                                             <span class="text-danger">{{ $errors->first('name_ar') }}</span>
                                         @endif
@@ -50,7 +50,7 @@
                                 <div class="form-group  row">
                                     <label  class="col-md-3 form-control-label" for="hf-email"  for="company">اسم الخدمه (انجليزى) </label>
                                     <div class="col-md-9">
-                                        <input type="text" name="name_en" class="form-control" id="lat"value="{{ Request::old('name_en') }}" placeholder="اسم المنتج (انجليزى) " >
+                                        <input type="text" name="name_en" class="form-control" id="lat"value="{{ Request::old('name_en') }}" placeholder="اسم المنتج (انجليزى) "required >
                                         @error('name_en')
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
@@ -60,7 +60,7 @@
                                 <div class="form-group row ">
                                     <label  class="col-md-3 form-control-label" for="hf-email" for="company">الوصف (عربى)</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="desc_ar" class="form-control" id="address"value="{{ Request::old('desc_ar') }}" placeholder="الوصف (عربى) " >
+                                        <input type="text" name="desc_ar" class="form-control" id="address"value="{{ Request::old('desc_ar') }}" placeholder="الوصف (عربى) " required>
                                         @error('desc_ar')
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
@@ -69,7 +69,7 @@
                                 <div class="form-group row ">
                                     <label  class="col-md-3 form-control-label" for="hf-email" for="company">الوصف (انجليزى) </label>
                                     <div class="col-md-9">
-                                        <input type="text" name="desc_en" class="form-control" id="address"value="{{ Request::old('desc_en') }}" placeholder=" الوصف (انجليزى)" >
+                                        <input type="text" name="desc_en" class="form-control" id="address"value="{{ Request::old('desc_en') }}" placeholder=" الوصف (انجليزى)"required >
                                         @error('desc_en')
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
@@ -78,17 +78,16 @@
                                 <div class="form-group row ">
                                     <label  class="col-md-3 form-control-label" for="hf-email" for="company">سعر الخدمه </label>
                                     <div class="col-md-9">
-                                        <input type="text" name="price" class="form-control" id="address"value="{{ Request::old('price') }}" placeholder="سعر الخدمه " >
+                                        <input type="text" name="price" class="form-control" id="address"value="{{ Request::old('price') }}" placeholder="سعر الخدمه " required>
                                         @error('price')
                                         <div class="text-sm text-red-600">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                    <div class="form-group">
-                                        <label for="customFile1">ًصوره  </label>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile1" name="image" required />
-                                            <label class="custom-file-label" for="customFile1">Choose profile pic</label>
+                                    <div class="form-group row ">
+                                        <label  class="col-md-3 form-control-label" for="hf-email" for="company">صوره الخدمه  </label>
+                                        <div class="col-md-9">
+                                            <input type="file" name="image" class="form-control" id="image" >
                                         </div>
                                     </div>
 

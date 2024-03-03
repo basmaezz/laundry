@@ -165,6 +165,8 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
          Route::get('carLaundryEdit/{id}',  'edit')->name('carLaundries.edit');
          Route::post('carLaundryUpdate/{id}',  'update')->name('carLaundries.update');
          Route::get('carLaundryDestroy',  'destroy')->name('carLaundries.destroy');
+         Route::get('carLaundries/export', 'export')->name('carLaundries.export');
+
 
      });
      Route::controller(carServicesController::class)->group(function(){

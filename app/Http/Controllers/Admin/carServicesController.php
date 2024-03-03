@@ -55,9 +55,9 @@ class carServicesController extends Controller
      */
     public function create($id)
     {
-        $carLaundry=Subcategory::find($id);
+        $Subcategory=Subcategory::find($id);
 
-        return view('dashboard.carServices.create',compact('carLaundry'));
+        return view('dashboard.carServices.create',compact('Subcategory'));
     }
 
     /**
@@ -68,25 +68,23 @@ class carServicesController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
-//        $request->validate([
-//            'Subcategory_id'=>'integer',
-//            'category_en'=>'required',
-//            'category_ar'=>'required',
-//            'desc_ar'=>'required',
-//            'desc_en'=>'required',
-//            'price'=>'required',
-//        ],[
-//            'required'=>'اجبارى',
-//        ]);
-
+        $request->validate([
+            'name_ar'=>'required',
+            'name_en'=>'required',
+            'desc_ar'=>'required',
+            'desc_en'=>'required',
+            'price'=>'required',
+            'image'=>'required',
+        ],[
+            'required'=>'اجبارى',
+        ]);
         $data = $request->all();
         $data['image'] = uploadFile($request->file('image'),'laundryServices');
 
         carService::create($data);
 
 
-        return  redirect()->route('carServices.index',$request->Subcategory_id)->with('success', 'تمت الاضافه');
+        return  redirect()->route('carServices.index',$request->subCategory_id)->with('success', 'تمت الاضافه');
     }
 
     /**
@@ -110,7 +108,6 @@ class carServicesController extends Controller
     {
         $carService=carService::find($id);
         return view('dashboard.carServices.edit',compact('carService'));
-
     }
 
     /**
@@ -122,7 +119,24 @@ class carServicesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name_ar'=>'required',
+            'name_en'=>'required',
+            'desc_ar'=>'required',
+            'desc_en'=>'required',
+            'price'=>'required',
+        ],[
+            'required'=>'اجبارى',
+        ]);
+        if(!empty($request->file('image'))){
+            $image = uploadFile($request->file('image'),'laundryServices');
+            carService::where('id',$id)->update([
+           'image'=>$image,
+            $request->except(['_token'])]);
+        }
+        carService::where('id',$id)->update($request->except(['_token']));
+
+        return redirect()->back();
     }
 
     /**

@@ -81,15 +81,13 @@ class CategoryController extends Controller
                 }
             }elseif ($type==3){
 
-                if($subCategories->count() !=0){
-                    $subcategory = $subCategories->first();
+                foreach ($subCategories as $subcategory) {
                     $categories=carpetCategory::where('subCategory_id',$subcategory->id)->get();
-
                     $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
                     $range = $subcategory->range;
                     $distanceClass = getDistanceClass($distance, $range);
                     if($distanceClass == "OUT_AREA"){
-                        return apiResponse("api.success", [],[]);
+                        continue;
                     }
                     $data[] = [
                         'id' => $subcategory->id,
@@ -118,11 +116,8 @@ class CategoryController extends Controller
                     }else{
                         $categoryFormatted=NULL;
                     }
-
-
                     return apiResponse("api.success", $data,$categoryFormatted);
                 }
-
             }elseif ($type==4){
                 foreach ($subCategories as $subcategory) {
                     $distance = distance($lat, $lng, $subcategory->lat, $subcategory->lng);
@@ -365,7 +360,7 @@ class CategoryController extends Controller
     {
 
         $carpetCategoryTimes=carpetLaundryTime::where('subCategory_id',$id)->get();
-
+        $data = [];
         foreach ($carpetCategoryTimes as $carpetCategoryTime ){
             $data []=[
                 'id'=>$carpetCategoryTime->id,
@@ -375,7 +370,6 @@ class CategoryController extends Controller
                 'serviceType'=>$carpetCategoryTime->service_type,
             ];
         }
-
 
         return apiResponse2( $data);
     }
@@ -407,19 +401,4 @@ class CategoryController extends Controller
 
     }
 
-    // public function getCarLaundryService($id)
-    // {
-    //     $carServices=carService::where('subCategory',$id)->get();
-    //     foreach ($carServices as $carService ){
-    //         $data []=[
-    //             'id'=>$carServices->id,
-    //             'laundry_id'=>$carServices->subCategory_id,
-    //             'laundry_id'=>$carServices->subCategory_id,
-    //             'laundry_id'=>$carServices->subCategory_id,
-    //             'price'=>$carServices->price,
-
-    //         ];
-    //     }
-    //     return apiResponse2( $data);
-    // }
 }
