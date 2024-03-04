@@ -35,6 +35,8 @@ class DelegatesController extends Controller
         $delivery_type = $delegate->delivery_type;
 
 
+
+
         $settings=SiteSetting::first();
         $delegate_range=$settings->distance_delegates;
 
@@ -54,6 +56,19 @@ class DelegatesController extends Controller
                     ->whereNotIn('id',$reject_order_ids->toArray());
                 //TODO :: whereNotExist delivery_rejection
             }elseif($delivery_type==1){
+                if($deliver_carpet==true){
+                    $reject_order_ids = DeliveryRejection::where('user_id', $app_user_id)->get()->pluck('order_id');
+
+                    $orders = $orders->
+                    whereIn('status_id',[
+                        OrderController::WaitingForDelivery,
+                        OrderController::WaitingForDeliveryToReceiveOrder
+                    ])->
+                    whereNull('delivery_id')->
+                    where('order_type',3)
+                        ->orwhere('order_type',1)
+                        ->whereNotIn('id',$reject_order_ids->toArray());
+                }
                 $reject_order_ids = DeliveryRejection::where('user_id', $app_user_id)->get()->pluck('order_id');
 
                 $orders = $orders->
@@ -63,18 +78,6 @@ class DelegatesController extends Controller
                 ])->
                 whereNull('delivery_id')->
                 where('order_type',1)
-                    ->whereNotIn('id',$reject_order_ids->toArray());
-            }elseif($deliver_carpet==1){
-                $reject_order_ids = DeliveryRejection::where('user_id', $app_user_id)->get()->pluck('order_id');
-
-                $orders = $orders->
-                whereIn('status_id',[
-                    OrderController::WaitingForDelivery,
-                    OrderController::WaitingForDeliveryToReceiveOrder
-                ])->
-                whereNull('delivery_id')->
-                where('order_type',3)
-                    ->orwhere('order_type',1)
                     ->whereNotIn('id',$reject_order_ids->toArray());
             }
 
@@ -88,37 +91,21 @@ class DelegatesController extends Controller
             ])->where('delivery_id', $app_user_id);
         }
         $orders = $orders->latest()->get();
-        // dd($orders);
 
         $data = [];
 
-        if($delivery_type==3){
-
-            foreach ($orders as $order){
-
-                if($order->status_id == OrderController::AcceptedByDelivery){
-                    $lat = $order->userTrashed->lat;
-                    $lng = $order->userTrashed->lng;
-                }else{
-                    $lat = $order->subCategoriesTrashed->lat;
-                    $lng = $order->subCategoriesTrashed->lng;
-                }
-                if(distance($user->lat, $user->lng, $lat, $lng) <= $delegate_range) {
-                    $data[] = OrderController::orderObject($order);
-                }
-            }
-        }else{
-            foreach ($orders as $order){
-                if($order->status_id == OrderController::AcceptedByDelivery){
-                    $lat = $order->userTrashed->lat;
-                    $lng = $order->userTrashed->lng;
-                }else{
-                    $lat = $order->subCategoriesTrashed->lat;
-                    $lng = $order->subCategoriesTrashed->lng;
-                }
-                if(distance($user->lat, $user->lng, $lat, $lng) <= $delegate_range) {
-                    $data[] = OrderController::orderObject($order);
-                }
+        foreach ($orders as $order){
+            $lat = $order->subCategoriesTrashed->lat;
+            $lng = $order->subCategoriesTrashed->lng;
+            // if($order->status_id == OrderController::AcceptedByDelivery){
+            //     $lat = $order->userTrashed->lat;
+            //     $lng = $order->userTrashed->lng;
+            // }else{
+            //     $lat = $order->subCategoriesTrashed->lat;
+            //     $lng = $order->subCategoriesTrashed->lng;
+            // }
+            if(distance($user->lat, $user->lng, $lat, $lng) <= $delegate_range) {
+                $data[] = OrderController::orderObject($order);
             }
         }
 
@@ -242,7 +229,7 @@ class DelegatesController extends Controller
         $app_user_id = auth('app_users_api')->user()->id;
 
         // return $app_user_id;
-        $histories = DeliveryHistory::with('orderTables')->where('user_id',$app_user_id)->latest()->get();
+        $histories = DeliveryHistory::with('orderTables')->where('user_id',$app_user_id)->whereIn('status_id',[OrderController::DeliveredToLaundry,OrderController::Completed])->latest()->get();
 
         $data = [];
 
@@ -295,8 +282,6 @@ class DelegatesController extends Controller
                 $order->id
             );
         }
-
-
         $users = AppUser::where([
             'status' => 'active',
             'user_type' => userTypesEnum::Delivery,
